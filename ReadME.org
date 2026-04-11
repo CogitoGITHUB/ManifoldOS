@@ -1,0 +1,58 @@
+* The Shape-Shifter's manifold: 
+
+A GNU Guix system that doesn't sit still.
+
+ManifoldOS is not configured — it is /forged/. Every package, every
+service, every daemon is a deliberate act of authorship. The system
+knows what it is. It knows what it's becoming. It knows who built it.
+
+This is not a dotfiles repository. This is an operating system with a
+philosophy.
+
+* The Architect
+
+The one who holds the blueprint is not a user. Not an administrator.
+
+The Architect decides what forms the system takes, which minds sit on
+the Council, what gets tempered in the Forge, and where the Drift
+pulls next.
+
+Emacs is the interface. Guix is the substrate. The Org files are the
+source of truth. Everything else is derived.
+
+* The Structure
+
+The system is organized not as a filing cabinet — but as a living
+body with distinct layers of responsibility.
+
+The *Manifold* holds the shape. It contains the Substrate — the
+kernel and user space that everything else depends on — and the Forms
+that the system can take.
+
+The *Council* governs change. Five specialized minds, each with an
+ideology, a scope, and a boundary. They don't overlap. They hand off.
+
+The *Drift* holds what the system is pulling toward. Not a backlog.
+A horizon.
+
+The *Forge* holds what is being tempered. Experimental. Unfinished.
+Not yet part of the body.
+
+* The Philosophy
+
+#+BEGIN_QUOTE
+Structure is meaning.
+Memory is power.
+Patterns worth thinking once are worth encoding forever.
+Systems reveal their truth under pressure.
+The system should grow — carefully, intentionally.
+#+END_QUOTE
+
+These are not guidelines. They are the ideologies of the Council,
+distilled. The Architect holds all five at once.
+
+* Status
+
+This system is alive. It is not finished. It will never be finished.
+
+That is the point.
