@@ -1,3 +1,12 @@
 (channel
   (version 0)
-  (directory "Operating-System"))
+  (directory "Operating-System")
+  (dependencies
+    (channel
+      (name guix)
+      (url "https://git.guix.gnu.org/guix.git")
+      (branch "master"))
+    (channel
+      (name nonguix)
+      (url "https://gitlab.com/nonguix/nonguix")
+      (branch "master"))))
