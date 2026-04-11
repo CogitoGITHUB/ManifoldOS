@@ -1,4 +1,4 @@
-* MappingOS — Architecture: Categories & Kernel
+* ManifoldOS — Architecture: Categories & Kernel
 
 ** Current Categories (accurate as of 2026-04-06)
 

@@ -1,4 +1,4 @@
-* MappingOS Guix Refactoring - Implementation Examples
+* ManifoldOS Guix Refactoring - Implementation Examples
 
 This document provides detailed examples of the actual transformations that will occur during migration.
 

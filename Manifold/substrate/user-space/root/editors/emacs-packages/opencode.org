@@ -1,7 +1,7 @@
 #+TITLE: OpenCode AI Integration
 #+AUTHOR: Shape
 
-* OPENCODE — AI Coding Agent for MappingOS
+* OPENCODE — AI Coding Agent for ManifoldOS
 :PROPERTIES:
 :PACKAGE:  opencode
 :CATEGORY: ai
@@ -13,7 +13,7 @@
 :tangle: no
 :END:
 
-OpenCode is the core AI engine that powers MappingOS. It provides:
+OpenCode is the core AI engine that powers ManifoldOS. It provides:
 
 - **Code Generation** - Create packages, configurations, and modules
 - **Literate Support** - Works seamlessly with org-mode
@@ -26,7 +26,7 @@ OpenCode is the core AI engine that powers MappingOS. It provides:
 :tangle: no
 :END:
 
-OpenCode is positioned at the center of MappingOS:
+OpenCode is positioned at the center of ManifoldOS:
 
 #+begin_src
                      OPENCODE (Center)
@@ -89,7 +89,7 @@ opencode prompt --file module.scm
 :tangle: no
 :END:
 
-Typical MappingOS development:
+Typical ManifoldOS development:
 
 1. **Start OpenCode** - `opencode prompt` in terminal
 2. **Share Context** - Show relevant org files or code

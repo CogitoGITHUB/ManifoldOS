@@ -1,4 +1,4 @@
-* MappingOS Guix Refactoring - Document Index & Quick Start
+* ManifoldOS Guix Refactoring - Document Index & Quick Start
 
 This document serves as your entry point to the migration plan.
 

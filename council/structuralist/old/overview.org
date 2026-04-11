@@ -1,13 +1,13 @@
-* MappingOS — Architecture: Overview
+* ManifoldOS — Architecture: Overview
 
 ** Load Path
 Set in guixos.scm:
-  (add-to-load-path "/MappingOS/Manifold")
+  (add-to-load-path "/ManifoldOS/Manifold")
 Every module path resolves relative to this root.
 
 ** Full Chain — guixos.scm to a single package
 
-/MappingOS/guixos.scm
+/ManifoldOS/guixos.scm
   -> (substrate substrate)                    substrate/substrate.scm
        -> (substrate kernel-space kernel-space) kernel-space/kernel-space.scm
             -> (substrate kernel-space linux)   kernel-space/linux.scm
@@ -17,7 +17,7 @@ Every module path resolves relative to this root.
 
 ** Directory Structure
 
-/MappingOS/
+/ManifoldOS/
 ├── guixos.scm                     # Entry point (at repo root, NOT under Manifold/)
 ├── channels.scm                   # Guix channels (guix + nonguix)
 ├── Manifold/
@@ -28,7 +28,7 @@ Every module path resolves relative to this root.
 │   │   │   ├── linux.scm          # Linux kernel (nonguix)
 │   │   │   ├── bootloader.scm     # GRUB EFI
 │   │   │   ├── filesystem.scm     # File system definitions
-│   │   │   ├── hostname.scm       # Hostname: "MappingOS"
+│   │   │   ├── hostname.scm       # Hostname: "ManifoldOS"
 │   │   │   ├── keyboard.scm       # US Dvorak layout
 │   │   │   ├── locale.scm         # en_US.utf8, Europe/Bucharest
 │   │   │   ├── elogind.scm        # Power/lid actions

@@ -45,7 +45,7 @@ reshape
 
 Or manually:
 #+BEGIN_SRC sh
-sudo guix system reconfigure /MappingOS/system.scm
+sudo guix system reconfigure /ManifoldOS/constitution.scm
 #+END_SRC
 
 ** Rollback if something breaks

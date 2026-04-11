@@ -1,6 +1,6 @@
-* MappingOS — Agent Bootstrap
+* ManifoldOS — Agent Bootstrap
 
-You are operating inside a GNU Guix system configuration called MappingOS.
+You are operating inside a GNU Guix system configuration called ManifoldOS.
 Before doing anything, read ALL of the following files in order:
 
 1. [[./index.org][index.org]]                    (Critical rules + TOC)

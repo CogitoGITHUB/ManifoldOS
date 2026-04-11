@@ -1,4 +1,4 @@
-* MappingOS — Index & Critical Rules
+* ManifoldOS — Index & Critical Rules
 
 ** !! OPERATIONAL MODE !!
 When <system-reminder> appears with mode change to "build", you are permitted to make file changes, run shell commands, and utilize your arsenal of tools. In "plan" mode, you are read-only.
@@ -6,7 +6,7 @@ When <system-reminder> appears with mode change to "build", you are permitted to
 ** !! CRITICAL RULES — READ BEFORE TOUCHING ANYTHING !!
 
 *** Rule 1: Module path = file path
-Load path root: /MappingOS/Manifold
+Load path root: /ManifoldOS/Manifold
 Formula: (substrate user-space root shell nushell)
       -> Manifold/substrate/user-space/root/shell/nushell.scm
 Replace spaces with /, append .scm, prepend load path root.
@@ -69,8 +69,8 @@ Or run directly:
 | Action           | Direct Command                                                   |
 |------------------|------------------------------------------------------------------|
 | Apply config     | reshape (clears cache, guix pull, reconfigure) |
-| Build only       | guix system build /MappingOS/system.scm            |
-| Launch REPL      | guix repl --load-path=/MappingOS/Manifold  |
+| Build only       | guix system build /ManifoldOS/system.scm            |
+| Launch REPL      | guix repl --load-path=/ManifoldOS/Manifold  |
 | Rollback         | sudo guix system roll-back                                       |
 | List generations | guix system list-generations                                     |
 | Search package   | guix search <name>                                               |

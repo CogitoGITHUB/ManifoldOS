@@ -2,4 +2,4 @@
   #:export (host-name))
 
 ;;; Hostname configuration
-(define-public host-name "MappingOS")
+(define-public host-name "ManifoldOS")
