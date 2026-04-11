@@ -33,8 +33,8 @@
   #:use-module (core-system user-space root loaders compute)
   #:use-module (core-system user-space root loaders ci)
   #:use-module (core-system user-space root loaders data)
-  #:use-module (core-system user-space root loaders guix)
-  #:use-module (core-system user-space root loaders monitoring)
+  ;; #:use-module (core-system user-space root loaders guix)
+  ;; #:use-module (core-system user-space root loaders monitoring)
   #:use-module (core-system user-space root loaders sandbox)
   #:use-module (core-system user-space root loaders fonts)
   #:use-module (core-system user-space root loaders wayland)
@@ -72,8 +72,8 @@
           root-scheduling-packages
           root-ci-packages
           root-data-packages
-          root-guix-packages
-          root-monitoring-packages
+          ;; root-guix-packages
+          ;; root-monitoring-packages
           sandbox-packages
           font-packages))
 
@@ -81,7 +81,6 @@
   (append
     (list
      (service openssh-service-type)
-     ;; (service sops-secrets-service-type (sops-service-configuration))
      (service greetd-service-type
               (greetd-configuration
                (command "Hyprland --config /home/aoeu/.config/lock-screen/config/greeter.hyprland.conf")
@@ -92,12 +91,11 @@
     (list (service libvirt-service-type)
           (service virtlog-service-type)
           (service mcron-service-type))
-    ;; root-ai-services
     (list (service postgresql-service-type
                    (postgresql-configuration
                     (postgresql postgresql))))
     root-ci-services
-    root-monitoring-services
+    ;; root-monitoring-services
     root-keyboard-services
-    root-guix-services
+    ;; root-guix-services
     %base-services))
