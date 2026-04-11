@@ -6,8 +6,4 @@
   (channel
     (name 'nonguix)
     (url "https://gitlab.com/nonguix/nonguix")
-    (branch "master"))
-  (channel
-    (name 'mappingos)
-    (url "file:///MappingOS")
     (branch "master")))
