@@ -62,7 +62,7 @@ Loader with services:
 (define-public <NAME>-os
   (operating-system
     (inherit container-os)
-    (host-name "MappingOS-<NAME>")
+    (host-name "guixos-<NAME>")
     (packages (append (list <PKG>)
                       (operating-system-packages container-os)))))
 
@@ -70,7 +70,7 @@ Loader with services:
   (service oci-container-service-type
            (list (oci-container-configuration
                    (image (oci-image
-                            (repository "MappingOS-<NAME>")
+                            (repository "guixos-<NAME>")
                             (tag "latest")
                             (value <NAME>-os)))
                    (network "host")

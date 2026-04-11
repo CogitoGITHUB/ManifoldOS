@@ -30,5 +30,5 @@
     (packages root-system-packages)
     (services (append kernel-system-services
                       root-system-services
-                      ;; guix-home-service-type disabled for channel build
-                      ))))
+                      (list (service guix-home-service-type
+                                     (list (list "aoeu" literative-home-environment))))))))

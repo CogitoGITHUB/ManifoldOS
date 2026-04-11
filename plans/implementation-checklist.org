@@ -3,15 +3,15 @@
 
 - [ ] Read complete plan in plans/plan.org
 - [ ] Review current system with =guix describe=
-- [ ] Back up system.scm: =cp system.scm system.scm.backup=
+- [ ] Back up guixos.scm: =cp guixos.scm guixos.scm.backup=
 - [ ] Back up entire Operating-System directory
 - [ ] Verify sources/ contains guix and nonguix: =ls sources/=
 
 ** Phase 1: Create dependencies/ Directory
 
-- [ ] Create directory: =mkdir -p /MappingOS/dependencies=
-- [ ] Verify creation: =ls -ld /MappingOS/dependencies=
-- [ ] Confirm empty: =ls /MappingOS/dependencies | wc -l= (should be 0)
+- [ ] Create directory: =mkdir -p /home/aoeu/.config/guix/dependencies=
+- [ ] Verify creation: =ls -ld /home/aoeu/.config/guix/dependencies=
+- [ ] Confirm empty: =ls /home/aoeu/.config/guix/dependencies | wc -l= (should be 0)
 
 ✅ Phase 1 COMPLETE
 
@@ -116,20 +116,20 @@ After completing shell extraction test:
 
 Document any issues found: _______________________________________________
 
-** Phase 3: Update system.scm Load Path
+** Phase 3: Update guixos.scm Load Path
 
-- [ ] Open system.scm in editor
+- [ ] Open guixos.scm in editor
 - [ ] Add line after first comment block:
-  =(add-to-load-path "/MappingOS/dependencies")=
+  =(add-to-load-path "/home/aoeu/.config/guix/dependencies")=
 - [ ] Verify order (dependencies/ should come BEFORE core-system)
 - [ ] Save file
-- [ ] Quick syntax check: =guile --no-auto-compile -c "(load \"system.scm\")"=
+- [ ] Quick syntax check: =guile --no-auto-compile -c "(load \"guixos.scm\")"=
 
 ✅ Phase 3 COMPLETE
 
 ## Phase 3 Validation
 
-- [ ] Verify load path in file: =grep "add-to-load-path" system.scm=
+- [ ] Verify load path in file: =grep "add-to-load-path" guixos.scm=
 
 ** Phase 4: Update Package Module Imports (Category-by-category)
 
@@ -233,9 +233,9 @@ After ALL categories updated:
 
 ⚠️  STOP: Do not proceed until ALL Phase 5 tests pass
 
-- [ ] Final backup: =cp system.scm system.scm.pre-reconfigure=
+- [ ] Final backup: =cp guixos.scm guixos.scm.pre-reconfigure=
 - [ ] Final backup: =sudo guix system describe > /tmp/guix-before.txt=
-- [ ] Run reconfigure: =sudo guix system reconfigure /MappingOS/system.scm=
+- [ ] Run reconfigure: =sudo guix system reconfigure /home/aoeu/.config/guix/guixos.scm=
 - [ ] Wait for build to complete (may take 30-60 minutes)
 - [ ] Verify success: =echo $?= (should be 0)
 
@@ -263,14 +263,14 @@ After ALL categories updated:
 ** Post-Migration
 
 - [ ] Document final state in plans/plan.org (mark as COMPLETE)
-- [ ] Archive backups: =mkdir -p /MappingOS/backups=
-- [ ] Copy backups: =cp system.scm.backup system.scm.pre-reconfigure /tmp/guix-before.txt backups/=
+- [ ] Archive backups: =mkdir -p /home/aoeu/.config/guix/backups=
+- [ ] Copy backups: =cp guixos.scm.backup guixos.scm.pre-reconfigure /tmp/guix-before.txt backups/=
 - [ ] Create migration summary: _______________________________________________
 
 ## Success Verification Checklist
 
 - [ ] All 28 loaders' packages in dependencies/
-- [ ] system.scm has dependencies/ in load path (before core-system)
+- [ ] guixos.scm has dependencies/ in load path (before core-system)
 - [ ] All ~100+ package modules updated to import from (dependencies ...)
 - [ ] REPL tests pass for all major categories
 - [ ] guix system reconfigure completed successfully

@@ -6,4 +6,8 @@
   (channel
     (name 'nonguix)
     (url "https://gitlab.com/nonguix/nonguix")
+    (branch "master"))
+  (channel
+    (name 'literativeos)
+    (url "file:///home/aoeu/.config")
     (branch "master")))

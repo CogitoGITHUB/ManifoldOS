@@ -12,9 +12,7 @@
 
 (define-public kernel linux)
 
-(define-public kernel-initrd
-  (lambda (kernel . rest)
-    #f))
+(define-public kernel-initrd microcode-initrd)
 
 (define-public kernel-firmware (list linux-firmware realtek-firmware wireless-regdb))
 (define-public kernel-arguments '("snd_intel_dspcfg.dsp_driver=1" "cfg80211.ieee80211_regdom=US"))

@@ -54,7 +54,7 @@ This document serves as your entry point to the migration plan.
 - plan.org § "Phase 1: Setup - Create dependencies/ Directory"
 - implementation-checklist.org § "Phase 1: Create dependencies/ Directory"
 
-**Key task:** =mkdir -p /MappingOS/dependencies=
+**Key task:** =mkdir -p /home/aoeu/.config/guix/dependencies=
 
 **Time:** 15 minutes
 
@@ -83,13 +83,13 @@ This document serves as your entry point to the migration plan.
 
 ---
 
-### Phase 3: Update system.scm (2 min)
+### Phase 3: Update guixos.scm (2 min)
 
 **Documents:**
-- plan.org § "Phase 3: Update system.scm Load Path"
-- implementation-checklist.org § "Phase 3: Update system.scm Load Path"
+- plan.org § "Phase 3: Update guixos.scm Load Path"
+- implementation-checklist.org § "Phase 3: Update guixos.scm Load Path"
 
-**Key task:** Add =(add-to-load-path "/MappingOS/dependencies")= before core-system
+**Key task:** Add =(add-to-load-path "/home/aoeu/.config/guix/dependencies")= before core-system
 
 **Time:** 2 minutes
 
@@ -132,7 +132,7 @@ This document serves as your entry point to the migration plan.
 - plan.org § "Phase 6: System Reconfigure"
 - implementation-checklist.org § "Phase 6: System Reconfigure"
 
-**Key command:** =sudo guix system reconfigure /MappingOS/system.scm=
+**Key command:** =sudo guix system reconfigure /home/aoeu/.config/guix/guixos.scm=
 
 **Time:** 30-60 minutes (system build time varies)
 
@@ -175,11 +175,11 @@ Operating-System/.../shell/nushell.scm
     #:re-export (nushell))
 ```
 
-#### Transformation 3: Update system.scm (once)
+#### Transformation 3: Update guixos.scm (once)
 ```
-system.scm
-  (add-to-load-path "/MappingOS/dependencies")  ← ADD THIS
-  (add-to-load-path "/MappingOS/Operating-System")
+guixos.scm
+  (add-to-load-path "/home/aoeu/.config/guix/dependencies")  ← ADD THIS
+  (add-to-load-path "/home/aoeu/.config/guix/Operating-System")
 ```
 
 ---
@@ -225,7 +225,7 @@ Days 2-7: Package Extraction (spread out)
 └─ ✓ Total: 15-20 hours over 5-6 days
 
 Day 8: Integration & Validation
-├─ Phase 3: Update system.scm (2 min)
+├─ Phase 3: Update guixos.scm (2 min)
 ├─ Phase 4: Update all package imports (2-3 hours)
 ├─ Phase 5: Full REPL testing (1-2 hours)
 └─ ✓ Total: 3-5 hours

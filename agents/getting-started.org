@@ -40,7 +40,7 @@ guix pull
 
 ** Reconfigure system
 #+BEGIN_SRC sh
-sudo guix system reconfigure /MappingOS/system.scm
+sudo guix system reconfigure /home/aoeu/.config/guix/guixos.scm
 #+END_SRC
 
 ** Rollback if something breaks
@@ -69,5 +69,5 @@ guix package -p ~/.config/guix/current --list-available
 
 ** Build without applying (dry run)
 #+BEGIN_SRC sh
-guix system build /MappingOS/system.scm
+guix system build /home/aoeu/.config/guix/guixos.scm
 #+END_SRC

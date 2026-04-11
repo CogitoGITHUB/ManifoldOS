@@ -161,7 +161,7 @@ Cause: Wrong module path OR file missing.
 Check:
 1. File exists: ls Operating-System/core-system/user-space/root/<category>/<name>.scm
 2. define-module in file matches exactly: (core-system user-space root <category> <name>)
-3. REPL launched with correct flag: -L /MappingOS/Operating-System
+3. REPL launched with correct flag: -L /home/aoeu/.config/guix/Operating-System
 #+END_SRC
 
 PROBLEM:
@@ -180,12 +180,12 @@ Cause: Wrong module path OR file missing.
 Check:
 1. File exists: ls Operating-System/core-system/user-space/root/<category>/<name>.scm
 2. define-module in file matches exactly: (core-system user-space root <category> <name>)
-3. REPL launched with correct flag: -L /MappingOS/Operating-System
+3. REPL launched with correct flag: -L /home/aoeu/.config/guix/Operating-System
 
 Note: Same rule applies to home-environment modules under user-space/home/:
 - File: Operating-System/core-system/user-space/home/<category>/<name>.scm
 - Module: (core-system user-space home <category> <name>)
-- Same REPL flag works for both: -L /MappingOS/Operating-System
+- Same REPL flag works for both: -L /home/aoeu/.config/guix/Operating-System
 #+END_SRC
 
 ---
@@ -229,7 +229,7 @@ Critical environment variables:
 Without these, daemon startup fails with cryptic "socket not created" or
 "native compilation error" messages.
 
-See: /MappingOS/Operating-System/core-system/user-space/home/emacs/daemon.scm
+See: /home/aoeu/.config/guix/Operating-System/core-system/user-space/home/emacs/daemon.scm
 #+END_SRC
 
 ---
@@ -381,7 +381,7 @@ CURRENT TEXT:
 #+BEGIN_SRC org
 *** Step 7 — Reconfigure
 #+BEGIN_SRC sh
-sudo guix system reconfigure /MappingOS/system.scm
+sudo guix system reconfigure /home/aoeu/.config/guix/guixos.scm
 #+END_SRC
 #+END_SRC
 
@@ -397,12 +397,12 @@ SUGGESTED UPDATE:
 
 If adding packages to *root-level Operating-System* (system-wide):
 #+BEGIN_SRC sh
-sudo guix system reconfigure /MappingOS/system.scm
+sudo guix system reconfigure /home/aoeu/.config/guix/guixos.scm
 #+END_SRC
 
 If adding *home-environment packages or services* (user profile + daemons):
 #+BEGIN_SRC sh
-guix home reconfigure /MappingOS/Operating-System/core-system/user-space/home/home.scm
+guix home reconfigure /home/aoeu/.config/guix/Operating-System/core-system/user-space/home/home.scm
 #+END_SRC
 
 Both may be needed if you modified both system and home files.
@@ -552,7 +552,7 @@ Critical environment variables for emacs daemon:
 - EMACS_NATIVECOMP_AOTCOMP=no — prevents native compilation failures
 - EMACS_NATIVECOMP_DRIVER=no — prevents compiler driver loading at startup
 
-See: /MappingOS/Operating-System/core-system/user-space/home/emacs/daemon.scm
+See: /home/aoeu/.config/guix/Operating-System/core-system/user-space/home/emacs/daemon.scm
 #+END_SRC
 
 ---
@@ -627,12 +627,12 @@ home-emacs-services  ; must include the services
 Full home validation before reconfigure:
 #+BEGIN_SRC scheme
 (use-modules (core-system user-space home home))
-mappingos-home-environment  ; must load clean without errors
+literative-home-environment  ; must load clean without errors
 #+END_SRC
 
 After validation, reconfigure home:
 #+BEGIN_SRC sh
-guix home reconfigure /MappingOS/Operating-System/core-system/user-space/home/home.scm
+guix home reconfigure /home/aoeu/.config/guix/Operating-System/core-system/user-space/home/home.scm
 #+END_SRC
 #+END_SRC
 
@@ -646,7 +646,7 @@ CURRENT TEXT:
 
 Both system and container modules use the same flag:
 #+BEGIN_SRC sh
-guix repl --load-path=/MappingOS/Operating-System
+guix repl --load-path=/home/aoeu/.config/guix/Operating-System
 #+END_SRC
 #+END_SRC
 
@@ -661,7 +661,7 @@ SUGGESTED UPDATE:
 
 System, home-environment, and container modules ALL use the same load-path flag:
 #+BEGIN_SRC sh
-guix repl --load-path=/MappingOS/Operating-System
+guix repl --load-path=/home/aoeu/.config/guix/Operating-System
 #+END_SRC
 
 This works for:
@@ -744,7 +744,7 @@ home-<name>-service                                                ; 2. symbol a
 (use-modules (core-system user-space home loaders <category>))    ; 3. loader ok?
 home-<category>-services                                           ; 4. list correct?
 (use-modules (core-system user-space home home))                   ; 5. home-environment ok?
-mappingos-home-environment                                        ; 6. full config ok?
+literative-home-environment                                        ; 6. full config ok?
 #+END_SRC
 #+END_SRC
 

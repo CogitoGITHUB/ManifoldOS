@@ -6,19 +6,28 @@
   #:use-module (gnu home services shepherd)
   #:use-module (gnu services guix)
   #:use-module (guix gexp)
-  ;; All home loaders disabled for channel build
-  #:export (mappingos-home-environment))
+  #:use-module (core-system user-space home loaders audio)
+  #:use-module (core-system user-space home loaders emacs)
+  #:use-module (core-system user-space root editors emacs-packages)
+  #:export (literative-home-environment))
 
-(define-public mappingos-home-environment
+(define-public literative-home-environment
   (home-environment
     (services
-     (list
-      (simple-service 'wireplumber-config
-                      home-xdg-configuration-files-service-type
-                      (list (list "wireplumber/wireplumber.conf.d/disable-logind.conf"
-                                 (plain-file "disable-logind.conf"
-                                             "wireplumber.profiles = {
+      (append
+        home-audio-services
+        home-emacs-services
+        (list
+          ;; Home-wide packages - available in user's ~/.guix-home/profile
+          (simple-service 'home-packages
+                          home-profile-service-type
+                          root-emacs-packages)
+          (simple-service 'wireplumber-config
+                          home-xdg-configuration-files-service-type
+                          (list (list "wireplumber/wireplumber.conf.d/disable-logind.conf"
+                                     (plain-file "disable-logind.conf"
+                                                 "wireplumber.profiles = {
   main = {
     monitor.bluez.seat-monitoring = disabled
   }
-}"))))))))
+}")))))))))

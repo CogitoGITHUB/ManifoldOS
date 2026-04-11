@@ -56,7 +56,7 @@ Operating-System/systems/containers/
 ** REPL workflow for containers
 
 #+BEGIN_SRC scheme
-;; launch: guix repl --load-path=/MappingOS/Operating-System
+;; launch: guix repl -- -L /home/aoeu/.config/guix/Operating-System
 
 (use-modules (systems containers core-container))
 container-os

@@ -124,7 +124,7 @@ All updates are based on these actual working implementations:
 
 ### daemon.scm — Emacs daemon with environment variables
 ```
-File: /MappingOS/Operating-System/core-system/user-space/home/emacs/daemon.scm
+File: /home/aoeu/.config/guix/Operating-System/core-system/user-space/home/emacs/daemon.scm
 Key: #:environment-variables list with XDG_RUNTIME_DIR, native compilation vars
 Pattern: home-shepherd-service-type with make-forkexec-constructor
 ```
@@ -138,7 +138,7 @@ Pattern: Daemon mode check before server initialization
 
 ### home.scm — Home services aggregation
 ```
-File: /MappingOS/Operating-System/core-system/user-space/home/home.scm
+File: /home/aoeu/.config/guix/Operating-System/core-system/user-space/home/home.scm
 Key: Added (gnu services guix) import, home-shepherd-service-type usage
 Pattern: home-environment with multiple service types
 ```
@@ -187,7 +187,7 @@ Pattern: home-environment with multiple service types
 
 ## Supporting Documentation
 
-Full detailed updates are in: `/MappingOS/agents/DOCUMENTATION-UPDATES-NEEDED.org`
+Full detailed updates are in: `/home/aoeu/.config/guix/agents/DOCUMENTATION-UPDATES-NEEDED.org`
 
 That file contains:
 - Exact line numbers and current text for each issue
