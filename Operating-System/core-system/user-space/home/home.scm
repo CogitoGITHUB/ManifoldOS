@@ -9,9 +9,9 @@
   #:use-module (core-system user-space home loaders audio)
   #:use-module (core-system user-space home loaders emacs)
   #:use-module (core-system user-space root editors emacs-packages)
-  #:export (literative-home-environment))
+  #:export (mappingos-home-environment))
 
-(define-public literative-home-environment
+(define-public mappingos-home-environment
   (home-environment
     (services
       (append
