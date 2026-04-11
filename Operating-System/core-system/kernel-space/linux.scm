@@ -13,7 +13,7 @@
 (define-public kernel linux)
 
 (define-public kernel-initrd
-  (lambda (kernels)
+  (lambda (kernel . rest)
     #f))
 
 (define-public kernel-firmware (list linux-firmware realtek-firmware wireless-regdb))

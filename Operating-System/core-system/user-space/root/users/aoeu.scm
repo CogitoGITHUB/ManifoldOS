@@ -27,8 +27,9 @@
         (user-group (name "sgx") (system? #t))
         (user-group (name "pulse") (system? #t))
         (user-group (name "pulse-access") (system? #t))
-         (user-group (name "bluetooth") (system? #t))
-         (user-group (name "greeter") (system? #t))))
+        (user-group (name "bluetooth") (system? #t))
+        (user-group (name "greeter") (system? #t))
+        (user-group (name "docker") (system? #t))))
 
 (define-public users
   (list (user-account
