@@ -1,0 +1,15 @@
+(define-module (substrate user-space root loaders video)
+  #:use-module (substrate user-space root desktop video ffmpeg)
+  #:use-module (substrate user-space root desktop video kdenlive)
+  #:use-module (substrate user-space root desktop video mlt)
+  #:use-module (substrate user-space root desktop video opentimelineio)
+  #:use-module (substrate user-space root desktop video gst-editing-services)
+  #:use-module (substrate user-space root desktop video mpv)
+  #:use-module (substrate user-space root desktop video obs)
+  #:use-module (substrate user-space root desktop video xytz)
+  #:use-module (substrate user-space root desktop video kino)
+  #:re-export (ffmpeg kdenlive mlt opentimelineio gst-editing-services mpv obs xytz go-github-com-mmcdole-kino)
+  #:export (root-desktop-video-packages))
+
+(define-public root-desktop-video-packages
+  (list ffmpeg kdenlive mlt opentimelineio gst-editing-services mpv obs xytz go-github-com-mmcdole-kino))

@@ -1,6 +1,6 @@
 ;; MappingOS System Configuration
-(add-to-load-path "/MappingOS/Operating-System")
-(load "/MappingOS/Operating-System/core-system/core-system.scm")
-(use-modules (core-system core-system))
+(add-to-load-path "/MappingOS/Manifold")
+(load "/MappingOS/Manifold/substrate/substrate.scm")
+(use-modules (substrate substrate))
 
 os
