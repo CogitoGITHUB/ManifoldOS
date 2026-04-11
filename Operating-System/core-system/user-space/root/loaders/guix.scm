@@ -20,6 +20,5 @@
 
 (define-public root-guix-services
   (list
-    (service guix-service-type
-      (guix-configuration
-        (channels system-channels)))))
+    ;; guix-service-type disabled for channel build
+    ))
