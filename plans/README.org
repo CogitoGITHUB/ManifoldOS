@@ -1,4 +1,4 @@
-* LiterativeOS Guix Refactoring - Document Index & Quick Start
+* MappingOS Guix Refactoring - Document Index & Quick Start
 
 This document serves as your entry point to the migration plan.
 

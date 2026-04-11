@@ -1,4 +1,4 @@
-* LiterativeOS — Architecture: Categories & Kernel
+* MappingOS — Architecture: Categories & Kernel
 
 ** Current Categories (accurate as of 2026-04-06)
 

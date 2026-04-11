@@ -1,4 +1,4 @@
-* LiterativeOS Guix Refactoring - Implementation Checklist
+* MappingOS Guix Refactoring - Implementation Checklist
 ** Pre-Implementation (BEFORE Phase 1)
 
 - [ ] Read complete plan in plans/plan.org

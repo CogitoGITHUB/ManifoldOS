@@ -2,4 +2,4 @@
   #:export (host-name))
 
 ;;; Hostname configuration
-(define-public host-name "LiterativeOS")
+(define-public host-name "MappingOS")

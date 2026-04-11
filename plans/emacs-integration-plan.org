@@ -1,4 +1,4 @@
-* Emacs as LiterativeOS Control Center - Integration Plan
+* Emacs as MappingOS Control Center - Integration Plan
 
 ** Overview
 

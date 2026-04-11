@@ -1,13 +1,13 @@
-* LiterativeOS — Architecture: Overview
+* MappingOS — Architecture: Overview
 
 ** Load Path
 Set in guixos.scm:
-  (add-to-load-path "/home/aoeu/.config/guix/Operating-System")
+  (add-to-load-path "/MappingOS/Operating-System")
 Every module path resolves relative to this root.
 
 ** Full Chain — guixos.scm to a single package
 
-/home/aoeu/.config/guix/guixos.scm
+/MappingOS/guixos.scm
   -> (core-system core-system)                    core-system/core-system.scm
        -> (core-system kernel-space kernel-space) kernel-space/kernel-space.scm
             -> (core-system kernel-space linux)   kernel-space/linux.scm
@@ -17,7 +17,7 @@ Every module path resolves relative to this root.
 
 ** Directory Structure
 
-/home/aoeu/.config/guix/
+/MappingOS/
 ├── guixos.scm                     # Entry point (at repo root, NOT under Operating-System/)
 ├── channels.scm                   # Guix channels (guix + nonguix)
 ├── Operating-System/
@@ -28,7 +28,7 @@ Every module path resolves relative to this root.
 │   │   │   ├── linux.scm          # Linux kernel (nonguix)
 │   │   │   ├── bootloader.scm     # GRUB EFI
 │   │   │   ├── filesystem.scm     # File system definitions
-│   │   │   ├── hostname.scm       # Hostname: "LiterativeOS"
+│   │   │   ├── hostname.scm       # Hostname: "MappingOS"
 │   │   │   ├── keyboard.scm       # US Dvorak layout
 │   │   │   ├── locale.scm         # en_US.utf8, Europe/Bucharest
 │   │   │   ├── elogind.scm        # Power/lid actions

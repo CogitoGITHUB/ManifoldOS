@@ -1,4 +1,4 @@
-* LiterativeOS Guix Refactoring Plan
+* MappingOS Guix Refactoring Plan
 ** Overview
 
 Migrate from direct GNU package imports to a custom ~dependencies/~ directory structure that holds

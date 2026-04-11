@@ -22,14 +22,14 @@ Geiser provides a powerful interactive development environment for Scheme in Ema
 - Symbol lookup and completion
 - Jump to definition
 - Debugger integration
-- Support for Guile (primary for LiterativeOS), Racket, and more
+- Support for Guile (primary for MappingOS), Racket, and more
 
 ** Architecture Note
 :PROPERTIES:
 :tangle: no
 :END:
 
-Geiser is critical for LiterativeOS because:
+Geiser is critical for MappingOS because:
 
 1. **Guix uses Scheme** - Geiser lets you interactively develop Guix modules
 2. **System configuration** - Debug and test Guix code live
