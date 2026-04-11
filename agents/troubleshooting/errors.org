@@ -45,7 +45,7 @@ Cause: Wrong module path OR file missing.
 Check:
 1. File exists: ls Operating-System/core-system/user-space/root/<category>/<name>.scm
 2. define-module in file matches exactly: (core-system user-space root <category> <name>)
-3. REPL launched with correct flag: -L /home/aoeu/.config/guix/Operating-System
+3. REPL launched with correct flag: --load-path=/MappingOS/Operating-System
 
 ** Error: "invalid-base32-character" or hash format errors
 

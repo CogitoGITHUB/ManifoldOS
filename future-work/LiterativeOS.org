@@ -161,7 +161,7 @@ Atuin replaces shell history with a SQLite database...
     (source
       (origin
         (method url-fetch)
-        (uri "file:///home/aoeu/.config/guix/sources/atuin/repo")
+        (uri "file:///MappingOS/sources/atuin/repo")
         (sha256 (base32 "..."))))
     ...))
 ,#+END_SRC

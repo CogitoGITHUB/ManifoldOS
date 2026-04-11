@@ -9,7 +9,7 @@
 (define-public devsecops-os
   (operating-system
     (inherit container-os)
-    (host-name "guixos-devsecops")
+    (host-name "MappingOS-devsecops")
     (packages (append (list git)
                       (operating-system-packages container-os)))))
 
@@ -17,7 +17,7 @@
   (service oci-container-service-type
            (list (oci-container-configuration
                    (image (oci-image
-                            (repository "guixos-devsecops")
+                            (repository "MappingOS-devsecops")
                             (tag "latest")
                             (value devsecops-os)))
                    (network "host")

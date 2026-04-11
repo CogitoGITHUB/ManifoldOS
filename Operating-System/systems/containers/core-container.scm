@@ -8,13 +8,13 @@
 (define-public container-os
   (operating-system
     (inherit os)
-    (host-name "guixos-container")))
+    (host-name "MappingOS-container")))
 
 (define-public container-service
   (service oci-container-service-type
            (list (oci-container-configuration
                    (image (oci-image
-                            (repository "guixos")
+                            (repository "MappingOS")
                             (tag "latest")
                             (value container-os)))
                    (network "host")

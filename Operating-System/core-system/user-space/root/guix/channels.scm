@@ -13,6 +13,6 @@
       (url "https://gitlab.com/nonguix/nonguix")
       (branch "master"))
     (channel
-      (name 'literativeos)
-      (url "file:///home/aoeu/.config/guix")
-      (branch "main"))))
+      (name 'mappingos)
+      (url "file:///MappingOS")
+      (branch "master"))))

@@ -175,7 +175,7 @@ WHY: Users creating home services need to know the correct paths
 | UPDATES-SUMMARY.org | 8.9 KB | Quick overview, understanding scope |
 | UPDATES-BEFORE-AFTER.org | 25 KB | Actually applying the changes |
 
-All three documents are in `/home/aoeu/.config/guix/agents/`
+All three documents are in `/MappingOS/agents/`
 
 ---
 
@@ -246,7 +246,7 @@ These documentation updates are direct results of the work completed in Session 
 5. ✓ Organized by priority and implementation order
 6. ✓ Saved to memory for future reference
 
-**Deliverables in /home/aoeu/.config/guix/agents/:**
+**Deliverables in `/MappingOS/agents/`:**
 - DOCUMENTATION-UPDATES-NEEDED.org (reference guide)
 - UPDATES-SUMMARY.org (quick reference)
 - UPDATES-BEFORE-AFTER.org (implementation guide)

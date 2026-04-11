@@ -223,7 +223,7 @@ Create configuration files in ~/Literative Configurations/:
 
 2. Run reconfigure:
    ```bash
-   sudo guix system reconfigure /home/aoeu/.config/guix/system.scm
+   sudo guix system reconfigure /MappingOS/system.scm
    ```
 
 3. Verify:

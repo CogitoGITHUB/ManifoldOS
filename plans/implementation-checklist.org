@@ -9,9 +9,9 @@
 
 ** Phase 1: Create dependencies/ Directory
 
-- [ ] Create directory: =mkdir -p /home/aoeu/.config/guix/dependencies=
-- [ ] Verify creation: =ls -ld /home/aoeu/.config/guix/dependencies=
-- [ ] Confirm empty: =ls /home/aoeu/.config/guix/dependencies | wc -l= (should be 0)
+- [ ] Create directory: =mkdir -p /MappingOS/dependencies=
+- [ ] Verify creation: =ls -ld /MappingOS/dependencies=
+- [ ] Confirm empty: =ls /MappingOS/dependencies | wc -l= (should be 0)
 
 ✅ Phase 1 COMPLETE
 
@@ -120,7 +120,7 @@ Document any issues found: _______________________________________________
 
 - [ ] Open system.scm in editor
 - [ ] Add line after first comment block:
-  =(add-to-load-path "/home/aoeu/.config/guix/dependencies")=
+  =(add-to-load-path "/MappingOS/dependencies")=
 - [ ] Verify order (dependencies/ should come BEFORE core-system)
 - [ ] Save file
 - [ ] Quick syntax check: =guile --no-auto-compile -c "(load \"system.scm\")"=
@@ -235,7 +235,7 @@ After ALL categories updated:
 
 - [ ] Final backup: =cp system.scm system.scm.pre-reconfigure=
 - [ ] Final backup: =sudo guix system describe > /tmp/guix-before.txt=
-- [ ] Run reconfigure: =sudo guix system reconfigure /home/aoeu/.config/guix/system.scm=
+- [ ] Run reconfigure: =sudo guix system reconfigure /MappingOS/system.scm=
 - [ ] Wait for build to complete (may take 30-60 minutes)
 - [ ] Verify success: =echo $?= (should be 0)
 
@@ -263,7 +263,7 @@ After ALL categories updated:
 ** Post-Migration
 
 - [ ] Document final state in plans/plan.org (mark as COMPLETE)
-- [ ] Archive backups: =mkdir -p /home/aoeu/.config/guix/backups=
+- [ ] Archive backups: =mkdir -p /MappingOS/backups=
 - [ ] Copy backups: =cp system.scm.backup system.scm.pre-reconfigure /tmp/guix-before.txt backups/=
 - [ ] Create migration summary: _______________________________________________
 

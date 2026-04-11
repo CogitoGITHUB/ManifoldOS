@@ -54,7 +54,7 @@ This document serves as your entry point to the migration plan.
 - plan.org § "Phase 1: Setup - Create dependencies/ Directory"
 - implementation-checklist.org § "Phase 1: Create dependencies/ Directory"
 
-**Key task:** =mkdir -p /home/aoeu/.config/guix/dependencies=
+**Key task:** =mkdir -p /MappingOS/dependencies=
 
 **Time:** 15 minutes
 
@@ -89,7 +89,7 @@ This document serves as your entry point to the migration plan.
 - plan.org § "Phase 3: Update system.scm Load Path"
 - implementation-checklist.org § "Phase 3: Update system.scm Load Path"
 
-**Key task:** Add =(add-to-load-path "/home/aoeu/.config/guix/dependencies")= before core-system
+**Key task:** Add =(add-to-load-path "/MappingOS/dependencies")= before core-system
 
 **Time:** 2 minutes
 
@@ -132,7 +132,7 @@ This document serves as your entry point to the migration plan.
 - plan.org § "Phase 6: System Reconfigure"
 - implementation-checklist.org § "Phase 6: System Reconfigure"
 
-**Key command:** =sudo guix system reconfigure /home/aoeu/.config/guix/system.scm=
+**Key command:** =sudo guix system reconfigure /MappingOS/system.scm=
 
 **Time:** 30-60 minutes (system build time varies)
 
@@ -178,8 +178,8 @@ Operating-System/.../shell/nushell.scm
 #### Transformation 3: Update system.scm (once)
 ```
 system.scm
-  (add-to-load-path "/home/aoeu/.config/guix/dependencies")  ← ADD THIS
-  (add-to-load-path "/home/aoeu/.config/guix/Operating-System")
+  (add-to-load-path "/MappingOS/dependencies")  ← ADD THIS
+  (add-to-load-path "/MappingOS/Operating-System")
 ```
 
 ---

@@ -7,7 +7,7 @@ Never reconfigure to test a module. REPL first, always.
 
 Both system and container modules use the same flag:
 #+BEGIN_SRC sh
-guix repl --load-path=/home/aoeu/.config/guix/Operating-System
+guix repl --load-path=/MappingOS/Operating-System
 #+END_SRC
 
 Note: The older syntax `guix repl -- -L /path` no longer works. Also, the warning

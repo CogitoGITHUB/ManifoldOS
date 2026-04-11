@@ -4,7 +4,7 @@
 When <system-reminder> appears with mode change to "build", you are permitted to make file changes, run shell commands, and utilize your arsenal of tools.
 
 ** Load Path Root
-/home/aoeu/.config/guix/Operating-System
+/MappingOS/Operating-System
 
 ** Loaders
 

@@ -17,7 +17,7 @@ Guix changes and allows selective package overrides.
 *** Target State
 - =dependencies/= flat directory contains full package definitions (one file per package)
   - Example: =dependencies/nushell.scm= has complete package definition + all imports
-- Load path: ~system.scm~ adds ~/home/aoeu/.config/guix/dependencies~ to load path
+- Load path: ~system.scm~ adds ~/MappingOS/dependencies~ to load path
 - Package modules: 3-5 lines, import from ~(dependencies package-name)~ and re-export
   - Example: =shell/nushell.scm~ imports from ~(dependencies nushell)~ instead of ~(gnu packages nushell)~
 - Loaders: Unchanged, still aggregate and re-export (no modifications needed)
@@ -26,7 +26,7 @@ Guix changes and allows selective package overrides.
 ** Directory Structure (Target)
 
 #+begin_src
-/home/aoeu/.config/guix/
+/MappingOS/
 ├── dependencies/                          # NEW - FLAT structure
 │   ├── nushell.scm                        # Full package definition
 │   ├── emacs.scm                          # Full package definition
@@ -62,7 +62,7 @@ Guix changes and allows selective package overrides.
 
 Create the flat dependencies directory:
 #+begin_src bash
-mkdir -p /home/aoeu/.config/guix/dependencies
+mkdir -p /MappingOS/dependencies
 #+end_src
 
 No other files created yet — only the directory structure.
@@ -83,9 +83,9 @@ For each package used in the categorized structure:
 
 *Example workflow for nushell:*
 
-- Source file: =/home/aoeu/.config/guix/sources/guix/gnu/packages/shells.scm=
+- Source file: =/MappingOS/sources/guix/gnu/packages/shells.scm=
 - Extract: The full ~(define-public nushell ...)~ definition + all required imports
-- Create: =/home/aoeu/.config/guix/dependencies/nushell.scm=
+- Create: =/MappingOS/dependencies/nushell.scm=
 - Content:
   #+begin_src scheme
   (define-module (dependencies nushell)
@@ -129,15 +129,15 @@ Add dependencies/ to load path before core-system:
 
 *Before:*
 #+begin_src scheme
-(add-to-load-path "/home/aoeu/.config/guix/Operating-System")
-(add-to-load-path "/home/aoeu/.config/guix/Operating-System/core-system/user-space/root/security/sops/modules")
+(add-to-load-path "/MappingOS/Operating-System")
+(add-to-load-path "/MappingOS/Operating-System/core-system/user-space/root/security/sops/modules")
 #+end_src
 
 *After:*
 #+begin_src scheme
-(add-to-load-path "/home/aoeu/.config/guix/dependencies")
-(add-to-load-path "/home/aoeu/.config/guix/Operating-System")
-(add-to-load-path "/home/aoeu/.config/guix/Operating-System/core-system/user-space/root/security/sops/modules")
+(add-to-load-path "/MappingOS/dependencies")
+(add-to-load-path "/MappingOS/Operating-System")
+(add-to-load-path "/MappingOS/Operating-System/core-system/user-space/root/security/sops/modules")
 #+end_src
 
 *** Phase 4: Update Package Modules (category by category)
@@ -248,7 +248,7 @@ After each category completion:
 After all packages migrated and REPL tests pass:
 
 #+begin_src bash
-sudo guix system reconfigure /home/aoeu/.config/guix/system.scm
+sudo guix system reconfigure /MappingOS/system.scm
 #+end_src
 
 Verify:

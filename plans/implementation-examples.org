@@ -4,7 +4,7 @@ This document provides detailed examples of the actual transformations that will
 
 ** Example 1: Simple Package - nushell
 
-*** Source (guixos/gnu/packages/shells.scm)
+*** Source (MappingOS/gnu/packages/shells.scm)
 
 What exists in =sources/guix/gnu/packages/shells.scm=:
 
@@ -496,7 +496,7 @@ guile -c "(use-modules (dependencies curl))" && echo "OK"
 
 #+begin_src bash
 # Verify file exists
-ls -l /home/aoeu/.config/guix/dependencies/nushell.scm
+ls -l /MappingOS/dependencies/nushell.scm
 
 # Test syntax
 guile --no-auto-compile -c "(use-modules (dependencies nushell))" && echo "✓ Syntax OK"

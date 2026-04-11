@@ -161,7 +161,7 @@ Cause: Wrong module path OR file missing.
 Check:
 1. File exists: ls Operating-System/core-system/user-space/root/<category>/<name>.scm
 2. define-module in file matches exactly: (core-system user-space root <category> <name>)
-3. REPL launched with correct flag: -L /home/aoeu/.config/guix/Operating-System
+3. REPL launched with correct flag: -L /MappingOS/Operating-System
 #+END_SRC
 
 PROBLEM:
@@ -180,12 +180,12 @@ Cause: Wrong module path OR file missing.
 Check:
 1. File exists: ls Operating-System/core-system/user-space/root/<category>/<name>.scm
 2. define-module in file matches exactly: (core-system user-space root <category> <name>)
-3. REPL launched with correct flag: -L /home/aoeu/.config/guix/Operating-System
+3. REPL launched with correct flag: -L /MappingOS/Operating-System
 
 Note: Same rule applies to home-environment modules under user-space/home/:
 - File: Operating-System/core-system/user-space/home/<category>/<name>.scm
 - Module: (core-system user-space home <category> <name>)
-- Same REPL flag works for both: -L /home/aoeu/.config/guix/Operating-System
+- Same REPL flag works for both: -L /MappingOS/Operating-System
 #+END_SRC
 
 ---
@@ -229,7 +229,7 @@ Critical environment variables:
 Without these, daemon startup fails with cryptic "socket not created" or
 "native compilation error" messages.
 
-See: /home/aoeu/.config/guix/Operating-System/core-system/user-space/home/emacs/daemon.scm
+See: /MappingOS/Operating-System/core-system/user-space/home/emacs/daemon.scm
 #+END_SRC
 
 ---
@@ -402,7 +402,7 @@ sudo guix system reconfigure /MappingOS/system.scm
 
 If adding *home-environment packages or services* (user profile + daemons):
 #+BEGIN_SRC sh
-guix home reconfigure /home/aoeu/.config/guix/Operating-System/core-system/user-space/home/home.scm
+guix home reconfigure /MappingOS/Operating-System/core-system/user-space/home/home.scm
 #+END_SRC
 
 Both may be needed if you modified both system and home files.
@@ -552,7 +552,7 @@ Critical environment variables for emacs daemon:
 - EMACS_NATIVECOMP_AOTCOMP=no — prevents native compilation failures
 - EMACS_NATIVECOMP_DRIVER=no — prevents compiler driver loading at startup
 
-See: /home/aoeu/.config/guix/Operating-System/core-system/user-space/home/emacs/daemon.scm
+See: /MappingOS/Operating-System/core-system/user-space/home/emacs/daemon.scm
 #+END_SRC
 
 ---
@@ -632,7 +632,7 @@ literative-home-environment  ; must load clean without errors
 
 After validation, reconfigure home:
 #+BEGIN_SRC sh
-guix home reconfigure /home/aoeu/.config/guix/Operating-System/core-system/user-space/home/home.scm
+guix home reconfigure /MappingOS/Operating-System/core-system/user-space/home/home.scm
 #+END_SRC
 #+END_SRC
 
@@ -646,7 +646,7 @@ CURRENT TEXT:
 
 Both system and container modules use the same flag:
 #+BEGIN_SRC sh
-guix repl --load-path=/home/aoeu/.config/guix/Operating-System
+guix repl --load-path=/MappingOS/Operating-System
 #+END_SRC
 #+END_SRC
 
@@ -661,7 +661,7 @@ SUGGESTED UPDATE:
 
 System, home-environment, and container modules ALL use the same load-path flag:
 #+BEGIN_SRC sh
-guix repl --load-path=/home/aoeu/.config/guix/Operating-System
+guix repl --load-path=/MappingOS/Operating-System
 #+END_SRC
 
 This works for:
