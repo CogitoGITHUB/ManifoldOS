@@ -10,12 +10,21 @@
   #:use-module (srfi srfi-1)
   #:export (kernel kernel-arguments kernel-modules kernel-initrd kernel-firmware))
 
-(define-public kernel linux)
+;; Override linux to build with -j1 (single job) to prevent OOM on 4-core 8GB systems
+(define-public kernel
+  (package
+    (inherit linux)
+    (arguments
+     (append
+      '(#:make-flags '("V=1")  ;; verbose for debugging
+        #:parallel-build? #f)  ;; NO parallel build - prevents OOM
+      (or (package-arguments linux) '())))))
 
-(define-public kernel-initrd microcode-initrd)
+(define-public kernel-initrd
+  (lambda (kernels) #f))
 
-(define-public kernel-firmware (list linux-firmware realtek-firmware wireless-regdb))
-(define-public kernel-arguments '("snd_intel_dspcfg.dsp_driver=1" "cfg80211.ieee80211_regdom=US"))
+(define-public kernel-firmware (list))
+(define-public kernel-arguments '())
 
 (define-public kernel-modules
   (service kernel-module-loader-service-type
