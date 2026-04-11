@@ -7,7 +7,7 @@
   #:use-module (core-system user-space root editors emacs-packages emacs-leaf)
   #:use-module (core-system user-space root editors emacs-packages literate-config-system)
   #:use-module (core-system user-space root editors emacs-packages avy)
-  #:use-module (core-system user-space root editors emacs-packages emacs-sops)
+  ;; #:use-module (core-system user-space root editors emacs-packages emacs-sops)
   #:use-module (core-system user-space root editors emacs-packages emacs-tmr)
   #:use-module (core-system user-space root editors emacs-packages emacs-org-repeat-by-cron)
   #:use-module (core-system user-space root editors emacs-packages fuzzy-clock)
@@ -27,7 +27,7 @@
   #:use-module (core-system user-space root editors emacs-packages emacs-ht)
   #:use-module (core-system user-space root editors emacs-packages emacs-gptel)
   #:use-module (core-system user-space root editors emacs-packages emacs-posframe)
-  #:re-export (emacs-leaf literate-config-system emacs-avy emacs-geiser emacs-geiser-guile emacs-sops emacs-password-store emacs-pass emacs-tmr emacs-org-repeat-by-cron emacs-fuzzy-clock emacs-notebook-mode emacs-monkeytype emacs-quick-peek emacs-scrollable-quick-peek emacs-god-mode emacs-modus-themes emacs-multiple-cursors emacs-mcp emacs-mcp-server-lib emacs-org-mcp emacs-opencode-el emacs-org-roam emacs-ht emacs-gptel emacs-posframe)
+  #:re-export (emacs-leaf literate-config-system emacs-avy emacs-geiser emacs-geiser-guile emacs-password-store emacs-pass emacs-tmr emacs-org-repeat-by-cron emacs-fuzzy-clock emacs-notebook-mode emacs-monkeytype emacs-quick-peek emacs-scrollable-quick-peek emacs-god-mode emacs-modus-themes emacs-multiple-cursors emacs-mcp emacs-mcp-server-lib emacs-org-mcp emacs-opencode-el emacs-org-roam emacs-ht emacs-gptel emacs-posframe)
   #:export (root-emacs-packages))
 
 (define-public emacs-geiser-guile
@@ -38,4 +38,4 @@
     (synopsis "Guile support for Geiser")))
 
 (define-public root-emacs-packages
-   (list emacs-leaf literate-config-system emacs-avy emacs-geiser emacs-geiser-guile emacs-sops emacs-password-store emacs-pass emacs-tmr emacs-org-repeat-by-cron emacs-fuzzy-clock emacs-notebook-mode emacs-monkeytype emacs-quick-peek emacs-scrollable-quick-peek emacs-god-mode emacs-modus-themes emacs-multiple-cursors emacs-mcp emacs-mcp-server-lib emacs-org-mcp emacs-opencode-el emacs-ht emacs-gptel emacs-posframe))
+   (list emacs-leaf literate-config-system emacs-avy emacs-geiser emacs-geiser-guile emacs-password-store emacs-pass emacs-tmr emacs-org-repeat-by-cron emacs-fuzzy-clock emacs-notebook-mode emacs-monkeytype emacs-quick-peek emacs-scrollable-quick-peek emacs-god-mode emacs-modus-themes emacs-multiple-cursors emacs-mcp emacs-mcp-server-lib emacs-org-mcp emacs-opencode-el emacs-ht emacs-gptel emacs-posframe))
