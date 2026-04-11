@@ -68,8 +68,8 @@ Or run directly:
 
 | Action           | Direct Command                                                   |
 |------------------|------------------------------------------------------------------|
-| Apply config     | sudo guix system reconfigure /MappingOS/guixos.scm |
-| Build only       | guix system build /MappingOS/guixos.scm            |
+| Apply config     | sudo guix system reconfigure /MappingOS/system.scm |
+| Build only       | guix system build /MappingOS/system.scm            |
 | Launch REPL      | guix repl --load-path=/MappingOS/Operating-System  |
 | Rollback         | sudo guix system roll-back                                       |
 | List generations | guix system list-generations                                     |

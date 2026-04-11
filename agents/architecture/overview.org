@@ -1,13 +1,13 @@
 * MappingOS — Architecture: Overview
 
 ** Load Path
-Set in guixos.scm:
+Set in system.scm:
   (add-to-load-path "/MappingOS/Operating-System")
 Every module path resolves relative to this root.
 
-** Full Chain — guixos.scm to a single package
+** Full Chain — system.scm to a single package
 
-/MappingOS/guixos.scm
+/MappingOS/system.scm
   -> (core-system core-system)                    core-system/core-system.scm
        -> (core-system kernel-space kernel-space) kernel-space/kernel-space.scm
             -> (core-system kernel-space linux)   kernel-space/linux.scm
@@ -18,7 +18,7 @@ Every module path resolves relative to this root.
 ** Directory Structure
 
 /MappingOS/
-├── guixos.scm                     # Entry point (at repo root, NOT under Operating-System/)
+├── system.scm                     # Entry point (at repo root, NOT under Operating-System/)
 ├── channels.scm                   # Guix channels (guix + nonguix)
 ├── Operating-System/
 │   ├── core-system/

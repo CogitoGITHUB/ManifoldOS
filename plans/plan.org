@@ -17,7 +17,7 @@ Guix changes and allows selective package overrides.
 *** Target State
 - =dependencies/= flat directory contains full package definitions (one file per package)
   - Example: =dependencies/nushell.scm= has complete package definition + all imports
-- Load path: ~guixos.scm~ adds ~/home/aoeu/.config/guix/dependencies~ to load path
+- Load path: ~system.scm~ adds ~/home/aoeu/.config/guix/dependencies~ to load path
 - Package modules: 3-5 lines, import from ~(dependencies package-name)~ and re-export
   - Example: =shell/nushell.scm~ imports from ~(dependencies nushell)~ instead of ~(gnu packages nushell)~
 - Loaders: Unchanged, still aggregate and re-export (no modifications needed)
@@ -49,7 +49,7 @@ Guix changes and allows selective package overrides.
 │   ├── guix/                              # Full upstream Guix repository
 │   └── nonguix/                           # Non-GNU packages
 │
-└── guixos.scm                             # UPDATED: add load path
+└── system.scm                             # UPDATED: add load path
 #+end_src
 
 ** Migration Process (6 Phases)
@@ -119,7 +119,7 @@ For each package used in the categorized structure:
 | data | 3 | Low |
 | ... | ... | ... | ... |
 
-*** Phase 3: Update guixos.scm Load Path
+*** Phase 3: Update system.scm Load Path
    :PROPERTIES:
    :EFFORT:   2 min
    :STATUS:   pending
@@ -248,7 +248,7 @@ After each category completion:
 After all packages migrated and REPL tests pass:
 
 #+begin_src bash
-sudo guix system reconfigure /home/aoeu/.config/guix/guixos.scm
+sudo guix system reconfigure /home/aoeu/.config/guix/system.scm
 #+end_src
 
 Verify:
@@ -278,7 +278,7 @@ guix describe
 ** Success Criteria
 
 - [_] All 28 loaders' packages have entries in dependencies/
-- [_] guixos.scm load path includes dependencies/
+- [_] system.scm load path includes dependencies/
 - [_] All package modules updated to import from (dependencies ...)
 - [_] REPL tests pass for all categories
 - [_] guix system reconfigure succeeds without errors
@@ -297,7 +297,7 @@ guix describe
 
 - Phase 1 (setup): 15 min
 - Phase 2 (package extraction): 15-20 hours (assuming ~1 package per 10 min on average)
-- Phase 3 (guixos.scm): 2 min
+- Phase 3 (system.scm): 2 min
 - Phase 4 (module updates): 2-3 hours
 - Phase 5 (testing): 30 min - 2 hours
 - Phase 6 (reconfigure): 30-60 min (system-dependent)

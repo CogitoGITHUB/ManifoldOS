@@ -381,7 +381,7 @@ CURRENT TEXT:
 #+BEGIN_SRC org
 *** Step 7 — Reconfigure
 #+BEGIN_SRC sh
-sudo guix system reconfigure /home/aoeu/.config/guix/guixos.scm
+sudo guix system reconfigure /MappingOS/system.scm
 #+END_SRC
 #+END_SRC
 
@@ -397,7 +397,7 @@ SUGGESTED UPDATE:
 
 If adding packages to *root-level Operating-System* (system-wide):
 #+BEGIN_SRC sh
-sudo guix system reconfigure /home/aoeu/.config/guix/guixos.scm
+sudo guix system reconfigure /MappingOS/system.scm
 #+END_SRC
 
 If adding *home-environment packages or services* (user profile + daemons):

@@ -101,7 +101,7 @@ org-mode generates
     ↓
 ~/.config/guix/Operating-System/.../shell/atuin.scm
     ↓
-guixos.scm references directly
+system.scm references directly
     ↓
 Guix builds from local sources/atuin/repo/
     ↓
@@ -121,7 +121,7 @@ The generated =.scm= is always the output, never the source.
 - Functional package management
 - Rollback capability
 - Full Guix DSL — the stack from top to bottom
-- =guixos.scm= is the single entry point for system declaration
+- =system.scm= is the single entry point for system declaration
 
 ** org-mode Package System
 Every package is an org-mode file living under =~/Maps/computer-science/=.
@@ -134,7 +134,7 @@ The file contains:
 
 On save, or on explicit invocation, the org file generates
 its corresponding =.scm= file into =~/.config/guix/Operating-System/=.
-That generated file is what =guixos.scm= sees.
+That generated file is what =system.scm= sees.
 
 *** Package File Structure
 #+BEGIN_SRC org
@@ -175,7 +175,7 @@ is a Scheme function you own, read, and extend.
 MAAK owns the following responsibilities:
 
 *** System Build
-=maak reconfigure= — runs =guix system reconfigure= against =guixos.scm=
+=maak reconfigure= — runs =guix system reconfigure= against =system.scm=
 
 *** Database Population
 =maak populate-database= — reads the local Guix source clone

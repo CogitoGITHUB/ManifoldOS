@@ -3,7 +3,7 @@
 
 - [ ] Read complete plan in plans/plan.org
 - [ ] Review current system with =guix describe=
-- [ ] Back up guixos.scm: =cp guixos.scm guixos.scm.backup=
+- [ ] Back up system.scm: =cp system.scm system.scm.backup=
 - [ ] Back up entire Operating-System directory
 - [ ] Verify sources/ contains guix and nonguix: =ls sources/=
 
@@ -116,20 +116,20 @@ After completing shell extraction test:
 
 Document any issues found: _______________________________________________
 
-** Phase 3: Update guixos.scm Load Path
+** Phase 3: Update system.scm Load Path
 
-- [ ] Open guixos.scm in editor
+- [ ] Open system.scm in editor
 - [ ] Add line after first comment block:
   =(add-to-load-path "/home/aoeu/.config/guix/dependencies")=
 - [ ] Verify order (dependencies/ should come BEFORE core-system)
 - [ ] Save file
-- [ ] Quick syntax check: =guile --no-auto-compile -c "(load \"guixos.scm\")"=
+- [ ] Quick syntax check: =guile --no-auto-compile -c "(load \"system.scm\")"=
 
 ✅ Phase 3 COMPLETE
 
 ## Phase 3 Validation
 
-- [ ] Verify load path in file: =grep "add-to-load-path" guixos.scm=
+- [ ] Verify load path in file: =grep "add-to-load-path" system.scm=
 
 ** Phase 4: Update Package Module Imports (Category-by-category)
 
@@ -233,9 +233,9 @@ After ALL categories updated:
 
 ⚠️  STOP: Do not proceed until ALL Phase 5 tests pass
 
-- [ ] Final backup: =cp guixos.scm guixos.scm.pre-reconfigure=
+- [ ] Final backup: =cp system.scm system.scm.pre-reconfigure=
 - [ ] Final backup: =sudo guix system describe > /tmp/guix-before.txt=
-- [ ] Run reconfigure: =sudo guix system reconfigure /home/aoeu/.config/guix/guixos.scm=
+- [ ] Run reconfigure: =sudo guix system reconfigure /home/aoeu/.config/guix/system.scm=
 - [ ] Wait for build to complete (may take 30-60 minutes)
 - [ ] Verify success: =echo $?= (should be 0)
 
@@ -264,13 +264,13 @@ After ALL categories updated:
 
 - [ ] Document final state in plans/plan.org (mark as COMPLETE)
 - [ ] Archive backups: =mkdir -p /home/aoeu/.config/guix/backups=
-- [ ] Copy backups: =cp guixos.scm.backup guixos.scm.pre-reconfigure /tmp/guix-before.txt backups/=
+- [ ] Copy backups: =cp system.scm.backup system.scm.pre-reconfigure /tmp/guix-before.txt backups/=
 - [ ] Create migration summary: _______________________________________________
 
 ## Success Verification Checklist
 
 - [ ] All 28 loaders' packages in dependencies/
-- [ ] guixos.scm has dependencies/ in load path (before core-system)
+- [ ] system.scm has dependencies/ in load path (before core-system)
 - [ ] All ~100+ package modules updated to import from (dependencies ...)
 - [ ] REPL tests pass for all major categories
 - [ ] guix system reconfigure completed successfully

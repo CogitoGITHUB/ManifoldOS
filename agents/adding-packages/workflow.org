@@ -68,7 +68,7 @@ root-system-packages  ; must load clean
 Use OpenCode command: =/guix-reconfigure=
 Or run directly:
 #+BEGIN_SRC sh
-sudo guix system reconfigure /home/aoeu/.config/guix/guixos.scm
+sudo guix system reconfigure /MappingOS/system.scm
 #+END_SRC
 
 *** Step 8 — Test each package binary works
