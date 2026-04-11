@@ -31,4 +31,4 @@
     (services (append kernel-system-services
                       root-system-services
                       (list (service guix-home-service-type
-                                     (list (list "aoeu" literative-home-environment))))))))
+                                     (list (list "aoeu" mappingos-home-environment))))))))
