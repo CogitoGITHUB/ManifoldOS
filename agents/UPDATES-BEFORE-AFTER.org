@@ -608,7 +608,7 @@ home-emacs-services  ; must include the services
 Full home validation before reconfigure:
 #+BEGIN_SRC scheme
 (use-modules (core-system user-space home home))
-literative-home-environment  ; must load clean without errors
+mappingos-home-environment  ; must load clean without errors
 #+END_SRC
 
 After validation, reconfigure home:
@@ -683,7 +683,7 @@ home-<name>-service                                                ; 2. symbol a
 (use-modules (core-system user-space home loaders <category>))    ; 3. loader ok?
 home-<category>-services                                           ; 4. list correct?
 (use-modules (core-system user-space home home))                   ; 5. home-environment ok?
-literative-home-environment                                        ; 6. full config ok?
+mappingos-home-environment                                        ; 6. full config ok?
 #+END_SRC
 
 ** Reload after editing (no need to restart REPL)
