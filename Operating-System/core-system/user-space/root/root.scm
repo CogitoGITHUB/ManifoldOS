@@ -99,5 +99,5 @@
     ;; root-ci-services
     ;; root-monitoring-services
     root-keyboard-services
-    root-guix-services
+    ;; root-guix-services
     %base-services))
