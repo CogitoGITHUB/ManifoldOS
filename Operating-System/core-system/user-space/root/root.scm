@@ -12,36 +12,28 @@
   #:use-module (gnu packages databases)
   #:use-module (core-system user-space root services greetd)
   #:use-module (core-system user-space root users users)
-  #:use-module (core-system user-space root loaders core)
-  #:use-module (core-system user-space root loaders networking)
-  #:use-module (core-system user-space root loaders programming-languages)
-  #:use-module (core-system user-space root loaders editors)
-  #:use-module (core-system user-space root loaders shell)
-  #:use-module (core-system user-space root loaders containers)
-  #:use-module (core-system user-space root loaders keyboard)
-  #:use-module (core-system user-space root loaders terminal)
-  #:use-module (core-system user-space root loaders desktop)
-  #:use-module (core-system user-space root loaders ai)
-  #:use-module (core-system user-space root loaders formatters)
-  #:use-module (core-system user-space root loaders lsp)
-  #:use-module (core-system user-space root loaders audio)
-  #:use-module (core-system user-space root loaders video)
-  #:use-module (core-system user-space root loaders image)
-  #:use-module (core-system user-space root loaders 3d)
-  #:use-module (core-system user-space root loaders security)
-  #:use-module (core-system user-space root loaders scheduling)
-  #:use-module (core-system user-space root loaders compute)
-  #:use-module (core-system user-space root loaders ci)
-  #:use-module (core-system user-space root loaders data)
-  ;; #:use-module (core-system user-space root loaders guix)
-  ;; #:use-module (core-system user-space root loaders monitoring)
-  #:use-module (core-system user-space root loaders sandbox)
-  #:use-module (core-system user-space root loaders fonts)
-  #:use-module (core-system user-space root loaders wayland)
-  #:use-module (core-system user-space root loaders password-manager)
-  #:use-module (core-system user-space root loaders games)
+  ;; All loaders disabled for channel build
   #:re-export (users groups sudoers-file setuid-programs)
   #:export (root-system-packages root-system-services))
+
+(define-public root-system-packages
+  '())
+
+(define-public root-system-services
+  (append
+    (list
+     (service openssh-service-type)
+     (service greetd-service-type
+              (greetd-configuration
+               (command "Hyprland --config /home/aoeu/.config/lock-screen/config/greeter.hyprland.conf")
+               (user "greeter"))))
+    (list (service libvirt-service-type)
+          (service virtlog-service-type)
+          (service mcron-service-type))
+    (list (service postgresql-service-type
+                   (postgresql-configuration
+                    (postgresql postgresql))))
+    %base-services))
 
 (define-public root-system-packages
   (append root-core-packages

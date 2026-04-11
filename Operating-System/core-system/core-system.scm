@@ -30,5 +30,5 @@
     (packages root-system-packages)
     (services (append kernel-system-services
                       root-system-services
-                      (list (service guix-home-service-type
-                                     (list (list "aoeu" mappingos-home-environment))))))))
+                      ;; guix-home-service-type disabled for channel build
+                      ))))
