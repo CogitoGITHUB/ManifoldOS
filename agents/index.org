@@ -68,13 +68,15 @@ Or run directly:
 
 | Action           | Direct Command                                                   |
 |------------------|------------------------------------------------------------------|
-| Apply config     | sudo guix system reconfigure /MappingOS/guixos.scm |
-| Build only       | guix system build /MappingOS/guixos.scm            |
+| Apply config     | reshape (clears cache, guix pull, reconfigure) |
+| Build only       | guix system build /MappingOS/system.scm            |
 | Launch REPL      | guix repl --load-path=/MappingOS/Operating-System  |
 | Rollback         | sudo guix system roll-back                                       |
 | List generations | guix system list-generations                                     |
 | Search package   | guix search <name>                                               |
 | Get hash         | guix download <url>                                              |
+
+Note: Use `reshape` command (Ctrl+S) instead of raw guix commands. It clears cache, pulls latest, and reconfigures.
 
 Note: The older REPL syntax `guix repl -- -L /path` no longer works. Use `--load-path=` instead.
 

@@ -40,7 +40,12 @@ guix pull
 
 ** Reconfigure system
 #+BEGIN_SRC sh
-sudo guix system reconfigure /home/aoeu/.config/guix/guixos.scm
+reshape
+#+END_SRC
+
+Or manually:
+#+BEGIN_SRC sh
+sudo guix system reconfigure /MappingOS/system.scm
 #+END_SRC
 
 ** Rollback if something breaks
