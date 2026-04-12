@@ -4,8 +4,7 @@
     (url "https://git.guix.gnu.org/guix.git")
     (branch "master"))
   (channel
-    (name 'nonguix)
-    (url "https://gitlab.com/nonguix/nonguix")
+    (name 'guix)
     (branch "master"))
   (channel
     (name 'literativeos)

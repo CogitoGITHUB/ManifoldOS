@@ -1,4 +1,4 @@
-(define-module (systems containers core-container)
+(define-module (forms containers core-container)
   #:use-module (gnu system)
   #:use-module (gnu services)
   #:use-module (gnu services docker)

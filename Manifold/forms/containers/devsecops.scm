@@ -3,7 +3,7 @@
   #:use-module (gnu services)
   #:use-module (gnu packages version-control)
   #:use-module (gnu services docker)
-  #:use-module (systems containers core-container)
+  #:use-module (forms containers core-container)
   #:export (devsecops-os devsecops-service))
 
 (define-public devsecops-os
