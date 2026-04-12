@@ -3,8 +3,7 @@
   #:use-module (guix git-download)
   #:use-module (guix build-system emacs)
   #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (substrate user-space root editors emacs-packages literate-config-system)
-  #:export (emacs-avy avy-config))
+  #:export (emacs-avy))
 
 (define-public emacs-avy
   (package
@@ -26,11 +25,3 @@
     (description "This package provides a generic completion method based on building a balanced decision tree with each candidate being a leaf.")
     (license license:gpl3+)))
 
-(define avy-config
-  (make-lcs-config
-    "avy.org"
-    "0.5.0"
-    '()
-    '()
-    #f
-    #f))
