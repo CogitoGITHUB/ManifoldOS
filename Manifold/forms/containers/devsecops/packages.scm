@@ -1,6 +1,5 @@
-(define-module (systems containers devsecops packages)
-  #:use-module (gnu packages nmap)
+(define-module (forms containers devsecops packages)
   #:export (devsecops-packages))
 
 (define-public devsecops-packages
-  (list nmap))
+  (list))
