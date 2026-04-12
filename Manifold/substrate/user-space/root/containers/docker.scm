@@ -20,7 +20,7 @@
              (commit (string-append "v" version))))
        (file-name (git-file-name name version))
         (sha256
-         (base32 "14lmpj804lp1yvpaymsx1xv5d93ksznqv3qbbv96y02dy05w6zfs"))))
+         (base32 "04bmzp60ngkl2w8w4l8bxf611das8jh9ziqjhqamgki9nc0nby7n"))))
     (build-system gnu-build-system)
     (home-page "https://www.docker.com/")
     (synopsis "Set of programs to manage container images and containers")
