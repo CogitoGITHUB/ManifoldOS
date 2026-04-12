@@ -1,28 +1,3 @@
 (define-module (substrate user-space root containers docker)
-  #:use-module (guix packages)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix git-download)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:export (docker))
-
-;; Docker version
-(define %docker-version "28.1.0")
-
-(define-public docker
-  (package
-    (name "docker")
-    (version %docker-version)
-    (source
-     (origin
-       (method git-fetch)
-       (uri (git-reference
-             (url "https://github.com/moby/moby")
-             (commit (string-append "v" version))))
-       (file-name (git-file-name name version))
-        (sha256
-         (base32 "04bmzp60ngkl2w8w4l8bxf611das8jh9ziqjhqamgki9nc0nby7n"))))
-    (build-system gnu-build-system)
-    (home-page "https://www.docker.com/")
-    (synopsis "Set of programs to manage container images and containers")
-    (description "Docker is a platform for developing, shipping, and running applications in containers.")
-    (license license:asl2.0)))
+  #:use-module (gnu packages docker)
+  #:re-export (docker))
