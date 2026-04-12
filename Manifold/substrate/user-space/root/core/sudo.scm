@@ -1,6 +1,7 @@
 (define-module (substrate user-space root core sudo)
   #:use-module (guix packages)
   #:use-module (guix build-system gnu)
+  #:use-module (guix gexp)
   #:use-module (guix download)
   #:use-module ((guix licenses) #:prefix license:)
   #:use-module (gnu packages)
