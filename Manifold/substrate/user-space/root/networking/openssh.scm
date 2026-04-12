@@ -3,7 +3,7 @@
   #:use-module (guix packages)
   #:use-module (guix build-system gnu)
   #:use-module (guix download)
-  #:use-module (guix licenses)
+  #:use-module ((guix licenses) #:prefix license:)
   #:use-module (srfi srfi-1)
   #:use-module (substrate user-space root shell archive zlib))
 
@@ -28,5 +28,5 @@
     (description
      "The SSH2 protocol implemented in OpenSSH is standardised by the
 IETF secsh working group.")
-    (license (non-copyleft "file://LICENSE"))
+    (license (license:non-copyleft "file://LICENSE"))
     (home-page "https://www.openssh.com/")))
