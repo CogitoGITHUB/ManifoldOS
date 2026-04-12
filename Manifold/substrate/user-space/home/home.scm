@@ -8,7 +8,6 @@
   #:use-module (guix gexp)
   #:use-module (substrate user-space home loaders audio)
   #:use-module (substrate user-space home loaders emacs)
-  #:use-module (substrate user-space root editors emacs-packages)
   #:export (mappingos-home-environment))
 
 (define-public mappingos-home-environment
@@ -21,7 +20,7 @@
           ;; Home-wide packages - available in user's ~/.guix-home/profile
           (simple-service 'home-packages
                           home-profile-service-type
-                          root-emacs-packages)
+                          (list))
           (simple-service 'wireplumber-config
                           home-xdg-configuration-files-service-type
                           (list (list "wireplumber/wireplumber.conf.d/disable-logind.conf"
