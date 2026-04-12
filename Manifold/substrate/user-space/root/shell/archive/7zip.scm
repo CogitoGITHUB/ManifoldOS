@@ -2,6 +2,7 @@
   #:use-module (guix packages)
   #:use-module (guix download)
   #:use-module (guix build-system copy)
+  #:use-module (gnu packages compression)
   #:use-module ((guix licenses) #:prefix license:)
   #:export (7zip))
 
