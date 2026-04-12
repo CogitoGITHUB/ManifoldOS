@@ -1,7 +1,6 @@
 (define-module (substrate user-space root loaders core)
   #:use-module (substrate user-space root core sudo)
   #:use-module (gnu packages base)
-  #:use-module (gnu packages admin)
   #:use-module (gnu packages linux)
   #:use-module (gnu packages elf)
   #:use-module (gnu packages file)
