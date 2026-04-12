@@ -1,6 +1,5 @@
 ;; ManifoldOS System Configuration
-(add-to-load-path "/ManifoldOS/Manifold")
-(load "/ManifoldOS/Manifold/substrate/substrate.scm")
+(add-to-load-path (dirname (current-filename)))
 (use-modules (substrate substrate))
 
 os

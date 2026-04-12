@@ -22,7 +22,7 @@
       (or (package-arguments linux-libre) '())))))
 
 (define-public kernel-initrd
-  (lambda (kernels) #f))
+  (lambda (system . _) #f))
 
 (define-public kernel-firmware (list))
 (define-public kernel-arguments '())
