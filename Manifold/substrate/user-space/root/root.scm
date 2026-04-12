@@ -10,7 +10,6 @@
   #:use-module (gnu services mcron)
   #:use-module (gnu services databases)
   #:use-module (gnu packages databases)
-  #:use-module (substrate user-space root services greetd)
   #:use-module (substrate user-space root users users)
   #:use-module (substrate user-space root loaders core)
   #:use-module (substrate user-space root loaders networking)
@@ -81,10 +80,6 @@
   (append
     (list
      (service openssh-service-type)
-     (service greetd-service-type
-              (greetd-configuration
-               (command "Hyprland --config /home/aoeu/.config/lock-screen/config/greeter.hyprland.conf")
-               (user "greeter"))))
     root-networking-services
     root-containers-services
     root-audio-services
