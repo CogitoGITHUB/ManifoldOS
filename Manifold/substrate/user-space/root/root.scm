@@ -76,10 +76,10 @@
           sandbox-packages
           font-packages))
 
+
 (define-public root-system-services
   (append
-    (list
-     (service openssh-service-type)
+    (list (service openssh-service-type))
     root-networking-services
     root-containers-services
     root-audio-services
@@ -90,7 +90,5 @@
                    (postgresql-configuration
                     (postgresql postgresql))))
     root-ci-services
-    ;; root-monitoring-services
     root-keyboard-services
-    ;; root-guix-services
     %base-services))
