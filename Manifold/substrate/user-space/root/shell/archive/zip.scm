@@ -2,6 +2,7 @@
   #:use-module (guix packages)
   #:use-module (guix download)
   #:use-module (guix build-system gnu)
+  #:use-module (gnu packages compression)
   #:use-module ((guix licenses) #:prefix license:)
   #:use-module (substrate user-space root shell archive unzip)
   #:export (zip))

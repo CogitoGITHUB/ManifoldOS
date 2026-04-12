@@ -1,6 +1,8 @@
 (define-module (substrate user-space root core grep)
   #:use-module (guix packages)
   #:use-module (guix build-system gnu)
+  #:use-module (gnu packages perl)
+  #:use-module (gnu packages pcre)
   #:use-module (guix download)
   #:use-module ((guix licenses) #:prefix license:)
   #:use-module (gnu packages)
