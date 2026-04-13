@@ -3,4 +3,4 @@
   #:use-module (gnu packages compression)
   #:export (zstd))
 
-(define-public zstd gnu-packages-zstd)
+(define-public zstd zstd)
