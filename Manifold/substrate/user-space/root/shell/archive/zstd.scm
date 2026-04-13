@@ -1,6 +1,4 @@
 (define-module (substrate user-space root shell archive zstd)
   #:use-module (guix packages)
   #:use-module (gnu packages compression)
-  #:export (zstd))
-
-(define-public zstd zstd)
+  #:re-export (zstd))
