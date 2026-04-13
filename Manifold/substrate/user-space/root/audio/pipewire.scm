@@ -7,7 +7,8 @@
   #:use-module (gnu packages)
   #:use-module (gnu packages audio)
   #:use-module (gnu packages avahi)
-  #:use-module (gnu packages bluetooth)
+  ;; Disabled - bluetooth module not available
+;; #:use-module (gnu packages bluetooth)
   #:use-module (gnu packages compression)
   #:use-module (gnu packages docbook)
   #:use-module (gnu packages documentation)
