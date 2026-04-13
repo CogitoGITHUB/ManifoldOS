@@ -15,7 +15,8 @@
   #:use-module (gnu packages freedesktop)
   #:use-module (gnu packages glib)
   #:use-module (gnu packages gstreamer)
-  #:use-module (gnu packages jack)
+  ;; Disabled - jack module not available
+  ;; #:use-module (gnu packages jack)
   #:use-module (gnu packages linux)
   #:use-module (gnu packages lua)
   #:use-module (gnu packages man)
