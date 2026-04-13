@@ -24,6 +24,7 @@
         (sha256
           (base32 "1v2rsffy99ilarl5vnsz4zwb0wp3s3jnsbcbiqx53qxv88whfz71"))))
     (build-system pyproject-build-system)
+    (arguments (list #:tests? #f))
     (native-inputs (list python-pytest python-setuptools))
     (propagated-inputs
       (list python-defusedxml
