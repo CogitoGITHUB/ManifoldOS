@@ -13,6 +13,7 @@
             root-security-services))
 
 (define-public root-security-packages
+  (list age gnupg fail2ban sshguard))
 
 (define-public root-security-services
   '())
