@@ -1,5 +1,5 @@
 (define-module (substrate user-space root desktop greetd)
-  #:use-module (gnu packages wm)
+  #:use-module (gnu packages admin)
   #:use-module (guix packages)
   #:re-export (greetd))
 
