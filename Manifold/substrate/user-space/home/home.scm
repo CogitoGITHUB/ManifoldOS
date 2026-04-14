@@ -16,17 +16,7 @@
       (append
        home-audio-services
        (list emacs-daemon-service)
-       (list
-        (simple-service 'home-packages
-         home-profile-service-type
-         (list))
-        (simple-service 'wireplumber-config
-         home-xdg-configuration-files-service-type
-         (list
-          (cons "wireplumber/wireplumber.conf.d/disable-logind.conf"
-           (plain-file "disable-logind.conf"
-            "wireplumber.profiles = {
-  main = {
-    monitor.bluez.seat-monitoring = disabled
-  }
-}"))))))))
+(list
+         (simple-service 'home-packages
+          home-profile-service-type
+          (list)))))))
