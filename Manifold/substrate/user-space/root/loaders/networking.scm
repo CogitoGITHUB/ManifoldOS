@@ -1,7 +1,6 @@
 (define-module (substrate user-space root loaders networking)
   #:use-module (gnu packages curl)
   #:use-module (gnu packages ssh)
-  #:use-module (gnu packages version-control)
   #:use-module (gnu packages nss)
   #:use-module (gnu packages networking)
   #:use-module ((gnu packages admin) #:select (wpa-supplicant))
