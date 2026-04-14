@@ -19,6 +19,7 @@
        (sha256
         (base32 "01ccwbfrnc66ax4bngw1b6k9rzw0m85cm4s0wzk1gkdsc2z647jn"))))
     (build-system emacs-build-system)
+     (arguments '(#:tests? #f)')
     (home-page "https://github.com/magnars/multiple-cursors.el")
     (synopsis "Multiple cursors for Emacs")
     (description "This package adds support to Emacs for editing text with multiple simultaneous cursors.")

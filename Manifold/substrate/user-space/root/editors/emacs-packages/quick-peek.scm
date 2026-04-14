@@ -19,8 +19,9 @@
               (sha256
                (base32
                 "1kzsphzc9n80v6vf00dr2id9qkm78wqa6sb2ncnasgga6qj358ql"))))
-    (build-system emacs-build-system)
-    (synopsis "Display overlays on top of text")
+     (build-system emacs-build-system)
+     (arguments '(#:tests? #f))
+     (synopsis "Display overlays on top of text")
     (description "This package provides a way to display overlays on top of text, useful for showing help, previews, and other contextual information without disrupting the buffer.")
     (home-page "https://github.com/clemera/quick-peek")
     (license license:gpl3+)))

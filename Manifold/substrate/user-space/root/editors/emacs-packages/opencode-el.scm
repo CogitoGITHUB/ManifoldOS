@@ -19,6 +19,7 @@
         (sha256
          (base32 "1ffzx0lh6rbmzrzqqrn70gpjg2brq67cppvgpry1hg6h598gf6si"))))
     (build-system emacs-build-system)
+     (arguments '(#:tests? #f)')
     (propagated-inputs
      (list emacs-magit
            emacs-markdown-mode

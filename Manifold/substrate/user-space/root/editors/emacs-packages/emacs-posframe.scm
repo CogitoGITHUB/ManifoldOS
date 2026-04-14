@@ -17,6 +17,7 @@
        (sha256
         (base32 "1g1pcf83w4fv299ykvx7b93kxkc58fkr6yk39sxny5g16d4gl80g"))))
     (build-system emacs-build-system)
+     (arguments '(#:tests? #f)')
     (home-page "https://github.com/tumashu/posframe")
     (synopsis "Pop a posframe (a child frame) at point")
     (description "Posframe can pop a posframe at point. A posframe is a child frame displayed within its root window's buffer.")

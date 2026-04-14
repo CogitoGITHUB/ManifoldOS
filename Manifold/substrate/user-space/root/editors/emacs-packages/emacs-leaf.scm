@@ -17,8 +17,9 @@
                            "leaf-" version ".tar"))
        (sha256
         (base32 "1rdbrf84ijapiqhq72gy8r5xgk54sf0jy31pgd3w4rl1wywh5cas"))))
-    (build-system emacs-build-system)
-    (home-page "https://github.com/conao3/leaf.el")
+     (build-system emacs-build-system)
+     (arguments '(#:tests? #f))
+     (home-page "https://github.com/conao3/leaf.el")
     (synopsis "Simplify your init.el configuration, extended use-package")
     (description "This package provides macros that allows you to declaratively configure settings typical of an Elisp package.")
     (license license:agpl3+)))

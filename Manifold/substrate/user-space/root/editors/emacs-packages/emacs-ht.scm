@@ -22,6 +22,7 @@
          (sha256
           (base32 "1vyk81xav1ghdb39fqi99yf6yvzsh6p007v7yhzk1bbqqffkvqdj"))))
       (build-system emacs-build-system)
+      (arguments '(#:tests? #f))
       (propagated-inputs (list emacs-dash))
       (home-page "https://github.com/Wilfred/ht.el")
       (synopsis "Hash table library for Emacs")

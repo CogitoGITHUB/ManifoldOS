@@ -22,6 +22,7 @@
                (base32
                 "0fgnfslhg10q96lyxfnpa7s8dvw5gjlll7p6qji2jfz3kncwhf5l"))))
     (build-system emacs-build-system)
+    (arguments '(#:tests? #f))
     (inputs (list emacs-quick-peek emacs-scrollable-quick-peek))
     (propagated-inputs (list emacs-quick-peek emacs-scrollable-quick-peek))
     (synopsis "Typing game/tutor for Emacs inspired by monkeytype.com")

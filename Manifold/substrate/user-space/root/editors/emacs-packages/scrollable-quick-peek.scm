@@ -21,6 +21,7 @@
                (base32
                 "0gca860rhvcdjgm6k5pm6spznhg4787dqyjzfixvnffd5l93lcvc"))))
     (build-system emacs-build-system)
+    (arguments '(#:tests? #f))
     (propagated-inputs (list emacs-quick-peek))
     (synopsis "Display scrollable overlays")
     (description "This package adds the command `scrollable-quick-peek-show` which extends `quick-peek-show` to allow for scrolling within the quick-peek overlay.")

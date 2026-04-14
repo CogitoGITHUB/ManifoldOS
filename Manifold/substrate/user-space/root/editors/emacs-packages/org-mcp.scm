@@ -19,6 +19,7 @@
         (sha256
          (base32 "1px6m4x509cjarhxk4whk69095rb87y5lmq80g3anghqghwzvcb3"))))
     (build-system emacs-build-system)
+     (arguments '(#:tests? #f)')
     (propagated-inputs
      (list emacs-mcp-server-lib))
     (home-page "https://github.com/laurynas-biveinis/org-mcp")

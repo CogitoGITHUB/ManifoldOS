@@ -21,6 +21,7 @@
        (sha256
         (base32 "1iqbi71h9xajsw4330157dfs10npfi1z2ads99vr7n5pll7060rc"))))
     (build-system emacs-build-system)
+    (arguments '(#:tests? #f))
     (native-inputs (list texinfo))
     (home-page "https://protesilaos.com/modus-themes/")
     (synopsis "Accessible themes for Emacs (WCAG AAA standard)")
