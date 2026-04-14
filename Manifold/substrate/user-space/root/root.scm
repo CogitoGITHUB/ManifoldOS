@@ -15,6 +15,7 @@
   #:use-module (substrate user-space root loaders networking)
   #:use-module (substrate user-space root loaders programming-languages)
   #:use-module (substrate user-space root loaders editors)
+  #:use-module (substrate user-space root loaders emacs-packages)
   #:use-module (substrate user-space root loaders shell)
   #:use-module (substrate user-space root loaders containers)
   #:use-module (substrate user-space root loaders keyboard)
@@ -46,8 +47,9 @@
   (append root-core-packages
           root-networking-packages
           root-programming-languages-packages
-          root-editors-packages
-          root-shell-packages
+           root-editors-packages
+           root-emacs-packages
+           root-shell-packages
           root-shell-system-monitor-packages
           root-shell-power-packages
           root-shell-archive-packages
