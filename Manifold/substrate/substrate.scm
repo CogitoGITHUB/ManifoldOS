@@ -16,7 +16,7 @@
     (host-name host-name)
     (timezone system-timezone)
     (locale system-locale)
-    (kernel kernel)
+    (kernel custom-kernel)
     (kernel-arguments kernel-arguments)
     (initrd kernel-initrd)
     (firmware kernel-firmware)
