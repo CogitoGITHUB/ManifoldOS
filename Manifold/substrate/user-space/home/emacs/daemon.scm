@@ -14,7 +14,6 @@
                       (provision '(emacs))
                       (documentation "Start the Emacs daemon for use with emacsclient.")
                       (requirement '())
-                      (enabled? #t)
                       (start #~(make-forkexec-constructor
                                 (list #$(file-append emacs "/bin/emacs")
                                       "--daemon")
