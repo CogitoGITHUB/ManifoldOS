@@ -6,8 +6,8 @@
   #:use-module (gnu home services shepherd)
   #:use-module (gnu services guix)
   #:use-module (guix gexp)
+  #:use-module (substrate user-space root editors emacs)
   #:use-module (substrate user-space home loaders audio)
-  #:use-module (substrate user-space home loaders emacs)
   #:export (mappingos-home-environment))
 
 (define-public mappingos-home-environment
@@ -15,9 +15,8 @@
     (services
       (append
         home-audio-services
-        home-emacs-services
+        (list emacs-daemon-service)
         (list
-          ;; Home-wide packages - available in user's ~/.guix-home/profile
           (simple-service 'home-packages
                           home-profile-service-type
                           (list))
@@ -26,7 +25,7 @@
                           (list (list "wireplumber/wireplumber.conf.d/disable-logind.conf"
                                      (plain-file "disable-logind.conf"
                                                  "wireplumber.profiles = {
-  main = {
-    monitor.bluez.seat-monitoring = disabled
-  }
-}")))))))))
+   main = {
+     monitor.bluez.seat-monitoring = disabled
+   }
+}"))))))))
