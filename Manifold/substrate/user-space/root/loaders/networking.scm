@@ -6,6 +6,7 @@
   #:use-module ((gnu packages admin) #:select (wpa-supplicant))
   #:use-module ((gnu packages networking) #:select (iwd))
   #:use-module (gnu packages linux)
+  #:use-module ((gnu packages version-control) #:select (git))
   #:use-module (substrate user-space root networking version-control github-cli)
   #:use-module (substrate user-space root networking version-control lazygit)
   #:use-module (substrate user-space root networking yt-dlp)
