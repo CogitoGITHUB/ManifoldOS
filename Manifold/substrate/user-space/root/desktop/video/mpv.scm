@@ -26,8 +26,8 @@
              (url "https://github.com/mpv-player/mpv")
              (commit (string-append "v" version))))
        (file-name (git-file-name name version))
-       (sha256
-        (base32 "18l25s12g4sr0p3y6hk3cqa5rr5jykbdfhaqz4wyrvs8hy6b5xhk"))))
+        (sha256
+         (base32 "02b2canmzfygqnmmpnzgk93m8p34ckf2j29nj8rka9z4bqm0j8gf"))))
     (build-system meson-build-system)
     (arguments '(#:tests? #f))
     (inputs
