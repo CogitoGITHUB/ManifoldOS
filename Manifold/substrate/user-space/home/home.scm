@@ -23,8 +23,9 @@
         (simple-service 'wireplumber-config
          home-xdg-configuration-files-service-type
          (list
-          (plain-file "disable-logind.conf"
-           "wireplumber.profiles = {
+          (cons "wireplumber/wireplumber.conf.d/disable-logind.conf"
+           (plain-file "disable-logind.conf"
+            "wireplumber.profiles = {
   main = {
     monitor.bluez.seat-monitoring = disabled
   }
