@@ -21,7 +21,7 @@
                (base32
                 "1gjam8wdwdprgfc9354cgr2c0qm2sngw306k1dv08hda0ng3ms65"))))
     (build-system emacs-build-system)
-     (arguments '(#:tests? #f)')
+    (arguments '(#:tests? #f))
     (propagated-inputs (list emacs-svg-tag-mode))
     (synopsis "GNU Emacs notebook mode")
     (description "Notebook mode for GNU Emacs, inspired by Jupyter notebooks. Provides an interactive computing environment within Emacs using org-mode.")

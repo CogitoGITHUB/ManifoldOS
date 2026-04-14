@@ -19,13 +19,13 @@
         (sha256
          (base32 "1ffzx0lh6rbmzrzqqrn70gpjg2brq67cppvgpry1hg6h598gf6si"))))
     (build-system emacs-build-system)
-     (arguments '(#:tests? #f)')
+    (arguments '(#:tests? #f))
     (propagated-inputs
      (list emacs-magit
            emacs-markdown-mode
            emacs-plz
            emacs-plz-media-type
-            emacs-plz-event-source))
+           emacs-plz-event-source))
     (home-page "https://codeberg.org/sczi/opencode.el")
     (synopsis "Emacs interface to OpenCode")
     (description

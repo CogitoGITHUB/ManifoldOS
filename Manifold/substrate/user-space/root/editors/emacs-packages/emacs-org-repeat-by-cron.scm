@@ -21,7 +21,7 @@
                (base32
                 "188ax1qyjgaz5qj5w1g67hnn7xg9m55j6ymqhd1gks52z0g67cyf"))))
     (build-system emacs-build-system)
-     (arguments '(#:tests? #f)')
+    (arguments '(#:tests? #f))
     (propagated-inputs (list emacs-org))
     (synopsis "Org-mode task repeater based on Cron expressions")
     (description "org-repeat-by-cron.el is a lightweight extension for Emacs Org-mode that allows you to repeat tasks using the power of Cron expressions. It supports advanced Cron extensions like L (last day), W (nearest weekday), and # (Nth weekday).")

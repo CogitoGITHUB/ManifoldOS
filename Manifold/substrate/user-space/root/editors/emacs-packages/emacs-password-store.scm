@@ -21,7 +21,7 @@
        (sha256
         (base32 "0hb5zm7hdp7vmqk39a9s1iyncx4swmwfq30dnnzkjk2y08lnb7ac"))))
     (build-system emacs-build-system)
-     (arguments '(#:tests? #f)')
+    (arguments '(#:tests? #f))
     (inputs (list password-store))
     (propagated-inputs (list emacs-with-editor))
     (home-page "https://git.zx2c4.com/password-store/tree/contrib/emacs")

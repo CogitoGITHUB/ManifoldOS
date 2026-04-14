@@ -20,7 +20,7 @@
                (base32
                 "03vpk4hffczjy882inxs6aybz30scrjv1g13iksfzry63kx877wa"))))
     (build-system emacs-build-system)
-     (arguments '(#:tests? #f)')
+    (arguments '(#:tests? #f))
     (synopsis "Clock that tells time with configurable human-style granularity")
     (description "Fuzzy Clock displays time in Emacs the way humans naturally think about it. Instead of 14:32, you see \"Half past two\". Supports 11 levels of fuzziness from every 5 minutes to year.")
     (home-page "https://github.com/Trevoke/fuzzy-clock.el")

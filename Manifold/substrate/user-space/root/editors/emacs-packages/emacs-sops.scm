@@ -19,7 +19,7 @@
        (sha256
         (base32 "0vi7jw7zqj04ikajnssa68v6npd43bvaiw2afck25wxa9hnaja7f"))))
     (build-system emacs-build-system)
-     (arguments '(#:tests? #f)')
+    (arguments '(#:tests? #f))
     (home-page "https://github.com/djgoku/sops")
     (synopsis "SOPS encrypt and decrypt without leaving the editor")
     (description "This package provides a minor mode for editing SOPS-encrypted files.")
