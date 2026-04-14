@@ -24,15 +24,15 @@
   #:use-module (substrate user-space root desktop wayland grim)
   #:use-module (substrate user-space root desktop wayland slurp)
   #:use-module (substrate user-space root desktop wayland swappy)
-  #:use-module (substrate user-space root desktop wayland swaylock)
   #:use-module (substrate user-space root desktop wayland wl-clipboard)
   #:use-module (substrate user-space root desktop wayland wlogout)
   #:use-module (substrate user-space root desktop wayland cliphist)
   #:use-module (substrate user-space root desktop wayland grimblast)
   #:use-module (gnu packages imagemagick)
   #:use-module (gnu packages web)
-  #:re-export (hyprland hypridle qutebrowser quickshell mako mpvpaper swww imagemagick jq hibiki wayscriber python-pyprland hyprsunset greetd blender krita mpv ffmpeg obs kdenlive gst-editing-services mlt opentimelineio xytz grim slurp swappy swaylock wl-clipboard wlogout cliphist grimblast)
+  #:use-module (gnu packages xdisorg)
+  #:re-export (hyprland hypridle qutebrowser quickshell mako mpvpaper swww imagemagick jq hibiki wayscriber python-pyprland hyprsunset greetd blender krita mpv ffmpeg obs kdenlive gst-editing-services mlt opentimelineio xytz grim slurp swappy wl-clipboard wlogout cliphist grimblast)
   #:export (root-desktop-packages))
 
 (define-public root-desktop-packages
-  (list hyprland hypridle qutebrowser quickshell mako mpvpaper swww imagemagick jq hibiki wayscriber python-pyprland hyprsunset greetd blender krita mpv ffmpeg obs kdenlive gst-editing-services mlt opentimelineio xytz grim slurp swappy swaylock wl-clipboard wlogout cliphist grimblast))
+  (list hyprland hypridle qutebrowser quickshell mako mpvpaper swww imagemagick jq hibiki wayscriber python-pyprland hyprsunset greetd blender krita mpv ffmpeg obs kdenlive gst-editing-services mlt opentimelineio xytz grim slurp swappy wl-clipboard wlogout cliphist grimblast))
