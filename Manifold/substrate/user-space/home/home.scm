@@ -4,6 +4,7 @@
   #:use-module (gnu home services guix)
   #:use-module (gnu home services xdg)
   #:use-module (gnu home services shepherd)
+  #:use-module (gnu home services sound)
   #:use-module (gnu services guix)
   #:use-module (guix gexp)
   #:use-module (substrate user-space root editors emacs)
@@ -15,8 +16,9 @@
     (services
       (append
        home-audio-services
-       (list emacs-daemon-service)
-(list
-         (simple-service 'home-packages
-          home-profile-service-type
-          (list)))))))
+       (list emacs-daemon-service
+             (service home-pipewire-service-type))
+       (list
+        (simple-service 'home-packages
+         home-profile-service-type
+         (list)))))))
