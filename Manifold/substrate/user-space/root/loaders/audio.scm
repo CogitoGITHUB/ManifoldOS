@@ -1,7 +1,5 @@
 ;; Audio packages and services
 (define-module (substrate user-space root loaders audio)
-  #:use-module (gnu packages mpd)
-  #:use-module (gnu packages linux)
   #:use-module (substrate user-space root audio music mpd)
   #:use-module (substrate user-space root audio music rmpc)
   #:use-module (substrate user-space root audio music cava)

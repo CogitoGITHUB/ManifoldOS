@@ -20,6 +20,9 @@
                          (name "pulse")
                          (type "pulse"))
                        (mpd-output
+                         (name "bluez")
+                         (type "bluez"))
+                       (mpd-output
                          (name "alsa")
                          (type "alsa"))
                        (mpd-output

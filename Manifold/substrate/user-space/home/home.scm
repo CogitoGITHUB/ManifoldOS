@@ -13,10 +13,25 @@
 
 (define-public mappingos-home-environment
   (home-environment
+    (packages (list))
     (services
       (append
        home-audio-services
        (list emacs-daemon-service
+             (simple-service 'pulseaudio-restart
+                            home-shepherd-service-type
+                            (list (shepherd-service
+                                   (documentation "Restart PulseAudio and set Bluetooth sink")
+                                   (start #~(lambda (proc)
+                                              (system* "pulseaudio" "-k")
+                                              (sleep 1)
+                                              (system* "pulseaudio" "--start")
+                                              (sleep 1)
+                                              (system* "pactl" "set-default-sink" "bluez_sink.FC_58_FA_C8_10_F5.a2dp_sink")
+                                              #t))
+                                   (stop #~#f)
+                                   (provision '(pulseaudio-restart))
+                                   (respawn? #f))))
              (simple-service 'home-packages
                             home-profile-service-type
                             (list)))))))
