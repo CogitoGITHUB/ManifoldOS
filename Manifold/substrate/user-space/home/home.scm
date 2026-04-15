@@ -17,8 +17,6 @@
       (append
        home-audio-services
        (list emacs-daemon-service
-             (service home-pipewire-service-type))
-       (list
-        (simple-service 'home-packages
-         home-profile-service-type
-         (list)))))))
+             (simple-service 'home-packages
+                            home-profile-service-type
+                            (list)))))))

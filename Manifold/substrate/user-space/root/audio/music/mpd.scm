@@ -14,15 +14,17 @@
              (music-directory "/home/aoeu/Music")
              (playlist-directory "/home/aoeu/Music/playlists")
              (environment-variables
-               (list "XDG_RUNTIME_DIR=/run/user/1000"
-                     "PIPEWIRE_RUNTIME_DIR=/run/user/1000"))
+               (list "XDG_RUNTIME_DIR=/run/user/1000"))
              (outputs (list
-                        (mpd-output
-                          (name "PipeWire")
-                          (type "pipewire"))
-                        (mpd-output
-                          (name "cava-fifo")
-                          (type "fifo")
-                          (extra-options
-                            '((path . "/tmp/mpd.fifo")
-                              (format . "44100:16:2")))))))))
+                       (mpd-output
+                         (name "pulse")
+                         (type "pulse"))
+                       (mpd-output
+                         (name "alsa")
+                         (type "alsa"))
+                       (mpd-output
+                         (name "cava-fifo")
+                         (type "fifo")
+                         (extra-options
+                           '((path . "/tmp/mpd.fifo")
+                             (format . "44100:16:2")))))))))
