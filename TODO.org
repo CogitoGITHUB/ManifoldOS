@@ -1,6 +1,4 @@
 
-https://github.com/liixini/skwd-wall.git
-
 https://github.com/paralax/awesome-honeypots
 
 https://github.com/11happy/cpx
