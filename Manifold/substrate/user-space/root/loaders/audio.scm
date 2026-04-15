@@ -1,5 +1,6 @@
 ;; Audio packages and services
 (define-module (substrate user-space root loaders audio)
+  #:use-module (gnu packages mpd)
   #:use-module (substrate user-space root audio music mpd)
   #:use-module (substrate user-space root audio music rmpc)
   #:use-module (substrate user-space root audio music cava)
@@ -8,7 +9,7 @@
   #:export (root-audio-packages root-audio-services))
 
 (define-public root-audio-packages
-  (list mpd rmpc cava wireplumber pipewire))
+  (list mpd rmpc cava wireplumber (@ (gnu packages linux) pipewire)))
 
 (define-public root-audio-services
   (list mpd-service alsa-service))
