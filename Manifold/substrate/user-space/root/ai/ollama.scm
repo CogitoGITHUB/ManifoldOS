@@ -8,6 +8,7 @@
   #:use-module (substrate user-space root shell archive zstd)
   #:use-module (gnu packages elf)
   #:use-module (gnu packages gcc)
+  #:use-module (gnu services)
   #:use-module ((guix licenses) #:prefix license:)
   #:export (ollama))
 

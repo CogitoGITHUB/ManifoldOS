@@ -1,5 +1,6 @@
 (define-module (substrate user-space home audio pipewire)
   #:use-module (gnu home services)
+  #:use-module (gnu services)
   #:use-module (gnu home services shepherd)
   #:use-module (gnu home services desktop)
   #:use-module (gnu home services xdg)
