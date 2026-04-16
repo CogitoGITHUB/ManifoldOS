@@ -3,7 +3,6 @@
   #:use-module (gnu packages ssh)
   #:use-module (gnu packages nss)
   #:use-module (gnu packages networking)
-  #:use-module ((gnu packages admin) #:select (wpa-supplicant))
   #:use-module ((gnu packages networking) #:select (iwd))
   #:use-module (gnu packages linux)
   #:use-module ((gnu packages version-control) #:select (git))
@@ -11,7 +10,6 @@
   #:use-module (substrate user-space root networking version-control lazygit)
   #:use-module (substrate user-space root networking yt-dlp)
   #:use-module (substrate user-space root networking tailscale)
-  #:use-module (substrate user-space root networking network-manager)
   #:use-module (substrate user-space root networking gazelle-tui)
   #:use-module (substrate user-space root networking bluetooth)
   #:use-module (substrate user-space root networking bluetuith)
@@ -22,17 +20,14 @@
   #:use-module (gnu services desktop)
   #:use-module (guix gexp)
   #:re-export (yt-dlp gazelle-tui bluez bluetuith config-tailscaled-service-type
-               nmap wireshark bind-dns iperf iproute wpa-supplicant iwd)
+               nmap wireshark bind-dns iperf iproute iwd)
   #:export (root-networking-packages root-networking-services))
 
 (define-public root-networking-packages
-  (list git github-cli lazygit openssh curl yt-dlp tailscale nss-certs network-manager gazelle-tui bluez bluetuith nmap wireshark bind-dns iperf iproute wpa-supplicant iwd))
+  (list git github-cli lazygit openssh curl yt-dlp tailscale nss-certs gazelle-tui bluez bluetuith nmap wireshark bind-dns iperf iproute iwd))
 
 (define-public root-networking-services
-  (list (service network-manager-service-type
-                 (network-manager-configuration
-                  (shepherd-requirement '(iwd))))
-        (service iwd-service-type
+  (list (service iwd-service-type
                  (iwd-configuration
                   (config
                    (iwd-settings
@@ -41,7 +36,7 @@
                       (enable-network-configuration? #t)))
                     (network
                      (iwd-network-settings
-                      (name-resolving-service 'none)))))))
+                      (name-resolving-service 'resolvconf)))))))
         (service bluetooth-service-type
                  (bluetooth-configuration
                   (auto-enable? #t)))
