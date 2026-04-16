@@ -31,6 +31,24 @@
   (shepherd-service
     (provision '(networking))
     (requirement '(iwd))
-    (start #~(const #t))
-    (stop #~(const #f))
-    (documentation Dummy
+    (start (const #t))
+    (stop (const #f))
+    (documentation "Dummy networking service for dependent services like dockerd.")))
+
+(define-public root-networking-services
+  (list (service iwd-service-type
+                 (iwd-configuration
+                  (config
+                   (iwd-settings
+                    (general
+                     (iwd-general-settings
+                      (enable-network-configuration? #t)))
+                    (network
+                     (iwd-network-settings
+                      (name-resolving-service 'resolvconf)))))))
+        (simple-service 'networking shepherd-root-service-type
+                        (list networking-shepherd-service))
+        (service bluetooth-service-type
+                 (bluetooth-configuration
+                  (auto-enable? #t)))
+        (service config-tailscaled-service-type)))
