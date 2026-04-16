@@ -21,10 +21,6 @@
                          (type "pulse")
                          (mixer-type "software"))
                        (mpd-output
-                         (name "alsa")
-                         (type "alsa")
-                         (mixer-type "hardware"))
-                       (mpd-output
                          (name "cava-fifo")
                          (type "fifo")
                          (extra-options
