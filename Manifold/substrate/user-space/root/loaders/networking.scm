@@ -16,6 +16,7 @@
   #:use-module (substrate user-space root networking tools)
   #:use-module (gnu services)
   #:use-module (gnu services networking)
+  #:use-module (gnu services shepherd)
   #:use-module (gnu services base)
   #:use-module (gnu services desktop)
   #:use-module (guix gexp)
@@ -26,18 +27,10 @@
 (define-public root-networking-packages
   (list git github-cli lazygit openssh curl yt-dlp tailscale nss-certs gazelle-tui bluez bluetuith nmap wireshark bind-dns iperf iproute iwd))
 
-(define-public root-networking-services
-  (list (service iwd-service-type
-                 (iwd-configuration
-                  (config
-                   (iwd-settings
-                    (general
-                     (iwd-general-settings
-                      (enable-network-configuration? #t)))
-                    (network
-                     (iwd-network-settings
-                      (name-resolving-service 'resolvconf)))))))
-        (service bluetooth-service-type
-                 (bluetooth-configuration
-                  (auto-enable? #t)))
-        (service config-tailscaled-service-type)))
+(define networking-shepherd-service
+  (shepherd-service
+    (provision '(networking))
+    (requirement '(iwd))
+    (start #~(const #t))
+    (stop #~(const #f))
+    (documentation Dummy
