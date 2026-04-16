@@ -13,7 +13,7 @@
 
 (define-public mappingos-home-environment
   (home-environment
-    (packages (list))
+    (packages (list (@ (gnu packages pulseaudio) pulsemixer)))
     (services
      (append
       home-audio-services
