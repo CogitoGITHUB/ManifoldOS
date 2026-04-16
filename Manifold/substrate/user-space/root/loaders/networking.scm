@@ -31,8 +31,8 @@
   (shepherd-service
     (provision '(networking))
     (requirement '(iwd))
-    (start (const #t))
-    (stop (const #f))
+    (start #~(const #t))
+    (stop #~(const #f))
     (documentation "Dummy networking service for dependent services like dockerd.")))
 
 (define-public root-networking-services
