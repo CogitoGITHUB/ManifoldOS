@@ -13,16 +13,17 @@
              (user "aoeu")
              (music-directory "/home/aoeu/Music")
              (playlist-directory "/home/aoeu/Music/playlists")
-             (mixer-type "software")
              (environment-variables
                (list "XDG_RUNTIME_DIR=/run/user/1000"))
              (outputs (list
                        (mpd-output
                          (name "pulse")
-                         (type "pulse"))
+                         (type "pulse")
+                         (mixer-type "software"))
                        (mpd-output
                          (name "alsa")
-                         (type "alsa"))
+                         (type "alsa")
+                         (mixer-type "hardware"))
                        (mpd-output
                          (name "cava-fifo")
                          (type "fifo")
