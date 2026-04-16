@@ -1,5 +1,6 @@
-* test
-** test 
+* ADD NETWORK MANAGER BACK AND SET ITS BACKEND TO IWD !!! 
+
+* https://github.com/SSD2019/org-auto-scheduler.git
 
 * https://github.com/paralax/awesome-honeypots
 
