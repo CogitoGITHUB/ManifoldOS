@@ -20,14 +20,11 @@
                          (name "pulse")
                          (type "pulse"))
                        (mpd-output
-                         (name "bluez")
-                         (type "bluez"))
-                       (mpd-output
                          (name "alsa")
                          (type "alsa"))
-                       (mpd-output
-                         (name "cava-fifo")
-                         (type "fifo")
-                         (extra-options
+(mpd-output
+                          (name "cava-fifo")
+                          (type "fifo")
+                          (extra-options
                            '((path . "/tmp/mpd.fifo")
                              (format . "44100:16:2")))))))))
