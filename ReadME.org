@@ -1,58 +1,269 @@
-* The Shape-Shifter's manifold: 
+The Shape-Shifter’s Manifold
 
-A GNU Guix system that doesn't sit still.
 
-ManifoldOS is not configured — it is /forged/. Every package, every
-service, every daemon is a deliberate act of authorship. The system
-knows what it is. It knows what it's becoming. It knows who built it.
+ManifoldOS is a declarative operating system composition model built on GNU Guix, structured as a layered system of definition, transformation, and materialization.
 
-This is not a dotfiles repository. This is an operating system with a
-philosophy.
+It is not a configuration dump. It is not a dotfiles collection. It is a reproducible system defined as a semantic architecture.
+
+Every component exists as a deliberate layer in a controlled dependency flow.
+
+
+---
 
 * The Architect
 
-The one who holds the blueprint is not a user. Not an administrator.
 
-The Architect decides what forms the system takes, which minds sit on
-the Council, what gets tempered in the Forge, and where the Drift
-pulls next.
+The Architect is the only source of intentionality in the system.
 
-Emacs is the interface. Guix is the substrate. The Org files are the
-source of truth. Everything else is derived.
+The Architect does not “configure” the system in the traditional sense. Instead, the Architect defines:
 
-* The Structure
+the base system (substrate)
 
-The system is organized not as a filing cabinet — but as a living
-body with distinct layers of responsibility.
+the valid system categories (shapes)
 
-The *Manifold* holds the shape. It contains the Substrate — the
-kernel and user space that everything else depends on — and the Forms
-that the system can take.
+the construction rules (forms)
 
-The *Council* governs change. Five specialized minds, each with an
-ideology, a scope, and a boundary. They don't overlap. They hand off.
+the allowed runtime projections (containers, VMs, ISOs)
 
-The *Drift* holds what the system is pulling toward. Not a backlog.
-A horizon.
 
-The *Forge* holds what is being tempered. Experimental. Unfinished.
-Not yet part of the body.
+Nothing else in the system is allowed to define architecture upward.
 
-* The Philosophy
+The Architect operates through Org-mode as the source of truth. Guix is the execution backend. Emacs is the interface for composition, inspection, and transformation.
 
-#+BEGIN_QUOTE
-Structure is meaning.
-Memory is power.
-Patterns worth thinking once are worth encoding forever.
-Systems reveal their truth under pressure.
-The system should grow — carefully, intentionally.
-#+END_QUOTE
 
-These are not guidelines. They are the ideologies of the Council,
-distilled. The Architect holds all five at once.
+---
 
-* Status
+The Structure
 
-This system is alive. It is not finished. It will never be finished.
 
-That is the point.
+The system is organized as a fixed-depth layered model. No new architectural layers are introduced beyond this stack.
+
+** 1. Substrate (Reality Layer) The substrate is the base operating system definition.
+
+It contains:
+
+kernel-space configuration (boot, drivers, system initialization)
+
+user-space configuration (services, environments, system-wide behavior)
+
+
+Properties:
+
+self-contained
+
+declarative
+
+does not depend on any higher layer
+
+defines what the system is capable of running
+
+
+The substrate is the only “base system” in ManifoldOS.
+
+
+---
+
+** 2. Shapes (Taxonomy Layer) Shapes define the categories of systems that can exist.
+
+Examples:
+
+containers
+
+virtual machines
+
+ISO images
+
+
+Properties:
+
+declarative only
+
+no execution logic
+
+no direct system building
+
+defines structural types, not instances
+
+
+Shapes answer the question: “What kinds of systems exist in this universe?”
+
+
+---
+
+** 3. Forms (Construction Layer) Forms define how shapes are constructed from the substrate.
+
+Forms consume:
+
+the substrate (as a stable base system interface)
+
+shapes (as structural definitions)
+
+
+Forms produce:
+
+build definitions for specific system types
+
+
+Examples of forms:
+
+dev-sec-ops systems
+
+AI environments
+
+development environments
+
+specialized system profiles
+
+
+Properties:
+
+compositional logic only
+
+no direct runtime execution
+
+defines system assembly rules
+
+
+Forms answer: “How is a system of a given type constructed?”
+
+
+---
+
+** 4. Execution Layer (Materialization Targets) This layer contains all runtime projections of the system.
+
+Includes:
+
+containers
+
+virtual machines
+
+ISO images
+
+
+Properties:
+
+instantiated systems
+
+built from substrate + forms
+
+no influence over definition layers
+
+fully derived artifacts
+
+
+Execution layer answers: “What does the system become when built?”
+
+
+---
+
+** 5. Outputs (Artifact Layer) Outputs contain all generated results of the system.
+
+Includes:
+
+built images
+
+container snapshots
+
+VM artifacts
+
+exported system states
+
+
+Properties:
+
+disposable
+
+reproducible
+
+never part of system logic
+
+strictly derived
+
+
+
+---
+
+Dependency Invariants
+
+
+The system enforces a strict one-directional dependency model:
+
+substrate → defines system reality
+
+shapes → defines system classification
+
+forms → defines construction logic
+
+execution layer → instantiates systems
+
+outputs → stores results only
+
+
+
+---
+
+Forbidden Relations
+
+
+The following are structurally disallowed:
+
+substrate depending on shapes or forms
+
+shapes performing execution or build logic
+
+outputs influencing any upstream layer
+
+circular dependency between forms and execution targets
+
+
+
+---
+
+Execution Flow
+
+
+The system composes in a single downward flow:
+
+#+BEGIN_SRC text constitution ↓ substrate ↓ shapes ↓ forms ↓ ( substrate + forms ) ↓ containers / VMs / ISOs ↓ outputs #+END_SRC
+
+
+---
+
+The Philosophy
+
+
+#+BEGIN_QUOTE Structure is not decoration — it is constraint. Constraint is what makes systems reproducible. Reproducibility is what makes systems real.
+
+Meaning is encoded in separation. Separation is what prevents collapse.
+
+A system is stable when every layer knows what it is not allowed to be. #+END_QUOTE
+
+These are not guidelines. They are invariants.
+
+
+---
+
+Status
+
+
+ManifoldOS is not a finished system.
+
+It is a closed architectural model undergoing expansion in breadth, not depth.
+
+No new layers will be introduced.
+
+All future work exists inside:
+
+substrate expansion
+
+shapes expansion
+
+forms expansion
+
+executor expansion
+
+output refinement
+
+
+The structure is fixed.
+Only the system within it grows.
