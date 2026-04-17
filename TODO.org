@@ -1,4 +1,4 @@
-* ADD NETWORK MANAGER BACK AND SET ITS BACKEND TO IWD !!! 
+* distrobox use !!!
 
 * https://github.com/SSD2019/org-auto-scheduler.git
 

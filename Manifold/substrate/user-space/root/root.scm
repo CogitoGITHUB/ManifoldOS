@@ -17,7 +17,6 @@
   #:use-module (substrate user-space root loaders editors)
   #:use-module (substrate user-space root loaders emacs-packages)
   #:use-module (substrate user-space root loaders shell)
-  #:use-module (substrate user-space root loaders containers)
   #:use-module (substrate user-space root loaders keyboard)
   #:use-module (substrate user-space root loaders terminal)
   #:use-module (substrate user-space root loaders desktop)
@@ -53,9 +52,8 @@
           root-shell-system-monitor-packages
           root-shell-power-packages
           root-shell-archive-packages
-          root-shell-fetch-packages
-          root-containers-packages
-          root-keyboard-packages
+root-shell-fetch-packages
+           root-keyboard-packages
           root-terminal-packages
           root-desktop-packages
           root-ai-packages
@@ -83,7 +81,6 @@
   (append
     (list (service openssh-service-type))
     root-networking-services
-    root-containers-services
     root-audio-services
     (list (service libvirt-service-type)
           (service virtlog-service-type)

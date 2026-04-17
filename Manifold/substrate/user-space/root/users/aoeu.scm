@@ -28,6 +28,7 @@
         (user-group (name "pulse") (system? #t))
         (user-group (name "pulse-access") (system? #t))
          (user-group (name "bluetooth") (system? #t))
+         (user-group (name "podman") (system? #t))
          (user-group (name "greeter") (system? #t))))
 
 (define-public users
@@ -36,7 +37,7 @@
          (comment "Aoeu")
          (group "users")
          (home-directory "/home/aoeu")
-         (supplementary-groups '("wheel" "netdev" "audio" "video" "uinput" "keyd" "docker" "pulse-access" "bluetooth"))
+         (supplementary-groups '("wheel" "netdev" "audio" "video" "uinput" "keyd" "podman" "pulse-access" "bluetooth"))
          (shell (file-append nushell "/bin/nu")))
          (user-account
           (name "pulse")

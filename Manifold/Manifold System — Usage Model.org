@@ -1,0 +1,131 @@
+* Manifold System — Usage Model (Semantic Execution Tree)
+
+This document describes the logical execution model of the system, not its filesystem layout.
+
+** 1. constitution.scm — Bootstrap Layer
+- Entry point of the system
+- Wires all subsystems together
+- Defines initialization order
+- No domain logic allowed
+
+Flow:
+constitution → substrate + shapes + forms
+
+---
+
+** 2. substrate — Base System Layer (Reality Layer)
+Defines the operating system reality.
+
+*** kernel-space
+- Bootloader
+- Kernel configuration
+- Drivers (kmod, udev)
+- Low-level system setup
+
+*** user-space
+- Runtime environment for services and users
+- Home and root system configuration
+
+Rule:
+- substrate is self-contained
+- substrate does NOT depend on shapes or forms
+
+Flow:
+substrate → provides base system interface
+
+---
+
+** 3. shapes — Taxonomy Layer (Structure Definition)
+Defines what kinds of systems exist.
+
+*** Responsibilities
+- Defines categories:
+  - containers
+  - vms
+  - isos
+
+*** Role
+- Describes structure only
+- Does NOT build or execute anything
+- Does NOT depend on runtime artifacts
+
+Flow:
+shapes → defines system types
+
+---
+
+** 4. forms — Construction Layer (Blueprint Layer)
+Defines how systems are assembled.
+
+*** Inputs
+- substrate (base system interface)
+- shapes (type definitions)
+
+*** Outputs
+- concrete system blueprints per shape:
+  - dev-sec-ops
+  - ai systems
+  - web systems
+
+*** Role
+- Converts abstract shapes into build instructions
+- Defines composition rules
+
+Flow:
+forms → produces build definitions
+
+---
+
+** 5. Execution Targets — Materialization Layer
+Includes:
+- containers
+- vms
+- isos
+
+*** Inputs
+- substrate (base system)
+- forms (blueprints)
+
+*** Output
+- instantiated environments
+
+Flow:
+forms + substrate → execution targets
+
+---
+
+** 6. outputs — Artifact Layer
+Stores generated results.
+
+*** Contains
+- built containers
+- VM images
+- ISO images
+- snapshots
+
+*** Rules
+- fully reproducible
+- fully disposable
+- not part of system logic
+
+Flow:
+execution → outputs
+
+---
+
+** Global Dependency Invariants
+
+*** Core rule
+- substrate defines reality
+- shapes define classification
+- forms define construction
+- executors materialize systems
+- outputs store results only
+
+*** Forbidden dependencies
+- substrate → shapes/forms/outputs
+- shapes → execution layers
+- outputs → any system layer
+
+*** Allowed flow
+substrate → shapes → forms → execution → outputs

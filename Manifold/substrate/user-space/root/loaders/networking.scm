@@ -29,17 +29,10 @@
   (list git github-cli lazygit openssh curl yt-dlp tailscale nss-certs network-manager gazelle-tui bluez bluetuith nmap wireshark bind-dns iperf iproute iwd))
 
 (define-public root-networking-services
-  (list (service network-manager-service-type)
-        (service iwd-service-type
-                 (iwd-configuration
-                  (config
-                   (iwd-settings
-                    (general
-                     (iwd-general-settings
-                      (enable-network-configuration? #f)))
-                    (network
-                     (iwd-network-settings
-                      (name-resolving-service 'none)))))))
+  (list (service network-manager-service-type
+                 (network-manager-configuration
+                  (shepherd-requirement '(iwd))))
+        (service iwd-service-type)
         (service bluetooth-service-type
                  (bluetooth-configuration
                   (auto-enable? #t)))
