@@ -8,7 +8,7 @@
 (define-public kernel linux)
 (define-public kernel-initrd microcode-initrd)
 (define-public kernel-firmware (list linux-firmware))
-(define-public kernel-arguments '())
+(define-public kernel-arguments '("pci=noaer"))
 (define-public kernel-modules
   (service kernel-module-loader-service-type
            (list "uinput")))
