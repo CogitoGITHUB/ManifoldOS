@@ -10,4 +10,4 @@
   (bootloader-configuration
     (bootloader grub:grub-efi-bootloader)
     (targets '("/boot/efi"))
-    (keyboard-layout keyboard-layout)
+    (keyboard-layout keyboard-layout)))
