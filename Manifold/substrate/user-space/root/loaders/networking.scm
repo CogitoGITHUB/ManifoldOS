@@ -10,6 +10,7 @@
   #:use-module (substrate user-space root networking version-control lazygit)
   #:use-module (substrate user-space root networking yt-dlp)
   #:use-module (substrate user-space root networking tailscale)
+  #:use-module (substrate user-space root networking network-manager)
   #:use-module (substrate user-space root networking gazelle-tui)
   #:use-module (substrate user-space root networking bluetooth)
   #:use-module (substrate user-space root networking bluetuith)
@@ -25,29 +26,22 @@
   #:export (root-networking-packages root-networking-services))
 
 (define-public root-networking-packages
-  (list git github-cli lazygit openssh curl yt-dlp tailscale nss-certs gazelle-tui bluez bluetuith nmap wireshark bind-dns iperf iproute iwd))
-
-(define networking-shepherd-service
-  (shepherd-service
-    (provision '(networking))
-    (requirement '(iwd))
-    (start #~(const #t))
-    (stop #~(const #f))
-    (documentation "Dummy networking service for dependent services like dockerd.")))
+  (list git github-cli lazygit openssh curl yt-dlp tailscale nss-certs network-manager gazelle-tui bluez bluetuith nmap wireshark bind-dns iperf iproute iwd))
 
 (define-public root-networking-services
-  (list (service iwd-service-type
+  (list (service network-manager-service-type
+                 (network-manager-configuration
+                  (wifi-backend 'iwd)))
+        (service iwd-service-type
                  (iwd-configuration
                   (config
                    (iwd-settings
                     (general
                      (iwd-general-settings
-                      (enable-network-configuration? #t)))
+                      (enable-network-configuration? #f)))
                     (network
                      (iwd-network-settings
-                      (name-resolving-service 'resolvconf)))))))
-        (simple-service 'networking shepherd-root-service-type
-                        (list networking-shepherd-service))
+                      (name-resolving-service 'none)))))))
         (service bluetooth-service-type
                  (bluetooth-configuration
                   (auto-enable? #t)))
