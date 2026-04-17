@@ -29,9 +29,7 @@
   (list git github-cli lazygit openssh curl yt-dlp tailscale nss-certs network-manager gazelle-tui bluez bluetuith nmap wireshark bind-dns iperf iproute iwd))
 
 (define-public root-networking-services
-  (list (service network-manager-service-type
-                 (network-manager-configuration
-                  (wifi-backend 'iwd)))
+  (list (service network-manager-service-type)
         (service iwd-service-type
                  (iwd-configuration
                   (config
