@@ -1,3 +1,5 @@
+* https://github.com/Xinoxi/Modern-Clock-for-Quickshell.git
+
 * distrobox use !!!
 
 * https://github.com/SSD2019/org-auto-scheduler.git
