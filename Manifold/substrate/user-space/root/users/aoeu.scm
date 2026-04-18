@@ -38,9 +38,7 @@
          (group "users")
          (home-directory "/home/aoeu")
          (supplementary-groups '("wheel" "netdev" "audio" "video" "uinput" "keyd" "podman" "pulse-access" "bluetooth"))
-         (shell (file-append nushell "/bin/nu"))
-         (subuid-ranges (list (subid-range (start 100000) (count 65536))))
-         (subgid-ranges (list (subid-range (start 100000) (count 65536)))))
+         (shell (file-append nushell "/bin/nu")))
         (user-account
          (name "pulse")
          (group "pulse")
