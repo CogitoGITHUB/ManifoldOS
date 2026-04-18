@@ -9,7 +9,6 @@
   #:use-module (substrate kernel-space kernel-space)
   #:use-module (substrate user-space root root)
   #:use-module (substrate user-space home home)
-  #:use-module (forms containers containers)
   #:export (os))
 
 (define-public os
@@ -31,6 +30,5 @@
     (packages root-system-packages)
     (services (append kernel-system-services
                       root-system-services
-                      all-container-services
                       (list (service guix-home-service-type
                                      (list (list "aoeu" mappingos-home-environment))))))))
