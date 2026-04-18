@@ -15,5 +15,5 @@
             (podman podman))))
 
 (define-public podman-etc-files
-  `(("subuid" ,(plain-file "subuid" "aoeu:100000:65536"))
-    ("subgid" ,(plain-file "subgid" "aoeu:100000:65536"))))
+  `(("subuid" ,(plain-file "subuid" "aoeu:100000:65536\n"))
+    ("subgid" ,(plain-file "subgid" "aoeu:100000:65536\n"))))
