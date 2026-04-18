@@ -1,6 +1,7 @@
 (define-module (constitution)
   #:use-module (gnu system)
   #:use-module (gnu services)
+  #:use-module (gnu services base)
   #:use-module (gnu services guix)
   #:use-module (substrate substrate)
   #:use-module (shapes shapes))
@@ -20,10 +21,12 @@
   (groups groups)
   (sudoers-file sudoers-file)
   (setuid-programs setuid-programs)
-  (etc-files podman-etc-files)
   (packages (append root-system-packages container-packages))
   (services (append kernel-system-services
                     root-system-services
                     container-services
                     (list (service guix-home-service-type
-                                   (list (list "aoeu" mappingos-home-environment)))))))
+                                   (list (list "aoeu" mappingos-home-environment)))
+                          (simple-service 'podman-subids
+                                          etc-service-type
+                                          container-etc-files)))))
