@@ -20,6 +20,7 @@
   (groups groups)
   (sudoers-file sudoers-file)
   (setuid-programs setuid-programs)
+  (etc-files podman-etc-files)
   (packages (append root-system-packages container-packages))
   (services (append kernel-system-services
                     root-system-services
