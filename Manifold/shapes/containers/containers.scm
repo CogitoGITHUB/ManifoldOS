@@ -1,4 +1,4 @@
-(define-module (shapes containers)
+(define-module (shapes containers containers)
   #:use-module (shapes containers podman)
   #:export (container-packages container-services))
 
