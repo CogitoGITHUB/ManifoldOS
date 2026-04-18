@@ -3,8 +3,9 @@
   #:use-module (gnu packages)
   #:use-module (gnu services)
   #:use-module (gnu services containers)
+  #:use-module (gnu system accounts)
   #:use-module ((gnu packages containers) #:select (podman))
-  #:export (podman-packages podman-service podman-etc-files))
+  #:export (podman-packages podman-service))
 
 (define-public podman-packages
   (list podman))
@@ -12,8 +13,6 @@
 (define-public podman-service
   (service rootless-podman-service-type
            (rootless-podman-configuration
-            (podman podman))))
-
-(define-public podman-etc-files
-  `(("subuid" ,(plain-file "subuid" "aoeu:100000:65536\n"))
-    ("subgid" ,(plain-file "subgid" "aoeu:100000:65536\n"))))
+            (podman podman)
+            (subuids (list (subid-range (name "aoeu"))))
+            (subgids (list (subid-range (name "aoeu")))))))
