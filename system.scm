@@ -1,1 +1,2 @@
-(add-to-load-path "/ManifoldOS/Manifold") (load "./Manifold/constitution.scm")
+(add-to-load-path "/ManifoldOS/Manifold")
+(load "./Manifold/constitution.scm")
