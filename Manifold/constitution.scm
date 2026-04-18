@@ -1,5 +1,7 @@
 (define-module (constitution)
   #:use-module (gnu system)
+  #:use-module (gnu services)
+  #:use-module (gnu services guix)
   #:use-module (substrate substrate)
   #:use-module (shapes shapes))
 
