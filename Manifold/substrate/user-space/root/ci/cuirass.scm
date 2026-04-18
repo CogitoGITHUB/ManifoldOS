@@ -18,9 +18,7 @@
 (define-public cuirass-service
   (service cuirass-service-type
            (cuirass-configuration
-            (specifications %cuirass-specs)
-            (default-spec? #f)
-            (one-shot? #t))))
+            (specifications %cuirass-specs))))
 
 (define-public root-ci-services
   (list cuirass-service))
