@@ -1,2 +1,4 @@
 (add-to-load-path "/ManifoldOS/Manifold")
-(load "./Manifold/constitution.scm")
+(use-modules (constitution))
+
+(@ (constitution) manifold-os)

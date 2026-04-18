@@ -1,4 +1,4 @@
-(define-module (shapes containers podman)
+(define-module (substrate user-space root container-system podman)
   #:use-module (guix gexp)
   #:use-module (gnu packages)
   #:use-module (gnu services)

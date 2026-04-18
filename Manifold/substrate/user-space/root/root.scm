@@ -9,6 +9,7 @@
   #:use-module (gnu services virtualization)
   #:use-module (gnu services mcron)
   #:use-module (gnu services databases)
+  #:use-module (gnu services containers)
   #:use-module (gnu packages databases)
   #:use-module (substrate user-space root users users)
   #:use-module (substrate user-space root loaders core)
@@ -32,13 +33,12 @@
   #:use-module (substrate user-space root loaders compute)
   #:use-module (substrate user-space root loaders ci)
   #:use-module (substrate user-space root loaders data)
-  ;; guix.scm.disabled - disabled, not loaded
-  ;; monitoring.scm.disabled - disabled, not loaded
   #:use-module (substrate user-space root loaders sandbox)
   #:use-module (substrate user-space root loaders fonts)
   #:use-module (substrate user-space root loaders wayland)
   #:use-module (substrate user-space root loaders password-manager)
   #:use-module (substrate user-space root loaders games)
+  #:use-module (substrate user-space root container-system podman)
   #:re-export (users groups sudoers-file setuid-programs)
   #:export (root-system-packages root-system-services))
 
@@ -46,14 +46,14 @@
   (append root-core-packages
           root-networking-packages
           root-programming-languages-packages
-           root-editors-packages
-           root-emacs-packages
-           root-shell-packages
+          root-editors-packages
+          root-emacs-packages
+          root-shell-packages
           root-shell-system-monitor-packages
           root-shell-power-packages
           root-shell-archive-packages
-root-shell-fetch-packages
-           root-keyboard-packages
+          root-shell-fetch-packages
+          root-keyboard-packages
           root-terminal-packages
           root-desktop-packages
           root-ai-packages
@@ -71,11 +71,9 @@ root-shell-fetch-packages
           root-scheduling-packages
           root-ci-packages
           root-data-packages
-          ;; root-guix-packages
-          ;; root-monitoring-packages
           sandbox-packages
-          font-packages))
-
+          font-packages
+          podman-packages))
 
 (define-public root-system-services
   (append
@@ -90,4 +88,8 @@ root-shell-fetch-packages
                     (postgresql postgresql))))
     root-ci-services
     root-keyboard-services
+    (list podman-service
+          (service oci-service-type
+                   (oci-configuration
+                     (runtime 'podman))))
     %base-services))

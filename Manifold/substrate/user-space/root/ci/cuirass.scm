@@ -1,32 +1,26 @@
 (define-module (substrate user-space root ci cuirass)
   #:use-module (guix packages)
+  #:use-module (guix gexp)
+  #:use-module (guix channels)
   #:use-module (gnu packages ci)
-  #:export (cuirass))
+  #:use-module (gnu services)
+  #:use-module (gnu services cuirass)
+  #:export (cuirass-service root-ci-services))
 
-(define-public cuirass
-  (@@ (gnu packages ci) cuirass))
+(define %cuirass-specs
+  #~(list (specification
+            (name "manifoldos")
+            (build '(systems "system.scm"))
+            (channels (list (channel
+                              (name 'manifold)
+                              (url "file:///ManifoldOS")))))))
 
-;; Cuirass service - commented out until needed
-;; To enable, uncomment and configure with your build specifications
-;; See: https://guix.gnu.org/manual/en/html_node/Continuous-Integration.html
-#;(begin
-  (use-modules (guix gexp)
-               (gnu services)
-               (gnu services cuirass)
-               (gnu services databases))
+(define-public cuirass-service
+  (service cuirass-service-type
+           (cuirass-configuration
+            (specifications %cuirass-specs)
+            (default-spec? #f)
+            (one-shot? #t))))
 
-  (define %cuirass-specs-content
-    ";; Cuirass specifications
-    ;; Add your build specifications here
-    '()")
-
-  (define %cuirass-specs-file
-    (plain-file "cuirass-specs.scm" %cuirass-specs-content))
-
-  (define-public cuirass-service
-    (service cuirass-service-type
-             (cuirass-configuration
-              (specifications %cuirass-specs-file))))
-
-  (define-public root-ci-services
-    (list cuirass-service)))
+(define-public root-ci-services
+  (list cuirass-service))

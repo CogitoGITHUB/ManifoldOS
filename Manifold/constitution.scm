@@ -1,28 +1,19 @@
 (define-module (constitution)
   #:use-module (gnu system)
   #:use-module (gnu services)
-  #:use-module (gnu services guix)
+  #:use-module (gnu services containers)
   #:use-module (substrate substrate)
-  #:use-module (shapes shapes))
+  #:use-module (substrate substrate-containerized)
+  #:use-module (shapes shapes)
+  #:export (manifold-os))
 
-(operating-system
-  (host-name host-name)
-  (timezone system-timezone)
-  (locale system-locale)
-  (kernel kernel)
-  (kernel-arguments kernel-arguments)
-  (initrd kernel-initrd)
-  (firmware kernel-firmware)
-  (keyboard-layout keyboard-layout)
-  (bootloader system-bootloader-configuration)
-  (file-systems file-systems)
-  (users users)
-  (groups groups)
-  (sudoers-file sudoers-file)
-  (setuid-programs setuid-programs)
-  (packages (append root-system-packages container-packages))
-  (services (append kernel-system-services
-                    root-system-services
-                    container-services
-                    (list (service guix-home-service-type
-                                   (list (list "aoeu" mappingos-home-environment)))))))
+(define manifold-os
+  (operating-system
+    (inherit os)
+    (services (modify-services (operating-system-user-services os)
+                (oci-service-type config =>
+                                  (oci-configuration
+                                    (inherit config)
+                                    (containers
+                                      (list (oci-container-configuration
+                                              (image manifoldos-image))))))))))
