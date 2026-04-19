@@ -38,8 +38,8 @@
   #:use-module (substrate user-space root loaders wayland)
   #:use-module (substrate user-space root loaders password-manager)
   #:use-module (substrate user-space root loaders games)
-  #:use-module (substrate user-space root container-system podman)
-  #:re-export (users groups sudoers-file setuid-programs)
+  #:use-module (substrate user-space root loaders containers)
+  #:re-export (users groups sudoers-file setuid-programs manifoldos-image)
   #:export (root-system-packages root-system-services))
 
 (define-public root-system-packages

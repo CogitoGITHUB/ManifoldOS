@@ -3,7 +3,6 @@
   #:use-module (gnu services)
   #:use-module (gnu services containers)
   #:use-module (substrate substrate)
-  #:use-module (substrate substrate-containerized)
   #:use-module (shapes shapes)
   #:export (manifold-os))
 

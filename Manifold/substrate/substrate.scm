@@ -12,7 +12,7 @@
                system-bootloader-configuration file-systems users groups
                sudoers-file setuid-programs root-system-packages
                kernel-system-services root-system-services
-               mappingos-home-environment))
+               mappingos-home-environment manifoldos-image))
 
 (define-public os
   (operating-system

@@ -1,250 +1,249 @@
-The Shape-Shifter’s Manifold
+* The Shape-Shifter's Manifold
 
+ManifoldOS is a declarative operating system composition model built on GNU Guix,
+structured as a layered system of definition, transformation, and materialization.
 
-ManifoldOS is a declarative operating system composition model built on GNU Guix, structured as a layered system of definition, transformation, and materialization.
-
-It is not a configuration dump. It is not a dotfiles collection. It is a reproducible system defined as a semantic architecture.
+It is not a configuration dump. It is not a dotfiles collection. It is a
+reproducible system defined as a semantic architecture.
 
 Every component exists as a deliberate layer in a controlled dependency flow.
-
 
 ---
 
 * The Architect
 
-
 The Architect is the only source of intentionality in the system.
 
-The Architect does not “configure” the system in the traditional sense. Instead, the Architect defines:
+The Architect does not "configure" the system in the traditional sense.
+Instead, the Architect defines:
 
-the base system (substrate)
-
-the valid system categories (shapes)
-
-the construction rules (forms)
-
-the allowed runtime projections (containers, VMs, ISOs)
-
+- the base system (substrate)
+- the valid system categories (shapes)
+- the construction rules (forms)
+- the allowed runtime projections (containers, VMs, ISOs)
 
 Nothing else in the system is allowed to define architecture upward.
 
-The Architect operates through Org-mode as the source of truth. Guix is the execution backend. Emacs is the interface for composition, inspection, and transformation.
-
+The Architect operates through Org-mode as the source of truth. Guix is the
+execution backend. Emacs is the interface for composition, inspection, and
+transformation.
 
 ---
 
-The Structure
+* The Structure
 
+The system is organized as a fixed-depth layered model. No new architectural
+layers are introduced beyond this stack.
 
-The system is organized as a fixed-depth layered model. No new architectural layers are introduced beyond this stack.
+** 1. constitution.scm — Bootstrap Layer
 
-** 1. Substrate (Reality Layer) The substrate is the base operating system definition.
+The single entry point of the system. Loads substrate and shapes, wires them
+together, and returns the final operating-system record.
+
+No domain logic. No package definitions. No service definitions.
+
+Currently: wires substrate + shapes and registers the ManifoldOS OCI image
+into the system via oci-service-type.
+
+** 2. Substrate — Reality Layer
+
+The substrate is the complete base operating system definition.
 
 It contains:
 
-kernel-space configuration (boot, drivers, system initialization)
-
-user-space configuration (services, environments, system-wide behavior)
-
+- kernel-space configuration (boot, drivers, system initialization)
+- user-space configuration (services, packages, users, system-wide behavior)
+- container-system/ (podman service + OCI image definition)
 
 Properties:
 
-self-contained
+- self-contained
+- declarative
+- does not depend on any higher layer
+- defines what the system is capable of running
 
-declarative
+Currently implemented:
 
-does not depend on any higher layer
+- kernel-space: kernel, bootloader, drivers, file systems, locale, hostname
+- user-space/root: all system packages and services, organized by domain loaders
+- user-space/root/container-system: rootless podman + substrate-containerized
+  (minimal OS variant for OCI image builds, exported as manifoldos-image)
+- user-space/home: home environment definition
+- substrate.scm: assembles everything, exports os and manifoldos-image
 
-defines what the system is capable of running
+The substrate is the only "base system" in ManifoldOS.
 
+** 3. Shapes — Taxonomy Layer
 
-The substrate is the only “base system” in ManifoldOS.
-
-
----
-
-** 2. Shapes (Taxonomy Layer) Shapes define the categories of systems that can exist.
+Shapes define the categories of systems that can exist.
 
 Examples:
 
-containers
-
-virtual machines
-
-ISO images
-
+- containers
+- virtual machines
+- ISO images
 
 Properties:
 
-declarative only
+- declarative only
+- no execution logic at this stage
+- defines structural types, not instances
 
-no execution logic
+Currently implemented:
 
-no direct system building
+- containers/substrate-adapter.scm: placeholder for specialized containers
+  built on manifoldos-image
+- isos/: planned
+- vms/: planned
 
-defines structural types, not instances
+Shapes answer the question: "What kinds of systems exist in this universe?"
 
+** 4. Forms — Construction Layer (Planned)
 
-Shapes answer the question: “What kinds of systems exist in this universe?”
-
-
----
-
-** 3. Forms (Construction Layer) Forms define how shapes are constructed from the substrate.
+Forms define how shapes are constructed from the substrate.
 
 Forms consume:
 
-the substrate (as a stable base system interface)
-
-shapes (as structural definitions)
-
+- the substrate (as a stable base system interface)
+- shapes (as structural definitions)
 
 Forms produce:
 
-build definitions for specific system types
+- build definitions for specific system types
 
+Examples of planned forms:
 
-Examples of forms:
-
-dev-sec-ops systems
-
-AI environments
-
-development environments
-
-specialized system profiles
-
+- dev-sec-ops systems
+- AI environments
+- development environments
+- specialized system profiles
 
 Properties:
 
-compositional logic only
+- compositional logic only
+- no direct runtime execution
+- defines system assembly rules
 
-no direct runtime execution
+Forms answer: "How is a system of a given type constructed?"
 
-defines system assembly rules
+** 5. Execution Layer — Materialization Targets (Planned)
 
-
-Forms answer: “How is a system of a given type constructed?”
-
-
----
-
-** 4. Execution Layer (Materialization Targets) This layer contains all runtime projections of the system.
+This layer contains all runtime projections of the system.
 
 Includes:
 
-containers
+- containers
+- virtual machines
+- ISO images
 
-virtual machines
-
-ISO images
-
+Currently: the ManifoldOS OCI image is built automatically on every system
+reconfigure via oci-service-type wired in constitution.
 
 Properties:
 
-instantiated systems
+- instantiated systems
+- built from substrate + forms
+- no influence over definition layers
+- fully derived artifacts
 
-built from substrate + forms
+** 6. Outputs — Artifact Layer (Planned)
 
-no influence over definition layers
-
-fully derived artifacts
-
-
-Execution layer answers: “What does the system become when built?”
-
-
----
-
-** 5. Outputs (Artifact Layer) Outputs contain all generated results of the system.
+Outputs contain all generated results of the system.
 
 Includes:
 
-built images
-
-container snapshots
-
-VM artifacts
-
-exported system states
-
+- built images
+- container snapshots
+- VM artifacts
+- exported system states
 
 Properties:
 
-disposable
-
-reproducible
-
-never part of system logic
-
-strictly derived
-
-
+- disposable
+- reproducible
+- never part of system logic
+- strictly derived
 
 ---
 
-Dependency Invariants
-
+* Dependency Invariants
 
 The system enforces a strict one-directional dependency model:
 
-substrate → defines system reality
+- substrate → defines system reality
+- shapes → defines system classification
+- forms → defines construction logic
+- execution layer → instantiates systems
+- outputs → stores results only
 
-shapes → defines system classification
-
-forms → defines construction logic
-
-execution layer → instantiates systems
-
-outputs → stores results only
-
-
+#+BEGIN_EXAMPLE
+constitution
+    ├── substrate                         (base OS reality)
+    │   ├── kernel-space
+    │   ├── user-space/root
+    │   │   ├── loaders/                  (aggregate domain modules)
+    │   │   └── container-system/
+    │   │       ├── podman.scm            (rootless podman service)
+    │   │       └── substrate-containerized.scm  (OCI image)
+    │   ├── user-space/home
+    │   └── substrate.scm                (exports os + manifoldos-image)
+    └── shapes                            (future system type extensions)
+        ├── containers/substrate-adapter  (placeholder)
+        ├── isos/                         (planned)
+        └── vms/                          (planned)
+#+END_EXAMPLE
 
 ---
 
-Forbidden Relations
-
+* Forbidden Relations
 
 The following are structurally disallowed:
 
-substrate depending on shapes or forms
-
-shapes performing execution or build logic
-
-outputs influencing any upstream layer
-
-circular dependency between forms and execution targets
-
-
+- substrate depending on shapes or forms
+- shapes performing execution or build logic
+- outputs influencing any upstream layer
+- circular dependency between forms and execution targets
 
 ---
 
-Execution Flow
+* Execution Flow
 
-
-The system composes in a single downward flow:
-
-#+BEGIN_SRC text constitution ↓ substrate ↓ shapes ↓ forms ↓ ( substrate + forms ) ↓ containers / VMs / ISOs ↓ outputs #+END_SRC
-
+#+BEGIN_SRC text
+constitution
+    ↓
+substrate
+    ↓
+shapes
+    ↓
+forms (planned)
+    ↓
+( substrate + forms )
+    ↓
+containers / VMs / ISOs
+    ↓
+outputs
+#+END_SRC
 
 ---
 
-The Philosophy
+* The Philosophy
 
+#+BEGIN_QUOTE
+Structure is not decoration — it is constraint.
+Constraint is what makes systems reproducible.
+Reproducibility is what makes systems real.
 
-#+BEGIN_QUOTE Structure is not decoration — it is constraint. Constraint is what makes systems reproducible. Reproducibility is what makes systems real.
+Meaning is encoded in separation.
+Separation is what prevents collapse.
 
-Meaning is encoded in separation. Separation is what prevents collapse.
-
-A system is stable when every layer knows what it is not allowed to be. #+END_QUOTE
+A system is stable when every layer knows what it is not allowed to be.
+#+END_QUOTE
 
 These are not guidelines. They are invariants.
 
-
 ---
 
-Status
-
+* Status
 
 ManifoldOS is not a finished system.
 
@@ -254,16 +253,19 @@ No new layers will be introduced.
 
 All future work exists inside:
 
-substrate expansion
+- substrate expansion
+- shapes expansion
+- forms expansion
+- executor expansion
+- output refinement
 
-shapes expansion
+Currently operational:
 
-forms expansion
-
-executor expansion
-
-output refinement
-
+- Full Guix system with 166+ packages
+- Rootless podman with subuid/subgid configuration
+- ManifoldOS OCI image built automatically on every system reconfigure
+- Cuirass CI (under development)
+- Distrobox integration
 
 The structure is fixed.
 Only the system within it grows.
