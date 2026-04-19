@@ -1,3 +1,15 @@
+* OCI image not building
+** podman-manifoldos service didn't start.
+The manifold-os from constitution with modify-services may not be working correctly since constitution exports manifold-os but system.scm returns os.
+* Duplicate accounts warning
+aoeu and cgroup appear more than once. Worth fixing to clean up the warnings.
+* CI is disabled
+cuirass is not running. Needs work as noted.
+
+* Shapes is empty
+shapes.scm currently has no real content. The containers shape needs to be properly defined when forms gets built.
+
+
 * https://github.com/emskin/emskin.git
 
 * https://github.com/Xinoxi/Modern-Clock-for-Quickshell.git
@@ -13,15 +25,3 @@
 * https://github.com/gggion/org-transclusion-orgit
 
 * https://github.com/waelmahrous/wormhole
-
-
-* OCI image not building
-* podman-manifoldos service didn't start.
-The manifold-os from constitution with modify-services may not be working correctly since constitution exports manifold-os but system.scm returns os.
-* Duplicate accounts warning
-aoeu and cgroup appear more than once. Worth fixing to clean up the warnings.
-* CI is disabled
-cuirass is not running. Needs work as noted.
-
-* Shapes is empty
-shapes.scm currently has no real content. The containers shape needs to be properly defined when forms gets built.
