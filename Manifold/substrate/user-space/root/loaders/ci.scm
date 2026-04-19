@@ -4,8 +4,9 @@
   #:export (root-ci-packages
             root-ci-services))
 
+;; TODO: Cuirass needs work - evaluation failing
 (define-public root-ci-packages
   '())
 
 (define-public root-ci-services
-  (list cuirass-service))
+  '())
