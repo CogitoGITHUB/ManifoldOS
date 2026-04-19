@@ -12,14 +12,14 @@
 (define-public opencode
   (package
     (name "opencode")
-    (version "1.4.0")
+    (version "1.14.17")
     (source
       (origin
         (method url-fetch)
         (uri (string-append
               "https://github.com/anomalyco/opencode/releases/download/v" version
               "/opencode-linux-x64.tar.gz"))
-        (sha256 (base32 "1kzjxz237p4yhlc8abikp9wivg3y3k83ga4v2jq4jbalm84fn5si"))))
+        (sha256 (base32 "dae7b74b5e0a5928ee4c93c1aa52a3a6f20252e3e49a26ccaf898539e38041d6"))))
     (build-system trivial-build-system)
     (inputs (list tar gzip patchelf glibc))
     (arguments
