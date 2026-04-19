@@ -19,7 +19,7 @@
         (uri (string-append
               "https://github.com/anomalyco/opencode/releases/download/v" version
               "/opencode-linux-x64.tar.gz"))
-        (sha256 (base32 "dae7b74b5e0a5928ee4c93c1aa52a3a6f20252e3e49a26ccaf898539e38041d6"))))
+        (sha256 (base32 "1mj1h3ikk1c9mz62d6p4wd905wm6ld9amhck9kp2hn8abr5vgrys"))))
     (build-system trivial-build-system)
     (inputs (list tar gzip patchelf glibc))
     (arguments
