@@ -91,5 +91,8 @@
     (list podman-service
           (service oci-service-type
                    (oci-configuration
-                     (runtime 'podman))))
+                     (runtime 'podman)
+                     (containers
+                       (list (oci-container-configuration
+                               (image manifoldos-image)))))))
     %base-services))
