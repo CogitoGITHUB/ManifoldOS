@@ -5,6 +5,7 @@
   #:use-module (gnu packages linux)
   #:use-module (gnu packages elf)
   #:use-module (gnu packages file)
+  #:use-module (gnu packages admin)
   #:use-module (substrate user-space root shell archive unzip)
   #:use-module (substrate user-space root shell archive gzip)
   #:use-module (gnu packages wget)
@@ -32,3 +33,4 @@
         bat
         man-db
         procps))
+
