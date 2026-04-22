@@ -1,3 +1,5 @@
+* agent files + todo for all folders !!!
+
 * OCI image not building
 ** podman-manifoldos service didn't start.
 The manifold-os from constitution with modify-services may not be working correctly since constitution exports manifold-os but system.scm returns os.
