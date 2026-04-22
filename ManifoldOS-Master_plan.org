@@ -1,0 +1,61 @@
+* Manifold OS — Master Plan
+:PROPERTIES:
+:CREATED: :END:
+
+I'm building Manifold as a complete rethinking of how a Guix-based system should work. 
+No channels. No umbrella modules. Clean, intentional structure.
+
+**Core Philosophy**
+- The filesystem is the source of truth, not channels
+- Every declaration must be clean and focused
+- No more `(use-modules (giant-umbrella-module))`
+- The system should feel like it belongs to me completely
+
+* TODO Phase 1 — Change How Guix Itself Works
+** Goal
+Modify Guix's core so it no longer depends on channels for my own code.
+
+** Tasks
+- [ ] Study how Guix loads modules and resolves packages
+- [ ] Understand the internal module loader and `GUIX_PACKAGE_PATH` limitations
+- [ ] Create a modified Guix that uses my custom loader
+- [ ] Test that my system can boot using only my declarations
+
+* TODO Phase 2 — Eliminate Channels Completely
+** Goal
+Remove all traces of channel-based workflow from my system.
+
+** Tasks
+- [ ] Pin official Guix so `guix pull` never affects my code
+- [ ] Make sure `guix system` and `guix home` only read from my directories
+- [ ] Remove any dependency on upstream channels for my packages
+
+* TODO Phase 3 — Redesign Declaration Style
+** Goal
+Create my own clean, intentional declaration format.
+
+** Tasks
+- [ ] Design new module naming convention
+- [ ] Create template for services in my style
+- [ ] Make sure modules are small, focused, and meaningful
+
+* TODO Phase 4 — Populate the Entire System
+** Goal
+Rewrite everything in the new style.
+
+** Tasks
+- [ ] Convert all services
+- [ ] Test that the full OS can be built and booted
+
+* TODO Phase 5 — Build Literate System Mapping
+** Goal
+Make the entire system understandable through Emacs Org-mode.
+
+** Tasks
+- [ ] Map every directory and its purpose
+- [ ] Make the system self-documenting through literate programming
+
+* Current Status
+- Only the basic folder structure exists
+- Still using standard Guix + channels
+- Just beginning the journey
