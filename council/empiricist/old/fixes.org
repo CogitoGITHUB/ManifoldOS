@@ -48,6 +48,31 @@ Fix: Add the dependency as BOTH `inputs` AND `propagated-inputs`:
 `inputs` makes it available at compile time. `propagated-inputs` makes it
 available at runtime. You need BOTH for top-level requires.
 
+** Emacs daemon fails to start — environment variables missing
+
+Cause: make-forkexec-constructor must pass environment variables for socket creation
+and native compilation handling.
+
+Fix: Set environment variables explicitly in daemon.scm:
+#+BEGIN_SRC scheme
+#:environment-variables
+(list (string-append "HOME=" (getenv "HOME"))
+      (string-append "XDG_RUNTIME_DIR=/run/user/" (number->string (getuid)))
+      "EMACS_NATIVECOMP_AOTCOMP=no"
+      "EMACS_NATIVECOMP_DRIVER=no")
+#+END_SRC
+
+Critical environment variables:
+- HOME — must be set to user's home directory for socket path
+- XDG_RUNTIME_DIR — where socket is created (/run/user/{uid})
+- EMACS_NATIVECOMP_AOTCOMP — disable to prevent compilation failures during daemon startup
+- EMACS_NATIVECOMP_DRIVER — disable to prevent compiler driver loading
+
+Without these, daemon startup fails with cryptic "socket not created" or
+"native compilation error" messages.
+
+See: /home/aoeu/.config/guix/Manifold/substrate/user-space/home/emacs/daemon.scm
+
 ** Hash mismatch on git-fetch packages
 
 Cause: `guix hash --recursive /path/to/checkout` includes `.git/` directory,
@@ -68,7 +93,7 @@ The pyproject-build-system's sanity-check phase validates version constraints.
 Fix: Delete the sanity-check phase:
 #+BEGIN_SRC scheme
 (arguments
- '(#:tests? #f
+ '#(#:tests? #f
    #:phases
    (modify-phases %standard-phases
      (delete 'sanity-check))))
@@ -144,7 +169,7 @@ In kernel-space/linux.scm:
 (define-public kernel
   (package
     (inherit (corrupt-linux linux-libre-6.18
-                          #:configs '()))
+                            #:configs '()))
     (name "linux-with-regdb-fix")
     (source
      (origin
@@ -158,7 +183,7 @@ In kernel-space/linux.scm:
                    "CONFIG_CFG80211_REQUIRE_SIGNED_REGDB=n")
                   (("CONFIG_CFG80211_USE_KERNEL_REGDB_KEYS=y")
                    "CONFIG_CFG80211_USE_KERNEL_REGDB_KEYS=n"))
-                (format #t "Patched ~a~%" defconfig)))))))))
+                (format #t "Patched ~a~%" defconfig))))))))
 #+END_SRC
 
 This patches the guix_defconfig to disable signature verification before the kernel
@@ -187,7 +212,7 @@ Fix: Use trivial-build-system, extract source, create wrapper script with PYTHON
 (build-system trivial-build-system)
 (inputs (list python python-textual python-rich ...))
 (arguments
- '(#:builder
+ '#(#:builder
    (begin
      (use-modules (guix build utils))
      (let* ((out (assoc-ref %outputs "out"))
@@ -248,8 +273,6 @@ Files like networking/curl.scm, networking/openssh.scm, networking/nss-certs.scm
 exist but are NOT used by the loader — the loader imports directly from gnu packages.
 This is intentional and not an error. Don't "fix" this unless asked.
 
-See also: [[./errors.org][Errors & Diagnostics]]
-
 ** PipeWire Bluetooth Not Working
 Symptom: br-connection-profile-unavailable
 
@@ -268,19 +291,77 @@ wireplumber.profiles = {
 Then: herd restart wireplumber
 
 Fix 2 - Missing env vars in shepherd services:
-PipeWire/WirePlumber started by home shepherd need explicit env:
-- DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus
-- DBUS_SYSTEM_BUS_ADDRESS=unix:path=/run/dbus/system_bus_socket
-- XDG_RUNTIME_DIR=/run/user/1000
-- SPA_PLUGIN_PATH=<pipewire-store>/lib/spa-0.2
-- PIPEWIRE_MODULE_DIR=<pipewire-store>/lib/pipewire-0.3
+PipeWire/WirePlumber started by home shepherd need explicit env vars.
+CRITICAL: Never hardcode 1000 — use (getuid) to get actual user id:
 
-Use make-forkexec-constructor with #:environment-variables in shepherd service.
+#+BEGIN_SRC scheme
+#:environment-variables
+(list (string-append "HOME=" (getenv "HOME"))
+      (string-append "XDG_RUNTIME_DIR=/run/user/" (number->string (getuid)))
+      "DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus"
+      (string-append "SPA_PLUGIN_PATH=" pipewire "/lib/spa-0.2")
+      (string-append "PIPEWIRE_MODULE_DIR=" pipewire "/lib/pipewire-0.3"))
+#+END_SRC
 
-** Wrong Module: guix-home-service-type
-guix-home-service-type is in (gnu services guix) NOT (gnu home services)
+Or use the getuid pattern consistently:
+#+BEGIN_SRC scheme
+(let ((uid (number->string (getuid))))
+  (list (string-append "HOME=" (getenv "HOME"))
+        (string-append "XDG_RUNTIME_DIR=/run/user/" uid)
+        (string-append "DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/" uid "/bus")))
+#+END_SRC
 
-** Home env-vars don't reach shepherd
-home-environment-variables-service-type only sets shell session vars.
-Shepherd services inherit none of them.
-Must pass env vars directly in make-forkexec-constructor.
+See: emacs daemon implementation for working example.
+
+** Wrong Module: guix-home-service-type vs home-shepherd-service-type
+
+- guix-home-service-type is in (gnu services guix) — for Guix configuration in home
+- home-shepherd-service-type is in (gnu home services shepherd) — for home user services
+- NOT in (gnu home services) — that's the wrong module!
+
+Current usage in home.scm:
+- (gnu services guix) — manages guix configuration from home-environment
+- (gnu home services shepherd) — manages emacs daemon and other user services
+
+** Home-environment services vs system services
+
+NOT ALL SERVICES ARE SYSTEM-LEVEL. Understand the difference:
+
+*System services* (use shepherd-root-service-type, in Manifold):
+- Run as root
+- Start at boot
+- Accessible via `sudo herd status`
+- Examples: sshd, nginx, user accounts
+- Location: Manifold/substrate/user-space/root/*/
+- Use: (simple-service 'name shepherd-root-service-type ...)
+
+*Home-environment services* (use home-shepherd-service-type, in home-environment):
+- Run as current user
+- Start when home-environment is activated
+- Accessible via `herd status` (no sudo)
+- Examples: emacs daemon, wireplumber, user daemons
+- Location: Manifold/substrate/user-space/home/*/
+- Use: (simple-service 'name home-shepherd-service-type ...)
+
+Current home services:
+- emacs daemon (Manifold/substrate/user-space/home/emacs/daemon.scm)
+- PipeWire services (check home loaders)
+
+If you create a new user-level daemon, use home-shepherd-service-type.
+
+** Home environment variables don't reach shepherd
+home-environment-variables-service-type only sets shell session vars (.bashrc, etc).
+Shepherd services inherit NONE of them.
+
+CRITICAL: Pass env vars directly in make-forkexec-constructor:
+#+BEGIN_SRC scheme
+(make-forkexec-constructor
+  (list #$(file-append program "/bin/name"))
+  #:environment-variables
+  (list (string-append "XDG_RUNTIME_DIR=/run/user/" (number->string (getuid)))
+        "OTHER_VAR=value"))
+#+END_SRC
+
+Do NOT rely on home-environment-variables-service-type for daemon config.
+
+See also: [[./errors.org][Errors & Diagnostics]]

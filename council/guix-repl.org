@@ -5,10 +5,15 @@ Never reconfigure to test a module. REPL first, always.
 
 ** Launch
 
-Both system and container modules use the same flag:
+System, home-environment, and container modules ALL use the same load-path flag:
 #+BEGIN_SRC sh
 guix repl --load-path=/home/aoeu/.config/guix/Manifold
 #+END_SRC
+
+This works for:
+- System modules: (substrate user-space root ...)
+- Home-environment modules: (substrate user-space home ...)
+- Container modules: (systems containers ...)
 
 Note: The older syntax `guix repl -- -L /path` no longer works. Also, the warning
 "note: source file ... newer than compiled ..." is harmless noise — it just means
@@ -16,24 +21,37 @@ the cache is stale. The module loads correctly regardless.
 
 ** REPL command cheatsheet
 
-| Command                        | What it does                              |
-|--------------------------------|-------------------------------------------|
-| (use-modules (substrate ...))| Load a module                             |
-| ,module (substrate ...)      | Switch into a module's namespace          |
-| ,bindings                      | List all bindings in current module       |
-| ,apropos <name>                | Search for a symbol across loaded modules |
-| ,describe <symbol>             | Show documentation for a symbol           |
-| ,reload (substrate ...)      | Reload a module after editing             |
-| ,quit                          | Exit REPL                                 |
+| Command                              | What it does                              |
+|--------------------------------------|-------------------------------------------|
+| (use-modules (substrate ...))         | Load a module                             |
+| ,module (substrate user-space root shell nushell) | Switch to system module namespace    |
+| ,module (substrate user-space home emacs daemon)  | Switch to home module namespace     |
+| ,module (systems containers core-container)         | Switch to container module namespace |
+| ,bindings                            | List all bindings in current module       |
+| ,apropos <name>                      | Search for a symbol across loaded modules |
+| ,describe <symbol>                   | Show documentation for a symbol           |
+| ,reload (substrate ...)              | Reload a module after editing             |
+| ,quit                                | Exit REPL                                 |
 
 ** Workflow: validate a new submodule
 
+For SYSTEM modules:
 #+BEGIN_SRC scheme
 ;; 1. Load it
 (use-modules (substrate user-space root <category> <name>))
 
 ;; 2. Check exports — name may throw "unbound variable" even when module loaded
 ,module (substrate user-space root <category> <name>)
+,bindings
+#+END_SRC
+
+For HOME modules:
+#+BEGIN_SRC scheme
+;; 1. Load it
+(use-modules (substrate user-space home <category> <name>))
+
+;; 2. Check exports
+,module (substrate user-space home <category> <name>)
 ,bindings
 #+END_SRC
 
@@ -45,18 +63,33 @@ correctly. Use ,bindings to verify instead.
 
 ** Workflow: validate loader after adding a submodule
 
+For SYSTEM loaders:
 #+BEGIN_SRC scheme
 (use-modules (substrate user-space root loaders <category>))
 root-<category>-packages  ; must include your new package
 <name>                     ; must be accessible
 #+END_SRC
 
+For HOME loaders:
+#+BEGIN_SRC scheme
+(use-modules (substrate user-space home loaders <category>))
+home-<category>-services  ; must include your new service
+home-<name>-service      ; must be accessible
+#+END_SRC
+
 ** Workflow: validate root after adding a new loader
 
+For SYSTEM:
 #+BEGIN_SRC scheme
 (use-modules (substrate user-space root root))
 root-system-packages   ; must include new packages
 root-system-services   ; if you added services
+#+END_SRC
+
+For HOME:
+#+BEGIN_SRC scheme
+(use-modules (substrate user-space home home))
+literative-home-environment  ; must load clean without errors
 #+END_SRC
 
 ** Workflow: validate container modules
@@ -71,6 +104,31 @@ devsecops-service  ; service object
 
 (use-modules (systems containers containers))
 all-container-services  ; full list
+#+END_SRC
+
+** Workflow: validate home-environment modules
+
+Home-environment modules use the SAME load-path and validation as system modules:
+
+#+BEGIN_SRC scheme
+;; Load a home service module
+(use-modules (substrate user-space home emacs daemon))
+home-emacs-daemon-service  ; must return service object
+
+;; Load a home loader
+(use-modules (substrate user-space home loaders emacs))
+home-emacs-services  ; must include the services
+#+END_SRC
+
+Full home validation before reconfigure:
+#+BEGIN_SRC scheme
+(use-modules (substrate user-space home home))
+literative-home-environment  ; must load clean without errors
+#+END_SRC
+
+After validation, reconfigure home:
+#+BEGIN_SRC sh
+guix home reconfigure /home/aoeu/.config/guix/Manifold/substrate/user-space/home/home.scm
 #+END_SRC
 
 ** Workflow: find which (gnu packages ...) module contains a symbol
@@ -89,6 +147,7 @@ guix search nushell
 
 ** Workflow: debug "unbound variable" bottom-up
 
+For SYSTEM modules:
 #+BEGIN_SRC scheme
 ;; Stop at first error — that layer is where the fix goes
 (use-modules (substrate user-space root <category> <name>))     ; 1. submodule ok?
@@ -97,6 +156,17 @@ guix search nushell
 root-<category>-packages                                           ; 4. list correct?
 (use-modules (substrate user-space root root))                   ; 5. root ok?
 root-system-packages                                               ; 6. full list ok?
+#+END_SRC
+
+For HOME-ENVIRONMENT modules:
+#+BEGIN_SRC scheme
+;; Stop at first error — that layer is where the fix goes
+(use-modules (substrate user-space home <category> <name>))     ; 1. submodule ok?
+home-<name>-service                                                ; 2. symbol accessible?
+(use-modules (substrate user-space home loaders <category>))    ; 3. loader ok?
+home-<category>-services                                           ; 4. list correct?
+(use-modules (substrate user-space home home))                   ; 5. home-environment ok?
+literative-home-environment                                        ; 6. full config ok?
 #+END_SRC
 
 ** Reload after editing (no need to restart REPL)
@@ -108,11 +178,18 @@ root-system-packages                                               ; 6. full lis
 
 ** What success vs failure looks like
 
-Success:
+System module success:
 #+BEGIN_SRC
 scheme@(guile-user)> (use-modules (substrate user-space root shell nushell))
 scheme@(guile-user)> nushell
 $1 = #<package nushell@0.x.x gnu/packages/nushell.scm:xx xx>
+#+END_SRC
+
+Home module success:
+#+BEGIN_SRC
+scheme@(guile-user)> (use-modules (substrate user-space home emacs daemon))
+scheme@(guile-user)> home-emacs-daemon-service
+$1 = #<service 'emacs-daemon' (shepherd-root-service-type) ...>
 #+END_SRC
 
 Failure — wrong path:
@@ -121,8 +198,20 @@ ERROR: no code for module (substrate user-space root shell nushell)
 #+END_SRC
 -> file path or define-module path mismatch.
 
+Home failure — wrong path:
+#+BEGIN_SRC
+ERROR: no code for module (substrate user-space root emacs daemon)
+#+END_SRC
+-> Should be (substrate user-space *home* emacs daemon), not root!
+
 Failure — unbound variable:
 #+BEGIN_SRC
 ERROR: Unbound variable: nushell
 #+END_SRC
 -> submodule missing #:re-export or not imported in loader.
+
+Home failure — unbound variable:
+#+BEGIN_SRC
+ERROR: Unbound variable: home-emacs-daemon-service
+#+END_SRC
+-> home-emacs-daemon-service not exported or loader not re-exporting it.

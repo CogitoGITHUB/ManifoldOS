@@ -5,13 +5,24 @@ When <system-reminder> appears with mode change to "build", you are permitted to
 
 ** Decision Tree — before writing any code
 
-Is the package already in Guix proper?
+First: SYSTEM package or HOME package?
+  SYSTEM (system-wide, for all users):
+    Location: Manifold/substrate/user-space/root/
+    Reconfigure: sudo guix system reconfigure
+    Example: Most packages (core, shell, editors, etc.)
+  
+  HOME (current user profile + daemons):
+    Location: Manifold/substrate/user-space/home/
+    Reconfigure: guix home reconfigure
+    Example: emacs daemon, user-specific packages
+
+Then: Is the package already in Guix proper?
   YES -> Template A (thin submodule, just #:re-export)
          confirm: guix search <name>
   NO  -> search web for existing Guix channel recipe
-           FOUND     -> copy define-public from channel source -> Template B
-           NOT FOUND -> write from scratch                     -> Template B
-                        get hash: guix download <url>
+            FOUND     -> copy define-public from channel source -> Template B
+            NOT FOUND -> write from scratch                     -> Template B
+                         get hash: guix download <url>
 
 ** Decision Branch: Tool Not In Guix
 - Has prebuilt release? → url-fetch + trivial-build-system (rmpc pattern)
@@ -29,21 +40,36 @@ Copy package definitions directly into your submodule. Self-contained always.
 See [[../reference/loaders.org][loaders reference]] for all 28 categories.
 No fitting category -> create new dir + loader (Template C + Template D from [[../templates/infrastructure.org][templates/infrastructure]]).
 
-Current categories: core, networking, shell, editors, desktop, desktop/wallpaper,
+Current SYSTEM categories: core, networking, shell, editors, desktop, desktop/wallpaper,
 desktop/wayland, desktop/video, desktop/image, desktop/3d, terminal, containers,
 keyboard, ai, audio, fonts, sandbox, monitoring, programming-languages, security,
 formatters, lsp, scheduling, compute, ci, data, guix, password-manager, games.
+
+Current HOME categories: emacs (daemon), audio (services), loaders.
 
 *** Step 2 — Create submodule file
 File:   Manifold/substrate/user-space/root/<category>/<name>.scm
 Module: (substrate user-space root <category> <name>)
 Use Template A or B from [[../templates/basic.org][templates/basic]].
 
+For HOME packages/services:
+File:   Manifold/substrate/user-space/home/<category>/<name>.scm
+Module: (substrate user-space home <category> <name>)
+Use home-shepherd-service-type for services.
+
 *** Step 3 — Validate submodule in REPL
+For SYSTEM modules:
 #+BEGIN_SRC scheme
 (use-modules (substrate user-space root <category> <name>))
 <name>   ; must return package object, not an error
 #+END_SRC
+
+For HOME modules:
+#+BEGIN_SRC scheme
+(use-modules (substrate user-space home <category> <name>))
+<name>-service   ; must return service object, not an error
+#+END_SRC
+
 Do not proceed if this fails.
 
 *** Step 4 — Update the loader
@@ -65,10 +91,22 @@ root-system-packages  ; must load clean
 #+END_SRC
 
 *** Step 7 — Reconfigure
-Use reshape command: =reshape=
-Or run directly:
+
+If adding packages to *root-level Manifold* (system-wide):
 #+BEGIN_SRC sh
-reshape
+sudo guix system reconfigure /home/aoeu/.config/guix/guixos.scm
+#+END_SRC
+
+If adding *home-environment packages or services* (user profile + daemons):
+#+BEGIN_SRC sh
+guix home reconfigure /home/aoeu/.config/guix/Manifold/substrate/user-space/home/home.scm
+#+END_SRC
+
+Both may be needed if you modified both system and home files.
+After home reconfigure, restart home services:
+#+BEGIN_SRC sh
+herd restart emacs  ; if you modified emacs daemon
+herd restart pipewire  ; if you modified audio services
 #+END_SRC
 
 *** Step 8 — Test each package binary works
@@ -80,11 +118,19 @@ After reconfigure, verify every new package actually runs — not just that the 
 <package> -V 2>&1
 <package> 2>&1  # some packages exit with error but that's ok if binary runs
 #+END_SRC
-For services:
+
+For system services:
 #+BEGIN_SRC sh
 sudo herd status <service-name>  # should show running
 sudo grep -i <service-name> /var/log/messages | tail -5  # check for errors
 #+END_SRC
+
+For home services:
+#+BEGIN_SRC sh
+herd status <service-name>  # no sudo!
+herd log <service-name> | tail -10
+#+END_SRC
+
 If a binary is "command not found" or a service logs errors — FIX IT. Do not skip this step.
 
 *** Step 9 — Update next-tools.org

@@ -47,11 +47,6 @@ Check:
 2. define-module in file matches exactly: (substrate user-space root <category> <name>)
 3. REPL launched with correct flag: -L /home/aoeu/.config/guix/Manifold
 
-Note: Same rule applies to home-environment modules under user-space/home/:
-- File: Manifold/substrate/user-space/home/<category>/<name>.scm
-- Module: (substrate user-space home <category> <name>)
-- Same REPL flag works for both: -L /home/aoeu/.config/guix/Manifold
-
 ** Error: "invalid-base32-character" or hash format errors
 
 Cause: Wrong hash tool used.
@@ -79,79 +74,12 @@ sudo guix system roll-back
 sudo guix system switch-generation N
 #+END_SRC
 
-** Service not starting — home-environment services vs system services
-
-Home-environment services (in ~/.config/guix/home/) are managed by USER shepherd, NOT root.
-Use `herd` WITHOUT sudo:
-
-#+BEGIN_SRC sh
-# Home services (emacs daemon, wireplumber, etc)
-herd status emacs          ; no sudo
-herd log emacs             ; no sudo
-herd restart emacs         ; no sudo
-#+END_SRC
-
-System services use sudo (network, ssh, etc). Never use sudo with home services.
-
-** Service not starting — emacs daemon specific
-
-The emacs daemon requires several environment variables to create socket correctly:
-
-#+BEGIN_SRC sh
-# Check if daemon is running
-herd status emacs
-
-# Check logs for errors
-herd log emacs | tail -20
-
-# Restart if not running
-herd restart emacs
-#+END_SRC
-
-Common issues:
-- Socket missing at ~/.emacs.d/server — check XDG_RUNTIME_DIR is set
-- Error: "Cannot create socket" — verify /run/user/{uid} exists and is writable
-- Error: "native compilation" — daemon.scm must have EMACS_NATIVECOMP_AOTCOMP=no
-
-See also: [[../../Manifold/substrate/user-space/home/emacs/daemon.scm][daemon.scm]]
-
-** Service not starting — system services
+** Service not starting
 
 #+BEGIN_SRC sh
 sudo herd status <service-name>
 sudo herd log <service-name>
 sudo herd start <service-name>
-#+END_SRC
-
-** Error: emacs daemon won't start / socket not created
-
-Cause 1: Native compilation (.eln files) attempting to compile during daemon startup.
-Fix: daemon.scm must set environment variables BEFORE startup:
-#+BEGIN_SRC scheme
-#:environment-variables
-(list "EMACS_NATIVECOMP_AOTCOMP=no"
-      "EMACS_NATIVECOMP_DRIVER=no")
-#+END_SRC
-
-Cause 2: XDG_RUNTIME_DIR not set, socket created in /tmp instead of /run/user/{uid}
-Fix: daemon.scm must explicitly set XDG_RUNTIME_DIR:
-#+BEGIN_SRC scheme
-(string-append "XDG_RUNTIME_DIR=/run/user/" (number->string (getuid)))
-#+END_SRC
-
-Cause 3: init.el not calling server-start in daemon mode.
-Fix: init.el must have:
-#+BEGIN_SRC elisp
-(when (daemonp)
-  (unless (server-running-p)
-    (server-start)))
-#+END_SRC
-
-Verify fix:
-#+BEGIN_SRC sh
-herd restart emacs
-emacsclient -e '(+ 1 2)'  ; should return 3
-ls ~/.emacs.d/server      ; socket should exist
 #+END_SRC
 
 ** Post-reconfigure: always test package binaries

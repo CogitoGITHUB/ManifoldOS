@@ -111,6 +111,12 @@ When an Emacs package requires other Emacs packages at compile time (has `(requi
 
 CRITICAL: `inputs` makes deps available during byte-compilation. `propagated-inputs` makes them available at runtime. You need BOTH when the package has `(require 'dep)` at the top level.
 
+Note: Emacs packages defined in editors/emacs-packages/ are aggregated in root-emacs-packages
+and loaded into the home-profile (user's ~/.guix-home/profile). If an Emacs package has
+propagated-inputs, they will be available in the Emacs site-lisp path automatically.
+
+See: Manifold/substrate/user-space/root/editors/emacs-packages.scm
+
 ** Git-fetch hash gotcha
 
 The hash from `guix hash --recursive /path/to/checkout` will NOT match what Guix expects because:
@@ -172,7 +178,7 @@ subdirectory:
               (invoke "go" "install" "-ldflags=-s -w" "-trimpath"
                       (string-append import-path "/cmd/<binary>")))))))
     (propagated-inputs (list go-github-com-<dep1>
-                             go-github-com-<dep2>))
+                           go-github-com-<dep2>))
     (synopsis "<short description>")
     (description "<longer description>")
     (home-page "https://github.com/<user>/<repo>")
@@ -185,7 +191,7 @@ cmd/ subdirectory. The custom build phase installs the specific binary.
 To find Go dependency module paths:
 #+BEGIN_SRC sh
 guix import go github.com/<user>/<repo>
-# Look at propagated-inputs in the output
+# Look at propagaged-inputs in the output
 #+END_SRC
 
 To verify Go deps exist in Guix:
@@ -218,17 +224,68 @@ See also: [[./basic.org][Basic Templates]], [[./npm-fod.org][npm FOD Pattern]], 
         (sha256 (base32 "<hash-from-guix-download>"))))
     (build-system trivial-build-system)
     (arguments
-      (list #:modules '((guix build utils))
-            #:builder
-            #~(begin
-                (use-modules (guix build utils))
-                (let* ((out (assoc-ref %outputs "out"))
-                       (src (assoc-ref %build-inputs "source")))
-                  (mkdir-p (string-append out "/bin"))
-                  (copy-file src (string-append out "/bin/toolname"))
-                  (chmod (string-append out "/bin/toolname") #o755)))))
+     (list #:modules '((guix build utils))
+           #:builder
+           #~(begin
+               (use-modules (guix build utils))
+               (let* ((out (assoc-ref %outputs "out"))
+                      (src (assoc-ref %build-inputs "source")))
+                 (mkdir-p (string-append out "/bin"))
+                 (copy-file src (string-append out "/bin/toolname"))
+                 (chmod (string-append out "/bin/toolname") #o755)))))
     (home-page "https://github.com/user/toolname")
     (synopsis "...")
     (description "...")
     (license license:expat)))
 #+end_src
+
+** Emacs daemon service (shepherd service pattern)
+
+Home-environment services use a different pattern than packages. Here's the working pattern
+for emacs daemon (can adapt for other user-level daemons):
+
+#+BEGIN_SRC scheme
+(define-module (substrate user-space home emacs daemon)
+  #:use-module (gnu home services)
+  #:use-module (gnu home services shepherd)
+  #:use-module (gnu packages emacs)
+  #:use-module (guix gexp)
+  #:export (home-emacs-daemon-service))
+
+(define-public home-emacs-daemon-service
+  (simple-service 'emacs-daemon
+                  home-shepherd-service-type
+                  (list
+                    (shepherd-service
+                      (provision '(emacs))
+                      (documentation "Start the Emacs daemon for use with emacsclient.")
+                      (requirement '())
+                      (start #~(make-forkexec-constructor
+                                 (list #$(file-append emacs "/bin/emacs")
+                                       "--daemon")
+                                 #:environment-variables
+                                 (list (string-append "HOME=" (getenv "HOME"))
+                                       (string-append "XDG_RUNTIME_DIR=/run/user/" 
+                                                      (number->string (getuid)))
+                                       "EMACS_NATIVECOMP_AOTCOMP=no"
+                                       "EMACS_NATIVECOMP_DRIVER=no")
+                                 #:log-file (string-append (getenv "HOME") "/.emacs.d/daemon.log")
+                                 #:directory (getenv "HOME")))
+                      (stop #~(make-kill-destructor))
+                      (respawn? #f)
+                      (one-shot? #f)))))
+#+END_SRC
+
+Key differences from system services:
+1. Module path: (substrate user-space home ...) NOT (substrate user-space root ...)
+2. Service type: home-shepherd-service-type NOT shepherd-root-service-type
+3. #:environment-variables: CRITICAL for proper socket creation and daemon startup
+4. Export: use #:export (not #:re-export) for the service definition
+5. Logging: use user's ~/.emacs.d/daemon.log, NOT /var/log/
+
+Critical environment variables for emacs daemon:
+- XDG_RUNTIME_DIR — where socket is created (must use getuid, never hardcode)
+- EMACS_NATIVECOMP_AOTCOMP=no — prevents native compilation failures
+- EMACS_NATIVECOMP_DRIVER=no — prevents compiler driver loading at startup
+
+See: /home/aoeu/.config/guix/Manifold/substrate/user-space/home/emacs/daemon.scm
