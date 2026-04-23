@@ -20,14 +20,10 @@
   #:use-module (substrate user-space root loaders shell)
   #:use-module (substrate user-space root loaders keyboard)
   #:use-module (substrate user-space root loaders terminal)
-  #:use-module (substrate user-space root loaders desktop)
   #:use-module (substrate user-space root loaders ai)
   #:use-module (substrate user-space root loaders formatters)
   #:use-module (substrate user-space root loaders lsp)
   #:use-module (substrate user-space root loaders audio)
-  #:use-module (substrate user-space root loaders video)
-  #:use-module (substrate user-space root loaders image)
-  #:use-module (substrate user-space root loaders 3d)
   #:use-module (substrate user-space root loaders security)
   #:use-module (substrate user-space root loaders scheduling)
   #:use-module (substrate user-space root loaders compute)
@@ -35,7 +31,6 @@
   #:use-module (substrate user-space root loaders data)
   #:use-module (substrate user-space root loaders sandbox)
   #:use-module (substrate user-space root loaders fonts)
-  #:use-module (substrate user-space root loaders wayland)
   #:use-module (substrate user-space root loaders password-manager)
   #:use-module (substrate user-space root loaders games)
   #:use-module (substrate user-space root loaders containers)
@@ -55,16 +50,11 @@
           root-shell-fetch-packages
           root-keyboard-packages
           root-terminal-packages
-          root-desktop-packages
           root-ai-packages
           root-formatters-packages
           root-lsp-packages
           root-audio-packages
           root-compute-packages
-          root-desktop-video-packages
-          root-desktop-image-packages
-          root-desktop-3d-packages
-          root-desktop-wayland-packages
           root-security-packages
           root-password-manager-packages
           root-games-packages

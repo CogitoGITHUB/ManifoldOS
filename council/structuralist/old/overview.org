@@ -7,7 +7,7 @@ Every module path resolves relative to this root.
 
 ** Full Chain — guixos.scm to a single package
 
-/ManifoldOS/guixos.scm
+/ManifoldOS/system.scm
   -> (substrate substrate)                    substrate/substrate.scm
        -> (substrate kernel-space kernel-space) kernel-space/kernel-space.scm
             -> (substrate kernel-space linux)   kernel-space/linux.scm

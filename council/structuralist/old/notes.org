@@ -12,7 +12,7 @@ This rule exists because Guix will be cut from the system.
 
 ** Notes
 
-- guixos.scm is at /ManifoldOS/guixos.scm (repo root), NOT under Manifold/
+- guixos.scm is at /ManifoldOS/system.scm (repo root), NOT under Manifold/
 - Kernel uses standard nonguix `linux`, NOT corrupt-linux
 - audio/music/ subdirectory contains mpd, rmpc, cava (not flat under audio/)
 - security/password-store.scm and password-manager/password-store.scm both exist (duplicate)
