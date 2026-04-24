@@ -22,8 +22,8 @@
   #:use-module (gnu services desktop)
   #:use-module (guix gexp)
   #:re-export (yt-dlp gazelle-tui bluez bluetuith config-tailscaled-service-type
-               nmap wireshark bind-dns iperf iproute iwd)
-  #:export (root-networking-packages root-networking-services nss-certs))
+               nmap wireshark bind-dns iperf iproute iwd nss-certs)
+  #:export (root-networking-packages root-networking-services))
 
 (define-public root-networking-packages
   (list git github-cli lazygit openssh curl yt-dlp tailscale nss-certs network-manager gazelle-tui bluez bluetuith nmap wireshark bind-dns iperf iproute iwd))
