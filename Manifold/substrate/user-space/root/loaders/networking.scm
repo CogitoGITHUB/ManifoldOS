@@ -5,7 +5,7 @@
   #:use-module ((gnu packages networking) #:select (iwd))
   #:use-module (gnu packages linux)
   #:use-module ((gnu packages version-control) #:select (git))
-  #:use-module ((gnu packages certs) #:select (nss-certs))
+  #:use-module ((gnu packages nss) #:select (nss-certs))
   #:use-module (substrate user-space root networking version-control github-cli)
   #:use-module (substrate user-space root networking version-control lazygit)
   #:use-module (substrate user-space root networking yt-dlp)
