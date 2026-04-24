@@ -1,4 +1,7 @@
+
 ;; /ManifoldOS/guile-init/init.scm
+((@ (system repl repl) %inhibit-welcome-message) #t)
+
 (when (isatty? (current-input-port))
   (cond
     ((false-if-exception (resolve-interface '(ice-9 readline)))
