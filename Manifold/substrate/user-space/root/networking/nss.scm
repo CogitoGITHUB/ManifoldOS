@@ -1,29 +1,3 @@
-;;; GNU Guix --- Functional package management for GNU
-;;; Copyright © 2013-2019, 2023, 2026 Ludovic Courtès <ludo@gnu.org>
-;;; Copyright © 2014-2021 Mark H Weaver <mhw@netris.org>
-;;; Copyright © 2016-2019, 2021-2024 Efraim Flashner <efraim@flashner.co.il>
-;;; Copyright © 2017, 2018 Tobias Geerinckx-Rice <me@tobias.gr>
-;;; Copyright © 2020, 2021 Marius Bakke <marius@gnu.org>
-;;; Copyright © 2020 Jonathan Brielmaier <jonathan.brielmaier@web.de>
-;;; Copyright © 2021-2025 Maxim Cournoyer <maxim@guixotic.coop>
-;;; Copyright © 2021 Maxime Devos <maximedevos@telenet.be>
-;;; Copyright © 2024 Zheng Junjie <873216071@qq.com>
-;;;
-;;; This file is part of GNU Guix.
-;;;
-;;; GNU Guix is free software; you can redistribute it and/or modify it
-;;; under the terms of the GNU General Public License as published by
-;;; the Free Software Foundation; either version 3 of the License, or (at
-;;; your option) any later version.
-;;;
-;;; GNU Guix is distributed in the hope that it will be useful, but
-;;; WITHOUT ANY WARRANTY; without even the implied warranty of
-;;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-;;; GNU General Public License for more details.
-;;;
-;;; You should have received a copy of the GNU General Public License
-;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
-
 (define-module (substrate user-space root networking nss)
   #:use-module (guix packages)
   #:use-module ((guix search-paths) #:select ($SSL_CERT_DIR $SSL_CERT_FILE))
