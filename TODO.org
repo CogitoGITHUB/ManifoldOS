@@ -24,3 +24,6 @@ cuirass is not running. Needs work as noted.
 * https://github.com/gggion/org-transclusion-orgit
 
 * https://github.com/waelmahrous/wormhole
+
+* https://github.com/ryanmsnyder/workspace-manager.wezterm.git
+wezterm incredible update for workflow !! 
