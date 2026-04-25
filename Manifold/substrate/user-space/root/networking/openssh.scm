@@ -37,8 +37,12 @@ IETF secsh working group.")
     (license (license:non-copyleft "file://LICENSE"))
     (home-page "https://www.openssh.com/")))
 
+
 (define-public openssh-service
   (service openssh-service-type
            (openssh-configuration
              (permit-root-login #t)
-             (password-authentication? #t))))
+             (password-authentication? #f)
+             (authorized-keys
+               `(("root" ,(local-file "/home/aoeu/.ssh/id_ed25519.pub"))
+                 ("aoeu" ,(local-file "/home/aoeu/.ssh/id_ed25519.pub")))))))
