@@ -32,11 +32,15 @@
 (define-public root-networking-services
   (list (service network-manager-service-type
                  (network-manager-configuration
-                   (shepherd-requirement '(iwd))
-                   (wifi-backend 'iwd)))
+                   (shepherd-requirement '(iwd))))
         (service iwd-service-type)
         (service bluetooth-service-type
                  (bluetooth-configuration
                   (auto-enable? #t)))
         (service config-tailscaled-service-type)
-        openssh-service))
+        openssh-service
+        (simple-service 'network-manager-iwd-conf
+                        etc-service-type
+                        (list `("NetworkManager/conf.d/iwd.conf"
+                                ,(plain-file "iwd.conf"
+                                             "[device]\nwifi.backend=iwd\n"))))))
