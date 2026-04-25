@@ -31,7 +31,8 @@
 (define-public root-networking-services
   (list (service network-manager-service-type
                  (network-manager-configuration
-                   (shepherd-requirement '())))
+                   (shepherd-requirement '(wpa-supplicant))))
+        (service wpa-supplicant-service-type)
         (service bluetooth-service-type
                  (bluetooth-configuration
                   (auto-enable? #t)))
