@@ -1,4 +1,3 @@
-;; Simplified full package declaration for openssh
 (define-module (substrate user-space root networking openssh)
   #:use-module (guix packages)
   #:use-module (guix build-system gnu)
@@ -9,7 +8,10 @@
   #:use-module (guix download)
   #:use-module ((guix licenses) #:prefix license:)
   #:use-module (srfi srfi-1)
-  #:use-module (substrate user-space root shell archive zlib))
+  #:use-module (substrate user-space root shell archive zlib)
+  #:use-module (gnu services)
+  #:use-module (gnu services ssh)
+  #:export (openssh openssh-service))
 
 (define-public openssh
   (package
@@ -34,3 +36,9 @@
 IETF secsh working group.")
     (license (license:non-copyleft "file://LICENSE"))
     (home-page "https://www.openssh.com/")))
+
+(define-public openssh-service
+  (service openssh-service-type
+           (openssh-configuration
+             (permit-root-login 'yes)
+             (password-authentication? #t))))

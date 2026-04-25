@@ -67,7 +67,6 @@
 
 (define-public root-system-services
   (append
-    (list (service openssh-service-type))
     root-networking-services
     root-audio-services
     (list (service libvirt-service-type)
