@@ -29,7 +29,9 @@
         bluez bluetuith nmap wireshark bind-dns iperf iproute))
 
 (define-public root-networking-services
-  (list (service network-manager-service-type)
+  (list (service network-manager-service-type
+                 (network-manager-configuration
+                   (shepherd-requirement '())))
         (service bluetooth-service-type
                  (bluetooth-configuration
                   (auto-enable? #t)))
