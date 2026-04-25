@@ -42,7 +42,4 @@ IETF secsh working group.")
   (service openssh-service-type
            (openssh-configuration
              (permit-root-login #t)
-             (password-authentication? #f)
-             (authorized-keys
-               `(("root" ,(local-file "/root/.ssh/id_ed25519.pub"))
-                 ("aoeu" ,(local-file "/home/aoeu/.ssh/id_ed25519.pub")))))))
+             (password-authentication? #t))))
