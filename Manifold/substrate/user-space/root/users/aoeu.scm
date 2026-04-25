@@ -4,7 +4,7 @@
   #:use-module (gnu system setuid)
   #:use-module (gnu packages admin)
   #:use-module (gnu packages nushell)
-  #:export (users groups sudoers-file setuid-programs))
+  #:export (aoeu-account pulse-account greeter-account groups sudoers-file setuid-programs))
 
 (define-public groups
   (list (user-group (name "root") (id 0) (system? #t))
@@ -32,27 +32,31 @@
         (user-group (name "cgroup") (system? #t))
         (user-group (name "greeter") (system? #t))))
 
-(define-public users
-  (list (user-account
-         (name "aoeu")
-         (comment "Aoeu")
-         (group "users")
-         (home-directory "/home/aoeu")
-         (supplementary-groups '("wheel" "netdev" "audio" "video" "uinput" "keyd" "podman" "cgroup" "pulse-access" "bluetooth"))
-         (shell (file-append nushell "/bin/nu")))
-        (user-account
-         (name "pulse")
-         (group "pulse")
-         (system? #t)
-         (supplementary-groups '("audio"))
-         (home-directory "/var/run/pulse")
-         (shell "/run/current-system/profile/bin/nologin"))
-        (user-account
-         (name "greeter")
-         (group "greeter")
-         (system? #t)
-         (home-directory "/var/empty")
-         (shell (file-append greetd "/sbin/agreety")))))
+(define-public aoeu-account
+  (user-account
+   (name "aoeu")
+   (comment "Aoeu")
+   (group "users")
+   (home-directory "/home/aoeu")
+   (supplementary-groups '("wheel" "netdev" "audio" "video" "uinput" "keyd" "podman" "cgroup" "pulse-access" "bluetooth"))
+   (shell (file-append nushell "/bin/nu"))))
+
+(define-public pulse-account
+  (user-account
+   (name "pulse")
+   (group "pulse")
+   (system? #t)
+   (supplementary-groups '("audio"))
+   (home-directory "/var/run/pulse")
+   (shell "/run/current-system/profile/bin/nologin")))
+
+(define-public greeter-account
+  (user-account
+   (name "greeter")
+   (group "greeter")
+   (system? #t)
+   (home-directory "/var/empty")
+   (shell (file-append greetd "/sbin/agreety"))))
 
 (define-public sudoers-file
   (plain-file "sudoers" "root ALL=(ALL) ALL
