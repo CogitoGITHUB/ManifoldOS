@@ -1,5 +1,6 @@
 (define-module (substrate user-space root networking openssh)
   #:use-module (guix packages)
+  #:use-module (guix gexp)
   #:use-module (guix build-system gnu)
   #:use-module (gnu packages groff)
   #:use-module (gnu packages pkg-config)
