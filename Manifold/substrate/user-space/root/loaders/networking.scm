@@ -32,7 +32,8 @@
 (define-public root-networking-services
   (list (service network-manager-service-type
                  (network-manager-configuration
-                  (shepherd-requirement '(iwd))))
+                   (shepherd-requirement '(iwd))
+                   (wifi-backend 'iwd)))
         (service iwd-service-type)
         (service bluetooth-service-type
                  (bluetooth-configuration
