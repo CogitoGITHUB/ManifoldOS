@@ -1,4 +1,5 @@
 (define-module (substrate user-space root users root)
+  #:use-module (guix gexp)
   #:use-module (gnu system accounts)
   #:use-module (gnu packages nushell)
   #:export (root-account))
