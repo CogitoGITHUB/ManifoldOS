@@ -40,5 +40,5 @@ IETF secsh working group.")
 (define-public openssh-service
   (service openssh-service-type
            (openssh-configuration
-             (permit-root-login 'yes)
+             (permit-root-login #t)
              (password-authentication? #t))))

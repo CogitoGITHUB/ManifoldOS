@@ -1,6 +1,5 @@
 (define-module (substrate user-space root loaders networking)
   #:use-module (gnu packages curl)
-  #:use-module (gnu packages ssh)
   #:use-module (gnu packages networking)
   #:use-module ((gnu packages networking) #:select (iwd))
   #:use-module (gnu packages linux)
@@ -27,7 +26,7 @@
   #:export (root-networking-packages root-networking-services))
 
 (define-public root-networking-packages
-  (list git github-cli lazygit openssh curl yt-dlp tailscale nss-certs network-manager gazelle-tui
+  (list git github-cli lazygit curl yt-dlp tailscale nss-certs network-manager gazelle-tui
         bluez bluetuith nmap wireshark bind-dns iperf iproute iwd))
 
 (define-public root-networking-services
