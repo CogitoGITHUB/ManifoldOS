@@ -1,15 +1,20 @@
 (define-module (substrate user-space home home)
   #:use-module (gnu home)
   #:use-module (gnu home services)
-  #:use-module (gnu home services guix)
-  #:use-module (gnu home services xdg)
   #:use-module (gnu home services shepherd)
   #:use-module (gnu home services sound)
-  #:use-module (gnu services guix)
+  #:use-module (gnu packages emacs)
   #:use-module (guix gexp)
-  #:use-module (substrate user-space root editors emacs)
   #:use-module (substrate user-space home loaders audio)
   #:export (mappingos-home-environment))
+
+(define emacs-shepherd-service
+  (shepherd-service
+    (provision '(emacs-daemon))
+    (documentation "Emacs daemon")
+    (start #~(make-forkexec-constructor
+              (list #$(file-append emacs "/bin/emacs") "--fg-daemon")))
+    (stop #~(make-kill-destructor))))
 
 (define-public mappingos-home-environment
   (home-environment
@@ -17,7 +22,9 @@
     (services
      (append
       home-audio-services
-      (list emacs-daemon-service
+      (list (simple-service 'emacs-daemon
+                            home-shepherd-service-type
+                            (list emacs-shepherd-service))
             (simple-service 'home-packages
-                           home-profile-service-type
-                           (list)))))))
+                            home-profile-service-type
+                            (list)))))))
