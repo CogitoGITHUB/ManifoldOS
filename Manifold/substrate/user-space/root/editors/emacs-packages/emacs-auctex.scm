@@ -1,6 +1,7 @@
 (define-module (substrate user-space root editors emacs-packages emacs-auctex)
   #:use-module (guix packages)
   #:use-module (guix download)
+  #:use-module (guix gexp)
   #:use-module (guix build-system emacs)
   #:use-module (gnu packages emacs)
   #:use-module (gnu packages ghostscript)
