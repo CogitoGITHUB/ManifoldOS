@@ -11,10 +11,11 @@
 (define emacs-shepherd-service
   (shepherd-service
     (provision '(emacs-daemon))
-    (documentation "Emacs daemon")
+    (documentation "Emacs daemon — Control Center")
     (start #~(make-forkexec-constructor
               (list #$(file-append emacs "/bin/emacs") "--fg-daemon")))
-    (stop #~(make-kill-destructor))))
+    (stop #~(make-kill-destructor))
+    (auto-start? #t)))
 
 (define-public mappingos-home-environment
   (home-environment
