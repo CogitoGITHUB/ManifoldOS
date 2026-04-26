@@ -13,7 +13,7 @@
     (provision '(emacs-daemon))
     (documentation "Emacs daemon — Control Center")
     (start #~(make-forkexec-constructor
-              (list #$(file-append emacs-no-x "/bin/emacs") "--fg-daemon")))
+          (list #$(file-append emacs-minimal "/bin/emacs") "--fg-daemon")))
     (stop #~(make-kill-destructor))
     (auto-start? #t)))
 
