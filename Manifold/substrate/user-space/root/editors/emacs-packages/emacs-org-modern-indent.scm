@@ -3,7 +3,6 @@
   #:use-module (guix git-download)
   #:use-module (guix build-system emacs)
   #:use-module (substrate user-space root editors emacs-packages emacs-compat)
-  #:use-module (substrate user-space root editors emacs-packages emacs-org)
   #:use-module ((guix licenses) #:prefix license:)
   #:export (emacs-org-modern-indent))
 
@@ -22,7 +21,7 @@
         (base32 "09bg1shw06ddlxq678abr9q6g9wfc6b483xi0iwldxk4qbgzgpdj"))))
     (build-system emacs-build-system)
     (arguments (list #:tests? #f))
-    (propagated-inputs (list emacs-compat emacs-org))
+    (propagated-inputs (list emacs-compat))
     (home-page "https://github.com/jdtsmith/org-modern-indent")
     (synopsis "Modern block styling with Org Indent mode")
     (description "Org Modern mode cannot style various Org blocks properly
