@@ -13,7 +13,29 @@
     (provision '(emacs-daemon))
     (documentation "Emacs daemon — Control Center")
     (start #~(make-forkexec-constructor
-          (list #$(file-append emacs-minimal "/bin/emacs") "--fg-daemon")))
+              (list #$(file-append emacs-minimal "/bin/emacs") "--fg-daemon")))
+    (stop #~(make-kill-destructor))
+    (auto-start? #t)))
+
+(define ares-nrepl-shepherd-service
+  (shepherd-service
+    (provision '(ares-nrepl))
+    (documentation "Guile Ares RS nREPL server for Arei")
+    (start #~(make-forkexec-constructor
+              (list #$(file-append (@ (gnu packages guile) guile-3.0) "/bin/guile")
+                    "-L" #$(file-append (@ (gnu packages guile-xyz) guile-ares-rs)
+                                        "/share/guile/site/3.0")
+                    "-L" #$(file-append (@ (gnu packages guile-xyz) guile-fibers)
+                                        "/share/guile/site/3.0")
+                    "-c"
+                    "((@ (ares server) run-nrepl-server))")
+              #:environment-variables
+              (list (string-append "GUILE_LOAD_COMPILED_PATH="
+                                   #$(file-append (@ (gnu packages guile-xyz) guile-ares-rs)
+                                                  "/lib/guile/3.0/site-ccache")
+                                   ":"
+                                   #$(file-append (@ (gnu packages guile-xyz) guile-fibers)
+                                                  "/lib/guile/3.0/site-ccache")))))
     (stop #~(make-kill-destructor))
     (auto-start? #t)))
 
@@ -26,21 +48,9 @@
       (list (simple-service 'emacs-daemon
                             home-shepherd-service-type
                             (list emacs-shepherd-service))
+            (simple-service 'ares-nrepl
+                            home-shepherd-service-type
+                            (list ares-nrepl-shepherd-service))
             (simple-service 'home-packages
                             home-profile-service-type
                             (list)))))))
-
-
-(define ares-nrepl-shepherd-service
-  (shepherd-service
-    (provision '(ares-nrepl))
-    (documentation "Guile Ares RS nREPL server for Arei")
-    (start #~(make-forkexec-constructor
-              (list #$(file-append guile "/bin/guile")
-                    "-c"
-                    "(begin (use-modules (guix gexp)) ((@ (ares server) run-nrepl-server)))")
-              #:environment-variables
-              (list (string-append "GUILE_LOAD_PATH="
-                                   #$(file-append guile-ares-rs "/share/guile/site/3.0")))))
-    (stop #~(make-kill-destructor))
-    (auto-start? #t)))
