@@ -29,3 +29,18 @@
             (simple-service 'home-packages
                             home-profile-service-type
                             (list)))))))
+
+
+(define ares-nrepl-shepherd-service
+  (shepherd-service
+    (provision '(ares-nrepl))
+    (documentation "Guile Ares RS nREPL server for Arei")
+    (start #~(make-forkexec-constructor
+              (list #$(file-append guile "/bin/guile")
+                    "-c"
+                    "(begin (use-modules (guix gexp)) ((@ (ares server) run-nrepl-server)))")
+              #:environment-variables
+              (list (string-append "GUILE_LOAD_PATH="
+                                   #$(file-append guile-ares-rs "/share/guile/site/3.0")))))
+    (stop #~(make-kill-destructor))
+    (auto-start? #t)))
