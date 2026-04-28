@@ -9,6 +9,8 @@
   #:use-module (substrate user-space root editors emacs-packages emacs-org-tidy)
   #:use-module (substrate user-space root editors emacs-packages emacs-dash)
   #:use-module (substrate user-space root editors emacs-packages emacs-compat)
+  #:use-module (substrate user-space root editors emacs-packages emacs-meow)
+  #:use-module (substrate user-space root editors emacs-packages emacs-general)
   #:export (root-emacs-packages))
 
 (define-public root-emacs-packages
@@ -21,4 +23,6 @@
         emacs-org-modern-indent
         emacs-org-tidy
         emacs-dash
-        emacs-compat))
+        emacs-compat
+        emacs-meow
+        emacs-general))

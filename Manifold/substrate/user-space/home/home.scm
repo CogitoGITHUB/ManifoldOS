@@ -28,7 +28,7 @@
                     "-L" #$(file-append (@ (gnu packages guile-xyz) guile-fibers)
                                         "/share/guile/site/3.0")
                     "-c"
-                    "((@ (ares server) run-nrepl-server))")
+                    "((@ (ares server) run-nrepl-server) #:port 63225)")
               #:environment-variables
               (list (string-append "GUILE_LOAD_COMPILED_PATH="
                                    #$(file-append (@ (gnu packages guile-xyz) guile-ares-rs)

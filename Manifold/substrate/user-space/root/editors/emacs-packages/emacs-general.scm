@@ -1,0 +1,32 @@
+(define-module (substrate user-space root editors emacs-packages emacs-general)
+  #:use-module (guix packages)
+  #:use-module (guix git-download)
+  #:use-module (guix build-system emacs)
+  #:use-module ((guix licenses) #:prefix license:)
+  #:export (emacs-general))
+
+(define-public emacs-general
+  (let ((commit "a48768f85a655fe77b5f45c2880b420da1b1b9c3")
+        (revision "0"))
+    (package
+      (name "emacs-general")
+      (version (git-version "0.1" revision commit))
+      (source
+       (origin
+         (method git-fetch)
+         (uri (git-reference
+               (url "https://github.com/noctuid/general.el")
+               (commit commit)))
+         (sha256
+          (base32 "19k82p8pwyh3krq8i6l6calwy9wddqklj1klkdyawgh5ar230vb2"))
+         (file-name (git-file-name name version))))
+      (build-system emacs-build-system)
+      (arguments '(#:tests? #f))
+      (home-page "https://github.com/noctuid/general.el")
+      (synopsis "More convenient key definitions in emacs")
+      (description "@code{general.el} provides a more convenient method for
+binding keys in emacs (for both evil and non-evil users).  Like
+@code{use-package}, which provides a convenient, unified interface for
+managing packages, @code{general.el} is intended to provide a convenient,
+unified interface for key definitions.")
+      (license license:gpl3+))))
