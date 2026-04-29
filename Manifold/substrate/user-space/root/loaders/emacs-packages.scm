@@ -6,7 +6,6 @@
   #:use-module (substrate user-space root editors emacs-packages emacs-auctex)
   #:use-module (substrate user-space root editors emacs-packages emacs-cdlatex)
   #:use-module (substrate user-space root editors emacs-packages emacs-org-modern)
-  #:use-module (substrate user-space root editors emacs-packages emacs-org-supertag)
   #:use-module (substrate user-space root editors emacs-packages emacs-org-modern-indent)
   #:use-module (substrate user-space root editors emacs-packages emacs-org-tidy)
   #:use-module (substrate user-space root editors emacs-packages emacs-dash)
@@ -33,7 +32,6 @@
         emacs-org-modern
         emacs-org-modern-indent
         emacs-org-tidy
-        emacs-org-supertag
         emacs-dash
         emacs-compat
         emacs-modus-themes
