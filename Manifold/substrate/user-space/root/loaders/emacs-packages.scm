@@ -12,6 +12,7 @@
   #:use-module (substrate user-space root editors emacs-packages emacs-modus-themes)
   #:use-module (substrate user-space root editors emacs-packages emacs-yasnippet)
   #:use-module (substrate user-space root editors emacs-packages emacs-meow)
+  #:use-module (substrate user-space root editors emacs-packages emacs-god-mode)
   #:use-module (substrate user-space root editors emacs-packages emacs-general)
   #:export (root-emacs-packages))
 
@@ -27,6 +28,7 @@
         emacs-dash
         emacs-compat
 	emacs-modus-themes
+	emacs-god-mode
 	emacs-yasnippet
         emacs-meow
         emacs-general))
