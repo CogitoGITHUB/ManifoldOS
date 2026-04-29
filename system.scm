@@ -9,4 +9,3 @@
 (use-modules (constitution))
 
 os
-;; test

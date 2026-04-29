@@ -27,3 +27,17 @@ cuirass is not running. Needs work as noted.
 
 * https://github.com/ryanmsnyder/workspace-manager.wezterm.git
 wezterm incredible update for workflow !! 
+* https://github.com/LaurieWired/GhidraMCP.git
+* https://caddyserver.com/
+* https://github.com/ahujasid/blender-mcp.git
+* https://github.com/ShaneIsrael/fireshare.git
+* https://github.com/GIN-SYSTEMS/vigil-tui.git
+* https://github.com/asciimoo/hister.git
+* https://github.com/zoriya/Kyoo.git
+* https://github.com/vyfor/animate.git
+* https://github.com/areofyl/fetch.git
+* https://github.com/andrewjiang/palantir-for-family-trips.git
+* https://github.com/onesuper/tui-use.git
+* https://github.com/retlehs/quien.git
+* https://github.com/liixini/skwd-wall.git
+* 
