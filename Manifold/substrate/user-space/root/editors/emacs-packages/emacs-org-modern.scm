@@ -1,27 +1,24 @@
 (define-module (substrate user-space root editors emacs-packages emacs-org-modern)
   #:use-module (guix packages)
-  #:use-module (guix git-download)
+  #:use-module (guix download)
   #:use-module (guix gexp)
   #:use-module (guix build-system emacs)
   #:use-module (gnu packages texinfo)
-  #:use-module (gnu packages emacs-xyz)
-  #:use-module ((guix licenses) #:prefix license:)
   #:use-module (substrate user-space root editors emacs-packages emacs-compat)
+  #:use-module ((guix licenses) #:prefix license:)
   #:export (emacs-org-modern))
 
 (define-public emacs-org-modern
   (package
     (name "emacs-org-modern")
-    (version "1.13")
+    (version "1.5")
     (source
      (origin
-       (method git-fetch)
-       (uri (git-reference
-             (url "https://github.com/minad/org-modern")
-             (commit version)))
+       (method url-fetch)
+       (uri (string-append "https://github.com/minad/org-modern/archive/refs/tags/"
+                           version ".tar.gz"))
        (sha256
-        (base32 "16i1nwdilhpjlphpbwi8vjfwfb721gm0mm37hjx570wx4sskvg30"))
-       (file-name (git-file-name name version))))
+        (base32 "1bcd69y6ggmsbjs38yihs4w25wky87z9fmldc0k7kbd2qy85m0nw"))))
     (build-system emacs-build-system)
     (arguments
      (list
