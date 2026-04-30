@@ -1,3 +1,5 @@
+* log viewer  https://github.com/bensadeh/tailspin
+
 * agent files + todo for all folders !!!
 
 * OCI image not building
@@ -41,3 +43,8 @@ wezterm incredible update for workflow !!
 * https://github.com/retlehs/quien.git
 * https://github.com/liixini/skwd-wall.git
 * https://github.com/gfhdhytghd/hymission.git
+* https://github.com/matthart1983/netwatch
+* https://github.com/o2sh/onefetch
+* https://github.com/SurgeDM/Surge
+* https://github.com/lance0/ttl
+* 
