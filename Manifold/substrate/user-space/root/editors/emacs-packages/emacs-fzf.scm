@@ -3,7 +3,7 @@
   #:use-module (guix git-download)
   #:use-module (guix gexp)
   #:use-module (guix build-system emacs)
-  #:use-module (gnu packages shellutils)
+  #:use-module (gnu packages terminals)
   #:use-module ((guix licenses) #:prefix license:)
   #:export (emacs-fzf))
 
