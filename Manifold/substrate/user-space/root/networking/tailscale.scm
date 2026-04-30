@@ -45,7 +45,6 @@
 (define tailscale-state-dir "/var/lib/tailscale")
 (define tailscale-run-dir   "/var/run/tailscale")
 (define tailscale-socket    "/var/run/tailscale/tailscaled.sock")
-(define tailscale-state     "/var/lib/tailscale/tailscaled.state")
 
 (define tailscale-activation
   (with-imported-modules '((guix build utils))
@@ -65,9 +64,10 @@
       (requirement '(user-processes networking))
       (start #~(make-forkexec-constructor
                 (list #$tailscaled
-                      "--state"  #$tailscale-state
-                      "--socket" #$tailscale-socket
-                      "--port"   "41641")
+                      "--statedir" #$tailscale-state-dir
+                      "--socket"   #$tailscale-socket
+                      "--port"     "41641"
+                      "--verbose"  "1")
                 #:log-file "/var/log/tailscaled.log"))
       (stop  #~(make-kill-destructor))
       (respawn? #t)))))
