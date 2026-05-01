@@ -1,3 +1,5 @@
+;; YOU CAN SET THIS DIR AS HOME : export HOME=/ManifoldOS !!
+
 ;; SSH SETUP FOR NEW MACHINES (e.g. Termux):
 ;; 1. Install sshpass: pkg install sshpass
 ;; 2. Add to Termux usr/etc/bash.bashrc for auto-connect:
