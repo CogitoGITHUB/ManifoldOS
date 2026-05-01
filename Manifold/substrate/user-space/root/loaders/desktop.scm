@@ -1,0 +1,34 @@
+(define-module (substrate user-space root loaders desktop)
+  #:use-module (gnu packages wm)
+  #:use-module (gnu packages xdisorg)
+  #:use-module (gnu packages freedesktop)
+  #:use-module (gnu packages polkit)
+  #:use-module (gnu packages web-browsers)
+  #:use-module (substrate user-space root desktop pyprland)
+  #:export (root-desktop-packages))
+
+(define-public root-desktop-packages
+  (list
+    ;; Hyprland Compositor (latest: 0.54.3)
+    hyprland
+
+    ;; Hyprland Core Utilities
+    hyprpaper          ; Wallpaper utility
+    hyprlock           ; Screen locking utility
+    hypridle           ; Idle daemon
+    hyprsunset         ; Blue light filter
+    hyprpicker         ; Color picker
+    grimblast          ; Screenshot utility
+    
+    ;; Hyprland Desktop Integration
+    xdg-desktop-portal-hyprland  ; XDG portal backend
+;;    hyprland-qtutils             ; QT/QML utilities
+    hyprpolkitagent              ; Polkit authentication agent
+    
+    ;; Hyprland Extensions
+    python-pyprland
+
+    qutebrowser
+    quickshell
+
+    ))            ; Hyprland functionality extensions

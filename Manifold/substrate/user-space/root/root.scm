@@ -35,6 +35,7 @@
   #:use-module (substrate user-space root loaders password-manager)
   #:use-module (substrate user-space root loaders games)
   #:use-module (substrate user-space root loaders containers)
+  #:use-module (substrate user-space root loaders desktop)
   #:re-export (users groups sudoers-file setuid-programs manifoldos-image)
   #:export (root-system-packages root-system-services))
 
@@ -65,7 +66,9 @@
           root-data-packages
           sandbox-packages
           font-packages
+	  root-desktop-packages
           podman-packages))
+
 
 (define-public root-system-services
   (append
