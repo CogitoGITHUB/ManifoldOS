@@ -11,7 +11,7 @@
   #:use-module (gnu services)
   #:use-module (gnu services shepherd)
   #:use-module ((guix licenses) #:prefix license:)
-  #:export (tailscale tailscale-cli config-tailscaled-service-type))
+  #:export (tailscale config-tailscaled-service-type))
 
 (define-public tailscale
   (package
@@ -45,34 +45,64 @@
     (description "Tailscale is a zero-config VPN.")
     (license license:bsd-3)))
 
-(define-public tailscale-cli
-  (package
-    (name "tailscale-cli")
-    (version "0.1.0")
-    (source
-      (origin
-        (method git-fetch)
-        (uri (git-reference
-               (url "https://github.com/dimer47/tailscale-cli.git")
-               (commit "c100ae7dd633753303a9bc617719e698550756eb")))
-        (file-name (git-file-name name version))
-        (sha256 (base32 "0bml8xk60qfc2sy6821ks8lvq7bhj7rlb12jg92xljvmqra65zhj"))))
-    (build-system go-build-system)
-    (arguments
-      (list
-        #:import-path "github.com/dimer47/tailscale-cli"
-        #:install-source? #f))
-    (propagated-inputs
-      (list go))
-    (native-inputs
-      (list go))
-    (home-page "https://github.com/dimer47/tailscale-cli")
-    (synopsis "CLI for Tailscale API v2")
-    (description
-      "A command-line interface tool for the Tailscale API v2 that allows you to
-manage devices, ACLs, DNS, keys, users, webhooks and more from the terminal.
-Includes an MCP server (39 tools) for Claude Code and AI assistants.")
-    (license license:bsd-3)))
+;; (define tailscale-cli-vendor
+;;   (origin
+;;     (method url-fetch)
+;;     (uri "file:///tmp/tailscale-cli/tailscale-cli-vendor.tar.gz")
+;;     (sha256 (base32 "1rdjjabg318nwf2da184n6cc6rllymg5smmcmxir9kr22qwvij24"))))
+;;
+;; (define-public tailscale-cli
+;;   (package
+;;     (name "tailscale-cli")
+;;     (version "0.1.0")
+;;     (source
+;;       (origin
+;;         (method git-fetch)
+;;         (uri (git-reference
+;;                (url "https://github.com/dimer47/tailscale-cli.git")
+;;                (commit "c100ae7dd633753303a9bc617719e698550756eb")))
+;;         (file-name (git-file-name name version))
+;;         (sha256 (base32 "1gxzava7q7vjj8miy9hhqdcas6bpyvn86fimrgpnqa2bks3y4gl3"))))
+;;     (build-system go-build-system)
+;;     (arguments
+;;       (list
+;;         #:import-path "github.com/dimer47/tailscale-cli"
+;;         #:install-source? #f
+;;         #:phases
+;;         #~(modify-phases %standard-phases
+;;             (add-after 'unpack 'unpack-vendor
+;;               (lambda* (#:key import-path #:allow-other-keys)
+;;                 (let ((vendor-tar (assoc-ref %build-inputs "vendor")))
+;;                   (with-directory-excursion (string-append "src/" import-path)
+;;                     (invoke "tar" "-xzf" vendor-tar)))))
+;;             (add-after 'unpack-vendor 'patch-go-mod
+;;               (lambda* (#:key import-path #:allow-other-keys)
+;;                 (with-directory-excursion (string-append "src/" import-path)
+;;                   (substitute* "go.mod"
+;;                     (("^go 1\\.25.*") "go 1.24\n")
+;;                     (("^toolchain.*\n") "")))))
+;;             (replace 'build
+;;               (lambda* (#:key import-path outputs #:allow-other-keys)
+;;                 (setenv "GOTOOLCHAIN" "local")
+;;                 (setenv "GO111MODULE" "on")
+;;                 (with-directory-excursion (string-append "src/" import-path)
+;;                   (invoke "go" "build"
+;;                           "-v" "-trimpath"
+;;                           "-mod=vendor"
+;;                           "-ldflags=-s -w"
+;;                           "-o" (string-append (assoc-ref outputs "out") "/bin/tailscale-cli")
+;;                           ".")))))))
+;;     (native-inputs
+;;       `(("vendor" ,tailscale-cli-vendor)
+;;         ("go" ,go)
+;;         ("tar" ,tar)))
+;;     (home-page "https://github.com/dimer47/tailscale-cli")
+;;     (synopsis "CLI for Tailscale API v2")
+;;     (description
+;;       "A command-line interface tool for the Tailscale API v2 that allows you to
+;; manage devices, ACLs, DNS, keys, users, webhooks and more from the terminal.
+;; Includes an MCP server (39 tools) for Claude Code and AI assistants.")
+;;     (license license:bsd-3)))
 
 (define tailscale-state-dir "/var/lib/tailscale")
 (define tailscale-run-dir   "/var/run/tailscale")
@@ -113,5 +143,5 @@ Includes an MCP server (39 tools) for Claude Code and AI assistants.")
                         tailscale-shepherd-service)
      (service-extension activation-service-type
                         (const tailscale-activation))))
-   (default-value '())
-   (description "Run the Tailscale daemon and create required state directories.")))
+   (default-value #f)
+   (description "Run the Tailscale daemon.")))

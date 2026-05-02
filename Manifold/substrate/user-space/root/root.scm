@@ -36,6 +36,7 @@
   #:use-module (substrate user-space root loaders games)
   #:use-module (substrate user-space root loaders containers)
   #:use-module (substrate user-space root loaders desktop)
+  #:use-module (substrate user-space root loaders guix)
   #:re-export (users groups sudoers-file setuid-programs manifoldos-image)
   #:export (root-system-packages root-system-services))
 
@@ -66,12 +67,12 @@
           root-data-packages
           sandbox-packages
           font-packages
-	  root-desktop-packages
+          root-desktop-packages
           podman-packages))
-
 
 (define-public root-system-services
   (append
+    guix-services
     root-networking-services
     root-audio-services
     (list (service libvirt-service-type)
