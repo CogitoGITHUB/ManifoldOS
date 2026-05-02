@@ -1,13 +1,14 @@
 (define-module (substrate user-space root ai opencode)
-  #:use-module (guix packages)
-  #:use-module (guix download)
-  #:use-module (guix build-system trivial)
-  #:use-module (gnu packages base)
-  #:use-module (substrate user-space root shell archive unzip)
-  #:use-module (substrate user-space root shell archive gzip)
-  #:use-module (gnu packages elf)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:export (opencode))
+   #:use-module (guix packages)
+   #:use-module (guix download)
+   #:use-module (guix build-system trivial)
+   #:use-module (gnu packages base)
+   #:use-module (gnu packages gcc)
+   #:use-module (substrate user-space root shell archive unzip)
+   #:use-module (substrate user-space root shell archive gzip)
+   #:use-module (gnu packages elf)
+   #:use-module ((guix licenses) #:prefix license:)
+   #:export (opencode))
 
 (define-public opencode
   (package
@@ -21,7 +22,7 @@
               "/opencode-linux-x64.tar.gz"))
         (sha256 (base32 "1mj1h3ikk1c9mz62d6p4wd905wm6ld9amhck9kp2hn8abr5vgrys"))))
     (build-system trivial-build-system)
-    (inputs (list tar gzip patchelf glibc))
+    (inputs (list tar gzip patchelf glibc gcc))
     (arguments
      (list #:modules (quote ((guix build utils)))
            #:builder
