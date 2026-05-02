@@ -23,6 +23,7 @@
         (sha256 (base32 "1mj1h3ikk1c9mz62d6p4wd905wm6ld9amhck9kp2hn8abr5vgrys"))))
     (build-system trivial-build-system)
     (inputs (list tar gzip patchelf glibc gcc))
+    (propagated-inputs (list gcc glibc))
     (arguments
      (list #:modules (quote ((guix build utils)))
            #:builder
@@ -41,11 +42,16 @@
            (invoke tar "-xzf" src "-C" (string-append out "/bin"))
            (rename-file opencode-bin opencode-real)
            (invoke patchelf "--set-interpreter" interp opencode-real)
-           (call-with-output-file opencode-bin
-             (lambda (port)
-               (format port "#!/bin/sh\nOPENCODE_EXPERIMENTAL_MARKDOWN=0 exec ~a \"$@\"\n" opencode-real)))
+            (call-with-output-file opencode-bin
+              (lambda (port)
+                (let ((gcc (assoc-ref %build-inputs "gcc"))
+                      (glibc (assoc-ref %build-inputs "glibc")))
+                  (format port "#!/bin/sh\nexport LD_LIBRARY_PATH=~a/lib:~a/lib:$LD_LIBRARY_PATH\nOPENCODE_EXPERIMENTAL_MARKDOWN=0 exec ~a \"$@\"\n" 
+                          gcc glibc opencode-real))))
            (chmod opencode-bin #o555))))))
     (home-page "https://opencode.ai")
     (synopsis "The open source AI coding agent")
     (description "OpenCode is an AI coding agent built for the terminal.")
-    (license license:expat)))
+     (license license:expat)))
+
+opencode
