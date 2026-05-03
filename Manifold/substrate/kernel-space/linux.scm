@@ -125,17 +125,19 @@ on hardware which requires nonfree software to function."))))
 
 ;;; ============================================================================
 ;;; Linux Kernel Definitions (Vendored from NonGuix)
+;;; Version aliases are private to prevent the constitution.scm scanner from
+;;; picking up multiple kernel packages and causing profile conflicts.
 ;;; ============================================================================
 
-(define-public linux-6.19 (corrupt-linux linux-libre-6.19))
-(define-public linux-6.18 (corrupt-linux linux-libre-6.18))
-(define-public linux-6.12 (corrupt-linux linux-libre-6.12))
-(define-public linux-6.6  (corrupt-linux linux-libre-6.6))
-(define-public linux-6.1  (corrupt-linux linux-libre-6.1))
-(define-public linux-5.15 (corrupt-linux linux-libre-5.15))
-(define-public linux-5.10 (corrupt-linux linux-libre-5.10))
+(define linux-6.19 (corrupt-linux linux-libre-6.19))
+(define linux-6.18 (corrupt-linux linux-libre-6.18))
+(define linux-6.12 (corrupt-linux linux-libre-6.12))
+(define linux-6.6  (corrupt-linux linux-libre-6.6))
+(define linux-6.1  (corrupt-linux linux-libre-6.1))
+(define linux-5.15 (corrupt-linux linux-libre-5.15))
+(define linux-5.10 (corrupt-linux linux-libre-5.10))
 
-(define-public linux linux-6.18)
+(define-public linux     linux-6.18)
 (define-public linux-lts linux-6.12)
 
 ;;; ============================================================================

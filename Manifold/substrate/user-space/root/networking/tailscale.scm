@@ -145,3 +145,6 @@
                         (const tailscale-activation))))
    (default-value #f)
    (description "Run the Tailscale daemon.")))
+
+(define-public networking-tailscale-services
+  (list (service config-tailscaled-service-type)))
