@@ -50,3 +50,4 @@ wezterm incredible update for workflow !!
 * https://github.com/lance0/ttl
 * https://github.com/Domenez-dev/lazy-cron.git
 * https://github.com/Ronin-CK/QuickSnip
+* https://github.com/PlugwiseBV/LuaProbe.el.git
