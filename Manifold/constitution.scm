@@ -1,49 +1,181 @@
-;;; ManifoldOS Constitution
-;;; The supreme law of the system. Declares what exists, what runs, and what
-;;; is collected. All substrate modules are scanned and assembled here into
-;;; a single operating-system declaration.
-;;;
-;;; Sovereignty Principle:
-;;; This system belongs entirely to ManifoldOS. No external modules, channels,
-;;; or dependencies are permitted anywhere in the manifold. Every module
-;;; imported by any substrate file must live under manifold-root. Any external
-;;; import is a hard error — no exceptions, no exemptions, not even this file.
-;;; When this loader builds clean, the system is truly yours.
-;;; constitution:no-warn
+#|
+ManifoldOS — Constitution
+
+What is this file?
+
+  This is the supreme law of ManifoldOS — a custom GNU Guix Linux system
+  built on a single radical principle: the owner of the machine controls
+  every single line of code that runs on it. No exceptions.
+
+  In a standard Guix system, your configuration imports packages and
+  services from external channels maintained by others. Your system is
+  ultimately defined by decisions made elsewhere, by people you don't know,
+  on servers you don't control. If those servers go down, change their API,
+  push a bad update, or get compromised — your system is affected.
+
+  ManifoldOS eliminates this entirely. Every package definition, every
+  service, every build instruction lives inside this repository under
+  /ManifoldOS/Manifold. Nothing is fetched from external channels. Nothing
+  depends on a third party staying online or trustworthy. The system is
+  yours — completely, permanently, unconditionally.
+
+What does this file do?
+
+  This file is the entry point that Guix reads when you run:
+
+    sudo guix system reconfigure system.scm
+
+  It does four things:
+
+    1. SCAN    — Walks every .scm file under /ManifoldOS/Manifold and
+                 automatically discovers all package and service definitions.
+                 No manual wiring needed. Drop a file in, it's part of the
+                 system on the next reconfigure.
+
+    2. INJECT  — Loads a prelude module first and injects its bindings into
+                 every scanned module automatically. Individual module files
+                 need zero import boilerplate — they just declare what they define.
+
+    3. ENFORCE — After each module loads, verifies that it imports nothing
+                 from outside /ManifoldOS/Manifold. Any external import is a
+                 hard build error that names exactly what needs to be vendored.
+                 This is what makes sovereignty structural rather than a convention.
+
+    4. ASSEMBLE — Deduplicates all discovered packages and services, runs
+                 a regression check against the currently running system,
+                 and produces the final operating-system declaration that Guix builds.
+
+What is the Manifold?
+
+  The Manifold is the directory at /ManifoldOS/Manifold. It contains:
+
+    constitution.scm         — this file
+    prelude.scm              — shared bindings injected into all modules
+    substrate/kernel-space/  — kernel, bootloader, filesystem, hardware
+    substrate/user-space/    — all packages, services, and user config
+    declarations/            — vendored package definitions (no external deps)
+
+  Every .scm file in the Manifold is automatically discovered by the scanner.
+  Files contribute packages and services by defining public symbols ending in
+  -packages or -services, or bare package values.
+
+What is vendoring?
+
+  Vendoring means copying an external dependency's source code into your own
+  repository so you own it permanently. In ManifoldOS, every package definition
+  that would normally come from a Guix channel is instead copied into
+  declarations/ and owned by you. The sovereignty enforcer in this file makes
+  vendoring mandatory — it will not let the system build until every dependency
+  lives inside the Manifold.
+
+What is the prelude?
+
+  The prelude.scm file is the single place where external imports are permitted
+  during the vendoring process. It aggregates all shared bindings — build
+  systems, package primitives, common dependencies — and the constitution
+  injects it into every module automatically. As vendoring progresses, the
+  prelude's external imports shrink. When vendoring is complete, the prelude
+  itself becomes fully sovereign.
+
+What does "sovereignty violation" mean?
+
+  If any module imports something from outside the Manifold, the build stops
+  immediately with an error like:
+
+    constitution: sovereignty violation in substrate/shell/atuin.scm
+    — imports external module gnu/packages/base at /gnu/store/.../base.scm
+    — vendor it into manifold-root
+
+  The fix is to copy that module's definition into declarations/ and update
+  the import to point there instead.
+
+constitution:no-warn
+|#
 
 
 (define-module (constitution)
-  ;; Scanner utilities
   #:use-module (ice-9 ftw)
   #:use-module (srfi srfi-1)
   #:use-module (srfi srfi-11)
-  ;; OS declaration
   #:use-module (gnu system)
   #:use-module (gnu services)
   #:use-module (gnu services base)
   #:use-module (gnu services guix)
   #:use-module (guix packages)
   #:use-module (guix profiles)
-  ;; Substrate anchors
   #:use-module (substrate kernel-space kernel-space)
   #:use-module (substrate user-space root users users)
   #:use-module (substrate user-space home home))
 
 
-;;; Manifold Root
-;;; The absolute path to the Manifold directory. All scanning is rooted here.
-;;; Falls back to a known absolute path if current-filename is unavailable
-;;; (e.g. when loaded via guix system rather than directly).
+#|
+Manifold Root
+
+The absolute path to the Manifold directory. Every file path in this loader
+is derived from this root. Falls back to a hardcoded absolute path when
+current-filename is unavailable — for example when loaded directly via
+guix system reconfigure rather than guix repl.
+|#
 
 (define manifold-root
   (or (and=> (current-filename) dirname)
       "/ManifoldOS/Manifold"))
 
 
-;;; Pragma Reader
-;;; Reads the first 10 lines of a file and checks for constitution:no-warn.
-;;; Files with this pragma have warnings suppressed but are still fully
-;;; scanned and collected. Errors always halt regardless of pragma.
+#|
+Prelude Loader
+
+The prelude is a special module that aggregates all shared bindings — build
+systems, package primitives, licenses, common inputs — into one place.
+Instead of every module file repeating the same #:use-module declarations,
+the constitution loads the prelude once and injects it into every scanned
+module automatically via Guile's module-use!.
+
+The result: individual module files need zero import boilerplate. They just
+define their packages and services. The constitution handles the rest.
+
+The prelude is the single declared sovereignty boundary — the only file
+allowed to import from outside the Manifold during the vendoring phase.
+As vendoring progresses and more definitions move into declarations/, the
+prelude's external imports shrink. When complete, it imports nothing external.
+
+If prelude.scm does not exist, injection is silently skipped and modules
+fall back to declaring their own imports normally.
+|#
+
+(define prelude-module
+  (let ((prelude-file (string-append manifold-root "/prelude.scm")))
+    (if (file-exists? prelude-file)
+        (begin
+          (load prelude-file)
+          (resolve-module '(prelude)))
+        #f)))
+
+(define (inject-prelude! mod)
+  #|
+  Injects the prelude module into MOD's use list via module-use! so that all
+  prelude-exported symbols are visible inside MOD without any explicit import
+  statement in the module file itself.
+
+  Called AFTER each module loads — not before — because Guile's define-module
+  resets the module's use list when it executes. Injecting after load means
+  the injection is never wiped by define-module.
+  |#
+  (when prelude-module
+    (module-use! mod prelude-module)))
+
+
+#|
+Pragma Reader
+
+Some files in the Manifold legitimately export things that are not packages
+or services — this file exports the os record, for example. Without a way
+to silence them, these files would trigger spurious collector warnings.
+
+Any file containing the string constitution:no-warn anywhere in its first
+10 lines will have collector warnings suppressed. Errors always halt
+regardless of the pragma. Scanning and collection still run normally.
+|#
 
 (define (file-no-warn? file)
   (call-with-input-file file
@@ -59,49 +191,82 @@
                       (loop (- n 1))))))))))
 
 
-;;; Module Name Formatter
-;;; Formats a module name list as a readable path string for error messages.
-;;; Example: (substrate foo bar) -> "substrate/foo/bar"
+#|
+Module Name Formatter
+
+Converts a Guile module name list to a human-readable path string.
+Used exclusively in error messages so violations are easy to locate.
+
+Example:
+  (substrate user-space root shell atuin) -> "substrate/user-space/root/shell/atuin"
+|#
 
 (define (format-module-name mod-name)
   (string-join (map symbol->string mod-name) "/"))
 
 
-;;; Sovereignty Enforcer
-;;; Walks every import of a loaded module and verifies it resolves to a file
-;;; under manifold-root. Any module resolving outside manifold-root is a hard
-;;; error — no external channels, no Guix modules, no exceptions.
-;;; This is what makes the system truly yours.
+#|
+Sovereignty Enforcer
+
+After each module loads, walks its full import list and checks that every
+imported module resolves to a file inside manifold-root. If any import
+resolves outside — a Guix channel module, an upstream package definition,
+anything external — the build halts immediately with an error that names:
+
+  - The file containing the violation
+  - The external module it tried to import
+  - The exact path where that external module was found on disk
+
+The prelude module is the only exception. It is the declared sovereignty
+boundary and is explicitly excluded from this check. All other modules
+must be fully sovereign — no exceptions, no exemptions.
+
+The fix for any violation is always the same: copy the external module's
+definition into the appropriate location under manifold-root, update the
+import to point there, and rebuild.
+|#
 
 (define (assert-sovereign! mod file)
   (let ((imports (module-uses mod)))
     (for-each
      (lambda (dep)
-       (let* ((dep-name (module-name dep))
-              (dep-file (search-path %load-path
-                                     (string-append
-                                      (string-join (map symbol->string dep-name) "/")
-                                      ".scm"))))
-         (when dep-file
-           (unless (string-prefix? manifold-root dep-file)
-             (error (format #f "constitution: sovereignty violation in ~a — imports external module ~a at ~a — vendor it into manifold-root"
-                            file
-                            (format-module-name dep-name)
-                            dep-file))))))
+       (unless (eq? dep prelude-module)
+         (let* ((dep-name (module-name dep))
+                (dep-file (search-path %load-path
+                                       (string-append
+                                        (string-join (map symbol->string dep-name) "/")
+                                        ".scm"))))
+           (when dep-file
+             (unless (string-prefix? manifold-root dep-file)
+               (error (format #f "constitution: sovereignty violation in ~a — imports external module ~a at ~a — vendor it into manifold-root"
+                              file
+                              (format-module-name dep-name)
+                              dep-file)))))))
      imports)))
-;;; Walks the local obarray of a single resolved module and extracts:
-;;;   - Any symbol ending in "-packages" whose value is a list of packages
-;;;   - Any symbol ending in "-services" (non-home) whose value is a list of services
-;;;   - Any bare exported package value
-;;;
-;;; Uses module-obarray directly so only truly local bindings are visited —
-;;; inherited bindings from #:use-module imports are never seen, making the
-;;; re-export check redundant by construction.
-;;;
-;;; If the module has public exports but none matched any known pattern,
-;;; a warning is emitted (suppressed if constitution:no-warn is set).
-;;;
-;;; Returns a pair: (packages . services)
+
+
+#|
+Module Collector
+
+After a module loads and passes sovereignty enforcement, extracts its
+contributions to the system — packages and services.
+
+Walks the module's local obarray directly, which means it only sees
+bindings defined in that file itself. Inherited bindings from #:use-module
+imports are invisible here, so re-exports are never double-counted.
+
+A binding is collected if it matches one of these patterns:
+  - A symbol ending in -packages whose value is a list of packages
+  - A symbol ending in -services (excluding home- prefix) whose value
+    is a list of services
+  - Any bare package value regardless of symbol name
+
+If a module exports public bindings but none match any pattern, a warning
+is emitted. This catches typos like -package instead of -packages before
+they silently drop something from the system. Suppressed by no-warn pragma.
+
+Returns a pair: (packages . services)
+|#
 
 (define (collect-from-module mod no-warn?)
   (let ((packages '())
@@ -137,10 +302,15 @@
     (cons packages services)))
 
 
-;;; Module Name Resolver
-;;; Converts an absolute .scm file path to a Guile module name list.
-;;; Example:
-;;;   /ManifoldOS/Manifold/substrate/foo/bar.scm -> (substrate foo bar)
+#|
+Module Name Resolver
+
+Converts an absolute .scm file path into the Guile module name list that
+Guile uses to load and resolve that module.
+
+Example:
+  /ManifoldOS/Manifold/substrate/shell/atuin.scm -> (substrate shell atuin)
+|#
 
 (define (file->module-name file root)
   (let* ((relative (substring file (+ 1 (string-length root))))
@@ -149,21 +319,30 @@
     (map string->symbol parts)))
 
 
-;;; Manifold Scanner
-;;; Recursively finds all .scm files under manifold-root, resolves each as a
-;;; Guile module, and collects packages and services from each.
-;;;
-;;; Files are sorted lexicographically before processing to ensure
-;;; deterministic ordering.
-;;;
-;;; Only files matching ^[^.]+\.scm$ are considered — backup files, dotfiles,
-;;; org files, shell scripts and anything else are invisible to the scanner.
-;;;
-;;; If the source file is newer than its compiled .go, it is force-reloaded
-;;; to ensure the scanner never operates on stale compiled modules.
-;;;
-;;; Every anomaly is a hard error that halts the build immediately.
-;;; Returns two values: (packages services) and emits a scan summary.
+#|
+Manifold Scanner
+
+The heart of the constitution. Recursively walks every .scm file under
+manifold-root and processes each one in order. For every file it:
+
+  1. Skips prelude.scm — loaded separately before scanning began
+  2. Reloads the file if its source is newer than its compiled .go cache,
+     ensuring the scanner never operates on stale compiled output
+  3. Resolves the module by name — hard error if it cannot be found
+  4. Injects the prelude into the module via module-use!
+  5. Asserts sovereignty — hard error if any external import is found
+  6. Collects packages and services from the module's local obarray
+  7. Accumulates results and moves to the next file
+
+Files are sorted lexicographically for deterministic build order.
+Only files matching ^[^.]+\.scm$ are considered — dotfiles, backup files,
+org files, shell scripts and everything else is invisible to the scanner.
+
+At the end, prints to stderr:
+  constitution: scanned N files — P packages, S services
+
+Returns two values: (packages services)
+|#
 
 (define (scan-manifold root)
   (let loop ((files    (sort (find-files root "^[^.]+\\.scm$") string<?))
@@ -181,31 +360,39 @@
         (let* ((file     (car files))
                (no-warn? (file-no-warn? file))
                (mod-name (file->module-name file root))
-               ;; Force reload if source is newer than compiled .go
-               (_        (let* ((go   (compiled-file-name file))
-                                (s-t  (stat:mtime (stat file)))
-                                (g-t  (if (file-exists? go)
+               (prelude? (equal? mod-name '(prelude))))
+          (if prelude?
+              (loop (cdr files) packages services n-files)
+              (let* ((_   (let* ((go  (compiled-file-name file))
+                                 (s-t (stat:mtime (stat file)))
+                                 (g-t (if (file-exists? go)
                                           (stat:mtime (stat go))
                                           0)))
-                           (when (> s-t g-t)
-                             (load file))))
-               (mod      (resolve-module mod-name)))
-          (unless mod
-            (error (format #f "constitution: failed to load module ~a from ~a"
-                           (format-module-name mod-name) file)))
-          (assert-sovereign! mod file)
-          (let* ((result (collect-from-module mod no-warn?))
-                 (pkgs   (car result))
-                 (svcs   (cdr result)))
-            (loop (cdr files)
-                  (append pkgs packages)
-                  (append svcs services)
-                  (+ n-files 1)))))))
+                            (when (> s-t g-t)
+                              (load file))))
+                     (mod (resolve-module mod-name)))
+                (unless mod
+                  (error (format #f "constitution: failed to load module ~a from ~a"
+                                 (format-module-name mod-name) file)))
+                (inject-prelude! mod)
+                (assert-sovereign! mod file)
+                (let* ((result (collect-from-module mod no-warn?))
+                       (pkgs   (car result))
+                       (svcs   (cdr result)))
+                  (loop (cdr files)
+                        (append pkgs packages)
+                        (append svcs services)
+                        (+ n-files 1)))))))))
 
 
-;;; Package Deduplication
-;;; Uses a hash table for O(n) duplicate name detection.
-;;; Duplicate package names across different objects are a hard error.
+#|
+Package Deduplication
+
+Two references to the exact same package object are silently collapsed.
+Two different package objects with the same name are a hard build error —
+this means two files defined the same package differently, which is always
+a mistake that must be fixed before the system can be built.
+|#
 
 (define (dedupe-packages pkgs)
   (let ((seen (make-hash-table)))
@@ -222,9 +409,15 @@
   (delete-duplicates pkgs eq?))
 
 
-;;; Service Deduplication
-;;; Keeps all services and lets Guix handle merging.
-;;; Warns once per duplicate pair using a hash table.
+#|
+Service Deduplication
+
+Services are deduplicated more leniently than packages. If two modules
+contribute a service of the same type, a warning is emitted but the build
+continues — Guix itself handles the merge and decides the winner. This is
+intentional because some service types are legitimately extended by multiple
+modules, and halting on every duplicate would be too aggressive.
+|#
 
 (define (dedupe-services svcs)
   (let ((seen (make-hash-table)))
@@ -241,10 +434,21 @@
   svcs)
 
 
-;;; Regression Check
-;;; If /run/current-system exists, reads the active system's package manifest
-;;; and warns about any package present in the running system that is missing
-;;; from the current scan. Never halts — warnings only.
+#|
+Regression Check
+
+Reads the package manifest of the currently running system and compares it
+against the packages just discovered by the scanner. Any package that was
+in the running system but is absent from the new scan triggers a warning.
+
+This catches accidental deletions — if a module file is removed, renamed,
+or an export is misspelled, the package silently disappears from the next
+system. The regression check surfaces this before reconfigure completes so
+you can decide whether the removal was intentional or a mistake.
+
+Never halts the build. Silently skipped on a fresh install where
+/run/current-system does not yet exist.
+|#
 
 (define (check-regressions new-pkgs)
   (let ((profile "/run/current-system/profile"))
@@ -263,21 +467,36 @@
                      name)))
          current-names)))))
 
+
+#|
+Scan + Deduplicate + Regression Check
+
+Runs the full pipeline: scan every file, deduplicate results, check for
+regressions against the running system. Produces the two values consumed
+by the OS declaration below.
+|#
+
 (define-values (all-packages all-services)
   (let-values (((pkgs svcs) (scan-manifold manifold-root)))
+    (check-regressions pkgs)
     (values (dedupe-packages pkgs)
             (dedupe-services svcs))))
 
 
-;;; OS Declaration
-;;; The single operating-system record that guix system consumes.
-;;; All bindings (kernel, file-systems, users, etc.) come from explicitly
-;;; imported substrate modules. Packages and services come from the scanner.
-;;;
-;;; Service priority (first wins if Guix cannot merge):
-;;;   1. kernel-system-services  — lowest level, hardware and kernel
-;;;   2. all-services            — scanned user-space services
-;;;   3. guix-home-service-type  — home environment
+#|
+OS Declaration
+
+The final operating-system record that Guix builds. Every structural
+binding — host-name, kernel, file-systems, users, bootloader — comes from
+the explicitly imported substrate modules at the top of this file.
+Packages and services come entirely from the scanner output.
+
+Service assembly order (first wins when Guix cannot merge):
+  1. kernel-system-services — hardware, kernel modules, lowest level
+  2. all-services           — everything scanned from user-space modules
+  3. guix-home-service-type — home environment for user aoeu
+  4. %base-services         — Guix baseline every system needs
+|#
 
 (define-public os
   (operating-system
@@ -304,101 +523,3 @@
                        %base-services)
                (lambda (a b)
                  (eq? (service-kind a) (service-kind b)))))))
-
-
-#|
-============================================================================
-ManifoldOS Sovereignty Model — Design, Implementation, and Intent
-============================================================================
-
-The Goal
---------
-Most Linux systems are configurations layered on top of someone else's work.
-You declare what you want, a package manager fetches it from external servers,
-and your system is ultimately defined by decisions made elsewhere. You depend
-on channels, mirrors, upstream maintainers, and build farms staying online and
-trustworthy. ManifoldOS is built to eliminate every one of these dependencies.
-
-The Sovereignty Principle
--------------------------
-Every single thing that runs on this machine must originate from inside
-/ManifoldOS/Manifold. No external Guix channels. No upstream package
-definitions pulled from ci.guix.gnu.org. No #:use-module pointing outside
-manifold-root. If it is not in the manifold, it does not exist on this system.
-
-This is enforced at build time by the constitution loader itself. It is not
-a convention or a guideline — it is a hard error that stops the build
-immediately and tells you exactly what needs to be vendored.
-
-How It Works
-------------
-The scanner (scan-manifold) loads every .scm file under manifold-root as a
-Guile module. After each module loads, assert-sovereign! walks the full list
-of modules that file imported via #:use-module. For each imported module it
-resolves the source file path using %load-path. If that path is not under
-manifold-root, the build halts with an error naming:
-  - The file that contains the violation
-  - The external module it tried to import
-  - The path where that external module was found
-
-This means the enforcement is structural, not textual. It does not grep for
-import statements — it inspects the actual resolved module graph at runtime,
-so there is no way to sneak an external dependency through an alias or an
-indirect import.
-
-The Vendoring Process
----------------------
-When a sovereignty violation is reported, the fix is to vendor the offending
-module. That means:
-  1. Copy the external module's source into an appropriate location under
-     manifold-root (e.g. substrate/guix/packages/tls.scm)
-  2. Update its define-module declaration to match its new path
-  3. Update the #:use-module in your substrate file to point to the vendored copy
-  4. Repeat until the build is clean
-
-Each vendored module may itself import other external modules, which will then
-surface as the next sovereignty violation. You work through them one by one
-until the entire dependency graph lives inside manifold-root.
-
-This process is intentionally incremental. The system builds and runs at every
-step — you vendor one module, the build gets one step closer to full
-sovereignty. You never have to vendor everything at once.
-
-What Full Sovereignty Means
----------------------------
-When the constitution loader builds without any sovereignty violations, it
-means every line of code that runs on this machine was put there by you. No
-external actor can break your system by taking down a server, changing an API,
-revoking a signing key, or pushing a malicious update. The system is frozen
-in exactly the state you chose, and it will stay that way until you change it.
-
-This is not paranoia. This is ownership.
-
-The Regression Check
---------------------
-As an additional safety net, the loader reads the package manifest of the
-currently running system from /run/current-system/profile before each build.
-Any package that was present in the running system but is absent from the new
-scan emits a warning. This catches accidental deletions — if you remove a
-substrate file or rename an export and something disappears from the system,
-you are told about it before the reconfigure completes. The build never halts
-on this — it is information, not an error. You decide whether the removal was
-intentional.
-
-The No-Warn Pragma
-------------------
-Some files legitimately export things that are not packages or services — the
-constitution.scm file itself exports the `os` record, for example. These files
-would trigger a spurious warning about contributing nothing to the scan. The
-pragma:
-
-  ;;; constitution:no-warn
-
-placed anywhere in the first 10 lines of a file tells the loader to suppress
-warnings for that file. It has no effect on errors — those always halt
-regardless of the pragma. It has no effect on scanning — the file is still
-fully loaded and collected. It only silences warnings that are known to be
-intentional for that specific file.
-
-============================================================================
-|#
