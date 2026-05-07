@@ -51,3 +51,4 @@ wezterm incredible update for workflow !!
 * https://github.com/Ronin-CK/QuickSnip
 * https://github.com/PlugwiseBV/LuaProbe.el.git
 * https://codeberg.org/y1nz/typie.git
+* https://github.com/Linuxdrito/fetchlains
