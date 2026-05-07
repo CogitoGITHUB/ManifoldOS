@@ -1,17 +1,3 @@
-(define-module (substrate user-space root networking gazelle-tui)
-  #:use-module (guix packages)
-  #:use-module (guix download)
-  #:use-module (guix build-system trivial)
-  #:use-module (gnu packages base)
-  #:use-module (substrate user-space root shell archive unzip)
-  #:use-module (substrate user-space root shell archive gzip)
-  #:use-module (gnu packages python)
-  #:use-module (gnu packages python-build)
-  #:use-module (gnu packages python-xyz)
-  #:use-module (gnu packages tree-sitter)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:export (gazelle-tui))
-
 (define-public gazelle-tui
   (package
     (name "gazelle-tui")

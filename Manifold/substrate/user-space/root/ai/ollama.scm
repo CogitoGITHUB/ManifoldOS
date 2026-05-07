@@ -1,17 +1,3 @@
-(define-module (substrate user-space root ai ollama)
-  #:use-module (guix packages)
-  #:use-module (guix download)
-  #:use-module (guix build-system trivial)
-  #:use-module (gnu packages bash)
-  #:use-module (gnu packages base)
-  #:use-module (substrate user-space root shell archive unzip)
-  #:use-module (substrate user-space root shell archive zstd)
-  #:use-module (gnu packages elf)
-  #:use-module (gnu packages gcc)
-  #:use-module (gnu services)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:export (ollama))
-
 (define-public ollama
   (package
     (name "ollama")

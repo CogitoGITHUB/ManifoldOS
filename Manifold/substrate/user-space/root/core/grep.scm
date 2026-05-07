@@ -1,14 +1,3 @@
-(define-module (substrate user-space root core grep)
-  #:use-module (guix packages)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix gexp)
-  #:use-module (guix utils)
-  #:use-module (gnu packages perl)
-  #:use-module (gnu packages pcre)
-  #:use-module (guix download)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:export (grep))
-
 (define-public grep
   (package
     (name "grep")

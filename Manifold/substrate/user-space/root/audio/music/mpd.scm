@@ -1,10 +1,3 @@
-(define-module (substrate user-space root audio music mpd)
-  #:use-module (gnu services)
-  #:use-module (gnu services audio)
-  #:use-module (gnu packages mpd)
-  #:use-module (gnu system accounts)
-  #:export (mpd mpd-service))
-
 (define-public mpd (@ (gnu packages mpd) mpd))
 
 (define-public mpd-service

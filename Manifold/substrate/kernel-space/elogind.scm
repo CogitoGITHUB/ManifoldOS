@@ -1,10 +1,3 @@
-(define-module (substrate kernel-space elogind)
-  #:use-module (gnu services)
-  #:use-module (gnu services desktop)
-  #:export (elogind-service))
-
-;;; Elogind service configuration
-
 (define-public elogind-service
   (service elogind-service-type
            (elogind-configuration

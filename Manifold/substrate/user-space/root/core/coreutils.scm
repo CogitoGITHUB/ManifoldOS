@@ -1,11 +1,3 @@
-(define-module (substrate user-space root core coreutils)
-  #:use-module (guix packages)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix download)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (gnu packages)
-  #:export (coreutils))
-
 (define-public coreutils
   (package
     (name "coreutils")

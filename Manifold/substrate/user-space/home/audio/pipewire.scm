@@ -1,12 +1,3 @@
-(define-module (substrate user-space home audio pipewire)
-  #:use-module (gnu home services)
-  #:use-module (gnu services)
-  #:use-module (gnu home services shepherd)
-  #:use-module (gnu home services desktop)
-  #:use-module (gnu home services xdg)
-  #:use-module (gnu packages linux)
-  #:use-module (guix gexp)
-  #:export (home-pipewire-service home-dbus-service))
 
 (define-public home-dbus-service
   (service home-dbus-service-type))

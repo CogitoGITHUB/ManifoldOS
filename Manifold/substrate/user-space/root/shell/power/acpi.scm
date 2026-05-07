@@ -1,10 +1,3 @@
-(define-module (substrate user-space root shell power acpi)
-  #:use-module (guix packages)
-  #:use-module (guix download)
-  #:use-module (guix build-system gnu)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:export (acpi))
-
 (define-public acpi
   (package
     (name "acpi")

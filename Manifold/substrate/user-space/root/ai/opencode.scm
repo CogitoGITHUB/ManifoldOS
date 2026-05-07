@@ -1,15 +1,3 @@
-(define-module (substrate user-space root ai opencode)
-   #:use-module (guix packages)
-   #:use-module (guix download)
-   #:use-module (guix build-system trivial)
-   #:use-module (gnu packages base)
-   #:use-module (gnu packages gcc)
-   #:use-module (substrate user-space root shell archive unzip)
-   #:use-module (substrate user-space root shell archive gzip)
-   #:use-module (gnu packages elf)
-   #:use-module ((guix licenses) #:prefix license:)
-   #:export (opencode))
-
 (define-public opencode
   (package
     (name "opencode")
@@ -54,4 +42,3 @@
     (description "OpenCode is an AI coding agent built for the terminal.")
      (license license:expat)))
 
-opencode

@@ -1,13 +1,15 @@
-(define-module (substrate kernel-space keyboard)
-  #:use-module (gnu system keyboard)
-  #:use-module ((gnu system keyboard) #:renamer (lambda (sym)
-                                                   (if (eq? sym 'keyboard-layout)
-                                                       'gnu:keyboard-layout
-                                                       sym)))
-  #:export (keyboard-layout))
+(define-immutable-record-type <keyboard-layout>
+  (%keyboard-layout name variant model options)
+  keyboard-layout?
+  (name    keyboard-layout-name)
+  (variant keyboard-layout-variant)
+  (model   keyboard-layout-model)
+  (options keyboard-layout-options))
 
-;;;; Keyboard configuration
+(define* (keyboard-layout name #:optional variant
+                          #:key model (options '()))
+  (%keyboard-layout name variant model options))
 
 (define-public keyboard-layout
-  (gnu:keyboard-layout "us" "dvorak"
-                    #:options '("caps:backspace")))
+  (keyboard-layout "us" "dvorak"
+    #:options '("caps:backspace")))

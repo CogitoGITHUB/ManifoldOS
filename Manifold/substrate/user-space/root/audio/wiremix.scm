@@ -1,13 +1,3 @@
-(define-module (substrate user-space root audio wiremix)
-  #:use-module (guix packages)
-  #:use-module (guix download)
-  #:use-module (guix gexp)
-  #:use-module (guix build-system trivial)
-  #:use-module (gnu packages linux)
-  #:use-module (gnu packages base)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:export (wiremix))
-
 (define-public wiremix
   (package
     (name "wiremix")

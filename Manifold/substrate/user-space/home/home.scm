@@ -1,13 +1,3 @@
-(define-module (substrate user-space home home)
-  #:use-module (gnu home)
-  #:use-module (gnu home services)
-  #:use-module (gnu home services shepherd)
-  #:use-module (gnu home services sound)
-  #:use-module (gnu packages emacs)
-  #:use-module (guix gexp)
-  #:use-module (substrate user-space home loaders audio)
-  #:export (mappingos-home-environment))
-
 (define emacs-shepherd-service
   (shepherd-service
     (provision '(emacs-daemon))

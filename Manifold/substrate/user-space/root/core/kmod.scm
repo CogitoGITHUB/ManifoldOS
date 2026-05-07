@@ -1,14 +1,3 @@
-(define-module (substrate user-space root core kmod)
-  #:use-module (guix packages)
-  #:use-module (guix download)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix gexp)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (gnu packages compression)
-  #:use-module (gnu packages pkg-config)
-  #:use-module (guix utils)
-  #:export (kmod))
-
 (define-public kmod
   (package
     (name "kmod")

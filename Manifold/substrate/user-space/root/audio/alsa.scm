@@ -1,10 +1,3 @@
-(define-module (substrate user-space root audio alsa)
-  #:use-module (gnu services)
-  #:use-module (gnu packages linux)
-  #:use-module (gnu services sound)
-  #:use-module (guix gexp)
-  #:export (alsa-utils alsa-service))
-
 (define-public alsa-utils
   (@@ (gnu packages linux) alsa-utils))
 

@@ -1,5 +1,0 @@
-(define-module (substrate user-space root networking version-control)
-  #:use-module (substrate user-space root networking version-control git)
-  #:use-module (substrate user-space root networking version-control github-cli)
-  #:use-module (substrate user-space root networking version-control lazygit)
-  #:re-export (git github-cli lazygit))

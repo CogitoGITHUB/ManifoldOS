@@ -1,17 +1,3 @@
-(define-module (substrate user-space root shell nushell)
-  #:use-module (guix packages)
-  #:use-module (guix download)
-  #:use-module (guix build-system cargo)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (gnu packages c)
-  #:use-module (substrate user-space root shell archive unzip)
-  #:use-module (gnu packages pkg-config)
-  #:use-module (gnu packages sqlite)
-  #:use-module (gnu packages ssh)
-  #:use-module (gnu packages tls)
-  #:use-module (gnu packages version-control)
-  #:export (nushell))
-
 (define-public nushell
   (package
     (name "nushell")

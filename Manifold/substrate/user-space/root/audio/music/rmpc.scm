@@ -1,13 +1,3 @@
-(define-module (substrate user-space root audio music rmpc)
-  #:use-module (guix packages)
-  #:use-module (guix download)
-  #:use-module (guix gexp)
-  #:use-module (guix build-system trivial)
-  #:use-module (gnu packages base)
-  #:use-module (substrate user-space root shell archive unzip)
-  #:use-module (substrate user-space root shell archive gzip)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:export (rmpc))
 
 (define-public rmpc
   (package

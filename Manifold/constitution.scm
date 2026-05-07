@@ -4,14 +4,25 @@ The supreme law of the system. Every package, service, and structural OS
 binding lives inside this repository — nothing is fetched from external
 channels. Drop a .scm file anywhere under the Manifold and it is part of
 the system on the next reconfigure. No wiring, no boilerplate, no exceptions.
+
 Module files are self-contained: define-public your packages and services,
 the constitution scans, injects the prelude, enforces sovereignty, and
 assembles the final OS declaration automatically.
-Substrate symbols (kernel, file-systems, host-name, …) are picked up by
+
+Substrate symbols (kernel, file-systems, host-name, ...) are picked up by
 name — define-public the symbol in any file and it fills the OS field.
+
 The prelude is built dynamically from the imports found across all module
 files — add or remove a #:use-module in any file and it propagates
 automatically. No external prelude.scm needed.
+
+Module files must contain only a bare (define-module ...) declaration with
+no #:use-module, #:select, #:prefix, or any other import clause. All symbols
+arrive exclusively through the prelude which is seeded from the constitution.
+External modules, aliases, and prefixed imports are sovereignty violations and
+will cause the build to fail. Every symbol you need must already exist inside
+the Manifold or be added to the constitution's own define-module.
+
 constitution:no-warn
 |#
 (define-module (constitution)
@@ -25,7 +36,6 @@ constitution:no-warn
   #:use-module (gnu bootloader grub)
   #:use-module (gnu system)
   #:use-module (gnu services)
-
   #:use-module (guix packages)
   #:use-module (guix profiles))
 
@@ -111,11 +121,6 @@ constitution:no-warn
                            h))
          (all-specs (append-map extract-use-modules-from-file files))
          (unique    (delete-duplicates all-specs equal?))
-         ;; Prelude is manifold-internal only — strip constitution, prelude,
-         ;; and every module that is not itself a manifold file.
-         ;; External Guix/system modules are loaded exclusively by the
-         ;; constitution's own define-module and arrive via inject-prelude!
-         ;; carrying the constitution's already-resolved interfaces.
          (manifold-only (filter (lambda (s)
                                   (and (not (member s '((constitution) (prelude))))
                                        (hash-ref manifold-names
@@ -207,6 +212,7 @@ constitution:no-warn
                    (not (string-prefix? manifold-root loc)))
           (error (format #f "constitution: package '~a' source is not inside manifold-root/sources/ — use local-file pointing into sources/"
                          (package-name pkg))))))))
+
 (define (collect-from-module mod no-warn? substrate)
   (let ((packages '()) (services '()) (matched 0) (exported 0))
     (hash-for-each
@@ -269,9 +275,9 @@ constitution:no-warn
               (unless (eof-object? form)
                 (cond
                   ((and (pair? form) (eq? (car form) 'define-module))
-                   ;; Drop define-module entirely — no #:use-module from any
-                   ;; substrate file is permitted. All symbols arrive via the
-                   ;; prelude which is seeded exclusively from the constitution.
+                   ;; Drop define-module entirely — module files must have only
+                   ;; a bare declaration with no imports. All symbols arrive
+                   ;; via the prelude seeded from the constitution.
                    #f)
                   (else
                    (catch 'unbound-variable
@@ -285,31 +291,70 @@ constitution:no-warn
     mod))
 
 ;; ── Scanner ───────────────────────────────────────────────────────────────────
+;; Files are loaded in dependency order via a retry loop.
+;; If a file fails with "unbound symbol" it is deferred to the next round.
+;; A round that makes zero progress means a genuine unresolvable error.
 (define (scan-manifold root files)
   (let ((substrate (make-hash-table)))
-    (let loop ((files files) (packages '()) (services '()) (n 0))
-      (if (null? files)
+
+    (define (try-load-file file)
+      (let* ((no-warn? (file-no-warn? file))
+             (mod-name (file->module-name file root))
+             (skip?    (member mod-name '((constitution) (prelude)))))
+        (if skip?
+            (cons 'skip #f)
+            (catch #t
+              (lambda ()
+                (let* ((mod    (load-module-file file mod-name))
+                       (result (begin (assert-sovereign! mod file)
+                                      (collect-from-module mod no-warn? substrate))))
+                  (cons 'ok result)))
+              (lambda (key . args)
+                ;; If the error message mentions "unbound symbol" defer this
+                ;; file to the next round — its dependency may not be loaded yet.
+                ;; Any other error is a real failure and is re-thrown immediately.
+                (let ((msg (and (pair? args) (string? (car args)) (car args))))
+                  (if (and msg (string-contains msg "unbound symbol"))
+                      (cons 'defer (cons key args))
+                      (apply throw key args))))))))
+
+    (let round ((pending files) (packages '()) (services '()) (n 0))
+      (if (null? pending)
           (begin
             (format (current-error-port)
                     "constitution: scanned ~a files — ~a packages, ~a services, ~a substrate bindings~%"
                     n (length packages) (length services)
                     (hash-count (const #t) substrate))
             (values (reverse packages) (reverse services) substrate))
-          (let* ((file     (car files))
-                 (no-warn? (file-no-warn? file))
-                 (mod-name (file->module-name file root))
-                 (skip?    (member mod-name '((constitution) (prelude)))))
-            (if skip?
-                (loop (cdr files) packages services n)
-                (let* ((mod    (load-module-file file mod-name))
-                       (result (begin (assert-sovereign! mod file)
-                                      (collect-from-module mod no-warn? substrate)))
-                       (pkgs   (car result))
-                       (svcs   (cdr result)))
-                  (loop (cdr files)
-                        (append pkgs packages)
-                        (append svcs services)
-                        (+ n 1)))))))))
+          (let pass ((todo pending) (deferred '()) (packages packages) (services services) (n n) (progress #f))
+            (if (null? todo)
+                (if (null? deferred)
+                    (round '() packages services n)
+                    (if progress
+                        ;; Made progress this round — retry deferred files
+                        (round (reverse deferred) packages services n)
+                        ;; No progress at all — re-load the first stuck file to
+                        ;; surface its real error message and abort
+                        (let* ((file     (car (reverse deferred)))
+                               (mod-name (file->module-name file root)))
+                          (load-module-file file mod-name)
+                          (error "constitution: unresolvable dependencies, stuck on" deferred))))
+                (let* ((file   (car todo))
+                       (result (try-load-file file)))
+                  (cond
+                    ((eq? (car result) 'skip)
+                     (pass (cdr todo) deferred packages services n progress))
+                    ((eq? (car result) 'ok)
+                     (let ((pkgs (cadr result))
+                           (svcs (cddr result)))
+                       (pass (cdr todo)
+                             deferred
+                             (append pkgs packages)
+                             (append svcs services)
+                             (+ n 1)
+                             #t)))
+                    ((eq? (car result) 'defer)
+                     (pass (cdr todo) (cons file deferred) packages services n progress))))))))))
 
 ;; ── Dedup + Regression ────────────────────────────────────────────────────────
 (define (dedupe-packages pkgs)

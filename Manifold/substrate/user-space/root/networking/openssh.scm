@@ -1,23 +1,3 @@
-(define-module (substrate user-space root networking openssh)
-  #:use-module (guix packages)
-  #:use-module (guix gexp)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix download)
-  #:use-module (guix utils)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (gnu packages groff)
-  #:use-module (gnu packages pkg-config)
-  #:use-module (gnu packages libedit)
-  #:use-module (gnu packages tls)
-  #:use-module (gnu packages kerberos)
-  #:use-module (gnu packages linux)
-  #:use-module (gnu packages security)
-  #:use-module (gnu packages xorg)
-  #:use-module (gnu services)
-  #:use-module (gnu services ssh)
-  #:use-module (substrate user-space root shell archive zlib)
-  #:export (openssh openssh-service networking-openssh-services))
-
 (define openssh
   (package
     (name "openssh")

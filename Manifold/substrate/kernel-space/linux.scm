@@ -1,32 +1,6 @@
 ;;; ManifoldOS Linux Kernel Configuration
 ;;; Vendored from NonGuix to make system self-enclosed without external channels
 
-(define-module (substrate kernel-space linux)
-  #:use-module (gnu packages)
-  #:use-module (gnu packages admin)
-  #:use-module (gnu packages base)
-  #:use-module (gnu packages compression)
-  #:use-module (gnu packages cpio)
-  #:use-module (gnu packages linux)
-  #:use-module (gnu packages parallel)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix packages)
-  #:use-module (guix utils)
-  #:use-module (guix download)
-  #:use-module (guix gexp)
-  #:use-module (guix modules)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system copy)
-  #:use-module (guix git-download)
-  #:use-module (guix build-system trivial)
-  #:use-module (gnu services)
-  #:use-module (gnu services linux)
-  #:use-module (gnu system linux-initrd)
-  #:use-module (ice-9 match)
-  #:use-module (srfi srfi-1)
-  #:export (kernel kernel-arguments kernel-modules kernel-initrd kernel-firmware
-            linux-firmware))
-
 ;;; ============================================================================
 ;;; Helper Functions and Utilities
 ;;; ============================================================================

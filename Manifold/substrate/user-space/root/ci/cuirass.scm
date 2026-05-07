@@ -1,12 +1,3 @@
-(define-module (substrate user-space root ci cuirass)
-  #:use-module (guix gexp)
-  #:use-module (guix channels)
-  #:use-module (gnu packages databases)
-  #:use-module (gnu services)
-  #:use-module (gnu services cuirass)
-  #:use-module (gnu services databases)
-  #:export (cuirass-service root-ci-services))
-
 (define %cuirass-specs
   #~(list (specification
             (name "manifoldos")

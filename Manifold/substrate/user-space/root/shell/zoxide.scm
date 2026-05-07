@@ -1,12 +1,3 @@
-(define-module (substrate user-space root shell zoxide)
-  #:use-module (guix packages)
-  #:use-module (guix download)
-  #:use-module (guix gexp)
-  #:use-module (guix build-system cargo)
-  #:use-module (guix build-system copy)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (gnu packages rust-apps)
-  #:export (zoxide))
 
 (define-public zoxide
   (package

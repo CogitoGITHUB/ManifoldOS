@@ -1,14 +1,3 @@
-(define-module (substrate user-space root shell system-monitor glances)
-  #:use-module (guix packages)
-  #:use-module (guix git-download)
-  #:use-module (guix build-system pyproject)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (gnu packages xml)
-  #:use-module (gnu packages python-web)
-  #:use-module (gnu packages python-build)
-  #:use-module (gnu packages python-xyz)
-  #:use-module (gnu packages check)
-  #:export (glances))
 
 (define-public glances
   (package

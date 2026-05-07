@@ -1,8 +1,3 @@
-(define-module (substrate kernel-space filesystem)
-  #:use-module (gnu system file-systems)
-  #:export (file-systems))
-
-;;; File system configuration
 (define-public file-systems
   (cons* (file-system
            (mount-point "/boot/efi")

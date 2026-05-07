@@ -1,11 +1,3 @@
-(define-module (substrate user-space root core findutils)
-  #:use-module (guix packages)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix download)
-  #:use-module (guix utils)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:export (findutils))
-
 (define-public findutils
   (package
     (name "findutils")

@@ -1,18 +1,3 @@
-(define-module (substrate user-space root networking tailscale)
-  #:use-module (guix packages)
-  #:use-module (guix download)
-  #:use-module (guix git-download)
-  #:use-module (gnu packages compression)
-  #:use-module (guix gexp)
-  #:use-module (guix build-system trivial)
-  #:use-module (guix build-system go)
-  #:use-module (gnu packages base)
-  #:use-module (gnu packages golang)
-  #:use-module (gnu services)
-  #:use-module (gnu services shepherd)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:export (tailscale config-tailscaled-service-type))
-
 (define-public tailscale
   (package
     (name "tailscale")

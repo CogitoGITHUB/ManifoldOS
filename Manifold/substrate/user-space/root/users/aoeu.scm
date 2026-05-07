@@ -1,11 +1,3 @@
-(define-module (substrate user-space root users aoeu)
-  #:use-module (guix gexp)
-  #:use-module (gnu system accounts)
-  #:use-module (gnu system setuid)
-  #:use-module (gnu packages admin)
-  #:use-module (gnu packages nushell)
-  #:use-module (gnu packages freedesktop)
-  #:export (aoeu-account pulse-account greeter-account groups sudoers-file setuid-programs))
 
 (define-public groups
   (list (user-group (name "root") (id 0) (system? #t))

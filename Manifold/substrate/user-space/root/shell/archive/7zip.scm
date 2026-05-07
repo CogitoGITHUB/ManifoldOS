@@ -1,11 +1,3 @@
-(define-module (substrate user-space root shell archive 7zip)
-  #:use-module (guix packages)
-  #:use-module (guix download)
-  #:use-module (guix build-system copy)
-  #:use-module (gnu packages compression)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:export (7zip))
-
 (define-public 7zip
   (package
     (name "7zip")

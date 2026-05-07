@@ -1,22 +1,3 @@
-(define-module (substrate user-space root core util-linux)
-  #:use-module (guix packages)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix gexp)
-  #:use-module (guix download)
-  #:use-module (guix utils)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (gnu packages)
-  #:use-module (gnu packages ncurses)
-  #:use-module (gnu packages linux)
-  #:use-module (gnu packages admin)
-  #:use-module (gnu packages perl)
-  #:use-module (gnu packages pkg-config)
-  #:use-module (gnu packages sqlite)
-  #:use-module (gnu packages compression)
-  #:use-module (gnu packages file)
-  #:use-module (gnu packages base)
-  #:export (util-linux))
-
 (define-public util-linux
   (package
     (name "util-linux")

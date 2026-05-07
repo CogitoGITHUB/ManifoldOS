@@ -1,12 +1,3 @@
-(define-module (substrate user-space root shell system-monitor btop)
-  #:use-module (guix packages)
-  #:use-module (guix git-download)
-  #:use-module (guix build-system gnu)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (gnu packages markup)
-  #:use-module (gnu packages gcc)
-  #:export (btop))
-
 (define-public btop
   (package
     (name "btop")

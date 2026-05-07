@@ -1,15 +1,3 @@
-(define-module (substrate user-space root shell bash)
-  #:use-module (guix packages)
-  #:use-module (guix download)
-  #:use-module (guix utils)
-  #:use-module (guix gexp)
-  #:use-module (guix build-system gnu)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (gnu packages ncurses)
-  #:use-module (gnu packages readline)
-  #:use-module (srfi srfi-26)
-  #:export (bash))
-
 (define-public bash
   (let* ((cppflags (string-join '("-DDEFAULT_PATH_VALUE='\"/no-such-path\"'"
                                   "-DSTANDARD_UTILS_PATH='\"/no-such-path\"'"

@@ -1,17 +1,3 @@
-(define-module (substrate user-space root keyboard kanata)
-  #:use-module (guix packages)
-  #:use-module (guix download)
-  #:use-module (guix build-system trivial)
-  #:use-module (guix gexp)
-  #:use-module (gnu services)
-  #:use-module (gnu services shepherd)
-  #:use-module (gnu packages elf)
-  #:use-module (gnu packages base)
-  #:use-module (gnu packages gcc)
-  #:use-module (substrate user-space root shell archive unzip)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:export (kanata kanata-service))
-
 (define-public kanata
   (package
     (name "kanata")

@@ -1,14 +1,3 @@
-(define-module (substrate user-space root shell rip)
-  #:use-module (guix packages)
-  #:use-module (guix download)
-  #:use-module (guix build-system copy)
-  #:use-module (guix utils)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (gnu packages elf)
-  #:use-module (gnu packages base)
-  #:use-module (gnu packages gcc)
-  #:export (rip-cli))
-
 (define-public rip-cli
   (package
     (name "rip-cli")
