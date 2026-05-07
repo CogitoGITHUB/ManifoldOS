@@ -21,6 +21,8 @@ constitution:no-warn
   #:use-module (ice-9 textual-ports)
   #:use-module (srfi srfi-1)
   #:use-module (srfi srfi-11)
+  #:use-module (gnu bootloader)
+  #:use-module (gnu bootloader grub)
   #:use-module (gnu system)
   #:use-module (gnu services)
 
@@ -109,24 +111,38 @@ constitution:no-warn
                            h))
          (all-specs (append-map extract-use-modules-from-file files))
          (unique    (delete-duplicates all-specs equal?))
-         (filtered  (filter (lambda (s)
-                              (not (member s '((constitution) (prelude)))))
-                            unique))
-         (loadable  (filter (lambda (s) (loadable-external-module? s manifold-names))
-                            filtered))
-         (mod       (make-module)))
+         ;; Prelude is manifold-internal only — strip constitution, prelude,
+         ;; and every module that is not itself a manifold file.
+         ;; External Guix/system modules are loaded exclusively by the
+         ;; constitution's own define-module and arrive via inject-prelude!
+         ;; carrying the constitution's already-resolved interfaces.
+         (manifold-only (filter (lambda (s)
+                                  (and (not (member s '((constitution) (prelude))))
+                                       (hash-ref manifold-names
+                                                 (string-join (map symbol->string s) "/")
+                                                 #f)))
+                                unique))
+         (mod (make-module)))
     (set-module-name! mod '(prelude))
     (beautify-user-module! mod)
     (set-module-public-interface! mod mod)
+    ;; Pull the constitution's own interfaces into the prelude so every
+    ;; manifold module sees all Guix/system symbols without importing them.
+    (for-each (lambda (iface)
+                (module-use! mod iface))
+              (module-uses (current-module)))
+    ;; Now layer in each manifold module's own interface.
     (for-each
      (lambda (mod-name)
        (catch #t
-         (lambda () (module-use! mod (resolve-interface mod-name)))
+         (lambda ()
+           (let ((m (resolve-module mod-name #f #f #:ensure #f)))
+             (when m (module-use! mod m))))
          (lambda (key . args)
            (format (current-error-port)
-                   "constitution: prelude could not load ~a — ~a~%"
+                   "constitution: prelude could not add manifold module ~a — ~a~%"
                    mod-name args))))
-     loadable)
+     manifold-only)
     (module-tree-set! '(prelude) mod)
     mod))
 
@@ -181,7 +197,16 @@ constitution:no-warn
 (define %substrate-symbols
   (record-type-fields %os-rtd))
 
-;; ── Module Collector ──────────────────────────────────────────────────────────
+;; ── Source Enforcer ───────────────────────────────────────────────────────────
+(define (assert-local-source! pkg)
+  (let ((src (package-source pkg)))
+    (when src
+      (let ((loc (and (origin? src)
+                      (origin-uri src))))
+        (when (and loc (string? loc)
+                   (not (string-prefix? manifold-root loc)))
+          (error (format #f "constitution: package '~a' source is not inside manifold-root/sources/ — use local-file pointing into sources/"
+                         (package-name pkg))))))))
 (define (collect-from-module mod no-warn? substrate)
   (let ((packages '()) (services '()) (matched 0) (exported 0))
     (hash-for-each
@@ -196,6 +221,7 @@ constitution:no-warn
              ((and val (list? val)
                    (string-suffix? "-packages" (symbol->string sym))
                    (every package? val))
+              (for-each assert-local-source! val)
               (set! packages (append val packages))
               (set! matched (+ matched 1)))
              ((and val (list? val)
@@ -205,6 +231,7 @@ constitution:no-warn
               (set! services (append val services))
               (set! matched (+ matched 1)))
              ((and val (package? val))
+              (assert-local-source! val)
               (set! packages (cons val packages))
               (set! matched (+ matched 1)))
              ((and val (service? val))
@@ -227,7 +254,7 @@ constitution:no-warn
     (module-tree-set! mod-name mod)
     mod))
 
-(define (load-module-file file mod-name manifold-names)
+(define (load-module-file file mod-name)
   (let ((mod (or (and=> (resolve-module mod-name #f #f #:ensure #f)
                         (lambda (m)
                           (and (memq prelude-module (module-uses m)) m)))
@@ -242,43 +269,24 @@ constitution:no-warn
               (unless (eof-object? form)
                 (cond
                   ((and (pair? form) (eq? (car form) 'define-module))
-                   (let loop2 ((tail (cddr form)) (specs '()))
-                     (cond
-                       ((null? tail)
-                        (unless (null? specs)
-                          (eval `(use-modules ,@(reverse specs)) mod)))
-                       ((and (eq? (car tail) '#:use-module) (pair? (cdr tail)))
-                        (let* ((raw  (cadr tail))
-                               (name (cond
-                                       ((and (list? raw) (every symbol? raw)) raw)
-                                       ((and (pair? raw) (list? (car raw))) (car raw))
-                                       (else #f)))
-                               (manifold? (and name
-                                               (hash-ref manifold-names
-                                                         (string-join (map symbol->string name) "/")
-                                                         #f))))
-                          (loop2 (cddr tail)
-                                 (if manifold? specs (cons raw specs)))))
-                       (else
-                        (loop2 (cdr tail) specs)))))
+                   ;; Drop define-module entirely — no #:use-module from any
+                   ;; substrate file is permitted. All symbols arrive via the
+                   ;; prelude which is seeded exclusively from the constitution.
+                   #f)
                   (else
-                   (eval form mod)))
+                   (catch 'unbound-variable
+                     (lambda () (eval form mod))
+                     (lambda (key subr msg args . rest)
+                       (let ((sym (and (pair? args) (car args))))
+                         (error (format #f "constitution: unbound symbol '~a' in ~a\n  → add its source module to the constitution define-module"
+                                        sym file)))))))
                 (loop))))))
       (set-current-module prev))
     mod))
 
 ;; ── Scanner ───────────────────────────────────────────────────────────────────
 (define (scan-manifold root files)
-  (let ((substrate     (make-hash-table))
-        (manifold-names (let ((h (make-hash-table 31)))
-                          (for-each (lambda (f)
-                                      (hash-set! h
-                                        (string-join (map symbol->string
-                                                          (file->module-name f root))
-                                                     "/")
-                                        #t))
-                                    files)
-                          h)))
+  (let ((substrate (make-hash-table)))
     (let loop ((files files) (packages '()) (services '()) (n 0))
       (if (null? files)
           (begin
@@ -293,7 +301,7 @@ constitution:no-warn
                  (skip?    (member mod-name '((constitution) (prelude)))))
             (if skip?
                 (loop (cdr files) packages services n)
-                (let* ((mod    (load-module-file file mod-name manifold-names))
+                (let* ((mod    (load-module-file file mod-name))
                        (result (begin (assert-sovereign! mod file)
                                       (collect-from-module mod no-warn? substrate)))
                        (pkgs   (car result))

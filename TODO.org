@@ -1,4 +1,3 @@
-
 * log viewer  https://github.com/bensadeh/tailspin
 
 * agent files + todo for all folders !!!
@@ -51,3 +50,4 @@ wezterm incredible update for workflow !!
 * https://github.com/Domenez-dev/lazy-cron.git
 * https://github.com/Ronin-CK/QuickSnip
 * https://github.com/PlugwiseBV/LuaProbe.el.git
+* https://codeberg.org/y1nz/typie.git
