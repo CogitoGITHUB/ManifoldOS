@@ -53,3 +53,4 @@ wezterm incredible update for workflow !!
 * https://codeberg.org/y1nz/typie.git
 * https://github.com/Linuxdrito/fetchlains
 * https://github.com/gripebomb/ThreatDeck
+* https://github.com/blacknon/twatch

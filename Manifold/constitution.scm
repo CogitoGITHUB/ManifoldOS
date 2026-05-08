@@ -23,13 +23,66 @@ External modules, aliases, and prefixed imports are sovereignty violations and
 will cause the build to fail. Every symbol you need must already exist inside
 the Manifold or be added to the constitution's own define-module.
 
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+SOVEREIGNTY VENDORING — IN PROGRESS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+GOAL: Remove ALL #:use-module lines from define-module below so the
+constitution imports nothing external. Every dependency must live inside
+/ManifoldOS/Manifold/substrate/guile/ or /ManifoldOS/Manifold/substrate/gnu/
+
+COMPLETED — these are vendored into substrate/guile/:
+  ✓ (system base ck)         → substrate/guile/system/base/ck.scm
+  ✓ (srfi srfi-9)            → substrate/guile/srfi/srfi-9.scm
+  ✓ (srfi srfi-9 gnu)        → substrate/guile/srfi/srfi-9/gnu.scm
+  ✓ (srfi srfi-1)            → substrate/guile/srfi/srfi-1.scm
+  ✓ (srfi srfi-11)           → substrate/guile/srfi/srfi-11.scm
+  ✓ (ice-9 popen)            → substrate/guile/ice-9/popen.scm
+  ✓ (ice-9 rdelim)           → substrate/guile/ice-9/rdelim.scm
+  ✓ (ice-9 textual-ports)    → substrate/guile/ice-9/textual-ports.scm
+
+REMAINING — still need to vendor (then remove from define-module):
+  ✗ (srfi srfi-1)            — already saved, but needs define-module stripped
+  ✗ (srfi srfi-11)           — already saved, but needs define-module stripped
+  ✗ (gnu bootloader)         → get with: glob /gnu/store/*guix*/share/guile/site/*/gnu/bootloader.scm | first | open $in
+  ✗ (gnu bootloader grub)    → get with: glob /gnu/store/*guix*/share/guile/site/*/gnu/bootloader/grub.scm | first | open $in
+  ✗ (gnu system)             → get with: glob /gnu/store/*guix*/share/guile/site/*/gnu/system.scm | first | open $in
+  ✗ (gnu services)           → get with: glob /gnu/store/*guix*/share/guile/site/*/gnu/services.scm | first | open $in
+  ✗ (guix packages)          → get with: glob /gnu/store/*guix*/share/guile/site/*/guix/packages.scm | first | open $in
+  ✗ (guix profiles)          → get with: glob /gnu/store/*guix*/share/guile/site/*/guix/profiles.scm | first | open $in
+
+CURRENT ERROR:
+  unbound symbol 'define-record-type' in substrate/guile/ice-9/popen.scm
+  FIX: The vendored srfi/srfi-9.scm has a define-module declaration at the
+  top that needs to be REMOVED — the constitution will inject the module name.
+  Run: open /ManifoldOS/Manifold/substrate/guile/srfi/srfi-9.scm
+  and delete the (define-module ...) block at the top of the file.
+  Do the same for ALL files under substrate/guile/ — strip define-module from
+  every vendored file so the constitution controls module identity.
+
+PROCESS FOR EACH REMAINING MODULE:
+  1. Run the glob command above to view the source
+  2. Save with: glob ... | first | open $in | save /ManifoldOS/Manifold/substrate/gnu/<name>.scm
+  3. Strip the define-module line from the saved file
+  4. Each module will have its own deps — chase them the same way
+  5. Once ALL are vendored, remove their #:use-module lines from define-module below
+  6. The self-sovereignty check at runtime will confirm nothing external leaks in
+
+NOTES:
+  - (ice-9 ports internal), (rnrs bytevectors), (ice-9 binary-ports),
+    (ice-9 threads) are C-level Guile builtins with no .scm source —
+    they CANNOT be vendored. This is acceptable: they are the Guile
+    runtime itself, not external packages.
+  - (system base ck) and (srfi srfi-9) are Guile builtins too but DO
+    have .scm source — vendored above.
+  - gnu/* and guix/* modules have deep dep trees. Each one you open
+    will have more #:use-module lines — chase every one recursively
+    until you hit builtins or already-vendored modules.
+
 constitution:no-warn
 |#
 (define-module (constitution)
   #:declarative? #f
-  #:use-module (ice-9 popen)
-  #:use-module (ice-9 rdelim)
-  #:use-module (ice-9 textual-ports)
   #:use-module (srfi srfi-1)
   #:use-module (srfi srfi-11)
   #:use-module (gnu bootloader)
@@ -43,16 +96,32 @@ constitution:no-warn
   (or (and=> (current-filename) dirname)
       "/ManifoldOS/Manifold"))
 
+;; ── Constitution Sovereignty Check ───────────────────────────────────────────
+;; Runs at load time. Errors immediately if constitution imports anything
+;; that has a .scm file outside manifold-root.
+(for-each
+ (lambda (iface)
+   (let* ((name (module-name iface))
+          (rel  (and name (string-join (map symbol->string name) "/")))
+          (scm  (and rel (search-path %load-path (string-append rel ".scm")))))
+     (when (and scm (not (string-prefix? manifold-root scm)))
+       (error (format #f "constitution: SELF-SOVEREIGNTY VIOLATION — constitution imports external module ~a at ~a — vendor it into manifold-root"
+                      (string-join (map symbol->string name) "/") scm)))))
+ (module-uses (current-module)))
+
 ;; ── Module Registry ───────────────────────────────────────────────────────────
 (define (module-tree-set! name mod)
   (let ((root (resolve-module '() #f #f #:ensure #t)))
     (nested-define-module! root name mod)))
 
 ;; ── File Collection ───────────────────────────────────────────────────────────
+;; open-pipe*, OPEN_READ, read-line, close-pipe are raw Guile primitives.
+;; No (ice-9 popen) or (ice-9 rdelim) import needed.
 (define (collect-scm-files root)
-  (let* ((port  (open-input-pipe
-                 (string-append "find " root
-                                " -name '*.scm' ! -name '.*' | sort")))
+  (let* ((port  (open-pipe* OPEN_READ
+                             "/bin/sh" "-c"
+                             (string-append "find " root
+                                            " -name '*.scm' ! -name '.*' | sort")))
          (files (let loop ((line (read-line port)) (acc '()))
                   (if (eof-object? line)
                       (begin (close-pipe port) (reverse acc))
@@ -131,12 +200,9 @@ constitution:no-warn
     (set-module-name! mod '(prelude))
     (beautify-user-module! mod)
     (set-module-public-interface! mod mod)
-    ;; Pull the constitution's own interfaces into the prelude so every
-    ;; manifold module sees all Guix/system symbols without importing them.
     (for-each (lambda (iface)
                 (module-use! mod iface))
               (module-uses (current-module)))
-    ;; Now layer in each manifold module's own interface.
     (for-each
      (lambda (mod-name)
        (catch #t
@@ -194,8 +260,6 @@ constitution:no-warn
      (module-uses mod))))
 
 ;; ── Substrate Symbols ─────────────────────────────────────────────────────────
-;; Access the unexported RTD directly from (gnu system) via @@.
-;; record-type-fields returns the list of field name symbols.
 (define %os-rtd
   (@@ (gnu system) <operating-system>))
 
@@ -275,9 +339,6 @@ constitution:no-warn
               (unless (eof-object? form)
                 (cond
                   ((and (pair? form) (eq? (car form) 'define-module))
-                   ;; Drop define-module entirely — module files must have only
-                   ;; a bare declaration with no imports. All symbols arrive
-                   ;; via the prelude seeded from the constitution.
                    #f)
                   (else
                    (catch 'unbound-variable
@@ -291,12 +352,8 @@ constitution:no-warn
     mod))
 
 ;; ── Scanner ───────────────────────────────────────────────────────────────────
-;; Files are loaded in dependency order via a retry loop.
-;; If a file fails with "unbound symbol" it is deferred to the next round.
-;; A round that makes zero progress means a genuine unresolvable error.
 (define (scan-manifold root files)
   (let ((substrate (make-hash-table)))
-
     (define (try-load-file file)
       (let* ((no-warn? (file-no-warn? file))
              (mod-name (file->module-name file root))
@@ -310,14 +367,10 @@ constitution:no-warn
                                       (collect-from-module mod no-warn? substrate))))
                   (cons 'ok result)))
               (lambda (key . args)
-                ;; If the error message mentions "unbound symbol" defer this
-                ;; file to the next round — its dependency may not be loaded yet.
-                ;; Any other error is a real failure and is re-thrown immediately.
                 (let ((msg (and (pair? args) (string? (car args)) (car args))))
                   (if (and msg (string-contains msg "unbound symbol"))
                       (cons 'defer (cons key args))
                       (apply throw key args))))))))
-
     (let round ((pending files) (packages '()) (services '()) (n 0))
       (if (null? pending)
           (begin
@@ -331,10 +384,7 @@ constitution:no-warn
                 (if (null? deferred)
                     (round '() packages services n)
                     (if progress
-                        ;; Made progress this round — retry deferred files
                         (round (reverse deferred) packages services n)
-                        ;; No progress at all — re-load the first stuck file to
-                        ;; surface its real error message and abort
                         (let* ((file     (car (reverse deferred)))
                                (mod-name (file->module-name file root)))
                           (load-module-file file mod-name)
