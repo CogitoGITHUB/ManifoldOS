@@ -24,63 +24,73 @@ will cause the build to fail. Every symbol you need must already exist inside
 the Manifold or be added to the constitution's own define-module.
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-SOVEREIGNTY VENDORING — IN PROGRESS
+SUBSTRATE LAYOUT
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-GOAL: Remove ALL #:use-module lines from define-module below so the
-constitution imports nothing external. Every dependency must live inside
-/ManifoldOS/Manifold/substrate/guile/ or /ManifoldOS/Manifold/substrate/gnu/
+substrate/ is the vendored foundation of the entire system. Nothing is pulled
+from the Guix store or external channels at build time — everything resolves
+to a file inside this repo.
 
-COMPLETED — these are vendored into substrate/guile/:
-  ✓ (system base ck)         → substrate/guile/system/base/ck.scm
-  ✓ (srfi srfi-9)            → substrate/guile/srfi/srfi-9.scm
-  ✓ (srfi srfi-9 gnu)        → substrate/guile/srfi/srfi-9/gnu.scm
-  ✓ (srfi srfi-1)            → substrate/guile/srfi/srfi-1.scm
-  ✓ (srfi srfi-11)           → substrate/guile/srfi/srfi-11.scm
-  ✓ (ice-9 popen)            → substrate/guile/ice-9/popen.scm
-  ✓ (ice-9 rdelim)           → substrate/guile/ice-9/rdelim.scm
-  ✓ (ice-9 textual-ports)    → substrate/guile/ice-9/textual-ports.scm
+  substrate/guile/          — vendored Guile stdlib (srfi, ice-9, system/base)
+  substrate/gnu/            — full vendored copy of gnu/* from guix-1.5.0
+  substrate/guix/           — full vendored copy of guix/* from guix-1.5.0
+  substrate/kernel-space/   — ManifoldOS kernel, bootloader, filesystem, etc.
+  substrate/user-space/     — ManifoldOS packages and services
 
-REMAINING — still need to vendor (then remove from define-module):
-  ✗ (srfi srfi-1)            — already saved, but needs define-module stripped
-  ✗ (srfi srfi-11)           — already saved, but needs define-module stripped
-  ✗ (gnu bootloader)         → get with: glob /gnu/store/*guix*/share/guile/site/*/gnu/bootloader.scm | first | open $in
-  ✗ (gnu bootloader grub)    → get with: glob /gnu/store/*guix*/share/guile/site/*/gnu/bootloader/grub.scm | first | open $in
-  ✗ (gnu system)             → get with: glob /gnu/store/*guix*/share/guile/site/*/gnu/system.scm | first | open $in
-  ✗ (gnu services)           → get with: glob /gnu/store/*guix*/share/guile/site/*/gnu/services.scm | first | open $in
-  ✗ (guix packages)          → get with: glob /gnu/store/*guix*/share/guile/site/*/guix/packages.scm | first | open $in
-  ✗ (guix profiles)          → get with: glob /gnu/store/*guix*/share/guile/site/*/guix/profiles.scm | first | open $in
+The gnu/ and guix/ subtrees were copied wholesale from:
+  /gnu/store/ganla421f3g1p9rh3r68zj9djc9b807m-guix-1.5.0/share/guile/site/3.0/
 
-CURRENT ERROR:
-  unbound symbol 'define-record-type' in substrate/guile/ice-9/popen.scm
-  FIX: The vendored srfi/srfi-9.scm has a define-module declaration at the
-  top that needs to be REMOVED — the constitution will inject the module name.
-  Run: open /ManifoldOS/Manifold/substrate/guile/srfi/srfi-9.scm
-  and delete the (define-module ...) block at the top of the file.
-  Do the same for ALL files under substrate/guile/ — strip define-module from
-  every vendored file so the constitution controls module identity.
+They are NOT modified — they keep their define-module declarations intact
+because they are loaded through the normal Guile module system, not through
+the constitution's prelude injector. The %load-path injection below ensures
+they shadow the store copies at load time.
 
-PROCESS FOR EACH REMAINING MODULE:
-  1. Run the glob command above to view the source
-  2. Save with: glob ... | first | open $in | save /ManifoldOS/Manifold/substrate/gnu/<name>.scm
-  3. Strip the define-module line from the saved file
-  4. Each module will have its own deps — chase them the same way
-  5. Once ALL are vendored, remove their #:use-module lines from define-module below
-  6. The self-sovereignty check at runtime will confirm nothing external leaks in
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+CARVING OUT MODULES FROM substrate/gnu/ AND substrate/guix/
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-NOTES:
-  - (ice-9 ports internal), (rnrs bytevectors), (ice-9 binary-ports),
-    (ice-9 threads) are C-level Guile builtins with no .scm source —
-    they CANNOT be vendored. This is acceptable: they are the Guile
-    runtime itself, not external packages.
-  - (system base ck) and (srfi srfi-9) are Guile builtins too but DO
-    have .scm source — vendored above.
-  - gnu/* and guix/* modules have deep dep trees. Each one you open
-    will have more #:use-module lines — chase every one recursively
-    until you hit builtins or already-vendored modules.
+substrate/gnu/ and substrate/guix/ are flat copies of upstream. Over time you
+will want to pull individual files out of them, patch them, and reorganise them
+under substrate/kernel-space/ or substrate/user-space/ with your own structure.
+
+PROCESS for carving out a module (e.g. gnu/bootloader/grub.scm):
+
+  1. Copy the file to your preferred location:
+       cp substrate/gnu/bootloader/grub.scm substrate/kernel-space/bootloader/grub.scm
+
+  2. The file keeps its (define-module (gnu bootloader grub) ...) declaration —
+     do NOT strip it. The module name must stay the same so existing imports
+     resolve correctly.
+
+  3. Delete the original from substrate/gnu/:
+       rm substrate/gnu/bootloader/grub.scm
+
+  4. Because substrate/ comes before substrate/gnu/ on %load-path (see below),
+     Guile will find your carved-out copy first. You now own it.
+
+  5. Patch it however you like. Chase its dependencies the same way if needed.
+
+  6. Over time substrate/gnu/ and substrate/guix/ will empty out as everything
+     gets carved into intentional locations. When they are empty, delete them.
 
 constitution:no-warn
 |#
+
+;; ── Substrate Load Path ───────────────────────────────────────────────────────
+;; This MUST run before define-module. It prepends substrate/ paths so that
+;; every (gnu *) and (guix *) import resolves to our vendored copies first,
+;; never to the store.
+(eval-when (expand load eval)
+  (let ((root (or (and=> (current-filename) dirname)
+                  "/ManifoldOS/Manifold")))
+    (set! %load-path
+      (append
+        (list
+          (string-append root "/substrate")          ;; carved-out modules land here
+          (string-append root "/substrate/gnu")      ;; vendored gnu/* bulk copy
+          (string-append root "/substrate/guix"))    ;; vendored guix/* bulk copy
+        %load-path))))
+
 (define-module (constitution)
   #:declarative? #f
   #:use-module (srfi srfi-1)
@@ -95,6 +105,26 @@ constitution:no-warn
 (define manifold-root
   (or (and=> (current-filename) dirname)
       "/ManifoldOS/Manifold"))
+
+;; ── Pure Guile String Utilities ───────────────────────────────────────────────
+(define (string-split* str ch)
+  (let loop ((chars (string->list str)) (current '()) (acc '()))
+    (cond
+      ((null? chars)
+       (reverse (cons (list->string (reverse current)) acc)))
+      ((char=? (car chars) ch)
+       (loop (cdr chars) '() (cons (list->string (reverse current)) acc)))
+      (else
+       (loop (cdr chars) (cons (car chars) current) acc)))))
+
+(define (string-contains* haystack needle)
+  (let* ((hlen (string-length haystack))
+         (nlen (string-length needle)))
+    (let loop ((i 0))
+      (cond
+        ((> (+ i nlen) hlen) #f)
+        ((string=? (substring haystack i (+ i nlen)) needle) i)
+        (else (loop (+ i 1)))))))
 
 ;; ── Constitution Sovereignty Check ───────────────────────────────────────────
 ;; Runs at load time. Errors immediately if constitution imports anything
@@ -115,25 +145,44 @@ constitution:no-warn
     (nested-define-module! root name mod)))
 
 ;; ── File Collection ───────────────────────────────────────────────────────────
-;; open-pipe*, OPEN_READ, read-line, close-pipe are raw Guile primitives.
-;; No (ice-9 popen) or (ice-9 rdelim) import needed.
+;; Pure Guile — opendir/readdir/stat are raw primitives, no imports needed.
+;; substrate/gnu/ and substrate/guix/ are vendored Guix source loaded via
+;; %load-path — they are NOT ManifoldOS modules and must not be scanned.
 (define (collect-scm-files root)
-  (let* ((port  (open-pipe* OPEN_READ
-                             "/bin/sh" "-c"
-                             (string-append "find " root
-                                            " -name '*.scm' ! -name '.*' | sort")))
-         (files (let loop ((line (read-line port)) (acc '()))
-                  (if (eof-object? line)
-                      (begin (close-pipe port) (reverse acc))
-                      (loop (read-line port)
-                            (if (string-null? line) acc (cons line acc)))))))
-    files))
+  (let ((skip (list (string-append root "/substrate/gnu")
+                    (string-append root "/substrate/guix"))))
+    (let loop ((dirs (list root)) (acc '()))
+      (if (null? dirs)
+          (sort acc string<?)
+          (let* ((dir (car dirs))
+                 (rest (cdr dirs))
+                 (dp (opendir dir)))
+            (let dir-loop ((dirs rest) (acc acc))
+              (let ((entry (readdir dp)))
+                (if (eof-object? entry)
+                    (begin (closedir dp) (loop dirs acc))
+                    (if (string-prefix? "." entry)
+                        (dir-loop dirs acc)
+                        (let ((path (string-append dir "/" entry)))
+                          (let ((st (stat path #f)))
+                            (cond
+                              ((not st)
+                               (dir-loop dirs acc))
+                              ((and (equal? (stat:type st) 'directory)
+                                    (member path skip))
+                               (dir-loop dirs acc))
+                              ((equal? (stat:type st) 'directory)
+                               (dir-loop (cons path dirs) acc))
+                              ((string-suffix? ".scm" entry)
+                               (dir-loop dirs (cons path acc)))
+                              (else
+                               (dir-loop dirs acc))))))))))))))
 
 ;; ── Module Name Derivation ────────────────────────────────────────────────────
 (define (file->module-name file root)
   (let* ((relative (substring file (+ 1 (string-length root))))
          (no-ext   (substring relative 0 (- (string-length relative) 4))))
-    (map string->symbol (string-split no-ext #\/))))
+    (map string->symbol (string-split* no-ext #\/))))
 
 ;; ── Dynamic Prelude Builder ───────────────────────────────────────────────────
 (define (extract-use-modules-from-file file)
@@ -150,7 +199,7 @@ constitution:no-warn
 (define (extract-modules-from-form form)
   (cond
     ((and (pair? form) (eq? (car form) 'use-modules))
-     (filter-map normalise-mod-spec (cdr form)))
+     (filter (lambda (x) x) (map normalise-mod-spec (cdr form))))
     ((and (pair? form) (eq? (car form) 'define-module))
      (let loop ((tail (cddr form)) (acc '()))
        (cond
@@ -161,10 +210,13 @@ constitution:no-warn
          (else (loop (cdr tail) acc)))))
     (else '())))
 
+(define (all-satisfy? pred lst)
+  (or (null? lst) (and (pred (car lst)) (all-satisfy? pred (cdr lst)))))
+
 (define (normalise-mod-spec spec)
   (cond
-    ((and (list? spec) (every symbol? spec)) spec)
-    ((and (pair? spec) (list? (car spec)) (every symbol? (car spec))) (car spec))
+    ((and (list? spec) (all-satisfy? symbol? spec)) spec)
+    ((and (pair? spec) (list? (car spec)) (all-satisfy? symbol? (car spec))) (car spec))
     ((and (pair? spec) (list? (car spec))) (car spec))
     (else #f)))
 
@@ -188,8 +240,17 @@ constitution:no-warn
                                          #t))
                                      files)
                            h))
-         (all-specs (append-map extract-use-modules-from-file files))
-         (unique    (delete-duplicates all-specs equal?))
+         (all-specs (apply append (map extract-use-modules-from-file files)))
+         (unique    (let ((seen (make-hash-table)))
+                      (let loop ((lst all-specs) (acc '()))
+                        (if (null? lst)
+                            (reverse acc)
+                            (let ((key (string-join (map symbol->string (car lst)) "/")))
+                              (if (hash-ref seen key #f)
+                                  (loop (cdr lst) acc)
+                                  (begin
+                                    (hash-set! seen key #t)
+                                    (loop (cdr lst) (cons (car lst) acc)))))))))
          (manifold-only (filter (lambda (s)
                                   (and (not (member s '((constitution) (prelude))))
                                        (hash-ref manifold-names
@@ -226,11 +287,18 @@ constitution:no-warn
 (define (file-no-warn? file)
   (call-with-input-file file
     (lambda (port)
+      (define (read-line* port)
+        (let loop ((chars '()))
+          (let ((c (read-char port)))
+            (cond
+              ((eof-object? c) (if (null? chars) c (list->string (reverse chars))))
+              ((char=? c #\newline) (list->string (reverse chars)))
+              (else (loop (cons c chars)))))))
       (let loop ((n 10))
         (if (zero? n) #f
-            (let ((line (read-line port)))
+            (let ((line (read-line* port)))
               (if (eof-object? line) #f
-                  (if (string-contains line "constitution:no-warn") #t
+                  (if (string-contains* line "constitution:no-warn") #t
                       (loop (- n 1))))))))))
 
 (define (format-module-name mod-name)
@@ -290,14 +358,14 @@ constitution:no-warn
               (set! matched (+ matched 1)))
              ((and val (list? val)
                    (string-suffix? "-packages" (symbol->string sym))
-                   (every package? val))
+                   (all-satisfy? package? val))
               (for-each assert-local-source! val)
               (set! packages (append val packages))
               (set! matched (+ matched 1)))
              ((and val (list? val)
                    (string-suffix? "-services" (symbol->string sym))
                    (not (string-prefix? "home-" (symbol->string sym)))
-                   (every service? val))
+                   (all-satisfy? service? val))
               (set! services (append val services))
               (set! matched (+ matched 1)))
              ((and val (package? val))
@@ -368,7 +436,7 @@ constitution:no-warn
                   (cons 'ok result)))
               (lambda (key . args)
                 (let ((msg (and (pair? args) (string? (car args)) (car args))))
-                  (if (and msg (string-contains msg "unbound symbol"))
+                  (if (and msg (string-contains* msg "unbound symbol"))
                       (cons 'defer (cons key args))
                       (apply throw key args))))))))
     (let round ((pending files) (packages '()) (services '()) (n 0))
@@ -418,7 +486,16 @@ constitution:no-warn
              (error (format #f "constitution: duplicate package '~a' — two different definitions exist, fix your modules" name))))
          (hash-set! seen name pkg)))
      pkgs))
-  (delete-duplicates pkgs eq?))
+  (let ((seen (make-hash-table)))
+    (let loop ((lst pkgs) (acc '()))
+      (if (null? lst)
+          (reverse acc)
+          (let ((pkg (car lst)))
+            (if (hash-ref seen (eq-hash pkg) #f)
+                (loop (cdr lst) acc)
+                (begin
+                  (hash-set! seen (eq-hash pkg) #t)
+                  (loop (cdr lst) (cons pkg acc)))))))))
 
 (define (dedupe-services svcs)
   (let ((seen (make-hash-table)))
@@ -451,32 +528,47 @@ constitution:no-warn
   (or (hash-ref substrate sym #f)
       (error (format #f "constitution: missing substrate binding '~a' — define-public it in a substrate module" sym))))
 
-(define-values (all-packages all-services substrate)
-  (let-values (((pkgs svcs sub) (scan-manifold manifold-root all-scm-files)))
+(define all-packages #f)
+(define all-services #f)
+(define substrate #f)
+(call-with-values
+  (lambda () (scan-manifold manifold-root all-scm-files))
+  (lambda (pkgs svcs sub)
     (check-regressions pkgs)
-    (values (dedupe-packages pkgs)
-            (dedupe-services svcs)
-            sub)))
+    (set! all-packages (dedupe-packages pkgs))
+    (set! all-services (dedupe-services svcs))
+    (set! substrate sub)))
 
 (define-public os
   (let* ((blank  (operating-system))
          (fields (record-type-fields (record-type-descriptor <operating-system>)))
-         (based  (fold (lambda (field os)
-                         (let* ((sym (record-field-name field))
-                                (val (hash-ref substrate sym #f)))
-                           (if val
-                               ((record-field-modifier field) os val)
-                               os)))
-                       blank
-                       fields)))
+         (based  (let loop ((fields fields) (os blank))
+                   (if (null? fields)
+                       os
+                       (let* ((field (car fields))
+                              (sym   (record-field-name field))
+                              (val   (hash-ref substrate sym #f)))
+                         (loop (cdr fields)
+                               (if val
+                                   ((record-field-modifier field) os val)
+                                   os))))))
+         (all-svcs (append (substrate-ref substrate 'kernel-system-services)
+                           all-services
+                           (list (service guix-home-service-type
+                                          (list (list "aoeu"
+                                                      (substrate-ref substrate 'mappingos-home-environment)))))))
+         (deduped-svcs (let ((seen (make-hash-table)))
+                         (let loop ((lst all-svcs) (acc '()))
+                           (if (null? lst)
+                               (reverse acc)
+                               (let* ((svc  (car lst))
+                                      (kind (service-kind svc)))
+                                 (if (hash-ref seen kind #f)
+                                     (loop (cdr lst) acc)
+                                     (begin
+                                       (hash-set! seen kind #t)
+                                       (loop (cdr lst) (cons svc acc))))))))))
     (operating-system
       (inherit based)
       (packages all-packages)
-      (services (delete-duplicates
-                 (append (substrate-ref substrate 'kernel-system-services)
-                         all-services
-                         (list (service guix-home-service-type
-                                        (list (list "aoeu"
-                                                    (substrate-ref substrate 'mappingos-home-environment))))))
-                 (lambda (a b)
-                   (eq? (service-kind a) (service-kind b))))))))
+      (services deduped-svcs)))))
