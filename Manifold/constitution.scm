@@ -31,7 +31,6 @@ substrate/ is the vendored foundation of the entire system. Nothing is pulled
 from the Guix store or external channels at build time — everything resolves
 to a file inside this repo.
 
-  substrate/guile/          — vendored Guile stdlib (srfi, ice-9, system/base)
   substrate/gnu/            — full vendored copy of gnu/* from guix-1.5.0
   substrate/guix/           — full vendored copy of guix/* from guix-1.5.0
   substrate/kernel-space/   — ManifoldOS kernel, bootloader, filesystem, etc.
@@ -42,36 +41,41 @@ The gnu/ and guix/ subtrees were copied wholesale from:
 
 They are NOT modified — they keep their define-module declarations intact
 because they are loaded through the normal Guile module system, not through
-the constitution's prelude injector. The %load-path injection below ensures
-they shadow the store copies at load time.
+the constitution's prelude injector. The eval-when block below prepends
+substrate/gnu/ and substrate/guix/ onto %load-path before anything loads,
+so every (gnu *) and (guix *) import resolves to our copies, never the store.
+
+The define-module imports (gnu, guix) are NOT sovereignty violations —
+they all resolve to files inside substrate/ because of the load-path injection.
+The sovereignty checker confirms this at runtime.
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 CARVING OUT MODULES FROM substrate/gnu/ AND substrate/guix/
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-substrate/gnu/ and substrate/guix/ are flat copies of upstream. Over time you
-will want to pull individual files out of them, patch them, and reorganise them
-under substrate/kernel-space/ or substrate/user-space/ with your own structure.
+substrate/gnu/ and substrate/guix/ are bulk copies of upstream Guix. Over time
+carve individual files out of them, patch them, and organise them however you
+want under substrate/kernel-space/ or substrate/user-space/.
 
 PROCESS for carving out a module (e.g. gnu/bootloader/grub.scm):
 
   1. Copy the file to your preferred location:
        cp substrate/gnu/bootloader/grub.scm substrate/kernel-space/bootloader/grub.scm
 
-  2. The file keeps its (define-module (gnu bootloader grub) ...) declaration —
-     do NOT strip it. The module name must stay the same so existing imports
-     resolve correctly.
+  2. Keep its (define-module (gnu bootloader grub) ...) declaration intact —
+     do NOT change the module name. Existing imports must still resolve to it.
 
-  3. Delete the original from substrate/gnu/:
+  3. Delete the original:
        rm substrate/gnu/bootloader/grub.scm
 
-  4. Because substrate/ comes before substrate/gnu/ on %load-path (see below),
-     Guile will find your carved-out copy first. You now own it.
+  4. substrate/ is earlier on %load-path than substrate/gnu/, so Guile finds
+     your carved-out copy first. You now own it — patch it however you like.
 
-  5. Patch it however you like. Chase its dependencies the same way if needed.
+  5. Chase its dependencies the same way if needed.
 
   6. Over time substrate/gnu/ and substrate/guix/ will empty out as everything
      gets carved into intentional locations. When they are empty, delete them.
+     That is the end state: Guix fully absorbed into ManifoldOS.
 
 constitution:no-warn
 |#
@@ -93,8 +97,6 @@ constitution:no-warn
 
 (define-module (constitution)
   #:declarative? #f
-  #:use-module (srfi srfi-1)
-  #:use-module (srfi srfi-11)
   #:use-module (gnu bootloader)
   #:use-module (gnu bootloader grub)
   #:use-module (gnu system)
@@ -219,16 +221,6 @@ constitution:no-warn
     ((and (pair? spec) (list? (car spec)) (all-satisfy? symbol? (car spec))) (car spec))
     ((and (pair? spec) (list? (car spec))) (car spec))
     (else #f)))
-
-(define (loadable-external-module? mod-name manifold-names)
-  (and (not (hash-ref manifold-names
-                      (string-join (map symbol->string mod-name) "/")
-                      #f))
-       (let* ((rel (string-join (map symbol->string mod-name) "/"))
-              (scm (search-path %load-path (string-append rel ".scm")))
-              (go  (search-path %load-compiled-path (string-append rel ".go"))))
-         (and (or scm go)
-              (not (string-prefix? manifold-root (or scm go)))))))
 
 (define (build-dynamic-prelude files)
   (let* ((manifold-names (let ((h (make-hash-table 31)))
@@ -571,4 +563,4 @@ constitution:no-warn
     (operating-system
       (inherit based)
       (packages all-packages)
-      (services deduped-svcs)))))
+      (services deduped-svcs))))
