@@ -1,4 +1,18 @@
 
+* https://terminaltrove.com/surge/
+
+* https://terminaltrove.com/jolt/
+
+* https://terminaltrove.com/snitch/
+
+* https://terminaltrove.com/kyanos/
+
+* https://terminaltrove.com/lazyssh/
+
+* https://terminaltrove.com/daylight/
+
+* https://terminaltrove.com/flawz/
+
 * https://github.com/projectdiscovery/nuclei
 
 * https://github.com/nicocha30/ligolo-ng
