@@ -1,4 +1,12 @@
 
+* https://github.com/projectdiscovery/nuclei
+
+* https://github.com/nicocha30/ligolo-ng
+
+* https://github.com/BishopFox/sliver
+
+* https://www.shodan.io/
+
 * https://github.com/samyns/Unit-3.git
 
 * ! REPLACE FZF WITH TV ! 
