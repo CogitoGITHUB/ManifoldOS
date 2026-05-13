@@ -1,4 +1,10 @@
 
+* https://github.com/Canop/broot
+
+* https://github.com/nur-taskrunner/nur
+
+* https://github.com/mrkkrp/nushell-mode
+
 * https://terminaltrove.com/surge/
 
 * https://terminaltrove.com/jolt/
