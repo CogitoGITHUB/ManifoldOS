@@ -85,7 +85,9 @@
           (service mcron-service-type))
     (list (service postgresql-service-type
                    (postgresql-configuration
-                    (postgresql postgresql))))
+                    (postgresql postgresql)
+                    (log-directory "/var/log/postgresql")))
+)
     root-ci-services
     root-keyboard-services
     (list podman-service

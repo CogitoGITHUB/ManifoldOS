@@ -9,7 +9,7 @@
 #:use-module (substrate kernel-space udev)
 #:use-module (substrate kernel-space kmod)
 #:re-export (kernel kernel-arguments kernel-modules kernel-initrd kernel-firmware
-  keyboard-layout system-bootloader-configuration file-systems host-name
+  keyboard-layout system-bootloader-configuration kernel-file-systems kernel-swap-devices host-name
   system-locale system-timezone elogind-service udev-rules udev-service-type
   udev-configuration uinput-group-service)
 #:export (kernel-system-services kernel-system-packages))

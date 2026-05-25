@@ -9,7 +9,7 @@
   #:export (os)
   #:re-export (host-name system-timezone system-locale kernel kernel-arguments
                kernel-initrd kernel-firmware keyboard-layout
-               system-bootloader-configuration file-systems users groups
+               system-bootloader-configuration kernel-file-systems users groups
                sudoers-file setuid-programs root-system-packages
                kernel-system-services root-system-services
                mappingos-home-environment manifoldos-image))
@@ -25,7 +25,8 @@
     (firmware kernel-firmware)
     (keyboard-layout keyboard-layout)
     (bootloader system-bootloader-configuration)
-    (file-systems file-systems)
+    (swap-devices kernel-swap-devices)
+    (file-systems kernel-file-systems)
     (users users)
     (groups groups)
     (sudoers-file sudoers-file)
@@ -34,4 +35,5 @@
     (services (append kernel-system-services
                       root-system-services
                       (list (service guix-home-service-type
-                                     (list (list "aoeu" mappingos-home-environment))))))))
+                                     (list (list "aoeu"
+                                                 mappingos-home-environment))))))))
