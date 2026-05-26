@@ -1,6 +1,7 @@
 (define-module (substrate user-space root desktop wayle)
   #:use-module (guix packages)
   #:use-module (guix git-download)
+  #:use-module ((substrate user-space root desktop rust-crates) #:select (lookup-cargo-inputs))
   #:use-module (guix build-system cargo)
   
   #:use-module (gnu packages gtk)
@@ -25,11 +26,13 @@
                     (url "https://github.com/wayle-rs/wayle")
                     (commit (string-append "v" version))))
               (file-name (git-file-name name version))
-              (sha256 (base32 "0bl80ncdavcrkpddaanym9z4cnwjb4v32mdw0yini3dxyhdf6fw1"))))
+              (sha256 (base32 "08m126zgywc82mg8553b5k878lx2lrax8884v7x3ixxk6isg605f"))))
     (build-system cargo-build-system)
     (native-inputs (list clang cmake pkg-config git))
-     (arguments (list #:install-source? #f))
-    (inputs (list gtk gtksourceview pulseaudio fftw pipewire eudev))
+    (arguments
+      (list #:install-source? #f))
+    (inputs (cons* gtk gtksourceview pulseaudio fftw pipewire eudev
+                   (lookup-cargo-inputs 'wayle)))
     (home-page "https://wayle.app")
     (synopsis "Configurable desktop shell for Wayland")
     (description "Wayle is a Wayland desktop shell for Hyprland.")
