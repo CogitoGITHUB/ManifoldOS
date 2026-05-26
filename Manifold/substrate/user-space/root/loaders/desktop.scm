@@ -1,4 +1,5 @@
 (define-module (substrate user-space root loaders desktop)
+  #:use-module (substrate user-space root desktop seatd)
   #:use-module (substrate user-space root desktop hyprland)
   #:use-module (substrate user-space root desktop hypridle)
   #:use-module (substrate user-space root desktop qutebrowser)
@@ -29,8 +30,8 @@
   #:use-module (gnu packages imagemagick)
   #:use-module (gnu packages web)
   #:use-module (gnu packages xdisorg)
-  #:re-export (hyprland hypridle qutebrowser quickshell mako mpvpaper swww imagemagick jq python-pyprland hyprsunset greetd blender krita mpv ffmpeg obs kdenlive gst-editing-services mlt opentimelineio xytz grim slurp swappy wl-clipboard wlogout cliphist grimblast)
+  #:re-export (seatd seatd-service hyprland hypridle qutebrowser quickshell mako mpvpaper swww imagemagick jq python-pyprland hyprsunset greetd blender krita mpv ffmpeg obs kdenlive gst-editing-services mlt opentimelineio xytz grim slurp swappy wl-clipboard wlogout cliphist grimblast)
   #:export (root-desktop-packages))
 
 (define-public root-desktop-packages
-  (list hyprland hypridle qutebrowser quickshell mako mpvpaper swww imagemagick jq python-pyprland hyprsunset greetd blender krita mpv ffmpeg obs kdenlive gst-editing-services mlt opentimelineio xytz grim slurp swappy wl-clipboard wlogout cliphist grimblast))
+  (list seatd hyprland hypridle qutebrowser quickshell mako mpvpaper swww imagemagick jq python-pyprland hyprsunset greetd blender krita mpv ffmpeg obs kdenlive gst-editing-services mlt opentimelineio xytz grim slurp swappy wl-clipboard wlogout cliphist grimblast))

@@ -8,8 +8,10 @@
   #:use-module (substrate user-space root shell archive unzip)
   #:use-module (substrate user-space root shell archive gzip)
   #:use-module (gnu packages wget)
+  #:use-module (gnu packages monitoring)
   #:use-module (gnu packages rust-apps)
   #:use-module (gnu packages man)
+  
   #:re-export (sudo gzip)
   #:export (root-core-packages))
 
@@ -31,4 +33,6 @@
         fd
         bat
         man-db
-        procps))
+        procps
+        jujutsu
+        fswatch))

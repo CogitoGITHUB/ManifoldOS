@@ -5,12 +5,14 @@
   #:use-module (gnu services ssh)
   #:use-module (gnu services networking)
   #:use-module (gnu services docker)
+  #:use-module (gnu services nix)
   #:use-module (gnu services audio)
   #:use-module (gnu services virtualization)
   #:use-module (gnu services mcron)
   #:use-module (gnu services databases)
   #:use-module (gnu services containers)
   #:use-module (gnu packages databases)
+  #:use-module (substrate user-space root emacs-packages emacs-packages)
   #:use-module (substrate user-space root users users)
   #:use-module (substrate user-space root loaders core)
   #:use-module (substrate user-space root loaders networking)
@@ -39,7 +41,7 @@
   #:use-module (substrate user-space root loaders password-manager)
   #:use-module (substrate user-space root loaders games)
   #:use-module (substrate user-space root loaders containers)
-  #:re-export (users groups sudoers-file setuid-programs manifoldos-image)
+  #:re-export (users groups sudoers-file setuid-programs manifoldos-image seatd-service)
   #:export (root-system-packages root-system-services))
 
 (define-public root-system-packages
@@ -77,7 +79,8 @@
 
 (define-public root-system-services
   (append
-    (list (service openssh-service-type))
+    (list (service openssh-service-type)
+          seatd-service)
     root-networking-services
     root-audio-services
     (list (service libvirt-service-type)
