@@ -40,6 +40,7 @@
   #:use-module (substrate user-space root loaders wayland)
   #:use-module (substrate user-space root loaders password-manager)
   #:use-module (substrate user-space root loaders games)
+  #:use-module (substrate user-space root nix)
   #:use-module (substrate user-space root loaders containers)
   #:re-export (users groups sudoers-file setuid-programs manifoldos-image seatd-service)
   #:export (root-system-packages root-system-services))
@@ -73,6 +74,7 @@
           root-scheduling-packages
           root-ci-packages
           root-data-packages
+	  nix-packages
           sandbox-packages
           font-packages
           podman-packages))
@@ -83,14 +85,14 @@
           seatd-service)
     root-networking-services
     root-audio-services
+    nix-services
     (list (service libvirt-service-type)
           (service virtlog-service-type)
           (service mcron-service-type))
     (list (service postgresql-service-type
                    (postgresql-configuration
                     (postgresql postgresql)
-                    (log-directory "/var/log/postgresql")))
-)
+                    (log-directory "/var/log/postgresql"))))
     root-ci-services
     root-keyboard-services
     (list podman-service
