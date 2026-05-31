@@ -148,6 +148,7 @@
    emacs-corfu
    emacs-cape
    ;; Org
+   emacs-org-tree-slide
    emacs-org-appear
    emacs-org-auto-tangle
    emacs-org-modern
