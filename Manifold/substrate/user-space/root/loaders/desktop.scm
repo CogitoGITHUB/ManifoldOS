@@ -9,6 +9,7 @@
   #:use-module (substrate user-space root desktop wallpaper swww)
   #:use-module (substrate user-space root desktop pyprland)
   #:use-module (substrate user-space root desktop hyprsunset)
+  #:use-module (substrate user-space root desktop hyprvim)
   #:use-module (substrate user-space root desktop greetd)
   #:use-module (substrate user-space root desktop 3d blender)
   #:use-module (substrate user-space root desktop image krita)
@@ -30,8 +31,8 @@
   #:use-module (gnu packages imagemagick)
   #:use-module (gnu packages web)
   #:use-module (gnu packages xdisorg)
-  #:re-export (seatd seatd-service hyprland hypridle qutebrowser quickshell mako mpvpaper swww imagemagick jq python-pyprland hyprsunset greetd  mpv ffmpeg obs kdenlive gst-editing-services mlt opentimelineio xytz grim slurp swappy wl-clipboard wlogout cliphist grimblast)
+  #:re-export (seatd seatd-service hyprland hypridle hyprvim qutebrowser quickshell mako mpvpaper swww imagemagick jq python-pyprland hyprsunset greetd  mpv ffmpeg obs kdenlive gst-editing-services mlt opentimelineio xytz grim slurp swappy wl-clipboard wlogout cliphist grimblast)
   #:export (root-desktop-packages))
 
 (define-public root-desktop-packages
-  (list seatd hyprland hypridle qutebrowser quickshell mako mpvpaper swww imagemagick jq python-pyprland hyprsunset greetd mpv ffmpeg obs kdenlive gst-editing-services mlt opentimelineio xytz grim slurp swappy wl-clipboard wlogout cliphist grimblast))
+  (list seatd hyprland hypridle hyprvim qutebrowser quickshell mako mpvpaper swww imagemagick jq python-pyprland hyprsunset greetd mpv ffmpeg obs kdenlive gst-editing-services mlt opentimelineio xytz grim slurp swappy wl-clipboard wlogout cliphist grimblast))
