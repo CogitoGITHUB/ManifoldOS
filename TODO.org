@@ -1,3 +1,4 @@
+* https://github.com/snoowfall/lyse
 
 * https://wayle.app/guide/editing-config
 
