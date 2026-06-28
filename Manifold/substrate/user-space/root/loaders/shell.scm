@@ -23,7 +23,8 @@
   #:use-module (substrate user-space root shell fetch fastfetch)
   #:use-module (substrate user-space root shell rip)
   #:use-module (substrate user-space root shell eza)
-  #:re-export (nushell television fzf starship bash zoxide zellij carapace atuin superfile rip-cli eza
+  #:use-module (substrate user-space root shell herdr)
+  #:re-export (nushell television fzf starship bash zoxide zellij carapace atuin superfile rip-cli eza herdr
 htop ncdu glances
                upower tlp acpi
                unzip zstd xz
@@ -35,7 +36,7 @@ htop ncdu glances
             root-shell-fetch-packages))
 
 (define root-shell-packages
-  (list nushell television fzf starship bash zoxide zellij carapace atuin superfile rip-cli eza))
+  (list nushell television fzf starship bash zoxide zellij carapace atuin superfile rip-cli eza herdr))
 
 (define-public root-shell-system-monitor-packages
   (list btop htop ncdu glances))
