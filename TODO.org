@@ -1,29 +1,22 @@
+* emacs packages
+** https://github.com/Kinneyzhang/elog
+
+** https://github.com/gggion/org-transclusion-orgit
+
+
+
+* headless terminal for ai this package can change workflow !!
+
+* https://github.com/paralax/awesome-honeypots
+
+
+
 * DONE https://github.com/Canop/broot - installed, revisit combining with zoxide
 
 
 
 * nur needs inplementations already installed
 
-
-* https://github.com/samyns/Unit-3.git
-
-* log viewer  https://github.com/bensadeh/tailspin
-
-* https://github.com/montanaflynn/headless-terminal !!!!
-
-* https://github.com/emskin/emskin.git
-
-* https://github.com/SSD2019/org-auto-scheduler.git
-
-* https://github.com/paralax/awesome-honeypots
-
-* https://github.com/11happy/cpx
-
-* https://github.com/Kinneyzhang/elog
-
-* https://github.com/gggion/org-transclusion-orgit
-
-* https://github.com/waelmahrous/wormhole
 
 * https://github.com/ryanmsnyder/workspace-manager.wezterm.git
 wezterm incredible update for workflow !!
@@ -44,5 +37,5 @@ wezterm incredible update for workflow !!
 * https://github.com/matthart1983/netwatch
 * https://github.com/o2sh/onefetch
 * https://github.com/SurgeDM/Surge
-* https://github.com/lance0/ttl
-* https://github.com/Domenez-dev/lazy-cron.git
+
+https://github.com/lance0/ttl is this better than what i already have ??
