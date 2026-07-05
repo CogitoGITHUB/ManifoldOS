@@ -9,6 +9,7 @@
   #:use-module (gnu packages xdisorg)
   #:use-module (gnu packages gcc)
   #:use-module (gnu packages gl)
+  #:use-module (gnu packages freedesktop)
   #:use-module (gnu packages bash)
   #:use-module (guix build-system trivial)
   #:use-module ((guix licenses) #:prefix license:)
@@ -31,7 +32,7 @@
     (inputs
       (list tar xz patchelf glibc (list gcc "lib")
             libx11 libxrender libxfixes libxi libxkbcommon
-            libsm libice mesa bash))
+            libsm libice mesa wayland bash))
     (arguments
       (list #:modules (quote ((guix build utils)))
             #:builder
@@ -52,17 +53,19 @@
                  (libxkbcommon (assoc-ref %build-inputs "libxkbcommon"))
                  (libsm (assoc-ref %build-inputs "libsm"))
                  (libice (assoc-ref %build-inputs "libice"))
-                 (mesa (assoc-ref %build-inputs "mesa"))
-                 (librpath (string-append
-                             (string-append gcc "/lib:")
-                             libx11 "/lib:"
-                             libxrender "/lib:"
-                             libxfixes "/lib:"
-                             libxi "/lib:"
-                             libxkbcommon "/lib:"
-                             libsm "/lib:"
-                             libice "/lib:"
-                             mesa "/lib")))
+                  (mesa (assoc-ref %build-inputs "mesa"))
+                  (wayland (assoc-ref %build-inputs "wayland"))
+                  (librpath (string-append
+                              (string-append gcc "/lib:")
+                              libx11 "/lib:"
+                              libxrender "/lib:"
+                              libxfixes "/lib:"
+                              libxi "/lib:"
+                              libxkbcommon "/lib:"
+                              libsm "/lib:"
+                              libice "/lib:"
+                              mesa "/lib:"
+                              wayland "/lib")))
             (setenv "PATH" (dirname xz))
             (mkdir-p (string-append out "/bin"))
             (invoke tar "-xJf" src
@@ -79,7 +82,8 @@
             (call-with-output-file (string-append out "/bin/blender")
               (lambda (port)
                 (format port "#!~a/bin/sh\nexport LD_LIBRARY_PATH=\"~a:$LD_LIBRARY_PATH\"\nexec \"~a/bin/.blender-real\" \"$@\"\n"
-                        bash librpath out))))))))
+                        bash librpath out)))
+            (chmod (string-append out "/bin/blender") #o555))))))
     (home-page "https://www.blender.org")
     (synopsis "3D creation suite")
     (description
