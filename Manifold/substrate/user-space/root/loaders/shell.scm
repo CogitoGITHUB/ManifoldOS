@@ -12,6 +12,8 @@
   #:use-module (substrate user-space root shell system-monitor htop)
   #:use-module (substrate user-space root shell system-monitor ncdu)
   #:use-module (substrate user-space root shell system-monitor glances)
+  #:use-module (substrate user-space root shell system-monitor diskwatch)
+  #:use-module (substrate user-space root shell system-monitor syswatch)
   #:use-module (substrate user-space root shell power upower)
   #:use-module (substrate user-space root shell power tlp)
   #:use-module (substrate user-space root shell power acpi)
@@ -26,8 +28,11 @@
   #:use-module (substrate user-space root shell zellij)
   #:use-module (substrate user-space root shell psleep)
   #:use-module (substrate user-space root shell splashboard)
-  #:re-export (nushell television fzf starship bash zoxide zellij carapace atuin superfile rip-cli eza herdr psleep splashboard
-htop ncdu glances
+  #:use-module (substrate user-space root shell twatch)
+  #:use-module (substrate user-space root shell broot)
+  #:use-module (substrate user-space root shell nur)
+  #:re-export (nushell television fzf starship bash zoxide zellij carapace atuin superfile rip-cli eza herdr psleep splashboard twatch broot nur
+htop ncdu glances diskwatch syswatch
                upower tlp acpi
                unzip zstd xz
                neofetch fastfetch)
@@ -38,10 +43,10 @@ htop ncdu glances
             root-shell-fetch-packages))
 
 (define root-shell-packages
-  (list nushell television fzf starship bash zoxide zellij carapace atuin superfile rip-cli eza herdr psleep splashboard))
+  (list nushell television fzf starship bash zoxide zellij carapace atuin superfile rip-cli eza herdr psleep splashboard twatch broot nur))
 
 (define-public root-shell-system-monitor-packages
-  (list btop htop ncdu glances))
+  (list btop htop ncdu glances diskwatch syswatch))
 
 (define-public root-shell-power-packages
   (list upower tlp acpi))

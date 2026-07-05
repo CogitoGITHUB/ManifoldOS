@@ -8,6 +8,7 @@
   #:use-module ((gnu packages version-control) #:select (git))
   #:use-module (substrate user-space root networking version-control github-cli)
   #:use-module (substrate user-space root networking version-control lazygit)
+  #:use-module (substrate user-space root networking version-control gitpane)
   #:use-module (substrate user-space root networking yt-dlp)
   #:use-module (substrate user-space root networking tailscale)
   #:use-module (substrate user-space root networking network-manager)
@@ -15,6 +16,11 @@
   #:use-module (substrate user-space root networking bluetooth)
   #:use-module (substrate user-space root networking bluetuith)
   #:use-module (substrate user-space root networking tools)
+  #:use-module (substrate user-space root networking netwatch)
+  #:use-module (substrate user-space root networking surge)
+  #:use-module (substrate user-space root networking kyanos)
+  #:use-module (substrate user-space root networking lazyssh)
+  #:use-module (substrate user-space root networking ligolo-ng)
   #:use-module (gnu services)
   #:use-module (gnu services networking)
   #:use-module (gnu services shepherd)
@@ -22,11 +28,11 @@
   #:use-module (gnu services desktop)
   #:use-module (guix gexp)
   #:re-export (yt-dlp gazelle-tui bluez bluetuith config-tailscaled-service-type
-               nmap wireshark bind-dns iperf iproute iwd)
+                nmap wireshark bind-dns iperf iproute iwd netwatch gitpane surge kyanos lazyssh ligolo-agent ligolo-proxy)
   #:export (root-networking-packages root-networking-services))
 
 (define-public root-networking-packages
-  (list git github-cli lazygit openssh curl yt-dlp tailscale nss-certs network-manager gazelle-tui bluez bluetuith nmap wireshark bind-dns iperf iproute iwd))
+  (list git github-cli lazygit gitpane openssh curl yt-dlp tailscale nss-certs network-manager gazelle-tui bluez bluetuith nmap wireshark bind-dns iperf iproute iwd netwatch surge kyanos lazyssh ligolo-agent ligolo-proxy))
 
 (define-public root-networking-services
   (list (service network-manager-service-type

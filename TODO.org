@@ -1,33 +1,9 @@
+* DONE https://github.com/Canop/broot - installed, revisit combining with zoxide
 
- https://github.com/matthart1983/diskwatch.git
 
-* https://github.com/Canop/broot
 
-* https://github.com/nur-taskrunner/nur
+* nur needs inplementations already installed
 
-* https://github.com/mrkkrp/nushell-mode
-
-* https://terminaltrove.com/surge/
-
-* https://terminaltrove.com/jolt/
-
-* https://terminaltrove.com/snitch/
-
-* https://terminaltrove.com/kyanos/
-
-* https://terminaltrove.com/lazyssh/
-
-* https://terminaltrove.com/daylight/
-
-* https://terminaltrove.com/flawz/
-
-* https://github.com/projectdiscovery/nuclei
-
-* https://github.com/nicocha30/ligolo-ng
-
-* https://github.com/BishopFox/sliver
-
-* https://www.shodan.io/
 
 * https://github.com/samyns/Unit-3.git
 
@@ -36,8 +12,6 @@
 * https://github.com/montanaflynn/headless-terminal !!!!
 
 * https://github.com/emskin/emskin.git
-
-* https://github.com/Xinoxi/Modern-Clock-for-Quickshell.git
 
 * https://github.com/SSD2019/org-auto-scheduler.git
 
@@ -72,11 +46,3 @@ wezterm incredible update for workflow !!
 * https://github.com/SurgeDM/Surge
 * https://github.com/lance0/ttl
 * https://github.com/Domenez-dev/lazy-cron.git
-* https://github.com/Ronin-CK/QuickSnip
-* https://github.com/PlugwiseBV/LuaProbe.el.git
-* https://codeberg.org/y1nz/typie.git
-* https://github.com/Linuxdrito/fetchlains
-* https://github.com/gripebomb/ThreatDeck
-* https://github.com/blacknon/twatch
-* https://github.com/netbootxyz/netboot.xyz
-* https://github.com/affromero/gitpane.git
