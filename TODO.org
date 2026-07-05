@@ -1,3 +1,8 @@
+* dashboard needs work !!!
+
+* TODO video media player
+https://github.com/ShaneIsrael/fireshare.git
+https://github.com/zoriya/Kyoo.git
 * TODO make a caddy project (reverse proxy, Caddyfile, Shepherd service)
 
 * emacs packages
@@ -24,6 +29,4 @@
 wezterm incredible update for workflow !!
 * https://github.com/LaurieWired/GhidraMCP.git
 * https://github.com/ahujasid/blender-mcp.git
-* https://github.com/ShaneIsrael/fireshare.git
-* https://github.com/GIN-SYSTEMS/vigil-tui.git
-* https://github.com/asciimoo/hister.git
+
