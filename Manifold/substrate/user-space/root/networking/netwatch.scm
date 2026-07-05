@@ -1,3 +1,9 @@
+;; netwatch — broad network diagnostics dashboard
+;; Designed to complement ttl: netwatch provides broad visibility into
+;; connections, interfaces, packets, TLS decryption, and C2 detection
+;; while ttl handles deep path analysis (ASN/GeoIP, MPLS, MTU, ECMP,
+;; NAT detection, route flaps).  Install both for full network visibility.
+
 (define-module (substrate user-space root networking netwatch)
   #:use-module (guix packages)
   #:use-module (guix download)
