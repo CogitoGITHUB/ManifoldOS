@@ -2,9 +2,8 @@
   #:use-module (guix packages)
   #:use-module (guix download)
   #:use-module (guix build-system trivial)
-  #:use-module (gnu packages base)
-  #:use-module (substrate user-space root shell archive unzip)
-  #:use-module (substrate user-space root shell archive gzip)
+  #:use-module ((gnu packages base) #:select (tar))
+  #:use-module ((gnu packages compression) #:select (gzip))
   #:use-module ((guix licenses) #:prefix license:)
   #:export (zellij))
 

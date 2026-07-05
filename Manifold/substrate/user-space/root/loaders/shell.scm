@@ -5,7 +5,6 @@
   #:use-module (substrate user-space root shell starship)
   #:use-module (substrate user-space root shell bash)
   #:use-module (substrate user-space root shell zoxide)
-  #:use-module (substrate user-space root shell zellij)
   #:use-module (substrate user-space root shell carapace)
   #:use-module (substrate user-space root shell atuin)
   #:use-module (substrate user-space root shell superfile)
@@ -24,6 +23,7 @@
   #:use-module (substrate user-space root shell rip)
   #:use-module (substrate user-space root shell eza)
   #:use-module (substrate user-space root shell herdr)
+  #:use-module (substrate user-space root shell zellij)
   #:re-export (nushell television fzf starship bash zoxide zellij carapace atuin superfile rip-cli eza herdr
 htop ncdu glances
                upower tlp acpi

@@ -4,6 +4,7 @@
   #:use-module (substrate user-space root desktop hypridle)
   #:use-module (substrate user-space root desktop qutebrowser)
   #:use-module (substrate user-space root desktop quickshell)
+  #:use-module (substrate user-space root desktop dms dms)
   #:use-module (substrate user-space root desktop mako)
   #:use-module (substrate user-space root desktop wallpaper mpvpaper)
   #:use-module (substrate user-space root desktop wallpaper swww)
@@ -16,6 +17,7 @@
   #:use-module (substrate user-space root desktop video mpv)
   #:use-module (substrate user-space root desktop video ffmpeg)
   #:use-module (substrate user-space root desktop video obs)
+  #:use-module (substrate user-space root desktop video obs-cli)
   #:use-module (substrate user-space root desktop video kdenlive)
   #:use-module (substrate user-space root desktop video gst-editing-services)
   #:use-module (substrate user-space root desktop video mlt)
@@ -31,8 +33,8 @@
   #:use-module (gnu packages imagemagick)
   #:use-module (gnu packages web)
   #:use-module (gnu packages xdisorg)
-  #:re-export (seatd seatd-service hyprland hypridle hyprvim qutebrowser quickshell mako mpvpaper swww imagemagick jq python-pyprland hyprsunset greetd  mpv ffmpeg obs kdenlive gst-editing-services mlt opentimelineio xytz grim slurp swappy wl-clipboard wlogout cliphist grimblast)
+  #:re-export (seatd seatd-service hyprland hypridle hyprvim qutebrowser quickshell mako mpvpaper swww imagemagick jq python-pyprland hyprsunset greetd blender mpv ffmpeg obs obs-cli kdenlive gst-editing-services mlt opentimelineio xytz grim slurp swappy wl-clipboard wlogout cliphist grimblast dms)
   #:export (root-desktop-packages))
 
 (define-public root-desktop-packages
-  (list seatd hyprland hypridle hyprvim qutebrowser quickshell mako mpvpaper swww imagemagick jq python-pyprland hyprsunset greetd mpv ffmpeg obs kdenlive gst-editing-services mlt opentimelineio xytz grim slurp swappy wl-clipboard wlogout cliphist grimblast))
+  (list seatd hyprland hypridle hyprvim qutebrowser quickshell mako mpvpaper swww imagemagick jq python-pyprland hyprsunset greetd blender mpv ffmpeg obs obs-cli kdenlive gst-editing-services mlt opentimelineio xytz grim slurp swappy wl-clipboard wlogout cliphist grimblast dms))
