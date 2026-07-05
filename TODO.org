@@ -1,12 +1,5 @@
-* https://github.com/snoowfall/lyse
 
-* https://wayle.app/guide/editing-config
-
-* https://github.com/Yesh-02/psleep.git
-
-* https://github.com/unhappychoice/splashboard
-
-* https://github.com/matthart1983/diskwatch.git
+ https://github.com/matthart1983/diskwatch.git
 
 * https://github.com/Canop/broot
 
@@ -38,18 +31,7 @@
 
 * https://github.com/samyns/Unit-3.git
 
-* ! REPLACE FZF WITH TV !
-
 * log viewer  https://github.com/bensadeh/tailspin
-
-* agent files + todo for all folders !!!
-
-* OCI image not building
-** podman-manifoldos service didn't start.
-The manifold-os from constitution with modify-services may not be working correctly since constitution exports manifold-os but system.scm returns os.
-
-* CI is disabled
-cuirass is not running. Needs work as noted.
 
 * https://github.com/montanaflynn/headless-terminal !!!!
 
