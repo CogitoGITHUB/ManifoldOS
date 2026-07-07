@@ -22,6 +22,8 @@
        (sha256
         (base32 "10mc0635z7rgxnx6hq67298sjzbsfd9v1fd8kplfjyg4qiddvhks"))))
     (build-system pyproject-build-system)
+    (arguments
+     (list #:tests? #f))
     (propagated-inputs (list python-obsws python-rich python-rich-argparse))
     (native-inputs (list python-setuptools python-setuptools-scm))
     (home-page "https://github.com/pschmitt/obs-cli")

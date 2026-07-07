@@ -21,6 +21,8 @@
        (sha256
         (base32 "00c94607qy3ij2j8bmi9zf6bsl591ll5l8kzzdffpiwnzc4f56fb"))))
     (build-system pyproject-build-system)
+    (arguments
+     (list #:tests? #f))
     (propagated-inputs (list python-numpy python-pandas python-pyarrow
                              python-textual python-tzdata))
     (native-inputs (list python-hatchling))

@@ -6,11 +6,13 @@
   #:use-module (substrate user-space root audio music lyse)
   #:use-module (substrate user-space root audio alsa)
   #:use-module (substrate user-space root audio wireplumber)
+  #:use-module (substrate user-space root audio music-production music-production)
   #:use-module (gnu packages music)
   #:export (root-audio-packages root-audio-services))
 
 (define-public root-audio-packages
-  (list mpd rmpc cava lyse playerctl wireplumber (@ (gnu packages linux) pipewire)))
+  (append (list mpd rmpc cava lyse playerctl wireplumber (@ (gnu packages linux) pipewire))
+          music-production-packages))
 
 (define-public root-audio-services
   (list mpd-service alsa-service))

@@ -27,7 +27,7 @@
                                              (sleep 1)
                                              (system* "pulseaudio" "--start")
                                              #t))
-                                  (stop #~#f)
+                                   (stop #~(const #f))
                                   (provision '(pulseaudio-restart))
                                   (respawn? #f))))
             (simple-service 'home-packages

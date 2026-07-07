@@ -38,7 +38,7 @@
          (comment "Aoeu")
          (group "users")
          (home-directory "/home/aoeu")
-         (supplementary-groups '("wheel" "netdev" "audio" "video" "uinput" "keyd" "podman" "cgroup" "pulse-access" "bluetooth"))
+         (supplementary-groups '("wheel" "netdev" "audio" "video" "input" "uinput" "keyd" "podman" "cgroup" "pulse-access" "bluetooth"))
          (shell (file-append nushell "/bin/nu")))
         (user-account
          (name "pulse")
