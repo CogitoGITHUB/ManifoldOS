@@ -26,4 +26,4 @@
                       (string-append
                         "env -u GHC_PACKAGE_PATH $(CABAL_SETUP) configure "
                         db-flags " ")))
-                   (unsetenv "GHC_PACKAGE_PATH")))))))))))
+                   (unsetenv "GHC_PACKAGE_PATH"))))))))))

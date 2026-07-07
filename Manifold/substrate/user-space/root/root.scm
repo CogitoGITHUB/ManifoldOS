@@ -42,6 +42,7 @@
   #:use-module (substrate user-space root loaders games)
   #:use-module (substrate user-space root nix)
   #:use-module (substrate user-space root loaders containers)
+  #:use-module (substrate user-space root loaders hardware)
   #:re-export (users groups sudoers-file setuid-programs manifoldos-image seatd-service)
   #:export (root-system-packages root-system-services))
 
@@ -77,7 +78,8 @@
 	  nix-packages
           sandbox-packages
           font-packages
-          podman-packages))
+          podman-packages
+          root-hardware-packages))
 
 (define-public root-system-services
   (append
