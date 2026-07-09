@@ -22,6 +22,7 @@
   #:use-module (substrate user-space root networking kyanos)
   #:use-module (substrate user-space root networking lazyssh)
   #:use-module (substrate user-space root networking ligolo-ng)
+  #:use-module (substrate user-space root networking noodle)
   #:use-module (gnu services)
   #:use-module (gnu services networking)
   #:use-module (gnu services shepherd)
@@ -29,11 +30,11 @@
   #:use-module (gnu services desktop)
   #:use-module (guix gexp)
   #:re-export (yt-dlp gazelle-tui bluez bluetuith config-tailscaled-service-type
-                nmap wireshark bind-dns iperf iproute iwd netwatch ttl gitpane surge kyanos lazyssh ligolo-agent ligolo-proxy)
+                nmap wireshark bind-dns iperf iproute iwd netwatch ttl gitpane surge kyanos lazyssh ligolo-agent ligolo-proxy noodle)
   #:export (root-networking-packages root-networking-services))
 
 (define-public root-networking-packages
-  (list git github-cli lazygit gitpane openssh curl yt-dlp tailscale nss-certs network-manager gazelle-tui bluez bluetuith nmap wireshark bind-dns iperf iproute iwd netwatch ttl surge kyanos lazyssh ligolo-agent ligolo-proxy))
+  (list git github-cli lazygit gitpane openssh curl yt-dlp tailscale nss-certs network-manager gazelle-tui bluez bluetuith nmap wireshark bind-dns iperf iproute iwd netwatch ttl surge kyanos lazyssh ligolo-agent ligolo-proxy noodle))
 
 (define-public root-networking-services
   (list (service network-manager-service-type

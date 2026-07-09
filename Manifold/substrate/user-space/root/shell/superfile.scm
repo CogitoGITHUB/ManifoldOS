@@ -11,13 +11,13 @@
 (define-public superfile
   (package
     (name "superfile")
-    (version "1.5.0")
+    (version "1.6.0")
     (source (origin
               (method url-fetch)
               (uri (string-append
                     "https://github.com/yorukot/superfile/releases/download/v" version
-                    "/superfile-linux-v1.5.0-amd64.tar.gz"))
-              (sha256 (base32 "0bcxgv2qbz7a3y5cij4fiavlcaddqr4ahfd7hb4kpxhsskgr1bvw"))))
+                    "/superfile-linux-v" version "-amd64.tar.gz"))
+              (sha256 (base32 "02d3vpircm21w4dzjzp6c64akmwwrbnlxa43g6maca960yahwnyl"))))
     (build-system trivial-build-system)
     (arguments
      '(#:modules ((guix build utils) (srfi srfi-1) (srfi srfi-26))

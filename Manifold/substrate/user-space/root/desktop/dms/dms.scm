@@ -12,11 +12,11 @@
 (define-public dms
   (package
     (name "dms")
-    (version "1.4.6")
+    (version "1.5.0")
     (source (origin
               (method url-fetch)
               (uri (string-append "https://github.com/AvengeMedia/DankMaterialShell/releases/download/v" version "/dms-full-amd64.tar.gz"))
-              (sha256 (base32 "0811zisww81ixp74rcmyvlq7c8pli20b6xn2hfc0vrh9bbaky2cn"))))
+              (sha256 (base32 "05s73jql62gw1vxaw8p3h1q5zv6dv06z13ijwd22zwxz1mci4wgv"))))
     (build-system trivial-build-system)
     (arguments
      (list #:modules '((guix build utils))
