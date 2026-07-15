@@ -3,7 +3,7 @@
   #:use-module (gnu system accounts)
   #:use-module (gnu system setuid)
   #:use-module (gnu packages admin)
-  #:use-module (gnu packages nushell)
+  #:use-module (substrate user-space root shell nushell)
   #:export (users groups sudoers-file setuid-programs))
 
 (define-public groups
