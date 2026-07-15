@@ -1,7 +1,6 @@
 (define-module (substrate user-space root editors emacs)
   #:use-module (gnu packages emacs)
   #:use-module (gnu home services shepherd)
-  #:use-module (gnu home services)
   #:use-module (gnu services)
   #:use-module (guix gexp)
   #:re-export (emacs)
