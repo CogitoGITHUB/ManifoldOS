@@ -20,7 +20,9 @@
                     (list #$(file-append emacs-minimal-sqlite "/bin/emacs") "--fg-daemon")
                     #:environment-variables
                     (list (string-append "PATH=" #$(file-append emacs-minimal-sqlite "/bin")
-                                         ":" (or (getenv "PATH") "")))))
+                                         ":" (or (getenv "PATH") ""))
+                          (string-append "XDG_RUNTIME_DIR=" (or (getenv "XDG_RUNTIME_DIR")
+                                                                (string-append "/run/user/" (number->string (getuid))))))))
           (stop #~(make-kill-destructor)))))
 
 (define emacs-daemon-service-type
