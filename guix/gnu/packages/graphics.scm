@@ -142,20 +142,20 @@
   #:use-module (gnu packages xml)
   #:use-module (gnu packages xorg)
   #:use-module (gnu packages xdisorg)
-  #:use-module (guix build-system copy)
-  #:use-module (guix build-system cmake)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system meson)
-  #:use-module (guix build-system pyproject)
-  #:use-module (guix build-system qt)
-  #:use-module (guix download)
-  #:use-module (guix gexp)
-  #:use-module (guix git-download)
-  #:use-module (guix hg-download)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix packages)
-  #:use-module (guix deprecation)
-  #:use-module (guix utils)
+  #:use-module (Manifolding-OS build-system copy)
+  #:use-module (Manifolding-OS build-system cmake)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system meson)
+  #:use-module (Manifolding-OS build-system pyproject)
+  #:use-module (Manifolding-OS build-system qt)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS hg-download)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS deprecation)
+  #:use-module (Manifolding-OS utils)
   #:use-module (ice-9 match))
 
 (define-public mmm
@@ -420,7 +420,7 @@ objects!")
        (file-name (git-file-name name version))
        (sha256
         (base32 "1ndg9f4m3zmdn89llchfnc4dmhckms3cx8vm6pqr8fvd7w95ak37"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         '(begin
            (delete-file-recursively "src/engine/skia")
@@ -736,7 +736,7 @@ typically encountered in feature film production.")
               (url "https://projects.blender.org/blender/blender-assets.git")
               (commit (string-append "v" version))))
        (file-name (git-file-name name version))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet '(begin
                    (delete-file-recursively "working")))
        (sha256
@@ -813,10 +813,10 @@ typically encountered in feature film production.")
                          blender-python-dir))))
           (add-after 'install 'wrap-bin
             (lambda _
-              (let ((python-path (getenv "GUIX_PYTHONPATH")))
+              (let ((python-path (getenv "MANIFOLDING_OS_PYTHONPATH")))
                 (when python-path
                   (wrap-program (string-append #$output "/bin/blender")
-                    `("GUIX_PYTHONPATH" ":" prefix (,python-path))))))))))
+                    `("MANIFOLDING_OS_PYTHONPATH" ":" prefix (,python-path))))))))))
     (native-inputs
      (list pkg-config))
     (inputs
@@ -1287,9 +1287,9 @@ exception-handling library.")
      (list
       #:imported-modules (append %cmake-build-system-modules
                                  %pyproject-build-system-modules)
-      #:modules '((guix build cmake-build-system)
-                  (guix build utils)
-                  ((guix build pyproject-build-system) #:prefix python:))
+      #:modules '((Manifolding-OS build cmake-build-system)
+                  (Manifolding-OS build utils)
+                  ((Manifolding-OS build pyproject-build-system) #:prefix python:))
       #:configure-flags
       #~(list "-D2GEOM_BUILD_SHARED=ON"
               "-D2GEOM_BOOST_PYTHON=ON"
@@ -1906,8 +1906,8 @@ visual effects work for film.")
       #~(list (string-append "-DCMAKE_INSTALL_RPATH="
                              #$output "/lib:"
                              #$output "/lib64"))
-      #:modules `((guix build cmake-build-system)
-                  (guix build utils)
+      #:modules `((Manifolding-OS build cmake-build-system)
+                  (Manifolding-OS build utils)
                   (ice-9 regex))
       #:phases
       #~(modify-phases %standard-phases
@@ -1972,7 +1972,7 @@ virtual reality, scientific visualization and modeling.")
         (file-name (git-file-name name version))
         (sha256
          (base32 "0kllbj4bj3f5w4wzg29ilac66fd0bslqq5srj845ssmzp4ynqglh"))
-        (modules '((guix build utils)))
+        (modules '((Manifolding-OS build utils)))
         (snippet
          '(begin
             (delete-file-recursively "3rdparty")))))
@@ -2061,7 +2061,7 @@ in Julia).")
               (sha256
                (base32
                 "19bv962clwc6sk53kq8bqf77fh0v46afm2knjbki8yj0m1mnyyd0"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                ;; Delete bundled libraries.
                '(delete-file-recursively "libraries"))))
@@ -2292,9 +2292,9 @@ rendering @acronym{SVG, Scalable Vector Graphics}.")
                 (let ((program (string-append #$output "/bin/facedetect")))
                   (patch-shebang program)
                   (wrap-program program
-                    `("GUIX_PYTHONPATH" prefix
+                    `("MANIFOLDING_OS_PYTHONPATH" prefix
                       ,(search-path-as-string->list
-                        (getenv "GUIX_PYTHONPATH"))))))))))
+                        (getenv "MANIFOLDING_OS_PYTHONPATH"))))))))))
       (inputs
        (list bash-minimal
              opencv
@@ -2475,7 +2475,7 @@ or by subtracting one shape from the other.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "1p59q67zc45pwicknsccvmby09snhz35725wr3xsh2v6kxza76a4"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         #~(begin
             ;; Delete binaries
@@ -3026,7 +3026,7 @@ Some feature highlights:
        ;;   'Unknown CMake command "check_required_components"'
        ;; (see https://github.com/open-source-parsers/jsoncpp/issues/1568).
        ;; When fixed uncomment the snippet and re-add jsoncpp as an input.
-       ;(modules '((guix build utils)))
+       ;(modules '((Manifolding-OS build utils)))
        ;(snippet
        ; '(begin
        ;    ;; Delete bundled jsoncpp.
@@ -3060,7 +3060,7 @@ and build scripts for the OpenXR loader.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "0xh94bnxz5dffq9g2fdfhxfy0lkyb9qhbnh583gbqkfysmyp3l6x"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet #~(begin
                     (for-each delete-file-recursively
                               (list "examples" ".github" "tools"))
@@ -3230,7 +3230,7 @@ Features include:
          (file-name (git-file-name name version))
          (sha256
           (base32 "01cwfpw19rc9k5glx9dhnqpihd0is28a9b53qvzp5kgjmdq2v1p0"))
-         (modules '((guix build utils)))
+         (modules '((Manifolding-OS build utils)))
          (snippet
           #~(begin
               (delete-file-recursively "extern/cxxopts")
@@ -3434,7 +3434,7 @@ a game.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "118gsmn074cq7xdvgc3yrlrwy52f4byvn52nhb3hf7rgfqfi9yxi"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         #~(begin
             (delete-file-recursively "external/cxxopts")
@@ -3556,7 +3556,7 @@ It features cut-and-paste for irregular regions or polygons.")
                                (string-replace-substring version "." "_")))))
               (file-name (git-file-name name version))
               (patches (search-patches "basis-universal-unbundle-libs.patch"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet #~(for-each delete-file-recursively '("OpenCL" "zstd")))
               (sha256
                 (base32

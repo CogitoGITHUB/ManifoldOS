@@ -19,12 +19,12 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (test-gremlin)
-  #:use-module (guix elf)
-  #:use-module (guix tests)
-  #:use-module ((guix utils) #:select (call-with-temporary-directory
+  #:use-module (Manifolding-OS elf)
+  #:use-module (Manifolding-OS tests)
+  #:use-module ((Manifolding-OS utils) #:select (call-with-temporary-directory
                                        target-aarch64?))
-  #:use-module (guix build utils)
-  #:use-module (guix build gremlin)
+  #:use-module (Manifolding-OS build utils)
+  #:use-module (Manifolding-OS build gremlin)
   #:use-module (gnu packages bootstrap)
   #:use-module (srfi srfi-1)
   #:use-module (srfi srfi-26)

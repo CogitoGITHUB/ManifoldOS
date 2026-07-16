@@ -193,26 +193,26 @@
   #:use-module (gnu packages web)
   #:use-module (gnu packages xdisorg)
   #:use-module (gnu packages xml)
-  #:use-module (guix deprecation)
-  #:use-module (guix gexp)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix packages)
-  #:use-module (guix download)
-  #:use-module (guix bzr-download)
-  #:use-module (guix git-download)
-  #:use-module (guix hg-download)
-  #:use-module (guix build-system copy)
-  #:use-module (guix build-system emacs)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system go)
-  #:use-module (guix build-system guile)
-  #:use-module (guix build-system meson)
-  #:use-module (guix build-system perl)
-  #:use-module (guix build-system pyproject)
-  #:use-module (guix build-system qt)
-  #:use-module (guix build-system ruby)
-  #:use-module (guix build-system cmake)
-  #:use-module (guix utils)
+  #:use-module (Manifolding-OS deprecation)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS bzr-download)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS hg-download)
+  #:use-module (Manifolding-OS build-system copy)
+  #:use-module (Manifolding-OS build-system emacs)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system go)
+  #:use-module (Manifolding-OS build-system guile)
+  #:use-module (Manifolding-OS build-system meson)
+  #:use-module (Manifolding-OS build-system perl)
+  #:use-module (Manifolding-OS build-system pyproject)
+  #:use-module (Manifolding-OS build-system qt)
+  #:use-module (Manifolding-OS build-system ruby)
+  #:use-module (Manifolding-OS build-system cmake)
+  #:use-module (Manifolding-OS utils)
   #:use-module (srfi srfi-1)
   #:use-module (srfi srfi-26)
   #:use-module (ice-9 match))
@@ -303,7 +303,7 @@ ElasticSearch server")
         (base32 "0h697y53vk7yvlifr35vjl3vkv8m5ny7j05r70qnqcvjy0axqbdn"))
        (patches (search-patches "firebird-riscv64-support-pt1.patch"
                                 "firebird-riscv64-support-pt2.patch"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         `(begin
            (for-each
@@ -349,8 +349,8 @@ ElasticSearch server")
              (string-append "LDFLAGS=-Wl,-rpath="
                             (assoc-ref %outputs "out") "/lib"))
        #:tests? #f                      ; no test suite
-       #:modules ((guix build gnu-build-system)
-                  (guix build utils)
+       #:modules ((Manifolding-OS build gnu-build-system)
+                  (Manifolding-OS build utils)
                   (srfi srfi-26))
        #:phases
        (modify-phases %standard-phases
@@ -1100,7 +1100,7 @@ auto-completion and syntax highlighting.")
               (sha256
                (base32
                 "0v9hc8yzp0f5pwl4kr1a8k7lwyf62g95klxb6avfrc2npjx79dbl"))
-              (modules '((guix build utils)
+              (modules '((Manifolding-OS build utils)
                          (ice-9 ftw)
                          (srfi srfi-26)))
               (snippet
@@ -1289,7 +1289,7 @@ Specification v2.0 (PEP 249).")
               (sha256
                (base32
                 "0bq5gn5yl3c6jnsamam4nb42y10c43ag764f7mkf7m5i9yqiqmwa"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                '(begin
                   ;; Delete bundled libraries, but preserve CMakeLists.txt.
@@ -1775,7 +1775,7 @@ pictures, sounds, or video.")
               (sha256
                (base32
                 "0zfm224jyz874pk4r9qlz5c2mn1xjvairhxh6widlbh3mn62m3j8"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                ;; Remove files carrying the proprietary TIMESCALE license.
                '(begin
@@ -1788,17 +1788,17 @@ pictures, sounds, or video.")
                               "test/perl/TimescaleNode.pm"))))))
     (build-system cmake-build-system)
     (arguments
-     (list #:imported-modules `((guix build union)
+     (list #:imported-modules `((Manifolding-OS build union)
                                 ,@%cmake-build-system-modules)
            #:modules `(,@%cmake-build-system-modules
-                       ((guix build gnu-build-system) #:prefix gnu:)
-                       (guix build utils)
-                       (guix build union)
+                       ((Manifolding-OS build gnu-build-system) #:prefix gnu:)
+                       (Manifolding-OS build utils)
+                       (Manifolding-OS build union)
                        (ice-9 match))
            #:configure-flags #~(list "-DAPACHE_ONLY=ON"
                                      "-DSEND_TELEMETRY_DEFAULT=OFF")
            #:phases
-           #~(modify-phases (@ (guix build cmake-build-system) %standard-phases)
+           #~(modify-phases (@ (Manifolding-OS build cmake-build-system) %standard-phases)
                (add-after 'unpack 'patch-install-location
                  (lambda _
                    ;; Install extension to the output instead of the
@@ -2287,7 +2287,7 @@ including field and record folding.")
               (sha256
                (base32
                 "1cgr33qv639fyx067sg8nsy8mnfac9xgmmw2qwi2bcmir777ma4q"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                '(begin
                   ;; TODO: unbundle gtest.
@@ -3323,7 +3323,7 @@ similar to BerkeleyDB, LevelDB, etc.")
               (sha256
                (base32
                 "03ixkzdc43lr4q3my0yax1f1gqz6sr6hch5qdipmbd725xxdc47v"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                ;; Delete bundled jemalloc, as the package will use the libc one
                '(begin (delete-file-recursively "deps/jemalloc")))))
@@ -3385,7 +3385,7 @@ sets, bitmaps and hyperloglogs.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "099523fqbya1xc87spwdxi5nld48r1di31q6zpn252nny0xbrdcb"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         ;; Delete bundled jemalloc, as the package will use the libc one
         #~(begin (delete-file-recursively "deps/jemalloc")))))
@@ -4336,7 +4336,7 @@ development.")
        (uri (pypi-uri "pyodbc" version))
        (sha256
         (base32 "1xd88k6rngm9n8z3klb0g94csa9m8sk7df544vpfxpf816cf72yy"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         ;; Delete precompiled binaries.  The corresponding source is included.
         #~(for-each delete-file (find-files "." "\\.pyc$")))))
@@ -4438,7 +4438,7 @@ Memory-Mapped Database} (LMDB), a high-performance key-value store.")
                            "virtuoso-opensource-" version ".tar.gz"))
        (sha256
         (base32 "1nz6kddwxz5k79g3skj7y45f0l20m8fh8haw42j313xm177xpdp0"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        ;; This snippet removes pre-built Java archives.
        (snippet
         #~(for-each delete-file-recursively
@@ -4685,7 +4685,7 @@ You might also want to install the following optional dependencies:
        (sha256
         (base32 "053gj8d8ca5kpp7v61wd7lcm9mqp9xqz3d8pp9spdbcjsaqz9nk9"))
        (snippet #~(begin
-                    (use-modules (guix build utils))
+                    (use-modules (Manifolding-OS build utils))
                     (substitute* "alchemy_mock/comparison.py"
                       (("collections\\.Mapping")
                        "collections.abc.Mapping"))))))
@@ -6189,7 +6189,7 @@ storage that supports JSON and array introspection.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "0615yks1krwjw4l1xxahn9j6qbd7cs8dxza7kc73hc5wr0xng5kf"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         '(begin
            ;; Delete bundled dependencies, available as Guix packages.
@@ -6249,7 +6249,7 @@ compatible with SQLite using a graphical user interface.")
        (sha256
         (base32
          "10gliycmzd16ydbpwwsn1r6byf5l78fwwc7hzgjdgg68zcclj8s5"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet #~(delete-file-recursively "sqlite3"))))
     (build-system cmake-build-system)
     (arguments

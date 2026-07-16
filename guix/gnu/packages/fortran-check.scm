@@ -17,10 +17,10 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages fortran-check)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix build-system meson)
-  #:use-module (guix git-download)
-  #:use-module (guix packages)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS build-system meson)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS packages)
   #:use-module (gnu packages gcc))
 
 ;;; Please: Try to add new module packages in alphabetic order.

@@ -30,23 +30,23 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages tree-sitter)
-  #:use-module ((guix licenses) #:prefix license:)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
   #:use-module (gnu packages)
   #:use-module (gnu packages check)
   #:use-module (gnu packages graphviz)
   #:use-module (gnu packages icu4c)
   #:use-module (gnu packages node)
   #:use-module (gnu packages python-build)
-  #:use-module (guix build-system cargo)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system pyproject)
-  #:use-module (guix build-system tree-sitter)
-  #:use-module (guix download)
-  #:use-module (guix gexp)
-  #:use-module (guix git-download)
-  #:use-module (guix i18n)
-  #:use-module (guix packages)
-  #:use-module (guix utils)
+  #:use-module (Manifolding-OS build-system cargo)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system pyproject)
+  #:use-module (Manifolding-OS build-system tree-sitter)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS i18n)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS utils)
   #:use-module (ice-9 exceptions))
 
 (define-public tree-sitter
@@ -62,7 +62,7 @@
               (sha256
                (base32
                 "0cck2wa17figxww7lb508sgwy9sbyqj89vxci07hiscr5sgdx9y5"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet #~(begin
                            ;; Remove bundled ICU parts
                            (delete-file-recursively "lib/src/unicode")))))
@@ -205,7 +205,7 @@ This package includes the @command{tree-sitter} command-line tool.")
 
 (define (tree-sitter-delete-generated-files grammar-directories)
   #~(begin
-      (use-modules (guix build utils))
+      (use-modules (Manifolding-OS build utils))
       (define (delete-file-if-exists file)
         ;; Not every package has all files that we want to delete.
         (catch 'system-error
@@ -285,7 +285,7 @@ which will be used as a snippet in origin."
      #:get-cleanup-snippet
      (lambda (grammar-directories)
        #~(begin
-           (use-modules (guix build utils))
+           (use-modules (Manifolding-OS build utils))
            (substitute* "grammar.js"
              (("u\\{\\[0-9a-fA-F\\]\\+\\}")
               "u\\{[0-9a-fA-F]+\\}"))
@@ -342,7 +342,7 @@ which will be used as a snippet in origin."
      #:get-cleanup-snippet
      (lambda (grammar-directories)
        #~(begin
-           (use-modules (guix build utils))
+           (use-modules (Manifolding-OS build utils))
            (mkdir-p "test/corpus")
            (copy-recursively "corpus" "test/corpus")
            #$(tree-sitter-delete-generated-files grammar-directories))))))
@@ -396,7 +396,7 @@ which will be used as a snippet in origin."
    #:get-cleanup-snippet
    (lambda (grammar-directories)
        #~(begin
-           (use-modules (guix build utils))
+           (use-modules (Manifolding-OS build utils))
            ;; FIXME: Invalid node type INHERIT.
            (substitute* "queries/highlights.scm"
              (("^.*\"INHERIT\".*") ""))
@@ -497,7 +497,7 @@ which will be used as a snippet in origin."
      #:get-cleanup-snippet
      (lambda (grammar-directories)
        #~(begin
-           (use-modules (guix build utils))
+           (use-modules (Manifolding-OS build utils))
            ;; FIXME: Language not found.
            (delete-file-recursively "test/highlight")
            #$(tree-sitter-delete-generated-files grammar-directories))))))
@@ -553,7 +553,7 @@ which will be used as a snippet in origin."
      #:get-cleanup-snippet
      (lambda (grammar-directories)
        #~(begin
-           (use-modules (guix build utils))
+           (use-modules (Manifolding-OS build utils))
            ;; FIXME: Language not found.
            (delete-file-recursively "test/highlight")
            #$(tree-sitter-delete-generated-files grammar-directories))))))
@@ -623,7 +623,7 @@ which will be used as a snippet in origin."
    #:get-cleanup-snippet
    (lambda (grammar-directories)
      #~(begin
-         (use-modules (guix build utils))
+         (use-modules (Manifolding-OS build utils))
          ;; FIXME: Language not found.
          (delete-file-recursively "test/highlight")
          #$(tree-sitter-delete-generated-files grammar-directories)))))
@@ -681,7 +681,7 @@ which will be used as a snippet in origin."
    #:get-cleanup-snippet
    (lambda (grammar-directories)
      #~(begin
-         (use-modules (guix build utils))
+         (use-modules (Manifolding-OS build utils))
          ;; FIXME: Language not found.
          (delete-file-recursively "test/highlight")
          #$(tree-sitter-delete-generated-files grammar-directories))))))
@@ -710,7 +710,7 @@ which will be used as a snippet in origin."
    #:get-cleanup-snippet
    (lambda (grammar-directories)
      #~(begin
-         (use-modules (guix build utils))
+         (use-modules (Manifolding-OS build utils))
          ;; FIXME: Language not found.
          (delete-file-recursively "test/highlight")
          #$(tree-sitter-delete-generated-files grammar-directories)))
@@ -871,7 +871,7 @@ which will be used as a snippet in origin."
      #:get-cleanup-snippet
      (lambda (grammar-directories)
        #~(begin
-           (use-modules (guix build utils))
+           (use-modules (Manifolding-OS build utils))
            (for-each
             (lambda (lang)
               (with-directory-excursion lang
@@ -894,7 +894,7 @@ which will be used as a snippet in origin."
      #:get-cleanup-snippet
      (lambda (grammar-directories)
        #~(begin
-           (use-modules (guix build utils))
+           (use-modules (Manifolding-OS build utils))
            (mkdir-p "test/corpus")
            (copy-recursively "corpus" "test/corpus")
            ;; FIXME: Impossible pattern.
@@ -974,7 +974,7 @@ which will be used as a snippet in origin."
      #:get-cleanup-snippet
      (lambda (grammar-directories)
        #~(begin
-           (use-modules (guix build utils))
+           (use-modules (Manifolding-OS build utils))
            ;; FIXME: No language found.
            (delete-file "queries/highlights.scm")
            (delete-file-recursively "test/highlight")
@@ -1157,7 +1157,7 @@ which will be used as a snippet in origin."
    #:get-cleanup-snippet
    (lambda (grammar-directories)
      #~(begin
-         (use-modules (guix build utils))
+         (use-modules (Manifolding-OS build utils))
          (delete-file-recursively "test/highlight") ;FIXME
          #$(tree-sitter-delete-generated-files grammar-directories)))))
 
@@ -1170,7 +1170,7 @@ which will be used as a snippet in origin."
    #:get-cleanup-snippet
    (lambda (grammar-directories)
      #~(begin
-         (use-modules (guix build utils))
+         (use-modules (Manifolding-OS build utils))
          (delete-file-recursively "test/highlight") ;FIXME
          #$(tree-sitter-delete-generated-files grammar-directories)))))
 
@@ -1209,7 +1209,7 @@ which will be used as a snippet in origin."
    #:get-cleanup-snippet
    (lambda (grammar-directories)
      #~(begin
-         (use-modules (guix build utils))
+         (use-modules (Manifolding-OS build utils))
          (substitute* "grammar.js"
            (("@muniftanjim/") "@tree-sitter-grammars/"))
          #$(tree-sitter-delete-generated-files grammar-directories)))))
@@ -1245,7 +1245,7 @@ which will be used as a snippet in origin."
    #:get-cleanup-snippet
    (lambda (grammar-directories)
      #~(begin
-         (use-modules (guix build utils))
+         (use-modules (Manifolding-OS build utils))
          ;; FIXME
          (with-directory-excursion "tree-sitter-markdown-inline/test/corpus"
            (for-each delete-file
@@ -1321,7 +1321,7 @@ which will be used as a snippet in origin."
    #:get-cleanup-snippet
    (lambda (grammar-directories)
      #~(begin
-         (use-modules (guix build utils))
+         (use-modules (Manifolding-OS build utils))
          ;; FIXME: Language not found.
          (delete-file-recursively "test/highlight")
          #$(tree-sitter-delete-generated-files grammar-directories)))))
@@ -1340,7 +1340,7 @@ which will be used as a snippet in origin."
      #:get-cleanup-snippet
      (lambda (grammar-directories)
        #~(begin
-           (use-modules (guix build utils))
+           (use-modules (Manifolding-OS build utils))
            ;; Adjust to the change in tree-sitter-c
            (substitute* "grammar.js"
              (("\\$\\._statement") "$.statement")
@@ -1416,7 +1416,7 @@ which will be used as a snippet in origin."
      #:get-cleanup-snippet
      (lambda (grammar-directories)
        #~(begin
-           (use-modules (guix build utils))
+           (use-modules (Manifolding-OS build utils))
            ;; FIXME
            (delete-file "test/highlight/literals.pm")
            #$(tree-sitter-delete-generated-files grammar-directories))))))
@@ -1457,7 +1457,7 @@ which will be used as a snippet in origin."
      #:get-cleanup-snippet
      (lambda (grammar-directories)
        #~(begin
-           (use-modules (guix build utils))
+           (use-modules (Manifolding-OS build utils))
            (substitute* "grammar.js"
              (("u\\{\\[0-9a-fA-F\\]\\+\\}")
               "u\\{[0-9a-fA-F]+\\}"))
@@ -1615,7 +1615,7 @@ which will be used as a snippet in origin."
    #:get-cleanup-snippet
    (lambda (grammar-directories)
      #~(begin
-         (use-modules (guix build utils))
+         (use-modules (Manifolding-OS build utils))
          ;; FIXME: Language not found.
          (for-each delete-file-recursively '("test/highlight" "test/tags"))
          #$(tree-sitter-delete-generated-files grammar-directories)))))
@@ -1652,7 +1652,7 @@ which will be used as a snippet in origin."
      #:get-cleanup-snippet
      (lambda (grammar-directories)
        #~(begin
-           (use-modules (guix build utils))
+           (use-modules (Manifolding-OS build utils))
            ;; FIXME: Invalid node type labelprefix.
            (substitute* "grammar.js"
              (("( *)\\$\\.set_condenumprefix,\n" all tabs)
@@ -1728,7 +1728,7 @@ which will be used as a snippet in origin."
      #:get-cleanup-snippet
      (lambda (grammar-directories)
        #~(begin
-           (use-modules (guix build utils))
+           (use-modules (Manifolding-OS build utils))
            ;; FIXME: 10/56 fail
            (with-directory-excursion "test/corpus"
              (for-each
@@ -1820,7 +1820,7 @@ which will be used as a snippet in origin."
    #:get-cleanup-snippet
    (lambda (grammar-directories)
      #~(begin
-         (use-modules (guix build utils))
+         (use-modules (Manifolding-OS build utils))
          ;; FIXME: This grammar was built with tree-sitter-python@0.23.5.
          ;; https://github.com/tree-sitter-grammars/tree-sitter-starlark/issues/9
          (substitute* "grammar.js"
@@ -1874,7 +1874,7 @@ which will be used as a snippet in origin."
      #:get-cleanup-snippet
      (lambda (grammar-directories)
        #~(begin
-           (use-modules (guix build utils))
+           (use-modules (Manifolding-OS build utils))
            (delete-file-recursively "test-npm-package")
            (delete-file-recursively "test/outline")
            #$(tree-sitter-delete-generated-files grammar-directories))))))
@@ -2032,7 +2032,7 @@ files.")))
      #:get-cleanup-snippet
      (lambda (grammar-directories)
        #~(begin
-           (use-modules (guix build utils))
+           (use-modules (Manifolding-OS build utils))
            (delete-file-recursively "src")
            (delete-file-recursively "editors")
            (rename-file "tree_sitter_v/package.json" "package.json")
@@ -2068,7 +2068,7 @@ files.")))
      #:get-cleanup-snippet
      (lambda (grammar-directories)
        #~(begin
-           (use-modules (guix build utils))
+           (use-modules (Manifolding-OS build utils))
            ;; FIXME: Language not found.
            (delete-file-recursively "test/highlight")
            ;; Fix a query error in the highlight.scm query test. This would be
@@ -2125,7 +2125,7 @@ files.")))
      #:get-cleanup-snippet
      (lambda (grammar-directories)
        #~(begin
-           (use-modules (guix build utils))
+           (use-modules (Manifolding-OS build utils))
            ;; FIXME
            (substitute* '("wat/grammar.js" "wast/grammar.js")
              (("u\\{\\[0-9a-fA-F\\]\\+\\}")
@@ -2155,7 +2155,7 @@ files.")))
      #:get-cleanup-snippet
      (lambda (grammar-directories)
        #~(begin
-           (use-modules (guix build utils))
+           (use-modules (Manifolding-OS build utils))
            ;; FIXME: Invalid node type const_assert_statement.
            (delete-file "queries/highlights.scm")
            #$(tree-sitter-delete-generated-files grammar-directories)))

@@ -36,20 +36,20 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages irc)
-  #:use-module (guix gexp)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix download)
-  #:use-module (guix git-download)
-  #:use-module (guix packages)
-  #:use-module (guix utils)
-  #:use-module (guix build-system cmake)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system go)
-  #:use-module (guix build-system guile)
-  #:use-module (guix build-system haskell)
-  #:use-module (guix build-system meson)
-  #:use-module (guix build-system pyproject)
-  #:use-module (guix build-system qt)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS utils)
+  #:use-module (Manifolding-OS build-system cmake)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system go)
+  #:use-module (Manifolding-OS build-system guile)
+  #:use-module (Manifolding-OS build-system haskell)
+  #:use-module (Manifolding-OS build-system meson)
+  #:use-module (Manifolding-OS build-system pyproject)
+  #:use-module (Manifolding-OS build-system qt)
   #:use-module (gnu packages)
   #:use-module (gnu packages admin)
   #:use-module (gnu packages aspell)
@@ -197,8 +197,8 @@ and argument placeholders.")
     (arguments
        (list
         #:modules
-        '((guix build meson-build-system)
-          (guix build utils)
+        '((Manifolding-OS build meson-build-system)
+          (Manifolding-OS build utils)
           (ice-9 match))
         #:phases
         #~(modify-phases %standard-phases
@@ -256,7 +256,7 @@ setting @env{LUA_PATH} and @env{LUA_CPATH} in glirc's run-time environment.")
         (sha256
          (base32
           "042fzssydvv35jjknziph8iyyjsyrsb2hp3d0ix0bqbagbrpf1q9"))
-        (modules '((guix build utils)))
+        (modules '((Manifolding-OS build utils)))
         ;; We don't want to install the bundled inxi script.
         (snippet
          '(begin
@@ -799,7 +799,7 @@ interface for those who are accustomed to the ircII way of doing things.")
        (sha256
         (base32 "0gbx64j8782m1x2w9dkiynvshj43m0y4i0xnsiz0gsmyfl0jk8jl"))
        (snippet
-        #~(begin (use-modules (guix build utils))
+        #~(begin (use-modules (Manifolding-OS build utils))
                  (substitute* '("girc/utils.py"
                                 "girc/imapping.py")
                    (("collections.MutableSequence")
@@ -1157,8 +1157,8 @@ server written in C++ for Unix-like operating systems.")
       #:not-compiled-file-regexp "(guix|guix/.*)[.]scm$"
       #:modules '((srfi srfi-1)
                   (ice-9 popen)
-                  (guix build guile-build-system)
-                  (guix build utils))
+                  (Manifolding-OS build guile-build-system)
+                  (Manifolding-OS build utils))
       #:phases
       #~(modify-phases %standard-phases
           #$@(if (%current-target-system)

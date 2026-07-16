@@ -19,9 +19,9 @@
 
 (define-module (test-cran)
   #:use-module (gnu packages statistics)
-  #:use-module (guix import cran)
-  #:use-module (guix sets)
-  #:use-module (guix tests)
+  #:use-module (Manifolding-OS import cran)
+  #:use-module (Manifolding-OS sets)
+  #:use-module (Manifolding-OS tests)
   #:use-module (srfi srfi-1)
   #:use-module (srfi srfi-64)
   #:use-module (srfi srfi-26)
@@ -75,51 +75,51 @@ Date/Publication: 2015-07-14 14:15:16
 
 (test-equal "listifyx: return empty list if key cannot be found"
   '()
-  ((@@ (guix import cran) listify) simple-alist "Letters"))
+  ((@@ (Manifolding-OS import cran) listify) simple-alist "Letters"))
 
 (test-equal "listify: split comma-separated value into elements"
   '("R" "Rcpp" "something" "whatever")
-  ((@@ (guix import cran) listify) simple-alist "SimpleList"))
+  ((@@ (Manifolding-OS import cran) listify) simple-alist "SimpleList"))
 
 (test-equal "listify: strip off parentheses"
   '("R" "BH" "GenomicRanges")
-  ((@@ (guix import cran) listify) simple-alist "List"))
+  ((@@ (Manifolding-OS import cran) listify) simple-alist "List"))
 
 (test-equal "listify: ignore values that are no lists"
   '()
-  ((@@ (guix import cran) listify) simple-alist "BadList"))
+  ((@@ (Manifolding-OS import cran) listify) simple-alist "BadList"))
 
 (test-equal "extract-imports: finds data.table"
   (list "data.table")
-  (set->list ((@ (guix import cran) extract-imports) "abc + data.table::some_procedure()")))
+  (set->list ((@ (Manifolding-OS import cran) extract-imports) "abc + data.table::some_procedure()")))
 
 (test-equal "extract-imports: ignores text inside strings"
   (list)
-  (set->list ((@ (guix import cran) extract-imports)
+  (set->list ((@ (Manifolding-OS import cran) extract-imports)
               "\"hello::world\", \"this is not data.table::some_procedure(), actually\"")))
 
 (test-equal "extract-imports: extracts text inside single quotes"
   (list "FDb.InfiniumMethylation.hg19")
-  (set->list ((@ (guix import cran) extract-imports)
+  (set->list ((@ (Manifolding-OS import cran) extract-imports)
               "suppressPackageStartupMessages(require('FDb.InfiniumMethylation.hg19'))")))
 
 (test-equal "extract-imports: ignores other colon separated things"
   (list)
-  (set->list ((@ (guix import cran) extract-imports)
+  (set->list ((@ (Manifolding-OS import cran) extract-imports)
               "this:is:not::a:procedure")))
 
 (test-equal "extract-imports: matches things before a comma"
   (list "MASS")
-  (set->list ((@ (guix import cran) extract-imports)
+  (set->list ((@ (Manifolding-OS import cran) extract-imports)
               "check_installed(\"MASS\",")))
 
 (test-equal "r-minimal is not a cran package"
   #f
-  ((@@ (guix import cran) cran-package?) r-minimal))
+  ((@@ (Manifolding-OS import cran) cran-package?) r-minimal))
 
 (test-assert "description->package"
   ;; Replace network resources with sample data.
-  (mock ((guix build download) url-fetch
+  (mock ((Manifolding-OS build download) url-fetch
          (lambda* (url file-name
                        #:key
                        (mirrors '()) verify-certificate?)

@@ -25,11 +25,11 @@ do
     if [ "$(grep -wc "$crate" $FILE)" -eq 1 ]; then
         echo "\
 (begin
-  (use-modules (guix utils))
+  (use-modules (Manifolding-OS utils))
   (let ((source-properties
          (find-definition-location \"$FILE\" '$crate #:define-prefix 'define)))
     (and=> source-properties delete-expression)))" |
-            guix repl -t machine
+            Manifolding-OS repl -t machine
     fi
 done
 

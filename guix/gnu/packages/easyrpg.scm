@@ -20,13 +20,13 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages easyrpg)
-  #:use-module (guix gexp)
-  #:use-module (guix packages)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix download)
-  #:use-module (guix git-download)
-  #:use-module (guix build-system cmake)
-  #:use-module (guix build-system gnu)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS packages)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS build-system cmake)
+  #:use-module (Manifolding-OS build-system gnu)
   #:use-module (gnu packages audio)
   #:use-module (gnu packages compression)
   #:use-module (gnu packages fontutils)
@@ -136,7 +136,7 @@ data.")
       (name "libretro-easyrpg")
       (source (origin
                 (inherit (package-source easyrpg-player))
-                (modules '((guix build utils)))
+                (modules '((Manifolding-OS build utils)))
                 (snippet
                  #~(begin
                      (copy-recursively #$libretro-common

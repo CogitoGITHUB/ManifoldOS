@@ -42,17 +42,17 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages code)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix gexp)
-  #:use-module (guix packages)
-  #:use-module (guix utils)
-  #:use-module (guix download)
-  #:use-module (guix git-download)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system cmake)
-  #:use-module (guix build-system pyproject)
-  #:use-module (guix build-system trivial)
-  #:use-module (guix build-system go)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS utils)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system cmake)
+  #:use-module (Manifolding-OS build-system pyproject)
+  #:use-module (Manifolding-OS build-system trivial)
+  #:use-module (Manifolding-OS build-system go)
   #:use-module (gnu packages)
   #:use-module (gnu packages autogen)
   #:use-module (gnu packages autotools)
@@ -120,7 +120,7 @@
           (base32
            "0cllaraw8mxs8q2nr28nhgzkb417gj2wcklqg59w84f4lc78k3yb"))
          (file-name (git-file-name name version))
-         (modules '((guix build utils)))
+         (modules '((Manifolding-OS build utils)))
          (snippet
           '(substitute* "test.sh"
              (("test_command \"cc -Wall -Wextra -o source.out source.c\"" all)
@@ -344,8 +344,8 @@ Using cscope, you can easily search for where symbols are used and defined.")
                    (wrap-program
                        (string-append #$output
                                       "/share/gtags/script/pygments_parser.py")
-                     `("GUIX_PYTHONPATH" ":" prefix
-                       (,(getenv "GUIX_PYTHONPATH")))))))))
+                     `("MANIFOLDING_OS_PYTHONPATH" ":" prefix
+                       (,(getenv "MANIFOLDING_OS_PYTHONPATH")))))))))
     (inputs
       (list bash-minimal                ; for wrap-program
             coreutils
@@ -716,10 +716,10 @@ possible to collect coverage information without special compiler switches.")
     (native-inputs
      (list bash perl))
     (arguments
-     `(#:modules ((guix build utils))
+     `(#:modules ((Manifolding-OS build utils))
        #:builder
        (begin
-         (use-modules (guix build utils))
+         (use-modules (Manifolding-OS build utils))
          (copy-recursively (assoc-ref %build-inputs "source") "source")
          (chdir "source")
          (patch-shebang  "colormake.pl"
@@ -880,7 +880,7 @@ the C, C++, C++/CLI, Objective‑C, C#, and Java programming languages.")
        (uri (string-append "mirror://gnu/idutils/idutils-" version ".tar.xz"))
        (sha256
         (base32 "1hmai3422iaqnp34kkzxdnywl7n7pvlxp11vrw66ybxn9wxg90c1"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         '(begin
            (substitute* (find-files "lib" "\\.c$")
@@ -972,7 +972,7 @@ extensions over the standard utility.")
        (file-name (git-file-name name version))
        (sha256
         "0ya737byp1204sc5l11zi7fn7fgvqmcwyq84lbdxhyjvyfhb8598")
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet #~(begin
                     (for-each delete-file-recursively
                               '(".conan" ".devcontainer"
@@ -1061,7 +1061,7 @@ in a project.")
        (sha256
         (base32
          "04i9fhhifs82d39z2dskscp7v2885g7isjn9r9zm4wsl6dcnb5n7"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         '(begin
            ;; Remove the bundled PackCC and associated build rules.

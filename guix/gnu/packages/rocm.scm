@@ -19,14 +19,14 @@
 ;;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages rocm)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix packages)
-  #:use-module (guix download)
-  #:use-module (guix gexp)
-  #:use-module (guix utils)
-  #:use-module (guix git-download)
-  #:use-module (guix build-system cmake)
-  #:use-module (guix amd-gpu)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS utils)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS build-system cmake)
+  #:use-module (Manifolding-OS amd-gpu)
   #:use-module (gnu packages)
   #:use-module (gnu packages base)
   #:use-module (gnu packages boost)
@@ -731,8 +731,8 @@ runtime libraries by the ROCprofiler (v2) library.")
                         #$(this-package-input "rocm-hip-runtime")
                         "/lib/cmake/hip"))
       #:modules '((srfi srfi-1)
-                  (guix build cmake-build-system)
-                  (guix build utils))
+                  (Manifolding-OS build cmake-build-system)
+                  (Manifolding-OS build utils))
       #:phases
       #~(modify-phases %standard-phases
           (add-after 'unpack 'chdir

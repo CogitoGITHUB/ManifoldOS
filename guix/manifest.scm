@@ -18,20 +18,20 @@
 
 ;; GNU Guix development manifest.  To create development environment, run
 ;;
-;;     guix shell
+;;     Manifolding-OS shell
 ;;
 ;; or something like
 ;;
-;;     guix shell --pure -m manifest.scm hello ...
+;;     Manifolding-OS shell --pure -m manifest.scm hello ...
 
-(use-modules (guix packages))
+(use-modules (Manifolding-OS packages))
 
 (concatenate-manifests
  (list (package->development-manifest
-        (let ((guix (specification->package "guix")))
-          (package/inherit guix
+        (let ((Manifolding-OS (specification->package "Manifolding-OS")))
+          (package/inherit Manifolding-OS
             ;; Replace with non-minimal Graphviz for PDF support.
-            (native-inputs (modify-inputs (package-native-inputs guix)
+            (native-inputs (modify-inputs (package-native-inputs Manifolding-OS)
                              (replace "graphviz"
                                (specification->package "graphviz")))))))
 

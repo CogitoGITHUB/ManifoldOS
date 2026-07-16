@@ -30,15 +30,15 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages python-compression)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix utils)
-  #:use-module (guix packages)
-  #:use-module (guix download)
-  #:use-module (guix git-download)
-  #:use-module (guix gexp)
-  #:use-module (guix build-system cargo)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system pyproject)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS utils)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS build-system cargo)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system pyproject)
   #:use-module (gnu packages)
   #:use-module (gnu packages build-tools)
   #:use-module (gnu packages libffi)
@@ -123,7 +123,7 @@ Python versions below 3.14.")
         (base32
          "0dqxyk87xwmj2g1midp29zpibf58vxqavx2sqy9ylfjdapci5cz0"))
        (snippet
-        #~(begin (use-modules (guix build utils))
+        #~(begin (use-modules (Manifolding-OS build utils))
                  (delete-file-recursively "blosc/c-blosc")))))
     (build-system pyproject-build-system)
     (arguments
@@ -232,7 +232,7 @@ to access its data, so it can be used as a drop-in replacement.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "1fikasxf7r2dwlk8mv8w7nmjkn0jw5ic31ky3mvpkdzwgd4xfndl"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         #~(begin
            ;; Cherry-picked from upstream since the latest release
@@ -308,9 +308,9 @@ were a single file.")
                             "test_variants_decompress_into[zstd-File-Buffer]")))
       #:imported-modules `(,@%cargo-build-system-modules
                            ,@%pyproject-build-system-modules)
-      #:modules '(((guix build cargo-build-system) #:prefix cargo:)
-                  (guix build pyproject-build-system)
-                  (guix build utils))
+      #:modules '(((Manifolding-OS build cargo-build-system) #:prefix cargo:)
+                  (Manifolding-OS build pyproject-build-system)
+                  (Manifolding-OS build utils))
       #:phases
       #~(modify-phases %standard-phases
           (add-after 'unpack 'prepare-cargo-build-system
@@ -469,7 +469,7 @@ Jump conversion filter by CFFI for Python.")
         (base32 "04rw11qllb43si8g6gnliy41gavkna9hnc8mg7w46lchi6k2fy5p"))
        (snippet
         #~(begin
-            (use-modules (guix build utils))
+            (use-modules (Manifolding-OS build utils))
             (delete-file-recursively "libbrotli")))))
     (build-system pyproject-build-system)
     (arguments
@@ -538,7 +538,7 @@ compression algorithm.")
        (sha256
         (base32 "1d7j30922v547vnif171yhk1jml9cv14izda0w506qhslglk6hhj"))
        ;; Remove bundled isa-l source code
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         #~(delete-file-recursively "src/isal/isa-l"))))
     (build-system pyproject-build-system)
@@ -766,7 +766,7 @@ Python strings.")
        (sha256
         (base32
          "1nmb757fx3k30zsjiaz7nj6cgp4zxl44w28s4l8k0ff4grid03q7"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet '(begin
                    ;; Remove bundled copy of lz4.
                    (delete-file-recursively "lz4libs")))))
@@ -854,7 +854,7 @@ directly from the command line.")
               (sha256
                (base32
                 "139xz3m2m8sal8riicvmb9i0sq4085s2hc6c148bwhmzpnvky3nw"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                '(begin
                   ;; TODO Remove bundled libraries: lz4, lzf, and zstd.
@@ -1261,7 +1261,7 @@ provided.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "08ih7vr3rzwrzpzwhk1k94z5nm9mmvls7c6w8wsqncf0kyl8d7yp"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet '(begin
                    ;; Remove a bundled copy of the zstd sources.
                    (delete-file-recursively "zstd")

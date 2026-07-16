@@ -37,9 +37,9 @@
   #:use-module (gnu packages admin)
   #:use-module (gnu packages onc-rpc)
   #:use-module (gnu packages nfs)
-  #:use-module (guix gexp)
-  #:use-module (guix store)
-  #:use-module (guix monads)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS store)
+  #:use-module (Manifolding-OS monads)
   #:export (%test-nfs
             %test-nfs-server
             %test-nfs-full))
@@ -69,7 +69,7 @@
     (marionette-operating-system
      %base-os
      #:imported-modules '((gnu services herd)
-                          (guix combinators))))
+                          (Manifolding-OS combinators))))
 
   (define test
     (with-imported-modules '((gnu build marionette))
@@ -185,7 +185,7 @@
      %nfs-os
      #:requirements '(nscd)
      #:imported-modules '((gnu services herd)
-                          (guix combinators))))
+                          (Manifolding-OS combinators))))
   (define test
     (with-imported-modules '((gnu build marionette))
       #~(begin
@@ -294,7 +294,7 @@ crossmnt,fsid=root,no_root_squash,insecure,async)")))))
                (message-destination #~(const '("/dev/console")))))))))
        #:requirements '(nscd)
        #:imported-modules '((gnu services herd)
-                            (guix combinators)))))
+                            (Manifolding-OS combinators)))))
 
   (define nfs-root-client-os
     (marionette-operating-system
@@ -316,7 +316,7 @@ crossmnt,fsid=root,no_root_squash,insecure,async)")))))
                           (chmod "/export" #o777))))
      #:requirements '(nscd)
      #:imported-modules '((gnu services herd)
-                          (guix combinators))))
+                          (Manifolding-OS combinators))))
 
   (define test
     (with-imported-modules '((gnu build marionette))

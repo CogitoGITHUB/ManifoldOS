@@ -17,13 +17,13 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu tests foreign)
-  #:use-module (guix download)
-  #:use-module (guix gexp)
-  #:use-module (guix modules)
-  #:use-module (guix monads)
-  #:use-module (guix packages)
-  #:use-module (guix profiles)
-  #:autoload   (guix store) (%store-prefix %store-monad %graft?)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS modules)
+  #:use-module (Manifolding-OS monads)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS profiles)
+  #:autoload   (Manifolding-OS store) (%store-prefix %store-monad %graft?)
   #:use-module (gnu compression)
   #:use-module (gnu tests)
   #:use-module ((gnu tests base)
@@ -38,7 +38,7 @@
   #:use-module (gnu packages package-management)
   #:use-module (gnu packages virtualization)
   #:use-module (gnu system vm)
-  #:use-module ((guix scripts pack) #:prefix pack:)
+  #:use-module ((Manifolding-OS scripts pack) #:prefix pack:)
   #:use-module (srfi srfi-9)
   #:export (%test-debian-install
             %test-archlinux-install
@@ -78,10 +78,10 @@ resize the partition and file system, if appropriate."
 
   (define build
     (with-imported-modules (source-module-closure
-                            '((guix build utils)
+                            '((Manifolding-OS build utils)
                               (gnu build marionette)))
       #~(begin
-          (use-modules (guix build utils)
+          (use-modules (Manifolding-OS build utils)
                        (gnu build marionette))
 
           (define target-image
@@ -116,7 +116,7 @@ resize the partition and file system, if appropriate."
             (marionette-eval '(system* "ls" "-la" "/mnt")
                              marionette)
             (marionette-eval '(begin
-                                (use-modules (guix build utils))
+                                (use-modules (Manifolding-OS build utils))
                                 (mkdir-p "/mnt/opt/guix")
                                 (copy-recursively #$%guile-static-initrd
                                                   "/mnt/opt/guix"
@@ -309,7 +309,7 @@ and file system, if appropriate."
           (test-assert "install fake dependencies"
             ;; The installation script insists on checking for the
             ;; availability of 'wget' and 'gpg' but does not actually use them
-            ;; when 'GUIX_BINARY_FILE_NAME' is set.  Provide fake binaries
+            ;; when 'MANIFOLDING_OS_BINARY_FILE_NAME' is set.  Provide fake binaries
             ;; that always succeed.
             (marionette-eval '(begin
                                 (false-if-exception
@@ -332,7 +332,7 @@ and file system, if appropriate."
           (test-assert "run install script"
             (marionette-eval '(system
                                (string-append
-                                "yes '' | GUIX_BINARY_FILE_NAME="
+                                "yes '' | MANIFOLDING_OS_BINARY_FILE_NAME="
                                 (in-vicinity "/host"
                                              (basename #$tarball))
                                 " sh "

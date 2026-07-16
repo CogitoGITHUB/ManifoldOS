@@ -31,15 +31,15 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages kde-frameworks)
-  #:use-module (guix build-system cmake)
-  #:use-module (guix build-system pyproject)
-  #:use-module (guix build-system qt)
-  #:use-module (guix download)
-  #:use-module (guix git-download)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix packages)
-  #:use-module (guix utils)
-  #:use-module (guix gexp)
+  #:use-module (Manifolding-OS build-system cmake)
+  #:use-module (Manifolding-OS build-system pyproject)
+  #:use-module (Manifolding-OS build-system qt)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS utils)
+  #:use-module (Manifolding-OS gexp)
   #:use-module (gnu packages)
   #:use-module (gnu packages acl)
   #:use-module (gnu packages admin)
@@ -2181,7 +2181,7 @@ with other frameworks.")
               (sha256
                (base32
                 "16jyxfzzifwv8y6mpqm6li50qn570pah8rd28v1jcnpcpyf6j036"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               ;; Make packages using kauth put their policy files and helpers
               ;; into their own prefix.
               (snippet
@@ -2756,7 +2756,7 @@ covers feedback and persistent events.")
               (sha256
                (base32
                 "1dkzq7zn10v5qx75ybbi8p8bqaxnqxkp666my7f85hvkgnga8kfd"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               ;; Allow following paths or symlinks outside this package.
               (snippet
                '(substitute* "src/kpackage/private/package_p.h"
@@ -3636,9 +3636,9 @@ in applications using the KDE Frameworks.")
             (lambda* (#:key inputs outputs #:allow-other-keys)
               ;; Set patched-in values:
               (substitute* "src/kdeinit/kinit.cpp"
-                (("GUIX_PKGS_KF5_KIO") #$(this-package-input "kio"))
-                (("GUIX_PKGS_KF5_PARTS") #$(this-package-input "kparts"))
-                (("GUIX_PKGS_KF5_PLASMA")
+                (("MANIFOLDING_OS_PKGS_KF5_KIO") #$(this-package-input "kio"))
+                (("MANIFOLDING_OS_PKGS_KF5_PARTS") #$(this-package-input "kparts"))
+                (("MANIFOLDING_OS_PKGS_KF5_PLASMA")
                  #$(this-package-input "plasma-framework"))))))))
     (native-search-paths
      (list (search-path-specification

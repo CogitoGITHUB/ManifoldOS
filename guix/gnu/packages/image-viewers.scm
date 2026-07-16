@@ -57,19 +57,19 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages image-viewers)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix download)
-  #:use-module (guix gexp)
-  #:use-module (guix git-download)
-  #:use-module (guix packages)
-  #:use-module (guix utils)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system cmake)
-  #:use-module (guix build-system copy)
-  #:use-module (guix build-system go)
-  #:use-module (guix build-system meson)
-  #:use-module (guix build-system pyproject)
-  #:use-module (guix build-system qt)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS utils)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system cmake)
+  #:use-module (Manifolding-OS build-system copy)
+  #:use-module (Manifolding-OS build-system go)
+  #:use-module (Manifolding-OS build-system meson)
+  #:use-module (Manifolding-OS build-system pyproject)
+  #:use-module (Manifolding-OS build-system qt)
   #:use-module (gnu packages autotools)
   #:use-module (gnu packages algebra)
   #:use-module (gnu packages animation)
@@ -693,10 +693,10 @@ and WebP.")
     (arguments
      (list
       #:imported-modules `(,@%pyproject-build-system-modules
-                           (guix build glib-or-gtk-build-system))
-      #:modules '((guix build pyproject-build-system)
-                  ((guix build glib-or-gtk-build-system) #:prefix glib-or-gtk:)
-                  (guix build utils))
+                           (Manifolding-OS build glib-or-gtk-build-system))
+      #:modules '((Manifolding-OS build pyproject-build-system)
+                  ((Manifolding-OS build glib-or-gtk-build-system) #:prefix glib-or-gtk:)
+                  (Manifolding-OS build utils))
       #:tests? #f                       ;no tests
       #:phases
       #~(modify-phases %standard-phases
@@ -794,9 +794,9 @@ Poppler-Qt5 binding, PDF documents.")
      (list
       #:qtbase qtbase
       #:tests? #f ; test code doesn't compile
-      #:modules '((guix build qt-build-system)
-                  ((guix build gnu-build-system) #:prefix gnu:)
-                  (guix build utils))
+      #:modules '((Manifolding-OS build qt-build-system)
+                  ((Manifolding-OS build gnu-build-system) #:prefix gnu:)
+                  (Manifolding-OS build utils))
       #:phases
       #~(modify-phases %standard-phases
           (replace 'configure
@@ -924,7 +924,7 @@ with tiling window managers.  Features include:
                            version ".tgz"))
        (sha256
         (base32 "011pad6gvmpphiv85yq820w3m79m3spfafarcsrhb2ylwbymy27g"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         '(begin
            ;; Fix a typo.  This can probably be removed on the next update.
@@ -1085,7 +1085,7 @@ synchronization of multiple instances.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "0xr3g6my2n9ry5mqiw1qvf7m0lpmj20h2xsnh75653ha83wqxmhm"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         ;; Remove bundled sources
         #~(begin

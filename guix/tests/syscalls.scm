@@ -21,8 +21,8 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (test-syscalls)
-  #:use-module (guix utils)
-  #:use-module (guix build syscalls)
+  #:use-module (Manifolding-OS utils)
+  #:use-module (Manifolding-OS build syscalls)
   #:use-module (gnu build linux-container)
   #:use-module (srfi srfi-1)
   #:use-module (srfi srfi-26)
@@ -33,7 +33,7 @@
   #:use-module (ice-9 match)
   #:use-module (ice-9 threads))
 
-;; Test the (guix build syscalls) module, although there's not much that can
+;; Test the (Manifolding-OS build syscalls) module, although there's not much that can
 ;; actually be tested without being root.
 
 (define temp-file
@@ -281,9 +281,9 @@
       (system-error-errno args))))
 
 (test-equal "scandir*, ASCII file names"
-  (scandir (dirname (search-path %load-path "guix/base32.scm"))
+  (scandir (dirname (search-path %load-path "Manifolding-OS/base32.scm"))
            (const #t) string<?)
-  (match (scandir* (dirname (search-path %load-path "guix/base32.scm")))
+  (match (scandir* (dirname (search-path %load-path "Manifolding-OS/base32.scm")))
     (((names . properties) ...)
      names)))
 
@@ -315,7 +315,7 @@
              (setlocale LC_ALL locale))))))))
 
 (test-assert "scandir*, properties"
-  (let ((directory (dirname (search-path %load-path "guix/base32.scm"))))
+  (let ((directory (dirname (search-path %load-path "Manifolding-OS/base32.scm"))))
     (every (lambda (entry name)
              (match entry
                ((name2 . properties)

@@ -19,10 +19,10 @@
 ;;; This file returns a manifest of packages built using the emacs-build-system.
 ;;; It is used to assist continuous integration of the emacs-team branch.
 
-(use-modules (guix packages)
-             (guix profiles)
-             (guix gexp)
-             (guix build-system)
+(use-modules (Manifolding-OS packages)
+             (Manifolding-OS profiles)
+             (Manifolding-OS gexp)
+             (Manifolding-OS build-system)
              (ice-9 match)
              (srfi srfi-1)
              (srfi srfi-26))
@@ -32,7 +32,7 @@
       (any
        (match-lambda
          (('guix 'build 'emacs-build-system) #t)
-         ('((guix build emacs-build-system) . _) #t)
+         ('((Manifolding-OS build emacs-build-system) . _) #t)
          (_ #f))
        (cond
         ((gexp? modules) (gexp->approximate-sexp modules))

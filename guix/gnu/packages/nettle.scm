@@ -20,12 +20,12 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages nettle)
-  #:use-module (guix gexp)
-  #:use-module (guix utils)
-  #:use-module (guix licenses)
-  #:use-module (guix packages)
-  #:use-module (guix download)
-  #:use-module (guix build-system gnu)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS utils)
+  #:use-module (Manifolding-OS licenses)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS build-system gnu)
   #:use-module (gnu packages)
   #:use-module (gnu packages multiprecision)
   #:use-module (gnu packages m4))

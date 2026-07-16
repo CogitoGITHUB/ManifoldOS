@@ -28,8 +28,8 @@
   #:use-module (gnu services networking)
   #:use-module (gnu services ssh)
   #:use-module (gnu services telephony)
-  #:use-module (guix gexp)
-  #:use-module (guix modules)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS modules)
   #:export (%test-jami
             %test-jami-provisioning
             %test-jami-provisioning-partial))
@@ -141,7 +141,7 @@ jami account used as part of the jami configuration are left *unspecified*."
                       %jami-os-provisioning)
                   %jami-os)
               #:imported-modules '((gnu services herd)
-                                   (guix combinators)
+                                   (Manifolding-OS combinators)
                                    (gnu build jami-service)
                                    (gnu build dbus-service))))
   (define vm (virtual-machine

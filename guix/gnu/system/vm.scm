@@ -23,18 +23,18 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu system vm)
-  #:use-module (guix config)
-  #:use-module (guix store)
-  #:use-module (guix gexp)
-  #:use-module (guix derivations)
-  #:use-module (guix packages)
-  #:use-module (guix monads)
-  #:use-module (guix records)
-  #:use-module (guix modules)
-  #:use-module (guix utils)
+  #:use-module (Manifolding-OS config)
+  #:use-module (Manifolding-OS store)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS derivations)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS monads)
+  #:use-module (Manifolding-OS records)
+  #:use-module (Manifolding-OS modules)
+  #:use-module (Manifolding-OS utils)
   #:use-module (gcrypt hash)
-  #:use-module (guix base32)
-  #:use-module ((guix self) #:select (make-config.scm))
+  #:use-module (Manifolding-OS base32)
+  #:use-module ((Manifolding-OS self) #:select (make-config.scm))
 
   #:use-module ((gnu build marionette)
                 #:select (qemu-command))
@@ -319,9 +319,9 @@ useful when FULL-BOOT?  is true."
       ;; Script that "copies" BASE-IMAGE to /tmp.  Make a copy-on-write image,
       ;; which is much cheaper than actually copying it.
       (program-file "copy-image"
-                    (with-imported-modules '((guix build utils))
+                    (with-imported-modules '((Manifolding-OS build utils))
                       #~(begin
-                          (use-modules (guix build utils))
+                          (use-modules (Manifolding-OS build utils))
                           (unless (file-exists? #$rw-image)
                             (invoke #+(file-append qemu "/bin/qemu-img")
                                     "create" "-b" #$base-image

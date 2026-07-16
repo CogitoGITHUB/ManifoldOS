@@ -77,22 +77,22 @@
   #:use-module (gnu packages xdisorg)
   #:use-module (gnu packages xml)
   #:use-module (gnu packages xorg)
-  #:use-module (guix build-system cargo)
-  #:use-module (guix build-system cmake)
-  #:use-module (guix build-system copy)
-  #:use-module (guix build-system glib-or-gtk)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system perl)
-  #:use-module (guix build-system pyproject)
-  #:use-module (guix build-system qt)
-  #:use-module (guix deprecation)
-  #:use-module (guix download)
-  #:use-module (guix gexp)
-  #:use-module (guix git-download)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix modules)
-  #:use-module (guix packages)
-  #:use-module (guix utils)
+  #:use-module (Manifolding-OS build-system cargo)
+  #:use-module (Manifolding-OS build-system cmake)
+  #:use-module (Manifolding-OS build-system copy)
+  #:use-module (Manifolding-OS build-system glib-or-gtk)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system perl)
+  #:use-module (Manifolding-OS build-system pyproject)
+  #:use-module (Manifolding-OS build-system qt)
+  #:use-module (Manifolding-OS deprecation)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS modules)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS utils)
   #:use-module (srfi srfi-1))
 
 (define-public nimf
@@ -116,10 +116,10 @@
     (arguments
      (list
       #:imported-modules `(,@%glib-or-gtk-build-system-modules
-                           (guix build cmake-build-system)
-                           (guix build qt-build-system)
-                           (guix build qt-utils))
-      #:modules `(((guix build qt-build-system) #:prefix qt:)
+                           (Manifolding-OS build cmake-build-system)
+                           (Manifolding-OS build qt-build-system)
+                           (Manifolding-OS build qt-utils))
+      #:modules `(((Manifolding-OS build qt-build-system) #:prefix qt:)
                   ,@%glib-or-gtk-build-system-default-modules)
       #:configure-flags
       #~(list "--with-im-config-data"
@@ -235,11 +235,11 @@ focuses especially on Korean input (Hangul, Hanja, ...).")
       #:tests? #f                      ; No target
       #:imported-modules
       `(,@%glib-or-gtk-build-system-modules
-        (guix build cmake-build-system)
-        (guix build qt-build-system)
-        (guix build qt-utils))
+        (Manifolding-OS build cmake-build-system)
+        (Manifolding-OS build qt-build-system)
+        (Manifolding-OS build qt-utils))
       #:modules
-      `(((guix build qt-build-system) #:prefix qt:)
+      `(((Manifolding-OS build qt-build-system) #:prefix qt:)
         ,@%glib-or-gtk-build-system-default-modules)
       #:configure-flags
       #~(list
@@ -303,10 +303,10 @@ Random Cage Fighting Birds, Cool Music etc.")
     (build-system cmake-build-system)
     (arguments
      (list
-      #:modules '(((guix build cargo-build-system) #:prefix cargo:)
-                  (guix build utils)
-                  (guix build cmake-build-system))
-      #:imported-modules `((guix build cmake-build-system)
+      #:modules '(((Manifolding-OS build cargo-build-system) #:prefix cargo:)
+                  (Manifolding-OS build utils)
+                  (Manifolding-OS build cmake-build-system))
+      #:imported-modules `((Manifolding-OS build cmake-build-system)
                            ,@%cargo-build-system-modules)
       #:out-of-source? #f              ;For the tests.
       #:phases
@@ -1077,7 +1077,7 @@ from the database are used as entries (heading terms).")
              (commit (string-append "v" version))))
        (file-name (git-file-name name version))
        (sha256 (base32 "0myrim1m9zq65y5c77wq4f9ix024lyw8dvjxws33qkfsd6xzvwz7"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet                         ;use src layout for isolated tests
         #~(begin
             (mkdir "src")

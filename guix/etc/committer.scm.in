@@ -6,7 +6,7 @@
 ;;; Copyright © 2020, 2021, 2022, 2023 Ricardo Wurmus <rekado@elephly.net>
 ;;; Copyright © 2021 Sarah Morgensen <iskarian@mgsn.dev>
 ;;; Copyright © 2021 Xinglu Chen <public@yoctocell.xyz>
-;;; Copyright © 2022 Maxim Cournoyer <maxim@guixotic.coop>
+;;; Copyright © 2022 Maxim Cournoyer <maxim@Manifolding-OSotic.coop>
 ;;;
 ;;; This file is part of GNU Guix.
 ;;;
@@ -41,7 +41,7 @@
              (ice-9 rdelim)
              (ice-9 regex)
              (ice-9 textual-ports)
-             (guix gexp))
+             (Manifolding-OS gexp))
 
 (define* (break-string str #:optional (max-line-length 70))
   "Break the string STR into lines that are no longer than MAX-LINE-LENGTH.

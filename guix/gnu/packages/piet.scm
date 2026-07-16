@@ -19,12 +19,12 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages piet)
-  #:use-module (guix packages)
-  #:use-module (guix download)
-  #:use-module (guix gexp)
-  #:use-module (guix git-download)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix build-system gnu)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS build-system gnu)
   #:use-module (gnu packages bash)
   #:use-module (gnu packages gd)
   #:use-module (gnu packages groff)
@@ -90,15 +90,15 @@ an Algol-like language
          (file-name (git-file-name name version))
          (sha256
           (base32 "0xwbhwizfbn080fmrgavaz3b939brycmlar3m5px9avl2b68c816"))
-         (modules '((guix build utils)))
+         (modules '((Manifolding-OS build utils)))
          (snippet
           '(begin
              ;; Remove a bundled fork of Marc Majcher's Piet interpreter.
              (delete-file-recursively "interpreter")))))
       (build-system gnu-build-system)
       (arguments
-       `(#:modules ((guix build gnu-build-system)
-                    (guix build utils)
+       `(#:modules ((Manifolding-OS build gnu-build-system)
+                    (Manifolding-OS build utils)
                     (srfi srfi-26))
          #:phases
          (modify-phases %standard-phases

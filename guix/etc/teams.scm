@@ -51,14 +51,14 @@ exec $pre_inst_env_maybe guix repl -- "$0" "$@"
   #:use-module (ice-9 regex)
   #:use-module (ice-9 match)
   #:use-module (ice-9 rdelim)
-  #:use-module (guix ui)
+  #:use-module (Manifolding-OS ui)
   #:use-module (git)
   #:use-module (json)
   #:use-module (web client)
   #:use-module (web request)
   #:use-module (web response)
   #:use-module (rnrs bytevectors)
-  #:use-module (guix base64))
+  #:use-module (Manifolding-OS base64))
 
 (define-record-type <regexp*>
   (%make-regexp* pat flag rx)
@@ -485,13 +485,13 @@ already exists.  Lookup team IDs among CURRENT-TEAMS."
 Telecom Platform (OTP), Erlang and Elxir languages and packages, development
 of Rebar and Mix build systems and Hex.pm importer."
         #:scope (list (make-regexp* "^gnu/packages/elixir(-.+|)\\.scm$")
-                      "guix/build/mix-build-system.scm"
-                      "guix/build-system/mix.scm"
+                      "Manifolding-OS/build/mix-build-system.scm"
+                      "Manifolding-OS/build-system/mix.scm"
                       (make-regexp* "^gnu/packages/erlang(-.+|)\\.scm$")
-                      "guix/build/rebar-build-system.scm"
-                      "guix/build-system/rebar.scm"
-                      "guix/import/hexpm.scm"
-                      "guix/scripts/import/hexpm.scm")))
+                      "Manifolding-OS/build/rebar-build-system.scm"
+                      "Manifolding-OS/build-system/rebar.scm"
+                      "Manifolding-OS/import/hexpm.scm"
+                      "Manifolding-OS/scripts/import/hexpm.scm")))
 
 (define-team bioinformatics
   (team 'bioinformatics
@@ -557,84 +557,84 @@ reports."))
         #:name "Core / Tools / Internals"
         #:scope
         (list "etc/teams.scm"
-              "guix/avahi.scm"
-              "guix/base16.scm"
-              "guix/base32.scm"
-              "guix/base64.scm"
-              "guix/bzr-download.scm"
-              "guix/cache.scm"
-              "guix/ci.scm"
-              "guix/colors.scm"
-              "guix/combinators.scm"
-              "guix/config.scm"
-              "guix/cpio.scm"
-              "guix/cpu.scm"
-              "guix/cve.scm"
-              "guix/cvs-download.scm"
-              "guix/deprecation.scm"
-              "guix/derivations.scm"
-              "guix/describe.scm"
-              "guix/diagnostics.scm"
-              "guix/discovery.scm"
-              "guix/docker.scm"
-              "guix/download.scm"
-              "guix/elf.scm"
-              "guix/fossil-download.scm"
-              "guix/ftp-client.scm"
-              "guix/gexp.scm"
-              "guix/git-authenticate.scm"
-              "guix/git-download.scm"
-              "guix/git.scm"
-              "guix/glob.scm"
-              "guix/gnu-maintenance.scm"
-              "guix/gnupg.scm"
-              "guix/grafts.scm"
-              "guix/graph.scm"
-              "guix/hash.scm"
-              "guix/hg-download.scm"
-              "guix/http-client.scm"
-              "guix/i18n.scm"
-              "guix/inferior.scm"
-              "guix/ipfs.scm"
-              "guix/least-authority.scm"
-              "guix/licenses.scm"
-              "guix/lint.scm"
-              "guix/man-db.scm"
-              "guix/memoization.scm"
-              "guix/modules.scm"
-              "guix/monad-repl.scm"
-              "guix/monads.scm"
-              "guix/narinfo.scm"
-              "guix/nar.scm"
-              "guix/openpgp.scm"
-              "guix/packages.scm"
-              "guix/pki.scm"
-              "guix/platform.scm"
-              "guix/profiles.scm"
-              "guix/profiling.scm"
-              "guix/progress.scm"
-              "guix/quirks.scm"
-              "guix/read-print.scm"
-              "guix/records.scm"
-              "guix/remote.scm"
-              "guix/remote-procedures.scm"
-              "guix/repl.scm"
-              "guix/search-paths.scm"
-              "guix/self.scm"
-              "guix/serialization.scm"
-              "guix/sets.scm"
-              "guix/ssh.scm"
-              "guix/status.scm"
-              "guix/store.scm"
-              "guix/substitutes.scm"
-              "guix/svn-download.scm"
-              "guix/swh.scm"
-              "guix/tests.scm"
-              "guix/transformations.scm"
-              "guix/ui.scm"
-              "guix/upstream.scm"
-              "guix/utils.scm"
-              "guix/workers.scm"
+              "Manifolding-OS/avahi.scm"
+              "Manifolding-OS/base16.scm"
+              "Manifolding-OS/base32.scm"
+              "Manifolding-OS/base64.scm"
+              "Manifolding-OS/bzr-download.scm"
+              "Manifolding-OS/cache.scm"
+              "Manifolding-OS/ci.scm"
+              "Manifolding-OS/colors.scm"
+              "Manifolding-OS/combinators.scm"
+              "Manifolding-OS/config.scm"
+              "Manifolding-OS/cpio.scm"
+              "Manifolding-OS/cpu.scm"
+              "Manifolding-OS/cve.scm"
+              "Manifolding-OS/cvs-download.scm"
+              "Manifolding-OS/deprecation.scm"
+              "Manifolding-OS/derivations.scm"
+              "Manifolding-OS/describe.scm"
+              "Manifolding-OS/diagnostics.scm"
+              "Manifolding-OS/discovery.scm"
+              "Manifolding-OS/docker.scm"
+              "Manifolding-OS/download.scm"
+              "Manifolding-OS/elf.scm"
+              "Manifolding-OS/fossil-download.scm"
+              "Manifolding-OS/ftp-client.scm"
+              "Manifolding-OS/gexp.scm"
+              "Manifolding-OS/git-authenticate.scm"
+              "Manifolding-OS/git-download.scm"
+              "Manifolding-OS/git.scm"
+              "Manifolding-OS/glob.scm"
+              "Manifolding-OS/gnu-maintenance.scm"
+              "Manifolding-OS/gnupg.scm"
+              "Manifolding-OS/grafts.scm"
+              "Manifolding-OS/graph.scm"
+              "Manifolding-OS/hash.scm"
+              "Manifolding-OS/hg-download.scm"
+              "Manifolding-OS/http-client.scm"
+              "Manifolding-OS/i18n.scm"
+              "Manifolding-OS/inferior.scm"
+              "Manifolding-OS/ipfs.scm"
+              "Manifolding-OS/least-authority.scm"
+              "Manifolding-OS/licenses.scm"
+              "Manifolding-OS/lint.scm"
+              "Manifolding-OS/man-db.scm"
+              "Manifolding-OS/memoization.scm"
+              "Manifolding-OS/modules.scm"
+              "Manifolding-OS/monad-repl.scm"
+              "Manifolding-OS/monads.scm"
+              "Manifolding-OS/narinfo.scm"
+              "Manifolding-OS/nar.scm"
+              "Manifolding-OS/openpgp.scm"
+              "Manifolding-OS/packages.scm"
+              "Manifolding-OS/pki.scm"
+              "Manifolding-OS/platform.scm"
+              "Manifolding-OS/profiles.scm"
+              "Manifolding-OS/profiling.scm"
+              "Manifolding-OS/progress.scm"
+              "Manifolding-OS/quirks.scm"
+              "Manifolding-OS/read-print.scm"
+              "Manifolding-OS/records.scm"
+              "Manifolding-OS/remote.scm"
+              "Manifolding-OS/remote-procedures.scm"
+              "Manifolding-OS/repl.scm"
+              "Manifolding-OS/search-paths.scm"
+              "Manifolding-OS/self.scm"
+              "Manifolding-OS/serialization.scm"
+              "Manifolding-OS/sets.scm"
+              "Manifolding-OS/ssh.scm"
+              "Manifolding-OS/status.scm"
+              "Manifolding-OS/store.scm"
+              "Manifolding-OS/substitutes.scm"
+              "Manifolding-OS/svn-download.scm"
+              "Manifolding-OS/swh.scm"
+              "Manifolding-OS/tests.scm"
+              "Manifolding-OS/transformations.scm"
+              "Manifolding-OS/ui.scm"
+              "Manifolding-OS/upstream.scm"
+              "Manifolding-OS/utils.scm"
+              "Manifolding-OS/workers.scm"
               (make-regexp* "^guix/platforms/")
               (make-regexp* "^guix/scripts/")
               (make-regexp* "^guix/store/")
@@ -653,9 +653,9 @@ reports."))
                       "gnu/packages/ld-wrapper.in"
                       "gnu/packages/make-bootstrap.scm"
                       "gnu/packages/multiprecision.scm"
-                      "guix/build/gnu-build-system.scm"
-                      "guix/build/utils.scm"
-                      "guix/build-system/gnu.scm")))
+                      "Manifolding-OS/build/gnu-build-system.scm"
+                      "Manifolding-OS/build/utils.scm"
+                      "Manifolding-OS/build-system/gnu.scm")))
 
 (define-team debian
   (team 'debian
@@ -699,11 +699,11 @@ ecosystem."
                       "gnu/packages/aux-files/emacs/comp-integrity.el"
                       (make-regexp* "^gnu/packages/emacs(-.+|)\\.scm$")
                       "gnu/packages/tree-sitter.scm"
-                      "guix/build/emacs-build-system.scm"
-                      "guix/build/emacs-utils.scm"
-                      "guix/build-system/emacs.scm"
-                      "guix/import/elpa.scm"
-                      "guix/scripts/import/elpa.scm"
+                      "Manifolding-OS/build/emacs-build-system.scm"
+                      "Manifolding-OS/build/emacs-utils.scm"
+                      "Manifolding-OS/build-system/emacs.scm"
+                      "Manifolding-OS/import/elpa.scm"
+                      "Manifolding-OS/scripts/import/elpa.scm"
                       "tests/import/elpa.scm")))
 
 (define-team embedded
@@ -726,7 +726,7 @@ ecosystem."
                       "gnu/packages/motti.scm"
                       "gnu/services/games.scm"
                       "gnu/tests/games.scm"
-                      "guix/build/luanti-build-system.scm")))
+                      "Manifolding-OS/build/luanti-build-system.scm")))
 
 (define-team gnome
   (team 'gnome
@@ -743,8 +743,8 @@ GLib/GIO, GTK, GStreamer and Webkit."
                       "gnu/packages/gnome-xyz.scm"
                       "gnu/packages/webkit.scm"
                       "gnu/services/desktop.scm"
-                      "guix/build/glib-or-gtk-build-system.scm"
-                      "guix/build/meson-build-system.scm")))
+                      "Manifolding-OS/build/glib-or-gtk-build-system.scm"
+                      "Manifolding-OS/build/meson-build-system.scm")))
 
 (define-team go
   (team 'go
@@ -753,10 +753,10 @@ GLib/GIO, GTK, GStreamer and Webkit."
                       (make-regexp* "gnu/packages/golang(-.+|)\\.scm$")
                       "gnu/packages/syncthing.scm"
                       "gnu/packages/terraform.scm"
-                      "guix/build-system/go.scm"
-                      "guix/build/go-build-system.scm"
-                      "guix/import/go.scm"
-                      "guix/scripts/import/go.scm"
+                      "Manifolding-OS/build-system/go.scm"
+                      "Manifolding-OS/build/go-build-system.scm"
+                      "Manifolding-OS/import/go.scm"
+                      "Manifolding-OS/scripts/import/go.scm"
                       "tests/import/go.scm")))
 
 (define-team guile
@@ -767,8 +767,8 @@ GLib/GIO, GTK, GStreamer and Webkit."
         #:scope (list "gnu/packages/guile.scm"
                       "gnu/packages/guile-wm.scm"
                       "gnu/packages/guile-xyz.scm"
-                      "guix/build-system/guile.scm"
-                      "guix/build/guile-build-system.scm")))
+                      "Manifolding-OS/build-system/guile.scm"
+                      "Manifolding-OS/build/guile-build-system.scm")))
 
 (define-team hare
   (team 'hare
@@ -776,8 +776,8 @@ GLib/GIO, GTK, GStreamer and Webkit."
         #:scope (list "gnu/packages/hare.scm"
                       "gnu/packages/hare-apps.scm"
                       "gnu/packages/hare-xyz.scm"
-                      "guix/build-system/hare.scm"
-                      "guix/build/hare-build-system.scm")))
+                      "Manifolding-OS/build-system/hare.scm"
+                      "Manifolding-OS/build/hare-build-system.scm")))
 
 (define-team haskell
   (team 'haskell
@@ -790,12 +790,12 @@ the haskell-build-system."
               ;; Match haskell.scm and haskell-*.scm.
               (make-regexp* "^gnu/packages/haskell(-.+|)\\.scm$")
               "gnu/packages/purescript.scm"
-              "guix/build/haskell-build-system.scm"
-              "guix/build-system/haskell.scm"
-              "guix/import/cabal.scm"
-              "guix/import/hackage.scm"
-              "guix/import/stackage.scm"
-              "guix/scripts/import/hackage.scm")))
+              "Manifolding-OS/build/haskell-build-system.scm"
+              "Manifolding-OS/build-system/haskell.scm"
+              "Manifolding-OS/import/cabal.scm"
+              "Manifolding-OS/import/hackage.scm"
+              "Manifolding-OS/import/stackage.scm"
+              "Manifolding-OS/scripts/import/hackage.scm")))
 
 (define-team home
   (team 'home
@@ -849,16 +849,16 @@ and the maven-build-system."
               ;; Match maven.scm and maven-*.scm
               (make-regexp* "^gnu/packages/maven(-.+|)\\.scm$")
               "gnu/packages/netbeans.scm"
-              "guix/build/ant-build-system.scm"
-              "guix/build/clojure-build-system.scm"
-              "guix/build/clojure-utils.scm"
-              "guix/build/java-utils.scm"
-              "guix/build/maven-build-system.scm"
+              "Manifolding-OS/build/ant-build-system.scm"
+              "Manifolding-OS/build/clojure-build-system.scm"
+              "Manifolding-OS/build/clojure-utils.scm"
+              "Manifolding-OS/build/java-utils.scm"
+              "Manifolding-OS/build/maven-build-system.scm"
               ;; The maven directory
               (make-regexp* "^guix/build/maven/")
-              "guix/build-system/ant.scm"
-              "guix/build-system/clojure.scm"
-              "guix/build-system/maven.scm")))
+              "Manifolding-OS/build-system/ant.scm"
+              "Manifolding-OS/build-system/clojure.scm"
+              "Manifolding-OS/build-system/maven.scm")))
 
 (define-team javascript
   (team 'javascript
@@ -868,10 +868,10 @@ and the maven-build-system."
         #:scope (list "gnu/packages/javascript.scm"
                       "gnu/packages/node-xyz.scm"
                       "gnu/packages/node.scm"
-                      "guix/build-system/node.scm"
-                      "guix/build/node-build-system.scm"
-                      "guix/import/npm-binary.scm"
-                      "guix/scripts/import/npm-binary.scm")))
+                      "Manifolding-OS/build-system/node.scm"
+                      "Manifolding-OS/build/node-build-system.scm"
+                      "Manifolding-OS/import/npm-binary.scm"
+                      "Manifolding-OS/scripts/import/npm-binary.scm")))
 
 (define-team julia
   (team 'julia
@@ -879,8 +879,8 @@ and the maven-build-system."
         #:description
         "The Julia language, Julia packages, and the julia-build-system."
         #:scope (list (make-regexp* "^gnu/packages/julia(-.+|)\\.scm$")
-                      "guix/build/julia-build-system.scm"
-                      "guix/build-system/julia.scm")))
+                      "Manifolding-OS/build/julia-build-system.scm"
+                      "Manifolding-OS/build-system/julia.scm")))
 
 (define-team kde
   (team 'kde
@@ -896,8 +896,8 @@ and the maven-build-system."
                       (make-regexp* "^gnu/packages/aux-files/linux-libre.*$")
                       "gnu/packages/linux.scm"
                       "gnu/tests/linux-modules.scm"
-                      "guix/build/linux-module-build-system.scm"
-                      "guix/build-system/linux-module.scm")))
+                      "Manifolding-OS/build/linux-module-build-system.scm"
+                      "Manifolding-OS/build-system/linux-module.scm")))
 
 (define-team lisp
   (team 'lisp
@@ -906,9 +906,9 @@ and the maven-build-system."
         "Common Lisp and similar languages, Common Lisp packages and the
 asdf-build-system."
         #:scope (list (make-regexp* "^gnu/packages/lisp(-.+|)\\.scm$")
-                      "guix/build/asdf-build-system.scm"
-                      "guix/build/lisp-utils.scm"
-                      "guix/build-system/asdf.scm")))
+                      "Manifolding-OS/build/asdf-build-system.scm"
+                      "Manifolding-OS/build/lisp-utils.scm"
+                      "Manifolding-OS/build-system/asdf.scm")))
 
 (define-team localization
   (team 'localization
@@ -968,12 +968,12 @@ importer, and the ocaml-build-system."
         (list "gnu/packages/ocaml.scm"
               "gnu/packages/coq.scm"
               "gnu/packages/rocq.scm"
-              "guix/build/ocaml-build-system.scm"
-              "guix/build/dune-build-system.scm"
-              "guix/build-system/ocaml.scm"
-              "guix/build-system/dune.scm"
-              "guix/import/opam.scm"
-              "guix/scripts/import/opam.scm"
+              "Manifolding-OS/build/ocaml-build-system.scm"
+              "Manifolding-OS/build/dune-build-system.scm"
+              "Manifolding-OS/build-system/ocaml.scm"
+              "Manifolding-OS/build-system/dune.scm"
+              "Manifolding-OS/import/opam.scm"
+              "Manifolding-OS/scripts/import/opam.scm"
               "tests/import/opam.scm")))
 
 (define-team perl
@@ -984,12 +984,12 @@ importer, and the ocaml-build-system."
 perl-build-system as well as the rakudo-build-system."
         #:scope
         (list (make-regexp* "^gnu/packages/perl(-.+|)\\.scm$")
-              "guix/build/perl-build-system.scm"
-              "guix/build/rakudo-build-system.scm"
-              "guix/build-system/perl.scm"
-              "guix/build-system/rakudo.scm"
-              "guix/import/cpan.scm"
-              "guix/scripts/import/cpan.scm")))
+              "Manifolding-OS/build/perl-build-system.scm"
+              "Manifolding-OS/build/rakudo-build-system.scm"
+              "Manifolding-OS/build-system/perl.scm"
+              "Manifolding-OS/build-system/rakudo.scm"
+              "Manifolding-OS/import/cpan.scm"
+              "Manifolding-OS/scripts/import/cpan.scm")))
 
 (define-team python
   (team 'python
@@ -1003,13 +1003,13 @@ perl-build-system as well as the rakudo-build-system."
               (make-regexp* "^gnu/packages/python(-.+|)\\.scm$")
               "gnu/packages/sphinx.scm"
               "gnu/packages/tryton.scm"
-              "guix/build-system/pyproject.scm"
-              "guix/build-system/python.scm"
-              "guix/build/pyproject-build-system.scm"
-              "guix/build/python-build-system.scm"
-              "guix/build/toml.scm" ;temporary, until other build system will use it
-              "guix/import/pypi.scm"
-              "guix/scripts/import/pypi.scm"
+              "Manifolding-OS/build-system/pyproject.scm"
+              "Manifolding-OS/build-system/python.scm"
+              "Manifolding-OS/build/pyproject-build-system.scm"
+              "Manifolding-OS/build/python-build-system.scm"
+              "Manifolding-OS/build/toml.scm" ;temporary, until other build system will use it
+              "Manifolding-OS/import/pypi.scm"
+              "Manifolding-OS/scripts/import/pypi.scm"
               "tests/import/pypi.scm"
               "tests/toml.scm")))
 
@@ -1036,9 +1036,9 @@ no direct relation to Guix's QA)."
         "The Qt toolkit/library and the qt-build-system,
 as well as some packages using Qt."
         #:scope (list "gnu/packages/qt.scm"
-                      "guix/build-system/qt.scm"
-                      "guix/build/qt-build-system.scm"
-                      "guix/build/qt-utils.scm")))
+                      "Manifolding-OS/build-system/qt.scm"
+                      "Manifolding-OS/build/qt-build-system.scm"
+                      "Manifolding-OS/build/qt-utils.scm")))
 
 (define-team r
   (team 'r
@@ -1048,10 +1048,10 @@ as well as some packages using Qt."
 and the r-build-system."
         #:scope (list "gnu/packages/bioconductor.scm"
                       "gnu/packages/cran.scm"
-                      "guix/build/r-build-system.scm"
-                      "guix/build-system/r.scm"
-                      "guix/import/cran.scm"
-                      "guix/scripts/import/cran.scm"
+                      "Manifolding-OS/build/r-build-system.scm"
+                      "Manifolding-OS/build-system/r.scm"
+                      "Manifolding-OS/import/cran.scm"
+                      "Manifolding-OS/scripts/import/cran.scm"
                       "tests/import/cran.scm")))
 
 (define-team racket
@@ -1085,10 +1085,10 @@ release."
   (team 'ruby
         #:name "Ruby team"
         #:scope (list (make-regexp* "^gnu/packages/(ruby)(-.+|)\\.scm$")
-                      "guix/build/ruby-build-system.scm"
-                      "guix/build-system/ruby.scm"
-                      "guix/import/gem.scm"
-                      "guix/scripts/import/gem.scm"
+                      "Manifolding-OS/build/ruby-build-system.scm"
+                      "Manifolding-OS/build-system/ruby.scm"
+                      "Manifolding-OS/import/gem.scm"
+                      "Manifolding-OS/scripts/import/gem.scm"
                       "tests/import/gem.scm")))
 
 (define-team rust
@@ -1096,12 +1096,12 @@ release."
         #:name "Rust"
         #:scope (list (make-regexp* "^gnu/packages/(crates|rust)(-.+|)\\.scm$")
                       "gnu/packages/sequoia.scm"
-                      "guix/build/cargo-build-system.scm"
-                      "guix/build/cargo-utils.scm"
-                      "guix/build-system/cargo.scm"
-                      "guix/import/crate.scm"
-                      "guix/import/crate/cargo-lock.scm"
-                      "guix/scripts/import/crate.scm"
+                      "Manifolding-OS/build/cargo-build-system.scm"
+                      "Manifolding-OS/build/cargo-utils.scm"
+                      "Manifolding-OS/build-system/cargo.scm"
+                      "Manifolding-OS/import/crate.scm"
+                      "Manifolding-OS/import/crate/cargo-lock.scm"
+                      "Manifolding-OS/scripts/import/crate.scm"
                       "tests/import/crate.scm")))
 
 (define-team crypto
@@ -1227,10 +1227,10 @@ advisories.  Its members are listed at https://guix.gnu.org/security/ ."))
 the \"texlive\" importer."
         #:scope (list "gnu/packages/tex.scm"
                       "gnu/packages/texlive.scm"
-                      "guix/build/texlive-build-system.scm"
-                      "guix/build-system/texlive.scm"
-                      "guix/import/texlive.scm"
-                      "guix/scripts/import/texlive.scm"
+                      "Manifolding-OS/build/texlive-build-system.scm"
+                      "Manifolding-OS/build-system/texlive.scm"
+                      "Manifolding-OS/import/texlive.scm"
+                      "Manifolding-OS/scripts/import/texlive.scm"
                       "tests/import/texlive.scm")))
 
 (define-team translations
@@ -1247,12 +1247,12 @@ the \"texlive\" importer."
         #:scope (list "gnu/packages/version-control.scm"
                       "gnu/services/version-control.scm"
                       "gnu/tests/version-control.scm"
-                      "guix/build/bzr.scm"
-                      "guix/build/cvs.scm"
-                      "guix/build/fossil.scm"
-                      "guix/build/git.scm"
-                      "guix/build/hg.scm"
-                      "guix/build/svn.scm")))
+                      "Manifolding-OS/build/bzr.scm"
+                      "Manifolding-OS/build/cvs.scm"
+                      "Manifolding-OS/build/fossil.scm"
+                      "Manifolding-OS/build/git.scm"
+                      "Manifolding-OS/build/hg.scm"
+                      "Manifolding-OS/build/svn.scm")))
 
 (define-team xfce
   (team 'xfce
@@ -1266,8 +1266,8 @@ the \"texlive\" importer."
         #:description "Zig, Zig packages, and the zig-build system"
         #:scope (list "gnu/packages/zig.scm"
                       "gnu/packages/zig-xyz.scm"
-                      "guix/build/zig-build-system.scm"
-                      "guix/build-system/zig.scm")))
+                      "Manifolding-OS/build/zig-build-system.scm"
+                      "Manifolding-OS/build-system/zig.scm")))
 
 
 (define-member (person "Anderson Torres"

@@ -19,11 +19,11 @@
 
 (define-module (gnu packages rust-crates)
   #:use-module (gnu packages)
-  #:use-module (guix gexp)
-  #:use-module (guix packages)
-  #:use-module (guix download)
-  #:use-module (guix git-download)
-  #:use-module (guix build-system cargo)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS build-system cargo)
   #:use-module ((gnu packages rust-sources) #:prefix package:)
   #:export (lookup-cargo-inputs))
 
@@ -1706,7 +1706,7 @@
           (commit "2875df589f02606df1a90be022c8126c36e608a3")))
     (file-name (git-file-name "rust-aw-client-rust" "0.1.0.2875df5"))
     (sha256 (base32 "1jzdy5xkgl993dfxnv9wxzk9lav9qqyl1h4bwgj0z3qr7s9k6xhp"))
-    (modules '((guix build utils)
+    (modules '((Manifolding-OS build utils)
                (ice-9 ftw)))
     (snippet
      #~(begin
@@ -1728,7 +1728,7 @@
           (commit "2875df589f02606df1a90be022c8126c36e608a3")))
     (file-name (git-file-name "rust-aw-models" "0.1.0.2875df5"))
     (sha256 (base32 "1jzdy5xkgl993dfxnv9wxzk9lav9qqyl1h4bwgj0z3qr7s9k6xhp"))
-    (modules '((guix build utils)
+    (modules '((Manifolding-OS build utils)
                (ice-9 ftw)))
     (snippet
      #~(begin
@@ -6277,7 +6277,7 @@ fn main() {
     (file-name (git-file-name "rust-crossterm" "0.28.1.87db8bfa"))
     (sha256
      (base32 "0vzgpvbri4m4qydkj50ch468az7myy04qh5z2n500p1f4dysv87a"))
-    (modules '((guix build utils)))
+    (modules '((Manifolding-OS build utils)))
     (snippet '(delete-file-recursively "docs"))))
 
 (define rust-crossterm-0.29.0
@@ -20041,7 +20041,7 @@ fn main() {
           (commit "4253de9faabb4e5c6d81d946a5e35a90f87347ee")))
     (file-name (git-file-name "rust-nucleo" "0.5.0.4253de9"))
     (sha256 (base32 "1hpy62kgzhswhfrhipka9inh4c6iisklmvbsllbbf1njsk314vhy"))
-    (modules '((guix build utils)))
+    (modules '((Manifolding-OS build utils)))
     ;; Remove [workspace] section to avoid "multiple workspace roots"
     ;; error when vendored inside another workspace.
     (snippet
@@ -20061,7 +20061,7 @@ fn main() {
           (commit "4253de9faabb4e5c6d81d946a5e35a90f87347ee")))
     (file-name (git-file-name "rust-nucleo-matcher" "0.3.1.4253de9"))
     (sha256 (base32 "1hpy62kgzhswhfrhipka9inh4c6iisklmvbsllbbf1njsk314vhy"))
-    (modules '((guix build utils)))
+    (modules '((Manifolding-OS build utils)))
     ;; Keep only matcher/ subdirectory, move contents to root.
     (snippet
      '(begin
@@ -20686,7 +20686,7 @@ fn main() {
                         (commit "29c08532252b917543ff268284f926f30876bb79")))
     (file-name (git-file-name "rust-onenote-parser" "0.3.1.29c0853"))
     (sha256 (base32 "1sfx3jgj1vgwh00kckl5hfbmdpp4wmvszsxwzi1k10nihryvkdy5"))
-    (modules '((guix build utils)))
+    (modules '((Manifolding-OS build utils)))
     (snippet '(delete-file-recursively "tests"))))
 
 (define rust-oneshot-0.1.13
@@ -25688,7 +25688,7 @@ fn main() {
     (file-name (git-file-name "rust-runfiles" "0.1.0.b56cbaa8"))
     (sha256
      (base32 "1sdmgr8gramp4z1kfsmbx083gpinzk8bz3vi0fchbwr1qhnmb6mq"))
-    (modules '((guix build utils)))
+    (modules '((Manifolding-OS build utils)))
     ;; Keep only rust/runfiles/, delete everything else, move contents to root.
     (snippet
      '(begin
@@ -30627,7 +30627,7 @@ fn main() {
           (commit "0e5b2d73aa18dd9f0a50ee9ff199d5aef7594186")))
     (file-name (git-file-name "rust-tokio-tungstenite" "0.28.0.0e5b2d7"))
     (sha256 (base32 "00i879a84zqfak3jgh4s7lrg5yz2028ra7l8cqcyfn6inyg6cp2p"))
-    (modules '((guix build utils)))
+    (modules '((Manifolding-OS build utils)))
     ;; Point the fork's tungstenite git dependency to the vendored checkout.
     (snippet
      '(substitute* "Cargo.toml"
@@ -30644,7 +30644,7 @@ fn main() {
           (commit "132f5b39c862e3a970f731d709608b3e6276d5f6")))
     (file-name (git-file-name "rust-tokio-tungstenite" "0.28.0.132f5b3"))
     (sha256 (base32 "0p7fi05bf4xmjinfjwd4yy7yc52sl739x6kayi01z323djyj9444"))
-    (modules '((guix build utils)))
+    (modules '((Manifolding-OS build utils)))
     ;; Point tungstenite git dependency to vendored checkout.
     (snippet
      '(substitute* "Cargo.toml"

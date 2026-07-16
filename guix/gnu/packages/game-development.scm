@@ -58,20 +58,20 @@
 (define-module (gnu packages game-development)
   #:use-module ((srfi srfi-1) #:hide (zip))
   #:use-module (ice-9 match)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix packages)
-  #:use-module (guix gexp)
-  #:use-module (guix download)
-  #:use-module (guix git-download)
-  #:use-module (guix svn-download)
-  #:use-module (guix utils)
-  #:use-module (guix build-system cmake)
-  #:use-module (guix build-system copy)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system go)
-  #:use-module (guix build-system pyproject)
-  #:use-module (guix build-system renpy)
-  #:use-module (guix build-system scons)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS svn-download)
+  #:use-module (Manifolding-OS utils)
+  #:use-module (Manifolding-OS build-system cmake)
+  #:use-module (Manifolding-OS build-system copy)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system go)
+  #:use-module (Manifolding-OS build-system pyproject)
+  #:use-module (Manifolding-OS build-system renpy)
+  #:use-module (Manifolding-OS build-system scons)
   #:use-module (gnu packages)
   #:use-module (gnu packages assembly)
   #:use-module (gnu packages audio)
@@ -171,7 +171,7 @@
               (sha256
                (base32
                 "08xq225zw6z4ic0whaf8xn697vv5lkrdzfkmjvm32biidbjg8qq0"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                '(begin
                   (for-each delete-file (find-files "build3" "premake*"))
@@ -477,7 +477,7 @@ means the original SDL2 installation is required for this to work.")
          (file-name (git-file-name name version))
          (sha256
           (base32 "12bf5y7d83plrlssdlcj83w4yxmg5jp1w2p8570l92hy9mkcfmb9"))
-         (modules '((guix build utils)))
+         (modules '((Manifolding-OS build utils)))
          (snippet
            `(begin
               ;; The sources are not a git repository
@@ -1061,10 +1061,10 @@ complex and interesting levels.")
     (arguments
      `(#:modules ((ice-9 match)
                   (srfi srfi-1)
-                  ((guix build guile-build-system)
+                  ((Manifolding-OS build guile-build-system)
                    #:select (target-guile-effective-version))
                   ,@%default-gnu-modules)
-       #:imported-modules ((guix build guile-build-system)
+       #:imported-modules ((Manifolding-OS build guile-build-system)
                            ,@%default-gnu-imported-modules)
        #:phases
        (modify-phases %standard-phases
@@ -1133,7 +1133,7 @@ experimental.")
               (sha256
                (base32
                 "1yyq05kfmvgx5aa68kg1l5a4lpsky7hzxxcdvv2xbgf0jljdcl3k"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                #~(begin
                    (substitute* "configure"
@@ -1191,7 +1191,7 @@ It is capable of creating games for SCUMM version 6 and partially version 7.")
        (sha256
         (base32
          "12f1d45995qf5sazjmmfdydllcd6alhqs1s4xwv3jiq1fw66hcy9"))
-       (modules '((guix build utils)
+       (modules '((Manifolding-OS build utils)
                   (ice-9 ftw)
                   (srfi srfi-26)))
        (snippet
@@ -1899,7 +1899,7 @@ bugfixes and enhancements, and a new governance model.")
        (sha256
         (base32
          "1dv856sb8mak21kkj0ys0k6zc6ly2k8102ahnfdrc04cwdrryw6b"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        ;; TODO: Remove when updating Python to 3.12 or higher.
        (patches (search-patches "renpy-python-3.11-compat.patch"
                                 "renpy-fix-integer-slots.patch"))
@@ -2200,7 +2200,7 @@ supported.")
          (sha256
           (base32
            "03ch79cmh9fxvq6c2f3zc2snzczhqi2n01f254lsigckc7d5wz08"))
-         (modules '((guix build utils)))
+         (modules '((Manifolding-OS build utils)))
          (snippet
           #~(begin
               (substitute* "pyxel/__init__.py"
@@ -2261,7 +2261,7 @@ also comes with a built-in image and sound editor.")
          (file-name (git-file-name name version))
          (sha256
           (base32 "0rf85pm40nmp9f95adbzzfx2ypvqjl51wqvk461c4bk8z7anlniz"))
-         (modules '((guix build utils)))
+         (modules '((Manifolding-OS build utils)))
          (snippet
           #~(begin
               (mkdir "3rdparty/archives")
@@ -2340,7 +2340,7 @@ robust and compatible with many systems and operating systems.")
          (sha256
           (base32 "1vnaznwgm87x0n5dp14363p2h54lpzalynrrd6lbs6wgrqq7fq9i"))
          (patches (search-patches "mc2mt-add-packaging-support.patch"))
-         (modules '((guix build utils)))))
+         (modules '((Manifolding-OS build utils)))))
       (build-system pyproject-build-system)
       (arguments
        (list
@@ -2479,7 +2479,7 @@ games.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "0dzqi4mxrzg5cyf5k8rdlb078939ib849n7gs6014d3ljymf839r"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        ;; Unbundle Roboto font.
        (snippet
         '(begin
@@ -2520,7 +2520,7 @@ applications.")
               (sha256
                (base32
                 "1vdpd05i901p69ciagdaiwdw21j65a7s9r96gdzay321a0xihr71"))
-              (modules '((guix build utils)
+              (modules '((Manifolding-OS build utils)
                          (ice-9 ftw)
                          (srfi srfi-1)))
               (snippet
@@ -2697,7 +2697,7 @@ scripted in a Python-like language.")
               ;; TODO: Remove on next release; see
               ;; <https://github.com/godotengine/godot/pull/93478>.
               (patches (search-patches "godot-glslang.patch"))
-              (modules '((guix build utils)
+              (modules '((Manifolding-OS build utils)
                          (ice-9 ftw)
                          (srfi srfi-1)))
               (snippet
@@ -3196,7 +3196,7 @@ that parenthetically inclined game developers need to make 2D (and eventually
               (sha256
                (base32
                 "1iri58ryk9lbqn585cbccnvrfkj8qxlbcsk8rpih40jhvs1j101l"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                '(begin
                   (delete-file-recursively "3rdparty") #t))))
@@ -3403,7 +3403,7 @@ Inform standard library is in a non-standard location.")
        (patches
         (search-patches
          "instead-use-games-path.patch"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         '(begin
            (delete-file-recursively "src/zlib")))))
@@ -3552,7 +3552,7 @@ a.k.a. XenoCollide) as described in Game Programming Gems 7.")
                            "ode-" version ".tar.gz"))
        (sha256
         (base32 "1s0k8nvwbq3b5b1kaynggv4gwshd71m75757hi3jhl16zz32h6n9"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         '(begin
            (delete-file-recursively "libccd")))))
@@ -3598,7 +3598,7 @@ computer games, 3D authoring tools and simulation tools.")
          (file-name (git-file-name name version))
          (sha256
           (base32 "1910rfnanhna99bhfiyny3ki7aip2i9p4jzmwsfcg16m9gip5fd6"))
-         (modules '((guix build utils)))))
+         (modules '((Manifolding-OS build utils)))))
       (build-system cmake-build-system)
       (arguments
        (list #:tests? #f                ;no test
@@ -3626,7 +3626,7 @@ rigid body physics library written in C.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "1ja9cahf3z9zzrdaqcw44lpjmqf2ir2g4chwz0iwqwlkckwhpgvh"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         '(begin
            ;; Remove bundled code only used for the testbed.
@@ -3643,9 +3643,9 @@ rigid body physics library written in C.")
     (arguments
      (list #:configure-flags #~'("-DBUILD_SHARED_LIBS=ON"
                                  "-DBOX2D_BUILD_TESTBED=OFF")
-           #:modules '((guix build cmake-build-system)
-                       ((guix build gnu-build-system) #:prefix gnu:)
-                       (guix build utils))
+           #:modules '((Manifolding-OS build cmake-build-system)
+                       ((Manifolding-OS build gnu-build-system) #:prefix gnu:)
+                       (Manifolding-OS build utils))
            #:phases
            #~(modify-phases %standard-phases
                (replace 'check
@@ -3705,7 +3705,7 @@ physics engine is just a system for procedural animation.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "1zl1w4kpiiarh0f1q3j95k9vp90fx98hxl1ykma9hlkfw33srmy0"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         '(begin
            (rmdir "vcpkg")
@@ -3829,7 +3829,7 @@ support.")
          (file-name (git-file-name name version))
          (sha256
           (base32 "1av9jhl2ivbl7wfszyhyna84llvh1z2d8khkmadm8d105addj10q"))
-         (modules '((guix build utils)))
+         (modules '((Manifolding-OS build utils)))
          (snippet
           '(begin
              (for-each delete-file-recursively
@@ -4100,7 +4100,7 @@ but it can be adapted to other engines/frameworks.")
          (sha256
           (base32
            "17zxfiji6cb9ad7j3l82bdig0k7bz77bzwg7m0vd9ywrwk0kgxjk"))
-         (modules '((guix build utils)))
+         (modules '((Manifolding-OS build utils)))
          (snippet
           #~(begin
               (delete-file-recursively "vendor")

@@ -17,12 +17,12 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (test-store-deduplication)
-  #:use-module (guix tests)
-  #:use-module (guix store)
-  #:use-module (guix store roots)
-  #:use-module ((guix utils) #:select (call-with-temporary-directory))
-  #:use-module ((guix build utils) #:select (delete-file-recursively))
-  #:use-module ((guix config) #:select (%state-directory))
+  #:use-module (Manifolding-OS tests)
+  #:use-module (Manifolding-OS store)
+  #:use-module (Manifolding-OS store roots)
+  #:use-module ((Manifolding-OS utils) #:select (call-with-temporary-directory))
+  #:use-module ((Manifolding-OS build utils) #:select (delete-file-recursively))
+  #:use-module ((Manifolding-OS config) #:select (%state-directory))
   #:use-module (srfi srfi-1)
   #:use-module (srfi srfi-64))
 

@@ -39,22 +39,22 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages file-systems)
-  #:use-module (guix gexp)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix packages)
-  #:use-module (guix platform)
-  #:use-module (guix download)
-  #:use-module (guix git-download)
-  #:use-module (guix build-system cargo)
-  #:use-module (guix build-system cmake)
-  #:use-module (guix build-system copy)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system go)
-  #:use-module (guix build-system linux-module)
-  #:use-module (guix build-system pyproject)
-  #:use-module (guix build-system qt)
-  #:use-module (guix build-system trivial)
-  #:use-module (guix utils)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS platform)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS build-system cargo)
+  #:use-module (Manifolding-OS build-system cmake)
+  #:use-module (Manifolding-OS build-system copy)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system go)
+  #:use-module (Manifolding-OS build-system linux-module)
+  #:use-module (Manifolding-OS build-system pyproject)
+  #:use-module (Manifolding-OS build-system qt)
+  #:use-module (Manifolding-OS build-system trivial)
+  #:use-module (Manifolding-OS utils)
   #:use-module (gnu packages)
   #:use-module (gnu packages acl)
   #:use-module (gnu packages admin)
@@ -854,8 +854,8 @@ performance and other characteristics.")
          (package-arguments bcachefs-tools-minimal)
        ((#:modules modules '())
         `(,@modules
-          (guix build cargo-build-system)
-          (guix build utils)
+          (Manifolding-OS build cargo-build-system)
+          (Manifolding-OS build utils)
           (srfi srfi-26)))
        ((#:phases phases #~%standard-phases)
         #~(modify-phases #$phases
@@ -950,10 +950,10 @@ performance and other characteristics.")
     (source #f)
     (build-system trivial-build-system)
     (arguments
-     (list #:modules '((guix build utils))
+     (list #:modules '((Manifolding-OS build utils))
            #:builder
            #~(begin
-               (use-modules (guix build utils))
+               (use-modules (Manifolding-OS build utils))
                (let ((target (string-append #$output "/sbin/bcachefs")))
                  (install-file (search-input-file %build-inputs "sbin/bcachefs")
                                (dirname target))
@@ -1140,10 +1140,10 @@ transaction log.
     (build-system trivial-build-system)
     (arguments
      (list
-      #:modules '((guix build utils))
+      #:modules '((Manifolding-OS build utils))
       #:builder
       #~(begin
-          (use-modules (guix build utils))
+          (use-modules (Manifolding-OS build utils))
           (let* ((sbin (string-append #$output "/sbin"))
                  (fsck (string-append sbin "/jfs_fsck")))
             (install-file (search-input-file %build-inputs "sbin/jfs_fsck")
@@ -1440,7 +1440,7 @@ APFS.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "1i5623cnhzivf64zr0g1nlyn9sjgabhyawhpsffykdxvcrnyqn69"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         '(begin
            (delete-file-recursively "dists")
@@ -1957,8 +1957,8 @@ a Python module.  See @code{proc(5)} for more details.")
       (arguments
        (list
         #:modules
-        '((guix build gnu-build-system)
-          (guix build utils)
+        '((Manifolding-OS build gnu-build-system)
+          (Manifolding-OS build utils)
           (srfi srfi-26))
         #:make-flags
         #~(list (string-append "PREFIX=" #$output))
@@ -2003,7 +2003,7 @@ the XDG directory specification from @file{~/.@var{name}} to
        (sha256
         (base32 "1y1bwma6f68j00jfdjxvw5flp9l4cdys7dgkrr0yvfz68lk9a17v"))
        (snippet
-        #~(begin (use-modules (guix build utils))
+        #~(begin (use-modules (Manifolding-OS build utils))
                  (delete-file-recursively "vendor")))))
     (build-system go-build-system)
     (arguments
@@ -2255,7 +2255,7 @@ in FUSE for rootless containers.")
                     (url "https://github.com/Zygo/bees")
                     (commit (string-append "v" version))))
               (file-name (git-file-name name version))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                ;; Unbundle cityhash.
                #~(begin
@@ -2329,7 +2329,7 @@ spend on disk between being written and being deduplicated.")
                 "1i990m6radrzdc1ccy9j7kr4vgy30h3sfljmq27myahl5rzz4332"))
               (snippet
                #~(begin
-                   (use-modules (guix build utils))
+                   (use-modules (Manifolding-OS build utils))
                    ;; Prefer system libraries instead of submodules.
                    ;; TODO: Package fbthrift. (only source is needed)
                    ;; TODO: Package fsst.

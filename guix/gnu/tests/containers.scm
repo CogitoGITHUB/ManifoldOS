@@ -19,7 +19,7 @@
 (define-module (gnu tests containers)
   #:use-module (gnu)
   #:use-module (gnu tests)
-  #:use-module (guix build-system trivial)
+  #:use-module (Manifolding-OS build-system trivial)
   #:use-module (gnu packages bash)
   #:use-module (gnu packages containers)
   #:use-module (gnu packages databases)
@@ -38,13 +38,13 @@
   #:use-module (gnu system)
   #:use-module (gnu system accounts)
   #:use-module (gnu system vm)
-  #:use-module (guix gexp)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix monads)
-  #:use-module (guix packages)
-  #:use-module (guix profiles)
-  #:use-module ((guix scripts pack) #:prefix pack:)
-  #:use-module (guix store)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS monads)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS profiles)
+  #:use-module ((Manifolding-OS scripts pack) #:prefix pack:)
+  #:use-module (Manifolding-OS store)
   #:export (%test-rootless-podman
             %test-rootless-podman-with-least-authority-wrapper
             %test-oci-service-rootless-podman
@@ -117,7 +117,7 @@
       %rootless-podman-os
       (list oci-tarball))
      #:imported-modules '((gnu services herd)
-                          (guix combinators))))
+                          (Manifolding-OS combinators))))
 
   (define vm
     (virtual-machine
@@ -391,7 +391,7 @@ standard output device and then enters a new line.")
     (marionette-operating-system
      %rootless-podman-os-with-least-authority-wrapper
      #:imported-modules '((gnu services herd)
-                          (guix combinators))))
+                          (Manifolding-OS combinators))))
 
   (define vm
     (virtual-machine
@@ -621,7 +621,7 @@ in the past.")
      #:imported-modules '((gnu build oci-containers)
                           (gnu build dbus-service)
                           (gnu services herd)
-                          (guix combinators))))
+                          (Manifolding-OS combinators))))
 
   (define vm
     (virtual-machine
@@ -870,7 +870,7 @@ in the past.")
      #:imported-modules '((gnu build oci-containers)
                           (gnu build dbus-service)
                           (gnu services herd)
-                          (guix combinators))))
+                          (Manifolding-OS combinators))))
 
   (define vm
     (virtual-machine

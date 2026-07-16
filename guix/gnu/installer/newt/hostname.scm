@@ -18,7 +18,7 @@
 
 (define-module (gnu installer newt hostname)
   #:use-module (gnu installer newt page)
-  #:use-module (guix i18n)
+  #:use-module (Manifolding-OS i18n)
   #:export (run-hostname-page))
 
 (define (run-hostname-page)

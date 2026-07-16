@@ -21,10 +21,10 @@
   #:use-module (gnu packages bash)
   #:use-module (gnu packages php)
   #:use-module (gnu packages version-control)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix git-download)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix packages))
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS packages))
 
 (define-public arcanist
   (let ((commit "ceb082ef6b2919d76a90d4a53ca84f5b1e0c2c06")

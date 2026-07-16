@@ -74,25 +74,25 @@
 ;;; surveying, and engineering computation tools.
 
 (define-module (gnu packages engineering)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix build-system ant)
-  #:use-module (guix build-system cmake)
-  #:use-module (guix build-system copy)
-  #:use-module (guix build-system emacs)
-  #:use-module (guix build-system go)
-  #:use-module (guix build-system guile)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system meson)
-  #:use-module (guix build-system pyproject)
-  #:use-module (guix build-system qt)
-  #:use-module (guix download)
-  #:use-module (guix gexp)
-  #:use-module (guix git-download)
-  #:use-module (guix monads)
-  #:use-module (guix packages)
-  #:use-module (guix store)
-  #:use-module (guix svn-download)
-  #:use-module (guix utils)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS build-system ant)
+  #:use-module (Manifolding-OS build-system cmake)
+  #:use-module (Manifolding-OS build-system copy)
+  #:use-module (Manifolding-OS build-system emacs)
+  #:use-module (Manifolding-OS build-system go)
+  #:use-module (Manifolding-OS build-system guile)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system meson)
+  #:use-module (Manifolding-OS build-system pyproject)
+  #:use-module (Manifolding-OS build-system qt)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS monads)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS store)
+  #:use-module (Manifolding-OS svn-download)
+  #:use-module (Manifolding-OS utils)
   #:use-module (gnu packages)
   #:use-module (gnu packages aidc)
   #:use-module (gnu packages algebra)
@@ -257,9 +257,9 @@ their devices.")
     (build-system qt-build-system)
     (arguments
      (list
-      #:modules '((guix build qt-build-system)
-                  ((guix build gnu-build-system) #:prefix gnu:)
-                  (guix build utils))
+      #:modules '((Manifolding-OS build qt-build-system)
+                  ((Manifolding-OS build gnu-build-system) #:prefix gnu:)
+                  (Manifolding-OS build utils))
       #:phases
       #~(modify-phases %standard-phases
           (replace 'configure
@@ -999,9 +999,9 @@ ready for production.")
                                "CONTRIBUTING.md"
                                "LICENSE.txt"
                                "README.md")))
-        #:modules '(((guix build gnu-build-system) #:prefix gnu:)
-                    (guix build copy-build-system)
-                    (guix build utils)
+        #:modules '(((Manifolding-OS build gnu-build-system) #:prefix gnu:)
+                    (Manifolding-OS build copy-build-system)
+                    (Manifolding-OS build utils)
                     (ice-9 match))))
       (home-page "https://fritzing.org")
       (synopsis "Electronic components (parts library) for use in the Fritzing app")
@@ -1027,9 +1027,9 @@ required for Fritzing app.")
      ;; XXX: tests are built for the CMake build option but it seems to be
      ;; broken in 0.8.0.
      (list #:tests? #f
-           #:modules '((guix build qt-build-system)
-                       ((guix build gnu-build-system) #:prefix gnu:)
-                       (guix build utils))
+           #:modules '((Manifolding-OS build qt-build-system)
+                       ((Manifolding-OS build gnu-build-system) #:prefix gnu:)
+                       (Manifolding-OS build utils))
            #:phases
            #~(modify-phases %standard-phases
                (replace 'configure
@@ -1120,11 +1120,11 @@ fonts to gEDA.")
       (arguments
        (list
         #:tests? #f ; Several tests fail due to floating point error.
-        #:imported-modules `((guix build guile-build-system)
+        #:imported-modules `((Manifolding-OS build guile-build-system)
                              ,@%cmake-build-system-modules)
-        #:modules '((guix build cmake-build-system)
-                    ((guix build guile-build-system) #:prefix guile:)
-                    (guix build utils))
+        #:modules '((Manifolding-OS build cmake-build-system)
+                    ((Manifolding-OS build guile-build-system) #:prefix guile:)
+                    (Manifolding-OS build utils))
         #:configure-flags #~(list
                              (string-append
                               "-DPYTHON_SITE_PACKAGES_DIR="
@@ -1193,7 +1193,7 @@ fonts to gEDA.")
                   (wrap-program (string-append #$output "/bin/Studio")
                     `("GUILE_LOAD_PATH" ":" prefix (,scm))
                     `("GUILE_LOAD_COMPILED_PATH" ":" prefix (,go))
-                    `("GUIX_PYTHONPATH" ":" prefix (,py)))))))))
+                    `("MANIFOLDING_OS_PYTHONPATH" ":" prefix (,py)))))))))
       (native-inputs
        (list pkg-config))
       (inputs
@@ -1230,9 +1230,9 @@ user-level language.")
     (arguments
      (list
       #:tests? #f ;no tests
-      #:modules '((guix build gnu-build-system) (guix build qt-utils)
-                  (guix build utils))
-      #:imported-modules `((guix build qt-utils)
+      #:modules '((Manifolding-OS build gnu-build-system) (Manifolding-OS build qt-utils)
+                  (Manifolding-OS build utils))
+      #:imported-modules `((Manifolding-OS build qt-utils)
                            ,@%default-gnu-imported-modules)
       #:phases
       #~(modify-phases %standard-phases
@@ -1283,7 +1283,7 @@ commands, features, and keybindings.")
                 (sha256
                  (base32
                   "0lan6930g5a9z4ack9jj0zdd0mb2s6q2xzpiwcjdc3pvl9b1nbw4"))
-                (modules '((guix build utils)))
+                (modules '((Manifolding-OS build utils)))
                 ;; Allow builds with Guile 3.0.
                 (snippet
                  '(substitute* "configure.ac"
@@ -1364,7 +1364,7 @@ with the kernel and various utilities such as per-cpu counters.")
        (sha256
         (base32 "11avqrxrzbcrw1dz38hlifl5r7l4qfvlbyn4ln7b2jjmgwqcmh6y"))
        (snippet #~(begin
-                    (use-modules (guix build utils))
+                    (use-modules (Manifolding-OS build utils))
                     (with-directory-excursion "3rdparty"
                       (delete-file "catch.hpp")
                       (delete-file "LICENSE_1_0.txt"))
@@ -1450,9 +1450,9 @@ WiFi signal strength maps.  It visualizes them using a Voronoi diagram.")
                            ,(version-major+minor
                              (package-version python))
                            "/site-packages:"
-                           (getenv "GUIX_PYTHONPATH"))))
+                           (getenv "MANIFOLDING_OS_PYTHONPATH"))))
                (wrap-program file
-                 `("GUIX_PYTHONPATH" ":" prefix (,path))
+                 `("MANIFOLDING_OS_PYTHONPATH" ":" prefix (,path))
                  `("PATH" ":" prefix
                    (,(string-append python "/bin:"))))))))))
     (inputs
@@ -1842,8 +1842,8 @@ language, ADMS transforms Verilog-AMS code into other target languages.")
       #:go go-1.26
       #:install-source? #f
       #:modules
-      '((guix build go-build-system)
-        (guix build utils)
+      '((Manifolding-OS build go-build-system)
+        (Manifolding-OS build utils)
         (ice-9 match))
       #:import-path "github.com/arduino/arduino-cli"
       #:build-flags
@@ -2298,7 +2298,7 @@ it suitable for security research and analysis.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "1liva8jdr1jddd9rxlqwnjf8a01xyzr4lsm2w1v6wq0ln22si63z"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         ;; Delete bundled libs and remove their references.
         #~(begin (delete-file-recursively "subprojects")
@@ -2634,7 +2634,7 @@ printers.")
              (commit (string-append "v" version))
              ;; Needed for src/translations.
              (recursive? #t)))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet #~(delete-file-recursively "rizin"))
        (file-name (git-file-name name version))
        (sha256
@@ -2687,7 +2687,7 @@ for reverse engineers.")
       (sha256
        (base32
         "05zqvnzmi7j8rhp2mrskvxf1bxl7kb4c72dfx4y86219i1hx7i2q"))
-      (modules '((guix build utils)))
+      (modules '((Manifolding-OS build utils)))
       (snippet
        '(begin
           ;; Delete pre-compiled ACT.
@@ -2811,7 +2811,7 @@ internal TSP Lua functions.")
               (file-name (git-file-name name version))
               (sha256
                (base32 "1yg3g358y725fahqh18yf46dydam5d9cv9dnis2lnam79mmsy5f3"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               ;; Delete bundled python-prettytable.
               (snippet '(delete-file-recursively "pyvisa/thirdparty"))))
     (build-system pyproject-build-system)
@@ -3200,7 +3200,7 @@ models in the STL and OFF file formats.")
              (recursive? #t)))
        (sha256
         (base32 "0gnifi8is0dl00vir5nd1k76kkcavb62v115g34198lzqnwiy0fc"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet #~(begin
                     ;; Delete all unbundled libraries to replace them with
                     ;; guix packages.
@@ -3357,7 +3357,7 @@ dynamics is used by FreeCAD 1.0.0 for its new Assembly workbench.")
         (base32 "05dx7ifx33705mxb0vc82j0mzzkazakgadfgq5bws30qrxp49xgg"))
        (snippet
         #~(begin
-            (use-modules (guix build utils))
+            (use-modules (Manifolding-OS build utils))
             ;; not required, because 3D mouse support if OFF
             (delete-file-recursively "src/3rdParty/3Dconnexion")
             (delete-file-recursively "src/3rdParty/GSL")           ;; c++-gsl
@@ -3387,8 +3387,8 @@ dynamics is used by FreeCAD 1.0.0 for its new Assembly workbench.")
           (add-after 'install 'wrap-pythonpath
             (lambda _
               (wrap-program (string-append #$output "/bin/FreeCAD")
-                (list "GUIX_PYTHONPATH"
-                      'prefix (list (getenv "GUIX_PYTHONPATH")))))))))
+                (list "MANIFOLDING_OS_PYTHONPATH"
+                      'prefix (list (getenv "MANIFOLDING_OS_PYTHONPATH")))))))))
     (native-inputs
      (list c++-gsl
            doxygen
@@ -3808,7 +3808,7 @@ program that can perform mesh processing tasks in batch mode, without a GUI.")
                                   ".tar.gz"))
               (sha256
                (base32 "0wwkawchhmzvkj46nc8pwlnb6g5qc83gv0943x0mmm2hblbvjk58"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                '(begin
                   ;; Delete files generated by Bison.
@@ -3857,12 +3857,12 @@ program that can perform mesh processing tasks in batch mode, without a GUI.")
     (inputs (list libgc readline libtextstyle))
     (arguments
      (list
-      #:imported-modules `((guix build emacs-build-system)
-                           (guix build emacs-utils)
+      #:imported-modules `((Manifolding-OS build emacs-build-system)
+                           (Manifolding-OS build emacs-utils)
                            ,@%default-gnu-imported-modules)
-      #:modules '((guix build gnu-build-system)
-                  ((guix build emacs-build-system) #:prefix emacs:)
-                  (guix build utils))
+      #:modules '((Manifolding-OS build gnu-build-system)
+                  ((Manifolding-OS build emacs-build-system) #:prefix emacs:)
+                  (Manifolding-OS build utils))
       #:configure-flags
       #~(list "--disable-static"
               (string-append "--with-vimdir=" #$output
@@ -4516,7 +4516,7 @@ G-codes to binary and vice versa.")
                                 "prusa-slicer-boost-1.89.patch"
                                 "prusa-slicer-cgal-6.patch"
                                 "prusa-slicer-opencascade-7.8.patch"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         `(begin
            ;; Prusa slicer bundles a lot of dependencies in src/ directory.
@@ -4783,7 +4783,7 @@ larger project called Cura.")
          (file-name (git-file-name name version))
          (sha256
           (base32 "11dra399adky7jxpaqqk1swrg5y3cc1086l54c3injg3ccgrvwik"))
-         (modules '((guix build utils)))
+         (modules '((Manifolding-OS build utils)))
          (snippet
           '(begin
              ;; Remove Windows executables and prebuilt firmware files.
@@ -5080,13 +5080,13 @@ python bindings.  It belongs to the Cura project from Ultimaker.")
            (lambda* (#:key outputs #:allow-other-keys)
              (let ((out (assoc-ref outputs "out")))
                (wrap-program (string-append out "/bin/cura")
-                 (list "GUIX_PYTHONPATH"
+                 (list "MANIFOLDING_OS_PYTHONPATH"
                        'prefix (list (string-append out
                                                     "/lib/python"
                                                     ,(version-major+minor
                                                       (package-version python))
                                                     "/site-packages")
-                                     (getenv "GUIX_PYTHONPATH"))))))))))
+                                     (getenv "MANIFOLDING_OS_PYTHONPATH"))))))))))
     (home-page "https://github.com/Ultimaker/Cura")
     (synopsis "Slicer for 3D printers")
     (description "Cura is a slicing software from Ultimaker.  A @emph{slicer}
@@ -5106,7 +5106,7 @@ generates G-Code for 3D printers.")
        ;; Comment out opencv-python which cannot be detected because
        ;; the opencv python library lacks necessary metadata files.
        ;; https://github.com/opencv/opencv-python/issues/944
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet '(substitute* "setup.py"
                   (("\"opencv-python.*" line)
                    (string-append "# " line))

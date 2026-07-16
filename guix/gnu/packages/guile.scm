@@ -35,7 +35,7 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages guile)
-  #:use-module ((guix licenses) #:prefix license:)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
   #:use-module (gnu packages)
   #:use-module (gnu packages autotools)
   #:use-module (gnu packages base)
@@ -58,14 +58,14 @@
   #:use-module (gnu packages sqlite)
   #:use-module (gnu packages texinfo)
   #:use-module (gnu packages version-control)
-  #:use-module (guix gexp)
-  #:use-module (guix packages)
-  #:use-module (guix download)
-  #:use-module (guix git-download)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system guile)
-  #:use-module (guix deprecation)
-  #:use-module (guix utils))
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system guile)
+  #:use-module (Manifolding-OS deprecation)
+  #:use-module (Manifolding-OS utils))
 
 ;;; Commentary:
 ;;;
@@ -298,7 +298,7 @@ without requiring the source code to be rewritten.")
               (sha256
                (base32
                 "013mydzhfswqci6xmyc1ajzd59pfbdak15i0b090nhr9bzm7dxyd"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (patches (search-patches
                         "guile-2.2-skip-oom-test.patch"
                         "guile-2.2-skip-so-test.patch"))
@@ -335,7 +335,7 @@ without requiring the source code to be rewritten.")
             (files '("lib/guile/2.2/site-ccache")))))))
 
 (define-public guile-2.2.4
-  ;; guile-2.2.4 has no dependents, but is used in (guix quirks).
+  ;; guile-2.2.4 has no dependents, but is used in (Manifolding-OS quirks).
   ;; Do not remove!
   (package
     (inherit guile-2.2)

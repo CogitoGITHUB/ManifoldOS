@@ -174,22 +174,22 @@
   #:use-module (gnu packages xiph)
   #:use-module (gnu packages xml)
   #:use-module (gnu packages xorg)
-  #:use-module (guix build-system cargo)
-  #:use-module (guix build-system cmake)
-  #:use-module (guix build-system copy)
-  #:use-module (guix build-system glib-or-gtk)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system meson)
-  #:use-module (guix build-system pyproject)
-  #:use-module (guix build-system qt)
-  #:use-module (guix build-system trivial)
-  #:use-module (guix build-system waf)
-  #:use-module (guix download)
-  #:use-module (guix gexp)
-  #:use-module (guix git-download)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix packages)
-  #:use-module (guix utils)
+  #:use-module (Manifolding-OS build-system cargo)
+  #:use-module (Manifolding-OS build-system cmake)
+  #:use-module (Manifolding-OS build-system copy)
+  #:use-module (Manifolding-OS build-system glib-or-gtk)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system meson)
+  #:use-module (Manifolding-OS build-system pyproject)
+  #:use-module (Manifolding-OS build-system qt)
+  #:use-module (Manifolding-OS build-system trivial)
+  #:use-module (Manifolding-OS build-system waf)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS utils)
   #:use-module (srfi srfi-1)
   #:use-module (srfi srfi-26)
   #:use-module (ice-9 match))
@@ -212,8 +212,8 @@
      (list #:configure-flags
            #~(list "-DBUILD_SHARED_LIBS=ON")
            #:modules
-           '((guix build cmake-build-system)
-             (guix build utils)
+           '((Manifolding-OS build cmake-build-system)
+             (Manifolding-OS build utils)
              (srfi srfi-26))                 ;for cute
            #:phases
            #~(modify-phases %standard-phases
@@ -880,14 +880,14 @@ streams from live audio.")
     (arguments
      (list
       #:tests? #false ;there are none
-      #:modules '((guix build utils)
-                  (guix build cmake-build-system)
-                  (guix base32)
+      #:modules '((Manifolding-OS build utils)
+                  (Manifolding-OS build cmake-build-system)
+                  (Manifolding-OS base32)
                   (ice-9 string-fun)
                   (ice-9 regex)
                   (rnrs bytevectors))
-      #:imported-modules `((guix base32)
-                           (guix build cmake-build-system)
+      #:imported-modules `((Manifolding-OS base32)
+                           (Manifolding-OS build cmake-build-system)
                            ,@%default-gnu-imported-modules)
       #:configure-flags
       ;; We extract the build identifer from the output prefix.  This is more
@@ -1113,7 +1113,7 @@ purposes developed at Queen Mary, University of London.")
          (file-name (git-file-name name version))
          (sha256
           (base32 "1b5612gr2gfmj1h5hdzfa9xxdwixia06a34n2zs04cra94clif9i"))
-         (modules '((guix build utils)))
+         (modules '((Manifolding-OS build utils)))
          (snippet
           ;; Unbundle 3rd party libraries.
           '(begin
@@ -1170,9 +1170,9 @@ purposes developed at Queen Mary, University of London.")
        (list #:qtbase qtbase
              #:tests? #f ;no tests
              #:parallel-build? #f ;fails on some systems
-             #:modules '((guix build qt-build-system)
-                         ((guix build gnu-build-system) #:prefix gnu:)
-                         (guix build utils))
+             #:modules '((Manifolding-OS build qt-build-system)
+                         ((Manifolding-OS build gnu-build-system) #:prefix gnu:)
+                         (Manifolding-OS build utils))
              #:phases
              #~(modify-phases %standard-phases
                  ;; Configure using qmake.
@@ -1423,7 +1423,7 @@ engineers, musicians, soundtrack editors and composers.")
        (sha256
         (base32 "0h2xdhbx6bjhlk2mxqalpbpzjcdj0sb8wf1rp3vj0fbgvxy1y92k"))
        (patches (search-patches "audacity-ffmpeg-fallback.patch"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         ;; Remove bundled libraries.
         '(begin
@@ -1495,12 +1495,12 @@ engineers, musicians, soundtrack editors and composers.")
         ;; and Audacity assumes that is is an ‘alpha’ version and includes debug
         ;; symbols and extra code.  Force level 2, ‘release’.
         "-DAUDACITY_BUILD_LEVEL=2")
-       #:imported-modules ((guix build glib-or-gtk-build-system)
+       #:imported-modules ((Manifolding-OS build glib-or-gtk-build-system)
                            ,@%cmake-build-system-modules)
        #:modules
-       ((guix build utils)
-        (guix build cmake-build-system)
-        ((guix build glib-or-gtk-build-system) #:prefix glib-or-gtk:))
+       ((Manifolding-OS build utils)
+        (Manifolding-OS build cmake-build-system)
+        ((Manifolding-OS build glib-or-gtk-build-system) #:prefix glib-or-gtk:))
        #:phases
        (modify-phases %standard-phases
          (add-after 'unpack 'fix-cmake-rpath
@@ -1553,12 +1553,12 @@ tools.")
     (build-system cmake-build-system)
     (arguments
      (list
-      #:imported-modules `((guix build glib-or-gtk-build-system)
+      #:imported-modules `((Manifolding-OS build glib-or-gtk-build-system)
                            ,@%cmake-build-system-modules)
       #:modules
-      '((guix build utils)
-        (guix build cmake-build-system)
-        ((guix build glib-or-gtk-build-system) #:prefix glib-or-gtk:))
+      '((Manifolding-OS build utils)
+        (Manifolding-OS build cmake-build-system)
+        ((Manifolding-OS build glib-or-gtk-build-system) #:prefix glib-or-gtk:))
       #:phases
       #~(modify-phases %standard-phases
           (add-after 'unpack 'use-upstream-headers
@@ -2304,7 +2304,7 @@ formats used to store information about DJ record libraries.")
               (patches
                (search-patches "tao-add-missing-headers.patch"
                                "tao-fix-parser-types.patch"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                '(substitute* "configure"
                   (("SHELL=/bin/sh") "")))))
@@ -2997,9 +2997,9 @@ also play midifiles using a Soundfont.")
                 "12iw36rd94zirll96cd5k0va7p5hxmf2shvjlhzihcmjaw8flq82"))))
     (build-system trivial-build-system)
     (arguments
-     `(#:modules ((guix build utils))
+     `(#:modules ((Manifolding-OS build utils))
        #:builder (begin
-                   (use-modules (guix build utils))
+                   (use-modules (Manifolding-OS build utils))
                    (let ((out (string-append %output "/share/freepats")))
                      (setenv "PATH" (string-append
                                      (assoc-ref %build-inputs "bzip2") "/bin:"
@@ -3038,13 +3038,13 @@ patches that can be used with softsynths such as Timidity and WildMidi.")
     (native-inputs
      `(("p7zip" ,p7zip)))
     (arguments
-     `(#:modules ((guix build utils))
+     `(#:modules ((Manifolding-OS build utils))
        #:builder
        (let ((dir (string-append "FreePatsGM-SF2-" ,version))
              (file (string-append "FreePatsGM-" ,version ".sf2"))
              (out (string-append %output "/share/soundfonts"))
              (doc (string-append %output "/share/doc/freepats-gm-" ,version)))
-         (use-modules (guix build utils))
+         (use-modules (Manifolding-OS build utils))
          (invoke (string-append (assoc-ref %build-inputs "p7zip") "/bin/7z")
                  "e" (assoc-ref %build-inputs "source")
                  (string-append dir "/" file)
@@ -3152,7 +3152,7 @@ auto-wah.")
               (sha256
                (base32
                 "1rpf63pdn54c4yg13k7cb1w1c7zsvl97c4qxcpz41c8l91xd55kn"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                '(begin
                   (substitute* '("src/process.C"
@@ -3327,8 +3327,8 @@ synchronous execution of all clients, and low latency operation.")
            (lambda* (#:key outputs #:allow-other-keys)
              ;; Make sure 'jack_control' runs with the correct PYTHONPATH.
              (wrap-program (search-input-file outputs "bin/jack_control")
-               `("GUIX_PYTHONPATH" ":"
-                 prefix (,(getenv "GUIX_PYTHONPATH")))))))))
+               `("MANIFOLDING_OS_PYTHONPATH" ":"
+                 prefix (,(getenv "MANIFOLDING_OS_PYTHONPATH")))))))))
     (inputs
      (list alsa-lib
            bash-minimal
@@ -3452,8 +3452,8 @@ audio signal streaming.")
                               (lib (string-append out "/lib/python" version
                                                   "/site-packages")))
                          (wrap-program (string-append bin "jack_mixer")
-                           `("GUIX_PYTHONPATH" ":" prefix
-                             (,(getenv "GUIX_PYTHONPATH") ,lib))
+                           `("MANIFOLDING_OS_PYTHONPATH" ":" prefix
+                             (,(getenv "MANIFOLDING_OS_PYTHONPATH") ,lib))
                            `("GI_TYPELIB_PATH" ":" prefix
                              (,gi-typelib-path)))))))))
     (native-inputs (list pkg-config python-cython python-docutils
@@ -4761,7 +4761,7 @@ meant to be included in any projectM-based application.")
          (file-name (git-file-name name version))
          (sha256
           (base32 "14vsjn589lrcwkz0d4528i33aslqsgh7m17kxj0fyd21pwj5n54l"))
-         (modules '((guix build utils)))
+         (modules '((Manifolding-OS build utils)))
          ;;There are no icon files to install.
          (snippet #~(substitute* "install.cmake" (("install_icon.+") "")))))
       (build-system cmake-build-system)
@@ -4871,7 +4871,7 @@ background file post-processing.")
        (sha256
         (base32
          "1qp163c6mg1d8c59ar3v1yixryr1paa9bs8pkz6yd3c86qz24n0h"))
-       (modules '((guix build utils)
+       (modules '((Manifolding-OS build utils)
                   (ice-9 ftw)))
        (snippet
         ;; The build system doesn't allow us to unbundle the following
@@ -4907,9 +4907,9 @@ link REQUIRED)"))))))
               "-DFORTIFY=ON"
               "-DLIBSCSYNTH=ON"
               "-DSC_EL=OFF")      ;scel is packaged individually as emacs-scel
-      #:modules '((guix build qt-build-system)
-                  ((guix build gnu-build-system) #:prefix gnu:)
-                  (guix build utils))
+      #:modules '((Manifolding-OS build qt-build-system)
+                  ((Manifolding-OS build gnu-build-system) #:prefix gnu:)
+                  (Manifolding-OS build utils))
       #:phases
       #~(modify-phases %standard-phases
           ;; HOME must be defined otherwise supercollider throws a "ERROR:
@@ -6003,7 +6003,7 @@ result.")
                   (substitute* "source/Makefile"
                     (("^CXXFLAGS \\+= -march=native") ""))
                   #t))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (sha256
                (base32
                 "0prji66p86z2bzminywkwchr5bfgxcg2i8y803pydd1hzf2198cs"))))
@@ -6054,7 +6054,7 @@ engine.")
                   (substitute* '("apps/Makefile" "source/Makefile")
                     (("^CXXFLAGS \\+= -march=native") ""))
                   #t))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (sha256
                (base32
                 "1my5k2dh2dkvjp6xjnf9qy6i7s28z13kw1n9pwa4a2cpwbzawfr3"))))
@@ -6335,7 +6335,7 @@ simplified, although really accurate, measuring tools.")
                            version "/bs1770gain-" version ".tar.gz"))
        (sha256
         (base32 "0a2dcaxvxy5m3a5sb1lhplsymvz3ypaiidc5xn9qy01h53zvyvkp"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         `(begin
            ;; XXX
@@ -6417,7 +6417,7 @@ Python projects to scan and/or tag audio files.")
               (sha256
                (base32
                 "1bnpmm3bxij0l54i39vr70q3l1gdaac3l4vdv76pcdk9nlydmavn"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                ;; Remove bundled dependencies.
                #~(delete-file-recursively "src/external"))))
@@ -7025,10 +7025,10 @@ using ALSA, MPD, PulseAudio, or a FIFO buffer as its input.")
            "1hjfg5i15bw9279007xs92zsggjgn4s4k9pc00s851l3kvc6dkfg"))))
       (build-system trivial-build-system)
       (arguments
-       `(#:modules ((guix build utils))
+       `(#:modules ((Manifolding-OS build utils))
          #:builder
          (begin
-           (use-modules (guix build utils))
+           (use-modules (Manifolding-OS build utils))
            (let ((file (assoc-ref %build-inputs "source"))
                  (out (string-append %output "/share/soundfonts")))
              (mkdir-p out)
@@ -7393,8 +7393,8 @@ as is the case with audio plugins.")
                                             (not (symbolic-link? file))
                                             (not (string-suffix? ".py" file)))
                                    (wrap-program file
-                                     `("GUIX_PYTHONPATH" ":" prefix
-                                       (,(getenv "GUIX_PYTHONPATH")))
+                                     `("MANIFOLDING_OS_PYTHONPATH" ":" prefix
+                                       (,(getenv "MANIFOLDING_OS_PYTHONPATH")))
                                      `("QT_PLUGIN_PATH" ":" prefix
                                        (,(getenv "QT_PLUGIN_PATH"))))))
                                (append (find-files "share/carla/resources")
@@ -7956,7 +7956,7 @@ Rate} 3600x2250 bit/s vocoder used in various radio systems.")
               (sha256
                (base32
                 "1wplqj11ww64gmw2kzlxpvfs3v04m2036f7k5ndm34zcv12b91fa"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (patches
                (search-patches "ableton-link-system-libraries-debian.patch"))
               (snippet
@@ -8043,7 +8043,7 @@ while still staying in time.")
               (sha256
                (base32
                 "0r43xph6xf02c9zldhyj82mvy82xv0f9wbv653gg2kkcjh88ajc8"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                '(substitute* "src/butt.cpp"
                   ((".*zica.*") "")))))
@@ -8414,9 +8414,9 @@ managed by PipeWire.")
      (list
       #:tests? #false                   ;no test target
       #:make-flags #~(list (string-append "PREFIX=" #$output))
-      #:modules '((guix build gnu-build-system) (guix build qt-utils)
-                  (guix build utils))
-      #:imported-modules (cons '(guix build qt-utils)
+      #:modules '((Manifolding-OS build gnu-build-system) (Manifolding-OS build qt-utils)
+                  (Manifolding-OS build utils))
+      #:imported-modules (cons '(Manifolding-OS build qt-utils)
                                %default-gnu-imported-modules)
       #:phases
       #~(modify-phases %standard-phases
@@ -8436,7 +8436,7 @@ managed by PipeWire.")
                                 (,(string-append #$output "/share/raysession/src/gui")
                                  ,(string-append #$output "/share/raysession/src/daemon")
                                  ,(string-append #$output "/share/raysession/src/control")
-                                 ,(getenv "GUIX_PYTHONPATH")))))
+                                 ,(getenv "MANIFOLDING_OS_PYTHONPATH")))))
                           '("raysession"
                             "ray_control"
                             "ray-daemon"

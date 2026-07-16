@@ -220,31 +220,31 @@
   #:use-module (gnu packages zig)
   #:use-module (gnu packages zig-xyz)
   #:use-module (gnu packages)
-  #:use-module (guix build-system ant)
-  #:use-module (guix build-system cargo)
-  #:use-module (guix build-system cmake)
-  #:use-module (guix build-system copy)
-  #:use-module (guix build-system glib-or-gtk)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system go)
-  #:use-module (guix build-system guile)
-  #:use-module (guix build-system meson)
-  #:use-module (guix build-system node)
-  #:use-module (guix build-system perl)
-  #:use-module (guix build-system pyproject)
-  #:use-module (guix build-system qt)
-  #:use-module (guix build-system scons)
-  #:use-module (guix build-system trivial)
-  #:use-module (guix build-system zig)
-  #:use-module (guix cvs-download)
-  #:use-module (guix download)
-  #:use-module (guix fossil-download)
-  #:use-module (guix gexp)
-  #:use-module (guix git-download)
-  #:use-module (guix hg-download)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix packages)
-  #:use-module (guix utils)
+  #:use-module (Manifolding-OS build-system ant)
+  #:use-module (Manifolding-OS build-system cargo)
+  #:use-module (Manifolding-OS build-system cmake)
+  #:use-module (Manifolding-OS build-system copy)
+  #:use-module (Manifolding-OS build-system glib-or-gtk)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system go)
+  #:use-module (Manifolding-OS build-system guile)
+  #:use-module (Manifolding-OS build-system meson)
+  #:use-module (Manifolding-OS build-system node)
+  #:use-module (Manifolding-OS build-system perl)
+  #:use-module (Manifolding-OS build-system pyproject)
+  #:use-module (Manifolding-OS build-system qt)
+  #:use-module (Manifolding-OS build-system scons)
+  #:use-module (Manifolding-OS build-system trivial)
+  #:use-module (Manifolding-OS build-system zig)
+  #:use-module (Manifolding-OS cvs-download)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS fossil-download)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS hg-download)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS utils)
   #:use-module (ice-9 match)
   #:use-module ((srfi srfi-1) #:select (delete-duplicates)))
 
@@ -266,12 +266,12 @@
     (arguments
      `(#:tests? #f                      ; no target
        #:imported-modules
-       ((guix build copy-build-system)
+       ((Manifolding-OS build copy-build-system)
         ,@%default-gnu-imported-modules)
        #:modules
-       (((guix build copy-build-system) #:prefix copy:)
-        (guix build gnu-build-system)
-        (guix build utils))
+       (((Manifolding-OS build copy-build-system) #:prefix copy:)
+        (Manifolding-OS build gnu-build-system)
+        (Manifolding-OS build utils))
        #:phases
        (modify-phases %standard-phases
          (add-after 'unpack 'patch-source
@@ -545,7 +545,7 @@ replacing them with data URIs.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "1p3qbsa8cnqhzwd45h808pk0yzsfjm0ka7x8hh99gm4qzgvyngzc"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        ;; Don't default to vendored openssl.
        (snippet '(substitute* "Cargo.toml"
                    ((", \"vendored-openssl\"") "")))))
@@ -749,8 +749,8 @@ and as a proxy to reduce the load on back-end HTTP or mail servers.")
       (arguments
        `(#:tests? #f                      ; no test target
          #:make-flags (list "modules")
-         #:modules ((guix build utils)
-                    (guix build gnu-build-system)
+         #:modules ((Manifolding-OS build utils)
+                    (Manifolding-OS build gnu-build-system)
                     (ice-9 popen)
                     (ice-9 regex)
                     (ice-9 textual-ports))
@@ -935,8 +935,8 @@ documentation.")
     (arguments
      (substitute-keyword-arguments
          `(#:make-flags '("modules")
-           #:modules ((guix build utils)
-                      (guix build gnu-build-system)
+           #:modules ((Manifolding-OS build utils)
+                      (Manifolding-OS build gnu-build-system)
                       (ice-9 popen)
                       (ice-9 regex)
                       (ice-9 textual-ports))
@@ -1542,7 +1542,7 @@ It aims to conform to RFC 7159.")
              (sha256
               (base32 "0ws8dz9nk8q2c0gbf66kg2r6mrkl7kamd3gpdv9zsyrz9n6n0zmq"))
               (patches (search-patches "json-c-0.13-CVE-2020-12762.patch"))
-             (modules '((guix build utils)))
+             (modules '((Manifolding-OS build utils)))
              (snippet
               '(begin
                  ;; Somehow 'config.h.in' is older than
@@ -1603,7 +1603,7 @@ project)
        (file-name (git-file-name name version))
        (sha256
         (base32 "14y68gdmy13d5jk2hlki0syrbksxs6anm5dmmpbm8chqzmb8psrz"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         #~(begin
             (delete-file-recursively "vendor")))))
@@ -1874,7 +1874,7 @@ current version of any major web browser.")
                 (sha256
                  (base32
                   "1xlj0cj88ls3avwmlhd2gf5757fjpfbqx6qf49z1mzi381gcl72m"))
-                (modules '((guix build utils)))
+                (modules '((Manifolding-OS build utils)))
                 (snippet
                  '(begin
                     ;; Remove code using the problematic JSON license (see
@@ -2047,7 +2047,7 @@ for efficient socket-like bidirectional reliable communication channels.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "1gypy9bn2nvmfa469fi6kwsyw11j0vqkxm7givs3gidjpsy1bk0a"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         '(delete-file-recursively "third_party/gtest/"))))
     (build-system cmake-build-system)
@@ -2056,9 +2056,9 @@ for efficient socket-like bidirectional reliable communication channels.")
       ;; Tests on non-x86_64 architectures are not well supported upstream.
       #:tests? (target-x86-64?)
       #:configure-flags '(list "-DUSE_SYSTEM_GTEST=ON")
-      #:modules '((guix build cmake-build-system)
-                  ((guix build gnu-build-system) #:prefix gnu:)
-                  (guix build utils))
+      #:modules '((Manifolding-OS build cmake-build-system)
+                  ((Manifolding-OS build gnu-build-system) #:prefix gnu:)
+                  (Manifolding-OS build utils))
       #:phases
       '(modify-phases %standard-phases
          (add-after 'unpack 'use-gcc
@@ -2517,7 +2517,7 @@ UTS#46.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "1j99m7rdql6iq3llrr8bm85hq34ssc8bmb6vhwr1ibgspjl0jd3k"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         #~(begin
             ;; Remove prebuilt binaries
@@ -5822,10 +5822,10 @@ their web site.")
               (substitute* "aws_lambda/aws_lambda.py"
                 ;; This package uses pip to install Python packages, wrap them
                 ;; up, and push them to AWS Lambda.  We need to reset
-                ;; GUIX_PYTHONPATH to avoid introducing package conflicts that
+                ;; MANIFOLDING_OS_PYTHONPATH to avoid introducing package conflicts that
                 ;; would cause pip to fail.
                 (("(subprocess.call\\(\\[sys.executable.*'--no-cache-dir'\\])\\)" _ m)
-                 (string-append m ", env={\"GUIX_PYTHONPATH\":\""
+                 (string-append m ", env={\"MANIFOLDING_OS_PYTHONPATH\":\""
                                 #$(this-package-input "python")
                                 "/lib/python"
                                 #$(version-major+minor
@@ -5931,8 +5931,8 @@ Cloud.")
       (build-system gnu-build-system)
       (arguments
        (list
-        #:modules '((guix build utils)
-                    (guix build gnu-build-system)
+        #:modules '((Manifolding-OS build utils)
+                    (Manifolding-OS build gnu-build-system)
                     (ice-9 ftw)
                     (ice-9 match)
                     (ice-9 rdelim)
@@ -6120,7 +6120,7 @@ It uses the uwsgi protocol for all the networking/interprocess communications.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "1m798zky0s4smpf4jxl5g0ndg8ybd9f6ca8vhld4yma1ga7r71vk"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         #~(begin
             (delete-file "jq.1.prebuilt")
@@ -6317,10 +6317,10 @@ playback of HTTP request/response traces.")
                 "0rm8xs5dhy42jhjpx30vwnvps2rnmrh8scfr89j6dnihc6mpjkmn"))))
     (build-system trivial-build-system)
     (arguments
-     '(#:modules ((guix build utils))
+     '(#:modules ((Manifolding-OS build utils))
        #:builder
        (begin
-         (use-modules (guix build utils))
+         (use-modules (Manifolding-OS build utils))
          (let* ((source (assoc-ref %build-inputs "source"))
                 (out    (assoc-ref %outputs "out"))
                 (bin    (string-append out "/bin"))
@@ -7224,7 +7224,7 @@ config files---you only have to specify the www root.")
               (sha256
                (base32
                 "03ma9v60nmqqzig76f6ilb05bjwxq7a7vp4jgly8cy9j8554idxr"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet '(substitute* '("src/error.h"
                                        "src/parser.c")
                           (("__DATE__") "\"1970-01-01\"")
@@ -7325,7 +7325,7 @@ multicore machines.")
        (sha256
         (base32
          "0mn5s6p68n32xzadz6ds5i6bp44dyxzkq68r1yljlv470jr84bql"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        ;; Remove non-free IETF RFC documentation.
        (snippet #~(delete-file-recursively "doc"))))
     (build-system gnu-build-system)
@@ -7756,7 +7756,7 @@ URL in the fixture.")
               (sha256
                (base32
                 "0pbxf2nq9pcn299k2b2ls8ldghaqln9glnp79gi57mamx4iy0f6g"))))))
-         (modules '((guix build utils)))
+         (modules '((Manifolding-OS build utils)))
          (snippet
           '(begin
              ;; This assertion fails when building for i686-linux.
@@ -8124,7 +8124,7 @@ embedded into C/C++ applications or used as a standalone web server.")
               (commit (string-append "v" version))))
        (sha256
         (base32 "01jhj8kb6xh50401qfrcgbyvq6xyngjnqxaj0f6hi1vmy78kq9j4"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         ;; The modules in this directory are meant to be de-vendorable.
         #~(delete-file-recursively "copyparty/stolen"))))
@@ -8184,7 +8184,7 @@ encoder/decoder based on the draft-12 specification for UBJSON.")
               (sha256
                (base32
                 "1wr6mpgbk2gs18vp8mdggiq6vifj68a875dd1fkdf7cs31q54rns"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               ;; Delete bundled jars.
               (snippet
                '(begin
@@ -9196,10 +9196,10 @@ or other community services.")
                   "0js4grqzsm4gvmcbmxv7zw4samfzi6nk4mn977ddcvla9g222rkm"))))
       (build-system trivial-build-system)
       (arguments
-       `(#:modules ((guix build utils))
+       `(#:modules ((Manifolding-OS build utils))
          #:builder
          (begin
-           (use-modules (guix build utils)
+           (use-modules (Manifolding-OS build utils)
                         (srfi srfi-1)
                         (srfi srfi-26))
            (let ((source (assoc-ref %build-inputs "source"))
@@ -9372,8 +9372,8 @@ It does not support server push.")
                 "1mcy4p5pw623gmwcx5jpry27njqyq1fp74wpq1c34s06gkhdarji"))))
     (build-system gnu-build-system)
     (arguments
-     `(#:modules ((guix build gnu-build-system)
-                  (guix build utils)
+     `(#:modules ((Manifolding-OS build gnu-build-system)
+                  (Manifolding-OS build utils)
                   (srfi srfi-26)
                   (ice-9 popen)
                   (ice-9 rdelim))
@@ -9387,7 +9387,7 @@ It does not support server push.")
          (add-after 'install 'wrap-program
            (lambda* (#:key inputs outputs #:allow-other-keys)
              (let* ((out      (assoc-ref outputs "out"))
-                    (guix     (assoc-ref inputs "guix"))
+                    (Manifolding-OS     (assoc-ref inputs "guix"))
                     (guile    (assoc-ref inputs "guile"))
                     (gcrypt   (assoc-ref inputs "guile-gcrypt"))
                     (git      (assoc-ref inputs "guile-git"))
@@ -9630,12 +9630,12 @@ bookmarks directly.  It can also present them in a web interface with
     (build-system gnu-build-system)
     (arguments
      (list #:make-flags #~(list (string-append "prefix=" #$output))
-           #:modules `(((guix build guile-build-system)
+           #:modules `(((Manifolding-OS build guile-build-system)
                         #:select (target-guile-effective-version))
-                       (guix build gnu-build-system)
-                       (guix build utils))
+                       (Manifolding-OS build gnu-build-system)
+                       (Manifolding-OS build utils))
            #:phases
-           (with-imported-modules '((guix build guile-build-system))
+           (with-imported-modules '((Manifolding-OS build guile-build-system))
              #~(modify-phases %standard-phases
                  (replace 'patch-source-shebangs
                    (lambda* (#:key inputs #:allow-other-keys)
@@ -9911,7 +9911,7 @@ and can be extended with the use of external commands.")
              (uri "https://chim.loan/xoa")
              (check-in version)))
        (sha256 (base32 "1dl274bl88nhcjp4si2wm49nlsidg0222yy7w2dzfdvjrn0nm20n"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet #~(delete-file-recursively "doc/djot")))) ;bundled docs
     (build-system gnu-build-system)
     (arguments
@@ -9931,8 +9931,8 @@ and can be extended with the use of external commands.")
                    (string-append (search-input-file inputs "bin/eqn")
                                   args)))
                 (wrap-program program
-                  `("GUIX_LUA_CPATH" ";" = (,(getenv "GUIX_LUA_CPATH")))
-                  `("GUIX_LUA_PATH" ";" = (,(getenv "GUIX_LUA_PATH"))))))))))
+                  `("MANIFOLDING_OS_LUA_CPATH" ";" = (,(getenv "MANIFOLDING_OS_LUA_CPATH")))
+                  `("MANIFOLDING_OS_LUA_PATH" ";" = (,(getenv "MANIFOLDING_OS_LUA_PATH"))))))))))
     (native-inputs
      (list findutils help2man))
     (inputs
@@ -10215,9 +10215,9 @@ It contains the code shared by all Kiwix ports.")
      (list
       #:qtbase qtbase
       #:tests? #f ; no tests
-      #:modules '((guix build qt-build-system)
-                  ((guix build gnu-build-system) #:prefix gnu:)
-                  (guix build utils))
+      #:modules '((Manifolding-OS build qt-build-system)
+                  ((Manifolding-OS build gnu-build-system) #:prefix gnu:)
+                  (Manifolding-OS build utils))
       #:phases
       #~(modify-phases %standard-phases
           (replace 'configure
@@ -10401,7 +10401,7 @@ provided by a TLS reverse proxy (e.g. tlstunnel, hitch or stunnel).")
       (license license:isc)
 
       ;; XXX: Ignore this CVE to work around a name clash with the unrelated
-      ;; "cpe:2.3:a:comelz:quark" package.  The proper fix is for (guix cve)
+      ;; "cpe:2.3:a:comelz:quark" package.  The proper fix is for (Manifolding-OS cve)
       ;; to account for "vendor names".
       (properties '((lint-hidden-cve . ("CVE-2019-15520")))))))
 

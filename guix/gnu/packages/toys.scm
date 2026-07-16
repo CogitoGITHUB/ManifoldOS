@@ -26,16 +26,16 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages toys)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix build-system copy)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system meson)
-  #:use-module (guix build-system pyproject)
-  #:use-module (guix download)
-  #:use-module (guix gexp)
-  #:use-module (guix git-download)
-  #:use-module (guix packages)
-  #:use-module (guix utils)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS build-system copy)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system meson)
+  #:use-module (Manifolding-OS build-system pyproject)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS utils)
   #:use-module (gnu packages)
   #:use-module (gnu packages base)
   #:use-module (gnu packages bash)
@@ -177,7 +177,7 @@ This package provides just the utilities and no quotes.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "1gaigpda1w9wxfh8an3sam1hpacc1bhxl696w4yj0vzhc6izqvxs"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet '(begin
                    ;; kenny is under nonfree Artistic License (Perl) 1.0.
                    (delete-file "kenny")
@@ -387,7 +387,7 @@ of the Nyan Cat / Poptart Cat animation.")
        (sha256
         (base32 "0bxjlbafn10sfi5d06420pg70rpvsiy5gdbm8kspd6qy4kqhabic"))
        (patches (search-patches "oneko-remove-nonfree-characters.patch"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         ;; Remove bitmaps with copyright issues.
         '(begin

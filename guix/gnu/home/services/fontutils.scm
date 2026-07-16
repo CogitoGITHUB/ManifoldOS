@@ -22,7 +22,7 @@
 (define-module (gnu home services fontutils)
   #:use-module (gnu home services)
   #:use-module (gnu packages fontutils)
-  #:use-module (guix gexp)
+  #:use-module (Manifolding-OS gexp)
   #:use-module (srfi srfi-1)
   #:use-module (ice-9 match)
   #:use-module (sxml simple)

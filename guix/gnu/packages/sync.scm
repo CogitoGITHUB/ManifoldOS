@@ -69,18 +69,18 @@
   #:use-module (gnu packages sqlite)
   #:use-module (gnu packages tls)
   #:use-module (gnu packages)
-  #:use-module (guix build-system cmake)
-  #:use-module (guix build-system copy)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system go)
-  #:use-module (guix build-system meson)
-  #:use-module (guix build-system qt)
-  #:use-module (guix download)
-  #:use-module (guix gexp)
-  #:use-module (guix git-download)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix packages)
-  #:use-module (guix utils))
+  #:use-module (Manifolding-OS build-system cmake)
+  #:use-module (Manifolding-OS build-system copy)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system go)
+  #:use-module (Manifolding-OS build-system meson)
+  #:use-module (Manifolding-OS build-system qt)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS utils))
 
 (define-public nextcloud-client
   (package
@@ -97,7 +97,7 @@
         (git-file-name name version))
        (sha256
         (base32 "0y03yldgyazqds691dzgaginnpys6alnlc9j4aimmi3zcnk93hk3"))
-       (modules '((guix build utils)
+       (modules '((Manifolding-OS build utils)
                   (ice-9 ftw)
                   (srfi srfi-1)))
        (snippet
@@ -133,12 +133,12 @@
      (list #:qtbase qtbase
            #:configure-flags #~(list "-DUNIT_TESTING=ON" "-DBUILD_UPDATER=OFF")
            #:imported-modules
-           `((guix build glib-or-gtk-build-system)
+           `((Manifolding-OS build glib-or-gtk-build-system)
              ,@%qt-build-system-modules)
            #:modules
-           '(((guix build glib-or-gtk-build-system) #:prefix glib-or-gtk:)
-             (guix build qt-build-system)
-             (guix build utils))
+           '(((Manifolding-OS build glib-or-gtk-build-system) #:prefix glib-or-gtk:)
+             (Manifolding-OS build qt-build-system)
+             (Manifolding-OS build utils))
            ;; 72% tests passed, 17 tests failed out of 61 due to SEGFAULT.
            #:test-exclude
            (string-append "("

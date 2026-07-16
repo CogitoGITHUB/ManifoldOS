@@ -26,16 +26,16 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages pcre)
-  #:use-module ((guix licenses) #:prefix license:)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
   #:use-module (gnu packages compression)
   #:use-module (gnu packages readline)
   #:use-module (gnu packages)
-  #:use-module (guix utils)
-  #:use-module (guix packages)
-  #:use-module (guix download)
-  #:use-module (guix gexp)
-  #:use-module (guix utils)
-  #:use-module (guix build-system gnu))
+  #:use-module (Manifolding-OS utils)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS utils)
+  #:use-module (Manifolding-OS build-system gnu))
 
 (define-public pcre
   (package

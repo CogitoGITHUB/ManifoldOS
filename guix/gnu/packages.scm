@@ -22,19 +22,19 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages)
-  #:use-module (guix packages)
-  #:use-module (guix ui)
-  #:use-module (guix utils)
-  #:use-module (guix diagnostics)
-  #:use-module (guix discovery)
-  #:use-module (guix memoization)
-  #:use-module ((guix build utils)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS ui)
+  #:use-module (Manifolding-OS utils)
+  #:use-module (Manifolding-OS diagnostics)
+  #:use-module (Manifolding-OS discovery)
+  #:use-module (Manifolding-OS memoization)
+  #:use-module ((Manifolding-OS build utils)
                 #:select ((package-name->name+version
                            . hyphen-separated-name->name+version)
                           mkdir-p))
-  #:use-module (guix profiles)
-  #:use-module (guix describe)
-  #:use-module (guix deprecation)
+  #:use-module (Manifolding-OS profiles)
+  #:use-module (Manifolding-OS describe)
+  #:use-module (Manifolding-OS deprecation)
   #:use-module (ice-9 vlist)
   #:use-module (ice-9 match)
   #:use-module (ice-9 binary-ports)
@@ -110,7 +110,7 @@ FILE-NAME found in %PATCH-PATH."
 
 (define %distro-root-directory
   ;; Absolute file name of the module hierarchy.  Since (gnu packages …) might
-  ;; live in a directory different from (guix), try to get the best match.
+  ;; live in a directory different from (Manifolding-OS), try to get the best match.
   (letrec-syntax ((dirname* (syntax-rules ()
                               ((_ file)
                                (dirname file))
@@ -127,7 +127,7 @@ FILE-NAME found in %PATCH-PATH."
                                #f))))
     (try ("gnu/packages/base.scm" gnu/ packages/)
          ("gnu/packages.scm"      gnu/)
-         ("guix.scm"))))
+         ("Manifolding-OS.scm"))))
 
 (define %default-package-module-path
   ;; Default search path for package modules.
@@ -135,7 +135,7 @@ FILE-NAME found in %PATCH-PATH."
 
 (define (cache-is-authoritative?)
   "Return true if the pre-computed package cache is authoritative.  It is not
-authoritative when entries have been added via GUIX_PACKAGE_PATH or '-L'
+authoritative when entries have been added via MANIFOLDING_OS_PACKAGE_PATH or '-L'
 flags."
   (equal? (%package-module-path)
           (append %default-package-module-path
@@ -146,11 +146,11 @@ flags."
   ;; name or a pair whose car is a directory and whose cdr is a sub-directory
   ;; to narrow the search.
   (let* ((not-colon   (char-set-complement (char-set #\:)))
-         (environment (string-tokenize (or (getenv "GUIX_PACKAGE_PATH") "")
+         (environment (string-tokenize (or (getenv "MANIFOLDING_OS_PACKAGE_PATH") "")
                                        not-colon))
          (channels-scm (package-path-entries)))
-    ;; Automatically add channels and items from $GUIX_PACKAGE_PATH to Guile's
-    ;; search path.  For historical reasons, $GUIX_PACKAGE_PATH goes to the
+    ;; Automatically add channels and items from $MANIFOLDING_OS_PACKAGE_PATH to Guile's
+    ;; search path.  For historical reasons, $MANIFOLDING_OS_PACKAGE_PATH goes to the
     ;; front; channels go to the back so that they don't override Guix' own
     ;; modules.
     (append-channels-to-load-path!)
@@ -172,7 +172,7 @@ flags."
 
 (define %patch-path
   ;; Define it after '%package-module-path' so that '%load-path' contains user
-  ;; directories, allowing patches in $GUIX_PACKAGE_PATH to be found.
+  ;; directories, allowing patches in $MANIFOLDING_OS_PACKAGE_PATH to be found.
   (make-parameter
    (map (lambda (directory)
           (if (string=? directory %distro-root-directory)

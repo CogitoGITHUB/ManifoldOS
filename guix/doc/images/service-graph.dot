@@ -31,9 +31,9 @@ digraph "Service Type Dependencies" {
   activation -> boot;
   pam -> etc;
   elogind -> pam;
-  guix -> shepherd;
-  guix -> activation;
-  guix -> accounts;
+  Manifolding-OS -> shepherd;
+  Manifolding-OS -> activation;
+  Manifolding-OS -> accounts;
   boot -> system;
   etc -> system;
   profile -> system;

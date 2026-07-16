@@ -31,15 +31,15 @@
   #:use-module (gnu packages python)
   #:use-module (gnu packages sphinx)
   #:use-module (gnu packages texinfo)
-  #:use-module (guix build-system agda)
-  #:use-module (guix build-system emacs)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system haskell)
-  #:use-module (guix gexp)
-  #:use-module (guix download)
-  #:use-module (guix git-download)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix packages))
+  #:use-module (Manifolding-OS build-system agda)
+  #:use-module (Manifolding-OS build-system emacs)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system haskell)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS packages))
 
 (define-public agda
   (package
@@ -92,8 +92,8 @@
            texinfo
            imagemagick))
     (arguments
-     (list #:modules `((guix build haskell-build-system)
-                       (guix build utils)
+     (list #:modules `((Manifolding-OS build haskell-build-system)
+                       (Manifolding-OS build utils)
                        (srfi srfi-26)
                        (ice-9 match))
            #:configure-flags #~(list "-foptimise-heavily" "-fenable-cluster-counting")

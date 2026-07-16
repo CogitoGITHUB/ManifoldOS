@@ -294,7 +294,7 @@ MakeError(PathInUse, Error);
 
 /* Size below which a file is not considered for deduplication.  */
 /* Any file smaller than this is not considered for deduplication.
-   Keep in sync with (guix store deduplication).  */
+   Keep in sync with (Manifolding-OS store deduplication).  */
 inline const size_t deduplicationMinSize {8192};
 
 }

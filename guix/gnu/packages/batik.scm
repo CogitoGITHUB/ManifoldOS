@@ -19,12 +19,12 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages batik)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix utils)
-  #:use-module (guix download)
-  #:use-module (guix git-download)
-  #:use-module (guix packages)
-  #:use-module (guix build-system ant)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS utils)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS build-system ant)
   #:use-module (gnu packages)
   #:use-module (gnu packages compression)
   #:use-module (gnu packages java)
@@ -45,7 +45,7 @@
               (sha256
                (base32
                 "18ys0j7i861ydvimbm3a7dyvny48x5b37zfkvznlys7vcb2qz5z1"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet '(begin
                           ;; Identify and delete bundled jars.
                           (format #t "~%~a~%" "Removing sourced jars")
@@ -305,7 +305,7 @@ SAC is an interface for CSS parsers.")
               version "-src.tar.gz"))
         (sha256
          (base32 "18gndjwzdd6vhp59fn8cwn6i6q0v0ym8nmwn65rcykdrzz0nvl72"))
-        (modules '((guix build utils)))
+        (modules '((Manifolding-OS build utils)))
         (snippet
          `(begin
             (delete-file-recursively "lib")

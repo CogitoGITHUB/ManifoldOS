@@ -24,14 +24,14 @@
 ;;; (probably) the most likely install method for some architectures.
 
 (use-modules (gnu packages)
-             (guix packages)
-             (guix profiles)
-             (guix platform)
+             (Manifolding-OS packages)
+             (Manifolding-OS profiles)
+             (Manifolding-OS platform)
              ((gnu services xorg) #:select (%default-xorg-modules))
              ((gnu system) #:prefix gnu-system:
                            #:select (%base-packages %base-packages-linux))
-             (guix utils)
-             (guix gexp)
+             (Manifolding-OS utils)
+             (Manifolding-OS gexp)
              (srfi srfi-1)
              (srfi srfi-26))
 

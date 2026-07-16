@@ -316,7 +316,7 @@ void LocalStore::ensureStoreWritable()
           throw Error(
               std::format(
                  "'{}' is read-only; make sure to mount it read-write "
-                 "for proper guix-daemon operation",
+                 "for proper Manifolding-OS-daemon operation",
                  settings.nixStore));
         }
 
@@ -817,7 +817,7 @@ string LocalStore::getLineFromSubstituter(Agent & run)
                 throw SysError("reading from substituter's stderr");
             }
             if (n == 0) throw EndOfFile(std::format("`{} substitute' died unexpectedly",
-			    settings.guixProgram));
+			    settings.ManifoldingOSProgram));
             err.append(buf, n);
             string::size_type p;
             while (((p = err.find('\n')) != string::npos)
@@ -883,7 +883,7 @@ std::shared_ptr<Agent> LocalStore::substituter()
     if (!runningSubstituter) {
 	const Strings args = { "substitute", "--query" };
 	const std::map<string, string> env = { { "_NIX_OPTIONS", settings.pack() } };
-	runningSubstituter = std::make_shared<Agent>(settings.guixProgram, args, env);
+	runningSubstituter = std::make_shared<Agent>(settings.ManifoldingOSProgram, args, env);
     }
 
     return runningSubstituter;
@@ -1152,7 +1152,7 @@ static void checkSecrecy(const Path & path)
 }
 
 
-/* Return the authentication agent, a "guix authenticate" process started
+/* Return the authentication agent, a "Manifolding-OS authenticate" process started
    lazily.  */
 static std::shared_ptr<Agent> authenticationAgent()
 {
@@ -1160,7 +1160,7 @@ static std::shared_ptr<Agent> authenticationAgent()
 
     if (!agent) {
 	Strings args = { "authenticate" };
-	agent = std::make_shared<Agent>(settings.guixProgram, args);
+	agent = std::make_shared<Agent>(settings.ManifoldingOSProgram, args);
     }
 
     return agent;
@@ -1192,7 +1192,7 @@ static int readInteger(int fd)
     return stoi(str);
 }
 
-/* Read from FD a reply coming from 'guix authenticate'.  The reply has the
+/* Read from FD a reply coming from 'Manifolding-OS authenticate'.  The reply has the
    form "CODE LEN:STR".  CODE is an integer, where zero indicates success.
    LEN specifies the length in bytes of the string that immediately
    follows.  */

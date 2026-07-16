@@ -29,7 +29,7 @@
   #:use-module (gnu system file-systems)
   #:use-module (gnu system image)
   #:use-module (gnu system)
-  #:use-module (guix platforms arm)
+  #:use-module (Manifolding-OS platforms arm)
   #:use-module (srfi srfi-26)
   #:export (am335x-evm-barebones-os
             am335x-evm-image-type

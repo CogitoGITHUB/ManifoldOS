@@ -85,16 +85,16 @@
   #:use-module (gnu packages python-build)
   #:use-module (gnu packages python-web)
   #:use-module (gnu packages python-xyz)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system meson)
-  #:use-module (guix build-system pyproject)
-  #:use-module (guix build-system trivial)
-  #:use-module (guix download)
-  #:use-module (guix gexp)
-  #:use-module (guix git-download)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix packages)
-  #:use-module (guix utils)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system meson)
+  #:use-module (Manifolding-OS build-system pyproject)
+  #:use-module (Manifolding-OS build-system trivial)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS utils)
   #:use-module (srfi srfi-1)
   #:use-module (srfi srfi-26)
   #:use-module (ice-9 optargs)
@@ -125,7 +125,7 @@
               (patches (search-patches
                         "grub-efi-fat-serial-number.patch"
                         "grub-setup-root.patch"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                #~(begin
                    ;; Add file missing from the release tarball.
@@ -608,8 +608,8 @@ menu to select one of the installed operating systems.")
        (prepend grub)))
     (arguments
      (substitute-keyword-arguments arguments
-       ((#:modules modules `((guix build utils)
-                             (guix build gnu-build-system)))
+       ((#:modules modules `((Manifolding-OS build utils)
+                             (Manifolding-OS build gnu-build-system)))
         `((ice-9 ftw) ,@modules))
        ((#:phases phases)
         #~(modify-phases #$phases
@@ -687,10 +687,10 @@ The SUBDIR argument defaults to \"efi/Guix\", as it is also the case for
                          (_         arch))
                        "-efi/core.efi")))
        (list
-        #:modules '((guix build utils))
+        #:modules '((Manifolding-OS build utils))
         #:builder
         #~(begin
-            (use-modules (guix build utils))
+            (use-modules (Manifolding-OS build utils))
             (let* ((bootloader #$(this-package-input "grub-efi"))
                    (net-dir #$output)
                    (sub-dir (string-append net-dir "/" #$subdir "/"))
@@ -810,8 +810,8 @@ The SUBDIR argument defaults to \"efi/Guix\", as it is also the case for
     (build-system meson-build-system)
     (arguments
      (list
-      #:modules '((guix build meson-build-system)
-                  (guix build utils)
+      #:modules '((Manifolding-OS build meson-build-system)
+                  (Manifolding-OS build utils)
                   (srfi srfi-26))
       #:phases
       #~(modify-phases %standard-phases
@@ -879,7 +879,7 @@ tree binary files.  These are board description files used by Linux and BSD.")
        (snippet
         ;; Remove non-free binary licenses, blobs and microcode.
         #~(begin
-           (use-modules (guix build utils))
+           (use-modules (Manifolding-OS build utils))
            (for-each delete-file
                    '("Licenses/r8a779x_usb3.txt"
                      "drivers/usb/host/xhci-rcar-r8a779x_usb3_v3.h"
@@ -1187,12 +1187,12 @@ U-Boot must be used."
          ((#:modules modules '())
           `((ice-9 ftw)
             (srfi srfi-1)
-            (guix build gnu-build-system)
-            (guix build kconfig)
-            (guix build utils)
+            (Manifolding-OS build gnu-build-system)
+            (Manifolding-OS build kconfig)
+            (Manifolding-OS build utils)
             ,@modules))
          ((#:imported-modules imported-modules '())
-          `((guix build kconfig)
+          `((Manifolding-OS build kconfig)
             ,@%default-gnu-imported-modules
             ,@imported-modules))
          ((#:test-target _ "test")
@@ -1563,9 +1563,9 @@ The package name will be that of the U-BOOT package suffixed with \"-bin\"."
     (arguments
      (list
       #:builder
-      (with-imported-modules '((guix build utils))
+      (with-imported-modules '((Manifolding-OS build utils))
         #~(begin
-            (use-modules (guix build utils))
+            (use-modules (Manifolding-OS build utils))
             (mkdir #$output)
             (symlink (search-input-file %build-inputs
                                         (string-append "libexec/" #$u-boot-bin))
@@ -1834,8 +1834,8 @@ For more information, refer to
     (arguments
      (list
       #:tests? #f                       ; No tests.
-      #:modules '((guix build gnu-build-system)
-                  (guix build utils)
+      #:modules '((Manifolding-OS build gnu-build-system)
+                  (Manifolding-OS build utils)
                   (ice-9 regex)         ; string-match
                   (srfi srfi-26))       ; cut
       #:make-flags
@@ -1913,13 +1913,13 @@ order to add a suitable bootloader menu entry.")
       (build-system gnu-build-system)
       (arguments
        (list
-        #:modules `((guix build utils)
-                    (guix build gnu-build-system)
-                    (guix base32)
+        #:modules `((Manifolding-OS build utils)
+                    (Manifolding-OS build gnu-build-system)
+                    (Manifolding-OS base32)
                     (ice-9 string-fun)
                     (ice-9 regex)
                     (rnrs bytevectors))
-        #:imported-modules `((guix base32)
+        #:imported-modules `((Manifolding-OS base32)
                              ,@%default-gnu-imported-modules)
         #:make-flags
         ;; XXX: 'BUILD_ID' is used to determine when another ROM in the
@@ -2131,7 +2131,7 @@ the features of iPXE without the hassle of reflashing.")
                 "1w682p0j59apjcy26xzzhv70fyd8nqjs47i8cz2qcsx71pl3rngp"))
               (snippet
                #~(begin
-                   (use-modules (guix build utils))
+                   (use-modules (Manifolding-OS build utils))
                    (delete-file-recursively
                     "refind/tools_x64/gptsync_x64.efi")))))
     (build-system gnu-build-system)

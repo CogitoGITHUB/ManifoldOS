@@ -33,18 +33,18 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages debug)
-  #:use-module (guix packages)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix download)
-  #:use-module (guix git-download)
-  #:use-module (guix utils)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system cmake)
-  #:use-module (guix build-system go)
-  #:use-module (guix build-system linux-module)
-  #:use-module (guix build-system pyproject)
-  #:use-module (guix build-system qt)
-  #:use-module (guix gexp)
+  #:use-module (Manifolding-OS packages)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS utils)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system cmake)
+  #:use-module (Manifolding-OS build-system go)
+  #:use-module (Manifolding-OS build-system linux-module)
+  #:use-module (Manifolding-OS build-system pyproject)
+  #:use-module (Manifolding-OS build-system qt)
+  #:use-module (Manifolding-OS gexp)
   #:use-module (gnu packages)
   #:use-module (gnu packages attr)
   #:use-module (gnu packages autotools)
@@ -207,7 +207,7 @@ tools that process C/C++ code.")
         (git-reference
          (url "https://github.com/google/cppdap")
          (commit (string-append "dap-" version))))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         '(delete-file-recursively "third_party"))
        (patches (search-patches
@@ -296,7 +296,7 @@ simple way to add custom protocol messages.")
                          blank blank (which "unifdef") all)))))
           (add-after 'install 'wrap
             (lambda _
-              (let ((python-path (getenv "GUIX_PYTHONPATH")))
+              (let ((python-path (getenv "MANIFOLDING_OS_PYTHONPATH")))
                 (wrap-program (string-append #$output "/bin/cvise")
                   `("PYTHONPATH" ":" prefix
                     (,(string-join
@@ -692,10 +692,10 @@ input.  Zzuf's behaviour is deterministic, making it easy to reproduce bugs.")
            (lambda* (#:key inputs outputs #:allow-other-keys)
              (let ((out               (assoc-ref outputs "out"))
                    (gi-typelib-path   (getenv "GI_TYPELIB_PATH"))
-                   (python-path       (getenv "GUIX_PYTHONPATH")))
+                   (python-path       (getenv "MANIFOLDING_OS_PYTHONPATH")))
                (wrap-program (string-append out "/share/gameconqueror/GameConqueror.py")
                  `("GI_TYPELIB_PATH"        ":" prefix (,gi-typelib-path))
-                 `("GUIX_PYTHONPATH"             ":" prefix (,python-path))))
+                 `("MANIFOLDING_OS_PYTHONPATH"             ":" prefix (,python-path))))
              #t)))))
     (native-inputs
      (list libtool
@@ -1064,7 +1064,7 @@ to aid in debugging.")
        (sha256
         (base32 "0xdawy3vlr74zna1dhqkrdil5dyrfn13d24clxycsrsrx65z5cl3"))
        (snippet
-        #~(begin (use-modules (guix build utils))
+        #~(begin (use-modules (Manifolding-OS build utils))
                  (delete-file-recursively "vendor")))))
     (build-system go-build-system)
     (arguments
@@ -1109,7 +1109,7 @@ to aid in debugging.")
              (commit (string-append "v" version))))
        (file-name (git-file-name name version))
        (sha256 (base32 "0ppx8r9isc772y0ahpgl8g5b3yxka7ffqzlcsa920aib5nj39lrg"))
-       (modules '((guix build utils)
+       (modules '((Manifolding-OS build utils)
                   (ice-9 ftw)
                   (srfi srfi-26)))
        (snippet

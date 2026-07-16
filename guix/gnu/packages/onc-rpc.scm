@@ -24,18 +24,18 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages onc-rpc)
-  #:use-module (guix licenses)
-  #:use-module (guix packages)
-  #:use-module (guix download)
-  #:use-module (guix gexp)
-  #:use-module (guix git-download)
+  #:use-module (Manifolding-OS licenses)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS git-download)
   #:use-module (gnu packages)
   #:use-module (gnu packages autotools)
   #:use-module (gnu packages gettext)
   #:use-module (gnu packages kerberos)
   #:use-module (gnu packages pkg-config)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix utils))
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS utils))
 
 (define-public libtirpc
   (package

@@ -1,7 +1,7 @@
 # Makefile variables for PO directory in any package using GNU gettext.
 
 # This domain contains only translations of package synopses and descriptions.
-DOMAIN = guix-packages
+DOMAIN = Manifolding-OS-packages
 
 subdir = po/packages
 top_builddir = ../..
@@ -21,7 +21,7 @@ XGETTEXT_OPTIONS =				\
 
 COPYRIGHT_HOLDER = the authors of Guix (msgids)
 
-MSGID_BUGS_ADDRESS = bug-guix@gnu.org
+MSGID_BUGS_ADDRESS = bug-Manifolding-OS@gnu.org
 
 EXTRA_LOCALE_CATEGORIES =
 

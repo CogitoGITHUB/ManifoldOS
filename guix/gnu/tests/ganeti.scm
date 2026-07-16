@@ -28,7 +28,7 @@
   #:use-module (gnu services networking)
   #:use-module (gnu services ssh)
   #:use-module (gnu packages virtualization)
-  #:use-module (guix gexp)
+  #:use-module (Manifolding-OS gexp)
   #:use-module (ice-9 format)
   #:export (%test-ganeti-kvm %test-ganeti-lxc))
 
@@ -96,7 +96,7 @@
        (packages (append extra-packages
                          (operating-system-packages %ganeti-os))))
      #:imported-modules '((gnu services herd)
-                          (guix combinators))))
+                          (Manifolding-OS combinators))))
 
   (define %forwarded-rapi-port 5080)
 

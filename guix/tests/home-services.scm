@@ -19,7 +19,7 @@
 (define-module (test-home-services)
   #:use-module (gnu services)
   #:use-module (gnu home services)
-  #:use-module (guix diagnostics)
+  #:use-module (Manifolding-OS diagnostics)
   #:use-module (srfi srfi-1)
   #:use-module (srfi srfi-64)
   #:use-module (ice-9 match))

@@ -27,7 +27,7 @@
 (eval-when (expand load eval)
   (and=> (or (getenv "XDG_CONFIG_HOME")
              (and=> (getenv "HOME")
-                    (cut string-append <> "/.config/guix/current")))
+                    (cut string-append <> "/.config/Manifolding-OS/current")))
          (lambda (current)
            (set! %load-path
              (cons (string-append current "/share/guile/site/"
@@ -38,8 +38,8 @@
                                   "/site-ccache")
                    %load-compiled-path)))))
 
-(use-modules (guix) (guix ui)
-             (guix git-download)
+(use-modules (Manifolding-OS) (Manifolding-OS ui)
+             (Manifolding-OS git-download)
              (ice-9 match))
 
 (match (command-line)
@@ -55,7 +55,7 @@
               (git?   (git-predicate source)))
          (run-with-store store
            ;; TODO: Extract #:version and #:commit using Guile-Git.
-           (mlet* %store-monad ((source (interned-file source "guix-source"
+           (mlet* %store-monad ((source (interned-file source "Manifolding-OS-source"
                                                        #:select? git?
                                                        #:recursive? #t))
                                 (drv    (build source #:pull-version 1)))

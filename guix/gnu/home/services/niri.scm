@@ -28,8 +28,8 @@
   #:use-module (gnu packages window-management)
   #:use-module (gnu services)
   #:use-module (gnu services shepherd)
-  #:use-module (guix gexp)
-  #:use-module (guix records)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS records)
   #:export (niri-configuration
             home-niri-service-type))
 

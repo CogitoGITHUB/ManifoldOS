@@ -23,7 +23,7 @@
   #:use-module (gnu services configuration)
   #:use-module (gnu services shepherd)
   #:use-module (gnu system shadow)
-  #:use-module (guix gexp)
+  #:use-module (Manifolding-OS gexp)
   #:use-module (srfi srfi-1)
   #:use-module (ice-9 match)
   #:use-module (ice-9 string-fun)
@@ -279,7 +279,7 @@ whether systemd is installed.")
     ;; out when the configuration directory already exists.
     #~(begin
         (use-modules (ice-9 match)
-                     (guix build utils))
+                     (Manifolding-OS build utils))
         (if (file-exists? #$config-dir)
             (format #t
                     "directory-server: Instance configuration for `~a' already exists.  Skipping.\n"

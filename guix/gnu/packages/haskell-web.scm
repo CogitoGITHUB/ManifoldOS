@@ -39,12 +39,12 @@
   #:use-module (gnu packages haskell-crypto)
   #:use-module (gnu packages haskell-xyz)
   #:use-module (gnu packages web)
-  #:use-module (guix build-system haskell)
-  #:use-module (guix gexp)
-  #:use-module (guix download)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix packages)
-  #:use-module (guix utils))
+  #:use-module (Manifolding-OS build-system haskell)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS download)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS utils))
 
 (define-public ghc-tagsoup
   (package
@@ -1931,7 +1931,7 @@ users (e.g. Debian).")
        (uri (hackage-uri "js-flot" version))
        (sha256
         (base32 "0yjyzqh3qzhy5h3nql1fckw0gcfb0f4wj9pm85nafpfqp2kg58hv"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet '(for-each delete-file (find-files "." "\\.min\\.js$")))))
     (build-system haskell-build-system)
     (arguments

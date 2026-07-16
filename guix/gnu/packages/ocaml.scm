@@ -97,17 +97,17 @@
   #:use-module (gnu packages web-browsers)
   #:use-module (gnu packages xml)
   #:use-module (gnu packages xorg)
-  #:use-module (guix build-system dune)
-  #:use-module (guix build-system emacs)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system ocaml)
-  #:use-module (guix download)
-  #:use-module (guix gexp)
-  #:use-module (guix git-download)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix packages)
-  #:use-module (guix svn-download)
-  #:use-module (guix utils)
+  #:use-module (Manifolding-OS build-system dune)
+  #:use-module (Manifolding-OS build-system emacs)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system ocaml)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS svn-download)
+  #:use-module (Manifolding-OS utils)
   #:use-module ((srfi srfi-1) #:hide (zip)))
 
 ;; A shortcut for files from ocaml forge. Downloaded files are computed from
@@ -143,7 +143,7 @@
                   "1f5gl3hzvixbgk0v3kmxiyn432znyy3jh5fa65cfzcaxzgfv1i1c"))
                 (patches (search-patches
                            "camlboot-dynamically-allocate-stack-signal.patch"))
-                (modules '((guix build utils)))
+                (modules '((Manifolding-OS build utils)))
                 (snippet
                  `(begin
                     ;; Remove bootstrap binaries and pre-generated source files,
@@ -461,7 +461,7 @@ patch-/bin/sh-references: ~a: changing `\"/bin/sh\"' to `~a'~%"
               (patches (search-patches
                          "ocaml-multiple-definitions.patch"
                          "ocaml-4.07-dynamically-allocate-signal-stack.patch"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                `(begin
                   ;; Remove bootstrap binaries and pre-generated source files,
@@ -1660,12 +1660,12 @@ the OCaml core distribution.")
     (arguments
      (list
       #:imported-modules `(,@%default-gnu-imported-modules
-                           (guix build emacs-build-system)
-                           (guix build emacs-utils))
-      #:modules '((guix build gnu-build-system)
-                  ((guix build emacs-build-system) #:prefix emacs:)
-                  (guix build emacs-utils)
-                  (guix build utils))
+                           (Manifolding-OS build emacs-build-system)
+                           (Manifolding-OS build emacs-utils))
+      #:modules '((Manifolding-OS build gnu-build-system)
+                  ((Manifolding-OS build emacs-build-system) #:prefix emacs:)
+                  (Manifolding-OS build emacs-utils)
+                  (Manifolding-OS build utils))
       #:phases
       #~(modify-phases %standard-phases
           (add-after 'unpack 'make-git-checkout-writable
@@ -2371,7 +2371,7 @@ about.")
     (name "dune-ordering")
     (source (origin
               (inherit (package-source dune))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                 `(begin
                    (delete-file-recursively "vendor/pp")
@@ -3792,7 +3792,7 @@ encoded in a resizable array.")
               (sha256
                (base32
                 "16dfv8gzpqdcqpcil5pd7a44vp64hw35q94fipcwsxl81jjv80cf"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                '(begin
                   ;; Remove bundled configure and libuv.
@@ -5104,7 +5104,7 @@ or a timeout.")
              (url "https://github.com/thierry-martinez/stdcompat")
              (commit (string-append "v" version))))
        (file-name (git-file-name name version))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         #~(for-each delete-file '("Makefile.in" "configure")))
        (sha256
@@ -5112,11 +5112,11 @@ or a timeout.")
          "0r9qcfjkn8634lzxp5bkagzwsi3vmg0hb6vq4g1p1515rys00h1b"))))
     (build-system dune-build-system)
     (arguments
-     (list #:imported-modules `((guix build gnu-build-system)
+     (list #:imported-modules `((Manifolding-OS build gnu-build-system)
                                 ,@%dune-build-system-modules)
-           #:modules '((guix build dune-build-system)
-                       ((guix build gnu-build-system) #:prefix gnu:)
-                       (guix build utils))
+           #:modules '((Manifolding-OS build dune-build-system)
+                       ((Manifolding-OS build gnu-build-system) #:prefix gnu:)
+                       (Manifolding-OS build utils))
            #:phases
            #~(modify-phases %standard-phases
                (add-after 'unpack 'bootstrap
@@ -5195,7 +5195,7 @@ file (POSIX like) and filename.")
               (sha256
                (base32
                 "0bn13mzfa98dq3y0jwzzndl55mnywaxv693z6f1rlvpdykp3vdqq"))
-            (modules '((guix build utils)))
+            (modules '((Manifolding-OS build utils)))
             (snippet
              '(begin
                 (substitute* "test/test-main/Test.ml"
@@ -8716,7 +8716,7 @@ library FFTW.")
        (sha256
         (base32
          "115535kphchh2a434b48b408x9794j8zzrsdmacsgqdsrgy3rck4"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet '(substitute* '("src/dune" "src/config/dune")
                    (("-march=native") "")))))
     (properties '((tunable? . #t)))

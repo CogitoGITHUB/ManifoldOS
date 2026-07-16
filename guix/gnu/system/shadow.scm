@@ -22,13 +22,13 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu system shadow)
-  #:use-module ((guix diagnostics) #:select (formatted-message))
-  #:use-module (guix records)
-  #:use-module (guix gexp)
-  #:use-module (guix store)
-  #:use-module (guix modules)
-  #:use-module (guix sets)
-  #:use-module (guix ui)
+  #:use-module ((Manifolding-OS diagnostics) #:select (formatted-message))
+  #:use-module (Manifolding-OS records)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS store)
+  #:use-module (Manifolding-OS modules)
+  #:use-module (Manifolding-OS sets)
+  #:use-module (Manifolding-OS ui)
   #:use-module ((gnu build accounts)
                 #:select (%subordinate-id-count
                           %subordinate-id-max
@@ -151,7 +151,7 @@
 # shells (info \"(bash) Bash Startup Files\").
 
 # Provide a default prompt.
-PS1='\\u@\\h \\w${GUIX_ENVIRONMENT:+ [env]}\\$ '
+PS1='\\u@\\h \\w${MANIFOLDING_OS_ENVIRONMENT:+ [env]}\\$ '
 
 # Export 'SHELL' to child processes.  Programs such as 'screen'
 # honor it and otherwise use /bin/sh.
@@ -186,7 +186,7 @@ if [ -f ~/.profile ]; then . ~/.profile; fi
 if [ -f ~/.bashrc ]; then . ~/.bashrc; fi
 
 # Merge search-paths from multiple profiles, the order matters.
-eval \"$(guix package --search-paths \\
+eval \"$(Manifolding-OS package --search-paths \\
 -p $HOME/.config/guix/current \\
 -p $HOME/.guix-home/profile \\
 -p $HOME/.guix-profile \\
@@ -326,10 +326,10 @@ home-config"))
 (define (skeleton-directory skeletons)
   "Return a directory containing SKELETONS, a list of name/derivation tuples."
   (computed-file "skel"
-                 (with-imported-modules '((guix build utils))
+                 (with-imported-modules '((Manifolding-OS build utils))
                    #~(begin
                        (use-modules (ice-9 match)
-                                    (guix build utils))
+                                    (Manifolding-OS build utils))
 
                        (mkdir #$output)
                        (chdir #$output)

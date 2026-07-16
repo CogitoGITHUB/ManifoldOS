@@ -39,10 +39,10 @@
   #:use-module (gnu services virtualization)
   #:use-module (gnu packages ssh)
   #:use-module (gnu packages virtualization)
-  #:use-module (guix gexp)
-  #:use-module (guix records)
-  #:use-module (guix store)
-  #:use-module (guix modules)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS records)
+  #:use-module (Manifolding-OS store)
+  #:use-module (Manifolding-OS modules)
   #:export (%test-libvirt
             %test-qemu-guest-agent
             %test-childhurd
@@ -67,7 +67,7 @@
     (marionette-operating-system
      %libvirt-os
      #:imported-modules '((gnu services herd)
-                          (guix combinators))))
+                          (Manifolding-OS combinators))))
 
   (define vm
     (virtual-machine
@@ -336,14 +336,14 @@ output."
   (define (import-module? module)
     ;; This module is optional and depends on Guile-Gcrypt, do skip it.
     (and (guix-module-name? module)
-         (not (equal? module '(guix store deduplication)))))
+         (not (equal? module '(Manifolding-OS store deduplication)))))
 
   (define os
     (marionette-operating-system
      childhurd-os
      #:imported-modules (source-module-closure
                          '((gnu services herd)
-                           (guix combinators)
+                           (Manifolding-OS combinators)
                            (gnu build install))
                          #:select? import-module?)))
 
@@ -454,7 +454,7 @@ output."
             (marionette-eval
              '(begin
                 (use-modules (gnu build install)
-                             (guix build syscalls))
+                             (Manifolding-OS build syscalls))
 
                 (mkdir "/run/writable-store")
                 (mount "none" "/run/writable-store" "tmpfs")
@@ -505,7 +505,7 @@ sure that the childhurd boots and runs its SSH server.")
   (define (import-module? module)
     ;; This module is optional and depends on Guile-Gcrypt, do skip it.
     (and (guix-module-name? module)
-         (not (equal? module '(guix store deduplication)))))
+         (not (equal? module '(Manifolding-OS store deduplication)))))
 
   (define os
     (marionette-operating-system
@@ -562,7 +562,7 @@ sure that the childhurd boots and runs its SSH server.")
             (marionette-eval
              '(begin
                 (use-modules (gnu build install)
-                             (guix build syscalls))
+                             (Manifolding-OS build syscalls))
 
                 (mkdir "/run/writable-store")
                 (mount "none" "/run/writable-store" "tmpfs")

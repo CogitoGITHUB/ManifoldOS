@@ -25,13 +25,13 @@ Use UPnP and similar to traverse NAT, like ‘filegive’ does.
 ** add ‘recommends’ field
 
 For instance, glibc, binutils, gcc, and ld-wrapper would recommend each other.
-‘guix package -i’ could ask interactively (?), or allow users to follow all or
+‘Manifolding-OS package -i’ could ask interactively (?), or allow users to follow all or
 none of the recommendations.
 
 ** add a ‘user-environment-hook’
 
 This should specify builder code to be run when building a user
-environment with ‘guix-package’.  For instance, Texinfo’s hook would
+environment with ‘Manifolding-OS-package’.  For instance, Texinfo’s hook would
 create a new ‘dir’.
 
 ** extend ‘propagated-build-inputs’ with support for multiple outputs
@@ -68,7 +68,7 @@ per-package priorities, etc.
 Tests that need to download stuff or otherwise take a long time would only be
 run when that is defined.
 
-* guix build utils
+* Manifolding-OS build utils
 ** MAYBE Change ‘ld-wrapper’ to add RPATH for libs passed by file name
 
 ** MAYBE Add equivalent to chrpath that uses [[https://gitorious.org/guile-dlhacks/guile-dlhacks/][guile-dlhacks]]
@@ -86,7 +86,7 @@ Hurd, which would be a pre-condition.
 
 * Installer
 ** Fix impossibility to restart on error after cow-store has been started
-See https://lists.gnu.org/archive/html/guix-devel/2018-12/msg00161.html.
+See https://lists.gnu.org/archive/html/Manifolding-OS-devel/2018-12/msg00161.html.
 - Force reboot upon installer failure
 - Unshare the installer process
 - Run the installer process in a separate namespace
@@ -121,4 +121,4 @@ Under the form:
 ...
 ** Display issue
 *** Investigate display issue described here:
-https://lists.gnu.org/archive/html/guix-devel/2019-01/msg00305.html
+https://lists.gnu.org/archive/html/Manifolding-OS-devel/2019-01/msg00305.html

@@ -22,7 +22,7 @@
 
 (use-modules (srfi srfi-1) (srfi srfi-26)
              (ice-9 match) (ice-9 vlist)
-             (guix packages) (guix profiles)
+             (Manifolding-OS packages) (Manifolding-OS profiles)
              (gnu packages))
 
 (define (upstream-origin source)

@@ -26,11 +26,11 @@
   #:use-module (gnu packages tls)
   #:use-module (gnu packages version-control)
   #:use-module (gnu packages xorg)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix git-download)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix utils)
-  #:use-module (guix packages))
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS utils)
+  #:use-module (Manifolding-OS packages))
 
 (define-public vlang
   (package

@@ -62,22 +62,22 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages text-editors)
-  #:use-module (guix packages)
-  #:use-module (guix deprecation)
-  #:use-module (guix download)
-  #:use-module (guix gexp)
-  #:use-module (guix git-download)
-  #:use-module (guix utils)
-  #:use-module (guix build-system asdf)
-  #:use-module (guix build-system cargo)
-  #:use-module (guix build-system cmake)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system go)
-  #:use-module (guix build-system glib-or-gtk)
-  #:use-module (guix build-system meson)
-  #:use-module (guix build-system pyproject)
-  #:use-module (guix build-system qt)
-  #:use-module ((guix licenses) #:prefix license:)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS deprecation)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS utils)
+  #:use-module (Manifolding-OS build-system asdf)
+  #:use-module (Manifolding-OS build-system cargo)
+  #:use-module (Manifolding-OS build-system cmake)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system go)
+  #:use-module (Manifolding-OS build-system glib-or-gtk)
+  #:use-module (Manifolding-OS build-system meson)
+  #:use-module (Manifolding-OS build-system pyproject)
+  #:use-module (Manifolding-OS build-system qt)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
   #:use-module (gnu packages)
   #:use-module (gnu packages aspell)
   #:use-module (gnu packages assembly)
@@ -259,7 +259,7 @@ intuitive, while also taking advantage of the capabilities of modern terminals."
         (base32 "0qkgs6xnbbnyjh9i1zp9l5iw6zj4hlb2b42b272pbmxw6pd3zp4a"))
        (file-name (git-file-name name version))
        (snippet #~(begin
-                    (use-modules (guix build utils))
+                    (use-modules (Manifolding-OS build utils))
                     (delete-file-recursively "roswell")
                     ;; Delete precompiled shared object files.
                     (delete-file-recursively "extensions/terminal/lib")))))
@@ -381,8 +381,8 @@ intuitive, while also taking advantage of the capabilities of modern terminals."
            (lambda* (#:key inputs outputs #:allow-other-keys)
              (let* ((out (assoc-ref outputs "out")))
                (wrap-program (string-append out "/bin/vis")
-                 `("GUIX_LUA_PATH" ";" prefix (,(getenv "GUIX_LUA_PATH")))
-                 `("GUIX_LUA_CPATH" ";" prefix (,(getenv "GUIX_LUA_CPATH"))))
+                 `("MANIFOLDING_OS_LUA_PATH" ";" prefix (,(getenv "MANIFOLDING_OS_LUA_PATH")))
+                 `("MANIFOLDING_OS_LUA_CPATH" ";" prefix (,(getenv "MANIFOLDING_OS_LUA_CPATH"))))
                #t)))
          (add-after 'wrap-binary 'check
            (assoc-ref %standard-phases 'check))
@@ -921,7 +921,7 @@ Wordstar-, EMACS-, Pico, Nedit or vi-like key bindings.  e3 can be used on
               (sha256
                (base32
                 "0l4ngmarslrdrd8p2yz4lj868xgd8rhjga6490p3jimkxfwn1asx"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet '(begin
                           (substitute* "GNUmakefile"
                             (("/usr/bin/") ""))))))
@@ -1004,7 +1004,7 @@ justifying, auto-indentation, bracket matching, interactive search-and-replace
                                 "nvi-dbpagesize-binpower.patch"
                                 "nvi-add-function-prototypes.patch"
                                 "nvi-db4.patch"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         ;; Create a wrapper for the configure script, make it executable.
         #~(let ((conf-wrap (open-output-file "configure")))
@@ -1221,8 +1221,8 @@ scripts/input/X11/C/Shell/HTML/Dired): 49KB.
                 (let ((bin (string-append #$output "/bin"))
                       (executable (string-append share "/bin/manuskript")))
                   (wrap-program executable
-                    (list "GUIX_PYTHONPATH" 'prefix
-                          (list (getenv "GUIX_PYTHONPATH"))))
+                    (list "MANIFOLDING_OS_PYTHONPATH" 'prefix
+                          (list (getenv "MANIFOLDING_OS_PYTHONPATH"))))
                   (mkdir-p bin)
                   (with-directory-excursion bin
                     (symlink (string-append share "/bin/manuskript")
@@ -1711,11 +1711,11 @@ used with the Scintilla editing component.")
            ;; ("scintilla" ,scintilla)
            ))
     (arguments
-     `(#:imported-modules ((guix build glib-or-gtk-build-system)
+     `(#:imported-modules ((Manifolding-OS build glib-or-gtk-build-system)
                            ,@%default-gnu-imported-modules)
-       #:modules (((guix build glib-or-gtk-build-system) #:prefix glib-or-gtk:)
-                  (guix build gnu-build-system)
-                  (guix build utils))
+       #:modules (((Manifolding-OS build glib-or-gtk-build-system) #:prefix glib-or-gtk:)
+                  (Manifolding-OS build gnu-build-system)
+                  (Manifolding-OS build utils))
        #:phases
        (modify-phases %standard-phases
          (add-after 'install 'glib-or-gtk-wrap
@@ -1996,7 +1996,7 @@ quality of font rendering, and reduce CPU usage.")
               (sha256
                (base32
                 "0qspdc6wss43wh1a8fddvf62xyhld5p7hl75grv4d95h5z73k8wp"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet #~(begin
                            ;; Delete Windows binaries.
                            (delete-file-recursively "bin/w32")

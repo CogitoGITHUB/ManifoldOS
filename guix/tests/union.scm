@@ -18,13 +18,13 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (test-union)
-  #:use-module (guix tests)
-  #:use-module (guix store)
-  #:use-module (guix utils)
-  #:use-module (guix derivations)
-  #:use-module (guix packages)
-  #:use-module (guix build union)
-  #:use-module ((guix build utils)
+  #:use-module (Manifolding-OS tests)
+  #:use-module (Manifolding-OS store)
+  #:use-module (Manifolding-OS utils)
+  #:use-module (Manifolding-OS derivations)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS build union)
+  #:use-module ((Manifolding-OS build utils)
                 #:select (with-directory-excursion directory-exists?))
   #:use-module (gnu packages bootstrap)
   #:use-module (srfi srfi-1)
@@ -32,7 +32,7 @@
   #:use-module (rnrs io ports)
   #:use-module (ice-9 match))
 
-;; Exercise the (guix build union) module.
+;; Exercise the (Manifolding-OS build union) module.
 
 (define %store
   (open-connection-for-tests))
@@ -47,25 +47,25 @@
   (let* ((one     (build-expression->derivation
                    %store "one"
                    '(begin
-                      (use-modules (guix build utils) (srfi srfi-26))
+                      (use-modules (Manifolding-OS build utils) (srfi srfi-26))
                       (let ((foo (string-append %output "/foo")))
                         (mkdir-p foo)
                         (call-with-output-file (string-append foo "/one")
                           (cut display "one" <>))))
-                   #:modules '((guix build utils))))
+                   #:modules '((Manifolding-OS build utils))))
          (two     (build-expression->derivation
                    %store "two"
                    '(begin
-                      (use-modules (guix build utils) (srfi srfi-26))
+                      (use-modules (Manifolding-OS build utils) (srfi srfi-26))
                       (let ((foo (string-append %output "/foo"))
                             (bar (string-append %output "/bar")))
                         (mkdir-p bar)
                         (call-with-output-file (string-append bar "/two")
                           (cut display "two" <>))
                         (symlink "bar" foo)))
-                   #:modules '((guix build utils))))
+                   #:modules '((Manifolding-OS build utils))))
          (builder '(begin
-                     (use-modules (guix build union))
+                     (use-modules (Manifolding-OS build union))
 
                      (union-build (assoc-ref %outputs "out")
                                   (list (assoc-ref %build-inputs "one")
@@ -74,7 +74,7 @@
           (build-expression->derivation %store "union-collision-symlink"
                                         builder
                                         #:inputs `(("one" ,one) ("two" ,two))
-                                        #:modules '((guix build union)))))
+                                        #:modules '((Manifolding-OS build union)))))
     (and (build-derivations %store (list drv))
          (with-directory-excursion (pk (derivation->output-path drv))
            (and (string=? "one"
@@ -97,14 +97,14 @@
                        (append %bootstrap-inputs-for-tests
                                (take %bootstrap-inputs-for-tests 3))))
          (builder `(begin
-                     (use-modules (guix build union))
+                     (use-modules (Manifolding-OS build union))
                      (union-build (assoc-ref %outputs "out")
                                   (map cdr %build-inputs))))
          (drv
           (build-expression->derivation %store "union-test"
                                         builder
                                         #:inputs inputs
-                                        #:modules '((guix build union)))))
+                                        #:modules '((Manifolding-OS build union)))))
     (and (build-derivations %store (list (pk 'drv drv)))
          (with-directory-excursion (derivation->output-path drv)
            (and (file-exists? "bin/touch")
@@ -129,15 +129,15 @@
          (fake    (build-expression->derivation
                    %store "fake-guile"
                    '(begin
-                      (use-modules (guix build utils))
+                      (use-modules (Manifolding-OS build utils))
                       (let ((out (assoc-ref %outputs "out")))
                         (mkdir-p (string-append out "/bin"))
                         (call-with-output-file (string-append out "/bin/guile")
                           (const #t))))
-                   #:modules '((guix build utils))))
+                   #:modules '((Manifolding-OS build utils))))
          (builder (lambda (policy)
                     `(begin
-                       (use-modules (guix build union)
+                       (use-modules (Manifolding-OS build union)
                                     (srfi srfi-1))
                        (union-build (assoc-ref %outputs "out")
                                     (map cdr %build-inputs)
@@ -147,13 +147,13 @@
                                         (builder 'first)
                                         #:inputs `(("guile" ,guile)
                                                    ("fake" ,fake))
-                                        #:modules '((guix build union))))
+                                        #:modules '((Manifolding-OS build union))))
          (drv2
           (build-expression->derivation %store "union-last"
                                         (builder 'last)
                                         #:inputs `(("guile" ,guile)
                                                    ("fake" ,fake))
-                                        #:modules '((guix build union)))))
+                                        #:modules '((Manifolding-OS build union)))))
     (and (build-derivations %store (list drv1 drv2))
          (with-directory-excursion (derivation->output-path drv1)
            (string=? (readlink "bin/guile")
@@ -166,14 +166,14 @@
 
 (test-assert "union-build #:create-all-directories? #t"
   (let* ((build  `(begin
-                    (use-modules (guix build union))
+                    (use-modules (Manifolding-OS build union))
                     (union-build (assoc-ref %outputs "out")
                                  (map cdr %build-inputs)
                                  #:create-all-directories? #t)))
          (input  (package-derivation %store %bootstrap-guile))
          (drv    (build-expression->derivation %store "union-test-all-dirs"
                                                build
-                                               #:modules '((guix build union))
+                                               #:modules '((Manifolding-OS build union))
                                                #:inputs `(("g" ,input)))))
     (and (build-derivations %store (list drv))
          (with-directory-excursion (derivation->output-path drv)

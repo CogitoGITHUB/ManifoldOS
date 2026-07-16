@@ -34,7 +34,7 @@ mkdir -p "$UNPACK_DIR"
 
 for crate in $CHANGES
 do
-    built="$(./pre-inst-env guix build -e "(@@ (gnu packages rust-crates) "$crate")" -v0 2>/dev/null)"
+    built="$(./pre-inst-env Manifolding-OS build -e "(@@ (gnu packages rust-crates) "$crate")" -v0 2>/dev/null)"
     if [[ -n $built ]]; then
         if [[ -d $built ]]; then
             cp -r "$built" "$UNPACK_DIR"

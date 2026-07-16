@@ -57,22 +57,22 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages gtk)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix gexp)
-  #:use-module (guix utils)
-  #:use-module (guix packages)
-  #:use-module (guix download)
-  #:use-module (guix bzr-download)
-  #:use-module (guix git-download)
-  #:use-module (guix search-paths)
-  #:use-module ((guix build utils) #:select (alist-replace))
-  #:use-module (guix build-system cmake)
-  #:use-module (guix build-system glib-or-gtk)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system meson)
-  #:use-module (guix build-system perl)
-  #:use-module (guix build-system pyproject)
-  #:use-module (guix build-system waf)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS utils)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS bzr-download)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS search-paths)
+  #:use-module ((Manifolding-OS build utils) #:select (alist-replace))
+  #:use-module (Manifolding-OS build-system cmake)
+  #:use-module (Manifolding-OS build-system glib-or-gtk)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system meson)
+  #:use-module (Manifolding-OS build-system perl)
+  #:use-module (Manifolding-OS build-system pyproject)
+  #:use-module (Manifolding-OS build-system waf)
   #:use-module (gnu packages)
   #:use-module (gnu packages algebra)
   #:use-module (gnu packages audio)
@@ -657,7 +657,7 @@ highlighting and other features typical of a source code editor.")
                 "05xxpl3sd37lsp5qqy01m0w9c14dqfi84x9rawsffyj2y71sm8ck"))
               (patches
                (search-patches
-                "gdk-pixbuf-honor-GUIX_GDK_PIXBUF_MODULE_FILES.patch"))))
+                "gdk-pixbuf-honor-MANIFOLDING_OS_GDK_PIXBUF_MODULE_FILES.patch"))))
     (build-system meson-build-system)
     (outputs '("out" "debug"))
     (arguments
@@ -713,7 +713,7 @@ highlighting and other features typical of a source code editor.")
      ;; This file is produced by the gdk-pixbuf-loaders-cache-file
      ;; profile hook.
      (list (search-path-specification
-            (variable "GUIX_GDK_PIXBUF_MODULE_FILES")
+            (variable "MANIFOLDING_OS_GDK_PIXBUF_MODULE_FILES")
             (files (list %gdk-pixbuf-loaders-cache-file))
             (file-type 'regular))))
     (synopsis "Image loading library")
@@ -891,8 +891,8 @@ is part of the GNOME accessibility project.")
               (sha256
                (base32
                 "1nn6kks1zyvb5xikr9y2k7r9bwjy1g4b0m0s66532bclymbwfamc"))
-              (patches (search-patches "gtk2-respect-GUIX_GTK2_PATH.patch"
-                                       "gtk2-respect-GUIX_GTK2_IM_MODULE_FILE.patch"
+              (patches (search-patches "gtk2-respect-MANIFOLDING_OS_GTK2_PATH.patch"
+                                       "gtk2-respect-MANIFOLDING_OS_GTK2_IM_MODULE_FILE.patch"
                                        "gtk2-harden-list-store.patch"
                                        "gtk2-theme-paths.patch"
                                        "gtk2-fix-builder-test.patch"))))
@@ -970,7 +970,7 @@ is part of the GNOME accessibility project.")
 	                (find-files #$output "immodules.cache")))))))
     (native-search-paths
      (list (search-path-specification
-            (variable "GUIX_GTK2_PATH")
+            (variable "MANIFOLDING_OS_GTK2_PATH")
             (files '("lib/gtk-2.0")))))
     (search-paths native-search-paths)
     (synopsis "Cross-platform toolkit for creating graphical user interfaces")
@@ -997,8 +997,8 @@ application suites.")
                (base32
                 "07vw0rani9d65px36fzzj7sprv5r48shyjdgzipkihzqaldd98yh"))
               (patches (search-patches
-                        "gtk3-respect-GUIX_GTK3_PATH.patch"
-                        "gtk3-respect-GUIX_GTK3_IM_MODULE_FILE.patch"))))
+                        "gtk3-respect-MANIFOLDING_OS_GTK3_PATH.patch"
+                        "gtk3-respect-MANIFOLDING_OS_GTK3_IM_MODULE_FILE.patch"))))
     ;; There is no "doc" output, because adding gtk-doc here would introduce a
     ;; dependency cycle with itself.
     (outputs '("out" "bin"))
@@ -1053,11 +1053,11 @@ application suites.")
            libxslt))
     (arguments
      (list
-      #:imported-modules `((guix build glib-or-gtk-build-system)
+      #:imported-modules `((Manifolding-OS build glib-or-gtk-build-system)
                            ,@%meson-build-system-modules)
-      #:modules '((guix build utils)
-                  (guix build meson-build-system)
-                  ((guix build glib-or-gtk-build-system) #:prefix glib-or-gtk:))
+      #:modules '((Manifolding-OS build utils)
+                  (Manifolding-OS build meson-build-system)
+                  ((Manifolding-OS build glib-or-gtk-build-system) #:prefix glib-or-gtk:))
       #:disallowed-references (list (this-package-native-input "xorg-server"))
       #:configure-flags
       #~(list "-Dcloudproviders=true"   ;for cloud-providers support
@@ -1113,7 +1113,7 @@ application suites.")
                                           "/share/applications")))))))
     (native-search-paths
      (list (search-path-specification
-            (variable "GUIX_GTK3_PATH")
+            (variable "MANIFOLDING_OS_GTK3_PATH")
             (files '("lib/gtk-3.0")))))))
 
 (define-public gtk
@@ -1131,15 +1131,15 @@ application suites.")
        (patches
         (search-patches "gtk4-demo-reproducible.patch"
                         "gtk4-needs-udmabuf.patch"
-                        "gtk4-respect-GUIX_GTK4_PATH.patch"))
-       (modules '((guix build utils)))))
+                        "gtk4-respect-MANIFOLDING_OS_GTK4_PATH.patch"))
+       (modules '((Manifolding-OS build utils)))))
     (build-system meson-build-system)
     (outputs '("out" "bin" "doc"))
     (arguments
      (list
-      #:modules '((guix build utils)
-                  (guix build meson-build-system)
-                  ((guix build glib-or-gtk-build-system) #:prefix glib-or-gtk:))
+      #:modules '((Manifolding-OS build utils)
+                  (Manifolding-OS build meson-build-system)
+                  ((Manifolding-OS build glib-or-gtk-build-system) #:prefix glib-or-gtk:))
       #:configure-flags
       #~(list
          "-Dbroadway-backend=true"      ;for broadway display-backend
@@ -1370,7 +1370,7 @@ application suites.")
     (native-search-paths
      (list
       (search-path-specification
-        (variable "GUIX_GTK4_PATH")
+        (variable "MANIFOLDING_OS_GTK4_PATH")
         (files '("lib/gtk-4.0")))))
     (search-paths native-search-paths)
     (home-page "https://www.gtk.org/")
@@ -1395,7 +1395,7 @@ ranging from small one-off tools to complete application suites.")
               (sha256
                (base32
                 "0yx0844p61ljd4d3d63qrawiygiw6ks02fwv2cqx7nav5kfd8ck2"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                (begin
                  '(begin
@@ -1412,8 +1412,8 @@ ranging from small one-off tools to complete application suites.")
      ;; because of them.
      `(#:configure-flags '("--disable-Werror")
        #:make-flags '("GUILE_AUTO_COMPILE=0") ; to prevent guild warnings
-       #:modules ((guix build gnu-build-system)
-                  (guix build utils)
+       #:modules ((Manifolding-OS build gnu-build-system)
+                  (Manifolding-OS build utils)
                   (ice-9 rdelim)
                   (ice-9 popen))
        #:phases
@@ -1524,7 +1524,7 @@ exceptions, macros, and a dynamic programming environment.")
                  (base32
                   "0cnbl40df2sbhpc32cma6j6w312rfvcgbxxqaixgf0ymim3fb248"))
                 (patches (search-patches "guile-rsvg-pkgconfig.patch"))
-                (modules '((guix build utils)))
+                (modules '((Manifolding-OS build utils)))
                 (snippet
                  '(begin
                     (substitute* (find-files "." "Makefile\\.am")
@@ -1534,8 +1534,8 @@ exceptions, macros, and a dynamic programming environment.")
                 (file-name (string-append name "-" version ".tar.gz"))))
       (build-system gnu-build-system)
       (arguments
-       `(#:modules ((guix build gnu-build-system)
-                    (guix build utils)
+       `(#:modules ((Manifolding-OS build gnu-build-system)
+                    (Manifolding-OS build utils)
                     (ice-9 rdelim)
                     (ice-9 popen))
          #:phases
@@ -1597,7 +1597,7 @@ images onto Cairo surfaces.")
                (base32
                 "1qam447m05sxxv6x8dlzg7qnyfc4dh8apjw1idpfhpns671gfr6m"))
               (patches (search-patches "guile-present-coding.patch"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                '(begin
                   ;; Allow builds with Guile 3.0.
@@ -2237,7 +2237,7 @@ information.")
                                      "/catalog.xml"))))
                (for-each (lambda (prog)
                            (wrap-program prog
-                             `("GUIX_PYTHONPATH" ":" prefix (,(getenv "GUIX_PYTHONPATH")))
+                             `("MANIFOLDING_OS_PYTHONPATH" ":" prefix (,(getenv "MANIFOLDING_OS_PYTHONPATH")))
                              `("XML_CATALOG_FILES" " " suffix (,docbook-xsl-catalog))))
                          (find-files (string-append #$output "/bin")))))))))
     (native-inputs

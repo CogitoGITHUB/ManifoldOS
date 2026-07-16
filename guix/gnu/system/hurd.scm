@@ -19,9 +19,9 @@
 
 (define-module (gnu system hurd)
   #:use-module (ice-9 match)
-  #:use-module (guix gexp)
-  #:use-module (guix profiles)
-  #:use-module (guix utils)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS profiles)
+  #:use-module (Manifolding-OS utils)
   #:use-module (gnu bootloader)
   #:use-module (gnu bootloader grub)
   #:use-module (gnu packages admin)

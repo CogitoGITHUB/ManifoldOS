@@ -22,8 +22,8 @@
   #:use-module (gnu services)
   #:use-module (gnu services shepherd)
   #:use-module (gnu packages guile-xyz)
-  #:use-module (guix records)
-  #:use-module (guix gexp)
+  #:use-module (Manifolding-OS records)
+  #:use-module (Manifolding-OS gexp)
   #:use-module (srfi srfi-1)
   #:use-module (ice-9 match)
   #:use-module (ice-9 vlist)
@@ -89,9 +89,9 @@
     ;; This procedure behaves like 'scheme-file' but it runs 'mcron
     ;; --schedule' to detect any error in JOB.
     (computed-file "mcron-job"
-                   (with-imported-modules '((guix build utils))
+                   (with-imported-modules '((Manifolding-OS build utils))
                      #~(begin
-                         (use-modules (guix build utils))
+                         (use-modules (Manifolding-OS build utils))
 
                          (call-with-output-file "prologue"
                            (lambda (port)

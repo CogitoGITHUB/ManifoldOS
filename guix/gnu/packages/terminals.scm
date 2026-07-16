@@ -63,20 +63,20 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages terminals)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix build-system cargo)
-  #:use-module (guix build-system cmake)
-  #:use-module (guix build-system copy)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system glib-or-gtk)
-  #:use-module (guix build-system go)
-  #:use-module (guix build-system meson)
-  #:use-module (guix build-system pyproject)
-  #:use-module (guix download)
-  #:use-module (guix git-download)
-  #:use-module (guix gexp)
-  #:use-module (guix packages)
-  #:use-module (guix utils)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS build-system cargo)
+  #:use-module (Manifolding-OS build-system cmake)
+  #:use-module (Manifolding-OS build-system copy)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system glib-or-gtk)
+  #:use-module (Manifolding-OS build-system go)
+  #:use-module (Manifolding-OS build-system meson)
+  #:use-module (Manifolding-OS build-system pyproject)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS utils)
   #:use-module (gnu packages)
   #:use-module (gnu packages assembly)
   #:use-module (gnu packages autotools)
@@ -264,9 +264,9 @@ managers.")
      (list
        #:imported-modules (append %copy-build-system-modules
                                   %cargo-build-system-modules)
-       #:modules '((guix build cargo-build-system)
-                   ((guix build copy-build-system) #:prefix copy:)
-                   (guix build utils))
+       #:modules '((Manifolding-OS build cargo-build-system)
+                   ((Manifolding-OS build copy-build-system) #:prefix copy:)
+                   (Manifolding-OS build utils))
        #:install-source? #f
        #:phases
        #~(modify-phases %standard-phases
@@ -335,7 +335,7 @@ asciinema-created terminal session recordings.")
         (base32
          "02ab605bh6raq4kvb73s6fqqblra65jcl7cd3swmcmqwdimgzmpi"))
        (file-name (git-file-name name version))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         #~(delete-file-recursively "external/xkbcommon"))))
     (build-system meson-build-system)
@@ -797,7 +797,7 @@ embedded kernel situations.")
                       (recursive? #t)))
                 (sha256
                  (base32 "02mj70gcpx9fvrhsy6iqwp399dya9iyakx940b6ws952d23xn337"))
-                (modules '((guix build utils)
+                (modules '((Manifolding-OS build utils)
                            (srfi srfi-1)
                            (srfi srfi-26)
                            (ice-9 rdelim)
@@ -1236,7 +1236,7 @@ terminal with other users over the Internet.  tmate is a fork of tmux.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "0yh8b3bjbgghfb6166zr3dvsi3jb4c9dc1dk7kxah89pp11c3s67"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         #~(begin
             (substitute* "docs/conf.py"
@@ -1548,9 +1548,9 @@ basic input/output.")
      (list
        #:imported-modules (append %copy-build-system-modules
                                   %cargo-build-system-modules)
-       #:modules '((guix build cargo-build-system)
-                   ((guix build copy-build-system) #:prefix copy:)
-                   (guix build utils))
+       #:modules '((Manifolding-OS build cargo-build-system)
+                   ((Manifolding-OS build copy-build-system) #:prefix copy:)
+                   (Manifolding-OS build utils))
        #:install-source? #f
        #:cargo-install-paths ''("alacritty")
        #:cargo-test-flags
@@ -1805,7 +1805,7 @@ running;
           (base32 "1pkng8dvjc917j4i8sly8cz91nx1yh2k83i78rcs43gdxs79gjds"))
          (modules
           '((ice-9 match)
-            (guix build utils)))
+            (Manifolding-OS build utils)))
          (snippet
           '(begin
              ;; Remove bundled dependencies.
@@ -1853,8 +1853,8 @@ fn main() {
         #:modules
         '((srfi srfi-26)
           (ice-9 match)
-          (guix build cargo-build-system)
-          (guix build utils))
+          (Manifolding-OS build cargo-build-system)
+          (Manifolding-OS build utils))
         #:phases
         #~(modify-phases %standard-phases
             (add-after 'unpack 'use-guix-vendored-dependencies

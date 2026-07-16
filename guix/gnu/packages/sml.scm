@@ -26,12 +26,12 @@
   #:use-module (gnu packages libffi)
   #:use-module (gnu packages multiprecision)
   #:use-module (gnu packages xorg)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix download)
-  #:use-module (guix git-download)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix packages)
-  #:use-module (guix utils))
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS utils))
 
 (define-public polyml
   (package

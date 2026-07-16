@@ -18,8 +18,8 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu artwork)
-  #:use-module (guix packages)
-  #:use-module (guix git-download)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS git-download)
   #:export (%artwork-repository))
 
 ;;; Commentary:

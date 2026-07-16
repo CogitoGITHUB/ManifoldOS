@@ -115,23 +115,23 @@
   #:use-module (gnu packages texinfo)
   #:use-module (gnu packages time)
   #:use-module (gnu packages xml)
-  #:use-module (guix utils)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix packages)
-  #:use-module (guix download)
-  #:use-module (guix gexp)
-  #:use-module (guix git-download)
-  #:use-module (guix build-system cargo)
-  #:use-module (guix build-system cmake)
-  #:use-module (guix build-system copy)
-  #:use-module (guix build-system glib-or-gtk)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system go)
-  #:use-module (guix build-system guile)
-  #:use-module (guix build-system meson)
-  #:use-module (guix build-system perl)
-  #:use-module (guix build-system pyproject)
-  #:use-module (guix build-system trivial)
+  #:use-module (Manifolding-OS utils)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS build-system cargo)
+  #:use-module (Manifolding-OS build-system cmake)
+  #:use-module (Manifolding-OS build-system copy)
+  #:use-module (Manifolding-OS build-system glib-or-gtk)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system go)
+  #:use-module (Manifolding-OS build-system guile)
+  #:use-module (Manifolding-OS build-system meson)
+  #:use-module (Manifolding-OS build-system perl)
+  #:use-module (Manifolding-OS build-system pyproject)
+  #:use-module (Manifolding-OS build-system trivial)
   #:use-module (ice-9 match)
   #:use-module (srfi srfi-1))
 
@@ -376,7 +376,7 @@ source code editors and IDEs.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "1ajrgnm5mg4b317brx53b8cpjvdw6vin1rk6yh9vrhrz014ifps2"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet `(begin
                    (delete-file-recursively "vendor")))))
     (build-system go-build-system)
@@ -646,9 +646,9 @@ when a test fails.")
                 "1yfb3lxv929szqy1nw9xw3d45wzkppziqshkjxvrb1fdmf46x564"))))
     (build-system trivial-build-system)
     (arguments
-     `(#:modules ((guix build utils))
+     `(#:modules ((Manifolding-OS build utils))
        #:builder (begin
-                   (use-modules (guix build utils))
+                   (use-modules (Manifolding-OS build utils))
                    (let* ((source (assoc-ref %build-inputs "source"))
                           (output (assoc-ref %outputs "out"))
                           (incdir (string-append output "/include"))
@@ -682,7 +682,7 @@ multi-paradigm automated test framework for C++ and Objective-C.")
               (sha256
                (base32
                 "1gdp5wm8khn02g2miz381llw3191k7309qj8s3jd6sasj01rhf23"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                '(substitute* '("include/internal/catch_fatal_condition.hpp"
                                "single_include/catch.hpp")
@@ -1387,9 +1387,9 @@ with the @code{klee} package.")
    (arguments
     (list
      #:strip-directories #~(list "bin") ;don't strip LLVM bitcode in /lib
-     #:modules '((guix build cmake-build-system)
-                 ((guix build gnu-build-system) #:prefix gnu:)
-                 (guix build utils))
+     #:modules '((Manifolding-OS build cmake-build-system)
+                 ((Manifolding-OS build gnu-build-system) #:prefix gnu:)
+                 (Manifolding-OS build utils))
      #:phases
      #~(modify-phases %standard-phases
                       (add-after 'unpack 'patch
@@ -1398,13 +1398,13 @@ with the @code{klee} package.")
                           (substitute* "CMakeLists.txt"
                             (("\\$\\{KLEE_UCLIBC_PATH\\}/lib/libc\\.a")
                              "${KLEE_UCLIBC_PATH}"))
-                          ;; Make sure that we retain the value of the GUIX_PYTHONPATH
+                          ;; Make sure that we retain the value of the MANIFOLDING_OS_PYTHONPATH
                           ;; environment variable in the test environmented created by
                           ;; python-lit.  Otherwise, the test scripts won't be able to
                           ;; find the python-tabulate dependency, causing test failures.
                           (substitute* "test/lit.cfg"
                             (("addEnv\\('PWD'\\)" env)
-                             (string-append env "\n" "addEnv('GUIX_PYTHONPATH')")))))
+                             (string-append env "\n" "addEnv('MANIFOLDING_OS_PYTHONPATH')")))))
                       (replace 'check (assoc-ref gnu:%standard-phases 'check))
                       (add-after 'install 'wrap-programs
                         (lambda* (#:key inputs outputs #:allow-other-keys)
@@ -1413,9 +1413,9 @@ with the @code{klee} package.")
                                  (lib (string-append out "/lib")))
                             ;; Ensure that klee-stats finds its Python dependencies.
                             (wrap-program (string-append bin "/klee-stats")
-                              `("GUIX_PYTHONPATH" ":" prefix
+                              `("MANIFOLDING_OS_PYTHONPATH" ":" prefix
                                 ,(search-path-as-string->list
-                                   (getenv "GUIX_PYTHONPATH"))))
+                                   (getenv "MANIFOLDING_OS_PYTHONPATH"))))
                             ;; Ensure that klee finds runtime libraries (e.g. uclibc).
                             (wrap-program (string-append bin "/klee")
                               `("KLEE_RUNTIME_LIBRARY_PATH" =
@@ -3523,7 +3523,7 @@ provides a simple way to achieve this.")
          (file-name (git-file-name name version))
          (sha256
           (base32 "1s2qva1amhs887jcdj12ppxk9kkfvy25xy7vzhkwb7rljr3gj713"))
-         (modules '((guix build utils)))
+         (modules '((Manifolding-OS build utils)))
          (patches (search-patches "rapidcheck-fix-libs.patch"))
          (snippet
           #~(begin

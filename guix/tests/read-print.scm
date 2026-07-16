@@ -17,8 +17,8 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (tests-style)
-  #:use-module (guix read-print)
-  #:use-module (guix gexp)                        ;for the reader extensions
+  #:use-module (Manifolding-OS read-print)
+  #:use-module (Manifolding-OS gexp)                        ;for the reader extensions
   #:use-module (srfi srfi-34)
   #:use-module (srfi srfi-35)
   #:use-module (srfi srfi-64)
@@ -362,7 +362,7 @@ mnopqrstuvwxyz.\")"
 ;;; Notice that there are three semicolons here.
 
 (define-module (foo bar)
-  #:use-module (guix)
+  #:use-module (Manifolding-OS)
   #:use-module (gnu))
 
 

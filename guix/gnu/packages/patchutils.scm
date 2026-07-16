@@ -26,7 +26,7 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages patchutils)
-  #:use-module ((guix licenses) #:prefix license:)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
   #:use-module (gnu packages autotools)
   #:use-module (gnu packages base)
   #:use-module (gnu packages bash)
@@ -62,16 +62,16 @@
   #:use-module (gnu packages vim)
   #:use-module (gnu packages xml)
   #:use-module (gnu packages)
-  #:use-module (guix build-system glib-or-gtk)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system meson)
-  #:use-module (guix build-system ocaml)
-  #:use-module (guix build-system pyproject)
-  #:use-module (guix download)
-  #:use-module (guix gexp)
-  #:use-module (guix git-download)
-  #:use-module (guix packages)
-  #:use-module (guix utils))
+  #:use-module (Manifolding-OS build-system glib-or-gtk)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system meson)
+  #:use-module (Manifolding-OS build-system ocaml)
+  #:use-module (Manifolding-OS build-system pyproject)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS utils))
 
 (define-public coccinelle
   (let ((revision "0")
@@ -86,7 +86,7 @@
                (url "https://github.com/coccinelle/coccinelle")
                (commit commit)))
          (file-name (git-file-name name version))
-         (modules '((guix build utils)))
+         (modules '((Manifolding-OS build utils)))
          (snippet
           #~(delete-file-recursively "bundles"))
          (sha256
@@ -141,7 +141,7 @@ specifying desired matches and transformations in the C code.")
        ;; E9Patch is sensitive to Zydis version, including the latter's bugs:
        ;; https://github.com/GJDuck/e9patch/pull/94#issuecomment-2525069952
        (patches (search-patches "e9patch-zydis-4.1-compat.patch"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        ;; The following snippet is also for Zydis 4.1 compatibility.
        ;; The patch replaces a single line in 43 files, producing a giant diff:
        ;; https://github.com/GJDuck/e9patch/pull/93.patch
@@ -395,9 +395,9 @@ GiB).")
       #:glib-or-gtk? #t
       #:imported-modules (append %meson-build-system-modules
                                  %pyproject-build-system-modules)
-      #:modules '((guix build meson-build-system)
-                  ((guix build pyproject-build-system) #:prefix python:)
-                  (guix build utils))
+      #:modules '((Manifolding-OS build meson-build-system)
+                  ((Manifolding-OS build pyproject-build-system) #:prefix python:)
+                  (Manifolding-OS build utils))
       #:phases
       #~(modify-phases %standard-phases
           (add-after 'install 'copy-styles
@@ -409,7 +409,7 @@ GiB).")
           (add-after 'glib-or-gtk-wrap 'python-and-gi-wrap
             (lambda* (#:key inputs outputs #:allow-other-keys)
               (wrap-program (search-input-file outputs "bin/meld")
-                `("GUIX_PYTHONPATH" = (,(getenv "GUIX_PYTHONPATH")
+                `("MANIFOLDING_OS_PYTHONPATH" = (,(getenv "MANIFOLDING_OS_PYTHONPATH")
                                        ,(python:site-packages inputs outputs)))
                 `("GI_TYPELIB_PATH" = (,(getenv "GI_TYPELIB_PATH")))))))))
     (home-page "https://meldmerge.org/")
@@ -453,7 +453,7 @@ you to figure out what is going on in that merge you keep avoiding.")
                   ;; as the python modules in this package in the wsgi.py file,
                   ;; as this will ensure they are available at runtime.
                   (define pythonpath
-                    (string-append (getenv "GUIX_PYTHONPATH") ":"
+                    (string-append (getenv "MANIFOLDING_OS_PYTHONPATH") ":"
                                    (site-packages inputs outputs)))
                   (display (string-append
                             "\nimport os, sys\n\nsys.path.extend('" pythonpath

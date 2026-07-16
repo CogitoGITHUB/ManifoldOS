@@ -18,7 +18,7 @@
 
 (define-module (gnu packages oyacc)
   #:use-module (gnu packages compiler-tools)
-  #:use-module (guix deprecation))
+  #:use-module (Manifolding-OS deprecation))
 
 (define-deprecated/public-alias oyacc
   (@ (gnu packages compiler-tools) oyacc))

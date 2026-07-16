@@ -32,11 +32,11 @@
 
 (define-module (gnu packages lisp-check)
   #:use-module (gnu packages)
-  #:use-module ((guix licenses) #:prefix license:)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
   #:use-module (gnu packages lisp-xyz)
-  #:use-module (guix packages)
-  #:use-module (guix git-download)
-  #:use-module (guix build-system asdf))
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS build-system asdf))
 
 (define-public sbcl-1am
   (let ((commit "8b1da94eca4613fd8a20bdf63f0e609e379b0ba5"))
@@ -672,7 +672,7 @@ to make test code more informative.
          (sha256
           (base32 "1513n46fkqw8rnvz69s7xnwj476qm8ibdlwsr63qj9yh0mib0q6x"))
          (file-name (git-file-name "lift" version))
-         (modules '((guix build utils)))
+         (modules '((Manifolding-OS build utils)))
          (snippet
           ;; Don't keep the bundled website
           `(begin
@@ -889,7 +889,7 @@ advantages of @command{prove} are:
          (file-name (git-file-name name version))
          (sha256
           (base32 "1l0lfl7cdnr2qf4zh38hi4llxg22c49zkm639bdkmvlkzwj3ndwf"))
-         (modules '((guix build utils)))
+         (modules '((Manifolding-OS build utils)))
          (snippet
           ;; The useless bundled debian folder drags `make' into the closure.
           `(begin
@@ -959,7 +959,7 @@ This is intended to be a successor of Prove.")
          (file-name (git-file-name name version))
          (sha256
           (base32 "13si2rrxaagbr0bkvg6sqicxxpyshabx6ad6byc9n2ik5ysna69b"))
-         (modules '((guix build utils)))
+         (modules '((Manifolding-OS build utils)))
          (snippet
           ;; The useless bundled debian folder drags `make' into the closure.
           `(begin
@@ -1201,7 +1201,7 @@ parameterization.")
          (sha256
           (base32
            "0argfmp9nghs4sihyj3f8ch9qfib2b7ll07v5m9ziajgzsfl5xw3"))
-         (modules '((guix build utils)))
+         (modules '((Manifolding-OS build utils)))
          (snippet
           ;; The useless bundled debian folder drags `make' into the closure.
           `(begin

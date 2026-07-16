@@ -32,23 +32,23 @@
 (unsetenv "http_proxy")
 
 (define-module (test-lint)
-  #:use-module (guix tests)
-  #:use-module (guix tests http)
-  #:use-module (guix download)
-  #:use-module (guix git-download)
-  #:use-module (guix svn-download)
-  #:use-module (guix build-system texlive)
-  #:use-module (guix build-system emacs)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix packages)
-  #:use-module (guix lint)
-  #:use-module (guix ui)
-  #:use-module (guix swh)
-  #:use-module ((guix gexp)
+  #:use-module (Manifolding-OS tests)
+  #:use-module (Manifolding-OS tests http)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS svn-download)
+  #:use-module (Manifolding-OS build-system texlive)
+  #:use-module (Manifolding-OS build-system emacs)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS lint)
+  #:use-module (Manifolding-OS ui)
+  #:use-module (Manifolding-OS swh)
+  #:use-module ((Manifolding-OS gexp)
                 #:select (gexp local-file computed-file gexp?))
-  #:use-module ((guix utils) #:select (call-with-temporary-directory))
-  #:use-module ((guix import hackage) #:select (%hackage-url))
-  #:use-module ((guix import stackage) #:select (%stackage-url))
+  #:use-module ((Manifolding-OS utils) #:select (call-with-temporary-directory))
+  #:use-module ((Manifolding-OS import hackage) #:select (%hackage-url))
+  #:use-module ((Manifolding-OS import stackage) #:select (%stackage-url))
   #:use-module (gnu packages)
   #:use-module (gnu packages glib)
   #:use-module (gnu packages pkg-config)
@@ -1308,7 +1308,7 @@
 
 (test-equal "cve"
   '()
-  (mock ((guix lint) package-vulnerabilities (const '()))
+  (mock ((Manifolding-OS lint) package-vulnerabilities (const '()))
         (check-vulnerabilities (dummy-package "x"))))
 
 (test-equal "cve: one vulnerability"
@@ -1316,7 +1316,7 @@
   (let ((dummy-vulnerabilities
          (lambda (package)
            (list (make-struct/no-tail
-                  (@@ (guix cve) <vulnerability>)
+                  (@@ (Manifolding-OS cve) <vulnerability>)
                   "CVE-2015-1234"
                   (list (cons (package-name package)
                               (package-version package))))))))
@@ -1326,9 +1326,9 @@
 
 (test-equal "cve: one patched vulnerability"
   '()
-  (mock ((guix lint) package-vulnerabilities
+  (mock ((Manifolding-OS lint) package-vulnerabilities
          (lambda (package)
-           (list (make-struct/no-tail (@@ (guix cve) <vulnerability>)
+           (list (make-struct/no-tail (@@ (Manifolding-OS cve) <vulnerability>)
                                       "CVE-2015-1234"
                                       (list (cons (package-name package)
                                                   (package-version package)))))))
@@ -1342,9 +1342,9 @@
 
 (test-equal "cve: known safe from vulnerability"
   '()
-  (mock ((guix lint) package-vulnerabilities
+  (mock ((Manifolding-OS lint) package-vulnerabilities
          (lambda (package)
-           (list (make-struct/no-tail (@@ (guix cve) <vulnerability>)
+           (list (make-struct/no-tail (@@ (Manifolding-OS cve) <vulnerability>)
                                       "CVE-2015-1234"
                                       (list (cons (package-name package)
                                                   (package-version package)))))))
@@ -1355,11 +1355,11 @@
 
 (test-equal "cve: vulnerability fixed in replacement version"
   '()
-  (mock ((guix lint) package-vulnerabilities
+  (mock ((Manifolding-OS lint) package-vulnerabilities
          (lambda (package)
            (match (package-version package)
              ("0"
-              (list (make-struct/no-tail (@@ (guix cve) <vulnerability>)
+              (list (make-struct/no-tail (@@ (Manifolding-OS cve) <vulnerability>)
                                          "CVE-2015-1234"
                                          (list (cons (package-name package)
                                                      (package-version package))))))
@@ -1372,9 +1372,9 @@
 
 (test-equal "cve: patched vulnerability in replacement"
   '()
-  (mock ((guix lint) package-vulnerabilities
+  (mock ((Manifolding-OS lint) package-vulnerabilities
          (lambda (package)
-           (list (make-struct/no-tail (@@ (guix cve) <vulnerability>)
+           (list (make-struct/no-tail (@@ (Manifolding-OS cve) <vulnerability>)
                                       "CVE-2015-1234"
                                       (list (cons (package-name package)
                                                   (package-version package)))))))
@@ -1434,7 +1434,7 @@
          (warnings (with-http-server '((404 "Not archived.")
                                        (404 "Not in Disarchive database."))
                      (parameterize ((%swh-base-url (%local-url)))
-                       (mock ((guix download) %disarchive-mirrors
+                       (mock ((Manifolding-OS download) %disarchive-mirrors
                               (list (%local-url)))
                              (check-archival (dummy-package "x"
                                                             (source origin))))))))
@@ -1474,7 +1474,7 @@
                         (404 "")                  ;lookup-content
                         (200 ,disarchive)         ;Disarchive database lookup
                         (200 ,directory))         ;lookup-directory
-      (mock ((guix download) %disarchive-mirrors (list (%local-url)))
+      (mock ((Manifolding-OS download) %disarchive-mirrors (list (%local-url)))
             (parameterize ((%swh-base-url (%local-url)))
               (check-archival (dummy-package "x" (source origin))))))))
 

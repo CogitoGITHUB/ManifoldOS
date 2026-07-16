@@ -23,9 +23,9 @@
   #:use-module (gnu system vm)
   #:use-module (gnu services)
   #:use-module (gnu services mcron)
-  #:use-module (guix gexp)
-  #:use-module (guix store)
-  #:use-module (guix monads)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS store)
+  #:use-module (Manifolding-OS monads)
   #:export (%test-mcron))
 
 ;;;
@@ -58,7 +58,7 @@
     (marionette-operating-system
      %mcron-os
      #:imported-modules '((gnu services herd)
-                          (guix combinators))))
+                          (Manifolding-OS combinators))))
 
   (define test
     (with-imported-modules '((gnu build marionette))

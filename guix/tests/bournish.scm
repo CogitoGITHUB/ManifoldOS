@@ -18,7 +18,7 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (test-bournish)
-  #:use-module (guix build bournish)
+  #:use-module (Manifolding-OS build bournish)
   #:use-module (system base compile)
   #:use-module (system base language)
   #:use-module (srfi srfi-64))
@@ -35,7 +35,7 @@
   '(begin
      (chdir "/foo")
      (getcwd)
-     ((@@ (guix build bournish) ls-command-implementation)))
+     ((@@ (Manifolding-OS build bournish) ls-command-implementation)))
   (read-and-compile (open-input-string "cd /foo\npwd\nls")
                     #:from %bournish-language #:to 'scheme))
 
@@ -45,7 +45,7 @@
                     #:from %bournish-language #:to 'scheme))
 
 (test-equal "rm -r"
-  '(for-each (@ (guix build utils) delete-file-recursively)
+  '(for-each (@ (Manifolding-OS build utils) delete-file-recursively)
              (list "/foo" "/bar"))
   (read-and-compile (open-input-string "rm -r /foo /bar\n")
                     #:from %bournish-language #:to 'scheme))

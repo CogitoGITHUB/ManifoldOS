@@ -37,9 +37,9 @@
   #:use-module (gnu packages networking)
   #:use-module (gnu packages screen)
   #:use-module (gnu packages tls)
-  #:use-module (guix gexp)
-  #:use-module (guix store)
-  #:use-module (guix modules)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS store)
+  #:use-module (Manifolding-OS modules)
   #:export (%test-prosody
             %test-bitlbee
             %test-ngircd
@@ -276,7 +276,7 @@
         %ngircd-os
         #:imported-modules (source-module-closure
                             '((gnu build dbus-service)
-                              (guix build utils)
+                              (Manifolding-OS build utils)
                               (gnu services herd)))))))
 
   (define test
@@ -444,7 +444,7 @@ $6$rviyVy+iFC9vT37o$2RUAhhFzD8gklXRk9X5KuHYtp6APk8nEXf1uroY2/KlgO9nQ0O/Dj05fzJ\
         %pounce-os
         #:imported-modules (source-module-closure
                             '((gnu build dbus-service)
-                              (guix build utils)
+                              (Manifolding-OS build utils)
                               (gnu services herd)))))
      (memory-size 1024)))
 
@@ -477,7 +477,7 @@ $6$rviyVy+iFC9vT37o$2RUAhhFzD8gklXRk9X5KuHYtp6APk8nEXf1uroY2/KlgO9nQ0O/Dj05fzJ\
             (marionette-eval
              '(begin
                 (use-modules ((gnu build dbus-service) #:select (with-retries))
-                             (guix build utils)
+                             (Manifolding-OS build utils)
                              (ice-9 textual-ports))
 
                 (define (write-command command)

@@ -19,14 +19,14 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (test-profiles)
-  #:use-module (guix tests)
-  #:use-module (guix profiles)
-  #:use-module (guix gexp)
-  #:use-module (guix store)
-  #:use-module (guix monads)
-  #:use-module (guix packages)
-  #:use-module (guix derivations)
-  #:use-module (guix build-system trivial)
+  #:use-module (Manifolding-OS tests)
+  #:use-module (Manifolding-OS profiles)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS store)
+  #:use-module (Manifolding-OS monads)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS derivations)
+  #:use-module (Manifolding-OS build-system trivial)
   #:use-module (gnu packages bootstrap)
   #:use-module ((gnu packages base) #:prefix packages:)
   #:use-module ((gnu packages guile) #:prefix packages:)
@@ -39,7 +39,7 @@
   #:use-module (srfi srfi-34)
   #:use-module (srfi srfi-64))
 
-;; Test the (guix profiles) module.
+;; Test the (Manifolding-OS profiles) module.
 
 (define %store
   (open-connection-for-tests))
@@ -168,7 +168,7 @@
 
 (test-equal "manifest->code, transformations"
   '(begin
-     (use-modules (guix transformations))
+     (use-modules (Manifolding-OS transformations))
 
      (define transform1
        (options->transformation '((foo . "bar"))))
@@ -729,7 +729,7 @@
     (mbegin %store-monad
       (built-derivations (list drv))
       (let* ((pipe (open-input-pipe
-                    (string-append "unset GUIX_PROFILE; "
+                    (string-append "unset MANIFOLDING_OS_PROFILE; "
                                    ;; 'source' is a Bashism; use '.' (dot).
                                    ". " profile "/etc/profile; "
                                    ;; Don't try to parse set(1) output because

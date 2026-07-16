@@ -38,12 +38,12 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages radio)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix gexp)
-  #:use-module (guix packages)
-  #:use-module (guix download)
-  #:use-module (guix git-download)
-  #:use-module (guix utils)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS utils)
   #:use-module (gnu packages)
   #:use-module (gnu packages admin)
   #:use-module (gnu packages algebra)
@@ -124,12 +124,12 @@
   #:use-module (gnu packages xiph)
   #:use-module (gnu packages xml)
   #:use-module (gnu packages xorg)
-  #:use-module (guix build-system cmake)
-  #:use-module (guix build-system glib-or-gtk)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system go)
-  #:use-module (guix build-system pyproject)
-  #:use-module (guix build-system qt))
+  #:use-module (Manifolding-OS build-system cmake)
+  #:use-module (Manifolding-OS build-system glib-or-gtk)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system go)
+  #:use-module (Manifolding-OS build-system pyproject)
+  #:use-module (Manifolding-OS build-system qt))
 
 (define-public acarsdec
   (package
@@ -182,9 +182,9 @@ store received acars messages.")
       (arguments
        (list
         #:configure-flags #~'("-DBUILD_SHARED_LIBS=ON")
-        #:modules '((guix build cmake-build-system)
-                    ((guix build gnu-build-system) #:prefix gnu:)
-                    (guix build utils))
+        #:modules '((Manifolding-OS build cmake-build-system)
+                    ((Manifolding-OS build gnu-build-system) #:prefix gnu:)
+                    (Manifolding-OS build utils))
         #:phases
         #~(modify-phases %standard-phases
             (replace 'check
@@ -217,9 +217,9 @@ useful in modems implemented with @dfn{digital signal processing} (DSP).")
       (build-system cmake-build-system)
       (arguments
        (list
-        #:modules '((guix build cmake-build-system)
-                    ((guix build gnu-build-system) #:prefix gnu:)
-                    (guix build utils))
+        #:modules '((Manifolding-OS build cmake-build-system)
+                    ((Manifolding-OS build gnu-build-system) #:prefix gnu:)
+                    (Manifolding-OS build utils))
         #:phases
         #~(modify-phases %standard-phases
             (add-after 'build 'build-libfec-compatibility-layer
@@ -618,7 +618,7 @@ SoapySDR library.")
          (file-name (git-file-name name version))
          (sha256
           (base32 "0mrcnd3k0j599x3k93dkpi5zgr0l7nblz8am9f0s6zs3dikfncvb"))
-         (modules '((guix build utils)))
+         (modules '((Manifolding-OS build utils)))
          (snippet
           '(begin
              ;; Delete bundled rtaudio.
@@ -1013,10 +1013,10 @@ used by RDS Spy, and audio files containing @dfn{multiplex} signals (MPX).")
     (build-system cmake-build-system)
     (arguments
      (list
-      #:modules `((guix build cmake-build-system)
-                  ((guix build glib-or-gtk-build-system) #:prefix glib-or-gtk:)
-                  ((guix build pyproject-build-system) #:prefix py:)
-                  (guix build utils)
+      #:modules `((Manifolding-OS build cmake-build-system)
+                  ((Manifolding-OS build glib-or-gtk-build-system) #:prefix glib-or-gtk:)
+                  ((Manifolding-OS build pyproject-build-system) #:prefix py:)
+                  (Manifolding-OS build utils)
                   (ice-9 match))
       #:imported-modules (append %cmake-build-system-modules
                                  %glib-or-gtk-build-system-modules
@@ -1144,7 +1144,7 @@ used by RDS Spy, and audio files containing @dfn{multiplex} signals (MPX).")
             (variable "GRC_BLOCKS_PATH")
             (files '("share/gnuradio/grc/blocks")))
            (search-path-specification
-            (variable "GUIX_PYTHONPATH")
+            (variable "MANIFOLDING_OS_PYTHONPATH")
             (files (list (string-append "lib/python"
                                         (version-major+minor
                                          (package-version python))
@@ -1175,9 +1175,9 @@ environment.")
     (arguments
      (list
       #:tests? #f
-      #:modules '((guix build cmake-build-system)
-                  ((guix build pyproject-build-system) #:prefix py:)
-                  (guix build utils))
+      #:modules '((Manifolding-OS build cmake-build-system)
+                  ((Manifolding-OS build pyproject-build-system) #:prefix py:)
+                  (Manifolding-OS build utils))
       #:imported-modules (append %cmake-build-system-modules
                                  %pyproject-build-system-modules)
       #:phases
@@ -1373,9 +1373,9 @@ to the fix block above.
       ;; TODO: CMake struggles to find Python module: ModuleNotFoundError: No
       ;; module named 'satellites'.
       #:tests? #f
-      #:modules `((guix build cmake-build-system)
-                  ((guix build pyproject-build-system) #:prefix py:)
-                  (guix build utils))
+      #:modules `((Manifolding-OS build cmake-build-system)
+                  ((Manifolding-OS build pyproject-build-system) #:prefix py:)
+                  (Manifolding-OS build utils))
       #:imported-modules (append %cmake-build-system-modules
                                  %pyproject-build-system-modules)
       #:phases
@@ -1935,7 +1935,7 @@ focused on DXing and being shaped by community of DXers.JTDX")
                            "/js8call-" version ".tgz"))
        (sha256
         (base32 "149sjwc4zg6ckgq26af93p4fxappa4k9dh7rdy67g8ajfjad4cd8"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         #~(begin
             ;; Delete bundled boost to use the shared one.
@@ -2143,7 +2143,7 @@ gain and standing wave ratio.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "0dc1f18n1xlamdhxg96db6cm6kp04cqzxb36qmd141d0rca7qcli"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         '(begin
            ;; Remove FPGA firmware binary.
@@ -2343,9 +2343,9 @@ NanoVNA vector network analyzers.")
     (arguments
      (list
       #:tests? #f  ; No test suite.
-      #:modules '((guix build qt-build-system)
-                  ((guix build gnu-build-system) #:prefix gnu:)
-                  (guix build utils))
+      #:modules '((Manifolding-OS build qt-build-system)
+                  ((Manifolding-OS build gnu-build-system) #:prefix gnu:)
+                  (Manifolding-OS build utils))
       #:phases
       #~(modify-phases %standard-phases
           (replace 'configure
@@ -2712,9 +2712,9 @@ sinks and sources.")
     (arguments
      (list
       #:tests? #f
-      #:modules '((guix build qt-build-system)
-                  ((guix build gnu-build-system) #:prefix gnu:)
-                  (guix build utils))
+      #:modules '((Manifolding-OS build qt-build-system)
+                  ((Manifolding-OS build gnu-build-system) #:prefix gnu:)
+                  (Manifolding-OS build utils))
       #:phases
       #~(modify-phases %standard-phases
           (add-after 'unpack 'fix-paths
@@ -3240,9 +3240,9 @@ software-defined radio receivers.")
     (arguments
      (list
       #:tests? #f  ; No test suite.
-      #:modules '((guix build qt-build-system)
-                  ((guix build gnu-build-system) #:prefix gnu:)
-                  (guix build utils))
+      #:modules '((Manifolding-OS build qt-build-system)
+                  ((Manifolding-OS build gnu-build-system) #:prefix gnu:)
+                  (Manifolding-OS build utils))
       #:phases
       #~(modify-phases %standard-phases
           (add-after 'unpack 'fix-paths

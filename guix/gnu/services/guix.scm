@@ -22,9 +22,9 @@
 (define-module (gnu services guix)
   #:use-module (srfi srfi-1)
   #:use-module (ice-9 match)
-  #:use-module (guix gexp)
-  #:use-module (guix records)
-  #:use-module (guix packages)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS records)
+  #:use-module (Manifolding-OS packages)
   #:use-module ((gnu packages base)
                 #:select (libc-utf8-locales-for-target))
   #:use-module (gnu packages admin)
@@ -396,7 +396,7 @@
 
 (define (guix-build-coordinator-activation config)
   #~(begin
-      (use-modules (guix build utils))
+      (use-modules (Manifolding-OS build utils))
 
       (define %user
         (getpw #$(guix-build-coordinator-configuration-user
@@ -525,7 +525,7 @@
 
 (define (guix-build-coordinator-agent-activation config)
   #~(begin
-      (use-modules (guix build utils))
+      (use-modules (Manifolding-OS build utils))
 
       (define %user
         (getpw #$(guix-build-coordinator-agent-configuration-user
@@ -636,7 +636,7 @@ ca-certificates.crt file in the system profile."
                 #:pid-file "/var/run/guix-data-service/pid"
                 #:environment-variables
                 `(,(string-append
-                    "GUIX_LOCPATH="
+                    "MANIFOLDING_OS_LOCPATH="
                     #$(libc-utf8-locales-for-target) "/lib/locale")
                   "LC_ALL=en_US.UTF-8"
                   #$@extra-environment-variables)
@@ -689,7 +689,7 @@ ca-certificates.crt file in the system profile."
           #:directory "/var/lib/guix-data-service"
           #:environment-variables
           `(,(string-append
-              "GUIX_LOCPATH="
+              "MANIFOLDING_OS_LOCPATH="
               #$(libc-utf8-locales-for-target) "/lib/locale")
             "LC_ALL=en_US.utf8"
             #$@extra-environment-variables)
@@ -712,7 +712,7 @@ ca-certificates.crt file in the system profile."
                 `("HOME=/var/lib/guix-data-service"
                   "GIT_SSL_CAINFO=/etc/ssl/certs/ca-certificates.crt"
                   ,(string-append
-                    "GUIX_LOCPATH="
+                    "MANIFOLDING_OS_LOCPATH="
                     #$(libc-utf8-locales-for-target) "/lib/locale")
                   "LC_ALL=en_US.UTF-8"
                   #$@extra-process-jobs-environment-variables)
@@ -721,7 +721,7 @@ ca-certificates.crt file in the system profile."
 
 (define (guix-data-service-activation config)
   #~(begin
-      (use-modules (guix build utils))
+      (use-modules (Manifolding-OS build utils))
 
       (define %user (getpw "guix-data-service"))
 
@@ -820,7 +820,7 @@ ca-certificates.crt file in the system profile."
                      #:user #$user
                      #:environment-variables
                      (list (string-append "HOME=" (passwd:dir (getpw #$user)))
-                           "GUIX_SYSTEM_IS_RUNNING_HOME_ACTIVATE=t")
+                           "MANIFOLDING_OS_SYSTEM_IS_RUNNING_HOME_ACTIVATE=t")
                      #:group (group:name (getgrgid (passwd:gid (getpw #$user))))))
            (stop #~(make-kill-destructor)))))
        config))
@@ -1062,7 +1062,7 @@ ca-certificates.crt file in the system profile."
                 #:pid-file "/var/run/nar-herder/pid"
                 #:environment-variables
                 `(,(string-append
-                    "GUIX_LOCPATH="
+                    "MANIFOLDING_OS_LOCPATH="
                     #$(libc-utf8-locales-for-target) "/lib/locale")
                   "LC_ALL=en_US.utf8"
                   #$@extra-environment-variables)
@@ -1071,7 +1071,7 @@ ca-certificates.crt file in the system profile."
 
 (define (nar-herder-activation config)
   #~(begin
-      (use-modules (guix build utils))
+      (use-modules (Manifolding-OS build utils))
 
       (define %user
         (getpw #$(nar-herder-configuration-user
@@ -1179,7 +1179,7 @@ ca-certificates.crt file in the system profile."
                 #:directory "/var/lib/bffe"
                 #:environment-variables
                 `(,(string-append
-                    "GUIX_LOCPATH="
+                    "MANIFOLDING_OS_LOCPATH="
                     #$(libc-utf8-locales-for-target) "/lib/locale")
                   "LC_ALL=en_US.utf8"
                   #$@extra-environment-variables)
@@ -1188,7 +1188,7 @@ ca-certificates.crt file in the system profile."
 
 (define (bffe-activation config)
   #~(begin
-      (use-modules (guix build utils))
+      (use-modules (Manifolding-OS build utils))
 
       (define %user
         (getpw #$(bffe-configuration-user config)))
@@ -1249,7 +1249,7 @@ ca-certificates.crt file in the system profile."
   (user        user-cache-user)
   (location    user-cache-location    (default (string-append "/home/" (user-cache-user this-record) "/.cache")) (thunked))
   (group       user-cache-group       (default "users"))
-  (directories user-cache-directories (default '("guix/checkouts"))))
+  (directories user-cache-directories (default '("Manifolding-OS/checkouts"))))
 
 (define list-of-user-cache? (list-of user-cache?))
 

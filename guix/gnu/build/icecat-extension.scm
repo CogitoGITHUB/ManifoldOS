@@ -18,9 +18,9 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu build icecat-extension)
-  #:use-module (guix gexp)
-  #:use-module (guix packages)
-  #:use-module (guix build-system trivial)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS build-system trivial)
   #:export (make-icecat-extension))
 
 (define* (make-icecat-extension pkg #:optional (pkg-output "out"))
@@ -38,10 +38,10 @@ Icecat browser extension.  PKG-OUTPUT specifies which output of PKG to use."
     (build-system trivial-build-system)
     (arguments
      (list
-      #:modules '((guix build utils))
+      #:modules '((Manifolding-OS build utils))
       #:builder
       #~(begin
-          (use-modules (guix build utils))
+          (use-modules (Manifolding-OS build utils))
           (let* ((addon-id #$(assq-ref (package-properties pkg) 'addon-id))
                  (moz-app-id "{ec8030f7-c20a-464f-9b0e-13a3a9e97384}")
                  (search-dir (string-append #$output "/lib/icecat/extensions/"

@@ -21,13 +21,13 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages pkg-config)
-  #:use-module (guix licenses)
-  #:use-module (guix packages)
-  #:use-module (guix download)
-  #:use-module (guix gexp)
-  #:use-module (guix search-paths)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system trivial)
+  #:use-module (Manifolding-OS licenses)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS search-paths)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system trivial)
   #:use-module (gnu packages bash)
 
   ;; Note: Because this module defines the 'pkg-config' macro, it cannot be
@@ -36,7 +36,7 @@
   ;; constraint, load (gnu packages check) lazily.
   #:autoload   (gnu packages check) (atf kyua)
 
-  #:use-module (guix memoization)
+  #:use-module (Manifolding-OS memoization)
   #:export (pkg-config))
 
 ;; This is the "primitive" pkg-config package.  People should use `pkg-config'
@@ -99,9 +99,9 @@ instance.")))
       (name (string-append (package-name %pkg-config) "-" target))
       (build-system trivial-build-system)
       (arguments
-       `(#:modules ((guix build utils))
+       `(#:modules ((Manifolding-OS build utils))
          #:builder (begin
-                     (use-modules (guix build utils))
+                     (use-modules (Manifolding-OS build utils))
 
                      (let* ((in     (assoc-ref %build-inputs "pkg-config"))
                             (out    (assoc-ref %outputs "out"))
@@ -155,10 +155,10 @@ build, or a GNU triplet."
     (inputs
      (list bash-minimal %pkg-config))
     (arguments
-     `(#:modules ((guix build utils))
+     `(#:modules ((Manifolding-OS build utils))
        #:builder
        ,#~(begin
-            (use-modules (guix build utils))
+            (use-modules (Manifolding-OS build utils))
             (define where (string-append #$output "/bin/pkg-config"))
             (mkdir-p (dirname where))
             (call-with-output-file where

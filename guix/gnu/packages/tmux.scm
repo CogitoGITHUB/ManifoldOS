@@ -29,16 +29,16 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages tmux)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix download)
-  #:use-module (guix gexp)
-  #:use-module (guix packages)
-  #:use-module (guix git-download)
-  #:use-module (guix build-system cargo)
-  #:use-module (guix build-system cmake)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system trivial)
-  #:use-module (guix build-system pyproject)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS build-system cargo)
+  #:use-module (Manifolding-OS build-system cmake)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system trivial)
+  #:use-module (Manifolding-OS build-system pyproject)
   #:use-module (gnu packages)
   #:use-module (gnu packages autotools)
   #:use-module (gnu packages bash)
@@ -215,10 +215,10 @@ with live tmux sessions.")
     (inputs
      (list bash))
     (arguments
-     `(#:modules ((guix build utils))
+     `(#:modules ((Manifolding-OS build utils))
        #:builder
        (begin
-         (use-modules (guix build utils))
+         (use-modules (Manifolding-OS build utils))
          (setenv "PATH" (string-append (assoc-ref %build-inputs "bash") "/bin"))
          (copy-recursively (assoc-ref %build-inputs "source") ".")
          (substitute* "bin/xpanes"
@@ -262,9 +262,9 @@ following features:
                   "1gc8z99na1d4scn2kq4alwyn43h3r7ykz9bkhcypjh8iri6dsl0c"))))
       (build-system trivial-build-system)
       (arguments
-       `(#:modules ((guix build utils))
+       `(#:modules ((Manifolding-OS build utils))
          #:builder (begin
-                     (use-modules (guix build utils))
+                     (use-modules (Manifolding-OS build utils))
                      (let ((out (string-append %output
                                                "/share/tmux-plugins/resurrect/")))
                        (mkdir-p out)
@@ -312,9 +312,9 @@ Optional:
                   "1py8qfs2f93hkxhk039m813bjgcs5k54si662gx05g3czqy06pb7"))))
       (build-system trivial-build-system)
       (arguments
-       `(#:modules ((guix build utils))
+       `(#:modules ((Manifolding-OS build utils))
          #:builder (begin
-                     (use-modules (guix build utils))
+                     (use-modules (Manifolding-OS build utils))
                      (let ((out (string-append %output
                                  "/share/tmux-plugins/continuum/")))
                        (mkdir-p out)
@@ -375,7 +375,7 @@ The system load average is also displayed.")
        (sha256
         (base32 "0fwdc8jyx9fab442c6zsl3yn8nh1s5h35g97cgqhyp3blxl6h9ix"))
        (snippet #~(begin
-                    (use-modules (guix build utils))
+                    (use-modules (Manifolding-OS build utils))
                     (substitute* "Cargo.toml"
                       (("\"vendored-openssl\"")
                        ""))))))
@@ -384,8 +384,8 @@ The system load average is also displayed.")
      (list
       #:install-source? #f
       #:modules
-      '((guix build cargo-build-system)
-        (guix build utils)
+      '((Manifolding-OS build cargo-build-system)
+        (Manifolding-OS build utils)
         (ice-9 match))
       #:phases
       #~(modify-phases %standard-phases

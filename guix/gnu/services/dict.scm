@@ -20,11 +20,11 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu services dict)
-  #:use-module (guix deprecation)
-  #:use-module (guix gexp)
-  #:use-module (guix records)
-  #:use-module (guix modules)
-  #:use-module (guix least-authority)
+  #:use-module (Manifolding-OS deprecation)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS records)
+  #:use-module (Manifolding-OS modules)
+  #:use-module (Manifolding-OS least-authority)
   #:use-module (gnu services)
   #:use-module (gnu services shepherd)
   #:use-module (gnu system shadow)
@@ -81,9 +81,9 @@
   ;; The GCIDE pre-built index.  The Dico 'gcide' module can build it lazily;
   ;; do it upfront so there's no need for a writable directory at run-time.
   (computed-file "dicod-gcide-index"
-                 (with-imported-modules '((guix build utils))
+                 (with-imported-modules '((Manifolding-OS build utils))
                    #~(begin
-                       (use-modules (guix build utils))
+                       (use-modules (Manifolding-OS build utils))
                        (mkdir #$output)
                        (invoke #+(file-append dico "/libexec/idxgcide")
                                #+(file-append gcide "/share/gcide")

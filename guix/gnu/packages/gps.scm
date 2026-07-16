@@ -25,16 +25,16 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages gps)
-  #:use-module (guix packages)
-  #:use-module (guix download)
-  #:use-module (guix gexp)
-  #:use-module (guix git-download)
-  #:use-module (guix build-system cmake)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system scons)
-  #:use-module (guix build-system qt)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix utils)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS build-system cmake)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system scons)
+  #:use-module (Manifolding-OS build-system qt)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS utils)
   #:use-module (gnu packages)
   #:use-module (gnu packages algebra)
   #:use-module (gnu packages base)
@@ -73,7 +73,7 @@
               (sha256
                (base32
                 "0pyrbykf15znn63y9j1npdv148i9b8sgc947xq6dqw8gwx023ji5"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                '(begin
                   (delete-file-recursively "zlib")
@@ -177,7 +177,7 @@ between two other data points.")
         (sha256
          (base32
           "0pgv8ggf0h1fmhs07kgfh975zfv3fygh45lmyp09l3590b2ama51"))
-        (modules '((guix build utils)))
+        (modules '((Manifolding-OS build utils)))
         (snippet
          '(begin
             (delete-file-recursively "lib/expat")
@@ -220,9 +220,9 @@ coordinates as well as partial support for adjustments in global coordinate syst
      (list
       #:qtbase qtbase
       #:tests? #f                     ; no tests
-      #:modules '((guix build qt-build-system)
-                  ((guix build gnu-build-system) #:prefix gnu:)
-                  (guix build utils))
+      #:modules '((Manifolding-OS build qt-build-system)
+                  ((Manifolding-OS build gnu-build-system) #:prefix gnu:)
+                  (Manifolding-OS build utils))
       #:phases #~(modify-phases %standard-phases
                    (replace 'configure
                      ;; Use lrelease to convert TS translation files into QM files.
@@ -305,7 +305,7 @@ such as elevation, speed, heart rate, power, temperature, and gear shifts.")
                                              ":")))
                (for-each (lambda (script)
                            (wrap-program (string-append out "/bin/" script)
-                             `("GUIX_PYTHONPATH" ":" prefix (,pythonpath))))
+                             `("MANIFOLDING_OS_PYTHONPATH" ":" prefix (,pythonpath))))
                          '("gegps" "gpscat" "gpsfake" "gpsprof"
                            "ubxtool" "xgps" "xgpsspeed" "zerk"))))))))
     (synopsis "GPS service daemon")

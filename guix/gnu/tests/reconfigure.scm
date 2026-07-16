@@ -28,11 +28,11 @@
   #:use-module (gnu system shadow)
   #:use-module (gnu system vm)
   #:use-module (gnu tests)
-  #:use-module (guix derivations)
-  #:use-module (guix gexp)
-  #:use-module (guix monads)
-  #:use-module (guix scripts system reconfigure)
-  #:use-module (guix store)
+  #:use-module (Manifolding-OS derivations)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS monads)
+  #:use-module (Manifolding-OS scripts system reconfigure)
+  #:use-module (Manifolding-OS store)
   #:export (%test-switch-to-system
             %test-upgrade-services
             %test-upgrade-kexec
@@ -58,7 +58,7 @@ generation of the system profile."
                      (home-directory "/home/jakob"))
                     %base-user-accounts)))
      #:imported-modules '((gnu services herd)
-                          (guix combinators))))
+                          (Manifolding-OS combinators))))
 
   (define vm (virtual-machine os))
 
@@ -124,7 +124,7 @@ Shepherd (PID 1) by unloading obsolete services and loading new services."
     (marionette-operating-system
      (simple-operating-system)
      #:imported-modules '((gnu services herd)
-                          (guix combinators))))
+                          (Manifolding-OS combinators))))
 
   (define vm (virtual-machine os))
 
@@ -197,7 +197,7 @@ Shepherd (PID 1) by unloading obsolete services and loading new services."
                      (inherit config)
                      (message-destination #~(const '("/dev/console"))))))))
      #:imported-modules '((gnu services herd)
-                          (guix combinators))))
+                          (Manifolding-OS combinators))))
 
   (define new-os
     (marionette-operating-system
@@ -208,7 +208,7 @@ Shepherd (PID 1) by unloading obsolete services and loading new services."
         (kernel-arguments '("console=ttyS0")))    ;be verbose
       #:volatile? #t)                             ;mount root read-only
      #:imported-modules '((gnu services herd)
-                          (guix combinators))))
+                          (Manifolding-OS combinators))))
 
   (define vm (virtual-machine os))
 
@@ -256,7 +256,7 @@ bootloader's configuration file."
     (marionette-operating-system
      (simple-operating-system)
      #:imported-modules '((gnu services herd)
-                          (guix combinators))))
+                          (Manifolding-OS combinators))))
 
   (define vm (virtual-machine
               (operating-system os)

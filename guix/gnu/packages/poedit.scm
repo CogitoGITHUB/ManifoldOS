@@ -18,13 +18,13 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages poedit)
-  #:use-module ((guix licenses) #:prefix license:)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
   #:use-module (gnu packages)
-  #:use-module (guix packages)
-  #:use-module (guix gexp)
-  #:use-module (guix git-download)
-  #:use-module (guix utils)
-  #:use-module (guix build-system gnu)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS utils)
+  #:use-module (Manifolding-OS build-system gnu)
   #:use-module (gnu packages autotools)
   #:use-module (gnu packages bash)
   #:use-module (gnu packages boost)
@@ -52,7 +52,7 @@
        (file-name (git-file-name name version))
        (sha256
         (base32 "119hhhjikzdvawldav99zzxnx7rj2ri5crq8smb2lprab8fx70hm"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet #~(delete-file-recursively "deps"))))
     (build-system gnu-build-system)
     (arguments

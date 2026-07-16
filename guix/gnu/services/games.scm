@@ -29,13 +29,13 @@
   #:use-module (gnu system shadow)
   #:use-module ((gnu system file-systems) #:select (file-system-mapping))
   #:use-module (gnu build linux-container)
-  #:use-module (guix build utils)
-  #:autoload   (guix least-authority) (%default-preserved-environment-variables
+  #:use-module (Manifolding-OS build utils)
+  #:autoload   (Manifolding-OS least-authority) (%default-preserved-environment-variables
                                        least-authority-wrapper)
-  #:use-module (guix gexp)
-  #:use-module (guix modules)
-  #:use-module (guix packages)
-  #:use-module (guix records)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS modules)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS records)
   #:use-module (ice-9 match)
   #:use-module (srfi srfi-1)
   #:export (joycond-configuration
@@ -157,7 +157,7 @@ expected to be a directory under @file{/var/lib/luanti/.minetest/worlds/}."))
   "Activation script for the Luanti server."
   (match-record config <luanti-configuration> (world)
     #~(begin
-        (use-modules (guix build utils)
+        (use-modules (Manifolding-OS build utils)
                      (srfi srfi-34))
 
         (define user (getpwnam "luanti"))
@@ -329,9 +329,9 @@ server.")))
         (stop #~(make-kill-destructor)))))))
 
 (define wesnothd-activation
-  (with-imported-modules '((guix build utils))
+  (with-imported-modules '((Manifolding-OS build utils))
     #~(begin
-        (use-modules (guix build utils))
+        (use-modules (Manifolding-OS build utils))
 
         (let* ((user (getpw "wesnothd"))
                (directory "/var/run/wesnothd"))

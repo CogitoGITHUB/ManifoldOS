@@ -22,19 +22,19 @@
 
 (define-module (gnu home services)
   #:use-module (gnu services)
-  #:use-module ((gnu packages package-management) #:select (guix))
+  #:use-module ((gnu packages package-management) #:select (Manifolding-OS))
   #:use-module ((gnu packages base) #:select (coreutils))
-  #:use-module (guix monads)
-  #:use-module (guix store)
-  #:use-module (guix gexp)
-  #:use-module (guix profiles)
-  #:use-module (guix sets)
-  #:use-module (guix ui)
-  #:use-module (guix discovery)
-  #:use-module (guix diagnostics)
-  #:use-module (guix i18n)
-  #:use-module (guix modules)
-  #:use-module (guix memoization)
+  #:use-module (Manifolding-OS monads)
+  #:use-module (Manifolding-OS store)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS profiles)
+  #:use-module (Manifolding-OS sets)
+  #:use-module (Manifolding-OS ui)
+  #:use-module (Manifolding-OS discovery)
+  #:use-module (Manifolding-OS diagnostics)
+  #:use-module (Manifolding-OS i18n)
+  #:use-module (Manifolding-OS modules)
+  #:use-module (Manifolding-OS memoization)
   #:use-module (srfi srfi-1)
   #:use-module (srfi srfi-9)
   #:use-module (srfi srfi-34)
@@ -122,7 +122,7 @@
 ;;; for example XDG_CONFIG_HOME and it should be respected by activation gexp of
 ;;; symlink-manager.
 ;;;
-;;; - Sets GUIX_NEW_HOME and possibly GUIX_OLD_HOME vars to paths in the store.
+;;; - Sets MANIFOLDING_OS_NEW_HOME and possibly MANIFOLDING_OS_OLD_HOME vars to paths in the store.
 ;;; Later those variables can be used by activation gexps, for example by
 ;;; symlink-manager or run-on-change services.
 ;;;
@@ -301,37 +301,37 @@ exported."
                              (display "\
 # NOTE: Set HOME_ENVIRONMENT before sourcing (home-shell-profile-service-type ensures
 # ~/.profile does)
-GUIX_PROFILE=\"$HOME_ENVIRONMENT/profile\"
-PROFILE_FILE=\"$GUIX_PROFILE/etc/profile\"
+MANIFOLDING_OS_PROFILE=\"$HOME_ENVIRONMENT/profile\"
+PROFILE_FILE=\"$MANIFOLDING_OS_PROFILE/etc/profile\"
 [ -f $PROFILE_FILE ] && . $PROFILE_FILE
 
-case $GUIX_LOCPATH in
-  *$GUIX_PROFILE/lib/locale*) ;;
-  *) export GUIX_LOCPATH=$GUIX_PROFILE/lib/locale:$GUIX_LOCPATH ;;
+case $MANIFOLDING_OS_LOCPATH in
+  *$MANIFOLDING_OS_PROFILE/lib/locale*) ;;
+  *) export MANIFOLDING_OS_LOCPATH=$MANIFOLDING_OS_PROFILE/lib/locale:$MANIFOLDING_OS_LOCPATH ;;
 esac
 case $XDG_DATA_DIRS in
-  *$GUIX_PROFILE/share*) ;;
-  *) export XDG_DATA_DIRS=$GUIX_PROFILE/share:$XDG_DATA_DIRS ;;
+  *$MANIFOLDING_OS_PROFILE/share*) ;;
+  *) export XDG_DATA_DIRS=$MANIFOLDING_OS_PROFILE/share:$XDG_DATA_DIRS ;;
 esac
 case $MANPATH in
-  *$GUIX_PROFILE/share/man*) ;;
-  *) export MANPATH=$GUIX_PROFILE/share/man:$MANPATH
+  *$MANIFOLDING_OS_PROFILE/share/man*) ;;
+  *) export MANPATH=$MANIFOLDING_OS_PROFILE/share/man:$MANPATH
 esac
 case $INFOPATH in
-  *$GUIX_PROFILE/share/info*) ;;
-  *) export INFOPATH=$GUIX_PROFILE/share/info:$INFOPATH ;;
+  *$MANIFOLDING_OS_PROFILE/share/info*) ;;
+  *) export INFOPATH=$MANIFOLDING_OS_PROFILE/share/info:$INFOPATH ;;
 esac
 case $XDG_CONFIG_DIRS in
-  *$GUIX_PROFILE/etc/xdg*) ;;
-  *) export XDG_CONFIG_DIRS=$GUIX_PROFILE/etc/xdg:$XDG_CONFIG_DIRS ;;
+  *$MANIFOLDING_OS_PROFILE/etc/xdg*) ;;
+  *) export XDG_CONFIG_DIRS=$MANIFOLDING_OS_PROFILE/etc/xdg:$XDG_CONFIG_DIRS ;;
 esac
 case $XCURSOR_PATH in
-  *$GUIX_PROFILE/share/icons*) ;;
-  *) export XCURSOR_PATH=$GUIX_PROFILE/share/icons:$XCURSOR_PATH ;;
+  *$MANIFOLDING_OS_PROFILE/share/icons*) ;;
+  *) export XCURSOR_PATH=$MANIFOLDING_OS_PROFILE/share/icons:$XCURSOR_PATH ;;
 esac
 
 # Keep the shell environment clean.
-unset GUIX_PROFILE PROFILE_FILE
+unset MANIFOLDING_OS_PROFILE PROFILE_FILE
 
 " port)
                              (display
@@ -442,11 +442,11 @@ activation.")))
 (define (compute-on-first-login-script _ gexps)
   (program-file
    "on-first-login"
-   (with-imported-modules (source-module-closure '((guix i18n)
-                                                   (guix diagnostics)))
+   (with-imported-modules (source-module-closure '((Manifolding-OS i18n)
+                                                   (Manifolding-OS diagnostics)))
      #~(begin
-         (use-modules (guix i18n)
-                      (guix diagnostics))
+         (use-modules (Manifolding-OS i18n)
+                      (Manifolding-OS diagnostics))
 
        (define (claim-first-run file)
          (catch #t
@@ -504,12 +504,12 @@ extended with one gexp.")))
    "activate"
    #~(let* ((he-init-file (lambda (he) (string-append he "/setup-environment")))
             (he-path (string-append (getenv "HOME") "/.guix-home"))
-            (new-home-env (getenv "GUIX_NEW_HOME"))
+            (new-home-env (getenv "MANIFOLDING_OS_NEW_HOME"))
             (new-home (or new-home-env
                           ;; Absolute path of the directory of the activation
                           ;; file if called interactively.
                           (canonicalize-path (dirname (car (command-line))))))
-            (old-home-env (getenv "GUIX_OLD_HOME"))
+            (old-home-env (getenv "MANIFOLDING_OS_OLD_HOME"))
             (old-home (or old-home-env
                           (if (file-exists? (he-init-file he-path))
                               (readlink he-path)
@@ -530,14 +530,14 @@ extended with one gexp.")))
              (close-port port)
              (map (lambda (x) (setenv (car x) (cdr x))) vars)
 
-             (setenv "GUIX_NEW_HOME" new-home)
-             (setenv "GUIX_OLD_HOME" old-home)
+             (setenv "MANIFOLDING_OS_NEW_HOME" new-home)
+             (setenv "MANIFOLDING_OS_OLD_HOME" old-home)
 
              #$@gexps
 
              ;; Do not unset env variable if it was set outside.
-             (unless new-home-env (setenv "GUIX_NEW_HOME" #f))
-             (unless old-home-env (setenv "GUIX_OLD_HOME" #f)))
+             (unless new-home-env (setenv "MANIFOLDING_OS_NEW_HOME" #f))
+             (unless old-home-env (setenv "MANIFOLDING_OS_OLD_HOME" #f)))
            (format #t "\
 Activation script was either called or loaded by file from this directory:
 ~a
@@ -633,9 +633,9 @@ one."
 ;;;
 
 (define (compute-on-change-gexp eval-gexps? pattern-gexp-tuples)
-  (with-imported-modules (source-module-closure '((guix i18n)))
+  (with-imported-modules (source-module-closure '((Manifolding-OS i18n)))
     #~(begin
-      (use-modules (guix i18n))
+      (use-modules (Manifolding-OS i18n))
 
       #$%initialize-gettext
 
@@ -699,10 +699,10 @@ one."
         (map
          (lambda (x)
            (let* ((file1 (string-append
-                          (or (getenv "GUIX_OLD_HOME")
+                          (or (getenv "MANIFOLDING_OS_OLD_HOME")
                               "/gnu/store/non-existing-generation")
                           "/" (car x)))
-                  (file2 (string-append (getenv "GUIX_NEW_HOME") "/" (car x)))
+                  (file2 (string-append (getenv "MANIFOLDING_OS_NEW_HOME") "/" (car x)))
                   (_ (format #t (G_ "Comparing ~a and\n~10t~a...") file1 file2))
                   (any-changes? (something-changed? file1 file2))
                   (_ (format #t (G_ " done (~a)\n")

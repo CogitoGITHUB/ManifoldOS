@@ -23,14 +23,14 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages fcitx5)
-  #:use-module (guix packages)
-  #:use-module (guix download)
-  #:use-module (guix gexp)
-  #:use-module (guix git-download)
-  #:use-module (guix build-system cmake)
-  #:use-module (guix build-system copy)
-  #:use-module (guix build-system qt)
-  #:use-module ((guix licenses) #:prefix license:)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS build-system cmake)
+  #:use-module (Manifolding-OS build-system copy)
+  #:use-module (Manifolding-OS build-system qt)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
   #:use-module (gnu packages anthy)
   #:use-module (gnu packages boost)
   #:use-module (gnu packages compression)
@@ -74,7 +74,7 @@
              version ".tar.zst"))
        (sha256
         (base32 "010i5nxac4i0d8jyzdk6kpp7fzvqkab3nvnx7mfnalsdxyn3na3l"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         '(begin
            ;; Remove bundled uthash.
@@ -107,7 +107,7 @@ client.")
         (base32 "0rgp5va3msxfx7yqp4fn3v0h6nc9knxs46g3v94ppi8i9zpd0j3q"))
        (snippet
         #~(begin
-            (use-modules (guix build utils))
+            (use-modules (Manifolding-OS build utils))
             (delete-file-recursively "third_party")))))
     (arguments
      (list #:configure-flags #~(list "-DUSE_SYSTEMD=OFF"
@@ -150,12 +150,12 @@ client.")
             (variable "FCITX_ADDON_DIRS")
             (files '("lib/fcitx5")))
            (search-path-specification
-            (variable "GUIX_GTK2_IM_MODULE_FILE")
+            (variable "MANIFOLDING_OS_GTK2_IM_MODULE_FILE")
             (file-type 'regular)
             (separator #f)
             (files '("lib/gtk-2.0/2.10.0/immodules-gtk2.cache")))
            (search-path-specification
-            (variable "GUIX_GTK3_IM_MODULE_FILE")
+            (variable "MANIFOLDING_OS_GTK3_IM_MODULE_FILE")
             (file-type 'regular)
             (separator #f)
             (files '("lib/gtk-3.0/3.0.0/immodules-gtk3.cache")))))
@@ -328,7 +328,7 @@ IM module for GTK+3 applications.
        (prepend fcitx5-gtk gtk)))
     (native-search-paths
      (list (search-path-specification
-            (variable "GUIX_GTK4_PATH")
+            (variable "MANIFOLDING_OS_GTK4_PATH")
             (files '("lib/gtk-4.0")))))
     (outputs '("out"))
     (synopsis "GTK4 IM module for Fcitx 5")

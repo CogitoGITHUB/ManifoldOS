@@ -20,14 +20,14 @@
   #:use-module (gnu packages)
   #:use-module (gnu packages cmake)
   #:use-module (gnu packages sphinx)
-  #:use-module (guix build-system cmake)
-  #:use-module (guix download)
-  #:use-module (guix git-download)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix build utils)
-  #:use-module (guix gexp)
-  #:use-module (guix packages)
-  #:use-module (guix utils))
+  #:use-module (Manifolding-OS build-system cmake)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS build utils)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS utils))
 
 (define-public squirrel
   (package

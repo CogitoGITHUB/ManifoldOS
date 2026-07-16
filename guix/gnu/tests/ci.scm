@@ -30,8 +30,8 @@
   #:use-module (gnu services ci)
   #:use-module (gnu services web)
   #:use-module (gnu services networking)
-  #:use-module (guix gexp)
-  #:use-module (guix store)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS store)
   #:export (%test-laminar))
 
 
@@ -48,7 +48,7 @@ HTTP-PORT."
     (marionette-operating-system
      %laminar-os
      #:imported-modules '((gnu services herd)
-                          (guix combinators))))
+                          (Manifolding-OS combinators))))
 
   (define vm
     (virtual-machine

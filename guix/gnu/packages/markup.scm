@@ -35,20 +35,20 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages markup)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix download)
-  #:use-module (guix git-download)
-  #:use-module (guix gexp)
-  #:use-module (guix packages)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system meson)
-  #:use-module (guix build-system go)
-  #:use-module (guix build-system trivial)
-  #:use-module (guix build-system cmake)
-  #:use-module (guix build-system perl)
-  #:use-module (guix build-system pyproject)
-  #:use-module (guix utils)
-  #:use-module (guix gexp)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system meson)
+  #:use-module (Manifolding-OS build-system go)
+  #:use-module (Manifolding-OS build-system trivial)
+  #:use-module (Manifolding-OS build-system cmake)
+  #:use-module (Manifolding-OS build-system perl)
+  #:use-module (Manifolding-OS build-system pyproject)
+  #:use-module (Manifolding-OS utils)
+  #:use-module (Manifolding-OS gexp)
   #:use-module (gnu packages)
   #:use-module (gnu packages base)
   #:use-module (gnu packages bash)
@@ -159,10 +159,10 @@ processing library written in C.")
         (base32 "0dq1pj91pvlwkv0jwcgdfpv6gvnxzrk3s8mnh7imamcclnvfj835"))))
     (build-system trivial-build-system)
     (arguments
-     '(#:modules ((guix build utils))
+     '(#:modules ((Manifolding-OS build utils))
        #:builder
        (begin
-         (use-modules (guix build utils))
+         (use-modules (Manifolding-OS build utils))
          (let ((source (assoc-ref %build-inputs "source"))
                (out    (assoc-ref %outputs "out"))
                (perlbd (string-append (assoc-ref %build-inputs "perl") "/bin"))
@@ -473,7 +473,7 @@ implementation.
               (sha256
                (base32
                 "0siwyyfgp7v5vw6xd4zy2cph6dp9f3c5xvyd2draba3m37v1rl2x"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                '(begin
                   ;; Delete bundled cmark and generated headers.

@@ -24,7 +24,7 @@
   #:use-module (gnu services monitoring)
   #:use-module (gnu system)
   #:use-module (gnu system vm)
-  #:use-module (guix gexp)
+  #:use-module (Manifolding-OS gexp)
   #:use-module (ice-9 format)
   #:export (%test-vnstat))
 

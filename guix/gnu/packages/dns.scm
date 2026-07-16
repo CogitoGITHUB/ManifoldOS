@@ -93,19 +93,19 @@
   #:use-module (gnu packages web)
   #:use-module (gnu packages xml)
   #:use-module (gnu packages)
-  #:use-module (guix build-system cmake)
-  #:use-module (guix build-system copy)
-  #:use-module (guix build-system glib-or-gtk)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system meson)
-  #:use-module (guix build-system pyproject)
-  #:use-module (guix download)
-  #:use-module (guix gexp)
-  #:use-module (guix git-download)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix packages)
-  #:use-module ((guix search-paths) #:select ($SSL_CERT_DIR $SSL_CERT_FILE))
-  #:use-module (guix utils))
+  #:use-module (Manifolding-OS build-system cmake)
+  #:use-module (Manifolding-OS build-system copy)
+  #:use-module (Manifolding-OS build-system glib-or-gtk)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system meson)
+  #:use-module (Manifolding-OS build-system pyproject)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS packages)
+  #:use-module ((Manifolding-OS search-paths) #:select ($SSL_CERT_DIR $SSL_CERT_FILE))
+  #:use-module (Manifolding-OS utils))
 
 (define-public adns
   (package
@@ -156,7 +156,7 @@ utilities for use in scripts.")
                (base32
                 "1npdixwxxn3s9q1f365x9n9rc5xgfz39hxf23faqvlrklgbhj0q6"))
               (patches (search-patches "avahi-localstatedir.patch"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                '(begin
                   ;; Fix version constraint in the avahi-libevent pkg-config file.
@@ -190,8 +190,8 @@ utilities for use in scripts.")
                                  '("CFLAGS=-g -O2 -Wno-error=incompatible-pointer-types")
                                  '()))
        #:modules ((srfi srfi-26)
-                  (guix build utils)
-                  (guix build gnu-build-system))
+                  (Manifolding-OS build utils)
+                  (Manifolding-OS build gnu-build-system))
        #:phases
        ,#~(modify-phases %standard-phases
             (add-after 'patch-shebangs 'patch-more-shebangs
@@ -805,7 +805,7 @@ Dynamic DNS update utility
               (sha256
                (base32
                 "1dhvklr4dg2vlw108n11xbamacaryyg3dbrg629b76lp7685p7z8"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                ;; Delete bundled libltdl. XXX: This package also bundles
                ;; a modified libevent that cannot currently be removed.
@@ -1174,7 +1174,7 @@ Extensions} (DNSSEC).")
         (base32 "19nasxzkv805am7skkzs0vnqxjrdc4dqm67crdgqj36jli24zs3s"))
        (patches
         (search-patches "knot-remove-runtime-deps.patch"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         '(begin
            ;; Remove Ragel-generated C files.  We'll recreate them below.
@@ -1345,8 +1345,8 @@ synthesis, and on-the-fly re-configuration.")
            (lambda* (#:key inputs outputs #:allow-other-keys)
              (let* ((out (assoc-ref outputs "out")))
                (wrap-program (string-append out "/sbin/kresd")
-                 `("GUIX_LUA_PATH" ";" prefix (,(getenv "GUIX_LUA_PATH")))
-                 `("GUIX_LUA_CPATH" ";" prefix (,(getenv "GUIX_LUA_CPATH"))))))))))
+                 `("MANIFOLDING_OS_LUA_PATH" ";" prefix (,(getenv "MANIFOLDING_OS_LUA_PATH")))
+                 `("MANIFOLDING_OS_LUA_CPATH" ";" prefix (,(getenv "MANIFOLDING_OS_LUA_CPATH"))))))))))
     (native-inputs
      (list cmocka ; for unit tests
            doxygen
@@ -1392,7 +1392,7 @@ LuaJIT, both a resolver library and a daemon.")
                 (base32
                  "1pqpf9vz1d01873wvkdnmsj9y2qrk8fka4c636qipsjv6ar2ply0"))
                (file-name (git-file-name name version))
-               (modules '((guix build utils)))
+               (modules '((Manifolding-OS build utils)))
                (snippet
                 '(begin
                    ;; Delete the bundled copy of libuv.
@@ -1596,7 +1596,7 @@ nameservers other than libc.")
                     (url "https://github.com/pymumu/smartdns")
                     (commit (string-append "Release" version))))
               (file-name (git-file-name name version))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet '(substitute* "Makefile"
                           ((".*SYSTEMDSYSTEMUNITDIR.*") "")))
               (sha256

@@ -33,17 +33,17 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages assembly)
-  #:use-module (guix build-system meson)
-  #:use-module (guix build-system cmake)
-  #:use-module (guix build-system gnu)
-  #:use-module ((guix build utils) #:select (parallel-job-count))
-  #:use-module (guix download)
-  #:use-module (guix git-download)
-  #:use-module (guix svn-download)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix packages)
-  #:use-module (guix gexp)
-  #:use-module (guix utils)
+  #:use-module (Manifolding-OS build-system meson)
+  #:use-module (Manifolding-OS build-system cmake)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module ((Manifolding-OS build utils) #:select (parallel-job-count))
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS svn-download)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS utils)
   #:use-module (gnu packages)
   #:use-module (gnu packages admin)
   #:use-module (gnu packages autotools)
@@ -63,7 +63,7 @@
   #:use-module (gnu packages shells)
   #:use-module (gnu packages tex)
   #:use-module (gnu packages xml)
-  #:use-module ((guix utils)
+  #:use-module ((Manifolding-OS utils)
                 #:select (%current-system cc-for-target)))
 
 (define-public acme
@@ -79,7 +79,7 @@
        (file-name (git-file-name name version))
        (sha256
         (base32 "1d0nh06vxxfgb6ki8c8l3j2735kdppkd1c0s3mv03pv58wivwngp"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        ;; Public domain and no source code.
        (snippet '(delete-file-recursively "ACME_Lib"))))
     (build-system gnu-build-system)
@@ -596,7 +596,7 @@ as 6502A, 6504, 6507, 6510, 7501, 8500, 8501, 8502 ...),
          (file-name (git-file-name name version))
          (sha256
           (base32 "1a85h2b3r3hy9hm07v8drvkklp4qfdq3i3zwb3cgk011s0njdfvz"))
-         (modules '((guix build utils)))
+         (modules '((Manifolding-OS build utils)))
          (snippet
           #~(begin
               (substitute* "Core/Types.h"

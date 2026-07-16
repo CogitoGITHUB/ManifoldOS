@@ -24,9 +24,9 @@
   #:use-module (gnu system shadow)
   #:use-module (gnu packages admin)
   #:use-module (gnu packages dns)
-  #:use-module (guix deprecation)
-  #:use-module (guix records)
-  #:use-module (guix gexp)
+  #:use-module (Manifolding-OS deprecation)
+  #:use-module (Manifolding-OS records)
+  #:use-module (Manifolding-OS gexp)
   #:export (avahi-configuration
             avahi-configuration?
 
@@ -118,7 +118,7 @@
 (define %avahi-activation
   ;; Activation gexp.
   #~(begin
-      (use-modules (guix build utils))
+      (use-modules (Manifolding-OS build utils))
       (mkdir-p "/run/avahi-daemon")))
 
 (define (avahi-shepherd-service config)

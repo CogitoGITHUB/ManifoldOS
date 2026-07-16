@@ -23,8 +23,8 @@
   #:use-module (gnu services games)
   #:use-module (gnu system)
   #:use-module (gnu system vm)
-  #:use-module (guix gexp)
-  #:use-module (guix modules)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS modules)
   #:export (%test-luanti))
 
 (define (run-luanti-test name config)

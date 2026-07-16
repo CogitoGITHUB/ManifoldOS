@@ -112,22 +112,22 @@
   #:use-module (gnu packages xdisorg)
   #:use-module (gnu packages xml)
   #:use-module (gnu packages xorg)
-  #:use-module (guix build-system cmake)
-  #:use-module (guix build-system glib-or-gtk)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system go)
-  #:use-module (guix build-system guile)
-  #:use-module (guix build-system meson)
-  #:use-module (guix build-system perl)
-  #:use-module (guix build-system pyproject)
-  #:use-module (guix build-system qt)
-  #:use-module (guix download)
-  #:use-module (guix gexp)
-  #:use-module (guix git-download)
-  #:use-module (guix svn-download)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix packages)
-  #:use-module (guix utils)
+  #:use-module (Manifolding-OS build-system cmake)
+  #:use-module (Manifolding-OS build-system glib-or-gtk)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system go)
+  #:use-module (Manifolding-OS build-system guile)
+  #:use-module (Manifolding-OS build-system meson)
+  #:use-module (Manifolding-OS build-system perl)
+  #:use-module (Manifolding-OS build-system pyproject)
+  #:use-module (Manifolding-OS build-system qt)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS svn-download)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS utils)
   #:use-module (srfi srfi-1))
 
 ;; This is a module for packages related to physical hardware that don't (yet)
@@ -331,7 +331,7 @@ sharing.")
         (base32 "12nckzp00b3y91igp8jzlf6as353la6ar8gp6b646kn9gi2hrla3"))
        (snippet
         #~(begin
-            (use-modules (guix build utils))
+            (use-modules (Manifolding-OS build utils))
             (delete-file-recursively "vendor")))))
     (build-system go-build-system)
     (arguments
@@ -552,7 +552,7 @@ operability and find drivers.")
        (sha256
         (base32 "0d9nhhi64d3i9x1bh3ksj0h5z2p4pwa0z88bc0jra9s39nf6q230"))
        (modules
-        '((guix build utils)))
+        '((Manifolding-OS build utils)))
        (snippet
         #~(begin
             ;; Remove git2log program file.
@@ -809,9 +809,9 @@ human-readable format and checks if it conforms to the standards.")
         #:imported-modules
         (append %pyproject-build-system-modules
                 %glib-or-gtk-build-system-modules)
-        #:modules '(((guix build glib-or-gtk-build-system) #:prefix glib:)
-                    (guix build pyproject-build-system)
-                    (guix build utils))
+        #:modules '(((Manifolding-OS build glib-or-gtk-build-system) #:prefix glib:)
+                    (Manifolding-OS build pyproject-build-system)
+                    (Manifolding-OS build utils))
         #:phases
         #~(modify-phases %standard-phases
             (add-after 'unpack 'generate-gdk-pixbuf-loaders-cache-file
@@ -964,7 +964,7 @@ through command line interface.")
           (base32 "0jxm63a8y1mfl1sa4mzzfs3bgnym6achj1yc0jglmp05xal16lm1"))
          (patches
           (search-patches "i7z-gcc-10.patch"))
-         (modules '((guix build utils)))
+         (modules '((Manifolding-OS build utils)))
          (snippet
           '(begin
              (for-each delete-file-recursively
@@ -1339,7 +1339,7 @@ technology, such as head mounted displays with built in head tracking.")
         (base32 "0rdh87w4j47dr0vakva94fhcbdc67d9aad0p3najg9zf8zhf64jw"))
        (patches
         (search-patches "openrgb-unbundle-hueplusplus.patch"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         '(begin
            ;; Delete many of the bundled libraries.
@@ -1361,9 +1361,9 @@ technology, such as head mounted displays with built in head tracking.")
        #:tests? #f ; doesn't have tests
        #:make-flags
        #~(list (string-append "INSTALL_ROOT=" #$output ))
-       #:modules '((guix build qt-build-system)
-                   ((guix build gnu-build-system) #:prefix gnu:)
-                   (guix build utils))
+       #:modules '((Manifolding-OS build qt-build-system)
+                   ((Manifolding-OS build gnu-build-system) #:prefix gnu:)
+                   (Manifolding-OS build utils))
        #:phases
        #~(modify-phases %standard-phases
            (add-after 'unpack 'unbundle
@@ -1477,7 +1477,7 @@ supported by the Linux kernel.")
          (snippet
           #~(begin
               ;; https://github.com/rockchip-linux/rkdeveloptool/pull/57
-              (use-modules (guix build utils))
+              (use-modules (Manifolding-OS build utils))
               (substitute* "main.cpp"
                 (("snprintf\\(buffer, sizeof\\(buffer\\), \"\\%s\", chip)")
                  "memccpy(buffer, chip, '\\0', sizeof(buffer))"))))))
@@ -1674,7 +1674,7 @@ management, attestation, encryption, and signing.")
              (commit (string-append "v" version))))
        (sha256
         (base32 "09brfdvv9289cqyq9cd32c8qqyv8cixj06ld8yb8ifi7d4j0zzlv"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         ;; Now remove blobs.
         #~(begin
@@ -1685,9 +1685,9 @@ management, attestation, encryption, and signing.")
     (arguments
      (list
       #:configure-flags #~(list "-DLIBCPUID_ENABLE_TESTS=ON")
-      #:modules '((guix build cmake-build-system)
-                  ((guix build gnu-build-system) #:prefix gnu:)
-                  (guix build utils))
+      #:modules '((Manifolding-OS build cmake-build-system)
+                  ((Manifolding-OS build gnu-build-system) #:prefix gnu:)
+                  (Manifolding-OS build utils))
       #:phases
       #~(modify-phases %standard-phases
           (add-after 'unpack 'absolutize

@@ -319,20 +319,20 @@
   #:use-module (gnu packages xml)
   #:use-module (gnu packages xorg)
   #:use-module (gnu packages)
-  #:use-module (guix build-system cargo)
-  #:use-module (guix build-system cmake)
-  #:use-module (guix build-system copy)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system meson)
-  #:use-module (guix build-system pyproject)
-  #:use-module (guix deprecation)
-  #:use-module (guix download)
-  #:use-module (guix gexp)
-  #:use-module (guix git-download)
-  #:use-module (guix hg-download)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix packages)
-  #:use-module (guix utils)
+  #:use-module (Manifolding-OS build-system cargo)
+  #:use-module (Manifolding-OS build-system cmake)
+  #:use-module (Manifolding-OS build-system copy)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system meson)
+  #:use-module (Manifolding-OS build-system pyproject)
+  #:use-module (Manifolding-OS deprecation)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS hg-download)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS utils)
   #:use-module (ice-9 match)
   #:use-module (srfi srfi-1)
   #:use-module (srfi srfi-26))
@@ -390,7 +390,7 @@ values automatically bound to attributes.")
          (file-name (git-file-name name version))
          (sha256
           (base32 "0bgqy07rpiyz60y8nfh8mha38l650x25l4bbbv6fx42czw7kzhbx"))
-         (modules '((guix build utils)))
+         (modules '((Manifolding-OS build utils)))
          (snippet                       ;use src layout for isolated tests
           #~(let* ((src "src/")
                    (old "accumulation_tree/")
@@ -620,7 +620,7 @@ loop.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "1kvzhhd2ah0sadlsp5xs3qbiknixq4xwhk3yb6kmhcdl2zcbi4cn"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet #~(substitute* "pyproject.toml"
                     (("version = \"0\"")
                      (format #f "version = \"~a\"" #$version))))))
@@ -2510,7 +2510,7 @@ of Ordered Set.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "03b6nf6jxzcbgkmqdp3bsl2lvzszqiaiqfwk88cnpvqbgq67lafb"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        ;; Remove bundled virtualenv and license files used only for
        ;; development; not needed at build or runtime.
        (snippet '(delete-file-recursively "thirdparty"))))
@@ -2751,7 +2751,7 @@ activated using a set of environment variables.")
              (commit (string-append "v" version))))
        (file-name (git-file-name name version))
        (sha256 (base32 "0yiyal9vxrni2yy3f6fwpndxz4kih6pwm9ikgrmhx4nq0fkb68m3"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet #~(begin
                     ;; Unbundle ply.
                     (substitute* "requirements.txt"
@@ -3288,10 +3288,10 @@ reused when throttling user interactions with a resource (e.g., an API).")
       #:test-flags #~(list "--test-path" "tests")
       #:imported-modules (append %cargo-build-system-modules
                                  %pyproject-build-system-modules)
-      #:modules '(((guix build cargo-build-system)
+      #:modules '(((Manifolding-OS build cargo-build-system)
                    #:prefix cargo:)
-                  (guix build pyproject-build-system)
-                  (guix build utils))
+                  (Manifolding-OS build pyproject-build-system)
+                  (Manifolding-OS build utils))
       #:phases
       #~(modify-phases %standard-phases
           (add-after 'unpack 'prepare-cargo-build-system
@@ -3815,7 +3815,7 @@ applications in mind and the idea to make logging fun.")
        (sha256
         (base32 "130hr19kbzizx9n2q7cwfzfk20ii3cqmqjrzb16psnafll303k2d"))
        (snippet
-        #~(begin (use-modules (guix build utils))
+        #~(begin (use-modules (Manifolding-OS build utils))
                  ;; The problem with python-typing-extensions >= 4.7 is only
                  ;; with python-3.7.
                  (substitute* "pyproject.toml"
@@ -3866,7 +3866,7 @@ Python dataclasses.")
        (sha256
         (base32 "1lm864d7arfq0pw64hyc83bwn1z94wjg7a22q1xf0qkjynqs70gg"))
        (snippet
-        #~(begin (use-modules (guix build utils))
+        #~(begin (use-modules (Manifolding-OS build utils))
                  ;; The problem with python-typing-extensions >= 4.7 is only
                  ;; with python-3.7.
                  (substitute* "pyproject.toml"
@@ -4799,7 +4799,7 @@ All extensions are found under the module namespace of pymdownx.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "0ys8ivsbiv58c8rsrk2m2n3sh2rq6qqaa2mhq0hacsgrvmvv0siz"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         #~(begin
            ;; Without deleting ./imgs setuptools complains as follows: error:
@@ -4931,9 +4931,9 @@ ports.")
      (list
       #:imported-modules `(,@%cargo-build-system-modules
                            ,@%pyproject-build-system-modules)
-      #:modules '(((guix build cargo-build-system) #:prefix cargo:)
-                  (guix build pyproject-build-system)
-                  (guix build utils))
+      #:modules '(((Manifolding-OS build cargo-build-system) #:prefix cargo:)
+                  (Manifolding-OS build pyproject-build-system)
+                  (Manifolding-OS build utils))
       #:test-backend #~'custom
       #:test-flags #~(list "test.py")
       #:phases
@@ -5005,7 +5005,7 @@ commits.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "06ghwidcdqimx6jc6yz1zdbyc8rqklkwj5h5cxsihazh0f52fivk"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         ;; TODO There are still bundled assets and minified JS.
         #~(delete-file-recursively "material/assets/javascripts/lunr/min"))))
@@ -6456,7 +6456,7 @@ capabilities and attributes, similar to the prctl syscall.")
         #~(modify-phases %standard-phases
             (replace 'check
               (lambda _
-                ;; (setenv "PYTHONPATH" (getenv "GUIX_PYTHONPATH"))
+                ;; (setenv "PYTHONPATH" (getenv "MANIFOLDING_OS_PYTHONPATH"))
                 (invoke "make" "check"))))))
     (native-inputs (list python-hatchling))
     (propagated-inputs (list python-pyxdg))
@@ -6483,7 +6483,7 @@ programs in Python.")
                 (sha256
                  (base32
                   "1qfqnhvfx5mm7bdajjnnagmvns1zxyksjzh3k5la2ag6a8bp5gki"))
-                (modules '((guix build utils)))
+                (modules '((Manifolding-OS build utils)))
                 ;; collections.OrderedDict.__repr__ changed in Python 3.12,
                 ;; see also <https://github.com/hjson/hjson-py/issues/40>.
                 (snippet #~(substitute* "hjson/__init__.py"
@@ -7372,9 +7372,9 @@ help formatter.")
      (list
       #:imported-modules `(,@%cargo-build-system-modules
                            ,@%pyproject-build-system-modules)
-      #:modules '((guix build cargo-build-system)
-                  ((guix build pyproject-build-system) #:prefix py:)
-                  (guix build utils))
+      #:modules '((Manifolding-OS build cargo-build-system)
+                  ((Manifolding-OS build pyproject-build-system) #:prefix py:)
+                  (Manifolding-OS build utils))
       #:phases
       #~(modify-phases %standard-phases
           (add-after 'build 'build-python-module
@@ -7611,7 +7611,7 @@ messages in color.")
       #~(modify-phases %standard-phases
           (replace 'check
             (lambda _
-              (setenv "PYTHONPATH" (getenv "GUIX_PYTHONPATH"))
+              (setenv "PYTHONPATH" (getenv "MANIFOLDING_OS_PYTHONPATH"))
               (invoke "cmake" ".")
               (invoke "ctest" "."))))))
     (native-inputs (list cmake python-setuptools python-wheel))
@@ -7739,8 +7739,8 @@ of @code{xmlfile}.")
            ;; TestImport tries to download Java things; TestSessions
            ;; and TestBuildQuery require networking.
            "-k" "not TestImport and not TestSessions and not TestBuildQuery")
-        #:modules '((guix build pyproject-build-system)
-                    (guix build utils)
+        #:modules '((Manifolding-OS build pyproject-build-system)
+                    (Manifolding-OS build utils)
                     (ice-9 match)
                     (srfi srfi-1)
                     (srfi srfi-26))
@@ -7959,9 +7959,9 @@ tweaked for more aggressive cleaning.")
            #~(modify-phases %standard-phases
                (add-before 'check 'configure-tests
                  (lambda _
-                   (setenv "GUIX_PYTHONPATH"
+                   (setenv "MANIFOLDING_OS_PYTHONPATH"
                            (string-append (getcwd) "/test-tools:"
-                                          (getenv "GUIX_PYTHONPATH"))))))))
+                                          (getenv "MANIFOLDING_OS_PYTHONPATH"))))))))
     (native-inputs
      (list python-html5-parser
            python-html5lib
@@ -10873,8 +10873,8 @@ naturally be used also by other projects.")
     (build-system pyproject-build-system)
     (arguments
      (list
-      #:modules '((guix build pyproject-build-system)
-                  (guix build utils)
+      #:modules '((Manifolding-OS build pyproject-build-system)
+                  (Manifolding-OS build utils)
                   (ice-9 ftw)
                   (ice-9 match)
                   (srfi srfi-26))
@@ -11442,9 +11442,9 @@ errors when data is invalid.")
      (list
       #:imported-modules `(,@%cargo-build-system-modules
                            ,@%pyproject-build-system-modules)
-      #:modules '(((guix build cargo-build-system) #:prefix cargo:)
-                  (guix build pyproject-build-system)
-                  (guix build utils))
+      #:modules '(((Manifolding-OS build cargo-build-system) #:prefix cargo:)
+                  (Manifolding-OS build pyproject-build-system)
+                  (Manifolding-OS build utils))
       ;; tests: 5318 passed, 123 skipped, 10 xfailed
       #:test-flags
       #~(list "--ignore=tests/benchmarks"
@@ -12108,8 +12108,8 @@ def load_dynamic(name, path):
     (arguments
      (list
       ;; tests: 47513 passed, 1740 skipped, 33 xfailed, 5 xpassed, 341 warnings
-      #:modules '((guix build utils)
-                  (guix build pyproject-build-system)
+      #:modules '((Manifolding-OS build utils)
+                  (Manifolding-OS build pyproject-build-system)
                   (ice-9 format))
       #:test-flags
       #~(list "-m" "not slow"
@@ -12181,7 +12181,7 @@ include_dirs = ~:*~a/include~%" #$(this-package-input "openblas"))))))
                      (for-each
                        (lambda (program)
                          (wrap-program program
-                                       `("GUIX_PYTHONPATH" ":" suffix
+                                       `("MANIFOLDING_OS_PYTHONPATH" ":" suffix
                                          ,(list (site-packages inputs outputs)))))
                        (find-files (in-vicinity #$output "/bin"))))))))
     (native-inputs
@@ -12229,8 +12229,8 @@ capabilities.")
     (arguments
      (list
       ;; tests: 35652 passed, 2403 skipped, 32 xfailed, 2 xpassed
-      #:modules '((guix build utils)
-                  (guix build pyproject-build-system)
+      #:modules '((Manifolding-OS build utils)
+                  (Manifolding-OS build pyproject-build-system)
                   (ice-9 format))
       #:phases
       #~(modify-phases %standard-phases
@@ -12372,7 +12372,7 @@ include_dirs = ~:*~a/include~%"
                      (for-each
                        (lambda (program)
                          (wrap-program program
-                                       `("GUIX_PYTHONPATH" ":" suffix
+                                       `("MANIFOLDING_OS_PYTHONPATH" ":" suffix
                                          ,(list (site-packages inputs outputs)))))
                        (find-files (in-vicinity #$output "/bin"))))))))
     (native-inputs
@@ -12475,7 +12475,7 @@ numpysane has:
               ;; kpathsea instead of fontconfig and fail (see:
               ;; https://github.com/sphinx-doc/sphinx/issues/10347).  Create a
               ;; symlink to GNU FreeFont and add it to the TEXMF tree via
-              ;; GUIX_TEXMF.
+              ;; MANIFOLDING_OS_TEXMF.
               (mkdir-p "texmf-dist/fonts/opentype/public")
               (symlink (string-append
                         #$(this-package-native-input "font-gnu-freefont")
@@ -12483,7 +12483,7 @@ numpysane has:
                        (string-append
                         (getcwd) "/"
                         "texmf-dist/fonts/opentype/public/gnu-freefont"))
-              (setenv "GUIX_TEXMF" (string-append (getenv "GUIX_TEXMF") ":"
+              (setenv "MANIFOLDING_OS_TEXMF" (string-append (getenv "MANIFOLDING_OS_TEXMF") ":"
                                                   (getcwd) "/texmf-dist"))))
           (replace 'build
             (lambda _
@@ -14098,9 +14098,9 @@ and a plugin for Pillow.")
       #:tests? #f
       #:imported-modules `(,@%cargo-build-system-modules
                            ,@%pyproject-build-system-modules)
-      #:modules '(((guix build cargo-build-system) #:prefix cargo:)
-                  (guix build pyproject-build-system)
-                  (guix build utils))
+      #:modules '(((Manifolding-OS build cargo-build-system) #:prefix cargo:)
+                  (Manifolding-OS build pyproject-build-system)
+                  (Manifolding-OS build utils))
       #:phases
       #~(modify-phases %standard-phases
           (add-after 'unpack 'prepare-cargo-build-system
@@ -14200,7 +14200,7 @@ metrics.")
        (uri (pypi-uri "imagecodecs" version))
        (sha256
         (base32 "0v7yglk100fnk0m9m5bnfph2vm1jpnxzrzz2lwk06dqcr6m75wia"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet #~(for-each delete-file
                             ;; Delete pre-generated Cython files.
                             (find-files "imagecodecs" "_.*\\.c$")))))
@@ -14398,7 +14398,7 @@ regions of interest, geometric shapes, paths, text, etc for image overlays.")
        (uri (pypi-uri "lfdfiles" version))
        (sha256
         (base32 "1y4p4n321dp33s7a3almgiirch6kain5liq8g01wrpzw1d4g1rz1"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         ;; Delete pre-generated Cython files.
         #~(begin
@@ -15091,7 +15091,7 @@ Python language binding specification.")
        (sha256
         (base32 "0r63i68wcnv63rfjkasq1ah81frz61a6mzbcnaxhrkdpx84p7hzw"))
        (snippet
-        #~(begin (use-modules (guix build utils))
+        #~(begin (use-modules (Manifolding-OS build utils))
                  (substitute* "grako/grammars.py"
                    (("from collections import defaultdict, Mapping")
                     (string-append "from collections import defaultdict\n"
@@ -16037,7 +16037,7 @@ off it's magic numbers.")
        ;; directory, since it is not included in the distributed
        ;; version. (See:
        ;; https://github.com/JelleZijlstra/ast_decompiler/issues/52).
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet '(call-with-output-file "tests/__init__.py"
                    (const #t)))))
     (build-system pyproject-build-system)
@@ -17900,7 +17900,7 @@ pseudo terminal (pty), and interact with both the process and its pty.")
        ;; it locked on version and keep the snipped for spdk to build
        ;; successfully.
        (snippet #~(begin
-                    (use-modules (guix build utils))
+                    (use-modules (Manifolding-OS build utils))
                     (delete-file "setup.py")
                     (delete-file-recursively "configshell_fb")
                     (rename-file "configshell" "configshell_fb")))
@@ -19035,7 +19035,7 @@ is a tool to demangle C++, Rust, and Swift symbol names.")
              (commit (string-append
                       "pydev_debugger_"
                       (string-join (string-split version #\.) "_")))))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet '(begin
                    ;; Delete pre-built binaries.
                    (for-each delete-file (find-files "." "\\.(so|dylib|dll)"))
@@ -19149,7 +19149,7 @@ and other @acronym{IDEs, Integrated Development Environments}.")
              (url "https://github.com/microsoft/debugpy")
              (commit (string-append "v" version))))
        (file-name (git-file-name name version))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        ;; Remove the bundled PyDev-Debugger copy, including its pre-built
        ;; attach binary.
        (snippet '(delete-file-recursively "src/debugpy/_vendored"))
@@ -19200,7 +19200,7 @@ Python.")
        (sha256
         (base32
          "190vy2ns0650icpwvv4qp6kr3c3i9jszy1vkdwpigxb96fs1bqf3"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         #~(begin
             ;; python-apt, apt and dpkg are not yet available in guix,
@@ -19281,9 +19281,9 @@ JSON Reference and JSON Pointer.")
       #:test-flags #~(list "tests.test_suite")
       #:imported-modules (append %cargo-build-system-modules
                                  %pyproject-build-system-modules)
-      #:modules '(((guix build cargo-build-system) #:prefix cargo:)
-                  (guix build pyproject-build-system)
-                  (guix build utils))
+      #:modules '(((Manifolding-OS build cargo-build-system) #:prefix cargo:)
+                  (Manifolding-OS build pyproject-build-system)
+                  (Manifolding-OS build utils))
       #:phases
       #~(modify-phases %standard-phases
           (add-after 'unpack 'prepare-cargo-build-system
@@ -19875,7 +19875,7 @@ JavaScript, leveraging popular online obfuscators.")
                                           (python-version python)
                                           "/site-packages")))
                      (wrap-program (string-append #$output "/bin/chardetect")
-                       `("GUIX_PYTHONPATH" ":" suffix
+                       `("MANIFOLDING_OS_PYTHONPATH" ":" suffix
                          ,(list sitedir python-sitedir)))))))))
     (home-page "https://github.com/chardet/chardet")
     (synopsis "Universal encoding detector for Python 2 and 3")
@@ -20058,7 +20058,7 @@ tutorial.")
        (uri (pypi-uri "pythondialog" version))
        (sha256
         (base32 "08v3flvbhpc0p20drniiaalc3ijghlxk9ka5vz5mqqm6y254m8xj"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet #~(delete-file-recursively "doc"))))
     (build-system pyproject-build-system)
     (arguments
@@ -20108,7 +20108,7 @@ allows one to make simple text-mode user interfaces on Unix-like systems")
             (lambda _
               (setenv "PYTHONPATH"
                       (string-append (getcwd) ":"
-                                     (getenv "GUIX_PYTHONPATH"))))))))
+                                     (getenv "MANIFOLDING_OS_PYTHONPATH"))))))))
     (propagated-inputs (list python-pydantic python-srsly))
     (native-inputs (list python-pytest python-setuptools))
     (home-page "https://github.com/explosion/confection")
@@ -20154,7 +20154,7 @@ files.")
                 (url "https://github.com/omry/omegaconf")
                 (commit commit)))
          (file-name (git-file-name name version))
-         (modules '((guix build utils)))
+         (modules '((Manifolding-OS build utils)))
          (snippet
           #~(begin
               (delete-file-recursively "build_helpers/bin")
@@ -21868,9 +21868,9 @@ doesn't know about.")
      (list
       #:imported-modules (append %cargo-build-system-modules
                                  %pyproject-build-system-modules)
-      #:modules '(((guix build cargo-build-system) #:prefix cargo:)
-                  (guix build pyproject-build-system)
-                  (guix build utils))
+      #:modules '(((Manifolding-OS build cargo-build-system) #:prefix cargo:)
+                  (Manifolding-OS build pyproject-build-system)
+                  (Manifolding-OS build utils))
       #:phases
       #~(modify-phases %standard-phases
           (add-after 'unpack 'prepare-cargo-build-system
@@ -22433,7 +22433,7 @@ graphviz.")
               (sha256
                (base32
                 "1jhs1k49nfhv59c0li6bcpvkr6pzmxkdgfm56gns7r792j8l3lcb"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                '(begin
                   ;; unbunding libev and c-ares
@@ -23218,7 +23218,7 @@ both a script and a Python package.")
                (base32
                 "1nzhvg52whpmfv8fkrnv7rlrmgc5m43hpyp8ra9kffx47yzcs3p8"))
               (snippet
-               #~(begin (use-modules (guix build utils))
+               #~(begin (use-modules (Manifolding-OS build utils))
                         ;; This is mostly to keep the cargo-build-system happy
                         (with-output-to-file "Cargo.toml"
                           (lambda ()
@@ -23238,9 +23238,9 @@ members = [
              "--no-default-features")
       #:imported-modules `(,@%pyproject-build-system-modules
                            ,@%cargo-build-system-modules)
-      #:modules `((guix build cargo-build-system)
-                  ((guix build pyproject-build-system) #:prefix py:)
-                  (guix build utils))
+      #:modules `((Manifolding-OS build cargo-build-system)
+                  ((Manifolding-OS build pyproject-build-system) #:prefix py:)
+                  (Manifolding-OS build utils))
       #:phases
       #~(modify-phases %standard-phases
           (add-after 'unpack 'prepare-source
@@ -24776,7 +24776,7 @@ the network.")
         (sha256
          (base32
           "1ihcff58vz4xrv1180v46wy5m80z61y7ab8ajyy4zh54jcjbb20k"))
-        (modules '((guix build utils)))
+        (modules '((Manifolding-OS build utils)))
         (snippet
          '(for-each delete-file (find-files "bench" "\\.js$")))))
     (build-system pyproject-build-system)
@@ -25460,7 +25460,7 @@ package attempts to address the shortcomings of @code{isodate}.")
               (url "https://github.com/timothycrosley/isort")
               (commit version)))
        (file-name (git-file-name name version))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet '(for-each delete-file (find-files "." "\\.whl$")))
        (sha256
         (base32 "1fcwv1dlq0d3is9s6scp6vy7yw4l845kk51ihxac8419n8hrpvpq"))))
@@ -27903,9 +27903,9 @@ binding is created using the standard @code{ctypes} library.")
       #~(list (string-append "-DCATCH_INCLUDE_DIR="
                              (assoc-ref %build-inputs "catch2")
                              "/include/catch"))
-      #:modules '((guix build cmake-build-system)
-                  ((guix build gnu-build-system) #:prefix gnu:)
-                  (guix build utils))
+      #:modules '((Manifolding-OS build cmake-build-system)
+                  ((Manifolding-OS build gnu-build-system) #:prefix gnu:)
+                  (Manifolding-OS build utils))
       #:phases
       #~(modify-phases %standard-phases
           (replace 'check
@@ -27955,9 +27955,9 @@ inferring type information using compile-time introspection.")
       #~(list (string-append "-DCATCH_INCLUDE_DIR="
                              (assoc-ref %build-inputs "catch2")
                              "/include/catch"))
-      #:modules '((guix build cmake-build-system)
-                  ((guix build gnu-build-system) #:prefix gnu:)
-                  (guix build utils))
+      #:modules '((Manifolding-OS build cmake-build-system)
+                  ((Manifolding-OS build gnu-build-system) #:prefix gnu:)
+                  (Manifolding-OS build utils))
       #:phases
       #~(modify-phases %standard-phases
           (replace 'check
@@ -28438,7 +28438,7 @@ tool).")
        (sha256
         (base32
          "1g09fwhgmhmw66x5gzmzhm8yhgqki3gpfi0dkhx8z2gh3n43gkx3"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         '(begin
            ;; Only add CFLAGS on architectures where they are supported
@@ -28637,7 +28637,7 @@ instead of pickle.")
        (uri (pypi-uri "cytoolz" version))
        (sha256
         (base32 "1mn7n916w8dfij3zq139a4szv12rwp94xxrnfvnv66wyp1hk3k49"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         '(for-each delete-file (find-files "cytoolz" "\\.c$")))))
     (build-system pyproject-build-system)
@@ -29932,8 +29932,8 @@ implementation of the D-Bus protocol.")
     (build-system pyproject-build-system)
     (arguments
      (list
-      #:modules `((guix build pyproject-build-system)
-                  (guix build utils)
+      #:modules `((Manifolding-OS build pyproject-build-system)
+                  (Manifolding-OS build utils)
                   (ice-9 match))
       #:phases
       #~(modify-phases %standard-phases
@@ -30560,7 +30560,7 @@ an upload option to send your work back to the platform.")
            (lambda _
              (setenv "PYTHONPATH"
                      (string-append (getcwd) "/code:"
-                                    (getenv "GUIX_PYTHONPATH"))))))))
+                                    (getenv "MANIFOLDING_OS_PYTHONPATH"))))))))
     (native-inputs (list python-pytest python-setuptools python-wheel))
     (home-page "https://github.com/drj11/pypng")
     (synopsis "Pure Python PNG image encoder/decoder")
@@ -33046,8 +33046,8 @@ following enviroments: X11 (thought Xinerama) and DRM (experimental).")
           (add-after 'install 'wrap-screenkey
             (lambda _
               (wrap-program (string-append #$output "/bin/screenkey")
-                `("GUIX_PYTHONPATH" ":" prefix
-                  (,(getenv "GUIX_PYTHONPATH")))
+                `("MANIFOLDING_OS_PYTHONPATH" ":" prefix
+                  (,(getenv "MANIFOLDING_OS_PYTHONPATH")))
                 `("GI_TYPELIB_PATH" ":" prefix
                   (,(getenv "GI_TYPELIB_PATH")))))))))
     (inputs (list bash-minimal
@@ -33777,9 +33777,9 @@ mangled symbols, which can be used for directly extracting type information.")
      (list
       #:imported-modules `(,@%cargo-build-system-modules
                            ,@%pyproject-build-system-modules)
-      #:modules '(((guix build cargo-build-system) #:prefix cargo:)
-                  (guix build pyproject-build-system)
-                  (guix build utils))
+      #:modules '(((Manifolding-OS build cargo-build-system) #:prefix cargo:)
+                  (Manifolding-OS build pyproject-build-system)
+                  (Manifolding-OS build utils))
       #:test-flags
       #~(list "-x"
               "--dist" "load"
@@ -34787,7 +34787,7 @@ Python @code{set} interface.")
        (sha256
         (base32 "05122x1bwskfqnzi9hqi86h7407byfjvhgczj74x6lp2m6rnwkzl"))
        ;; (patches (search-patches "dynaconf-unvendor-deps.patch"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        ;; Remove vendored dependencies
        (snippet
         #~(let ((unvendor '("click" "ruamel" "toml")))
@@ -36641,9 +36641,9 @@ line by line or column by column or a combination of both.")
      (list
       #:imported-modules `(,@%cargo-build-system-modules
                            ,@%pyproject-build-system-modules)
-      #:modules '((guix build cargo-build-system)
-                  ((guix build pyproject-build-system) #:prefix py:)
-                  (guix build utils))
+      #:modules '((Manifolding-OS build cargo-build-system)
+                  ((Manifolding-OS build pyproject-build-system) #:prefix py:)
+                  (Manifolding-OS build utils))
       #:phases
       #~(modify-phases %standard-phases
           (add-after 'build 'build-python-module
@@ -36916,7 +36916,7 @@ with one function call.  IceCream makes print debugging a little sweeter.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "1xzx0xhikwqvmzdbhprzljfvnxznr3an3jf0v07hwkixvh80s4f5"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet #~(delete-file-recursively "libsbsv")))) ;separate C library
     (build-system pyproject-build-system)
     (native-inputs (list python-hatchling python-pytest))
@@ -36981,9 +36981,9 @@ syntactically and semantically correct SQL in the targeted dialects.")
       #:tests? #f ;no tests
       #:imported-modules `(,@%cargo-build-system-modules
                            ,@%pyproject-build-system-modules)
-      #:modules '((guix build cargo-build-system)
-                  ((guix build pyproject-build-system) #:prefix py:)
-                  (guix build utils))
+      #:modules '((Manifolding-OS build cargo-build-system)
+                  ((Manifolding-OS build pyproject-build-system) #:prefix py:)
+                  (Manifolding-OS build utils))
       #:phases
       #~(modify-phases %standard-phases
           (add-after 'build 'build-python-module
@@ -37822,9 +37822,9 @@ functionality and customization to your projects with their own plugins.")
      (list
       #:imported-modules `(,@%cargo-build-system-modules
                            ,@%pyproject-build-system-modules)
-      #:modules '(((guix build cargo-build-system) #:prefix cargo:)
-                  (guix build pyproject-build-system)
-                  (guix build utils))
+      #:modules '(((Manifolding-OS build cargo-build-system) #:prefix cargo:)
+                  (Manifolding-OS build pyproject-build-system)
+                  (Manifolding-OS build utils))
       #:test-flags
       #~(list "--pyargs" "streamtracer")
       #:phases
@@ -38106,7 +38106,7 @@ as possible in order to be comprehensible and easily extensible.")
        (sha256
         (base32 "0gnqj1gj6dnr167pacmynvghw8bwwll6nlz843rm95r07zi6blrm"))
        (snippet '(begin
-                   (use-modules (guix build utils))
+                   (use-modules (Manifolding-OS build utils))
                    (delete-file-recursively "hdf5-blosc")
                    (delete-file-recursively "c-blosc")))))
     (build-system pyproject-build-system)
@@ -39041,9 +39041,9 @@ to TIFF, BigTIFF, and ImageJ hyperstack compatible files.")
       (append %pyproject-build-system-modules
               %cargo-build-system-modules)
       #:modules
-      '((guix build cargo-build-system)
-        ((guix build pyproject-build-system) #:prefix py:)
-        (guix build utils))
+      '((Manifolding-OS build cargo-build-system)
+        ((Manifolding-OS build pyproject-build-system) #:prefix py:)
+        (Manifolding-OS build utils))
       #:phases
       #~(modify-phases %standard-phases
           (replace 'build
@@ -40619,7 +40619,7 @@ Universal Dependencies data.")
         (sha256
          (base32
           "1habmn3bmmv2ym4ldiijcavdkdzp8h28h60hgwjkhxwcbly8zkdk"))
-        (modules '((guix build utils)))
+        (modules '((Manifolding-OS build utils)))
         (snippet
          #~(begin (delete-file-recursively "deps")))))
     (build-system pyproject-build-system)
@@ -40761,9 +40761,9 @@ expression.")
      (list
       #:imported-modules `(,@%cargo-build-system-modules
                            ,@%pyproject-build-system-modules)
-      #:modules '(((guix build cargo-build-system) #:prefix cargo:)
-                  (guix build pyproject-build-system)
-                  (guix build utils))
+      #:modules '(((Manifolding-OS build cargo-build-system) #:prefix cargo:)
+                  (Manifolding-OS build pyproject-build-system)
+                  (Manifolding-OS build utils))
       #:test-backend #~'unittest
       #:phases
       #~(modify-phases %standard-phases
@@ -41978,9 +41978,9 @@ portable.")
       #:test-flags ''("-k" "not test_docs_examples")
       #:imported-modules `(,@%cargo-build-system-modules
                            ,@%pyproject-build-system-modules)
-      #:modules '(((guix build cargo-build-system) #:prefix cargo:)
-                  (guix build pyproject-build-system)
-                  (guix build utils))
+      #:modules '(((Manifolding-OS build cargo-build-system) #:prefix cargo:)
+                  (Manifolding-OS build pyproject-build-system)
+                  (Manifolding-OS build utils))
       #:phases
       #~(modify-phases %standard-phases
           (add-after 'unpack 'prepare-cargo-build-system
@@ -42330,7 +42330,7 @@ associated with file system objects (files, directories, symlinks, etc).")
              (commit version)))
        (file-name (git-file-name name version))
        (sha256 (base32 "0ipqrgmxzbn061m02halpsnizp56yk24cyzpwrjnlzjk8icvswl9"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        ;; All pytest options are for coverage; remove snippet in next release:
        ;; https://github.com/srstevenson/xdg-base-dirs/commit/28b6a6beaeb5
        (snippet #~(substitute* "pyproject.toml"

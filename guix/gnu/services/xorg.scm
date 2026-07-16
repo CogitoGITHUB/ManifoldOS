@@ -58,17 +58,17 @@
   #:use-module (gnu packages bash)
   #:use-module (gnu packages linux)
   #:use-module (gnu system shadow)
-  #:use-module (guix build-system glib-or-gtk)
-  #:use-module (guix build-system trivial)
-  #:use-module (guix gexp)
-  #:use-module (guix store)
-  #:use-module ((guix modules) #:select (source-module-closure))
-  #:use-module (guix packages)
-  #:use-module (guix derivations)
-  #:use-module (guix platform)
-  #:use-module (guix records)
-  #:use-module (guix deprecation)
-  #:use-module (guix utils)
+  #:use-module (Manifolding-OS build-system glib-or-gtk)
+  #:use-module (Manifolding-OS build-system trivial)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS store)
+  #:use-module ((Manifolding-OS modules) #:select (source-module-closure))
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS derivations)
+  #:use-module (Manifolding-OS platform)
+  #:use-module (Manifolding-OS records)
+  #:use-module (Manifolding-OS deprecation)
+  #:use-module (Manifolding-OS utils)
   #:use-module (srfi srfi-1)
   #:use-module (srfi srfi-9)
   #:use-module (srfi srfi-26)
@@ -391,10 +391,10 @@ EndSection\n" port)
   "Return a directory that contains the @code{.conf} files for X.org that
 includes the @code{share/X11/xorg.conf.d} directories of each package listed
 in @var{modules}."
-  (with-imported-modules '((guix build utils))
+  (with-imported-modules '((Manifolding-OS build utils))
     (computed-file "xorg.conf.d"
                    #~(begin
-                       (use-modules (guix build utils)
+                       (use-modules (Manifolding-OS build utils)
                                     (srfi srfi-1))
 
                        (define files
@@ -477,9 +477,9 @@ therefore it works well when executed from tty."
   (define exp
     ;; Small wrapper providing subset of functionality of typical startx
     ;; script from distributions like alpine.
-    (with-imported-modules (source-module-closure '((guix build utils)))
+    (with-imported-modules (source-module-closure '((Manifolding-OS build utils)))
       #~(begin
-          (use-modules (guix build utils)
+          (use-modules (Manifolding-OS build utils)
                        (ice-9 popen)
                        (ice-9 textual-ports))
 
@@ -555,10 +555,10 @@ therefore it works well when executed from tty."
     (build-system trivial-build-system)
     (arguments
      (list
-      #:modules '((guix build utils))
+      #:modules '((Manifolding-OS build utils))
       #:builder
       #~(begin
-          (use-modules (guix build utils))
+          (use-modules (Manifolding-OS build utils))
           (let ((bin (string-append #$output "/bin")))
             (mkdir-p bin)
             (symlink #$source (string-append bin "/startx"))))))
@@ -699,10 +699,10 @@ a `service-extension', as used by `set-xorg-configuration'."
      (source (xorg-wrapper config))
      (build-system trivial-build-system)
      (arguments
-      '(#:modules ((guix build utils))
+      '(#:modules ((Manifolding-OS build utils))
         #:builder
         (begin
-          (use-modules (guix build utils))
+          (use-modules (Manifolding-OS build utils))
           (let* ((source (assoc-ref %build-inputs "source"))
                  (out (assoc-ref %outputs "out"))
                  (bin (string-append out "/bin")))
@@ -973,16 +973,16 @@ makes the good ol' XlockMore usable."
         (list (wrapped-dbus-service
                (localed-configuration-localed config)
                "libexec/localed/localed"
-               `(("GUIX_XKB_LAYOUT" ,layout)
+               `(("MANIFOLDING_OS_XKB_LAYOUT" ,layout)
                  ,@(if variant
-                       `(("GUIX_XKB_VARIANT" ,variant))
+                       `(("MANIFOLDING_OS_XKB_VARIANT" ,variant))
                        '())
                  ,@(if model
-                       `(("GUIX_XKB_MODEL" ,model))
+                       `(("MANIFOLDING_OS_XKB_MODEL" ,model))
                        '())
                  ,@(if (null? options)
                        '()
-                       `(("GUIX_XKB_OPTIONS"
+                       `(("MANIFOLDING_OS_XKB_OPTIONS"
                           ,(string-join options ","))))))))
       '()))
 
@@ -1082,9 +1082,9 @@ generated database, @file{/etc/dconf/db/NAME}.")
   (let ((name (dconf-profile-name profile)))
     (computed-file
      name
-     (with-imported-modules '((guix build utils))
+     (with-imported-modules '((Manifolding-OS build utils))
        #~(begin
-           (use-modules (guix build utils))
+           (use-modules (Manifolding-OS build utils))
            (setenv "DCONF_PROFILE" #$(dconf-profile->profile-file profile))
            (invoke #$(file-append dconf "/bin/dconf") "compile"
                    #$output #$(dconf-profile->db-keyfile-dir profile)))))))
@@ -1345,7 +1345,7 @@ argument.")))
                          ;; the corresponding line in /etc/profile.
                          "XCURSOR_PATH=/run/current-system/profile/share/icons"
                          (string-append
-                          "GUIX_GDK_PIXBUF_MODULE_FILES="
+                          "MANIFOLDING_OS_GDK_PIXBUF_MODULE_FILES="
                           #$gnome-shell "/" #$%gdk-pixbuf-loaders-cache-file)
                          (string-append
                           "GDM_WAYLAND_SESSION="
@@ -1363,9 +1363,9 @@ argument.")))
         ;; https://gitlab.gnome.org/GNOME/gnome-settings-daemon/-/issues/273).
         (list (computed-file
                "02-allow-colord.rules"
-               (with-imported-modules '((guix build utils))
+               (with-imported-modules '((Manifolding-OS build utils))
                  #~(begin
-                     (use-modules (guix build utils))
+                     (use-modules (Manifolding-OS build utils))
 
                      (let* ((rules.d
                              (string-append #$output

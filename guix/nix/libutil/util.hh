@@ -267,7 +267,7 @@ public:
 };
 
 /* An "agent" is a helper program that runs in the background and that we talk
-   to over pipes, such as the "guix offload" program.  */
+   to over pipes, such as the "Manifolding-OS offload" program.  */
 struct Agent
 {
     /* Pipes for talking to the agent. */
@@ -277,7 +277,7 @@ struct Agent
     Pipe fromAgent;
 
     /* Pipe for build standard output/error--e.g., for build processes started
-       by "guix offload".  */
+       by "Manifolding-OS offload".  */
     Pipe builderOut;
 
     /* The process ID of the agent. */

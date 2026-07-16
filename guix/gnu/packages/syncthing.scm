@@ -26,13 +26,13 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages syncthing)
-  #:use-module (guix build-system go)
-  #:use-module (guix build-system pyproject)
-  #:use-module (guix gexp)
-  #:use-module (guix packages)
-  #:use-module (guix download)
-  #:use-module (guix git-download)
-  #:use-module (guix licenses)
+  #:use-module (Manifolding-OS build-system go)
+  #:use-module (Manifolding-OS build-system pyproject)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS licenses)
   #:use-module (gnu packages)
   #:use-module (gnu packages bash)
   #:use-module (gnu packages freedesktop)
@@ -70,8 +70,8 @@
     (arguments
      (list
        #:modules '((srfi srfi-26) ; for cut
-                   (guix build utils)
-                   (guix build go-build-system))
+                   (Manifolding-OS build utils)
+                   (Manifolding-OS build go-build-system))
        #:import-path "github.com/syncthing/syncthing"
        ;; Check 'go.mod' in the source distribution for the required version of Go.
        ;; We don't need to install the source code for end-user applications.
@@ -194,8 +194,8 @@ Protocol.")
              (lambda* (#:key outputs #:allow-other-keys)
                (let ((out (assoc-ref outputs "out")))
                  (wrap-program (string-append out "/bin/syncthing-gtk")
-                   `("GUIX_GDK_PIXBUF_MODULE_FILES" ":" suffix
-                     (,(getenv "GUIX_GDK_PIXBUF_MODULE_FILES")))
+                   `("MANIFOLDING_OS_GDK_PIXBUF_MODULE_FILES" ":" suffix
+                     (,(getenv "MANIFOLDING_OS_GDK_PIXBUF_MODULE_FILES")))
                    `("GI_TYPELIB_PATH" ":" suffix
                      (,(getenv "GI_TYPELIB_PATH"))))))))))
       (native-inputs (list python-setuptools))

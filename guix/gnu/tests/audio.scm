@@ -26,7 +26,7 @@
   #:use-module (gnu services audio)
   #:use-module (gnu services networking)
   #:use-module (gnu packages mpd)
-  #:use-module (guix gexp)
+  #:use-module (Manifolding-OS gexp)
   #:export (%test-mpd
             %test-mympd))
 

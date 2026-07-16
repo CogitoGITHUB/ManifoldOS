@@ -41,17 +41,17 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages monitoring)
-  #:use-module (guix gexp)
-  #:use-module (guix packages)
-  #:use-module (guix download)
-  #:use-module (guix git-download)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix build-system cargo)
-  #:use-module (guix build-system cmake)
-  #:use-module (guix build-system pyproject)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system go)
-  #:use-module (guix utils)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS build-system cargo)
+  #:use-module (Manifolding-OS build-system cmake)
+  #:use-module (Manifolding-OS build-system pyproject)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system go)
+  #:use-module (Manifolding-OS utils)
   #:use-module (gnu packages)
   #:use-module (gnu packages admin)
   #:use-module (gnu packages autotools)
@@ -113,7 +113,7 @@
       (file-name (git-file-name name version))
       (sha256
        (base32 "0yaa7g35rz9dmgxvahvkfhjpkvmi50rd6bjd9ckxvk7mfs1q0xb7"))
-      (modules '((guix build utils)))
+      (modules '((Manifolding-OS build utils)))
       (snippet
        #~(begin
            ;; Relax platformdirs requirement.
@@ -131,8 +131,8 @@
     (arguments
      (list
       #:modules
-      '((guix build pyproject-build-system)
-        (guix build utils)
+      '((Manifolding-OS build pyproject-build-system)
+        (Manifolding-OS build utils)
         (ice-9 ftw)
         (srfi srfi-1)
         (srfi srfi-26))
@@ -504,7 +504,7 @@ and more.")
               (sha256
                (base32
                 "1x5hb97zbvkm73q53ydp1gwj8nnznm72q9c4rm6ny7phr995l3db"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                ;; Ensure reproducibility.
                '(begin
@@ -604,7 +604,7 @@ etc. via a Web interface.  Features include:
              (version-major+minor version) "/zabbix-" version ".tar.gz"))
        (sha256
         (base32 "0p78f02lslpfsqrr38rs30dq6fylyzph2q3fbwc6l9f6p5ik00dp"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         '(substitute* '("src/zabbix_proxy/proxy.c"
                         "src/zabbix_server/server.c")

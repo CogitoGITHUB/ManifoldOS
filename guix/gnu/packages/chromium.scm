@@ -22,14 +22,14 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages chromium)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix packages)
-  #:use-module (guix gexp)
-  #:use-module (guix download)
-  #:use-module (guix git-download)
-  #:use-module (guix utils)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system trivial)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS utils)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system trivial)
   #:use-module (gnu packages)
   #:use-module (gnu packages base)
   #:use-module (gnu packages bash)
@@ -618,14 +618,14 @@
               (sha256
                (base32
                 "1ilq7p7v3qazca7dxy16qnlpqd0fb2nqj47rk2pj1p3xqfklyrg2"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet (force ungoogled-chromium-snippet))))
     (build-system gnu-build-system)
     (arguments
      (list
       #:tests? #f
-      #:modules '((guix build gnu-build-system)
-                  (guix build utils)
+      #:modules '((Manifolding-OS build gnu-build-system)
+                  (Manifolding-OS build utils)
                   (srfi srfi-26))
       #:configure-flags
       ;; See tools/gn/docs/cookbook.md and
@@ -1151,17 +1151,17 @@ testing.")
     (build-system trivial-build-system)
     (arguments
      (list
-      #:modules '((guix build utils))
+      #:modules '((Manifolding-OS build utils))
       #:builder
       #~(begin
-          (use-modules (guix build utils))
+          (use-modules (Manifolding-OS build utils))
           (let* ((bash #$(this-package-input "bash-minimal"))
                  (chromium #$(this-package-input "ungoogled-chromium"))
                  (locales #$(this-package-input "glibc-utf8-locales"))
                  (exe (string-append #$output "/bin/chromium")))
 
             ;; Use a Unicode locale so we can substitute the file below.
-            (setenv "GUIX_LOCPATH" (string-append locales "/lib/locale"))
+            (setenv "MANIFOLDING_OS_LOCPATH" (string-append locales "/lib/locale"))
             (setlocale LC_ALL "en_US.utf8")
 
             (mkdir-p (dirname exe))

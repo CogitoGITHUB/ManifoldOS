@@ -18,16 +18,16 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (test-processes)
-  #:use-module (guix scripts processes)
-  #:use-module (guix store)
-  #:use-module (guix derivations)
-  #:use-module (guix packages)
-  #:use-module (guix gexp)
-  #:use-module ((guix utils) #:select (call-with-temporary-directory))
+  #:use-module (Manifolding-OS scripts processes)
+  #:use-module (Manifolding-OS store)
+  #:use-module (Manifolding-OS derivations)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module ((Manifolding-OS utils) #:select (call-with-temporary-directory))
   #:use-module (gnu packages bootstrap)
   #:use-module ((gnu build linux-container)
                 #:select (unprivileged-user-namespace-supported?))
-  #:use-module (guix tests)
+  #:use-module (Manifolding-OS tests)
   #:use-module (srfi srfi-1)
   #:use-module (srfi srfi-64)
   #:use-module (rnrs bytevectors)
@@ -36,7 +36,7 @@
   #:use-module (ice-9 threads))
 
 ;; When using --system argument, binfmt-misc mechanism may be used. In that
-;; case, (guix script processes) won't work because:
+;; case, (Manifolding-OS script processes) won't work because:
 ;;
 ;; * ARGV0 is qemu-user and not guix-daemon.
 ;; * Guix-daemon won't be able to stuff client PID in ARGV1 of forked

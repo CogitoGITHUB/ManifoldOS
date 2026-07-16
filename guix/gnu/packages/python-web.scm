@@ -154,16 +154,16 @@
   #:use-module (gnu packages web)
   #:use-module (gnu packages xml)
   #:use-module (gnu packages)
-  #:use-module (guix build-system cargo)
-  #:use-module (guix build-system copy)
-  #:use-module (guix build-system pyproject)
-  #:use-module (guix deprecation)
-  #:use-module (guix download)
-  #:use-module (guix gexp)
-  #:use-module (guix git-download)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix packages)
-  #:use-module (guix utils)
+  #:use-module (Manifolding-OS build-system cargo)
+  #:use-module (Manifolding-OS build-system copy)
+  #:use-module (Manifolding-OS build-system pyproject)
+  #:use-module (Manifolding-OS deprecation)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS utils)
   #:use-module (srfi srfi-1))
 
 (define-public python-aioboto3
@@ -583,7 +583,7 @@ and JSON.
         (base32 "02abk9ixn010sqpbdsd7nxms0gv4prwv6d3nplb8giq85lpn1kkb"))
        (snippet
         #~(begin
-            (use-modules (guix build utils))
+            (use-modules (Manifolding-OS build utils))
             (substitute* (find-files "." "\\.py$")
               (("bleach\\._vendor\\.html5lib") "html5lib"))
             (delete-file-recursively "bleach/_vendor/html5lib")))))
@@ -1917,9 +1917,9 @@ and provides both sync and async APIs.")
      (list
       #:imported-modules (append %cargo-build-system-modules
                                  %pyproject-build-system-modules)
-      #:modules '(((guix build cargo-build-system) #:prefix cargo:)
-                  (guix build pyproject-build-system)
-                  (guix build utils))
+      #:modules '(((Manifolding-OS build cargo-build-system) #:prefix cargo:)
+                  (Manifolding-OS build pyproject-build-system)
+                  (Manifolding-OS build utils))
       #:phases
       #~(modify-phases %standard-phases
           (add-after 'unpack 'prepare-cargo-build-system
@@ -2735,7 +2735,7 @@ for adding, removing and dropping callbacks.")
         (base32 "12jmkxkc5nnk6ma6m7rrs0w4vzswfc47ffxn5m0pwav1708nx1df"))
        (snippet
         #~(begin
-            (use-modules ((guix build utils)))
+            (use-modules ((Manifolding-OS build utils)))
             ;; TODO: Unbundle the llhttp sources.
             ;; (delete-file-recursively "vendor")
             (delete-file "aiohttp/_http_parser.c")
@@ -4953,9 +4953,9 @@ Amazon S3 compatible object storage server.")
      (list
       #:imported-modules `(,@%cargo-build-system-modules
                            ,@%pyproject-build-system-modules)
-      #:modules '(((guix build cargo-build-system) #:prefix cargo:)
-                  (guix build pyproject-build-system)
-                  (guix build utils))
+      #:modules '(((Manifolding-OS build cargo-build-system) #:prefix cargo:)
+                  (Manifolding-OS build pyproject-build-system)
+                  (Manifolding-OS build utils))
       #:test-flags #~(list "--ignore=tests/test_types.py")
       #:phases
       #~(modify-phases %standard-phases
@@ -7232,9 +7232,9 @@ and MAC network addresses.")
      (list
       #:imported-modules `(,@%cargo-build-system-modules
                            ,@%pyproject-build-system-modules)
-      #:modules '(((guix build cargo-build-system) #:prefix cargo:)
-                  (guix build pyproject-build-system)
-                  (guix build utils))
+      #:modules '(((Manifolding-OS build cargo-build-system) #:prefix cargo:)
+                  (Manifolding-OS build pyproject-build-system)
+                  (Manifolding-OS build utils))
       #:phases
       #~(modify-phases %standard-phases
           (add-after 'unpack 'prepare-cargo-build-system
@@ -7803,10 +7803,10 @@ protocols.")
              #:phases #~(modify-phases %standard-phases
                           (add-after 'install 'wrap-pythonpath
                             (lambda* (#:key inputs outputs #:allow-other-keys)
-                              (let ((path (getenv "GUIX_PYTHONPATH")))
+                              (let ((path (getenv "MANIFOLDING_OS_PYTHONPATH")))
                                 (wrap-program (string-append #$output
                                                              "/bin/oauth2ms")
-                                              `("GUIX_PYTHONPATH" ":" prefix
+                                              `("MANIFOLDING_OS_PYTHONPATH" ":" prefix
                                                 (,path)))))))))
       (inputs (list bash-minimal python python-gnupg python-msal python-pyxdg))
       (home-page "https://github.com/harishkrupo/oauth2ms")
@@ -10197,7 +10197,7 @@ hard or impossible to fix in cssselect.")
        (uri (pypi-uri "uvloop" version))
        (sha256
         (base32 "1qq46ym3ymzfn4j6fnykfmr1f4qnb7x7p15dlw37hi38v87jpw9v"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         '(begin (delete-file-recursively "vendor")
           (delete-file  "uvloop/loop.c")))))
@@ -10360,7 +10360,7 @@ and fairly speedy.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "0j9c1av3y1smg6lgh0i031l07i9plzbvv14jj53vpzm35sy7kbl7"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         #~(begin (delete-file-recursively "vendor")))))
     (build-system pyproject-build-system)
@@ -11121,7 +11121,7 @@ language-neutral coding interface compatible with all major web browsers.")))
         (file-name (git-file-name name version))
         (sha256
          (base32 "0ajf919gg3qmi68jb0m6v80al2n65cn2ac36qz46s0h6zh92cl86"))
-        (modules '((guix build utils)))
+        (modules '((Manifolding-OS build utils)))
         (snippet
          '(delete-file-recursively "rapidjson"))))
     (build-system pyproject-build-system)
@@ -12136,7 +12136,7 @@ bare-metal installations.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "13w0ywz2y8x0zwpwzrnn46wyq307hfpdcz49zy33yyf46rq9n10n"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         '(with-directory-excursion "cloudscraper"
            (for-each delete-file
@@ -12327,7 +12327,7 @@ applications.")
        (sha256
         (base32 "1fv9wgsj54scbr7qhmwdgc4zqnqpwacpakcfxhsg10gc04h54pbp"))
        ;; Loosen requirements for both python-sanic and python-sanic-bootstrap.
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet #~(substitute* "setup.py"
                     (("setuptools>=[0-9.]*")
                      "setuptools")))))
@@ -12686,7 +12686,7 @@ Python.")
                 (setenv "PYTHONPATH"
                         (string-append
                          (getcwd) "/tests/testserver_tests/coretestserver:"
-                         (getenv "GUIX_PYTHONPATH")))))))))
+                         (getenv "MANIFOLDING_OS_PYTHONPATH")))))))))
     (propagated-inputs
      (list python-aiohttp
            python-requests

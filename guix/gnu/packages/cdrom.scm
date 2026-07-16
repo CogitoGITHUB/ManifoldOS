@@ -36,15 +36,15 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages cdrom)
-  #:use-module (guix download)
-  #:use-module (guix git-download)
-  #:use-module (guix packages)
-  #:use-module ((guix licenses) #:select (lgpl2.1+ gpl2 gpl2+ gpl3+ cddl1.0))
-  #:use-module (guix build-system cmake)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system glib-or-gtk)
-  #:use-module (guix gexp)
-  #:use-module (guix utils)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS packages)
+  #:use-module ((Manifolding-OS licenses) #:select (lgpl2.1+ gpl2 gpl2+ gpl3+ cddl1.0))
+  #:use-module (Manifolding-OS build-system cmake)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system glib-or-gtk)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS utils)
   #:use-module (gnu packages)
   #:use-module (gnu packages acl)
   #:use-module (gnu packages audio)
@@ -283,7 +283,7 @@ format (sometimes \".raw / .cue\") to a set of .iso and .cdr tracks.")
               (base32
                "1pv4zrajm46za0f6lv162iqffih57a8ly4pc69f7y0gfyigb8p80"))
              (patches (search-patches "cdparanoia-fpic.patch"))
-             (modules '((guix build utils)))
+             (modules '((Manifolding-OS build utils)))
              (snippet
               '(begin
                  ;; Make libraries respect LDFLAGS.
@@ -379,7 +379,7 @@ format, commonly used for VCDs or disks with subchannel data.")
               (sha256
                (base32
                 "03w6ypsmwwy4d7vh6zgwpc60v541vc5ywp8bdb758hbc4yv2wa7d"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                '(begin
                   ;; By default 'cdda2wav --help' would print a string like
@@ -685,7 +685,7 @@ the data.")
               (sha256
                (base32
                 "0qrcvn7227qaayjcd5rm7z0k5q89qfy5qkdgwr5pd7ih0va8rmpz"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                '(begin
                   (substitute* "Makefile"
@@ -720,8 +720,8 @@ from an audio CD.")
     (arguments
      (list
       #:tests? #f ; No test target.
-      #:modules `((guix build gnu-build-system)
-                  (guix build utils)
+      #:modules `((Manifolding-OS build gnu-build-system)
+                  (Manifolding-OS build utils)
                   (srfi srfi-26))
       #:make-flags
       #~(list (string-append "INSTALL="
@@ -1026,7 +1026,7 @@ It supports read-only media (DVD/CD-R) and rewritable media that wears out
                (base32
                 "0g2zyzb56czh429qy87lvaddzjnlcq8c616ddxsmsshz3clhyzrh"))
               (patches (search-patches "cdrkit-libre-cross-compile.patch"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                 #~(begin
                     ;; Fix building with gcc-10.
@@ -1140,7 +1140,7 @@ drive and disc (including CD-ROMs and DVD-ROMs).")
              (let ((prog (string-append (assoc-ref outputs "out")
                                         "/bin/cdemu")))
                (wrap-program prog
-                 `("GUIX_PYTHONPATH" = (,(getenv "GUIX_PYTHONPATH"))))))))))
+                 `("MANIFOLDING_OS_PYTHONPATH" = (,(getenv "MANIFOLDING_OS_PYTHONPATH"))))))))))
     (home-page "https://cdemu.sourceforge.io/")
     (synopsis "Command-line client for controlling cdemu-daemon")
     (description "CDEmu client is a simple command-line client for controlling

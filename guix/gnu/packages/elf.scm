@@ -34,14 +34,14 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages elf)
-  #:use-module (guix gexp)
-  #:use-module (guix utils)
-  #:use-module (guix packages)
-  #:use-module (guix download)
-  #:use-module (guix git-download)
-  #:use-module (guix build-system meson)
-  #:use-module (guix build-system gnu)
-  #:use-module ((guix licenses) #:prefix license:)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS utils)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS build-system meson)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
   #:use-module (gnu packages)
   #:use-module (gnu packages autotools)
   #:use-module (gnu packages compression)
@@ -413,8 +413,8 @@ changed.")
     (build-system meson-build-system)
     (arguments
      (list
-      #:modules '((guix build meson-build-system)
-                  (guix build utils)
+      #:modules '((Manifolding-OS build meson-build-system)
+                  (Manifolding-OS build utils)
                   (srfi srfi-26))
       #:configure-flags #~(list "-Dlddtree_implementation=sh")
       #:phases

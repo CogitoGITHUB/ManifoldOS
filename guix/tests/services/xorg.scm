@@ -17,8 +17,8 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (tests services xorg)
-  #:use-module (guix diagnostics)
-  #:use-module (guix packages)
+  #:use-module (Manifolding-OS diagnostics)
+  #:use-module (Manifolding-OS packages)
   #:use-module (gnu packages xorg)
   #:use-module (gnu bootloader)
   #:use-module (gnu bootloader grub)

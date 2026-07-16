@@ -32,13 +32,13 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages bioconductor)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix packages)
-  #:use-module (guix download)
-  #:use-module (guix gexp)
-  #:use-module (guix utils)
-  #:use-module (guix git-download)
-  #:use-module (guix build-system r)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS utils)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS build-system r)
   #:use-module (gnu packages)
   #:use-module (gnu packages algebra)
   #:use-module (gnu packages autotools)
@@ -2183,11 +2183,11 @@ example with the @code{biotmle} R package.")
              (setenv "HOME" "/tmp")))
          (add-after 'unpack 'avoid-internet-access
            (lambda _
-             (setenv "GUIX_BUILD" "yes")
+             (setenv "MANIFOLDING_OS_BUILD" "yes")
              (substitute* "R/zzz.R"
                (("createHubAccessors.*" m)
                 (string-append
-                 "if (Sys.getenv(\"GUIX_BUILD\") == \"\") {" m "}"))))))))
+                 "if (Sys.getenv(\"MANIFOLDING_OS_BUILD\") == \"\") {" m "}"))))))))
     (propagated-inputs (list r-experimenthub r-summarizedexperiment))
     (native-inputs (list r-knitr r-testthat))
     (home-page "https://bioconductor.org/packages/bodymapRat")
@@ -2659,11 +2659,11 @@ tracks were originally downloaded from the UCSC table browser.  See the
              (setenv "HOME" "/tmp")))
          (add-after 'unpack 'avoid-internet-access
            (lambda _
-             (setenv "GUIX_BUILD" "yes")
+             (setenv "MANIFOLDING_OS_BUILD" "yes")
              (substitute* "R/zzz.R"
                (("createHubAccessors.*" m)
                 (string-append
-                 "if (Sys.getenv(\"GUIX_BUILD\") == \"\") {" m "}"))))))))
+                 "if (Sys.getenv(\"MANIFOLDING_OS_BUILD\") == \"\") {" m "}"))))))))
     (propagated-inputs
      (list r-experimenthub r-flowcore r-summarizedexperiment))
     (native-inputs (list r-knitr))
@@ -6696,11 +6696,11 @@ set analyses, and can deal with repeated or longitudinal data.")
       #:tests? #false ;require a running JVM.
       #:configure-flags '(list "--fake")
       #:modules
-      '((guix build r-build-system)
-        ((guix build ant-build-system) #:prefix ant:)
-        (guix build utils))
+      '((Manifolding-OS build r-build-system)
+        ((Manifolding-OS build ant-build-system) #:prefix ant:)
+        (Manifolding-OS build utils))
       #:imported-modules
-      `((guix build ant-build-system)
+      `((Manifolding-OS build ant-build-system)
         ,@%r-build-system-modules)
       #:phases
       '(modify-phases %standard-phases
@@ -10519,11 +10519,11 @@ matrix to solve the memory problem.")
              (setenv "HOME" "/tmp")))
          (add-after 'unpack 'avoid-internet-access
            (lambda _
-             (setenv "GUIX_BUILD" "yes")
+             (setenv "MANIFOLDING_OS_BUILD" "yes")
              (substitute* "R/zzz.R"
                (("ExperimentHub::createHubAccessors.*" m)
                 (string-append
-                 "if (Sys.getenv(\"GUIX_BUILD\") == \"\") {" m "}"))))))))
+                 "if (Sys.getenv(\"MANIFOLDING_OS_BUILD\") == \"\") {" m "}"))))))))
     (propagated-inputs (list r-experimenthub))
     (native-inputs
      (list r-knitr r-testthat))
@@ -10808,7 +10808,7 @@ identify shared and dataset-specific factors.")
        (uri (bioconductor-uri "RnBeads" version))
        (sha256
         (base32 "0alcapsh99z7h81i71c4mlschkkckig59pgg6awkxv5z4zbl674r"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         '(delete-file-recursively "inst/bin"))))
     (properties
@@ -10965,15 +10965,15 @@ that are missing at random.")
     (arguments
      (list
       #:modules
-      '((guix build r-build-system)
-        (guix build minify-build-system)
-        (guix build utils)
+      '((Manifolding-OS build r-build-system)
+        (Manifolding-OS build minify-build-system)
+        (Manifolding-OS build utils)
         (ice-9 match))
       #:imported-modules
       `(,@%r-build-system-modules
-        (guix build minify-build-system))
+        (Manifolding-OS build minify-build-system))
       #:phases
-      #~(modify-phases (@ (guix build r-build-system) %standard-phases)
+      #~(modify-phases (@ (Manifolding-OS build r-build-system) %standard-phases)
           (add-after 'unpack 'process-javascript
             (lambda* (#:key inputs #:allow-other-keys)
               (with-directory-excursion "inst/"
@@ -12240,7 +12240,7 @@ specific parser.")
        (sha256
         (base32
          "0q9sfjzivrhvlavxdwy1pb6l3zx2jv25dy9jy23s3f67ccb8kkf1"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         '(delete-file-recursively "src/boost"))))
     (properties
@@ -13140,15 +13140,15 @@ region sets and other genomic features.")
     (build-system r-build-system)
     (arguments
      (list
-      #:modules '((guix build utils)
-                  (guix build r-build-system)
-                  (guix build minify-build-system)
+      #:modules '((Manifolding-OS build utils)
+                  (Manifolding-OS build r-build-system)
+                  (Manifolding-OS build minify-build-system)
                   (ice-9 match))
       #:imported-modules
       `(,@%r-build-system-modules
-        (guix build minify-build-system))
+        (Manifolding-OS build minify-build-system))
       #:phases
-      '(modify-phases (@ (guix build r-build-system) %standard-phases)
+      '(modify-phases (@ (Manifolding-OS build r-build-system) %standard-phases)
          (add-after 'unpack 'process-javascript
            (lambda* (#:key inputs #:allow-other-keys)
              (for-each (match-lambda
@@ -15647,11 +15647,11 @@ libraries for systems that do not have these available via other means.")
           (add-after 'unpack 'basilisk-configuration
             ;; This uses r-basilisk, which attempts to set up a Conda
             ;; environment.  We've patched basilisk to work without Conda when
-            ;; GUIX_BYPASS_BASILISK is set, so that's what we do here.
+            ;; MANIFOLDING_OS_BYPASS_BASILISK is set, so that's what we do here.
             (lambda* (#:key inputs #:allow-other-keys)
               (setenv "HOME" "/tmp")
               (setenv "RETICULATE_PYTHON" (which "python3"))
-              (setenv "GUIX_BYPASS_BASILISK" "1"))))))
+              (setenv "MANIFOLDING_OS_BYPASS_BASILISK" "1"))))))
     (propagated-inputs
      (list r-basilisk
            r-cli
@@ -16947,7 +16947,7 @@ defined categories which are over/under represented in RNA-seq data.")
        (sha256
         (base32
          "1n3x7nm65mszjz558zcfs8hrpc1wd0vf91xrh2r0pcjbgwqkmg9b"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         '(with-directory-excursion "inst/htmlwidgets/lib/"
            (for-each delete-file
@@ -16962,16 +16962,16 @@ defined categories which are over/under represented in RNA-seq data.")
     (arguments
      (list
       #:modules
-      '((guix build r-build-system)
-        (guix build minify-build-system)
-        (guix build utils)
+      '((Manifolding-OS build r-build-system)
+        (Manifolding-OS build minify-build-system)
+        (Manifolding-OS build utils)
         (srfi srfi-1)
         (ice-9 match))
       #:imported-modules
       `(,@%r-build-system-modules
-        (guix build minify-build-system))
+        (Manifolding-OS build minify-build-system))
       #:phases
-      '(modify-phases (@ (guix build r-build-system) %standard-phases)
+      '(modify-phases (@ (Manifolding-OS build r-build-system) %standard-phases)
          (add-after 'unpack 'process-javascript
            (lambda* (#:key inputs #:allow-other-keys)
              (with-directory-excursion "inst/htmlwidgets/lib/"
@@ -22026,7 +22026,7 @@ and to both short and long sequence reads.")
        (uri (bioconductor-uri "FLAMES" version))
        (sha256
         (base32 "081f52cs92slr4b644dgpyy2b0rkiggygvpnfvz16yv2cyvd715h"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         '(delete-file-recursively "src/submodule/minimap2"))))
     (properties `((upstream-name . "FLAMES")))
@@ -23263,7 +23263,7 @@ metrics, with methods for objects produced by the @code{methylumi} and
        (sha256
         (base32
          "001l93k5912fgiqp7a6h1lmlxvwn5kbgs1cal9qyl2v1i5q6ggbr"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        ;; Remove bundled sources of zlib, lz4, and xz.  Don't attempt to build
        ;; them and link with system libraries instead.
        (snippet
@@ -25008,8 +25008,8 @@ gene selection, testing relationships, and so on.")
      (list
       ;; Tests attempt to connect to the internet.
       #:tests? #false
-      #:modules '((guix build utils)
-                  (guix build r-build-system)
+      #:modules '((Manifolding-OS build utils)
+                  (Manifolding-OS build r-build-system)
                   (srfi srfi-1))
       #:phases
       '(modify-phases %standard-phases
@@ -25844,7 +25844,7 @@ block processing.")
        (sha256
         (base32
          "10hzw4fasxrrhrnjpbfvpi9ldv6q28sc9pimkiynkjjadx9x7b56"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         '(delete-file-recursively "vendor"))))
     (properties
@@ -28074,7 +28074,7 @@ package, primarily for creation of the underlying Conda instance.")
              (substitute* "R/useBasiliskEnv.R"
                (("^useBasiliskEnv <- function.*" m)
                 (string-append m "
-if (!is.na(Sys.getenv(\"GUIX_BYPASS_BASILISK\"))) {
+if (!is.na(Sys.getenv(\"MANIFOLDING_OS_BYPASS_BASILISK\"))) {
   py_config()
   return()
 }
@@ -28082,7 +28082,7 @@ if (!is.na(Sys.getenv(\"GUIX_BYPASS_BASILISK\"))) {
              (substitute* "R/basiliskStart.R"
                (("^basiliskRun <- function.*" m)
                 (string-append m "
-if (!is.na(Sys.getenv(\"GUIX_BYPASS_BASILISK\"))) {
+if (!is.na(Sys.getenv(\"MANIFOLDING_OS_BYPASS_BASILISK\"))) {
   if (is.environment(proc)) {
       output <- fun(...)
   } else {

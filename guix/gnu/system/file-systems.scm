@@ -30,10 +30,10 @@
   #:use-module (srfi srfi-26)
   #:use-module (srfi srfi-35)
   #:use-module (srfi srfi-9 gnu)
-  #:use-module (guix records)
-  #:use-module ((guix diagnostics)
+  #:use-module (Manifolding-OS records)
+  #:use-module ((Manifolding-OS diagnostics)
                 #:select (source-properties->location leave &fix-hint))
-  #:use-module (guix i18n)
+  #:use-module (Manifolding-OS i18n)
   #:use-module (gnu system uuid)
   #:re-export (uuid                               ;backward compatibility
                string->uuid
@@ -204,15 +204,15 @@ flags are found."
                                     (file-system-label->string obj))))
 
 ;; Note: This module is used both on the build side and on the host side.
-;; Arrange not to pull (guix store) and (guix config) because the latter
+;; Arrange not to pull (Manifolding-OS store) and (Manifolding-OS config) because the latter
 ;; differs from user to user.
 (define (%store-prefix)
   "Return the store prefix."
-  ;; Note: If we have (guix store database) in the search path and we do *not*
-  ;; have (guix store) proper, 'resolve-module' returns an empty (guix store)
+  ;; Note: If we have (Manifolding-OS store database) in the search path and we do *not*
+  ;; have (Manifolding-OS store) proper, 'resolve-module' returns an empty (Manifolding-OS store)
   ;; with one sub-module.
   (cond ((and=> (parameterize ((current-warning-port (%make-void-port "w0")))
-                  (resolve-module '(guix store) #:ensure #f))
+                  (resolve-module '(Manifolding-OS store) #:ensure #f))
                 (lambda (store)
                   (module-variable store '%store-prefix)))
          =>

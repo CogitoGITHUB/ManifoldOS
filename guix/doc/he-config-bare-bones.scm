@@ -3,7 +3,7 @@
              (gnu home services shells)
              (gnu services)
              (gnu packages admin)
-             (guix gexp))
+             (Manifolding-OS gexp))
 
 
 (home-environment

@@ -17,7 +17,7 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (test-status)
-  #:use-module (guix status)
+  #:use-module (Manifolding-OS status)
   #:use-module (srfi srfi-1)
   #:use-module (srfi srfi-64)
   #:use-module (srfi srfi-71)

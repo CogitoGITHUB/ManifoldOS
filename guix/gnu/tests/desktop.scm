@@ -26,7 +26,7 @@
   #:use-module (gnu services desktop)
   #:use-module (gnu system)
   #:use-module (gnu system vm)
-  #:use-module (guix gexp)
+  #:use-module (Manifolding-OS gexp)
   #:use-module (srfi srfi-1)
   #:export (%test-elogind
             %test-minimal-desktop))
@@ -39,10 +39,10 @@
 (define (run-elogind-test vm)
   (define test
     (with-imported-modules '((gnu build marionette)
-                             (guix build syscalls))
+                             (Manifolding-OS build syscalls))
       #~(begin
           (use-modules (gnu build marionette)
-                       (guix build syscalls)
+                       (Manifolding-OS build syscalls)
                        (srfi srfi-64))
 
           (define marionette
@@ -111,7 +111,7 @@
                 (service polkit-service-type)
                 (service dbus-root-service-type))
                #:imported-modules '((gnu services herd)
-                                    (guix combinators)))))
+                                    (Manifolding-OS combinators)))))
       (run-elogind-test (virtual-machine os))))))
 
 
@@ -176,10 +176,10 @@ minimal %BASE-SERVICES."
 (define (run-minimal-desktop-test os vm)
   (define test
     (with-imported-modules '((gnu build marionette)
-                             (guix build syscalls))
+                             (Manifolding-OS build syscalls))
       #~(begin
           (use-modules (gnu build marionette)
-                       (guix build syscalls)
+                       (Manifolding-OS build syscalls)
                        (srfi srfi-1)
                        (srfi srfi-64)
                        (ice-9 pretty-print))
@@ -339,7 +339,7 @@ minimal %BASE-SERVICES."
     (let* ((os (marionette-operating-system
                 (minimal-operating-system)
                 #:imported-modules '((gnu services herd)
-                                     (guix combinators))))
+                                     (Manifolding-OS combinators))))
            (vm (virtual-machine os)))
       (run-minimal-desktop-test (virtualized-operating-system os '())
                                 #~(list #$vm))))))

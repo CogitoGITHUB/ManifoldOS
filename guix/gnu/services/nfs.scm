@@ -28,10 +28,10 @@
   #:use-module (gnu services configuration)
   #:use-module (gnu services shepherd)
   #:use-module (gnu)
-  #:use-module (guix gexp)
-  #:use-module (guix modules)
-  #:use-module (guix records)
-  #:use-module (guix)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS modules)
+  #:use-module (Manifolding-OS records)
+  #:use-module (Manifolding-OS)
   #:use-module (srfi srfi-1)
   #:use-module (srfi srfi-26)
   #:use-module (srfi srfi-171)
@@ -414,9 +414,9 @@ via NFSv4."))))
            (respawn? #f)))))
 
 (define %nfs-activation
-  (with-imported-modules '((guix build utils))
+  (with-imported-modules '((Manifolding-OS build utils))
     #~(begin
-        (use-modules (guix build utils))
+        (use-modules (Manifolding-OS build utils))
 
         ;; directory containing monitor list
         (mkdir-p "/var/lib/nfs/sm")
@@ -811,9 +811,9 @@ requests.")
     (computed-file
      "autofs-config"
      (with-imported-modules
-         (source-module-closure '((guix build utils) (ice-9 match)))
+         (source-module-closure '((Manifolding-OS build utils) (ice-9 match)))
        #~(begin
-           (use-modules (guix build utils) (ice-9 match))
+           (use-modules (Manifolding-OS build utils) (ice-9 match))
 
            (mkdir-p #$output)
 
@@ -867,7 +867,7 @@ requests.")
             (autofs-configuration-mounts config))))
          (mount-points (append direct-mount-points indirect-mount-points)))
     #~(begin
-        (use-modules (guix build utils))
+        (use-modules (Manifolding-OS build utils))
         (for-each mkdir-p (cons "/var/lib/nfs/sm" '#$mount-points))
         (when (or (false-if-exception (lstat #$conf-link))
                   (stat #$conf-link #f))

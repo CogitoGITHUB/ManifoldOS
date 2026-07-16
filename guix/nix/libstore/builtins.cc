@@ -30,7 +30,7 @@ static void builtinDownload(const Derivation &drv,
 			    const std::string &drvPath,
 			    const std::string &output)
 {
-    /* Invoke 'guix perform-download'.  */
+    /* Invoke 'Manifolding-OS perform-download'.  */
     Strings args;
     args.push_back("perform-download");
     args.push_back(drvPath);
@@ -40,7 +40,7 @@ static void builtinDownload(const Derivation &drv,
 
     const char *const argv[] =
       {
-	  "guix", "perform-download", drvPath.c_str(), output.c_str(), NULL
+	  "Manifolding-OS", "perform-download", drvPath.c_str(), output.c_str(), NULL
       };
 
     /* Tell the script what the store file name is, so that
@@ -51,7 +51,7 @@ static void builtinDownload(const Derivation &drv,
     /* Tell it about options such as "print-extended-build-trace".  */
     setenv("_NIX_OPTIONS", settings.pack().c_str(), 1);
 
-    const string program = settings.guixProgram;
+    const string program = settings.ManifoldingOSProgram;
     execv(program.c_str(), (char *const *) argv);
 
     throw SysError(std::format("failed to run download program '{}'", program));

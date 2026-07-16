@@ -17,19 +17,19 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (test-modules)
-  #:use-module (guix modules)
-  #:use-module ((guix build-system gnu) #:select (%default-gnu-imported-modules))
-  #:use-module ((guix utils) #:select (call-with-temporary-directory))
+  #:use-module (Manifolding-OS modules)
+  #:use-module ((Manifolding-OS build-system gnu) #:select (%default-gnu-imported-modules))
+  #:use-module ((Manifolding-OS utils) #:select (call-with-temporary-directory))
   #:use-module (srfi srfi-1)
   #:use-module (srfi srfi-34)
   #:use-module (srfi srfi-64))
 
 (test-begin "modules")
 
-(test-assert "closure of (guix build gnu-build-system)"
+(test-assert "closure of (Manifolding-OS build gnu-build-system)"
   (lset= equal?
-         (live-module-closure '((guix build gnu-build-system)))
-         (source-module-closure '((guix build gnu-build-system)))
+         (live-module-closure '((Manifolding-OS build gnu-build-system)))
+         (source-module-closure '((Manifolding-OS build gnu-build-system)))
          %default-gnu-imported-modules
          (source-module-closure %default-gnu-imported-modules)
          (live-module-closure %default-gnu-imported-modules)))
@@ -66,11 +66,11 @@
                               #:select? (const #t))))))
 
 (test-equal "file-name->module-name"
-  '(guix foo)
-  (file-name->module-name "guix/foo.scm"))
+  '(Manifolding-OS foo)
+  (file-name->module-name "Manifolding-OS/foo.scm"))
 
 (test-equal "file-name->module-name, leading dot"
-  '(guix foo)
+  '(Manifolding-OS foo)
   (file-name->module-name "./guix/foo.scm"))
 
 (test-end)

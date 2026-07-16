@@ -87,23 +87,23 @@
   #:use-module (gnu packages version-control)
   #:use-module (gnu packages xml)
   #:use-module (gnu packages)
-  #:use-module (guix build-system cmake)
-  #:use-module (guix build-system copy)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system guile)
-  #:use-module (guix build-system hare)
-  #:use-module (guix build-system meson)
-  #:use-module (guix build-system pyproject)
-  #:use-module (guix build-system trivial)
-  #:use-module (guix deprecation)
-  #:use-module (guix download)
-  #:use-module (guix gexp)
-  #:use-module (guix git-download)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix modules)
-  #:use-module (guix packages)
-  #:use-module (guix search-paths)
-  #:use-module (guix utils)
+  #:use-module (Manifolding-OS build-system cmake)
+  #:use-module (Manifolding-OS build-system copy)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system guile)
+  #:use-module (Manifolding-OS build-system hare)
+  #:use-module (Manifolding-OS build-system meson)
+  #:use-module (Manifolding-OS build-system pyproject)
+  #:use-module (Manifolding-OS build-system trivial)
+  #:use-module (Manifolding-OS deprecation)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS modules)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS search-paths)
+  #:use-module (Manifolding-OS utils)
   #:use-module (ice-9 optargs)
   #:use-module (srfi srfi-1))
 
@@ -153,7 +153,7 @@ Bourne shell script instead of m4.")
              (commit (string-append "v" version))))
        (file-name (git-file-name name version))
        (sha256 (base32 "002b380073cpxlqziia2gvngywrb37b08p9k0zk9vlxn2p174hc6"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         #~(begin
             (delete-file "jimsh0.c")
@@ -522,9 +522,9 @@ with minimal dependencies.")
     (build-system trivial-build-system)
     (arguments
      (list #:builder
-           (with-imported-modules '((guix build utils))
+           (with-imported-modules '((Manifolding-OS build utils))
              #~(begin
-                 (use-modules (guix build utils))
+                 (use-modules (Manifolding-OS build utils))
                  (let ((bindir (string-append #$output "/bin"))
                        (samu (string-append #$(this-package-input "muon")
                                             "/bin/muon")))
@@ -632,7 +632,7 @@ other lower-level build files.")))
       #:modules (append %pyproject-build-system-modules
                         '((ice-9 ftw) (srfi srfi-26)))
       #:phases
-      #~(modify-phases (@ (guix build pyproject-build-system) %standard-phases)
+      #~(modify-phases (@ (Manifolding-OS build pyproject-build-system) %standard-phases)
           (add-after 'unpack 'adjust-hard-coded-paths
             (lambda _
               (substitute* "SCons/Script/Main.py"
@@ -683,7 +683,7 @@ software.")
               (sha256
                (base32
                 "1yv60apd8dsigb74cjw1nzvqqqpjbsxz1i9dhq24jdkjwgsra3w4"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                '(begin
                   ;; NOTE: Tup uses a slightly modified Lua, so it cannot be
@@ -961,9 +961,9 @@ Makefiles, JSON Compilation Database, and experimentally Ninja.")
        (file-name (git-file-name name version))
        (sha256 hash)
        (snippet
-        (with-imported-modules (source-module-closure '((guix build utils)))
+        (with-imported-modules (source-module-closure '((Manifolding-OS build utils)))
           #~(begin
-              (use-modules (guix build utils)
+              (use-modules (Manifolding-OS build utils)
                            (ice-9 ftw)
                            (ice-9 rdelim))
               ;; .c, .h and .gperf files whose first line is /* DO NOT EDIT!
@@ -1004,9 +1004,9 @@ Makefiles, JSON Compilation Database, and experimentally Ninja.")
           ("./gnulib-tool.sh" "bin/")
           ("." "src/gnulib" #:exclude-regexp ("\\.git.*")))
       #:modules '((ice-9 match)
-                  (guix build utils)
-                  (guix build copy-build-system)
-                  ((guix build gnu-build-system) #:prefix gnu:))
+                  (Manifolding-OS build utils)
+                  (Manifolding-OS build copy-build-system)
+                  ((Manifolding-OS build gnu-build-system) #:prefix gnu:))
       #:phases
       #~(modify-phases %standard-phases
           ;; Since this package is intended to be used in source form, it
@@ -1559,9 +1559,9 @@ replacement, use the @code{samu-as-ninja-wrapper} package.")
     (build-system trivial-build-system)
     (arguments
      (list #:builder
-           (with-imported-modules '((guix build utils))
+           (with-imported-modules '((Manifolding-OS build utils))
              #~(begin
-                 (use-modules (guix build utils))
+                 (use-modules (Manifolding-OS build utils))
                  (let ((bindir (string-append #$output "/bin"))
                        (samu (string-append #$(this-package-input "samurai")
                                             "/bin/samu")))

@@ -84,19 +84,19 @@
   #:use-module (gnu packages xiph)
   #:use-module (gnu packages xml)
   #:use-module (gnu packages xorg)
-  #:use-module (guix build-system ant)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system cmake)
-  #:use-module (guix build-system pyproject)
-  #:use-module (guix build-system r)
-  #:use-module (guix download)
-  #:use-module (guix gexp)
-  #:use-module (guix git-download)
-  #:use-module (guix hg-download)
-  #:use-module (guix svn-download)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix packages)
-  #:use-module (guix utils)
+  #:use-module (Manifolding-OS build-system ant)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system cmake)
+  #:use-module (Manifolding-OS build-system pyproject)
+  #:use-module (Manifolding-OS build-system r)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS hg-download)
+  #:use-module (Manifolding-OS svn-download)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS utils)
   #:use-module (ice-9 match))
 
 
@@ -422,8 +422,8 @@ precision.")
     (arguments
      (list
       #:modules '((ice-9 ftw)
-                  (guix build utils)
-                  (guix build gnu-build-system))
+                  (Manifolding-OS build utils)
+                  (Manifolding-OS build gnu-build-system))
       #:phases
       #~(modify-phases %standard-phases
           (add-after 'unpack 'patch-bin-cp
@@ -589,7 +589,7 @@ other mathematical functions.")
             (sha256
              (base32
               "12ka3hym4skg63mp8vgkin79svbpdk2m6i41yvmcdjq62g1hc391"))
-            (modules '((guix build utils)))
+            (modules '((Manifolding-OS build utils)))
             (snippet
              '(begin
                 (delete-file-recursively "src/libtool-origin")))))
@@ -1302,7 +1302,7 @@ Python.")
                 "0k1c4qnymwwvm68rv6s0cyk08xbw65ixvwqccsh36c2axcqk3znp"))
               (file-name (git-file-name name version))
               (patches (search-patches "eigen-fix-strict-aliasing-bug.patch"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                ;; There are 3 test failures in the "unsupported" directory,
                ;; but maintainers say it's a known issue and it's unsupported
@@ -1318,8 +1318,8 @@ Python.")
        #:build-type "Release"
 
        #:modules ((ice-9 match)
-                  (guix build utils)
-                  (guix build cmake-build-system))
+                  (Manifolding-OS build utils)
+                  (Manifolding-OS build cmake-build-system))
 
        #:phases
        (modify-phases %standard-phases
@@ -1549,7 +1549,7 @@ xtensor provides:
                            "/tar.gz/gap-" version ".tar.gz"))
        (sha256
         (base32 "11v4a3cpjpf6pc0hd6x1wlglq9jzakq4naggp671psvgq9r54pw4"))
-       (modules '((guix build utils) (ice-9 ftw) (srfi srfi-1)))
+       (modules '((Manifolding-OS build utils) (ice-9 ftw) (srfi srfi-1)))
        (snippet
         '(begin
            ;; Delete bundled external libraries.
@@ -2217,7 +2217,7 @@ and not by the available RAM.")
                 (sha256
                  (base32
                   "04n7z6abfpqxgmdc1vpv2yy4qccvyxdp6klld94wr740dv8r49l2"))
-                (modules '((guix build utils)))
+                (modules '((Manifolding-OS build utils)))
                 (patches (search-patches "reduce-unbundle-libffi.patch"))
                 (snippet '(map delete-file-recursively
                                (append (find-files "csl/generated-c" "\\.img$")

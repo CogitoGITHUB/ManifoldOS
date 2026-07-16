@@ -15,6 +15,6 @@ Copyright © 2017 Arun Isaac <arunisaac@systemreboot.net>
 
 See the manual for useful hacking information, either by running
 
-  info -f doc/guix.info "Contributing"
+  info -f doc/Manifolding-OS.info "Contributing"
 
 or by checking the [[https://guix.gnu.org/manual/devel/en/html_node/Contributing.html][web copy of the manual]].

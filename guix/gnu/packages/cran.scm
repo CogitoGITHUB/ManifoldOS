@@ -63,14 +63,14 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages cran)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix packages)
-  #:use-module (guix download)
-  #:use-module (guix gexp)
-  #:use-module (guix git-download)
-  #:use-module (guix utils)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system r)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS utils)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system r)
   #:use-module (gnu packages)
   #:use-module (gnu packages algebra)
   #:use-module (gnu packages autotools)
@@ -3759,7 +3759,7 @@ it is stored, whether in a data frame, a data table or database.")
                 (sha256
                  (base32
                   "1wpi949agfi2m05axrqjm2b5yp626g8v3bbjy19mpxkay9g04ql8"))
-                (modules '((guix build utils)
+                (modules '((Manifolding-OS build utils)
                            (ice-9 match)))
                 (snippet
                  `(with-directory-excursion "inst/htmlwidgets/lib"
@@ -3795,15 +3795,15 @@ it is stored, whether in a data frame, a data table or database.")
       (build-system r-build-system)
       (arguments
        `(#:modules
-         ((guix build r-build-system)
-          (guix build minify-build-system)
-          (guix build utils)
+         ((Manifolding-OS build r-build-system)
+          (Manifolding-OS build minify-build-system)
+          (Manifolding-OS build utils)
           (ice-9 match))
          #:imported-modules
          (,@%r-build-system-modules
-          (guix build minify-build-system))
+          (Manifolding-OS build minify-build-system))
          #:phases
-         (modify-phases (@ (guix build r-build-system) %standard-phases)
+         (modify-phases (@ (Manifolding-OS build r-build-system) %standard-phases)
            (add-after 'unpack 'process-javascript
              (lambda* (#:key inputs #:allow-other-keys)
                (with-directory-excursion "inst/htmlwidgets/lib/"
@@ -6748,7 +6748,7 @@ options and registries, vignette, unit test and bibtex related utilities.")
               (sha256
                (base32
                 "1kvsf8rf1v6yz28aq91d3j0n4hb5pg0x2hnm27gcc2amwkbdpxpr"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                '(with-directory-excursion "inst/htmlwidgets/lib/"
                   (for-each delete-file
@@ -6759,8 +6759,8 @@ options and registries, vignette, unit test and bibtex related utilities.")
     (build-system r-build-system)
     (arguments
      (list
-      #:modules '((guix build utils)
-                  (guix build r-build-system)
+      #:modules '((Manifolding-OS build utils)
+                  (Manifolding-OS build r-build-system)
                   (srfi srfi-1))
       #:phases
       '(modify-phases %standard-phases
@@ -7507,13 +7507,13 @@ approximate, exact searches, fixed radius searches, bd and kb trees.")
     (build-system r-build-system)
     (arguments
      (list
-      #:modules '((guix build r-build-system)
-                  ((guix build minify-build-system)
+      #:modules '((Manifolding-OS build r-build-system)
+                  ((Manifolding-OS build minify-build-system)
                    #:select (minify))
-                  (guix build utils)
+                  (Manifolding-OS build utils)
                   (ice-9 match))
       #:imported-modules
-      `(,@%r-build-system-modules (guix build minify-build-system))
+      `(,@%r-build-system-modules (Manifolding-OS build minify-build-system))
       #:phases
       #~(modify-phases %standard-phases
           (add-after 'unpack 'process-javascript
@@ -8646,8 +8646,8 @@ previous R versions and their release dates.")
     (properties `((upstream-name . "prettydoc")))
     (build-system r-build-system)
     (arguments
-     `(#:modules ((guix build utils)
-                  (guix build r-build-system)
+     `(#:modules ((Manifolding-OS build utils)
+                  (Manifolding-OS build r-build-system)
                   (srfi srfi-1))
        #:phases
        (modify-phases %standard-phases
@@ -9005,7 +9005,7 @@ easier.")
                 (sha256
                  (base32
                   "0s5d09srd1d1s35lp2fb93dvyfkjv1rasbl25ps1p137jv7zn079"))
-                (modules '((guix build utils)))
+                (modules '((Manifolding-OS build utils)))
                 (snippet
                  '(delete-file-recursively "inst/packer"))))
       (properties `((upstream-name . "waiter")))
@@ -9013,14 +9013,14 @@ easier.")
       (arguments
        (list
         #:modules
-        '((guix build r-build-system)
-          (guix build minify-build-system)
-          (guix build utils))
+        '((Manifolding-OS build r-build-system)
+          (Manifolding-OS build minify-build-system)
+          (Manifolding-OS build utils))
         #:imported-modules
         `(,@%r-build-system-modules
-          (guix build minify-build-system))
+          (Manifolding-OS build minify-build-system))
         #:phases
-        '(modify-phases (@ (guix build r-build-system) %standard-phases)
+        '(modify-phases (@ (Manifolding-OS build r-build-system) %standard-phases)
            (add-after 'unpack 'process-javascript
              (lambda* (#:key inputs #:allow-other-keys)
                (mkdir-p "inst/packer")
@@ -15925,7 +15925,7 @@ that can be distributed without access to a live server.")
               (sha256
                (base32
                 "0wv23lna87cyj19332xy5dn7ik1l8hsbhss44b8brf266phhd1fi"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               ;; Cannot unbundle http-parser, because it contains local
               ;; modifications.
               (snippet
@@ -16311,14 +16311,14 @@ applications.")
     (arguments
      (list
       #:modules
-      '((guix build r-build-system)
-        (guix build minify-build-system)
-        (guix build utils))
+      '((Manifolding-OS build r-build-system)
+        (Manifolding-OS build minify-build-system)
+        (Manifolding-OS build utils))
       #:imported-modules
       `(,@%r-build-system-modules
-        (guix build minify-build-system))
+        (Manifolding-OS build minify-build-system))
       #:phases
-      #~(modify-phases (@ (guix build r-build-system) %standard-phases)
+      #~(modify-phases (@ (Manifolding-OS build r-build-system) %standard-phases)
           (add-after 'unpack 'replace-bundled-minified-JavaScript
             (lambda* (#:key inputs #:allow-other-keys)
               (minify (assoc-ref inputs "jquery-3.7.1.js")
@@ -16602,8 +16602,8 @@ multi-state models.")
     (properties `((upstream-name . "jquerylib")))
     (build-system r-build-system)
     (arguments
-     `(#:modules ((guix build utils)
-                  (guix build r-build-system)
+     `(#:modules ((Manifolding-OS build utils)
+                  (Manifolding-OS build r-build-system)
                   (srfi srfi-1))
        #:phases
        (modify-phases %standard-phases
@@ -16819,12 +16819,12 @@ Markdown documents.  More generally, icons can be inserted in any
     (build-system r-build-system)
     (arguments
      (list
-      #:modules '((guix build r-build-system)
-                  (guix build minify-build-system)
-                  (guix build utils)
+      #:modules '((Manifolding-OS build r-build-system)
+                  (Manifolding-OS build minify-build-system)
+                  (Manifolding-OS build utils)
                   (ice-9 match))
       #:imported-modules `(,@%r-build-system-modules
-                           (guix build minify-build-system))
+                           (Manifolding-OS build minify-build-system))
       #:skipped-tests
       ;; These tests require shiny, leading to a dependency cycle.
       '(("test-layout.R"
@@ -16839,7 +16839,7 @@ Markdown documents.  More generally, icons can be inserted in any
         ("test-input-submit.R"
          "input_submit_textarea\\(\\) markup snapshots"))
       #:phases
-      #~(modify-phases (@ (guix build r-build-system) %standard-phases)
+      #~(modify-phases (@ (Manifolding-OS build r-build-system) %standard-phases)
           ;; When using themes, bslib copies theme dependencies, such as
           ;; bootstrap.bundle.min.js or selectize.min.js, into a temporary
           ;; directory.  Since these files are copied from the read-only
@@ -16951,15 +16951,15 @@ previewing themes in real time.")
     (build-system r-build-system)
     (arguments
      (list
-      #:modules '((guix build r-build-system)
-                  (guix build minify-build-system)
-                  (guix build utils)
+      #:modules '((Manifolding-OS build r-build-system)
+                  (Manifolding-OS build minify-build-system)
+                  (Manifolding-OS build utils)
                   (ice-9 match))
       #:imported-modules
       `(,@%r-build-system-modules
-        (guix build minify-build-system))
+        (Manifolding-OS build minify-build-system))
       #:phases
-      '(modify-phases (@ (guix build r-build-system) %standard-phases)
+      '(modify-phases (@ (Manifolding-OS build r-build-system) %standard-phases)
          ;; This is needed for some tests.
          (add-before 'check 'set-HOME
            (lambda _ (setenv "HOME" "/tmp")))
@@ -17225,8 +17225,8 @@ and easily share url to pages within your Shiny apps.")
       ;; This file requires r-shinytest, which has a big JavaScript problem.
       #:skipped-tests
       '("test_tree_interactive.R")
-      #:modules '((guix build utils)
-                  (guix build r-build-system)
+      #:modules '((Manifolding-OS build utils)
+                  (Manifolding-OS build r-build-system)
                   (srfi srfi-1))
       #:phases
       '(modify-phases %standard-phases
@@ -17342,7 +17342,7 @@ application framework for R, making it easy to create attractive dashboards.")
               (sha256
                (base32
                 "0f50861pzh7n2z0fsqmpmjb2cwgrjxik854cwcwbm6k310fxb096"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                `(begin
                   (with-directory-excursion
@@ -17364,15 +17364,15 @@ application framework for R, making it easy to create attractive dashboards.")
       ;; will block forever, so we just don't run them.
       #:tests? #false
       #:modules
-      '((guix build r-build-system)
-        (guix build minify-build-system)
-        (guix build utils)
+      '((Manifolding-OS build r-build-system)
+        (Manifolding-OS build minify-build-system)
+        (Manifolding-OS build utils)
         (ice-9 match))
       #:imported-modules
       `(,@%r-build-system-modules
-        (guix build minify-build-system))
+        (Manifolding-OS build minify-build-system))
       #:phases
-      #~(modify-phases (@ (guix build r-build-system) %standard-phases)
+      #~(modify-phases (@ (Manifolding-OS build r-build-system) %standard-phases)
           (add-after 'unpack 'process-javascript
             (lambda* (#:key inputs #:allow-other-keys)
               (with-directory-excursion
@@ -17486,8 +17486,8 @@ Bootstrap themes, which are packaged for use with Shiny applications.")
                      "inst/www/d3/v7/dist/d3.min.js")))))
     (build-system r-build-system)
     (arguments
-     `(#:modules ((guix build utils)
-                  (guix build r-build-system)
+     `(#:modules ((Manifolding-OS build utils)
+                  (Manifolding-OS build r-build-system)
                   (srfi srfi-1))
        #:phases
        (modify-phases %standard-phases
@@ -17847,12 +17847,12 @@ standardized mean differences.  Weighted data are supported via the
     (build-system r-build-system)
     (arguments
      (list
-      #:modules '((guix build r-build-system)
-                  (guix build minify-build-system)
-                  (guix build utils)
+      #:modules '((Manifolding-OS build r-build-system)
+                  (Manifolding-OS build minify-build-system)
+                  (Manifolding-OS build utils)
                   (ice-9 match))
       #:imported-modules `(,@%r-build-system-modules
-                           (guix build minify-build-system))
+                           (Manifolding-OS build minify-build-system))
       #:phases
       '(modify-phases %standard-phases
          (add-after 'unpack 'process-javascript
@@ -17985,14 +17985,14 @@ analyses.")
     (build-system r-build-system)
     (arguments
      (list
-      #:modules '((guix build r-build-system)
-                  (guix build minify-build-system)
-                  (guix build utils)
+      #:modules '((Manifolding-OS build r-build-system)
+                  (Manifolding-OS build minify-build-system)
+                  (Manifolding-OS build utils)
                   (ice-9 match))
       #:imported-modules `(,@%r-build-system-modules
-                           (guix build minify-build-system))
+                           (Manifolding-OS build minify-build-system))
       #:phases
-      #~(modify-phases (@ (guix build r-build-system) %standard-phases)
+      #~(modify-phases (@ (Manifolding-OS build r-build-system) %standard-phases)
           (add-after 'unpack 'replace-bundled-minified-JavaScript
             (lambda* (#:key inputs #:allow-other-keys)
               (with-directory-excursion "inst/"
@@ -18456,7 +18456,7 @@ plot functionality is provided in a single ggplot2 layer by calling the
        (sha256
         (base32
          "19f9n7a4g90fdwhx66cjyxmzm5zdgwqkawk8ry587qb06yfcv0ll"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         ;; unvendor readstat
         '(delete-file-recursively "src/readstat"))))
@@ -19589,15 +19589,15 @@ Jammalamadaka and A. @code{SenGupta}, World Scientific.")
     (arguments
      (list
       #:modules
-      '((guix build r-build-system)
-        (guix build minify-build-system)
-        (guix build utils)
+      '((Manifolding-OS build r-build-system)
+        (Manifolding-OS build minify-build-system)
+        (Manifolding-OS build utils)
         (ice-9 match))
       #:imported-modules
       `(,@%r-build-system-modules
-        (guix build minify-build-system))
+        (Manifolding-OS build minify-build-system))
       #:phases
-      #~(modify-phases (@ (guix build r-build-system) %standard-phases)
+      #~(modify-phases (@ (Manifolding-OS build r-build-system) %standard-phases)
           (add-after 'unpack 'process-javascript
             (lambda* (#:key inputs #:allow-other-keys)
               (with-directory-excursion "inst/htmlwidgets/lib/"
@@ -20350,15 +20350,15 @@ a variety of different samplers.")
     (arguments
      (list
       #:modules
-      '((guix build r-build-system)
-        (guix build minify-build-system)
-        (guix build utils)
+      '((Manifolding-OS build r-build-system)
+        (Manifolding-OS build minify-build-system)
+        (Manifolding-OS build utils)
         (ice-9 match))
       #:imported-modules
       `(,@%r-build-system-modules
-        (guix build minify-build-system))
+        (Manifolding-OS build minify-build-system))
       #:phases
-      '(modify-phases (@ (guix build r-build-system) %standard-phases)
+      '(modify-phases (@ (Manifolding-OS build r-build-system) %standard-phases)
          (add-after 'unpack 'process-javascript
            (lambda* (#:key inputs #:allow-other-keys)
              (with-directory-excursion "inst/"
@@ -20677,14 +20677,14 @@ can safely interchange most code.")
     (arguments
      (list
       #:modules
-      '((guix build r-build-system)
-        (guix build minify-build-system)
-        (guix build utils))
+      '((Manifolding-OS build r-build-system)
+        (Manifolding-OS build minify-build-system)
+        (Manifolding-OS build utils))
       #:imported-modules
       `(,@%r-build-system-modules
-        (guix build minify-build-system))
+        (Manifolding-OS build minify-build-system))
       #:phases
-      #~(modify-phases (@ (guix build r-build-system) %standard-phases)
+      #~(modify-phases (@ (Manifolding-OS build r-build-system) %standard-phases)
           (add-after 'unpack 'process-javascript
             (lambda* (#:key inputs #:allow-other-keys)
               (with-directory-excursion "inst/htmlwidgets/lib/jexcel/js"
@@ -23503,7 +23503,7 @@ about a real-valued functional of the multinomial probabilities.")
        (sha256
         (base32
          "0vyw284fwb17ih25swpvbd419gxr6swnrbsh70b68imnna28bdnl"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         '(with-directory-excursion "inst/doc"
            ;; These files are generated from Rnw files.
@@ -23975,12 +23975,12 @@ multivariate function estimation using smoothing splines.")
          ;; Do not embed the PID of the build process.
          (add-after 'unpack 'build-reproducibly
            (lambda _
-             (setenv "GUIX_BUILD" "yes")
+             (setenv "MANIFOLDING_OS_BUILD" "yes")
              (substitute* '("R/onload.R" "R/app.R")
                (("\\<- Sys\\.getpid\\(\\)")
                 (lambda _
                   (string-append
-                   "<- if (Sys.getenv(\"GUIX_BUILD\") == \"\") { Sys.getpid() } else { 12345 }")))))))))
+                   "<- if (Sys.getenv(\"MANIFOLDING_OS_BUILD\") == \"\") { Sys.getpid() } else { 12345 }")))))))))
     (home-page "https://github.com/r-lib/cli#readme")
     (synopsis "Helpers for developing command line interfaces")
     (description "This package provides a suite of tools designed to build
@@ -24810,7 +24810,7 @@ explored with minimal deviation from the common work patterns of
        (uri (cran-uri "nanonext" version))
        (sha256
         (base32 "0rakw94r6vg8dxg60zgxv6fxx26i9mp2gnfgvgapjjwz0jnhhjkw"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         '(begin (delete-file-recursively "src/mbedtls")
                 (delete-file-recursively "src/nng")))))
@@ -25435,8 +25435,8 @@ information between package updates.")
        (updater-extra-native-inputs . ("r-shiny"))))
     (build-system r-build-system)
     (arguments
-     `(#:modules ((guix build utils)
-                  (guix build r-build-system)
+     `(#:modules ((Manifolding-OS build utils)
+                  (Manifolding-OS build r-build-system)
                   (srfi srfi-1))
        #:phases
        (modify-phases %standard-phases
@@ -26741,7 +26741,7 @@ local smoothers and many more.")
        (sha256
         (base32
          "031wgck6xxx8i21sn8n412vshba75wd0cjs3bs79x21hmmx96f6y"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         '(delete-file "inst/assets/html2canvas/html2canvas.min.js"))))
     (properties `((upstream-name . "radiant.data")))
@@ -26749,14 +26749,14 @@ local smoothers and many more.")
     (arguments
      (list
       #:modules
-      '((guix build r-build-system)
-        (guix build minify-build-system)
-        (guix build utils))
+      '((Manifolding-OS build r-build-system)
+        (Manifolding-OS build minify-build-system)
+        (Manifolding-OS build utils))
       #:imported-modules
       `(,@%r-build-system-modules
-        (guix build minify-build-system))
+        (Manifolding-OS build minify-build-system))
       #:phases
-      #~(modify-phases (@ (guix build r-build-system) %standard-phases)
+      #~(modify-phases (@ (Manifolding-OS build r-build-system) %standard-phases)
           (add-after 'unpack 'process-javascript
             (lambda* (#:key inputs #:allow-other-keys)
               (with-directory-excursion "inst/assets/html2canvas/"
@@ -28022,8 +28022,8 @@ it.")
     (properties `((upstream-name . "rgexf")))
     (build-system r-build-system)
     (arguments
-     `(#:modules ((guix build utils)
-                  (guix build r-build-system)
+     `(#:modules ((Manifolding-OS build utils)
+                  (Manifolding-OS build r-build-system)
                   (srfi srfi-1)
                   (ice-9 popen))
        #:phases
@@ -28541,14 +28541,14 @@ file.")
     (build-system r-build-system)
     (arguments
      (list
-      #:modules '((guix build r-build-system)
-                  (guix build minify-build-system)
-                  (guix build utils)
+      #:modules '((Manifolding-OS build r-build-system)
+                  (Manifolding-OS build minify-build-system)
+                  (Manifolding-OS build utils)
                   (ice-9 match))
       #:imported-modules `(,@%r-build-system-modules
-                           (guix build minify-build-system))
+                           (Manifolding-OS build minify-build-system))
       #:phases
-      '(modify-phases (@ (guix build r-build-system) %standard-phases)
+      '(modify-phases (@ (Manifolding-OS build r-build-system) %standard-phases)
          (add-after 'unpack 'process-javascript
            (lambda* (#:key inputs #:allow-other-keys)
              (with-directory-excursion "inst/htmlwidgets/lib/billboard/"
@@ -30461,14 +30461,14 @@ tiles to a georeferenced raster image.")
     (build-system r-build-system)
     (arguments
      (list
-      #:modules '((guix build r-build-system)
-                  (guix build minify-build-system)
-                  (guix build utils)
+      #:modules '((Manifolding-OS build r-build-system)
+                  (Manifolding-OS build minify-build-system)
+                  (Manifolding-OS build utils)
                   (ice-9 match))
       #:imported-modules `(,@%r-build-system-modules
-                           (guix build minify-build-system))
+                           (Manifolding-OS build minify-build-system))
       #:phases
-      '(modify-phases (@ (guix build r-build-system) %standard-phases)
+      '(modify-phases (@ (Manifolding-OS build r-build-system) %standard-phases)
          ;; These two tests use the deprecated procedure "with_mock" that has
          ;; since been removed from testthat.
          (add-after 'unpack 'testthat-compatibility
@@ -32478,7 +32478,7 @@ bilateral asymmetry in parasitic infections.")
        (sha256
         (base32
          "06cikmpgv0dla92dhp8i89wj52wjwky1g4sb9cxqpac38bx1xrgc"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         '(with-directory-excursion "inst/doc"
            ;; These files are generated from Rnw files.
@@ -34300,7 +34300,7 @@ package provides a minimal R interface by relying on the Rcpp package.")
        (sha256
         (base32
          "02wq4x5s4y1p2q55km6lllqy6m9pjyzmpz8k3dg1g06dc8yh239m"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         '(delete-file-recursively "src/tbb/"))))
     (properties
@@ -37574,7 +37574,7 @@ putative directions).")
               (sha256
                (base32
                 "1x2cpykcmq5a30c0mf22h2pnnanqij0yqjv3q33xzx11c07fpzfj"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                '(with-directory-excursion "inst/htmlwidgets/lib"
                   (for-each delete-file
@@ -37585,14 +37585,14 @@ putative directions).")
     (build-system r-build-system)
     (arguments
      (list
-      #:modules '((guix build r-build-system)
-                  (guix build minify-build-system)
-                  (guix build utils)
+      #:modules '((Manifolding-OS build r-build-system)
+                  (Manifolding-OS build minify-build-system)
+                  (Manifolding-OS build utils)
                   (ice-9 match))
       #:imported-modules `(,@%r-build-system-modules
-                           (guix build minify-build-system))
+                           (Manifolding-OS build minify-build-system))
       #:phases
-      '(modify-phases (@ (guix build r-build-system) %standard-phases)
+      '(modify-phases (@ (Manifolding-OS build r-build-system) %standard-phases)
          (add-after 'unpack 'process-javascript
            (lambda* (#:key inputs #:allow-other-keys)
              (with-directory-excursion "inst/htmlwidgets/lib/"
@@ -40597,14 +40597,14 @@ SELECT or UPDATE queries to an end-point.")
     (build-system r-build-system)
     (arguments
      (list
-      #:modules '((guix build r-build-system)
-                  (guix build minify-build-system)
-                  (guix build utils)
+      #:modules '((Manifolding-OS build r-build-system)
+                  (Manifolding-OS build minify-build-system)
+                  (Manifolding-OS build utils)
                   (ice-9 match))
       #:imported-modules `(,@%r-build-system-modules
-                           (guix build minify-build-system))
+                           (Manifolding-OS build minify-build-system))
       #:phases
-      #~(modify-phases (@ (guix build r-build-system) %standard-phases)
+      #~(modify-phases (@ (Manifolding-OS build r-build-system) %standard-phases)
           (add-after 'unpack 'process-javascript
             (lambda* (#:key inputs #:allow-other-keys)
               (with-directory-excursion "inst/resources"
@@ -41681,8 +41681,8 @@ discriminant analysis for the purpose of classifying high dimensional data.")
     (build-system r-build-system)
     (arguments
      (list
-      #:modules '((guix build utils)
-                  (guix build r-build-system)
+      #:modules '((Manifolding-OS build utils)
+                  (Manifolding-OS build r-build-system)
                   (srfi srfi-1))
       #:phases
       #~(modify-phases %standard-phases
@@ -41783,14 +41783,14 @@ and Learning to Rank measures (LambdaMart).")
     (build-system r-build-system)
     (arguments
      (list
-      #:modules '((guix build r-build-system)
-                  (guix build minify-build-system)
-                  (guix build utils)
+      #:modules '((Manifolding-OS build r-build-system)
+                  (Manifolding-OS build minify-build-system)
+                  (Manifolding-OS build utils)
                   (ice-9 match))
       #:imported-modules `(,@%r-build-system-modules
-                           (guix build minify-build-system))
+                           (Manifolding-OS build minify-build-system))
       #:phases
-      #~(modify-phases (@ (guix build r-build-system) %standard-phases)
+      #~(modify-phases (@ (Manifolding-OS build r-build-system) %standard-phases)
           (add-after 'unpack 'process-javascript
             (lambda* (#:key inputs #:allow-other-keys)
               (with-directory-excursion "inst"
@@ -42142,8 +42142,8 @@ interface for editing @code{ggplot2} theme elements.")
                      "inst/www/stickytableheaders/jquery.stickytableheaders.min.js")))))
     (build-system r-build-system)
     (arguments
-     `(#:modules ((guix build utils)
-                  (guix build r-build-system)
+     `(#:modules ((Manifolding-OS build utils)
+                  (Manifolding-OS build r-build-system)
                   (srfi srfi-1)
                   (srfi srfi-26)
                   (ice-9 textual-ports))
@@ -43824,7 +43824,7 @@ fitted distribution.")
               (sha256
                (base32
                 "07fj6npq65pq836vdwblkhprdaq4i4f13cwdmm9gmxrnk72xj7lh"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                '(with-directory-excursion "inst/htmlwidgets/lib"
                   (for-each delete-file
@@ -43838,8 +43838,8 @@ fitted distribution.")
     (build-system r-build-system)
     (arguments
      (list
-      #:modules '((guix build utils)
-                  (guix build r-build-system)
+      #:modules '((Manifolding-OS build utils)
+                  (Manifolding-OS build r-build-system)
                   (srfi srfi-1))
       #:phases
       '(modify-phases %standard-phases
@@ -44243,7 +44243,7 @@ and interfaces to external frameworks.")
        (uri (cran-uri "covr" version))
        (sha256
         (base32 "11l9gvpaywlngkd4c7yzp8mi2fnq8sndkb0dbq8nh73m3n6aklr0"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        ;; TODO: still need to replace highlight.js/highlight.pack.js
        (snippet
         '(with-directory-excursion "inst/www/shared"
@@ -44255,8 +44255,8 @@ and interfaces to external frameworks.")
     (build-system r-build-system)
     (arguments
      (list
-      #:modules '((guix build utils)
-                  (guix build r-build-system)
+      #:modules '((Manifolding-OS build utils)
+                  (Manifolding-OS build r-build-system)
                   (srfi srfi-1))
       #:phases
       #~(modify-phases %standard-phases
@@ -44865,14 +44865,14 @@ tools for help in data interpretation.")
     (build-system r-build-system)
     (arguments
      (list
-      #:modules '((guix build r-build-system)
-                  (guix build minify-build-system)
-                  (guix build utils)
+      #:modules '((Manifolding-OS build r-build-system)
+                  (Manifolding-OS build minify-build-system)
+                  (Manifolding-OS build utils)
                   (ice-9 match))
       #:imported-modules `(,@%r-build-system-modules
-                           (guix build minify-build-system))
+                           (Manifolding-OS build minify-build-system))
       #:phases
-      #~(modify-phases (@ (guix build r-build-system) %standard-phases)
+      #~(modify-phases (@ (Manifolding-OS build r-build-system) %standard-phases)
           (add-after 'unpack 'process-javascript
             (lambda* (#:key inputs #:allow-other-keys)
               (with-directory-excursion "inst/htmlwidgets/lib/"
@@ -49932,14 +49932,14 @@ documents, Shiny applications, Plumber APIs, plots, and static web content.")
     (build-system r-build-system)
     (arguments
      (list
-      #:modules '((guix build r-build-system)
-                  (guix build minify-build-system)
-                  (guix build utils)
+      #:modules '((Manifolding-OS build r-build-system)
+                  (Manifolding-OS build minify-build-system)
+                  (Manifolding-OS build utils)
                   (ice-9 match))
       #:imported-modules `(,@%r-build-system-modules
-                           (guix build minify-build-system))
+                           (Manifolding-OS build minify-build-system))
       #:phases
-      #~(modify-phases (@ (guix build r-build-system) %standard-phases)
+      #~(modify-phases (@ (Manifolding-OS build r-build-system) %standard-phases)
           (add-after 'unpack 'process-javascript
             (lambda* (#:key inputs #:allow-other-keys)
               (with-directory-excursion "inst/htmlwidgets/lib"
@@ -52918,8 +52918,8 @@ using @code{ggplot2}.")
     (build-system r-build-system)
     (arguments
      (list
-      #:modules '((guix build utils)
-                  (guix build r-build-system)
+      #:modules '((Manifolding-OS build utils)
+                  (Manifolding-OS build r-build-system)
                   (srfi srfi-1))
       #:phases
       '(modify-phases %standard-phases
@@ -56905,7 +56905,7 @@ text but not always easily handled by analysis algorithms.  The
         (sha256
           (base32
             "0l5d24f0n0h2jbrisp8xpr9hsbzjryc62h961lmhp4kqnqrvw423"))
-        (modules '((guix build utils)))
+        (modules '((Manifolding-OS build utils)))
         (snippet
          ;; unvendor gzstream
          '(for-each delete-file '("src/gzstream.cpp" "src/gzstream.h")))))
@@ -57033,7 +57033,7 @@ as a data frame.  It also supports writing data frames to an ODS file.")
       (sha256
        (base32
         "1ihmqcyzqs67ngnx4rwrcax5g9i7ikfly36b7hw7xwdpk7qcdcis"))
-      (modules '((guix build utils)))
+      (modules '((Manifolding-OS build utils)))
       (snippet
        '(begin
            ;; unvendor libqpdf
@@ -57135,7 +57135,7 @@ or into raw bitmap vectors for further processing in R.")
        (sha256
         (base32
          "0a13vfigncdwwjbcrbmk2279jqanl8cbyq9gjzbjh0wc49i43ybv"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        ;; unvendor libantiword
        (snippet
         '(delete-file-recursively "src"))))
@@ -58110,8 +58110,8 @@ reading and writing arbitrary protocol-buffer data in R.")
     (build-system r-build-system)
     (arguments
      (list
-      #:modules '((guix build utils)
-                  (guix build r-build-system)
+      #:modules '((Manifolding-OS build utils)
+                  (Manifolding-OS build r-build-system)
                   (srfi srfi-1))
       #:phases
       #~(modify-phases %standard-phases
@@ -58531,11 +58531,11 @@ to archive and assign DOIs to data, software, figures, and more.")
     (build-system r-build-system)
     (arguments
      (list
-      #:modules '((guix build utils)
-                  (guix build r-build-system)
-                  ((guix build ant-build-system) #:prefix java:))
+      #:modules '((Manifolding-OS build utils)
+                  (Manifolding-OS build r-build-system)
+                  ((Manifolding-OS build ant-build-system) #:prefix java:))
       #:imported-modules
-      (cons '(guix build ant-build-system)
+      (cons '(Manifolding-OS build ant-build-system)
             %r-build-system-modules)
       #:phases
       #~(modify-phases %standard-phases
@@ -60027,7 +60027,7 @@ analyses.")
               (sha256
                (base32
                 "1hsxhpxqw1lk00k187k9icn9k401fq8mzkn8g9s4bgq21m0prpsy"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                '(delete-file-recursively "inst/doc/mathjax"))))
     (properties `((upstream-name . "mathjaxr")))

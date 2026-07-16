@@ -85,19 +85,19 @@
   #:use-module (gnu packages xml)
   #:use-module (gnu packages xorg)
   #:use-module (gnu packages)
-  #:use-module (guix build-system cmake)
-  #:use-module (guix build-system glib-or-gtk)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system meson)
-  #:use-module (guix build-system pyproject)
-  #:use-module (guix build-system qt)
-  #:use-module (guix download)
-  #:use-module (guix gexp)
-  #:use-module (guix git-download)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix packages)
-  #:use-module ((guix search-paths) #:select ($SSL_CERT_DIR $SSL_CERT_FILE))
-  #:use-module (guix utils))
+  #:use-module (Manifolding-OS build-system cmake)
+  #:use-module (Manifolding-OS build-system glib-or-gtk)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system meson)
+  #:use-module (Manifolding-OS build-system pyproject)
+  #:use-module (Manifolding-OS build-system qt)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS packages)
+  #:use-module ((Manifolding-OS search-paths) #:select ($SSL_CERT_DIR $SSL_CERT_FILE))
+  #:use-module (Manifolding-OS utils))
 
 (define-public transmission
   (package
@@ -115,7 +115,7 @@
               (sha256
                (base32
                 "0h90lpmhj30xj5fbmhxrsnw2rd3cph3ls1rcwhr4vmpyrs0kszp3"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                #~(begin
                    (for-each
@@ -137,11 +137,11 @@
                "gui"))                    ; graphical user interface
     (arguments
       (list
-        #:imported-modules `((guix build glib-or-gtk-build-system)
+        #:imported-modules `((Manifolding-OS build glib-or-gtk-build-system)
                              ,@%cmake-build-system-modules)
-        #:modules '(((guix build glib-or-gtk-build-system) #:prefix glib-or-gtk:)
-                    (guix build cmake-build-system)
-                    (guix build utils))
+        #:modules '(((Manifolding-OS build glib-or-gtk-build-system) #:prefix glib-or-gtk:)
+                    (Manifolding-OS build cmake-build-system)
+                    (Manifolding-OS build utils))
         #:phases
         #~(modify-phases %standard-phases
            (replace 'check
@@ -392,7 +392,7 @@ Transmission BitTorrent daemon.")
               (file-name (git-file-name name version))
               (patches (search-patches "aria2-unbundle-wslay.patch"))
               (snippet
-               #~(begin (use-modules (guix build utils))
+               #~(begin (use-modules (Manifolding-OS build utils))
                         (delete-file-recursively "deps")))))
     (build-system gnu-build-system)
     (arguments

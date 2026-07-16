@@ -33,22 +33,22 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages firmware)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix memoization)
-  #:use-module (guix deprecation)
-  #:use-module (guix packages)
-  #:use-module (guix platform)
-  #:use-module (guix download)
-  #:use-module (guix gexp)
-  #:use-module (guix utils)
-  #:use-module (guix git-download)
-  #:use-module (guix build-system cargo)
-  #:use-module (guix build-system copy)
-  #:use-module (guix build-system cmake)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system meson)
-  #:use-module (guix build-system pyproject)
-  #:use-module (guix build-system trivial)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS memoization)
+  #:use-module (Manifolding-OS deprecation)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS platform)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS utils)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS build-system cargo)
+  #:use-module (Manifolding-OS build-system copy)
+  #:use-module (Manifolding-OS build-system cmake)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system meson)
+  #:use-module (Manifolding-OS build-system pyproject)
+  #:use-module (Manifolding-OS build-system trivial)
   #:use-module (gnu packages)
   #:use-module (gnu packages admin)
   #:use-module (gnu packages autotools)
@@ -114,7 +114,7 @@
               (uri (git-reference
                     (url "https://github.com/qca/open-ath9k-htc-firmware")
                     (commit version)))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                 ;; Delete binary blobs.
                 #~(for-each delete-file (find-files "." "\\.(a|o)$")))
@@ -185,8 +185,8 @@
        (list flex bison))
       (arguments
        `(#:modules ((srfi srfi-1)
-                    (guix build gnu-build-system)
-                    (guix build utils))
+                    (Manifolding-OS build gnu-build-system)
+                    (Manifolding-OS build utils))
          #:tests? #f                    ; no tests
          #:make-flags `(,(string-append "PREFIX=" (assoc-ref %outputs "out"))
                         ,(string-append "CC=" ,(cc-for-target)))
@@ -678,10 +678,10 @@ executing in M-mode.")
     (inputs (list opensbi-generic))
     (build-system trivial-build-system)
     (arguments
-     (list #:modules '((guix build utils))
+     (list #:modules '((Manifolding-OS build utils))
            #:builder
            #~(begin
-               (use-modules ((guix build utils)))
+               (use-modules ((Manifolding-OS build utils)))
                (let ((opensbi-riscv64 (search-input-file %build-inputs
                                                          "fw_dynamic.bin"))
                      (out (string-append #$output "/share/qemu")))
@@ -720,7 +720,7 @@ executing in M-mode.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "0v4rsv2mh6rmb9n2fc1df439z16qgmnkbv0vb5ylmpqzqfbjjd3q"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         #~(begin
             ;; Delete IASL-generated files.
@@ -1082,8 +1082,8 @@ Executables included are:
        (list
         #:tests? #f                     ; No check target.
         #:target #f                     ; Package produces firmware.
-        #:modules '((guix build gnu-build-system)
-                    (guix build utils)
+        #:modules '((Manifolding-OS build gnu-build-system)
+                    (Manifolding-OS build utils)
                     (ice-9 match))
         #:phases
         #~(modify-phases %standard-phases
@@ -1321,7 +1321,7 @@ Virtual Machines.  OVMF contains a sample UEFI firmware for QEMU and KVM.")
         (base32 "0zlb3g9qn7i8xr731nrsdqf00s03wv1ybhc28ka5nwniaccpg9dx"))
        (patches (search-patches "8mq-enable-imx_hab_handler.patch"
                                 "8mq-move-stack-to-ocram_s.patch"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        ;; Remove binary blobs: they don't reference a source or license.
        (snippet #~(for-each delete-file (find-files "." "\\.bin$")))))
     (build-system gnu-build-system)
@@ -1505,11 +1505,11 @@ AR100.")
         (source #f)
         (build-system trivial-build-system)
         (arguments
-         (list #:modules '((guix build union))
+         (list #:modules '((Manifolding-OS build union))
                #:builder
                #~(begin
                    (use-modules (ice-9 match)
-                                (guix build union))
+                                (Manifolding-OS build union))
 
                    (match %build-inputs
                      (((names . directory) ...)
@@ -1629,8 +1629,8 @@ corresponding layout." layout))
     (arguments
      (list
       #:tests? #f                       ;no tests
-      #:modules '((guix build pyproject-build-system)
-                  (guix build utils)
+      #:modules '((Manifolding-OS build pyproject-build-system)
+                  (Manifolding-OS build utils)
                   (srfi srfi-26))
       #:phases
       #~(modify-phases %standard-phases
@@ -1736,8 +1736,8 @@ keyboard definition in KEYBOARD-SOURCE-DIRECTORY."
     (build-system gnu-build-system)
     (arguments
      (list
-      #:modules '((guix build gnu-build-system)
-                  (guix build utils)
+      #:modules '((Manifolding-OS build gnu-build-system)
+                  (Manifolding-OS build utils)
                   (ice-9 ftw)
                   (ice-9 match)
                   (srfi srfi-26))

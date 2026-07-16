@@ -26,8 +26,8 @@
   #:use-module (gnu services ssh)
   #:use-module (gnu services networking)
   #:use-module (gnu packages ssh)
-  #:use-module (guix gexp)
-  #:use-module (guix store)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS store)
   #:export (%test-openssh
             %test-dropbear))
 
@@ -42,7 +42,7 @@ When SFTP? is true, run an SFTP server test."
     (marionette-operating-system
      (simple-operating-system (service dhcpcd-service-type) ssh-service)
      #:imported-modules '((gnu services herd)
-                          (guix combinators))))
+                          (Manifolding-OS combinators))))
   (define vm
     (virtual-machine
      (operating-system os)

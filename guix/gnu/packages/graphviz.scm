@@ -32,13 +32,13 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages graphviz)
-  #:use-module (guix packages)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system pyproject)
-  #:use-module (guix download)
-  #:use-module (guix git-download)
-  #:use-module (guix utils)
-  #:use-module (guix gexp)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system pyproject)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS utils)
+  #:use-module (Manifolding-OS gexp)
   #:use-module (gnu packages)
   #:use-module (gnu packages autotools)
   #:use-module (gnu packages bash)
@@ -64,7 +64,7 @@
   #:use-module (gnu packages vulkan)
   #:use-module (gnu packages xml)
   #:use-module (gnu packages xorg)
-  #:use-module ((guix licenses) #:prefix license:))
+  #:use-module ((Manifolding-OS licenses) #:prefix license:))
 
 (define-public graphviz
   (package
@@ -379,13 +379,13 @@ $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) $(srcdir)/predicates_init.c \
                      (lambda* (#:key inputs outputs #:allow-other-keys)
                        (let ((graphviz (assoc-ref inputs "graphviz"))
                              (gi-typelib-path (getenv "GI_TYPELIB_PATH"))
-                             (python-path (getenv "GUIX_PYTHONPATH")))
+                             (python-path (getenv "MANIFOLDING_OS_PYTHONPATH")))
                          (wrap-program (string-append #$output "/bin/xdot")
                            `("PATH" ":" prefix
                              (,(string-append graphviz "/bin")))
                            `("GI_TYPELIB_PATH" ":" prefix
                              (,gi-typelib-path))
-                           `("GUIX_PYTHONPATH" ":" prefix
+                           `("MANIFOLDING_OS_PYTHONPATH" ":" prefix
                              (,python-path))))))
                    (replace 'check
                      (lambda* (#:key inputs outputs tests? #:allow-other-keys)

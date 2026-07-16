@@ -40,15 +40,15 @@
   #:use-module (gnu packages python-xyz)
   #:use-module (gnu packages regex)
   #:use-module (gnu packages tls)
-  #:use-module (guix build-system cmake)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system pyproject)
-  #:use-module (guix download)
-  #:use-module (guix gexp)
-  #:use-module (guix git-download)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix packages)
-  #:use-module (guix utils)
+  #:use-module (Manifolding-OS build-system cmake)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system pyproject)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS utils)
   #:use-module (srfi srfi-1))
 
 ;; XXX: Starting from version 1.47.5, opencensus-proto is required.
@@ -200,7 +200,7 @@ type information of gRPC.")
        (uri (pypi-uri "grpcio" version))
        (sha256
         (base32 "1nsgm8q4yahzdab4m3irffdw9zklq4kb7f8hki1ayfgw54ysim55"))
-       (modules '((guix build utils) (ice-9 ftw) (srfi srfi-26)))
+       (modules '((Manifolding-OS build utils) (ice-9 ftw) (srfi srfi-26)))
        (snippet
         '(begin
            ;; Delete this generated file.
@@ -258,7 +258,7 @@ HTTP/2-based RPC framework gRPC.")
      (origin
        (method url-fetch)
        (uri (pypi-uri "grpcio-tools" version))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         ;; This file is auto-generated.
         '(delete-file "grpc_tools/_protoc_compiler.cpp"))

@@ -138,21 +138,21 @@
   #:use-module (gnu packages xml)
   #:use-module (gnu packages xorg)
   #:use-module (gnu packages)
-  #:use-module (guix build-system cargo)
-  #:use-module (guix build-system cmake)
-  #:use-module (guix build-system copy)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system ocaml)
-  #:use-module (guix build-system pyproject)
-  #:use-module (guix build-system r)
-  #:use-module (guix build-system trivial)
-  #:use-module (guix download)
-  #:use-module (guix gexp)
-  #:use-module (guix git-download)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix packages)
-  #:use-module (guix svn-download)
-  #:use-module (guix utils)
+  #:use-module (Manifolding-OS build-system cargo)
+  #:use-module (Manifolding-OS build-system cmake)
+  #:use-module (Manifolding-OS build-system copy)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system ocaml)
+  #:use-module (Manifolding-OS build-system pyproject)
+  #:use-module (Manifolding-OS build-system r)
+  #:use-module (Manifolding-OS build-system trivial)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS svn-download)
+  #:use-module (Manifolding-OS utils)
   #:use-module (ice-9 match))
 
 (define-public dlpack
@@ -661,7 +661,7 @@ distributions.")
          (uri (git-reference
                 (url "https://github.com/libfann/fann")
                 (commit commit)))
-         (modules '((guix build utils)))
+         (modules '((Manifolding-OS build utils)))
          (snippet #~(delete-file-recursively "lib/googletest"))
          (file-name (git-file-name name version))
          (sha256
@@ -894,7 +894,7 @@ Learning usecases.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "0pc6y4g1l7pc8mfqdpg020613gksb4vpipn67wnvamn0q64j9j7r"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         ;; Do not use bundled eigen.
         '(delete-file-recursively "third_party/eigen"))))
@@ -963,9 +963,9 @@ NumPy @code{dtype} extensions used in machine learning libraries, including:
         #:imported-modules (append %cmake-build-system-modules
                                    %pyproject-build-system-modules)
         #:modules '((ice-9 textual-ports)
-                    (guix build utils)
-                    ((guix build pyproject-build-system) #:prefix python:)
-                    (guix build cmake-build-system))
+                    (Manifolding-OS build utils)
+                    ((Manifolding-OS build pyproject-build-system) #:prefix python:)
+                    (Manifolding-OS build cmake-build-system))
         #:configure-flags
         #~(list "-DBUILD_SHARED_LIBS=ON"
                 "-DLLAMA_USE_SYSTEM_GGML=ON"
@@ -1852,7 +1852,7 @@ and reproducible BLEU, chrF, and TER scores for natural language processing.")
        (uri (pypi-uri "safetensors" version))
        (sha256
         (base32 "1hhiwy67jarm70l0k26fs1cjhzkgzrh79q14bklj2yp0qi8gr19g"))
-       (modules '((guix build utils)
+       (modules '((Manifolding-OS build utils)
                   (ice-9 ftw)))
        (snippet
         #~(begin                        ;Only keep bindings.
@@ -2186,7 +2186,7 @@ parts of speech and entities, do syntactic analysis, and more.")
               (patches (search-patches
                         "onnx-shared-libraries.patch"
                         "onnx-skip-model-downloads.patch"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet '(delete-file-recursively "third_party"))))
     (build-system pyproject-build-system)
     (arguments
@@ -2338,7 +2338,7 @@ should not be used standalone.")))
                 "1mx3hsl42na6fr05nh2x3j9kxm56cpfmwk6lwl2cfq9zs3gv929w"))
               (file-name (git-file-name name version))
               (patches (search-patches "onnx-optimizer-system-library.patch"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet '(delete-file-recursively "third_party"))))
     (build-system pyproject-build-system)
     (arguments
@@ -2417,9 +2417,9 @@ with a single function call.")
     (build-system cmake-build-system)
     (arguments
      (list
-      #:modules '((guix build cmake-build-system)
-                  (guix build utils)
-                  ((guix build pyproject-build-system) #:prefix py:))
+      #:modules '((Manifolding-OS build cmake-build-system)
+                  (Manifolding-OS build utils)
+                  ((Manifolding-OS build pyproject-build-system) #:prefix py:))
       #:imported-modules (append %cmake-build-system-modules
                                  %pyproject-build-system-modules)
       #:configure-flags
@@ -2614,7 +2614,7 @@ than 8 bits, and at the end only some significant 8 bits are kept.")
       (file-name (git-file-name name version))
       (sha256
        (base32 "1k6jwbb7n842snd2znv0ix8zwa4a35y324jb7mpkj0vn9arzndam"))
-      (modules '((guix build utils)))
+      (modules '((Manifolding-OS build utils)))
       (snippet
        '(begin
           (delete-file-recursively "dlib/external")))))
@@ -3743,8 +3743,8 @@ automatically.")
       (build-system gnu-build-system)
       (arguments
        `(#:tests? #f
-         #:modules ((guix build utils)
-                    (guix build gnu-build-system)
+         #:modules ((Manifolding-OS build utils)
+                    (Manifolding-OS build gnu-build-system)
                     (srfi srfi-26))
          #:phases
          (modify-phases %standard-phases
@@ -3793,12 +3793,12 @@ automatically.")
                                 (with-output-to-file wrapper
                                   (lambda _
                                     (format #t "#!~a
-export GUIX_PYTHONPATH=~a
+export MANIFOLDING_OS_PYTHONPATH=~a
 export GI_TYPELIB_PATH=~a:${GI_TYPELIB_PATH}
 export GST_PLUGIN_SYSTEM_PATH=~a:${GST_PLUGIN_SYSTEM_PATH}
 exec ~a ~a~a \"$@\"~%"
                                             (which "bash")
-                                            (getenv "GUIX_PYTHONPATH")
+                                            (getenv "MANIFOLDING_OS_PYTHONPATH")
                                             (getenv "GI_TYPELIB_PATH")
                                             (getenv "GST_PLUGIN_SYSTEM_PATH")
                                             (which "python") share what)))
@@ -3848,9 +3848,9 @@ Python.")
                                  %pyproject-build-system-modules)
       #:modules '((ice-9 match)
                   (srfi srfi-26)
-                  (guix build utils)
-                  (guix build cmake-build-system)
-                  ((guix build pyproject-build-system) #:prefix py:))
+                  (Manifolding-OS build utils)
+                  (Manifolding-OS build cmake-build-system)
+                  ((Manifolding-OS build pyproject-build-system) #:prefix py:))
       #:configure-flags
       #~(list
          ;; Access some OpenCL functions in mesa-headers
@@ -4557,7 +4557,7 @@ and Darknet.")
          (sha256
           (base32
            "1dgzriiaz9arsrfwhx42y4l74wbzn6xvdmllfb66v4pmvi5gpxc5"))
-         (modules '((guix build utils)))
+         (modules '((Manifolding-OS build utils)))
          (snippet
           '(delete-file-recursively "deps"))))
       (build-system cmake-build-system)
@@ -4609,7 +4609,7 @@ on quantized 8-bit tensors.")
          (sha256
           (base32
            "0j4smj8yaxw6r14caqn0dgb8j8mnsq34zp8ixxn11zmgbab306ly"))
-         (modules '((guix build utils)
+         (modules '((Manifolding-OS build utils)
                     (ice-9 ftw)
                     (ice-9 textual-ports)
                     (srfi srfi-26)))
@@ -4652,8 +4652,8 @@ on quantized 8-bit tensors.")
                 "-DXNNPACK_BUILD_TESTS=OFF")
         #:tests? #f
         #:modules '((ice-9 ftw)
-                    (guix build cmake-build-system)
-                    (guix build utils))
+                    (Manifolding-OS build cmake-build-system)
+                    (Manifolding-OS build utils))
         #:phases
         #~(modify-phases %standard-phases
             (add-after 'unpack 'fix-cmake
@@ -4791,7 +4791,7 @@ multiplications and convolution library for server-side inference.")
                 (sha256
                  (base32
                   "0sbpkd69rzybw2j89sjkf4s0j8vkk96d51bsps28894989a75j6v"))
-                (modules '((guix build utils)))
+                (modules '((Manifolding-OS build utils)))
                 (snippet
                  '(delete-file-recursively "third_party"))))
       (build-system cmake-build-system)
@@ -4911,7 +4911,7 @@ different backends")
        (file-name (git-file-name name version))
        (snippet
         #~(begin
-            (use-modules (guix build utils)
+            (use-modules (Manifolding-OS build utils)
                          (ice-9 ftw)
                          (srfi srfi-26))
             (delete-file-recursively "lib")
@@ -4923,9 +4923,9 @@ different backends")
      (list
       #:tests? #f                       ;no tests
       #:imported-modules %pyproject-build-system-modules
-      #:modules '((guix build gnu-build-system)
-                  ((guix build pyproject-build-system) #:prefix python:)
-                  (guix build utils))
+      #:modules '((Manifolding-OS build gnu-build-system)
+                  ((Manifolding-OS build pyproject-build-system) #:prefix python:)
+                  (Manifolding-OS build utils))
       #:make-flags
       #~(list (string-append "CC=" #$(cc-for-target))
               "LLAMA_VULKAN=1"
@@ -4950,8 +4950,8 @@ different backends")
                 ;; Upstream removed the executable flag.
                 (chmod (search-input-file outputs "bin/koboldcpp.py") #o744)
                 (wrap-program (search-input-file outputs "bin/koboldcpp.py")
-                  `("GUIX_PYTHONPATH" =
-                    (,(getenv "GUIX_PYTHONPATH")
+                  `("MANIFOLDING_OS_PYTHONPATH" =
+                    (,(getenv "MANIFOLDING_OS_PYTHONPATH")
                    ,(python:site-packages inputs outputs)))))))))
     (inputs
      (list bash-minimal
@@ -5069,7 +5069,7 @@ PyTorch.")
                              ;; compile PyTorch library. Therefore, we create
                              ;; dummy versions which are regenerated later.
                              "python-pytorch-fix-codegen.patch"))
-    (modules '((guix build utils)))
+    (modules '((Manifolding-OS build utils)))
     (snippet
      '(begin
         ;; Bundled or unused code
@@ -5118,7 +5118,7 @@ PyTorch.")
      (origin
        (inherit %python-pytorch-src)
        (patches '())
-       (modules '((guix build utils)
+       (modules '((Manifolding-OS build utils)
                   (srfi srfi-26)
                   (ice-9 ftw)))
        (snippet
@@ -5377,7 +5377,7 @@ PyTorch.")
             (lambda* (#:key tests? #:allow-other-keys)
               ;; Run the test suite following the instructions in
               ;; 'CONTRIBUTING.md'. Unfortunately this doesn't work, unless
-              ;; you set PYTHONPATH or GUIX_PYTHONPATH, but this is done in
+              ;; you set PYTHONPATH or MANIFOLDING_OS_PYTHONPATH, but this is done in
               ;; the codegen2 phase already.
               (when tests?
                 (invoke "python3" "test/run_test.py" "--core"))))
@@ -6132,7 +6132,7 @@ implementations and an easy-to-use API to create custom metrics.  It offers:
               (sha256
                (base32
                 "0bikvjiqgl659vjk1pw7hka95g55h5sgh3lmybwqfkzsqhfljjx2"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                '(begin
                   (delete-file-recursively "android")
@@ -6251,7 +6251,7 @@ definite approximations of Optimal Transport (Wasserstein) distances.
        (uri (pypi-uri "tokenizers" version))
        (sha256
         (base32 "1qw8mjp0q9w7j1raq1rvcbfw38000kbqpwscf9mvxzfh1rlfcngf"))
-       (modules '((guix build utils)
+       (modules '((Manifolding-OS build utils)
                   (ice-9 ftw)))
        (snippet
         #~(begin  ;; Only keeping bindings.
@@ -6274,9 +6274,9 @@ definite approximations of Optimal Transport (Wasserstein) distances.
       #:cargo-test-flags ''("--no-default-features")
       #:imported-modules `(,@%cargo-build-system-modules
                            ,@%pyproject-build-system-modules)
-      #:modules '((guix build cargo-build-system)
-                  ((guix build pyproject-build-system) #:prefix py:)
-                  (guix build utils))
+      #:modules '((Manifolding-OS build cargo-build-system)
+                  ((Manifolding-OS build pyproject-build-system) #:prefix py:)
+                  (Manifolding-OS build utils))
       #:phases
       #~(modify-phases %standard-phases
           (add-after 'check 'python-check
@@ -6402,9 +6402,9 @@ Jax, PyTorch and TensorFlow — with a seamless integration between them.")
                                 "-DWITH_CUDNN=OFF"
                                 "-DWITH_MKL=OFF"
                                 "-DWITH_OPENBLAS=ON")
-      #:modules '((guix build cmake-build-system)
-                  ((guix build gnu-build-system) #:prefix gnu:)
-                  (guix build utils))
+      #:modules '((Manifolding-OS build cmake-build-system)
+                  ((Manifolding-OS build gnu-build-system) #:prefix gnu:)
+                  (Manifolding-OS build utils))
       #:phases
       #~(modify-phases %standard-phases
           (replace 'check
@@ -7154,9 +7154,9 @@ there are no background processes.  Dictation is accessed manually with
       (license license:gpl2+))))
 
 (define (nerd-dictation-gexp input-name output-name bash nerd-dictation)
-  (with-imported-modules '((guix build utils))
+  (with-imported-modules '((Manifolding-OS build utils))
     #~(begin
-        (use-modules (guix build utils))
+        (use-modules (Manifolding-OS build utils))
 
         (let* ((exe (string-append #$output "/bin/nerd-dictation"))
                (nerd-dictation-exe
@@ -7316,7 +7316,7 @@ Brian 2 simulator.")
               (commit version)))
        (snippet
         #~(begin
-            (use-modules (guix build utils))
+            (use-modules (Manifolding-OS build utils))
             ;; Remove failing tests.
             (delete-file-recursively "test/expr/ModuleTest.cpp")
             (delete-file-recursively "test/op/ConvInt8Test.cpp")

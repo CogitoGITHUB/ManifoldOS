@@ -32,10 +32,10 @@
   #:use-module (gnu services web)
   #:use-module (gnu system pam)
   #:use-module (gnu system shadow)
-  #:use-module (guix deprecation)
-  #:use-module (guix gexp)
-  #:use-module (guix records)
-  #:use-module (guix modules)
+  #:use-module (Manifolding-OS deprecation)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS records)
+  #:use-module (Manifolding-OS modules)
   #:use-module (srfi srfi-1)
   #:use-module (srfi srfi-26)
   #:use-module (ice-9 match)
@@ -196,9 +196,9 @@
 
 (define (openssh-activation config)
   "Return the activation GEXP for CONFIG."
-  (with-imported-modules '((guix build utils))
+  (with-imported-modules '((Manifolding-OS build utils))
     #~(begin
-        (use-modules (guix build utils))
+        (use-modules (Manifolding-OS build utils))
 
         (define (touch file-name)
           (call-with-output-file file-name (const #t)))
@@ -237,10 +237,10 @@
   "Return a directory containing the authorized keys specified in KEYS, a list
 of user-name/file-like tuples."
   (define build
-    (with-imported-modules (source-module-closure '((guix build utils)))
+    (with-imported-modules (source-module-closure '((Manifolding-OS build utils)))
       #~(begin
           (use-modules (ice-9 match) (srfi srfi-26)
-                       (guix build utils))
+                       (Manifolding-OS build utils))
 
           (mkdir #$output)
           (for-each (match-lambda
@@ -472,7 +472,7 @@ of user-name/file-like tuples."
 (define (dropbear-activation config)
   "Return the activation gexp for CONFIG."
   #~(begin
-      (use-modules (guix build utils))
+      (use-modules (Manifolding-OS build utils))
       (mkdir-p "/etc/dropbear")))
 
 (define (dropbear-shepherd-service config)
@@ -680,9 +680,9 @@ object."
    (auto-start? (autossh-configuration-auto-start? config))))
 
 (define (autossh-service-activation config)
-  (with-imported-modules '((guix build utils))
+  (with-imported-modules '((Manifolding-OS build utils))
     #~(begin
-        (use-modules (guix build utils))
+        (use-modules (Manifolding-OS build utils))
         (define %user
           (getpw #$(autossh-configuration-user config)))
         (let* ((directory #$(autossh-file-name config ""))
@@ -763,7 +763,7 @@ object."
   (match-lambda
     (($ <webssh-configuration> _ user-name group-name policy known-hosts _ _
                                log-file _)
-     (with-imported-modules '((guix build utils))
+     (with-imported-modules '((Manifolding-OS build utils))
        #~(begin
            (let* ((home-dir (string-append "/var/run/" #$user-name))
                   (ssh-dir (string-append home-dir "/.ssh"))

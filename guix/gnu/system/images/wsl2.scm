@@ -31,10 +31,10 @@
   #:use-module (gnu system)
   #:use-module (gnu system image)
   #:use-module (gnu system shadow)
-  #:use-module (guix build-system trivial)
-  #:use-module (guix gexp)
-  #:use-module (guix packages)
-  #:use-module ((guix licenses) #:select (fsdg-compatible))
+  #:use-module (Manifolding-OS build-system trivial)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS packages)
+  #:use-module ((Manifolding-OS licenses) #:select (fsdg-compatible))
   #:export (wsl-boot-program
             wsl-os
             wsl2-image))
@@ -44,9 +44,9 @@
 USER."
   (program-file
    "wsl-boot-program"
-   (with-imported-modules '((guix build syscalls))
+   (with-imported-modules '((Manifolding-OS build syscalls))
      #~(begin
-         (use-modules (guix build syscalls))
+         (use-modules (Manifolding-OS build syscalls))
          (unless (file-exists? "/run/current-system")
            (let ((shepherd-socket "/var/run/shepherd/socket"))
              ;; Clean up this file so we can wait for it later.
@@ -63,7 +63,7 @@ USER."
                                     ""
                                     "/var/guix/profiles/")
                                 system-generation))))
-                 (setenv "GUIX_NEW_SYSTEM" system)
+                 (setenv "MANIFOLDING_OS_NEW_SYSTEM" system)
                  (execl #$(file-append guile-3.0 "/bin/guile")
                         "guile"
                         "--no-auto-compile"
@@ -113,10 +113,10 @@ USER."
     (source #f)
     (build-system trivial-build-system)
     (arguments
-     `(#:modules ((guix build utils))
+     `(#:modules ((Manifolding-OS build utils))
        #:target #f
        #:builder (begin
-                   (use-modules (guix build utils))
+                   (use-modules (Manifolding-OS build utils))
                    (let* ((out (assoc-ref %outputs "out"))
                           (dummy (string-append out "/dummy")))
                      (mkdir-p out)

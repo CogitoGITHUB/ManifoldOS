@@ -20,14 +20,14 @@
 
 (define-module (gnu packages unicode)
   #:use-module (gnu packages autotools)
-  #:use-module (guix git-download)
-  #:use-module (guix licenses)
-  #:use-module (guix packages)
-  #:use-module (guix download)
-  #:use-module (guix utils)
-  #:use-module (guix build-system copy)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system trivial))
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS licenses)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS utils)
+  #:use-module (Manifolding-OS build-system copy)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system trivial))
 
 (define-public libunibreak
   (package
@@ -117,10 +117,10 @@ test data for conformance to several important Unicode algorithms.")
     (source #f)
     (build-system trivial-build-system)
     (arguments
-     `(#:modules ((guix build utils))
+     `(#:modules ((Manifolding-OS build utils))
        #:builder
        (let ((out (string-append %output "/share/unicode/emoji")))
-         (use-modules (guix build utils))
+         (use-modules (Manifolding-OS build utils))
          (mkdir-p out)
          (for-each
           (lambda (input)
@@ -157,10 +157,10 @@ Unicode Technological Standard #51.")
     (name "unicode-emoji")
     (version "12.0")
     (arguments
-     `(#:modules ((guix build utils))
+     `(#:modules ((Manifolding-OS build utils))
        #:builder
        (let ((out (string-append %output "/share/unicode/emoji")))
-         (use-modules (guix build utils))
+         (use-modules (Manifolding-OS build utils))
          (mkdir-p out)
          (for-each
           (lambda (input)

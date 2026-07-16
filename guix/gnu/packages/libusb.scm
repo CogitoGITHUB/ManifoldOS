@@ -36,18 +36,18 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages libusb)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix build-system ant)
-  #:use-module (guix build-system cmake)
-  #:use-module (guix build-system glib-or-gtk)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system go)
-  #:use-module (guix build-system pyproject)
-  #:use-module (guix download)
-  #:use-module (guix gexp)
-  #:use-module (guix git-download)
-  #:use-module (guix packages)
-  #:use-module (guix utils)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS build-system ant)
+  #:use-module (Manifolding-OS build-system cmake)
+  #:use-module (Manifolding-OS build-system glib-or-gtk)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system go)
+  #:use-module (Manifolding-OS build-system pyproject)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS utils)
   #:use-module (gnu packages)
   #:use-module (gnu packages autotools)
   #:use-module (gnu packages compression)
@@ -120,7 +120,7 @@ devices on various operating systems.")
        (base32 "0p5hz5q1ppd4d2wwhzfp4vwh6ngfwh627j73pv0chw60fkvdr4mn"))
       (snippet #~(begin
                    ;; Delete Autotools-generated files.
-                   (use-modules (guix build utils))
+                   (use-modules (Manifolding-OS build utils))
                    (delete-file "configure")
                    (for-each delete-file (find-files "^Makefile\\.in$"))))))
     (build-system gnu-build-system)
@@ -292,8 +292,8 @@ implementing @code{javax.usb} (JSR-80).")
     (arguments
      (list
       #:modules '((srfi srfi-1)
-                  (guix build utils)
-                  (guix build pyproject-build-system))
+                  (Manifolding-OS build utils)
+                  (Manifolding-OS build pyproject-build-system))
       #:test-backend #~'custom
       #:test-flags #~(list "-m" "usb1.testUSB1")
       #:phases
@@ -342,8 +342,8 @@ accessing libusb-1.0.")
      (list
       #:modules '((srfi srfi-1)
                   (srfi srfi-26)
-                  (guix build utils)
-                  (guix build pyproject-build-system))
+                  (Manifolding-OS build utils)
+                  (Manifolding-OS build pyproject-build-system))
       #:phases
       #~(modify-phases %standard-phases
           ;; Repurpose the candidates parameter to be the path to the library,
@@ -406,7 +406,7 @@ accessing libusb-1.0.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "1nfd12612z9a9hby5dxg7lfqw5jcv3wcyqqagbg5izragni646mc"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         ;; Remove bundled libraries.
         '(begin
@@ -906,7 +906,7 @@ HID-Class devices.")
        (sha256
         (base32
          "1b2q4kpzvfbbdy5xjh5nas3ymg7gspqai5dla6fk16h5dfx9f3kc"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         ;; Remove bundled libraries.
         #~(begin

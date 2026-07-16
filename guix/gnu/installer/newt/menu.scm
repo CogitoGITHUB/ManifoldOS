@@ -19,7 +19,7 @@
 (define-module (gnu installer newt menu)
   #:use-module (gnu installer steps)
   #:use-module (gnu installer newt page)
-  #:use-module (guix i18n)
+  #:use-module (Manifolding-OS i18n)
   #:use-module (newt)
   #:export (run-menu-page))
 

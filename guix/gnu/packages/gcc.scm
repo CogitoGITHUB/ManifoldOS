@@ -37,7 +37,7 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages gcc)
-  #:use-module ((guix licenses)
+  #:use-module ((Manifolding-OS licenses)
                 #:select (gpl3+ gpl2+ lgpl2.1+ lgpl2.0+ fdl1.3+))
   #:use-module (gnu packages)
   #:use-module (gnu packages autotools)
@@ -53,16 +53,16 @@
   #:use-module (gnu packages elf)
   #:use-module (gnu packages compiler-tools)
   #:use-module (gnu packages perl)
-  #:use-module (guix packages)
-  #:use-module (guix download)
-  #:use-module (guix memoization)
-  #:use-module (guix build-system copy)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system trivial)
-  #:use-module (guix git-download)
-  #:use-module (guix gexp)
-  #:use-module (guix search-paths)
-  #:use-module (guix utils)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS memoization)
+  #:use-module (Manifolding-OS build-system copy)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system trivial)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS search-paths)
+  #:use-module (Manifolding-OS utils)
   #:use-module (srfi srfi-1)
   #:use-module (ice-9 match)
   #:use-module (ice-9 regex))
@@ -419,7 +419,7 @@ Go.  It also includes runtime support libraries for these languages.")
                 "10k2k71kxgay283ylbbhhs51cl55zn2q38vj5pk4k950qdnirrlj"))
               (patches (search-patches "gcc-4-compile-with-gcc-5.patch"
                                        "gcc-fix-texi2pod.patch"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               ;; This is required for building with glibc-2.26.
               ;; https://gcc.gnu.org/bugzilla/show_bug.cgi?id=81712
               (snippet
@@ -473,7 +473,7 @@ Go.  It also includes runtime support libraries for these languages.")
                                        "gcc-4.8-libsanitizer-fix.patch"
                                        "gcc-asan-missing-include.patch"
                                        "gcc-fix-texi2pod.patch"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               ;; This is required for building with glibc-2.26.
               ;; https://gcc.gnu.org/bugzilla/show_bug.cgi?id=81712
               (snippet
@@ -536,7 +536,7 @@ Go.  It also includes runtime support libraries for these languages.")
                                        "gcc-asan-missing-include.patch"
                                        "gcc-libvtv-runpath.patch"
                                        "gcc-fix-texi2pod.patch"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               ;; This is required for building with glibc-2.26.
               ;; https://gcc.gnu.org/bugzilla/show_bug.cgi?id=81712
               (snippet
@@ -623,7 +623,7 @@ Go.  It also includes runtime support libraries for these languages.")
                                        "gcc-5-hurd.patch"
                                        ;; See https://gcc.gnu.org/bugzilla/show_bug.cgi?id=86162
                                        "gcc-5-fix-powerpc64le-build.patch"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet gcc-canadian-cross-objdump-snippet)))
     (arguments
      (substitute-keyword-arguments arguments
@@ -863,7 +863,7 @@ It also includes runtime support libraries for these languages.")
                                        "gcc-5.0-libvtv-runpath.patch"
                                        "gcc-8-sort-libtool-find-output.patch"
                                        "gcc-libstdc++-newer-gcc.patch"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet gcc-canadian-cross-objdump-snippet)))))
 
 (define-public gcc-9
@@ -884,7 +884,7 @@ It also includes runtime support libraries for these languages.")
                                      "gcc-9-asan-fix-limits-include.patch"
                                      "gcc-5.0-libvtv-runpath.patch"
                                      "gcc-libstdc++-newer-gcc.patch"))
-            (modules '((guix build utils)))
+            (modules '((Manifolding-OS build utils)))
             (snippet gcc-canadian-cross-objdump-snippet)))))
 
 (define-public gcc-10
@@ -902,7 +902,7 @@ It also includes runtime support libraries for these languages.")
                                      "gcc-5.0-libvtv-runpath.patch"
                                      "gcc-10-libsanitizer-no-crypt.patch"
                                      "gcc-libstdc++-newer-gcc.patch"))
-            (modules '((guix build utils)))
+            (modules '((Manifolding-OS build utils)))
             (snippet gcc-canadian-cross-objdump-snippet)))
    (properties
     `((compiler-cpu-architectures
@@ -929,7 +929,7 @@ It also includes runtime support libraries for these languages.")
                                      "gcc-10-libsanitizer-no-crypt.patch"
                                      "gcc-11-libstdc++-hurd-libpthread.patch"
                                      "gcc-libstdc++-newer-gcc.patch"))
-            (modules '((guix build utils)))
+            (modules '((Manifolding-OS build utils)))
             (snippet gcc-canadian-cross-objdump-snippet)))
    (properties
     `((compiler-cpu-architectures
@@ -956,7 +956,7 @@ It also includes runtime support libraries for these languages.")
                                        "gcc-12-libsanitizer-no-crypt.patch"
                                        "gcc-11-libstdc++-hurd-libpthread.patch"
                                        "gcc-libstdc++-newer-gcc.patch"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet gcc-canadian-cross-objdump-snippet)))
    (properties
     `((compiler-cpu-architectures
@@ -982,7 +982,7 @@ It also includes runtime support libraries for these languages.")
                                        "gcc-5.0-libvtv-runpath.patch"
                                        "gcc-13-libsanitizer-no-crypt.patch"
                                        "gcc-libstdc++-newer-gcc.patch"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet gcc-canadian-cross-objdump-snippet)))
     (arguments
      (substitute-keyword-arguments arguments
@@ -1013,7 +1013,7 @@ It also includes runtime support libraries for these languages.")
                 "0fna78ly417g69fdm4i5f3ms96g8xzzjza8gwp41lqr5fqlpgp70"))
               (patches (search-patches "gcc-12-strmov-store-file-names.patch"
                                        "gcc-5.0-libvtv-runpath.patch"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet gcc-canadian-cross-objdump-snippet)))
     (arguments (substitute-keyword-arguments arguments
                  ((#:phases phases #~%standard-phases)
@@ -1046,7 +1046,7 @@ It also includes runtime support libraries for these languages.")
               (patches (search-patches "gcc-12-strmov-store-file-names.patch"
                                        "gcc-5.0-libvtv-runpath.patch"
                                        "gcc-hurd-split-stack.patch"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet gcc-canadian-cross-objdump-snippet)))
     (arguments
      (substitute-keyword-arguments arguments
@@ -1100,7 +1100,7 @@ It also includes runtime support libraries for these languages.")
                 "0y8ga5md6wdi0nzbfaizklfx6kcbfjyml6nnn3rsz5rk9kcv9vsh"))
               (patches (search-patches "gcc-12-strmov-store-file-names.patch"
                                        "gcc-5.0-libvtv-runpath.patch"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet gcc-canadian-cross-objdump-snippet)))
     ;; XXX: The libstdc++-headers package needs to be removed in order
     ;; for gcc 16 to build successfully.
@@ -1138,7 +1138,7 @@ It also includes runtime support libraries for these languages.")
               (sha256
                (base32
                 "1xvfy4pqhrd5v2cv8lzf63iqg92k09g6z9n2ah6ndd4h17k1x0an"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                '(begin
                   ;; Do not build the bundled Texinfo.
@@ -1650,8 +1650,8 @@ also includes the druntime and phobos libraries."
     (arguments
      (substitute-keyword-arguments arguments
        ((#:modules _ '())
-        '((guix build gnu-build-system)
-          (guix build utils)
+        '((Manifolding-OS build gnu-build-system)
+          (Manifolding-OS build utils)
           (ice-9 regex)
           (srfi srfi-1)
           (srfi srfi-26)))

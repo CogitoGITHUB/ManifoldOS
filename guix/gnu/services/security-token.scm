@@ -26,9 +26,9 @@
   #:use-module (gnu packages base)
   #:use-module (gnu packages security-token)
   #:use-module (gnu system shadow)
-  #:use-module (guix gexp)
-  #:use-module (guix modules)
-  #:use-module (guix records)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS modules)
+  #:use-module (Manifolding-OS records)
   #:use-module (ice-9 match)
   #:use-module (srfi srfi-26)
   #:export (pcscd-configuration
@@ -69,9 +69,9 @@
   (match-lambda
     (($ <pcscd-configuration> pcsc-lite usb-drivers)
      (with-imported-modules (source-module-closure
-                             '((guix build utils)))
+                             '((Manifolding-OS build utils)))
        #~(begin
-           (use-modules (guix build utils))
+           (use-modules (Manifolding-OS build utils))
 
            (mkdir-p "/var/lib")
            (switch-symlinks "/var/lib/pcsc"

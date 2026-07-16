@@ -22,13 +22,13 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages tbb)
-  #:use-module (guix packages)
-  #:use-module (guix licenses)
-  #:use-module (guix gexp)
-  #:use-module (guix git-download)
-  #:use-module (guix utils)
-  #:use-module (guix build-system cmake)
-  #:use-module (guix build-system gnu)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS licenses)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS utils)
+  #:use-module (Manifolding-OS build-system cmake)
+  #:use-module (Manifolding-OS build-system gnu)
   #:use-module (gnu packages)
   #:use-module (gnu packages python)
   #:use-module (gnu packages python-build)
@@ -143,7 +143,7 @@ asynchronous tasks, synchronization primitives, atomic operations, and more.")
               (sha256
                (base32
                 "0r9axsdlmacjlcnax4vkzg86nwf8lsx7wbqdi3wnryaxk0xvdcx6"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                '(begin
                   (substitute* "build/common.inc"

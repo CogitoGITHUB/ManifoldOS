@@ -81,7 +81,7 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages python)
-  #:use-module ((guix licenses) #:prefix license:)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
   #:use-module (gnu packages)
   #:use-module (gnu packages base)
   #:use-module (gnu packages bash)
@@ -97,15 +97,15 @@
   #:use-module (gnu packages tcl)
   #:use-module (gnu packages tls)
   #:use-module (gnu packages xml)
-  #:use-module (guix gexp)
-  #:use-module (guix git-download)
-  #:use-module (guix packages)
-  #:use-module (guix download)
-  #:use-module (guix search-paths)
-  #:use-module (guix utils)
-  #:use-module (guix build-system copy)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system trivial)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS search-paths)
+  #:use-module (Manifolding-OS utils)
+  #:use-module (Manifolding-OS build-system copy)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system trivial)
   #:use-module (ice-9 optargs)
   #:use-module (srfi srfi-1)
   #:use-module (srfi srfi-26)
@@ -131,8 +131,8 @@
        (chmod dest #o644))))
 
 (define (guix-pythonpath-search-path version)
-  "Generate a GUIX_PYTHONPATH search path specification, using VERSION."
-  (search-path-specification (variable "GUIX_PYTHONPATH")
+  "Generate a MANIFOLDING_OS_PYTHONPATH search path specification, using VERSION."
+  (search-path-specification (variable "MANIFOLDING_OS_PYTHONPATH")
                              (files (list (string-append
                                            "lib/python"
                                            (version-major+minor version)
@@ -378,7 +378,7 @@
                                 "python-2.7-CVE-2021-3177.patch"
                                 "python-2.7-expat-compat.patch"
                                 "python-2.7-no-static-lib.patch"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         '(begin
            ;; Ensure the bundled copies of these libraries are not used.
@@ -468,8 +468,8 @@
 
       #:modules '((ice-9 ftw)
                   (ice-9 match)
-                  (guix build utils)
-                  (guix build gnu-build-system))
+                  (Manifolding-OS build utils)
+                  (Manifolding-OS build gnu-build-system))
       #:phases
       #~(modify-phases %standard-phases
           #$@(common-python-phases-edits)
@@ -572,7 +572,7 @@ data types.")
               (sha256
                (base32
                 "0xn0jydg5fsz9fsni6a83l7sf6by2w7gg4fzswfxh092aybabx68"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                '(begin
                   ;; Delete the bundled copy of libexpat.
@@ -651,8 +651,8 @@ data types.")
                       #~())))
       #:modules '((ice-9 ftw)
                   (ice-9 match)
-                  (guix build utils)
-                  (guix build gnu-build-system))
+                  (Manifolding-OS build utils)
+                  (Manifolding-OS build gnu-build-system))
       #:phases
       #~(modify-phases %standard-phases
           #$@(common-python3-phases-edits)
@@ -751,7 +751,7 @@ def contents() -> str:
               (sha256
                (base32
                 "0y4v42qm66nvizjxbnixh59283a54nki51jmbrgwkhc8bkndhgld"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                '(begin
                   ;; Delete the bundled copy of libexpat.
@@ -890,8 +890,8 @@ def contents() -> str:
       #:modules
       '((ice-9 ftw)
         (ice-9 match)
-        (guix build utils)
-        (guix build gnu-build-system))
+        (Manifolding-OS build utils)
+        (Manifolding-OS build gnu-build-system))
 
       #:phases
       #~(modify-phases %standard-phases
@@ -942,7 +942,7 @@ def contents() -> str:
        (patches (search-patches "python-3-deterministic-build-info.patch"
                                 "python-3.12-fix-tests.patch"
                                 "python-3-hurd-configure.patch"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet '(begin
                    ;; Delete the bundled copy of libexpat.
                    (delete-file-recursively "Modules/expat")
@@ -1071,8 +1071,8 @@ def contents() -> str:
 
       #:modules '((ice-9 ftw)
                   (ice-9 match)
-                  (guix build utils)
-                  (guix build gnu-build-system))
+                  (Manifolding-OS build utils)
+                  (Manifolding-OS build gnu-build-system))
 
       #:phases
       #~(modify-phases %standard-phases
@@ -1135,7 +1135,7 @@ data types.")
        (patches (search-patches "python-3-deterministic-build-info.patch"
                                 "python-3.13-fix-tests.patch"
                                 "python-3-hurd-configure.patch"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet '(begin
                    ;; Delete the bundled copy of libexpat.
                    (delete-file-recursively "Modules/expat")
@@ -1264,8 +1264,8 @@ data types.")
 
       #:modules '((ice-9 ftw)
                   (ice-9 match)
-                  (guix build utils)
-                  (guix build gnu-build-system))
+                  (Manifolding-OS build utils)
+                  (Manifolding-OS build gnu-build-system))
 
       #:phases
       #~(modify-phases %standard-phases
@@ -1367,10 +1367,10 @@ for more information.")))
     (inputs `(("bash" ,bash)))
     (propagated-inputs `(("python" ,python)))
     (arguments
-     (list #:modules '((guix build utils))
+     (list #:modules '((Manifolding-OS build utils))
            #:builder
            #~(begin
-               (use-modules (guix build utils))
+               (use-modules (Manifolding-OS build utils))
                (let ((bin (string-append #$output "/bin"))
                      (python (string-append
                               ;; XXX: '%build-inputs' contains the native
@@ -1462,7 +1462,7 @@ base, via the @file{pythoncapi_compat.h} header file.")
                             "/micropython-" version ".tar.xz"))
         (sha256
          (base32 "05d2gd3g8v3paxf4fin4cv5scgnc4yl0jdahpjs37nmqaybcahsf"))
-      (modules '((guix build utils)))
+      (modules '((Manifolding-OS build utils)))
       (snippet
        '(begin
           (delete-file-recursively "ports/cc3200/FreeRTOS")

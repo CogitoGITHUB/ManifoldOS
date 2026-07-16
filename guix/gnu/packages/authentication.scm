@@ -32,14 +32,14 @@
   #:use-module (gnu packages security-token)
   #:use-module (gnu packages tls)
   #:use-module (gnu packages xml)
-  #:use-module (guix build-system cmake)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system go)
-  #:use-module (guix download)
-  #:use-module (guix gexp)
-  #:use-module (guix git-download)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix packages))
+  #:use-module (Manifolding-OS build-system cmake)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system go)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS packages))
 
 (define-public libcotp
   (package
@@ -138,7 +138,7 @@ PSKC (RFC6030) to manage secret key data.")
        (sha256
         (base32 "0qpgbbyjvvdw944d7ppa9ccmcp0gyyc9ik0bhq8agsia40biagwc"))
        (snippet
-        #~(begin (use-modules (guix build utils))
+        #~(begin (use-modules (Manifolding-OS build utils))
                  (delete-file-recursively "vendor")))))
     (build-system go-build-system)
     (arguments

@@ -34,16 +34,16 @@
   #:use-module ((gnu packages base) #:select (glibc))
   #:use-module (gnu packages guile)
   #:use-module (gnu packages docker)
-  #:use-module (guix gexp)
-  #:use-module (guix grafts)
-  #:use-module (guix monads)
-  #:use-module (guix packages)
-  #:use-module (guix profiles)
-  #:use-module ((guix scripts pack) #:prefix pack:)
-  #:use-module (guix store)
-  #:use-module (guix tests)
-  #:use-module (guix build-system trivial)
-  #:use-module ((guix licenses) #:prefix license:)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS grafts)
+  #:use-module (Manifolding-OS monads)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS profiles)
+  #:use-module ((Manifolding-OS scripts pack) #:prefix pack:)
+  #:use-module (Manifolding-OS store)
+  #:use-module (Manifolding-OS tests)
+  #:use-module (Manifolding-OS build-system trivial)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
   #:export (%test-docker
             %test-docker-system
             %test-oci-container))
@@ -66,7 +66,7 @@ inside %DOCKER-OS."
       %docker-os
       (list docker-tarball))
      #:imported-modules '((gnu services herd)
-                          (guix combinators))))
+                          (Manifolding-OS combinators))))
 
   (define vm
     (virtual-machine
@@ -224,7 +224,7 @@ inside %DOCKER-OS."
       %docker-os
       (list tarball))
      #:imported-modules '((gnu services herd)
-                          (guix combinators))))
+                          (Manifolding-OS combinators))))
 
   (define vm
     (virtual-machine
@@ -236,11 +236,11 @@ inside %DOCKER-OS."
 
   (define test
     (with-imported-modules '((gnu build marionette)
-                             (guix build utils))
+                             (Manifolding-OS build utils))
       #~(begin
           (use-modules (srfi srfi-11) (srfi srfi-64)
                        (gnu build marionette)
-                       (guix build utils))
+                       (Manifolding-OS build utils))
 
           (define marionette
             ;; Relax timeout to accommodate older systems.
@@ -279,7 +279,7 @@ inside %DOCKER-OS."
              `(begin
                 (use-modules (ice-9 popen)
                              (ice-9 rdelim)
-                             (guix build utils))
+                             (Manifolding-OS build utils))
 
                 (define (slurp command . args)
                   ;; Return the output from COMMAND.
@@ -390,7 +390,7 @@ docker-image} inside Docker.")
       %oci-os
       (list))
      #:imported-modules '((gnu services herd)
-                          (guix combinators))))
+                          (Manifolding-OS combinators))))
 
   (define vm
     (virtual-machine

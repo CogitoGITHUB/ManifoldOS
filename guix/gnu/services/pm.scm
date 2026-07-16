@@ -22,9 +22,9 @@
 (define-module (gnu services pm)
   #:use-module (srfi srfi-1)
   #:use-module (ice-9 match)
-  #:use-module (guix gexp)
-  #:use-module (guix packages)
-  #:use-module (guix records)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS records)
   #:use-module (gnu packages admin)
   #:use-module (gnu packages freedesktop)
   #:use-module (gnu packages linux)
@@ -71,7 +71,7 @@
 
 (define %power-profiles-daemon-activation
   #~(begin
-      (use-modules (guix build utils))
+      (use-modules (Manifolding-OS build utils))
       (mkdir-p "/var/lib/power-profiles-daemon")))
 
 (define power-profiles-daemon-service-type
@@ -479,9 +479,9 @@ performance, balance_performance, default, balance_power and power."))
                           config
                           tlp-configuration-fields))))
          (config-file (plain-file "tlp" config-str)))
-    (with-imported-modules '((guix build utils))
+    (with-imported-modules '((Manifolding-OS build utils))
       #~(begin
-          (use-modules (guix build utils))
+          (use-modules (Manifolding-OS build utils))
           (copy-file #$config-file "/etc/tlp.conf")))))
 
 (define tlp-service-type

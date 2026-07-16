@@ -18,11 +18,11 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (test-composer)
-  #:use-module (guix import composer)
-  #:use-module (guix base32)
+  #:use-module (Manifolding-OS import composer)
+  #:use-module (Manifolding-OS base32)
   #:use-module (gcrypt hash)
-  #:use-module (guix tests http)
-  #:use-module (guix grafts)
+  #:use-module (Manifolding-OS tests http)
+  #:use-module (Manifolding-OS grafts)
   #:use-module (srfi srfi-64)
   #:use-module (web client)
   #:use-module (ice-9 match))

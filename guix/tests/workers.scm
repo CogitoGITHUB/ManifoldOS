@@ -17,7 +17,7 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (test-workers)
-  #:use-module (guix workers)
+  #:use-module (Manifolding-OS workers)
   #:use-module (ice-9 threads)
   #:use-module (srfi srfi-64))
 

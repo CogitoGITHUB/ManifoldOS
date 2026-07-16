@@ -16,10 +16,10 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages uglifyjs)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix packages)
-  #:use-module (guix git-download)
-  #:use-module (guix build-system node)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS build-system node)
   #:use-module (gnu packages node-xyz))
 
 (define-public node-uglify-js

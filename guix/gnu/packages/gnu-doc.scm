@@ -22,12 +22,12 @@
   #:use-module (gnu packages compression)
   #:use-module (gnu packages texinfo)
 
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system trivial)
-  #:use-module (guix cvs-download)
-  #:use-module (guix download)
-  #:use-module (guix licenses)
-  #:use-module (guix packages))
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system trivial)
+  #:use-module (Manifolding-OS cvs-download)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS licenses)
+  #:use-module (Manifolding-OS packages))
 
 (define-public miscfiles
   (package
@@ -74,10 +74,10 @@ list.")
                      ("source" ,source)
                      ("texinfo" ,texinfo)))
     (arguments
-     `(#:modules ((guix build utils))
+     `(#:modules ((Manifolding-OS build utils))
        #:builder
         (begin
-          (use-modules (guix build utils))
+          (use-modules (Manifolding-OS build utils))
           (let ((gzip (assoc-ref %build-inputs "gzip"))
                 (source (assoc-ref %build-inputs "source"))
                 (texinfo (assoc-ref %build-inputs "texinfo"))

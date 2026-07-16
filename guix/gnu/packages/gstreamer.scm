@@ -31,17 +31,17 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages gstreamer)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix packages)
-  #:use-module (guix gexp)
-  #:use-module (guix download)
-  #:use-module (guix git-download)
-  #:use-module (guix build-system cargo)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system meson)
-  #:use-module (guix build-system pyproject)
-  #:use-module (guix build-system trivial)
-  #:use-module (guix utils)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS build-system cargo)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system meson)
+  #:use-module (Manifolding-OS build-system pyproject)
+  #:use-module (Manifolding-OS build-system trivial)
+  #:use-module (Manifolding-OS utils)
   #:use-module (gnu packages)
   #:use-module (gnu packages aidc)
   #:use-module (gnu packages audio)
@@ -391,10 +391,10 @@ arrays of data.")
                 "0bp2rffj82a8c5l119dv4kxjkl1l35d9b0lynfc0vk2krcrb5xyv"))))
     (build-system trivial-build-system)
     (arguments
-     `(#:modules ((guix build utils))
+     `(#:modules ((Manifolding-OS build utils))
        #:builder
        (begin
-         (use-modules ((guix build utils)))
+         (use-modules ((Manifolding-OS build utils)))
          (let* ((source (assoc-ref %build-inputs "source"))
                 (tar (assoc-ref %build-inputs "tar"))
                 (xz (assoc-ref %build-inputs "xz"))
@@ -758,7 +758,7 @@ model to base your own plug-in on, here it is.")
               (sha256
                (base32
                 "18hk8gh97r2cwdazl5ikjwsczk3bkvr4z7nmjc45bdgqhwvmkhan"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                '(begin
                   ;; Delete bundled copy of usrsctp.
@@ -988,9 +988,9 @@ par compared to the rest.")
       #:glib-or-gtk? #t
       #:imported-modules `(,@%meson-build-system-modules
                            ,@%cargo-build-system-modules)
-      #:modules `(((guix build cargo-build-system) #:prefix cargo:)
-                  (guix build meson-build-system)
-                  (guix build utils)
+      #:modules `(((Manifolding-OS build cargo-build-system) #:prefix cargo:)
+                  (Manifolding-OS build meson-build-system)
+                  (Manifolding-OS build utils)
                   (ice-9 match))
       #:configure-flags
       #~(list "-Ddebugseimetainserter=disabled" ;test fails
@@ -1347,9 +1347,9 @@ RTSP connections and messages.")
     (build-system meson-build-system)
     (arguments
      (list
-      #:modules `((guix build meson-build-system)
-                  (guix build utils)
-                  ((guix build pyproject-build-system) #:prefix py:))
+      #:modules `((Manifolding-OS build meson-build-system)
+                  (Manifolding-OS build utils)
+                  ((Manifolding-OS build pyproject-build-system) #:prefix py:))
       #:imported-modules (append %meson-build-system-modules
                                  %pyproject-build-system-modules)
       #:configure-flags

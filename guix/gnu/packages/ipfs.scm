@@ -24,13 +24,13 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages ipfs)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix packages)
-  #:use-module (guix gexp)
-  #:use-module (guix git-download)
-  #:use-module (guix download)
-  #:use-module (guix build-system go)
-  #:use-module (guix utils)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS build-system go)
+  #:use-module (Manifolding-OS utils)
   #:use-module (gnu packages databases)
   #:use-module (gnu packages gcc)
   #:use-module (gnu packages golang)
@@ -60,7 +60,7 @@
        (sha256
         (base32 "0g34dwlnq07zg176bdhp2hcg1hg5l55s0a6hk4kiq37vm01w68j7"))
        (snippet
-        #~(begin (use-modules (guix build utils))
+        #~(begin (use-modules (Manifolding-OS build utils))
                  ;; Delete git submodule.
                  (delete-file-recursively ".ipld")))))
     (build-system go-build-system)
@@ -135,7 +135,7 @@ alternative fork of @url{https://github.com/gxed/bbloom}.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "1py1p8ijxj16k2l8szrrjw7raf63m44wdrwlaa63rfc7c9fd5nni"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         #~(begin
             ;; Submodules with their own go.mod files and packaged separately:
@@ -709,7 +709,7 @@ keys used by @code{go-ipfs} (Kubo).")
        (uri (git-reference
               (url "https://github.com/ipfs/go-datastore")
               (commit (string-append "v" version))))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         #~(begin
             ;; Submodules with their own go.mod files and packaged separately:
@@ -1350,7 +1350,7 @@ code prior to it getting merged into @code{go-cid}.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "1qbp7hny0v6n74agh1ym98ndnnr53aq1hd6ybm5q214fah7k23r7"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         #~(begin
             ;; Submodules with their own go.mod files and packaged separately:
@@ -1392,7 +1392,7 @@ code prior to it getting merged into @code{go-cid}.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "00lwizzdfdx6kynxddal3all6q9dhwqanpkw0d0vxlwik4nkvxa5"))
-       (modules '((guix build utils)
+       (modules '((Manifolding-OS build utils)
                   (ice-9 ftw)
                   (srfi srfi-26)))
        (snippet
@@ -1741,7 +1741,7 @@ specified in @url{https://datatracker.ietf.org/doc/html/rfc8484, RFC 8484}.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "1kz7rfmgnxcjcy0ixy6gib9ppndmhkm1zdljvlzvgxnd9jdz00x4"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         #~(begin
             ;; Submodules with their own go.mod files and packaged separately:
@@ -2359,7 +2359,7 @@ types.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "1gq2r9x2846gb39jnz4qcci04gmjvj5y1p7dw2nzy2zmjx8mnm0c"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         #~(begin
             ;; Module name has been changed upstream.

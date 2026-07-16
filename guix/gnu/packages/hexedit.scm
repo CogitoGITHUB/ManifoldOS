@@ -23,15 +23,15 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages hexedit)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix build-system cmake)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system go)
-  #:use-module (guix download)
-  #:use-module (guix gexp)
-  #:use-module (guix git-download)
-  #:use-module (guix packages)
-  #:use-module (guix utils)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS build-system cmake)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system go)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS utils)
   #:use-module (gnu packages)
   #:use-module (gnu packages antivirus)
   #:use-module (gnu packages autotools)
@@ -199,7 +199,7 @@ and is themeable.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "13mlbclg2r3axv6vz4dsyry5azc6xavcbdkvwan6zyaq9ngk7r3r"))
-       (modules '((guix build utils) (ice-9 ftw)))
+       (modules '((Manifolding-OS build utils) (ice-9 ftw)))
        (snippet #~(begin
                     ;; NOTE: the `throwing-ptr' hasn't been updated in 6 years
                     ;; and the testsuite expects to use an outdated version of
@@ -273,7 +273,7 @@ for specifying patterns in the ImHex Hex Editor.")
          (file-name (git-file-name name version))
          (sha256
           (base32 "17aj8k2zbj78347rvfdy9gassw7kz9xj5vj30skvs5w4gf4lajln"))
-         (modules '((guix build utils) (ice-9 ftw) (ice-9 match)))
+         (modules '((Manifolding-OS build utils) (ice-9 ftw) (ice-9 match)))
          (snippet
           #~(begin
               ;; XXX: imhex-pattern-language is missing the necessary packaging

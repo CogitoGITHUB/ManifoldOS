@@ -58,17 +58,17 @@
 
 (define-module (gnu packages lisp)
   #:use-module (gnu packages)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix packages)
-  #:use-module (guix download)
-  #:use-module (guix git-download)
-  #:use-module (guix gexp)
-  #:use-module (guix utils)
-  #:use-module (guix build-system copy)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system haskell)
-  #:use-module (guix build-system trivial)
-  #:use-module ((guix search-paths) #:select ($SSL_CERT_DIR $SSL_CERT_FILE))
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS utils)
+  #:use-module (Manifolding-OS build-system copy)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system haskell)
+  #:use-module (Manifolding-OS build-system trivial)
+  #:use-module ((Manifolding-OS search-paths) #:select ($SSL_CERT_DIR $SSL_CERT_FILE))
   #:use-module (gnu packages admin)
   #:use-module (gnu packages algebra)
   #:use-module (gnu packages autotools)
@@ -286,8 +286,8 @@ integration with code written in C.")
      `(#:tests? #f                      ;no 'check' target
        #:modules ((ice-9 match)
                   (srfi srfi-26)
-                  (guix build utils)
-                  (guix build gnu-build-system))
+                  (Manifolding-OS build utils)
+                  (Manifolding-OS build gnu-build-system))
        #:phases
        (modify-phases %standard-phases
          (add-after 'unpack 'unpack-image
@@ -500,12 +500,12 @@ interface.")
      `(("config-patch" ,@(search-patches "cl-asdf-config-directories.patch"))
        ("patch" ,patch/pinned)))
     (arguments
-     `(#:modules ((guix build utils)
-                  (guix build lisp-utils))
+     `(#:modules ((Manifolding-OS build utils)
+                  (Manifolding-OS build lisp-utils))
        #:builder
        (begin
-         (use-modules (guix build utils)
-                      (guix build lisp-utils))
+         (use-modules (Manifolding-OS build utils)
+                      (Manifolding-OS build lisp-utils))
          (let* ((out (string-append (assoc-ref %outputs "out")))
                 (asdf-install (string-append out %source-install-prefix
                                              "/source/asdf/"))
@@ -1014,7 +1014,7 @@ libraries, and other management tasks for Janet projects.")
        (uri (git-reference
               (url "https://github.com/janet-lang/spork")
               (commit (string-append "v" version))))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet #~(for-each
                    delete-file-recursively
                    '("deps/miniz" "deps/stb")))
@@ -1380,7 +1380,7 @@ be built as a stand-alone REPL interpreter.")
                            version "-source.tar.bz2"))
        (sha256
         (base32 "0yym01a6a2vp9cns46vi3ikg4q2jdnfijrh4yp2bgzk09djkx99v"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         '(begin
            ;; Don't force ARMv5.
@@ -1427,8 +1427,8 @@ be built as a stand-alone REPL interpreter.")
            mpfr                         ; for sb-mpfr
            (list zstd "lib")))
     (arguments
-     `(#:modules ((guix build gnu-build-system)
-                  (guix build utils)
+     `(#:modules ((Manifolding-OS build gnu-build-system)
+                  (Manifolding-OS build utils)
                   (srfi srfi-1))
        #:phases
        (modify-phases %standard-phases

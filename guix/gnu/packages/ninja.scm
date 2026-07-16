@@ -24,7 +24,7 @@
 
 (define-module (gnu packages ninja)
   #:use-module (gnu packages build-tools)
-  #:use-module (guix deprecation))
+  #:use-module (Manifolding-OS deprecation))
 
 (define-deprecated/public-alias ninja/pinned
   (@ (gnu packages build-tools) ninja/pinned))

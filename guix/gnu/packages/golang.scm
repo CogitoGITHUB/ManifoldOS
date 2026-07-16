@@ -66,16 +66,16 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages golang)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix utils)
-  #:use-module (guix gexp)
-  #:use-module (guix memoization)
-  #:use-module ((guix build utils) #:select (alist-replace))
-  #:use-module (guix download)
-  #:use-module (guix git-download)
-  #:use-module (guix packages)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system go)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS utils)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS memoization)
+  #:use-module ((Manifolding-OS build utils) #:select (alist-replace))
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system go)
   #:use-module (gnu packages)
   #:use-module (gnu packages admin)
   #:use-module (gnu packages base)
@@ -127,8 +127,8 @@
                "tests"))
     (arguments
      `(#:modules ((ice-9 match)
-                  (guix build gnu-build-system)
-                  (guix build utils)
+                  (Manifolding-OS build gnu-build-system)
+                  (Manifolding-OS build utils)
                   (srfi srfi-1))
        #:tests? #f ; Tests are run by the all.bash script.
        #:phases
@@ -284,8 +284,8 @@ in the style of communicating sequential processes (@dfn{CSP}).")
     (build-system gnu-build-system)
     (arguments
      `(#:modules ((ice-9 match)
-                  (guix build gnu-build-system)
-                  (guix build utils))
+                  (Manifolding-OS build gnu-build-system)
+                  (Manifolding-OS build utils))
        ;; TODO: Disable the test(s) in misc/cgo/test/cgo_test.go
        ;; that cause segfaults in the test suite.
        #:tests? ,(not (or (target-arm32?) (target-riscv64?)))
@@ -1028,7 +1028,7 @@ in the style of communicating sequential processes (@dfn{CSP}).")
   ;; Allowed values are v8.{0-9} and v9.{0-5}. This may be followed by an option
   ;; specifying extensions implemented by target hardware. Valid options are
   ;; ,lse and ,crypto.
-  ;; Match Guix's specifications and then rewrite in (guix transformations).
+  ;; Match Guix's specifications and then rewrite in (Manifolding-OS transformations).
   (append (map (lambda (suffix) (string-append "armv8" suffix "-a"))
                '("" ".1" ".2" ".3" ".4" ".5" ".6" ".7" ".8" ".9"))
           (map (lambda (suffix) (string-append "armv9" suffix "-a"))

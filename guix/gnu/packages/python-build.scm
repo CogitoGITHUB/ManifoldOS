@@ -41,14 +41,14 @@
 (define-module (gnu packages python-build)
   #:use-module (gnu packages)
   #:use-module (gnu packages bash)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system pyproject)
-  #:use-module (guix gexp)
-  #:use-module (guix deprecation)
-  #:use-module (guix download)
-  #:use-module (guix git-download)
-  #:use-module (guix packages))
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system pyproject)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS deprecation)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS packages))
 
 ;;; Commentary:
 ;;;
@@ -677,7 +677,7 @@ Python Package Index (PyPI).")
        (uri (pypi-uri "setuptools" version))
        (sha256
         (base32 "175iixi2h2jz8y2bpwziak360hvv43jfhipwzbdniryd5r04fszk"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         #~(begin
             ;; Remove included binaries which are used to build self-extracting
@@ -729,7 +729,7 @@ Python Package Index (PyPI).")
             (lambda* (#:key outputs #:allow-other-keys)
               (setenv "HOME" (getcwd))
               ;; FIXME python-pytest still relies a bit on PYTHONPATH.
-              (setenv "PYTHONPATH" (getenv "GUIX_PYTHONPATH"))
+              (setenv "PYTHONPATH" (getenv "MANIFOLDING_OS_PYTHONPATH"))
               ;; Inject our pre-built bundled wheel for tests.
               (setenv "PRE_BUILT_SETUPTOOLS_WHEEL"
                       (string-append (getcwd) "/setuptools-"
@@ -821,7 +821,7 @@ facilitate packaging Python projects, where packaging includes:
        (uri (pypi-uri "setuptools" version))
        (sha256
         (base32 "175iixi2h2jz8y2bpwziak360hvv43jfhipwzbdniryd5r04fszk"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         ;; TODO: setuptools now bundles the following libraries:
         ;; packaging, pyparsing, six and appdirs.  How to unbundle?
@@ -1042,7 +1042,7 @@ write tooling that generates distribution files from Python projects.")
     (license license:expat)))
 
 ;;; The name 'python-pypa-build' is chosen rather than 'python-build' to avoid
-;;; a name clash with python-build from (guix build-system python).
+;;; a name clash with python-build from (Manifolding-OS build-system python).
 (define-public python-pypa-build
   (package
     (name "python-pypa-build")

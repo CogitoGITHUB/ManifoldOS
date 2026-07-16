@@ -17,7 +17,7 @@
    along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.  */
 
 /* This file implements part of the GNU ld.so audit interface.  It is used by
-   the "fakechroot" engine of the 'guix pack -RR' wrappers to make sure the
+   the "fakechroot" engine of the 'Manifolding-OS pack -RR' wrappers to make sure the
    loader looks for shared objects under the "fake" root directory.  */
 
 #define _GNU_SOURCE 1

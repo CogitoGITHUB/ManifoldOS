@@ -24,10 +24,10 @@
   #:use-module (gnu packages pkg-config)
   #:use-module (gnu packages popt)
   #:use-module (gnu packages xml)
-  #:use-module (guix packages)
-  #:use-module (guix download)
-  #:use-module (guix build-system gnu)
-  #:use-module ((guix licenses) #:prefix license:))
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:))
 
 (define-public ots
   (package

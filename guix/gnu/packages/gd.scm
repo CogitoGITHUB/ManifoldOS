@@ -24,12 +24,12 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages gd)
-  #:use-module (guix gexp)
-  #:use-module (guix packages)
-  #:use-module (guix utils)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system perl)
-  #:use-module (guix download)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS utils)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system perl)
+  #:use-module (Manifolding-OS download)
   #:use-module (gnu packages)
   #:use-module (gnu packages perl)
   #:use-module (gnu packages perl-check)
@@ -38,7 +38,7 @@
   #:use-module (gnu packages fontutils)
   #:use-module (gnu packages compression)
   #:use-module (gnu packages pkg-config)
-  #:use-module ((guix licenses) #:select (non-copyleft perl-license)))
+  #:use-module ((Manifolding-OS licenses) #:select (non-copyleft perl-license)))
 
 (define-public gd
   (package

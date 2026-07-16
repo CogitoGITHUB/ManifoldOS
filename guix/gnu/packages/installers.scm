@@ -22,12 +22,12 @@
   #:use-module (gnu packages build-tools)
   #:use-module (gnu packages compression)
   #:use-module (gnu packages cross-base)
-  #:use-module (guix download)
-  #:use-module (guix gexp)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix packages)
-  #:use-module (guix build-system scons)
-  #:use-module (guix utils))
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS build-system scons)
+  #:use-module (Manifolding-OS utils))
 
 (define (make-nsis machine target-arch nsis-target-type)
   (let* ((triplet (string-append machine "-" "w64-mingw32"))
@@ -54,8 +54,8 @@
        (list
         #:modules `((srfi srfi-1)
                     (srfi srfi-26)
-                    (guix build utils)
-                    (guix build scons-build-system))
+                    (Manifolding-OS build utils)
+                    (Manifolding-OS build scons-build-system))
         #:tests? #f
         #:scons-flags
         #~(list "UNICODE=yes"

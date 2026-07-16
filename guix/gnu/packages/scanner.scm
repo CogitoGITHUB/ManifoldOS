@@ -44,15 +44,15 @@
   #:use-module (gnu packages textutils)
   #:use-module (gnu packages tls)
   #:use-module (gnu packages xml)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix deprecation)
-  #:use-module (guix download)
-  #:use-module (guix gexp)
-  #:use-module (guix git-download)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix packages)
-  #:use-module (guix search-paths)
-  #:use-module (guix utils))
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS deprecation)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS search-paths)
+  #:use-module (Manifolding-OS utils))
 
 (define-public sane-airscan
   (package
@@ -123,7 +123,7 @@ both WSD and eSCL.")
               (base32 "09hcqrli127amdxjlj6xd9lvc0rhlhhm8vxrnldbd8c2mxss7dbv"))
              (patches (search-patches
                        "sane-look-for-plugins-in-SANE_BACKEND_LIB_PATH.patch"))
-             (modules '((guix build utils)))
+             (modules '((Manifolding-OS build utils)))
              (snippet
               ;; Generated HTML files and udev rules normally embed a
               ;; timestamp.  Work around that to build things reproducibly.
@@ -424,7 +424,7 @@ provided the driver also exposes the buttons.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "0hgkpb5dfiwrhprsslahrkjfrkg8fgc8f8ssmqng1aywq3sqpd5l"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         #~(begin
             ;; Remove ancient bundled lprng code under a non-free licence.  See

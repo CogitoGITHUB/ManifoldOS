@@ -57,16 +57,16 @@
   #:use-module (gnu packages web)
   #:use-module (gnu packages xml)
   #:use-module (gnu packages)
-  #:use-module (guix build utils)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system pyproject)
-  #:use-module (guix download)
-  #:use-module (guix gexp)
-  #:use-module (guix git-download)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix modules)
-  #:use-module (guix packages)
-  #:use-module (guix utils))
+  #:use-module (Manifolding-OS build utils)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system pyproject)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS modules)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS utils))
 
 (define-public adcli
   (package
@@ -153,9 +153,9 @@ fundamental object types for C.")
     (build-system gnu-build-system)
     (arguments
      (list
-      #:modules '((guix build gnu-build-system)
-                  (guix build utils)
-                  ((guix build pyproject-build-system) #:prefix py:))
+      #:modules '((Manifolding-OS build gnu-build-system)
+                  (Manifolding-OS build utils)
+                  ((Manifolding-OS build pyproject-build-system) #:prefix py:))
       #:imported-modules (append %default-gnu-imported-modules
                                  %pyproject-build-system-modules)
       #:make-flags
@@ -260,7 +260,7 @@ fundamental object types for C.")
                 ;; Set path to sssd’s site-packages for scripts.
                 (for-each (lambda (script)
                             (wrap-program script
-                              `("GUIX_PYTHONPATH" ":" prefix
+                              `("MANIFOLDING_OS_PYTHONPATH" ":" prefix
                                 (,(py:site-packages inputs outputs)))))
                           '("libexec/sssd/sss_analyze" "sbin/sss_obfuscate"))))))))
     (inputs

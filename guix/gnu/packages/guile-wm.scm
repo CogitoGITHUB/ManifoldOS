@@ -22,18 +22,18 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages guile-wm)
-  #:use-module (guix licenses)
+  #:use-module (Manifolding-OS licenses)
   #:use-module (gnu packages)
   #:use-module (gnu packages bash)
   #:use-module (gnu packages xorg)
   #:use-module (gnu packages guile)
   #:use-module (gnu packages pkg-config)
   #:use-module (gnu packages texinfo)
-  #:use-module (guix packages)
-  #:use-module (guix download)
-  #:use-module (guix git-download)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix utils))
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS utils))
 
 (define-public guile-xcb
   (let ((commit "db7d5a393cc37a56f66541b3f33938b40c6f35b3")
@@ -90,8 +90,8 @@ dependencies.")
                   "086dijnpl5dpglf70d6f9sizyakr313y7blpdjrmbi687j1x3qcl"))))
       (build-system gnu-build-system)
       (arguments
-       `(#:modules ((guix build gnu-build-system)
-                    (guix build utils)
+       `(#:modules ((Manifolding-OS build gnu-build-system)
+                    (Manifolding-OS build utils)
                     (ice-9 rdelim)
                     (ice-9 popen))
          ;; The '.scm' files go to $(datadir), so set that to the

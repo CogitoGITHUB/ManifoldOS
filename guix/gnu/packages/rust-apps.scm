@@ -70,18 +70,18 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages rust-apps)
-  #:use-module (guix build-system cargo)
-  #:use-module (guix build-system copy)
-  #:use-module (guix build-system glib-or-gtk)
-  #:use-module (guix build-system meson)
-  #:use-module (guix build-system pyproject)
-  #:use-module (guix deprecation)
-  #:use-module (guix download)
-  #:use-module (guix gexp)
-  #:use-module (guix git-download)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix packages)
-  #:use-module (guix utils)
+  #:use-module (Manifolding-OS build-system cargo)
+  #:use-module (Manifolding-OS build-system copy)
+  #:use-module (Manifolding-OS build-system glib-or-gtk)
+  #:use-module (Manifolding-OS build-system meson)
+  #:use-module (Manifolding-OS build-system pyproject)
+  #:use-module (Manifolding-OS deprecation)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS utils)
   #:use-module (gnu packages)
   #:use-module (gnu packages admin)
   #:use-module (gnu packages base)
@@ -236,7 +236,7 @@ low-end hardware and serving many concurrent requests.")
        (sha256
         (base32 "189dqgcnl11fdmd6242h1pbawlq7jdm22zykc1kkcj1dv6s55nvs"))
        (snippet
-        #~(begin (use-modules (guix build utils))
+        #~(begin (use-modules (Manifolding-OS build utils))
                  ;; Use a packaged version of web-view.
                  (substitute* "Cargo.toml"
                    (("git = .*web-view\",") "version = \"*\",")
@@ -281,7 +281,7 @@ alternative zones.")
        (sha256
         (base32 "1h6335dq768vn7gfyhi90j1ljawpsf7wzgqzysgbwrwnk6h67mad"))
        (snippet
-        #~(begin (use-modules (guix build utils))
+        #~(begin (use-modules (Manifolding-OS build utils))
                  (delete-file-recursively "fixtures")))))
     (build-system cargo-build-system)
     (arguments
@@ -293,8 +293,8 @@ alternative zones.")
          ;; These tests require the bundled shared libraries.
          "--skip=test::test_load_parser"
          "--skip=test::test_register_lang")
-      #:modules '((guix build cargo-build-system)
-                  (guix build utils)
+      #:modules '((Manifolding-OS build cargo-build-system)
+                  (Manifolding-OS build utils)
                   (ice-9 match))
       #:phases
       #~(modify-phases %standard-phases
@@ -353,7 +353,7 @@ textual.")
         (base32 "1q4d7z9yhdz7adxr0fp80acnay47zr47mcchbwdkpvgcsdx4bcjy"))
        (snippet
         #~(begin
-            (use-modules (guix build utils))
+            (use-modules (Manifolding-OS build utils))
             ;; No new Rust features are actually used.
             (substitute* "Cargo.toml"
               (("^rust-version = \"1\\.95\\.0\"") "rust-version = \"1.93.0\""))))))
@@ -361,8 +361,8 @@ textual.")
     (arguments
      (list
       #:modules
-      '((guix build cargo-build-system)
-        (guix build utils)
+      '((Manifolding-OS build cargo-build-system)
+        (Manifolding-OS build utils)
         (ice-9 match))
       #:install-source? #f
       #:cargo-test-flags
@@ -482,9 +482,9 @@ including the daemon, PTY proxy, and Atuin AI.")
       #:install-source? #f
       #:imported-modules (append %copy-build-system-modules
                                  %cargo-build-system-modules)
-      #:modules '((guix build cargo-build-system)
-                  ((guix build copy-build-system) #:prefix copy:)
-                  (guix build utils))
+      #:modules '((Manifolding-OS build cargo-build-system)
+                  ((Manifolding-OS build copy-build-system) #:prefix copy:)
+                  (Manifolding-OS build utils))
       #:phases
       #~(modify-phases %standard-phases
           (add-before 'build 'pre-build
@@ -572,9 +572,9 @@ the emacs formatter.")
               "--skip=valid_config_tests::test_theme")
        #:imported-modules (append %copy-build-system-modules
                                   %cargo-build-system-modules)
-       #:modules '((guix build cargo-build-system)
-                   ((guix build copy-build-system) #:prefix copy:)
-                   (guix build utils))
+       #:modules '((Manifolding-OS build cargo-build-system)
+                   ((Manifolding-OS build copy-build-system) #:prefix copy:)
+                   (Manifolding-OS build utils))
        #:phases
        #~(modify-phases %standard-phases
            (add-after 'unpack 'enable-building-completions
@@ -970,7 +970,7 @@ through tools like `gdb`.")
        (sha256
         (base32 "0wpsvrws2lwy1kix0xfs5dqs8b7j5ixnaz2x25apfbnh6gf99vda"))
        (snippet
-        #~(begin (use-modules (guix build utils))
+        #~(begin (use-modules (Manifolding-OS build utils))
                  (delete-file-recursively "website")))))
     (build-system cargo-build-system)
     (arguments
@@ -992,8 +992,8 @@ through tools like `gdb`.")
              "--skip=git::rev::revwalk::test::recursive_from_origin_to_head"
              "--skip=cog_tests::changelog::get_changelog_range"
              "--skip=cog_tests::commit::should_run_git_hooks")
-      #:modules '((guix build cargo-build-system)
-                  (guix build utils)
+      #:modules '((Manifolding-OS build cargo-build-system)
+                  (Manifolding-OS build utils)
                   (ice-9 match))
       #:phases
       #~(modify-phases %standard-phases
@@ -1060,8 +1060,8 @@ Commit and SemVer specifications.")
      (list
        #:install-source? #f
        #:modules
-       '((guix build cargo-build-system)
-         (guix build utils)
+       '((Manifolding-OS build cargo-build-system)
+         (Manifolding-OS build utils)
          (ice-9 match))
        #:phases
        #~(modify-phases %standard-phases
@@ -1409,9 +1409,9 @@ console.")
       #:install-source? #f
       #:imported-modules (append %copy-build-system-modules
                                  %cargo-build-system-modules)
-      #:modules '((guix build cargo-build-system)
-                  ((guix build copy-build-system) #:prefix copy:)
-                  (guix build utils))
+      #:modules '((Manifolding-OS build cargo-build-system)
+                  ((Manifolding-OS build copy-build-system) #:prefix copy:)
+                  (Manifolding-OS build utils))
       #:phases
       #~(modify-phases %standard-phases
           (add-after 'install 'install-manual
@@ -1480,8 +1480,8 @@ This package is the community maintained fork of @code{exa}.")
      (list
       #:install-source? #f
       #:modules
-      '((guix build cargo-build-system)
-        (guix build utils)
+      '((Manifolding-OS build cargo-build-system)
+        (Manifolding-OS build utils)
         (ice-9 match))
       #:phases
       #~(modify-phases %standard-phases
@@ -1539,8 +1539,8 @@ JSON, so you have a lot of control over the search and cleanup process.")
              "--skip=test_owner_root")
       #:install-source? #f
       #:modules
-      '((guix build cargo-build-system)
-        (guix build utils)
+      '((Manifolding-OS build cargo-build-system)
+        (Manifolding-OS build utils)
         (ice-9 match))
       #:phases
       #~(modify-phases %standard-phases
@@ -1601,8 +1601,8 @@ defaults for 80% of the use cases.")
      (list
       #:install-source? #f
       #:modules
-      '((guix build cargo-build-system)
-        (guix build utils)
+      '((Manifolding-OS build cargo-build-system)
+        (Manifolding-OS build utils)
         (ice-9 match))
       #:phases
       #~(modify-phases %standard-phases
@@ -1656,7 +1656,7 @@ defaults for 80% of the use cases.")
        (sha256
         (base32
          "008cqcc4kjandfi6pqrnr689xb11d6fdhcb48kbv0227v3f5gvn3"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         '(begin
            (substitute* "Cargo.toml"
@@ -1698,8 +1698,8 @@ defaults for 80% of the use cases.")
      (list
       #:install-source? #f
       #:modules
-      '((guix build cargo-build-system)
-        (guix build utils)
+      '((Manifolding-OS build cargo-build-system)
+        (Manifolding-OS build utils)
         (ice-9 match))
       #:phases
       #~(modify-phases %standard-phases
@@ -1760,7 +1760,7 @@ repositories.")
        (file-name (string-append name "-" version ".tar.gz"))
        (sha256
         (base32 "1fg7cmksm626vqpcbv913y8gg855r5adcvsm33rxsmgqbabaam6r"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         '(begin
            (delete-file-recursively "wix")
@@ -1805,9 +1805,9 @@ repositories.")
      (list
       #:imported-modules `(,@%meson-build-system-modules
                            ,@%cargo-build-system-modules)
-      #:modules '(((guix build cargo-build-system) #:prefix cargo:)
-                  (guix build meson-build-system)
-                  (guix build utils))
+      #:modules '(((Manifolding-OS build cargo-build-system) #:prefix cargo:)
+                  (Manifolding-OS build meson-build-system)
+                  (Manifolding-OS build utils))
       #:phases
       #~(modify-phases %standard-phases
           (add-after 'unpack 'prepare-for-build
@@ -1898,9 +1898,9 @@ characters, ASCII whitespace characters, other ASCII characters and non-ASCII.")
       #:install-source? #f
       #:imported-modules (append %copy-build-system-modules
                                  %cargo-build-system-modules)
-      #:modules '((guix build cargo-build-system)
-                  ((guix build copy-build-system) #:prefix copy:)
-                  (guix build utils))
+      #:modules '((Manifolding-OS build cargo-build-system)
+                  ((Manifolding-OS build copy-build-system) #:prefix copy:)
+                  (Manifolding-OS build utils))
       #:phases
       #~(modify-phases %standard-phases
           (add-before 'build 'pre-build
@@ -2024,9 +2024,9 @@ bar.  It is also compatible with sway.")
      (list
       #:imported-modules `(,@%meson-build-system-modules
                            ,@%cargo-build-system-modules)
-      #:modules '(((guix build cargo-build-system) #:prefix cargo:)
-                  (guix build meson-build-system)
-                  (guix build utils))
+      #:modules '(((Manifolding-OS build cargo-build-system) #:prefix cargo:)
+                  (Manifolding-OS build meson-build-system)
+                  (Manifolding-OS build utils))
       #:phases
       #~(modify-phases %standard-phases
           (add-after 'unpack 'prepare-for-build
@@ -2175,8 +2175,8 @@ JSON viewer and jq filter editor.")
          "--skip=test_git::test_push_updates_with_options"
          "--skip=test_util_command::test_util_exec_sets_env")
       #:modules
-      '((guix build cargo-build-system)
-        (guix build utils)
+      '((Manifolding-OS build cargo-build-system)
+        (Manifolding-OS build utils)
         (ice-9 match))
       #:phases
       #~(modify-phases %standard-phases
@@ -2344,7 +2344,7 @@ Unicode.")
        (sha256
         (base32 "1ryk9vz0hdqcka8n90qnhh430rj2z4s7kh71bkc5lpdx5lassq5q"))
        (snippet
-        #~(begin (use-modules (guix build utils))
+        #~(begin (use-modules (Manifolding-OS build utils))
                  ;; Use a packaged version of tokei.
                  (substitute* "xtask/Cargo.toml"
                    (("git = .*tokei\", branch.*,") "version = \"*\","))))))
@@ -2354,9 +2354,9 @@ Unicode.")
       #:install-source? #f
       #:imported-modules (append %copy-build-system-modules
                                  %cargo-build-system-modules)
-      #:modules '((guix build cargo-build-system)
-                  ((guix build copy-build-system) #:prefix copy:)
-                  (guix build utils))
+      #:modules '((Manifolding-OS build cargo-build-system)
+                  ((Manifolding-OS build copy-build-system) #:prefix copy:)
+                  (Manifolding-OS build utils))
       #:phases
       #~(modify-phases %standard-phases
           (add-after 'install 'install-extras
@@ -2394,9 +2394,9 @@ more.")
       #:install-source? #f
       #:imported-modules (append %copy-build-system-modules
                                  %cargo-build-system-modules)
-      #:modules '((guix build cargo-build-system)
-                  ((guix build copy-build-system) #:prefix copy:)
-                  (guix build utils))
+      #:modules '((Manifolding-OS build cargo-build-system)
+                  ((Manifolding-OS build copy-build-system) #:prefix copy:)
+                  (Manifolding-OS build utils))
       #:phases
       #~(modify-phases %standard-phases
           (add-before 'build 'pre-build
@@ -2494,11 +2494,11 @@ specified image or color, easing the process of theme creation.")
     (build-system cargo-build-system)
     (arguments
      (list
-      #:modules '((guix build cargo-build-system)
-                  ((guix build pyproject-build-system) #:prefix py:)
-                  (guix build utils))
-      #:imported-modules `((guix build cargo-build-system)
-                           (guix build cargo-utils)
+      #:modules '((Manifolding-OS build cargo-build-system)
+                  ((Manifolding-OS build pyproject-build-system) #:prefix py:)
+                  (Manifolding-OS build utils))
+      #:imported-modules `((Manifolding-OS build cargo-build-system)
+                           (Manifolding-OS build cargo-utils)
                            ,@%pyproject-build-system-modules)
       #:install-source? #f
       #:cargo-test-flags
@@ -2628,7 +2628,7 @@ GitHub-like look.")
        (sha256
         (base32 "1298fxd1hx0y86xpmrmbi6ps9bvp81b4r4cgyvgqzfzicn616l2j"))
        (snippet
-        #~(begin (use-modules (guix build utils))
+        #~(begin (use-modules (Manifolding-OS build utils))
                  (for-each delete-file-recursively
                            '("crates/vfox/test/data"
                              "docs"))
@@ -2644,8 +2644,8 @@ GitHub-like look.")
            ;; test_last_modified fails in the build sandbox because file
            ;; timestamps are normalized.
            #:cargo-test-flags ''("--" "--skip" "test_last_modified")
-           #:modules '((guix build cargo-build-system)
-                       (guix build utils)
+           #:modules '((Manifolding-OS build cargo-build-system)
+                       (Manifolding-OS build utils)
                        (ice-9 match))
            #:phases
            #~(modify-phases %standard-phases
@@ -2807,8 +2807,8 @@ container management applications.")
      (list
       #:install-source? #f
       #:modules
-      '((guix build cargo-build-system)
-        (guix build utils)
+      '((Manifolding-OS build cargo-build-system)
+        (Manifolding-OS build utils)
         (ice-9 match))
       #:phases
       #~(modify-phases %standard-phases
@@ -2858,7 +2858,7 @@ performance and customizability.")
        (sha256
         (base32 "1gslgyv63jq66w5pymsn7jnkmh2b8s8wzqvhs6k2iywzc4nm3gxd"))
        (snippet
-        #~(begin (use-modules (guix build utils))
+        #~(begin (use-modules (Manifolding-OS build utils))
                  (substitute* "Cargo.toml"
                    ;; Don't try to use a bundled copy of bzip3.
                    ((".*bundled.*") ""))))))
@@ -2868,9 +2868,9 @@ performance and customizability.")
       #:install-source? #f
       #:imported-modules (append %copy-build-system-modules
                                  %cargo-build-system-modules)
-      #:modules '((guix build cargo-build-system)
-                  ((guix build copy-build-system) #:prefix copy:)
-                  (guix build utils))
+      #:modules '((Manifolding-OS build cargo-build-system)
+                  ((Manifolding-OS build copy-build-system) #:prefix copy:)
+                  (Manifolding-OS build utils))
       #:phases
       #~(modify-phases %standard-phases
           (add-before 'build 'pre-build
@@ -2950,8 +2950,8 @@ choice.  Supported launchers are: dmenu, fuzzel, rofi, walker and custom.")
      (list
       #:install-source? #f
       #:modules
-      '((guix build cargo-build-system)
-        (guix build utils)
+      '((Manifolding-OS build cargo-build-system)
+        (Manifolding-OS build utils)
         (ice-9 match))
       #:cargo-test-flags
       ;; python-numpy isn't in the build environment
@@ -3040,8 +3040,8 @@ server for rapid website iteration.")
      (list
       #:install-source? #f
       #:modules
-      '((guix build cargo-build-system)
-        (guix build utils)
+      '((Manifolding-OS build cargo-build-system)
+        (Manifolding-OS build utils)
         (ice-9 match))
       #:phases
       #~(modify-phases %standard-phases
@@ -3095,8 +3095,8 @@ search tools like The Silver Searcher, @command{ack} and @command{grep}.")
       #:install-source? #f
       #:modules
       '((srfi srfi-26)
-        (guix build utils)
-        (guix build cargo-build-system))
+        (Manifolding-OS build utils)
+        (Manifolding-OS build cargo-build-system))
       #:phases
       #~(modify-phases %standard-phases
           (add-after 'install 'wrap-with-path
@@ -3238,7 +3238,7 @@ Rust.  It compiles ST down to native machine code, targeting most
        (sha256
         (base32
          "06dda65mfm5p819lvzkpqnf7zm3migp5j3584znvq5ickax758br"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet '(substitute* "Cargo.toml"
                    ((".*git = .*") "")))))
     (build-system cargo-build-system)
@@ -3347,9 +3347,9 @@ rebase.")
       #:install-source? #f
       #:imported-modules (append %copy-build-system-modules
                                  %cargo-build-system-modules)
-      #:modules '((guix build cargo-build-system)
-                  ((guix build copy-build-system) #:prefix copy:)
-                  (guix build utils))
+      #:modules '((Manifolding-OS build cargo-build-system)
+                  ((Manifolding-OS build copy-build-system) #:prefix copy:)
+                  (Manifolding-OS build utils))
       #:phases
       #~(modify-phases %standard-phases
           (add-before 'build 'pre-build
@@ -3611,7 +3611,7 @@ command.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "0404jgzfcbmjvr1zl9jgw49nqs1s182cbvdzwh92i76qd2cpg166"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         '(begin
            ;; Remove examples and benchmarks from workspace; they have
@@ -3783,8 +3783,8 @@ diagnostics, autocompletion, documentation, and formatting.")
      (list
        #:install-source? #f
        #:modules
-       '((guix build cargo-build-system)
-         (guix build utils)
+       '((Manifolding-OS build cargo-build-system)
+         (Manifolding-OS build utils)
          (ice-9 match))
        #:cargo-install-paths ''(".")
        #:features '(list "external-harfbuzz")
@@ -3960,9 +3960,9 @@ blanks grouped by language.")
       #:install-source? #f
       #:imported-modules (append %copy-build-system-modules
                                  %cargo-build-system-modules)
-      #:modules '((guix build cargo-build-system)
-                  ((guix build copy-build-system) #:prefix copy:)
-                  (guix build utils))
+      #:modules '((Manifolding-OS build cargo-build-system)
+                  ((Manifolding-OS build copy-build-system) #:prefix copy:)
+                  (Manifolding-OS build utils))
       #:cargo-install-paths ''("crates/typst-cli")
       #:phases
       #~(modify-phases %standard-phases
@@ -4029,8 +4029,8 @@ compilation, and intuitive error messages.")
      (list
       #:install-source? #f
       #:modules
-      '((guix build cargo-build-system)
-        (guix build utils)
+      '((Manifolding-OS build cargo-build-system)
+        (Manifolding-OS build utils)
         (ice-9 match))
       #:phases
       #~(modify-phases %standard-phases
@@ -4147,10 +4147,10 @@ older terminal emulators.")
       #:install-source? #f
       #:imported-modules
        `(,@%cargo-build-system-modules ,@%pyproject-build-system-modules)
-      #:modules '((guix build cargo-build-system)
-                  ((guix build pyproject-build-system)
+      #:modules '((Manifolding-OS build cargo-build-system)
+                  ((Manifolding-OS build pyproject-build-system)
                    #:prefix py:)
-                  (guix build utils))
+                  (Manifolding-OS build utils))
       #:phases
       #~(modify-phases %standard-phases
           (add-after 'build 'build-python-module
@@ -4218,8 +4218,8 @@ runs a command whenever it detects modifications.")
      (list
        #:install-source? #f
        #:modules
-       '((guix build cargo-build-system)
-         (guix build utils)
+       '((Manifolding-OS build cargo-build-system)
+         (Manifolding-OS build utils)
          (ice-9 match))
        #:phases
        #~(modify-phases %standard-phases
@@ -4344,9 +4344,9 @@ consecutive lines and since program start.")
       #:install-source? #f
       #:imported-modules (append %copy-build-system-modules
                                  %cargo-build-system-modules)
-      #:modules '((guix build cargo-build-system)
-                  ((guix build copy-build-system) #:prefix copy:)
-                  (guix build utils))
+      #:modules '((Manifolding-OS build cargo-build-system)
+                  ((Manifolding-OS build copy-build-system) #:prefix copy:)
+                  (Manifolding-OS build utils))
       #:phases
       #~(modify-phases %standard-phases
           (add-after 'install 'install-extras
@@ -4651,9 +4651,9 @@ window manager.")
        #:install-source? #f
        #:imported-modules (append %copy-build-system-modules
                                   %cargo-build-system-modules)
-       #:modules '((guix build cargo-build-system)
-                   ((guix build copy-build-system) #:prefix copy:)
-                   (guix build utils))
+       #:modules '((Manifolding-OS build cargo-build-system)
+                   ((Manifolding-OS build copy-build-system) #:prefix copy:)
+                   (Manifolding-OS build utils))
        #:cargo-test-flags
        '(list "--"
               ;; These tests go to the network
@@ -4691,7 +4691,7 @@ Full featured offline client with caching support.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "04jk8d6wzxclx16mdg56afy2nqfv06j5kbxdch6977226gw80i0p"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         #~(begin
             (for-each delete-file
@@ -4710,9 +4710,9 @@ Full featured offline client with caching support.")
       #:modules
       '((srfi srfi-26)
         (ice-9 match)
-        ((guix build cargo-build-system) #:prefix cargo:)
-        (guix build pyproject-build-system)
-        (guix build utils))
+        ((Manifolding-OS build cargo-build-system) #:prefix cargo:)
+        (Manifolding-OS build pyproject-build-system)
+        (Manifolding-OS build utils))
       #:tests? #f  ; Tests require multiple python versions and network access.
       #:phases
       #~(modify-phases %standard-phases
@@ -4822,8 +4822,8 @@ tools.")
      (list
       #:install-source? #f
       #:modules
-      '((guix build cargo-build-system)
-        (guix build utils)
+      '((Manifolding-OS build cargo-build-system)
+        (Manifolding-OS build utils)
         (ice-9 match))
       #:phases
       #~(modify-phases %standard-phases
@@ -4890,9 +4890,9 @@ It will then write @code{fixup!} commits for each of those changes.")
       #:install-source? #f
       #:imported-modules (append %copy-build-system-modules
                                  %cargo-build-system-modules)
-      #:modules '((guix build cargo-build-system)
-                  ((guix build copy-build-system) #:prefix copy:)
-                  (guix build utils))
+      #:modules '((Manifolding-OS build cargo-build-system)
+                  ((Manifolding-OS build copy-build-system) #:prefix copy:)
+                  (Manifolding-OS build utils))
       #:phases
       #~(modify-phases %standard-phases
           (add-after 'install 'install-extras
@@ -4939,9 +4939,9 @@ advanced keybindings, word-level diff highlighting, syntax highlighting for
       #:features '(list "buildgen")
       #:imported-modules (append %copy-build-system-modules
                                  %cargo-build-system-modules)
-      #:modules '((guix build cargo-build-system)
-                  ((guix build copy-build-system) #:prefix copy:)
-                  (guix build utils))
+      #:modules '((Manifolding-OS build cargo-build-system)
+                  ((Manifolding-OS build copy-build-system) #:prefix copy:)
+                  (Manifolding-OS build utils))
       #:install-source? #f
       #:phases
       #~(modify-phases %standard-phases
@@ -4991,8 +4991,8 @@ minimum contrast levels, and more.")
       #:tests? #f   ;Tests require local instance of RabbitMQ broker.
       #:install-source? #f
       #:modules
-      '((guix build cargo-build-system)
-        (guix build utils)
+      '((Manifolding-OS build cargo-build-system)
+        (Manifolding-OS build utils)
         (ice-9 match))
       #:phases
       #~(modify-phases %standard-phases
@@ -5056,7 +5056,7 @@ policies, and so on.
              version "/heartwood-" version ".tar.gz"))
        (sha256
         (base32 "0z4ygjn5gmhh4v3iw5g5hxy536288wz464sb1vh90145wnjx4i74"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         '(begin
            (for-each delete-file
@@ -5078,8 +5078,8 @@ policies, and so on.
              ;; Different order of fields in expected vs actual JSON
              "--skip=commands::utility::rad_config")
       #:modules
-      '((guix build cargo-build-system)
-        (guix build utils)
+      '((Manifolding-OS build cargo-build-system)
+        (Manifolding-OS build utils)
         (ice-9 match))
       #:phases
       #~(modify-phases %standard-phases
@@ -5156,8 +5156,8 @@ and users are in full control of their data and workflow.")
       #:features '(list)
       #:install-source? #f
       #:modules
-      '((guix build cargo-build-system)
-        (guix build utils)
+      '((Manifolding-OS build cargo-build-system)
+        (Manifolding-OS build utils)
         (ice-9 match))
       #:phases
       #~(modify-phases %standard-phases
@@ -5278,8 +5278,8 @@ and users are in full control of their data and workflow.")
      (list
       #:install-source? #f
       #:modules
-      '((guix build cargo-build-system)
-        (guix build utils)
+      '((Manifolding-OS build cargo-build-system)
+        (Manifolding-OS build utils)
         (ice-9 match))
       #:phases
       #~(modify-phases %standard-phases
@@ -5335,9 +5335,9 @@ It supports taxonomies, shortcodes, and live reloading.")
      (list #:install-source? #f
            #:imported-modules (append %copy-build-system-modules
                                       %cargo-build-system-modules)
-           #:modules '((guix build cargo-build-system)
-                       ((guix build copy-build-system) #:prefix copy:)
-                       (guix build utils))
+           #:modules '((Manifolding-OS build cargo-build-system)
+                       ((Manifolding-OS build copy-build-system) #:prefix copy:)
+                       (Manifolding-OS build utils))
            #:phases
            #~(modify-phases %standard-phases
                (add-after 'unpack 'patch-references

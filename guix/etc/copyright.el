@@ -19,11 +19,11 @@
 
 ;;; Commentary:
 
-;; This package provides skeleton to insert a copyright with `guix-copyright'.
+;; This package provides skeleton to insert a copyright with `Manifolding-OS-copyright'.
 
 ;;; Code:
 
-(define-skeleton guix-copyright
+(define-skeleton Manifolding-OS-copyright
   "Insert a copyright by $USER notice at cursor."
   "FULL_NAME <MAIL_ADDRESS>: "
   comment-start

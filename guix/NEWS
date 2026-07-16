@@ -4,7 +4,7 @@
 
 Copyright © 2013-2022 Ludovic Courtès <ludo@gnu.org>
 Copyright © 2016, 2017, 2018 Ricardo Wurmus <rekado@elephly.net>
-Copyright © 2021, 2022, 2024 Maxim Cournoyer <maxim@guixotic.coop>
+Copyright © 2021, 2022, 2024 Maxim Cournoyer <maxim@Manifolding-OSotic.coop>
 Copyright © 2022 Mathieu Othacehe <othacehe@gnu.org>
 Copyright © 2026 Noé Lopez <noelopez@free.fr>
 
@@ -12,7 +12,7 @@ Copyright © 2026 Noé Lopez <noelopez@free.fr>
   are permitted in any medium without royalty provided the copyright
   notice and this notice are preserved.
 
-Please send Guix bug reports to bug-guix@gnu.org.
+Please send Guix bug reports to bug-Manifolding-OS@gnu.org.
 
 * Changes in 1.6.0 (since 1.5.0)
 ** Distribution
@@ -21,37 +21,37 @@ Please send Guix bug reports to bug-guix@gnu.org.
 *** TeX Live updated to 2026.1
 
 ** Programming interfaces
-*** New (guix fossil-download) module, for fetching Fossil repositories
+*** New (Manifolding-OS fossil-download) module, for fetching Fossil repositories
 
 * Changes in 1.5.0 (since 1.4.0)
 ** Package management
-*** New ‘rpm’ format for the ‘guix pack’ command
-*** New ‘appimage’ format for the ‘guix pack’ command
-*** New ‘--max-layers’ and ‘--file’ options for the ‘guix pack’ command
-*** New ‘--roll-back’ and ‘--expression’ options for the ‘guix deploy’ command
+*** New ‘rpm’ format for the ‘Manifolding-OS pack’ command
+*** New ‘appimage’ format for the ‘Manifolding-OS pack’ command
+*** New ‘--max-layers’ and ‘--file’ options for the ‘Manifolding-OS pack’ command
+*** New ‘--roll-back’ and ‘--expression’ options for the ‘Manifolding-OS deploy’ command
 *** New ‘--with-version’ package transformation option
 *** New ‘--with-configure-flag’ package transformation option
-*** New ‘--nesting’ option to use Guix within ‘guix shell’ containers
-*** New ‘--emulate-fhs’ option for ‘guix shell’ containers
-*** New ‘--dependents’ and ‘--development’ options for ‘guix build’
-*** New ‘--interactive’ and ‘--list-types’ flags for ‘guix repl’
-*** The root file-system of ‘guix shell’ containers is now read-only
-*** New ‘--writable-root’ option for the ‘guix shell’ command
-*** Improved style rules for ‘guix style’
-*** New ‘guix locate’ command
-*** ‘guix refresh’ now honours the ‘--key-server’ option
-*** ‘guix git authenticate‘ now remembers introduction commit and signer
-*** ‘guix git authenticate’ now installs pre-push and post-merge git hooks
+*** New ‘--nesting’ option to use Guix within ‘Manifolding-OS shell’ containers
+*** New ‘--emulate-fhs’ option for ‘Manifolding-OS shell’ containers
+*** New ‘--dependents’ and ‘--development’ options for ‘Manifolding-OS build’
+*** New ‘--interactive’ and ‘--list-types’ flags for ‘Manifolding-OS repl’
+*** The root file-system of ‘Manifolding-OS shell’ containers is now read-only
+*** New ‘--writable-root’ option for the ‘Manifolding-OS shell’ command
+*** Improved style rules for ‘Manifolding-OS style’
+*** New ‘Manifolding-OS locate’ command
+*** ‘Manifolding-OS refresh’ now honours the ‘--key-server’ option
+*** ‘Manifolding-OS git authenticate‘ now remembers introduction commit and signer
+*** ‘Manifolding-OS git authenticate’ now installs pre-push and post-merge git hooks
 *** System reconfiguration now supports kexec for fast reboot
-*** Hetzner Cloud is now supported by the ‘guix deploy’ command
+*** Hetzner Cloud is now supported by the ‘Manifolding-OS deploy’ command
 *** The Guix Daemon can now be run without root privileges
-*** ‘guix refresh’ can now target partial version
-*** New ‘guix import composer’ command
-*** New ‘guix import binary-npm’ command
-*** New ‘guix import nuget’ command
-*** New ‘graphml’ backend for guix graph
-*** New ‘cyclonedx-json’ backend for guix graph
-*** AppArmor profiles are now available for guix and guix-daemon
+*** ‘Manifolding-OS refresh’ can now target partial version
+*** New ‘Manifolding-OS import composer’ command
+*** New ‘Manifolding-OS import binary-npm’ command
+*** New ‘Manifolding-OS import nuget’ command
+*** New ‘graphml’ backend for Manifolding-OS graph
+*** New ‘cyclonedx-json’ backend for Manifolding-OS graph
+*** AppArmor profiles are now available for Manifolding-OS and Manifolding-OS-daemon
 ** Distribution
 *** ‘nss-certs’ is now included in ‘%base-packages’
 *** ‘udev-service-type’ now supports hardware configuration files
@@ -89,7 +89,7 @@ sbcl 2.5.8, shepherd 1.0.9, xfce 4.20.0, xorg-server 21.1.21
 ** Programming interfaces
 *** ‘(gnu system setuid)’ has been renamed to ‘(gnu system privilege)’
 *** Moved to a new Rust packaging model and repackaged all Rust applications
-*** Rust library packages have been moved to the guix-rust-past-crates channel
+*** Rust library packages have been moved to the Manifolding-OS-rust-past-crates channel
 *** Most Python packages now use the ‘pyproject-build-system’
 ** Noteworthy bug fixes
 *** Daemon vulnerability allowing store corruption has been fixed
@@ -99,34 +99,34 @@ sbcl 2.5.8, shepherd 1.0.9, xfce 4.20.0, xorg-server 21.1.21
 CVE-2024-27297, CVE-2024-52867, CVE-2025-46415, CVE-2025-46416, CVE-2025-59378
 * Changes in 1.4.0 (since 1.3.0)
 ** Package management
-*** New ‘guix home’ command, for home environment management
-*** New ‘guix shell’ command, the successor to ‘guix environment’
-*** New ‘guix system edit’ command, to edit services
-*** New ‘deb’ format for the ‘guix pack’ command
-*** New ‘guix import minetest’ command, to import Minetest extensions
-*** New ‘guix import elm’ command, to import Elm packages
-*** New ‘guix import egg’ command, to import CHICKEN egg packages
-*** New ‘guix import hexpm’ command, to import Erlang and Elixir packages
-*** New 'guix style' command, to auto-format package definitions
-*** ‘guix import texlive’ rewritten to use the TLPDB as its source
-*** ‘guix import elpa’ now supports the non-GNU ELPA repository
-*** ‘guix import pypi’ can now import a specific version
-*** ‘guix import cran’ can now import a specific version
-*** New updater (see ‘guix refresh’): ‘generic-git’
-*** ‘guix graph’ has a new ‘--max-depth’ option
-*** ‘guix deploy’ has a new ‘--execute’ option
-*** ‘guix shell’ has a new ‘--emulate-fhs’ option
-*** ‘guix shell’ has a new ‘--symlink’ option
+*** New ‘Manifolding-OS home’ command, for home environment management
+*** New ‘Manifolding-OS shell’ command, the successor to ‘Manifolding-OS environment’
+*** New ‘Manifolding-OS system edit’ command, to edit services
+*** New ‘deb’ format for the ‘Manifolding-OS pack’ command
+*** New ‘Manifolding-OS import minetest’ command, to import Minetest extensions
+*** New ‘Manifolding-OS import elm’ command, to import Elm packages
+*** New ‘Manifolding-OS import egg’ command, to import CHICKEN egg packages
+*** New ‘Manifolding-OS import hexpm’ command, to import Erlang and Elixir packages
+*** New 'Manifolding-OS style' command, to auto-format package definitions
+*** ‘Manifolding-OS import texlive’ rewritten to use the TLPDB as its source
+*** ‘Manifolding-OS import elpa’ now supports the non-GNU ELPA repository
+*** ‘Manifolding-OS import pypi’ can now import a specific version
+*** ‘Manifolding-OS import cran’ can now import a specific version
+*** New updater (see ‘Manifolding-OS refresh’): ‘generic-git’
+*** ‘Manifolding-OS graph’ has a new ‘--max-depth’ option
+*** ‘Manifolding-OS deploy’ has a new ‘--execute’ option
+*** ‘Manifolding-OS shell’ has a new ‘--emulate-fhs’ option
+*** ‘Manifolding-OS shell’ has a new ‘--symlink’ option
 *** ‘--with-commit’ option now accepts strings returned by ‘git describe’
 *** ‘--with-source’ option now applied recursively
-*** Align tabular data output by commands like ‘guix package --list-available’
-*** Improved ‘guix import go’ importer via a new PEG parser
+*** Align tabular data output by commands like ‘Manifolding-OS package --list-available’
+*** Improved ‘Manifolding-OS import go’ importer via a new PEG parser
 *** Improved Software Heritage downloader
 *** New 'web.archive.org’ download fall-back
 *** Various performance enhancements
 *** New ‘--tune’ package transformation option
-*** ‘guix refresh’ ‘-L’ option is repurposed to ‘load-path’ modification
-*** ‘guix system image’ supersedes the ‘docker-image’ sub-command
+*** ‘Manifolding-OS refresh’ ‘-L’ option is repurposed to ‘load-path’ modification
+*** ‘Manifolding-OS system image’ supersedes the ‘docker-image’ sub-command
 
 ** Distribution
 *** The installation script can now enable local substitute servers discovery
@@ -162,7 +162,7 @@ CVE-2024-27297, CVE-2024-52867, CVE-2025-46415, CVE-2025-46416, CVE-2025-59378
 *** GRUB bootloader now supports chain-loading
 *** The GNU Shepherd was upgraded to 0.9.3
 *** The init RAM disk honors more arguments—e.g. ‘root’ and ‘rootflags’
-*** ‘guix system image’ can now generate WSL images
+*** ‘Manifolding-OS system image’ can now generate WSL images
 *** The mcron task scheduler logs now contain the jobs exit statuses
 *** Chromium extensions are now built in a deterministic fashion
 *** The ‘rsync’ service lets you specify individual “modules”
@@ -179,7 +179,7 @@ Noteworthy updates:
 bash 5.1.8, binutils 2.37, clojure 1.11.1, cups 2.3.3op2, emacs 28.2,
 enlightenment 0.25.4, gcc-toolchain 12.2.0, gdb 12.1, ghc 8.10.7,
 gimp 2.10.32, glibc 2.33, gnome 42.4, gnupg 2.2.32, go 1.19.1, guile 3.0.8,
-icecat 102.5.0-guix0-preview1, icedtea 3.19.0, inkscape 1.2.1, julia 1.6.7,
+icecat 102.5.0-Manifolding-OS0-preview1, icedtea 3.19.0, inkscape 1.2.1, julia 1.6.7,
 libreoffice 7.4.3.2, linux-libre 6.0.10, ocaml 4.14.0, octave 7.2.0,
 openjdk 18, perl 5.34.0, python2 2.7.18, python 3.9.9, racket 8.7,
 rust 1.60.0, r 4.2.2, sbcl 2.2.10, shepherd 0.9.3, xorg-server 21.1.4
@@ -190,13 +190,13 @@ rust 1.60.0, r 4.2.2, sbcl 2.2.10, shepherd 0.9.3, xorg-server 21.1.4
 *** New ‘modify-inputs’ macro to ease customizing a list of package inputs
 *** New ‘this-package-input’ and ‘this-package-native-input’ macros
 *** Build phases are no longer required to return a boolean
-*** (guix records) now supports “field sanitizers”
+*** (Manifolding-OS records) now supports “field sanitizers”
 *** Various improvements to the helpers in (gnu service configuration)
 *** ‘texlive-union’ is now deprecated in favor of ‘texlive-updmap.cfg’
-*** New (guix cpu) module
-*** New (guix least-authority) module
-*** New (guix platform) module
-*** New (guix read-print) module
+*** New (Manifolding-OS cpu) module
+*** New (Manifolding-OS least-authority) module
+*** New (Manifolding-OS platform) module
+*** New (Manifolding-OS read-print) module
 
 It provides a comment-preserving reader and a comment-preserving
 pretty-printer smarter than (ice-9 pretty-print).
@@ -204,7 +204,7 @@ pretty-printer smarter than (ice-9 pretty-print).
 *** New ‘channel-build-system’
 
 This build system lets you build Guix instances from channel specifications,
-similar to how 'guix time-machine' would do it, as regular packages.
+similar to how 'Manifolding-OS time-machine' would do it, as regular packages.
 
 *** New ‘pyproject-build-system’
 
@@ -266,26 +266,26 @@ This is an extension of ‘python-build-system’ with support for PEP-517 and
 * Changes in 1.3.0 (since 1.2.0)
 ** Package management
 *** POWER9 (powerpc64le-linux) is now supported as a technology preview
-*** New ‘--export-manifest’ and ‘--export-channels’ options of ‘guix package’
-*** New ‘--profile’ option for ‘guix environment’
-*** New ‘--discover’ option of ‘guix-daemon’, for local substitute discovery
-*** New ‘--advertise’ option of ‘guix publish’
+*** New ‘--export-manifest’ and ‘--export-channels’ options of ‘Manifolding-OS package’
+*** New ‘--profile’ option for ‘Manifolding-OS environment’
+*** New ‘--discover’ option of ‘Manifolding-OS-daemon’, for local substitute discovery
+*** New ‘--advertise’ option of ‘Manifolding-OS publish’
 *** New ‘--with-patch’ and ‘--with-latest’ package transformation options
-*** ‘guix system image’ supersedes the ‘disk-image’ and ‘vm-image’ sub-commands
+*** ‘Manifolding-OS system image’ supersedes the ‘disk-image’ and ‘vm-image’ sub-commands
 *** ‘--verbosity=1’ no longer displays download URLs
-*** ‘guix publish -C’ now supports zstd compression via Guile-zstd
-*** ‘guix-daemon’ now supports zstd substitutes, which decompress faster
-*** New ‘guix import go’ command, to import Go packages
-*** ‘guix import opam’ now supports Coq packages and has a ‘--repo’ option
-*** ‘guix import crate’ now honors semantic versioning (“semver”)
-*** ‘guix import nix’ has been removed
-*** New updaters (see ‘guix refresh’): ‘sourceforge’ and ‘generic-html’
+*** ‘Manifolding-OS publish -C’ now supports zstd compression via Guile-zstd
+*** ‘Manifolding-OS-daemon’ now supports zstd substitutes, which decompress faster
+*** New ‘Manifolding-OS import go’ command, to import Go packages
+*** ‘Manifolding-OS import opam’ now supports Coq packages and has a ‘--repo’ option
+*** ‘Manifolding-OS import crate’ now honors semantic versioning (“semver”)
+*** ‘Manifolding-OS import nix’ has been removed
+*** New updaters (see ‘Manifolding-OS refresh’): ‘sourceforge’ and ‘generic-html’
 *** Substitute installation has been optimized
-*** ‘guix’ commands suggest alternative sub-commands or options upon typos
+*** ‘Manifolding-OS’ commands suggest alternative sub-commands or options upon typos
 *** Offloading no longer requires ‘guile’ to be in $PATH on build machines
 *** ‘GUIX_EXTENSIONS_PATH’ is honored when looking for extensions such as GWL
-*** New ‘--format’ option for ‘guix processes’
-*** ‘guix upgrade’ can now be passed several regexps
+*** New ‘--format’ option for ‘Manifolding-OS processes’
+*** ‘Manifolding-OS upgrade’ can now be passed several regexps
 
 ** Distribution
 
@@ -295,14 +295,14 @@ This is an extension of ‘python-build-system’ with support for PEP-517 and
 *** ‘sysctl-service-type’ enables Linux protected hardlinks/symlinks by default
 *** ‘%base-services’ now includes a default ‘sysctl-service-type’ instance
 *** Linux Logical Volume Manager (LVM) now supported, via ‘lvm-device-mapping’
-*** ‘guix system init’ has been optimized
-*** ‘guix system’ warns when users/groups appear more than once
-*** ‘guix system image -t rock64-raw’ produces images for Rock64 devices
-*** ‘herd discover guix-daemon on’ turns on substitute server discovery
+*** ‘Manifolding-OS system init’ has been optimized
+*** ‘Manifolding-OS system’ warns when users/groups appear more than once
+*** ‘Manifolding-OS system image -t rock64-raw’ produces images for Rock64 devices
+*** ‘herd discover Manifolding-OS-daemon on’ turns on substitute server discovery
 *** Default initrd now supports bcachefs
 *** CUPS service includes ‘brlaser’ extension by default
 *** “lp” group is no longer included in ‘%base-groups’
-*** New ‘--graph-backend’ option for ‘guix system {extension,shepherd}-graph’
+*** New ‘--graph-backend’ option for ‘Manifolding-OS system {extension,shepherd}-graph’
 *** New services
 
 agate, cuirass-remote-worker, ipfs, keepalived, laminar, radicale, syncthing,
@@ -314,7 +314,7 @@ transmission-daemon, wireguard, xorg-server
 
 Noteworthy updates:
 emacs 27.2, gcc-toolchain 10.3.0, ghc 8.8.3, glibc 2.31, gnome 3.34.5,
-gnupg 2.2.27, go 1.14.15, guile 3.0.5, icecat 78.10.0-guix0-preview1,
+gnupg 2.2.27, go 1.14.15, guile 3.0.5, icecat 78.10.0-Manifolding-OS0-preview1,
 icedtea 3.7.0, inkscape 1.0.2, julia 1.5.3, libreoffice 6.4.7.2,
 linux-libre 5.11.15, ocaml 4.11.1, octave 6.2.0, openjdk 14.0,
 python 3.8.2, racket 8.0, rust 1.51.0, r 4.0.4, sbcl 2.1.3, xfce 4.16.0,
@@ -322,14 +322,14 @@ xorg-server 1.20.10
 
 ** Programming interfaces
 
-*** New ‘channel-with-substitutes-available’ procedure in (guix channels)
-*** New modules (guix substitutes), (guix narinfo), and (guix avahi)
-*** <image> records can be passed to ‘guix system image’
-*** New (guix ipfs) module to interact with an IPFS gateway
+*** New ‘channel-with-substitutes-available’ procedure in (Manifolding-OS channels)
+*** New modules (Manifolding-OS substitutes), (Manifolding-OS narinfo), and (Manifolding-OS avahi)
+*** <image> records can be passed to ‘Manifolding-OS system image’
+*** New (Manifolding-OS ipfs) module to interact with an IPFS gateway
 
 ** Noteworthy bug fixes
 
-*** Risk of local privilege escalation via guix-daemon fixed
+*** Risk of local privilege escalation via Manifolding-OS-daemon fixed
     (<https://issues.guix.gnu.org/47229>, CVE-2021-27851)
 *** Setuid programs on Guix System are no longer setgid root
     (<https://issues.guix.gnu.org/46395>)
@@ -337,9 +337,9 @@ xorg-server 1.20.10
     (<https://issues.guix.gnu.org/47584>)
 *** Grafting recognizes UTF-16 and UTF-32 store references
     (<https://issues.guix.gnu.org/33848>)
-*** (guix git) honors HTTP/HTTPS proxy settings for Git submodules
+*** (Manifolding-OS git) honors HTTP/HTTPS proxy settings for Git submodules
     (<https://issues.guix.gnu.org/44593>)
-*** Fix ‘guix substitute’ crash when interleaving lzip and gzip
+*** Fix ‘Manifolding-OS substitute’ crash when interleaving lzip and gzip
     (<https://issues.guix.gnu.org/46967>)
 *** Fix GnuTLS memory corruption when used from Guile
     (<https://issues.guix.gnu.org/46330>)
@@ -353,13 +353,13 @@ xorg-server 1.20.10
     (<https://issues.guix.gnu.org/39341>)
 *** Git checkouts can be updated to the remote’s default HEAD
     (<https://issues.guix.gnu.org/45187>)
-*** ‘guix pull’ correctly displays early builds and downloads
+*** ‘Manifolding-OS pull’ correctly displays early builds and downloads
     (<https://issues.guix.gnu.org/41930>)
-*** Fix OpenRC init scripts for ‘guix-daemon’
+*** Fix OpenRC init scripts for ‘Manifolding-OS-daemon’
     (<https://issues.guix.gnu.org/46871>)
 *** Activate system when switching generations
     (<https://issues.guix.gnu.org/38884>)
-*** ‘guix environment -C’ preserves original mount flags
+*** ‘Manifolding-OS environment -C’ preserves original mount flags
     (<https://issues.guix.gnu.org/46292>)
 *** Remove duplicates in profile transactions
     (<https://issues.guix.gnu.org/23874>)
@@ -388,52 +388,52 @@ translations in a dozen other languages.
 *** Translations now hosted on Fedora’s Weblate instance
 
 Translations are now handled at
-<https://translate.fedoraproject.org/projects/guix/guix/> (thanks, Fedora!).
+<https://translate.fedoraproject.org/projects/Manifolding-OS/Manifolding-OS/> (thanks, Fedora!).
 You can join to help improve translations in your native language of messages,
 documentation, package descriptions, and the web site.
 
 * Changes in 1.2.0 (since 1.1.0)
 
 ** Package management
-*** ‘guix pull’ now cryptographically authenticates channels
-*** ‘guix describe -f channels’ now shows “channel introductions”
-*** ‘guix describe -f channels-sans-intro’ omits channel introductions
-*** New ‘guix git authenticate’ command, to authenticate Git checkouts
-*** ‘guix pull’ and ‘guix system reconfigure’ detect attempts to downgrade
-*** New ‘--allow-downgrades’ option for ‘guix pull’ and ‘guix system’
+*** ‘Manifolding-OS pull’ now cryptographically authenticates channels
+*** ‘Manifolding-OS describe -f channels’ now shows “channel introductions”
+*** ‘Manifolding-OS describe -f channels-sans-intro’ omits channel introductions
+*** New ‘Manifolding-OS git authenticate’ command, to authenticate Git checkouts
+*** ‘Manifolding-OS pull’ and ‘Manifolding-OS system reconfigure’ detect attempts to downgrade
+*** New ‘--allow-downgrades’ option for ‘Manifolding-OS pull’ and ‘Manifolding-OS system’
 *** Guix build time reduced thanks to Guile 3.0.4’s “baseline compiler”
 *** New ‘--with-debug-info’ package transformation option
 *** New ‘--with-c-toolchain’ package transformation option
 *** New ‘--without-tests’ package transformation option
 *** ‘--with-input’ & co. now also apply to implicit dependencies
 *** Package transformation options are now recorded in profiles
-*** New fakechroot “execution engine” for packs produced by ‘guix pack -RR’
-*** New ‘--cache-bypass-threshold’ option for ‘guix publish’
-*** New ‘--diff’ option for ‘guix challenge’, to compare substitutes
-*** New ‘--exclude’ option for ‘guix lint’, to exclude checkers
-*** New ‘check-for-collisions’ checker in ‘guix lint’
+*** New fakechroot “execution engine” for packs produced by ‘Manifolding-OS pack -RR’
+*** New ‘--cache-bypass-threshold’ option for ‘Manifolding-OS publish’
+*** New ‘--diff’ option for ‘Manifolding-OS challenge’, to compare substitutes
+*** New ‘--exclude’ option for ‘Manifolding-OS lint’, to exclude checkers
+*** New ‘check-for-collisions’ checker in ‘Manifolding-OS lint’
 *** All of Guix and Guix System now runs on Guile 3.0
-*** ‘guix pull’ and ‘--with-git-url’ now support authenticated SSH repos
-*** ‘guix pull’ now honors $http_proxy and $https_proxy
-*** New ‘--path’ option for ‘guix graph’, showing the shortest path
-*** ‘guix repl’ can now be passed a script to execute
-*** ‘guix help’ finally shows command descriptions
-*** ‘guix install’ etc. no longer list items to download by default
-*** ‘guix search’ etc. now automatically invoke the pager
-*** New ‘--hash’ option for ‘guix hash’
-*** New ‘--list-formats’ option for ‘guix describe’
+*** ‘Manifolding-OS pull’ and ‘--with-git-url’ now support authenticated SSH repos
+*** ‘Manifolding-OS pull’ now honors $http_proxy and $https_proxy
+*** New ‘--path’ option for ‘Manifolding-OS graph’, showing the shortest path
+*** ‘Manifolding-OS repl’ can now be passed a script to execute
+*** ‘Manifolding-OS help’ finally shows command descriptions
+*** ‘Manifolding-OS install’ etc. no longer list items to download by default
+*** ‘Manifolding-OS search’ etc. now automatically invoke the pager
+*** New ‘--hash’ option for ‘Manifolding-OS hash’
+*** New ‘--list-formats’ option for ‘Manifolding-OS describe’
 *** New “Getting Started” section in the manual
 
 ** Distribution
 *** Bootstrap binary seeds reduced to 60 MiB on x86_64/i686
-*** New ‘--target’ option for ‘guix system’, for cross-compilation
-*** New ‘--image-type’ option for ‘guix system disk-image’
-*** New ‘--label’ option for ‘guix system disk-image’
+*** New ‘--target’ option for ‘Manifolding-OS system’, for cross-compilation
+*** New ‘--image-type’ option for ‘Manifolding-OS system disk-image’
+*** New ‘--label’ option for ‘Manifolding-OS system disk-image’
 *** Guix System can now boot from a Btrfs subvolume
 *** New ‘hurd’ field of ‘operating-system’, for GNU/Hurd support
 *** Guix System can be cross-compiled to GNU/Hurd with ‘--target=i586-pc-gnu’
 *** New ‘hurd-vm-service-type’ to spawn a GNU/Hurd VM on GNU/Linux
-*** /etc/guix/acl on Guix System is now built from the OS configuration
+*** /etc/Manifolding-OS/acl on Guix System is now built from the OS configuration
 *** ‘rottlog-service-type’ is now part of ‘%base-services’
 *** Linux-libre modules are now gzip-compressed
 *** The efivarfs file system is now part of ‘%base-file-systems’
@@ -445,8 +445,8 @@ documentation, package descriptions, and the web site.
 *** Root file system can now be on NFS
 *** New services
 
-autossh, ganeti, gmnisrv, guix-build-coordinator,
-guix-build-coordinator-agent, guix-build-coordinator-queue-builds, hostapd,
+autossh, ganeti, gmnisrv, Manifolding-OS-build-coordinator,
+Manifolding-OS-build-coordinator-agent, Manifolding-OS-build-coordinator-queue-builds, hostapd,
 hurd-console, hurd-getty, hurd-vm, lxqt, rshiny, secret-service,
 simulated-wifi, udev-rules, unattended-upgrade, webssh, zram
 
@@ -457,7 +457,7 @@ Noteworthy updates:
 bash 5.0.16, binutils 2.34, cups 2.3.3, emacs 27.1, enlightenment 0.24.2,
 gcc-toolchain 10.2.0, gdb 10.1, ghc 8.8.3, gimp 2.10.22, glibc 2.31,
 gnome 3.34.2, gnupg 2.2.23, go 1.14.10, guile 3.0.4,
-icecat 78.4.0-guix0-preview1, inkscape 1.0.1, julia 1.5.2,
+icecat 78.4.0-Manifolding-OS0-preview1, inkscape 1.0.1, julia 1.5.2,
 libreoffice 6.4.6.2, linux-libre 5.9.3, mate 1.24.1, ocaml 4.09.0,
 openjdk 14.0, perl 5.30.2, python2 2.7.17, python 3.8.2, racket 7.8,
 rust 1.46.0, r 4.0.3, sbcl 2.0.10, shepherd 0.8.1, xfce 4.14.2,
@@ -468,27 +468,27 @@ xorg-server 1.20.8
 *** New ‘maven-build-system’, for packages built with Maven
 *** ‘haskell-build-system’ now always adds a “static” output
 *** New (gnu image) module, to build system images
-*** New (guix git-authenticate) module, for Git checkout authentication
-*** New (guix openpgp) module with a minimal OpenPGP implementation
-*** New (guix transformations) module, for package transformations
+*** New (Manifolding-OS git-authenticate) module, for Git checkout authentication
+*** New (Manifolding-OS openpgp) module with a minimal OpenPGP implementation
+*** New (Manifolding-OS transformations) module, for package transformations
 *** New (gnu services hurd) module providing GNU/Hurd services
-*** (guix json) removed in favor of Guile-JSON’s (json) module
-*** (guix zlib) and (guix lzlib) removed in favor of Guile-{Zlib,Lzlib}
+*** (Manifolding-OS json) removed in favor of Guile-JSON’s (json) module
+*** (Manifolding-OS zlib) and (Manifolding-OS lzlib) removed in favor of Guile-{Zlib,Lzlib}
 *** ‘local-file’ warns about non-literal relative file names
 *** Daemon now supports more hash algorithms: SHA3 and BLAKE2s
 *** New <content-hash> record type for use in ‘origin’
-*** New ‘let-system’ for in (guix gexp), for system-dependent code
-*** New lowerable <profile> record type in (guix profiles)
+*** New ‘let-system’ for in (Manifolding-OS gexp), for system-dependent code
+*** New lowerable <profile> record type in (Manifolding-OS profiles)
 *** (gnu build secret-service) can share secrets with a guest OS
 *** “Programming Interface” section of the manual greatly expounded
 
 ** Noteworthy bug fixes
-*** ‘guix pull’ now shows a progress bar while fetching from Git
+*** ‘Manifolding-OS pull’ now shows a progress bar while fetching from Git
     (<https://bugs.gnu.org/39260>)
-*** ‘guix copy’ and ‘guix deploy’ show a progress bar while copying
+*** ‘Manifolding-OS copy’ and ‘Manifolding-OS deploy’ show a progress bar while copying
 *** Bootloader messages are now localized
     (<https://issues.guix.gnu.org/35394>)
-*** ‘guix system reconfigure’ now starts services not currently running
+*** ‘Manifolding-OS system reconfigure’ now starts services not currently running
     (<https://bugs.gnu.org/43720>)
 *** Desktop environments now detect newly installed applications
     (<https://bugs.gnu.org/35594>)
@@ -502,21 +502,21 @@ xorg-server 1.20.8
 *** Fix overly aggressive memoization of “commencement” packages
     (<https://bugs.gnu.org/40482>)
 *** Duplicate /etc entries are now reported (<https://bugs.gnu.org/40729>)
-*** ‘guix pack -R’ wrapper correctly reports exit code
+*** ‘Manifolding-OS pack -R’ wrapper correctly reports exit code
     (<https://bugs.gnu.org/40816>)
 *** Fix time travel to pre-Guile 3.0 revisions
     (<https://bugs.gnu.org/41028>)
 *** ‘package-grafts’ returns grafts for all the relevant outputs
     (<https://bugs.gnu.org/41796>)
-*** ‘guix pull’ and related commands authenticate Git checkouts
+*** ‘Manifolding-OS pull’ and related commands authenticate Git checkouts
     (<https://bugs.gnu.org/22883>)
 *** Fix GNU libstdc++ misconfiguration in recent ‘gcc-toolchain’ versions
     (<https://bugs.gnu.org/42392>)
-*** ‘guix pack -R’ wraps propagated inputs as well
+*** ‘Manifolding-OS pack -R’ wraps propagated inputs as well
     (<https://bugs.gnu.org/42510>)
-*** ‘guix pack -R’ wrapper leaves root available to child processes
+*** ‘Manifolding-OS pack -R’ wrapper leaves root available to child processes
     (<https://bugs.gnu.org/44261>)
-*** ‘lib/guix/package.cache’ generated by ‘guix pull’ is now bit-reproducible
+*** ‘lib/Manifolding-OS/package.cache’ generated by ‘Manifolding-OS pull’ is now bit-reproducible
     (<https://bugs.gnu.org/42009>)
 *** Graphical installer now properly detects disks containing an LVM partition
     (<https://issues.guix.gnu.org/42683>)
@@ -528,11 +528,11 @@ xorg-server 1.20.8
     (<https://bugs.gnu.org/42156>)
 *** Offloading better normalizes build machine load
     (<https://issues.guix.gnu.org/43773>)
-*** ‘guix build --check’ now honors ‘--rounds’
+*** ‘Manifolding-OS build --check’ now honors ‘--rounds’
     (<https://issues.guix.gnu.org/40144>)
-*** ‘guix-install.sh’ now installs shell completion files
+*** ‘Manifolding-OS-install.sh’ now installs shell completion files
     (<https://bugs.gnu.org/43744>)
-*** ‘guix-install.sh’ now warns about lack of ‘nscd’
+*** ‘Manifolding-OS-install.sh’ now warns about lack of ‘nscd’
     (<https://bugs.gnu.org/43744>)
 
 ** Native language support
@@ -548,35 +548,35 @@ partially translated in 11 other languages.
 
 * Changes in 1.1.0 (since 1.0.1)
 ** Package management
-*** New ‘guix deploy’ command to deploy several machines at once
-*** Channels can now provide news, viewed with ‘guix pull --news’
-*** ‘guix system reconfigure’ saves provenance data
-*** New ‘guix system describe’ command to view system provenance info
+*** New ‘Manifolding-OS deploy’ command to deploy several machines at once
+*** Channels can now provide news, viewed with ‘Manifolding-OS pull --news’
+*** ‘Manifolding-OS system reconfigure’ saves provenance data
+*** New ‘Manifolding-OS system describe’ command to view system provenance info
 *** New /run/current-system/{channels,configuration}.scm files
-*** New ‘guix time-machine’ command
-*** ‘guix pack’ has a new ‘--entry-point’ option
-*** ‘guix pack’ saves environment variables for ‘docker’ and ‘singularity’
-*** ‘guix pack’ provides a meaningful repository name for ‘docker’
-*** New ‘--target’ option for ‘guix system’
+*** New ‘Manifolding-OS time-machine’ command
+*** ‘Manifolding-OS pack’ has a new ‘--entry-point’ option
+*** ‘Manifolding-OS pack’ saves environment variables for ‘docker’ and ‘singularity’
+*** ‘Manifolding-OS pack’ provides a meaningful repository name for ‘docker’
+*** New ‘--target’ option for ‘Manifolding-OS system’
 *** ‘--no-build-hook’ was renamed to ‘--no-offload’
 *** ‘--keep-failed’ now implies ‘--no-offload’
 *** ‘--dry-run’ no longer implies ‘--no-grafts’
-*** ‘guix import crate’ has a new ‘--recursive’ option
-*** ‘guix import crate’ can import a specific package version
-*** ‘guix pull’ returns Guix on Guile 3.0
-*** ‘guix pull’ and ‘--with-git-url’ can clone repositories over SSH
+*** ‘Manifolding-OS import crate’ has a new ‘--recursive’ option
+*** ‘Manifolding-OS import crate’ can import a specific package version
+*** ‘Manifolding-OS pull’ returns Guix on Guile 3.0
+*** ‘Manifolding-OS pull’ and ‘--with-git-url’ can clone repositories over SSH
 *** ‘--with-commit’ now accepts tags
-*** ‘guix challenge’ has a new ‘--diff’ option to show differences
-*** ‘guix weather’ has a new ‘--display-missing’ option
+*** ‘Manifolding-OS challenge’ has a new ‘--diff’ option to show differences
+*** ‘Manifolding-OS weather’ has a new ‘--display-missing’ option
 *** Guix can now fetch lzip-compressed substitutes in addition to gzip
-*** ‘guix publish’ supports lzip compression via ‘-C’
-*** ‘guix lint -c archival’ queries Software Heritage
-*** ‘guix archive’ has a new ‘-t’ option to list archive contents
-*** ‘guix describe’ and similar commands emit terminal hyperlinks
-*** ‘guix build’ now attempts to substitute missing .drv files
-*** ‘guix package’ etc. now lock the profile they operate on
-*** ‘guix pull’ honors /etc/guix/channels.scm when it exists
-*** New ‘guix show’ command, synonymous with ‘guix package --show’
+*** ‘Manifolding-OS publish’ supports lzip compression via ‘-C’
+*** ‘Manifolding-OS lint -c archival’ queries Software Heritage
+*** ‘Manifolding-OS archive’ has a new ‘-t’ option to list archive contents
+*** ‘Manifolding-OS describe’ and similar commands emit terminal hyperlinks
+*** ‘Manifolding-OS build’ now attempts to substitute missing .drv files
+*** ‘Manifolding-OS package’ etc. now lock the profile they operate on
+*** ‘Manifolding-OS pull’ honors /etc/Manifolding-OS/channels.scm when it exists
+*** New ‘Manifolding-OS show’ command, synonymous with ‘Manifolding-OS package --show’
 *** The ‘--manifest’ option can be repeated to combine manifests
 *** Some commands previously lacking ‘--load-path’ now support it
 ** Distribution
@@ -587,7 +587,7 @@ partially translated in 11 other languages.
 *** New ‘kernel-loadable-modules’ field in ‘operating-system’
 *** rottlog service is now part of ‘%base-services’
 *** ‘%base-services’ now includes /usr/bin/env as a “special file”
-*** ‘herd set-http-proxy guix-daemon URL’ can be used to set a proxy
+*** ‘herd set-http-proxy Manifolding-OS-daemon URL’ can be used to set a proxy
 *** ‘qemu-binfmt’ service now supports riscv32 and riscv64
 *** File system UUIDs and labels are now supported for JFS
 *** New services
@@ -604,7 +604,7 @@ Noteworthy updates:
 bash 5.0.7, binutils 2.32, cups 2.3.1, emacs 26.3, enlightenment 0.23.1,
 gcc-toolchain 9.3.0, gdb 9.1, ghc 8.6.5, gimp 2.10.18, glibc 2.29,
 gnome 3.32.2, gnupg 2.2.20, go 1.13.9, guile 2.2.7,
-icecat 68.7.0-guix0-preview1, icedtea 3.7.0, julia 1.3.1,
+icecat 68.7.0-Manifolding-OS0-preview1, icedtea 3.7.0, julia 1.3.1,
 libreoffice 6.4.2.2, linux-libre 5.4.31, mate 1.24.0, ocaml 4.09.0,
 octave 5.2.0, openjdk 12.33, perl 5.30.0, python2 2.7.16, python 3.7.4,
 racket 7.6, rust 1.39.0, r 3.6.3, sbcl 2.0.3, shepherd 0.7.0, xfce 4.14.0,
@@ -615,16 +615,16 @@ xorg-server 1.20.7
 
 copy-build-system, julia-build-system, node-build-system, qt-build-system
 
-*** New ‘with-build-handler’ and ‘map/accumulate-builds’ in (guix store)
-*** (guix gexp) has a new ‘with-parameters’ form
-*** New (guix remote) module for remote evaluation of gexps
+*** New ‘with-build-handler’ and ‘map/accumulate-builds’ in (Manifolding-OS store)
+*** (Manifolding-OS gexp) has a new ‘with-parameters’ form
+*** New (Manifolding-OS remote) module for remote evaluation of gexps
 *** New ‘eval/container’ procedure in (gnu system linux-container)
-*** (guix inferior) now reifies exceptions as ‘&inferior-exception’
-*** (guix cve) uses the new NIST-provided JSON files instead of XML
-*** New (guix json) module to map JSON objects to Scheme records
+*** (Manifolding-OS inferior) now reifies exceptions as ‘&inferior-exception’
+*** (Manifolding-OS cve) uses the new NIST-provided JSON files instead of XML
+*** New (Manifolding-OS json) module to map JSON objects to Scheme records
 *** New (gnu installer tests) module to drive the graphical installer
-*** New (guix diagnostics) module for consistent diagnostic messages
-*** “Checkers” now live in (guix lint)
+*** New (Manifolding-OS diagnostics) module for consistent diagnostic messages
+*** “Checkers” now live in (Manifolding-OS lint)
 ** Notewothy bug fixes
 *** Grafts leads to inefficient substitute info retrieval
     (<https://issues.guix.gnu.org/issue/22990>)
@@ -632,19 +632,19 @@ copy-build-system, julia-build-system, node-build-system, qt-build-system
     (https://issues.guix.gnu.org/issue/28310)
 *** Changing the HTTP/FTP proxy used by the daemon is inconvenient
     (<https://issues.guix.gnu.org/issue/25569>)
-*** ‘guix system disk-image’ successfully builds a bad image
+*** ‘Manifolding-OS system disk-image’ successfully builds a bad image
     (<https://issues.guix.gnu.org/issue/34276>)
 *** Installer cannot be restarted after a failed install
     (<https://issues.guix.gnu.org/issue/35543>)
 *** Null pointer error when partitioning with the graphical installer
     (<https://issues.guix.gnu.org/issue/35858>)
-*** 'guix upgrade' misdiagnoses upgrades in the presence of propagated inputs
+*** 'Manifolding-OS upgrade' misdiagnoses upgrades in the presence of propagated inputs
     (<https://issues.guix.gnu.org/issue/35872>)
 *** mcron randomly stops running jobs
     (<https://issues.guix.gnu.org/issue/37237>)
-*** Mistaken warning "guix pull was never run"
+*** Mistaken warning "Manifolding-OS pull was never run"
     (<https://issues.guix.gnu.org/issue/38196>)
-*** `guix pack --format=squashfs` fails on CentOS7
+*** `Manifolding-OS pack --format=squashfs` fails on CentOS7
     (<https://issues.guix.gnu.org/issue/40043>)
 *** installer: No way to input Latin characters with non-Latin keyboard layouts
     (<https://issues.guix.gnu.org/issue/40273>)
@@ -652,9 +652,9 @@ copy-build-system, julia-build-system, node-build-system, qt-build-system
     (<https://issues.guix.gnu.org/issue/36099>)
 *** [MATE] shutdown and reboot not possible from UI
     (<https://issues.guix.gnu.org/issue/40327>)
-*** 'guix-daemon' honors %localstatedir, %sysconfdir, and %storedir
+*** 'Manifolding-OS-daemon' honors %localstatedir, %sysconfdir, and %storedir
     (<https://issues.guix.gnu.org/issue/35874>)
-*** Fix ‘GUIX_LOCPATH’ quoting in ‘guix-daemon.service’ (systemd)
+*** Fix ‘GUIX_LOCPATH’ quoting in ‘Manifolding-OS-daemon.service’ (systemd)
     (<https://issues.guix.gnu.org/issue/36074>)
 *** Include USB_ModeSwitch in %desktop-services
     (<https://issues.guix.gnu.org/issue/35640>)
@@ -666,7 +666,7 @@ copy-build-system, julia-build-system, node-build-system, qt-build-system
     (<https://issues.guix.gnu.org/issue/34902>)
 *** pack: Create /tmp in Docker images
     (<https://issues.guix.gnu.org/issue/37161>)
-*** guix system: Reinstalling the bootloader preserves extra menu entries
+*** Manifolding-OS system: Reinstalling the bootloader preserves extra menu entries
     (<https://issues.guix.gnu.org/issue/36876>)
 *** system: Add 'mount' and 'umount' to '%setuid-programs'
     (<https://issues.guix.gnu.org/issue/37569>)
@@ -694,8 +694,8 @@ German, and Spanish, and partially translated in 10 other languages.
 ** Package management
 *** The ‘https_proxy’ environment variable is now honored
 ** Distribution
-*** ‘guix system docker-image’ now produces images with an entry point
-*** New ‘--network’ option for ‘guix system container’
+*** ‘Manifolding-OS system docker-image’ now produces images with an entry point
+*** New ‘--network’ option for ‘Manifolding-OS system container’
 *** ‘gcc’ package is now hidden; ‘gcc-toolchain’ is what users want
 *** ‘mcron’ service now logs to /var/log/mcron.log
 *** Dovecot: ‘auth-verbose-passwords?’ renamed from ‘auth-verbose-passwords’
@@ -705,11 +705,11 @@ German, and Spanish, and partially translated in 10 other languages.
 
 Noteworthy updates:
 gdb 8.3, ghc 8.4.3, glibc 2.28, gnupg 2.2.15, go 1.12.1, guile 2.2.4,
-icecat 60.6.2-guix1, icedtea 3.7.0, linux-libre 5.1.2, python 3.7.0,
+icecat 60.6.2-Manifolding-OS1, icedtea 3.7.0, linux-libre 5.1.2, python 3.7.0,
 rust 1.34.1, shepherd 0.6.1
 
 ** Programming interfaces
-*** New (guix lzlib) module, to be used eventually for substitute compression
+*** New (Manifolding-OS lzlib) module, to be used eventually for substitute compression
 ** Noteworthy bug fixes
 *** Installer appends packages to ‘%base-packages’
     (<https://bugs.gnu.org/35541>)
@@ -721,7 +721,7 @@ rust 1.34.1, shepherd 0.6.1
     (<https://bugs.gnu.org/35655>)
 *** Installer password entry visibility can be toggled
     (<https://bugs.gnu.org/35540>)
-*** ‘guix-daemon.service’ file for systemd selects a valid UTF-8 locale
+*** ‘Manifolding-OS-daemon.service’ file for systemd selects a valid UTF-8 locale
     (<https://bugs.gnu.org/35671>)
 *** ‘gnome-tweak-tool’ starts correctly
     (<https://bugs.gnu.org/35597>)
@@ -729,11 +729,11 @@ rust 1.34.1, shepherd 0.6.1
     (<https://bugs.gnu.org/35553>)
 *** Leading zeros are preserved when serializing FAT UUIDs
     (<https://bugs.gnu.org/35582>)
-*** ‘guix search’ now searches output names
+*** ‘Manifolding-OS search’ now searches output names
     (<https://bugs.gnu.org/35588>)
-*** ‘guix environment’ in non ad-hoc mode honors package transformations
+*** ‘Manifolding-OS environment’ in non ad-hoc mode honors package transformations
     (<https://bugs.gnu.org/35618>)
-*** ‘guix refresh’ correctly determines the latest version for GitHub
+*** ‘Manifolding-OS refresh’ correctly determines the latest version for GitHub
     (<https://bugs.gnu.org/35684>)
 
 ** Native language support
@@ -744,26 +744,26 @@ rust 1.34.1, shepherd 0.6.1
 ** Package management
 *** New ‘-v’/‘--verbosity’ option for all commands
 *** Most commands now default to verbosity level 1 (“quiet”)
-*** New ‘guix package’ aliases: ‘install’, ‘remove’, ‘upgrade’, and ‘search’
-*** ‘guix pack -RR’ produces PRoot-enabled relocatable binaries
-*** New ‘--save-provenance’ option for ‘guix pack’
+*** New ‘Manifolding-OS package’ aliases: ‘install’, ‘remove’, ‘upgrade’, and ‘search’
+*** ‘Manifolding-OS pack -RR’ produces PRoot-enabled relocatable binaries
+*** New ‘--save-provenance’ option for ‘Manifolding-OS pack’
 *** CLI diagnostics use colors; more operations show progress bars
-*** New ‘--news’ option for ‘guix pull’
-*** New ‘--preserve’ option for ‘guix environment’
-*** ‘guix environment -C’ creates containers with a non-zero UID
-*** Channels can now specify dependencies in a ‘.guix-channel’ file
-*** New ‘reverse-bag’ graph type for ‘guix graph’
+*** New ‘--news’ option for ‘Manifolding-OS pull’
+*** New ‘--preserve’ option for ‘Manifolding-OS environment’
+*** ‘Manifolding-OS environment -C’ creates containers with a non-zero UID
+*** Channels can now specify dependencies in a ‘.Manifolding-OS-channel’ file
+*** New ‘reverse-bag’ graph type for ‘Manifolding-OS graph’
 *** New ‘--with-git-url’ package transformation option
 *** The ‘--with-branch’ package transformation option fetches Git sub-modules
-*** New ‘guix system delete-generations’ command
-*** New ‘--list-roots’ and ‘--delete-generations’ options for ‘guix gc’
-*** New ‘--coverage’ option for ‘guix weather’
-*** ‘guix pull’ computes a package cache to speed up package lookups by name
-*** ‘guix pull’ now embeds ‘glibc-utf8-locales’
-*** ‘guix refresh -l’ better estimates dependents
-*** ‘guix build’ can take multiple ‘--system’ flags
-*** ‘guix offload’ avoids build machines with too little free disk space
-*** ‘guix offload’ now uses (guix inferior) to communicate with remote hosts
+*** New ‘Manifolding-OS system delete-generations’ command
+*** New ‘--list-roots’ and ‘--delete-generations’ options for ‘Manifolding-OS gc’
+*** New ‘--coverage’ option for ‘Manifolding-OS weather’
+*** ‘Manifolding-OS pull’ computes a package cache to speed up package lookups by name
+*** ‘Manifolding-OS pull’ now embeds ‘glibc-utf8-locales’
+*** ‘Manifolding-OS refresh -l’ better estimates dependents
+*** ‘Manifolding-OS build’ can take multiple ‘--system’ flags
+*** ‘Manifolding-OS offload’ avoids build machines with too little free disk space
+*** ‘Manifolding-OS offload’ now uses (Manifolding-OS inferior) to communicate with remote hosts
 *** Guix can no longer be built with Guile 2.0
 ** Distribution
 *** New text-mode graphical installer
@@ -773,7 +773,7 @@ rust 1.34.1, shepherd 0.6.1
 *** ‘%desktop-services’ now includes GDM instead of SLiM for graphical log-in
 *** New ‘label’ and ‘essential-services’ fields for <operation-system>
 *** The manual has been restructured for clarity
-*** New ‘remote-inferior’ procedure in (guix ssh)
+*** New ‘remote-inferior’ procedure in (Manifolding-OS ssh)
 *** New (gnu ci) module for continuous integration jobs
 *** (gnu services shepherd) now supports one-shot services
 *** New services
@@ -787,7 +787,7 @@ zabbix-server
 Noteworthy updates:
 clojure 1.10.0, cups 2.2.11, emacs 26.2, gcc 8.3.0, gdb 8.2.1, ghc 8.4.3,
 gimp 2.10.10, glibc 2.28, gnome 3.28.2, gnupg 2.2.15, go 1.12.1,
-guile 2.2.4, icecat 60.6.1-guix1, icedtea 3.7.0, inkscape 0.92.4,
+guile 2.2.4, icecat 60.6.1-Manifolding-OS1, icedtea 3.7.0, inkscape 0.92.4,
 libreoffice 6.1.5.2, linux-libre 5.0.10, mate 1.22.0, ocaml 4.07.1,
 octave 5.1.0, openjdk 11.28, python 3.7.0, rust 1.34.0, r 3.6.0,
 sbcl 1.5.1, shepherd 0.6.0, xfce 4.12.1, xorg-server 1.20.4
@@ -796,26 +796,26 @@ sbcl 1.5.1, shepherd 0.6.0, xfce 4.12.1, xorg-server 1.20.4
 *** New ‘this-package’, ‘this-origin’, and ‘this-operating-system’ macros
 *** The ‘self-native-input?’ field was removed from <package>
 *** New ‘package-input-rewriting/spec’ procedure for graph rewriting
-*** New ‘package-closure’ procedure in (guix packages)
-*** New UI helper modules (guix colors) and (guix deprecation)
+*** New ‘package-closure’ procedure in (Manifolding-OS packages)
+*** New UI helper modules (Manifolding-OS colors) and (Manifolding-OS deprecation)
 *** New (gnu build accounts) module to manage /etc/{passwd,shadow,group}
-*** ‘nix-*’ bindings in (guix store) replaced by ‘store-connection-*’
+*** ‘nix-*’ bindings in (Manifolding-OS store) replaced by ‘store-connection-*’
 *** Records created by ‘define-record-type*’ report duplicate fields
 ** Noteworthy bug fixes
-*** ISO images produced by ‘guix system’ are now reproducible bit-for-bit
+*** ISO images produced by ‘Manifolding-OS system’ are now reproducible bit-for-bit
     (<https://bugs.gnu.org/35283>)
-*** ‘guix pack -f squashfs’ produces relative symlinks
+*** ‘Manifolding-OS pack -f squashfs’ produces relative symlinks
     (<https://bugs.gnu.org/34913>)
-*** ‘guix package -r something-not-installed’ now raises an error
+*** ‘Manifolding-OS package -r something-not-installed’ now raises an error
 *** Fix multi-threaded miscompilation issue with syntax parameters
     (<https://bugs.gnu.org/27476>)
 *** file-systems: Spawn a REPL only when interaction is possible
     (<https://bugs.gnu.org/23697>)
-*** ‘guix environment’ supports package transformation options
+*** ‘Manifolding-OS environment’ supports package transformation options
     (<https://bugs.gnu.org/33776>)
-*** ‘guix substitute’ now ignores irrelevant narinfo signatures
+*** ‘Manifolding-OS substitute’ now ignores irrelevant narinfo signatures
     (<https://bugs.gnu.org/33733>)
-*** On Guix System, guix-daemon now runs in a UTF-8 locale
+*** On Guix System, Manifolding-OS-daemon now runs in a UTF-8 locale
     (<https://bugs.gnu.org/32942>)
 *** Fix relative file name canonicalization for '--root'
     (<https://bugs.gnu.org/35271>)
@@ -836,27 +836,27 @@ sbcl 1.5.1, shepherd 0.6.0, xfce 4.12.1, xorg-server 1.20.4
 ** Package management
 
 *** Default substitute URL changed to https://ci.guix.info
-*** ‘guix pull -l’ lists new and upgraded packages
-*** ‘guix pull’ now supports channels via ~/.config/guix/channels.scm
-*** New ‘--profile’ or ‘-p’ option for ‘guix pull’
-*** ~/.config/guix/current is now a symlink to /var/guix/profiles
-*** New ‘guix describe’ command
-*** ‘guix package’ no longer shows build logs by default
-*** ‘guix’ commands now produce colored output by default
+*** ‘Manifolding-OS pull -l’ lists new and upgraded packages
+*** ‘Manifolding-OS pull’ now supports channels via ~/.config/Manifolding-OS/channels.scm
+*** New ‘--profile’ or ‘-p’ option for ‘Manifolding-OS pull’
+*** ~/.config/Manifolding-OS/current is now a symlink to /var/Manifolding-OS/profiles
+*** New ‘Manifolding-OS describe’ command
+*** ‘Manifolding-OS package’ no longer shows build logs by default
+*** ‘Manifolding-OS’ commands now produce colored output by default
 *** User interface now reports grafts separately
 *** Manifests can now refer to arbitrary Guix commits using “inferiors”
 *** New ‘--with-branch’ and ‘--with-commit’ package transformation options
-*** ‘guix build -f’ now accepts any kind of “file-like object”
+*** ‘Manifolding-OS build -f’ now accepts any kind of “file-like object”
 *** Git checkouts may now be fetched from Software Heritage
-*** New ‘guix repl’ command for use by inferiors
-*** New ‘guix processes’ command
-*** ‘guix pack’ now honors ‘--localstatedir’ for all its backends
-*** New ‘opam’ importer for ‘guix import’
-*** ‘guix import pypi’ has a new ‘--recursive’ option
-*** ‘guix import hackage’ has a new ‘--recursive’ option
-*** ‘guix import stackage’ has a new ‘--recursive’ option
+*** New ‘Manifolding-OS repl’ command for use by inferiors
+*** New ‘Manifolding-OS processes’ command
+*** ‘Manifolding-OS pack’ now honors ‘--localstatedir’ for all its backends
+*** New ‘opam’ importer for ‘Manifolding-OS import’
+*** ‘Manifolding-OS import pypi’ has a new ‘--recursive’ option
+*** ‘Manifolding-OS import hackage’ has a new ‘--recursive’ option
+*** ‘Manifolding-OS import stackage’ has a new ‘--recursive’ option
 The short option for ‘--lts-version’ is now ‘-l’ (used to be ‘-r’).
-*** ‘guix refresh’ now stores upstream keys in ~/.config/guix/upstream
+*** ‘Manifolding-OS refresh’ now stores upstream keys in ~/.config/Manifolding-OS/upstream
 *** Guix now depends on Guile-Gcrypt
 *** Guix now requires Guile-JSON
 
@@ -864,7 +864,7 @@ The short option for ‘--lts-version’ is now ‘-l’ (used to be ‘-r’).
 
 *** Rust is now bootstrapped from mrustc
 *** The GNU Shepherd was upgraded to 0.5.0
-*** ‘guix system reconfigure’ now loads Shepherd service replacements
+*** ‘Manifolding-OS system reconfigure’ now loads Shepherd service replacements
 *** ‘herd schedule mcron’ now displays mcron’s job schedule
 *** ‘herd statistics nscd’ now displays nscd statistics
 *** ‘herd invalidate nscd TABLE’ instructs nscd to invalidate TABLE
@@ -886,25 +886,25 @@ sbcl 1.4.13, shepherd 0.5.0, xorg-server 1.20.3
 
 ** Programming interfaces
 
-*** New (guix channels) module, see “Channels” in the manual
-*** New (guix inferior) module, see “Inferiors” in the manual
-*** New (guix describe) module, used by ‘guix describe’
-*** New (guix status) module, for build progress reporting
+*** New (Manifolding-OS channels) module, see “Channels” in the manual
+*** New (Manifolding-OS inferior) module, see “Inferiors” in the manual
+*** New (Manifolding-OS describe) module, used by ‘Manifolding-OS describe’
+*** New (Manifolding-OS status) module, for build progress reporting
 *** ‘packages->manifest’ now accepts inferior packages
 *** New build systems: ‘clojure’, ‘guile’
-*** New ‘git-checkout’ record constructor in (guix git)
+*** New ‘git-checkout’ record constructor in (Manifolding-OS git)
 *** Shepherd services can now declare custom actions
 *** More of the (gnu system …) APIs are now non-monadic
-*** New ‘add-file-tree-to-store’ procedure in (guix store)
-*** New (guix swh) module to access Software Heritage
-*** New (guix build debug-link) module, for ELF ‘.gnu_debuglink’ sections
+*** New ‘add-file-tree-to-store’ procedure in (Manifolding-OS store)
+*** New (Manifolding-OS swh) module to access Software Heritage
+*** New (Manifolding-OS build debug-link) module, for ELF ‘.gnu_debuglink’ sections
 
 ** Noteworthy bug fixes
 
 *** Fix GCC crashes caused by a patch of ours (<https://bugs.gnu.org/31708>)
-*** ‘guix import hackage’ now supports ‘custom-setup’ field
+*** ‘Manifolding-OS import hackage’ now supports ‘custom-setup’ field
     (<https://bugs.gnu.org/23961>)
-*** ‘guix-daemon’ taken from ‘guix pull’ looks up ‘guix’ in the right place
+*** ‘Manifolding-OS-daemon’ taken from ‘Manifolding-OS pull’ looks up ‘Manifolding-OS’ in the right place
     (<https://bugs.gnu.org/32183>)
 *** Try several file names when looking up kernel modules
     (<https://bugs.gnu.org/31714>)
@@ -915,9 +915,9 @@ sbcl 1.4.13, shepherd 0.5.0, xorg-server 1.20.3
 *** Grafting now updates CRCs in ‘.gnu_debuglink’ ELF sections
     (<https://bugs.gnu.org/19973>)
 *** UUID computation for VMs is now deterministic (<https://bugs.gnu.org/32652>)
-*** ‘git-predicate’ from (guix git) now uses Guile-Git, which fixes corner cases
+*** ‘git-predicate’ from (Manifolding-OS git) now uses Guile-Git, which fixes corner cases
     (<https://bugs.gnu.org/27925>)
-*** (guix store database) registers each store item only once
+*** (Manifolding-OS store database) registers each store item only once
     (<https://bugs.gnu.org/32600>)
 *** The File > Open dialog in LibreOffice no longer triggers a crash
     (<https://bugs.gnu.org/30642>)
@@ -927,10 +927,10 @@ sbcl 1.4.13, shepherd 0.5.0, xorg-server 1.20.3
 
 *** The manual is now partially translated into German, in addition to French
 
-To read the German manual, just type “info guix.de” or read it on-line at
-<https://gnu.org/s/guix/manual/de/html_node>.  Consider translating the manual
+To read the German manual, just type “info Manifolding-OS.de” or read it on-line at
+<https://gnu.org/s/Manifolding-OS/manual/de/html_node>.  Consider translating the manual
 to your native language by joining the Translation Project:
-<https://translationproject.org/domain/guix-manual.html>.
+<https://translationproject.org/domain/Manifolding-OS-manual.html>.
 
 *** Updated translations:
 *** New translations:
@@ -939,41 +939,41 @@ to your native language by joining the Translation Project:
 
 ** Package management
 
-*** ‘guix pull’ has been overhauled; it now populates ~/.config/guix/current
-*** ‘guix pull’ has a new ‘--list-generations’ option
-*** ‘guix pack’ now supports building SquashFS images
-*** ‘guix pack’ can now build tarballs with relocatable executables
-*** ‘guix environment’ and ‘guix pack’ have a new ‘--manifest’ option
-*** New ‘guix environment’ options: ‘--user’, ‘--link-profile’
-*** ‘guix package’ has a new ‘--allow-collisions’ option
-*** ‘guix package’ no longer warns about harmless file collisions
+*** ‘Manifolding-OS pull’ has been overhauled; it now populates ~/.config/Manifolding-OS/current
+*** ‘Manifolding-OS pull’ has a new ‘--list-generations’ option
+*** ‘Manifolding-OS pack’ now supports building SquashFS images
+*** ‘Manifolding-OS pack’ can now build tarballs with relocatable executables
+*** ‘Manifolding-OS environment’ and ‘Manifolding-OS pack’ have a new ‘--manifest’ option
+*** New ‘Manifolding-OS environment’ options: ‘--user’, ‘--link-profile’
+*** ‘Manifolding-OS package’ has a new ‘--allow-collisions’ option
+*** ‘Manifolding-OS package’ no longer warns about harmless file collisions
 *** The ‘--with-source’ option now accepts “PACKAGE=URI” specs
 *** Profiles now include a separate ‘dir.LANGUAGE’ Info file
 *** New profile hook generates a ‘gschemas.compiled’ file as needed
-*** ‘guix build’ provides hints for unbound variables
-*** ‘guix weather’ now reports continuous integration statistics
-*** ‘guix gc’ has a new ‘--derivers’ option
-*** ‘guix publish’ now publishes build logs at /log URLs
-*** ‘guix import elpa’ has a new ‘--recursive’ option
-*** ‘guix graph’ has a new “module” node type
-*** New ‘guix offload status’ command
-*** ‘guix-daemon’ now comes with an SELinux policy
-*** ‘guix-daemon’ now rejects garbage collection requests from remote clients
-*** ‘guix-daemon’ supports ARMv7 builds on AArch64
-*** ‘guix-daemon’ has relaxed tests to allow for binfmt_misc execution
-*** ‘guix-daemon’ has a new ‘--log-compression’ option, with gzip support
+*** ‘Manifolding-OS build’ provides hints for unbound variables
+*** ‘Manifolding-OS weather’ now reports continuous integration statistics
+*** ‘Manifolding-OS gc’ has a new ‘--derivers’ option
+*** ‘Manifolding-OS publish’ now publishes build logs at /log URLs
+*** ‘Manifolding-OS import elpa’ has a new ‘--recursive’ option
+*** ‘Manifolding-OS graph’ has a new “module” node type
+*** New ‘Manifolding-OS offload status’ command
+*** ‘Manifolding-OS-daemon’ now comes with an SELinux policy
+*** ‘Manifolding-OS-daemon’ now rejects garbage collection requests from remote clients
+*** ‘Manifolding-OS-daemon’ supports ARMv7 builds on AArch64
+*** ‘Manifolding-OS-daemon’ has relaxed tests to allow for binfmt_misc execution
+*** ‘Manifolding-OS-daemon’ has a new ‘--log-compression’ option, with gzip support
 
 ** Distribution
 
-*** New ‘guix system docker-image’ command
-*** ‘guix system’ reports kernel modules that should be added to the initrd
-*** ‘guix system’ reports invalid mapped device specifications
-*** ‘guix system init’ warns about insufficient disk space
-*** ‘guix system search’ displays Shepherd service names when available
+*** New ‘Manifolding-OS system docker-image’ command
+*** ‘Manifolding-OS system’ reports kernel modules that should be added to the initrd
+*** ‘Manifolding-OS system’ reports invalid mapped device specifications
+*** ‘Manifolding-OS system init’ warns about insufficient disk space
+*** ‘Manifolding-OS system search’ displays Shepherd service names when available
 *** Required services missing from the config are automatically instantiated
 *** New ‘initrd-modules’ field of ‘operating-system’
 *** New ‘file-system-label’ construct supersedes ‘title’ field of ‘file-system’
-*** ‘guix system’ has a new ‘-e’ option
+*** ‘Manifolding-OS system’ has a new ‘-e’ option
 *** The ‘ld’ wrappers now allows linking with non-store libraries by default
 *** Package for Python 2.x has been renamed from “python” to “python2”
 *** RHEL6 systems based on kernel Linux 2.6 are supported again
@@ -981,7 +981,7 @@ to your native language by joining the Translation Project:
 *** New services
 
 alsa, cat-avatar-generator, darkstat, dhcpd, dnsmasq, enlightenment, fprintd,
-hpcguix-web, httpd, mate, modem-manager, openntpd, php-fpm, qemu-binfmt,
+hpcManifolding-OS-web, httpd, mate, modem-manager, openntpd, php-fpm, qemu-binfmt,
 wesnothd
 
 *** bitlbee service now supports plugins
@@ -1112,7 +1112,7 @@ go-gopkg.in-check.v1, go-gopkg.in-mgo.v2, go-gopkg.in-tomb.v2, golly,
 google-brotli, gource, gpxsee, grammalecte, groovy, groovy-emacs-modes,
 gtksourceviewmm, guile-chickadee, guile-curl, guile-hall, guile-readline,
 guile-simple-zmq, guile-sparql, guile2.0-gdbm-ffi, guile2.0-irregex,
-guile2.0-minikanren, guile2.0-redis, gzdoom, hpcguix-web, html-xml-utils,
+guile2.0-minikanren, guile2.0-redis, gzdoom, hpcManifolding-OS-web, html-xml-utils,
 hungrycat, i3lock-color, i3lock-fancy, ifdtool, innoextract, instantmusic,
 intelmetool, inxi, inxi-minimal, irram, iucode-tool, jack-capture,
 java-apache-ivy, java-apache-xml-commons-resolver, java-biojava-alignment,
@@ -1356,7 +1356,7 @@ emacs-deferred@0.5.1, emacs-elfeed@3.0.0, emacs-emms-player-mpv@5.0,
 emacs-emms@5.0, emacs-es-mode@4.3.0, emacs-evil-matchit@2.2.6,
 emacs-evil@1.2.13-1.230b872, emacs-exwm-x@1.8.1, emacs-exwm@0.18,
 emacs-flycheck@31, emacs-graphviz-dot-mode@0.3.11-1.c456a2b,
-emacs-guix@0.4.1.1, emacs-helm-make@0.1.0-1.feae8df,
+emacs-Manifolding-OS@0.4.1.1, emacs-helm-make@0.1.0-1.feae8df,
 emacs-helm-swoop@1.7.4, emacs-helm@2.9.6, emacs-htmlize@1.53,
 emacs-ivy@0.10.0, emacs-lispy@0.26.0-0.c2a358a, emacs-magit-popup@2.12.3,
 emacs-minimal@26.1, emacs-minitest@0.8.0-1.1aadb78, emacs-mmm-mode@0.5.5,
@@ -1504,11 +1504,11 @@ guile-json@1.0.1, guile-lib@0.2.6, guile-next@2.2.3, guile-sqlite3@0.1.0,
 guile-static-stripped-tarball@2.2.3, guile-static-stripped@2.2.3,
 guile-syntax-highlight@0.1, guile-wm@1.0-1.f3c7b3b,
 guile-xcb@1.3-1.db7d5a3, guile2.0-git@0.0-6.36f93c1,
-guile2.0-gnutls@3.5.18, guile2.0-guix@0.14.0-13.7af5c2a,
+guile2.0-gnutls@3.5.18, guile2.0-Manifolding-OS@0.14.0-13.7af5c2a,
 guile2.0-haunt@0.2.2, guile2.0-json@1.0.1, guile2.0-lib@0.2.6,
 guile2.2-gnutls@3.5.18, guile2.2-haunt@0.2.2, guile2.2-json@1.0.1,
 guile2.2-lib@0.2.6, guile@2.2.4, guitarix-lv2@0.37.1, guitarix@0.37.1,
-guix@0.14.0-13.7af5c2a, gwenhywfar@4.20.0, gwl@0.1.1,
+Manifolding-OS@0.14.0-13.7af5c2a, gwenhywfar@4.20.0, gwl@0.1.1,
 gx-saturator-lv2@0-3.605330f43, gx-slow-gear-lv2@0-3.5d37e775b,
 gx-vbass-preamp-lv2@0-2.eb999b0ca, gzip@1.9, harfbuzz@1.7.6, harminv@1.4.1,
 haunt@0.2.2, haveged@1.9.2, hdparm@9.55, heimdal@7.5.0, help2man@1.47.6,
@@ -1991,21 +1991,21 @@ zynaddsubfx@3.0.3, zziplib@0.13.69
 *** ‘emacs-build-system’ has an improved ‘check’ phase
 *** New build systems: ‘android-ndk’
 *** New ‘with-extensions’ form for G-expressions
-*** New (guix self) module, used by ‘guix pull’
-*** New (guix store database) and (guix store deduplication) modules
-*** The ‘guix-register’ C++ program no longer is
-*** package-full-name (guix packages) now uses "@" as its delimiter.
+*** New (Manifolding-OS self) module, used by ‘Manifolding-OS pull’
+*** New (Manifolding-OS store database) and (Manifolding-OS store deduplication) modules
+*** The ‘Manifolding-OS-register’ C++ program no longer is
+*** package-full-name (Manifolding-OS packages) now uses "@" as its delimiter.
     (<https://bugs.gnu.org/31088>)
-*** ‘invoke’ from (guix build utils) is now recommended over ‘system*’
+*** ‘invoke’ from (Manifolding-OS build utils) is now recommended over ‘system*’
 *** More of the (gnu services …) APIs are now non-monadic
 
 ** Noteworthy bug fixes
-*** ‘guix pull’ doesn’t keep rebuilding all of Guix
+*** ‘Manifolding-OS pull’ doesn’t keep rebuilding all of Guix
     (<https://bugs.gnu.org/27284>)
-*** ‘guix pack’ now honors package transformation options
-*** ‘guix package --search’ no longer shows superseded packages
+*** ‘Manifolding-OS pack’ now honors package transformation options
+*** ‘Manifolding-OS package --search’ no longer shows superseded packages
     (<https://bugs.gnu.org/30566>)
-*** ‘guix offload test’ reports errors more nicely
+*** ‘Manifolding-OS offload test’ reports errors more nicely
     (<https://bugs.gnu.org/28057>)
 *** postgresql service is started through ‘pg_ctl’
     (<https://bugs.gnu.org/29992>)
@@ -2013,21 +2013,21 @@ zynaddsubfx@3.0.3, zziplib@0.13.69
     (<https://bugs.gnu.org/29773>)
 *** ‘fuse’ kernel module is now automatically loaded on demand
     (<https://bugs.gnu.org/22050>)
-*** ‘guix pack --localstatedir’ now produces a bit-reproducible database
+*** ‘Manifolding-OS pack --localstatedir’ now produces a bit-reproducible database
     (<https://bugs.gnu.org/21073>)
 *** Package lookups by name and version correctly honor version prefixes
     (<https://bugs.gnu.org/28446>)
-*** ‘guix pull --commit’ now accepts show commit IDs
+*** ‘Manifolding-OS pull --commit’ now accepts show commit IDs
     (<https://bugs.gnu.org/30716>)
 
 ** Native language support
 
 *** The manual can now be translated and is partially translated into French
 
-To read the French manual, just type “info guix.fr” or read it on-line at
-<https://gnu.org/s/guix/manual/fr/html_node>.  Consider translating the manual
+To read the French manual, just type “info Manifolding-OS.fr” or read it on-line at
+<https://gnu.org/s/Manifolding-OS/manual/fr/html_node>.  Consider translating the manual
 to your native language by joining the Translation Project:
-<https://translationproject.org/domain/guix-manual.html>.
+<https://translationproject.org/domain/Manifolding-OS-manual.html>.
 
 *** Updated translations: da, fr, hu, pt_BR, zh_CN
 *** New translations: es (Spanish)
@@ -2036,22 +2036,22 @@ to your native language by joining the Translation Project:
 
 ** Package management
 
-*** ‘guix package’ displays how much will be downloaded
-*** ‘guix package’ warns about insufficient disk space
-*** ‘guix package’ now reports package collisions early on
-*** ‘guix package --search’ sorts results by relevance
-*** ‘guix pull’ now fetches code directly over Git using Guile-Git
+*** ‘Manifolding-OS package’ displays how much will be downloaded
+*** ‘Manifolding-OS package’ warns about insufficient disk space
+*** ‘Manifolding-OS package’ now reports package collisions early on
+*** ‘Manifolding-OS package --search’ sorts results by relevance
+*** ‘Manifolding-OS pull’ now fetches code directly over Git using Guile-Git
 *** Substitutes can be downloaded from servers equivalent to the authorized ones
-*** New ‘guix-daemon’ options: ‘--listen’, ‘--timeout’, ‘--max-silent-time’
-*** New ‘guix weather’ command
-*** ‘guix publish --cache’ now also caches uncompressed items
-*** ‘guix publish’ no longer removes live items from its cache
-*** ‘guix challenge’ now displays an overall summary
-*** ‘guix refresh’ no longer uses FTP for GNU and GNOME packages
-*** ‘guix refresh’ has a new ‘-m’ or ‘--manifest’ option
-*** New ‘refresh’ checker for ‘guix lint’
-*** New ‘json’ importer for ‘guix import’ to simplify first packages
-*** New ‘texlive’ importer for ‘guix import’
+*** New ‘Manifolding-OS-daemon’ options: ‘--listen’, ‘--timeout’, ‘--max-silent-time’
+*** New ‘Manifolding-OS weather’ command
+*** ‘Manifolding-OS publish --cache’ now also caches uncompressed items
+*** ‘Manifolding-OS publish’ no longer removes live items from its cache
+*** ‘Manifolding-OS challenge’ now displays an overall summary
+*** ‘Manifolding-OS refresh’ no longer uses FTP for GNU and GNOME packages
+*** ‘Manifolding-OS refresh’ has a new ‘-m’ or ‘--manifest’ option
+*** New ‘refresh’ checker for ‘Manifolding-OS lint’
+*** New ‘json’ importer for ‘Manifolding-OS import’ to simplify first packages
+*** New ‘texlive’ importer for ‘Manifolding-OS import’
 
 ** Distribution
 
@@ -2061,15 +2061,15 @@ to your native language by joining the Translation Project:
 *** ‘grub-configuration’ is deprecated in favor of ‘bootloader-configuration’
 *** ‘%desktop-services’ now includes NetworkManager instead of Wicd
 *** The (uuid …) form can now specify FAT32 and ISO-9660 UUIDs
-*** ‘guix system’ now reports missing file system UUIDs and labels
-*** ‘guix system’ can provide hints when reporting unbound variables
-*** New ‘--file-system-type’ option for ‘guix system disk-image’
-*** ‘guix system disk-image’ can now creates ISO-9660 images
-*** ‘guix system vm-image’ & co. automatically estimate the image size
-*** ‘guix system vm’ now uses overlayfs instead of unionfs
-*** ‘guix system init’ displays a progress bar while copying files
+*** ‘Manifolding-OS system’ now reports missing file system UUIDs and labels
+*** ‘Manifolding-OS system’ can provide hints when reporting unbound variables
+*** New ‘--file-system-type’ option for ‘Manifolding-OS system disk-image’
+*** ‘Manifolding-OS system disk-image’ can now creates ISO-9660 images
+*** ‘Manifolding-OS system vm-image’ & co. automatically estimate the image size
+*** ‘Manifolding-OS system vm’ now uses overlayfs instead of unionfs
+*** ‘Manifolding-OS system init’ displays a progress bar while copying files
 *** TeX Live is now also available as a set of small ‘texlive-’ packages
-*** New ‘guix system search’ command to search for services
+*** New ‘Manifolding-OS system search’ command to search for services
 *** New services
 
 certbot, fcgiwrap, gdm, git-http, knot, libvirt, memcached, mongodb, mpd,
@@ -2158,7 +2158,7 @@ go-golang-org-x-text-transform, go-golang-org-x-text-unicode-norm,
 go-golang-org-x-time-rate, godot, gpa, gpick, grfcodec, groff-minimal,
 grub-hybrid, gsound, gspell, gst-transcoder, gst123, guile-colorized,
 guile-dsv, guile-libctl, guile-ncurses-with-gpm, guile-wiredtiger,
-guile2.0-bytestructures, guile2.0-git, guile2.0-gnutls, guile2.0-guix,
+guile2.0-bytestructures, guile2.0-git, guile2.0-gnutls, guile2.0-Manifolding-OS,
 guile2.0-lib, gwl, harminv, hdf-java, heimdall, ht, hugin,
 hunspell-dict-en, hunspell-dict-en-au, hunspell-dict-en-ca,
 hunspell-dict-en-gb, hunspell-dict-en-gb-ize, hunspell-dict-en-us,
@@ -2433,7 +2433,7 @@ electrum@3.0, elixir@1.5.2, elogind@232.4, emacs-adaptive-wrap@0.5.1,
 emacs-ahungry-theme@1.8.0, emacs-async@1.9.2, emacs-auctex@11.91.0,
 emacs-cider@0.15.0, emacs-cyberpunk-theme@1.19, emacs-ebuild-mode@1.37,
 emacs-elfeed@2.2.0, emacs-emms@4.4, emacs-ess@16.10, emacs-evil@1.2.13,
-emacs-exwm@0.15, emacs-f@0.19.0, emacs-guix@0.3.3, emacs-helm@2.8.5,
+emacs-exwm@0.15, emacs-f@0.19.0, emacs-Manifolding-OS@0.3.3, emacs-helm@2.8.5,
 emacs-hl-todo@1.8.0, emacs-hydra@0.14.0, emacs-iedit@0.9.9.9,
 emacs-lua-mode@20151025.1-652e299cb, emacs-magit-popup@2.12.0,
 emacs-markdown-mode@2.3, emacs-minimal@25.3, emacs-neotree@0.5.2,
@@ -2448,7 +2448,7 @@ evolution-data-server@3.24.3, exfat-utils@1.2.7, exim@4.89.1, exiv2@0.26,
 expat@2.2.1, extra-cmake-modules@5.39.0, eyed3@0.8, fabric@1.13.2,
 fasttree@2.1.10, faust@0.9.90, faust@2.1.0, fdisk@2.0.0a1, feh@2.22.2,
 ffmpeg@3.3.5, ffmpeg@3.4, file-roller@3.26.2, file@5.30, filezilla@3.27.1,
-fio@3.2, fish-guix@0.1.2.1, fish@2.7.0, fizmo@0.8.4, flex@2.6.4,
+fio@3.2, fish-Manifolding-OS@0.1.2.1, fish@2.7.0, fizmo@0.8.4, flex@2.6.4,
 fluidsynth@1.1.8, font-cns11643@98.1.20170524, font-gnu-unifont@10.0.06,
 font-go@20170330-1.f03a046, font-google-noto@20170403, font-hack@3.000,
 font-iosevka@1.12.5, fontconfig@2.12.3, fontforge@20170731, fossil@2.2,
@@ -2493,7 +2493,7 @@ guile-lib@0.2.5.1, guile-rsvg@2.18.1-0.05c6a2f, guile-ssh@0.11.2,
 guile-static-stripped-tarball@2.2.2, guile-static-stripped@2.2.2,
 guile-wisp@0.9.8, guile2.0-ssh@0.11.2, guile2.2-gnutls@3.5.13,
 guile2.2-lib@0.2.5.1, guile2.2-ssh@0.11.2, guile@2.0.14, guile@2.2.2,
-guile@2.2.3, guitarix-lv2@0.36.1, guitarix@0.36.1, guix@0.13.0-14.91c9b5d,
+guile@2.2.3, guitarix-lv2@0.36.1, guitarix@0.36.1, Manifolding-OS@0.13.0-14.91c9b5d,
 gvfs@1.32.1, gzochi@0.11.1, harfbuzz@1.5.1, hdf4-alt@4.2.13, hdf4@4.2.13,
 hdf5-parallel-openmpi@1.8.19, hdf5@1.8.19, hicolor-icon-theme@0.17,
 higan@106, hop@3.1.0-pre2, hplip@3.17.10, htseq@0.9.1, htslib@1.5,
@@ -2808,25 +2808,25 @@ zynaddsubfx@3.0.2
 *** ‘openssh-service-type’ can now be extended with new authorized keys
 *** ‘rottlog-service-type’ can now be extended with new ‘log-rotation’s
 *** ‘network-manager-service-type’ now supports VPN plugins
-*** <service-type> now has a ‘description’ field, used by ‘guix system search’
+*** <service-type> now has a ‘description’ field, used by ‘Manifolding-OS system search’
 *** New ‘virtual-machine’ form in (gnu system vm)
 *** New (gnu system uuid) module, which defines a disjoint <uuid> type
-*** New (guix progress) module
+*** New (Manifolding-OS progress) module
 
 ** Noteworthy bug fixes
 
 *** GuixSD no longer creates setuid binaries in /gnu/store
     (<https://bugs.gnu.org/28751>)
 *** /root is no longer world-readable (<http://bugs.gnu.org/27135>)
-*** ‘guix publish’ no longer leaks memory (<https://bugs.gnu.org/28784>)
+*** ‘Manifolding-OS publish’ no longer leaks memory (<https://bugs.gnu.org/28784>)
 *** Missing cursor icons in GNOME could cause crashes
     (<https://bugs.gnu.org/25958>)
 *** Setuid programs now honor the system timezone
     (<https://bugs.gnu.org/29212>)
 *** Clients honor the daemon’s ‘max-silent-time’
     (<https://bugs.gnu.org/27157>)
-*** ‘guix substitute’ honors substitute expiry time again
-    (<https://lists.gnu.org/archive/html/guix-devel/2017-07/msg00179.html>)
+*** ‘Manifolding-OS substitute’ honors substitute expiry time again
+    (<https://lists.gnu.org/archive/html/Manifolding-OS-devel/2017-07/msg00179.html>)
 *** Several portability fixes for aarch64
 
 ** Native language support
@@ -2838,19 +2838,19 @@ Updated translations: da (Danish), fr (French)
 ** Package management
 
 *** Guix can now be used on aarch64 GNU/Linux systems
-*** New ‘guix pack’ command to create bundles
-*** New ‘guix copy’ command to copy store items over SSH
-*** New ‘--cache’ option for ‘guix publish’
+*** New ‘Manifolding-OS pack’ command to create bundles
+*** New ‘Manifolding-OS copy’ command to copy store items over SSH
+*** New ‘--cache’ option for ‘Manifolding-OS publish’
 *** $GUIX_DAEMON_SOCKET can specify remote daemons
 *** Guix can now run on Guile 2.2, providing better performance
 *** Emacs interface moved to separate Emacs-Guix package
-*** New ‘--root’ option for ‘guix environment’
-*** ‘guix pull’ now connects to git.savannah.gnu.org over HTTPS
+*** New ‘--root’ option for ‘Manifolding-OS environment’
+*** ‘Manifolding-OS pull’ now connects to git.savannah.gnu.org over HTTPS
 *** New cross-compilation targets: aarch64-linux-gnu, powerpc-linux-gnu
 *** Packages can specify “single-entry search paths” (e.g., ‘GIT_EXEC_PATH’)
-*** ‘guix import’ and ‘guix refresh’ now support Stackage
+*** ‘Manifolding-OS import’ and ‘Manifolding-OS refresh’ now support Stackage
 *** Support for the deprecated “PKG-VERSION” syntax has been removed
-*** New Cypher backend for ‘guix graph’
+*** New Cypher backend for ‘Manifolding-OS graph’
 *** GnuTLS (Guile bindings) is now required
 *** Guix now issues a warning when it detects that Guix has not been upgraded in a while
 
@@ -2893,7 +2893,7 @@ emacs-pretty-mode, emacs-strace-mode, emacs-stripe-buffer, emacs-sx,
 emacs-symon, emacs-transpose-frame, emacs-use-package, emacs-xelb,
 emacs-xmlgen, emacs-yasnippet, emacspeak, enigma, ert-runner, es,
 eudev-with-hwdb, f3, fabric, fcitx-configtool, filezilla, fillets-ng,
-fish-guix, fmt, font-awesome, font-cns11643, font-cns11643-swjz,
+fish-Manifolding-OS, fmt, font-awesome, font-cns11643, font-cns11643-swjz,
 font-comic-neue, font-go, font-google-material-design-icons,
 font-google-roboto, font-iosevka, font-linuxlibertine, font-tamzen,
 font-wqy-microhei, fortify-headers, fprintd, freeciv, freedoom, freegish,
@@ -3099,7 +3099,7 @@ drumkv1@0.8.2, dtc@1.4.4, duplicity@0.7.12, dwm@6.1, e2fsck-static@1.43.4,
 e2fsprogs@1.43.4, ecl-stumpwm@1.0.0, ecl@16.1.3, ed@1.14.1, efl@1.18.5,
 elfutils@0.169, elixir@1.4.2, emacs-auctex@11.90.0, emacs-bui@1.1.0,
 emacs-clojure-mode@5.4.0, emacs-company@0.9.3, emacs-debbugs@0.14,
-emacs-elfeed@2.1.0, emacs-emms@4.3, emacs-flycheck@30, emacs-guix@0.3.1,
+emacs-elfeed@2.1.0, emacs-emms@4.3, emacs-flycheck@30, emacs-Manifolding-OS@0.3.1,
 emacs-ivy@0.9.1, emacs-magit-popup@2.10.3, emacs-minimal@25.2,
 emacs-no-x-toolkit@25.2, emacs-no-x@25.2, emacs-org@20170502,
 emacs-projectile@0.14.0, emacs-seq@2.19, emacs-slime@2.19,
@@ -3149,7 +3149,7 @@ guile-json@0.6.0, guile-lib@0.2.5, guile-ncurses@2.2, guile-next@2.2.2,
 guile-reader@0.6.2, guile-sqlite3@0.0-1.607721f, guile-ssh@0.11.0,
 guile-static-stripped-tarball@2.0.14, guile-static-stripped@2.0.14,
 guile2.2-json@0.6.0, guile@2.0.14, guile@2.2.2, guitarix-lv2@0.35.3,
-guitarix@0.35.3, guix@0.12.0-11.ce92d26, gusb@0.2.9, gvfs@1.30.3,
+guitarix@0.35.3, Manifolding-OS@0.12.0-11.ce92d26, gusb@0.2.9, gvfs@1.30.3,
 gx-guvnor-lv2@0.1, gx-hyperion-lv2@0.1, gx-super-fuzz-lv2@0.1,
 gx-suppa-tone-bender-lv2@0.1, gx-vintage-fuzz-master-lv2@0.1,
 gx-voodoo-fuzz-lv2@0.1, gxtuner@2.4, harfbuzz@1.4.3, haunt@0.2.1,
@@ -3414,13 +3414,13 @@ zimg@2.5, zlib@1.2.11, znc@1.6.5
 
 ** Programming interfaces
 
-*** (guix scripts challenge) returns complete reports, not just discrepancies
+*** (Manifolding-OS scripts challenge) returns complete reports, not just discrepancies
 *** New ‘dub-build-system’ for the D language and Dub
 *** New ‘ocaml-build-system’ for software written in OCaml
 *** Improvements to the ‘asdf-build-system’ for software written in various Common Lisp dialects.
 *** New ‘package-mapping’ procedure to rewrite package dependency graphs
-*** New modules: (guix workers), (guix discovery), (guix cache),
-    (guix memoization), (guix ssh), (gnu build shepherd)
+*** New modules: (Manifolding-OS workers), (Manifolding-OS discovery), (Manifolding-OS cache),
+    (Manifolding-OS memoization), (Manifolding-OS ssh), (gnu build shepherd)
 *** (gnu build file-systems) now has support for ISO-9660 file systems.
 
 ** Noteworthy bug fixes
@@ -3430,7 +3430,7 @@ zimg@2.5, zlib@1.2.11, znc@1.6.5
 *** GNU R now builds bit-reproducibly (<https://bugs.gnu.org/25598>)
 *** The daemon’s default settings are used unless overridden
     (<https://bugs.gnu.org/20217>)
-*** ‘guix system’ now supports the common build option ‘--root’
+*** ‘Manifolding-OS system’ now supports the common build option ‘--root’
     (<https://bugs.gnu.org/26271>)
 *** Mesa uses LLVM for better Gallium performance (<https://bugs.gnu.org/25953>)
 *** Grafting no longer triggers a download of all the outputs of each derivation
@@ -3450,21 +3450,21 @@ Updated translations: fr (French)
 *** New ‘--with-graft’ package transformation option
 *** Grafting is now faster than before
 *** The ‘replacement’ of a package can now have a different name
-*** ‘guix-daemon’ offloading support now uses Guile-SSH
-*** New ‘guix offload test’ command
-*** New updaters for ‘guix refresh’: ‘kernel.org’, ‘cpan’, ‘crates’
-*** ‘guix refresh --list-updaters’ shows updater coverage
+*** ‘Manifolding-OS-daemon’ offloading support now uses Guile-SSH
+*** New ‘Manifolding-OS offload test’ command
+*** New updaters for ‘Manifolding-OS refresh’: ‘kernel.org’, ‘cpan’, ‘crates’
+*** ‘Manifolding-OS refresh --list-updaters’ shows updater coverage
 *** New ‘cargo-build-system’ and importer for Rust packages
 *** New ‘asdf-build-system’ for Common Lisp packages
 *** Python build system now uses setuptools by default
 *** New updater for CPAN packages
 *** Added ‘--recursive’ option for importer for the CRAN/Bioconductor importer
-*** New d3.js backend for ‘guix graph’
-*** ‘guix package’ now displays generation diffs
+*** New d3.js backend for ‘Manifolding-OS graph’
+*** ‘Manifolding-OS package’ now displays generation diffs
 *** New services
 New services for CUPS printing, SPICE vdagent, SDDM, a login service, kmscon service, opensmtpd mail service, git service, wpa-supplicant service, rottlog, OpenSSH, Cuirass, and NFS related services.
 *** New arm-none-eabi cross-compiler toolchains
-*** New 'guix system' actions: ‘switch-generation’ and ‘roll-back’
+*** New 'Manifolding-OS system' actions: ‘switch-generation’ and ‘roll-back’
 
 ** Distribution
 
@@ -3498,7 +3498,7 @@ ecl-trivial-gray-streams, econnman, ecryptfs-utils, edi, editres, efibootmgr,
 efivar, emacs-ahungry-theme, emacs-auto-complete, emacs-bui,
 emacs-cyberpunk-theme, emacs-d-mode, emacs-danneskjold-theme, emacs-el-search,
 emacs-emms-mode-line-cycle, emacs-es-mode, emacs-evil, emacs-flx,
-emacs-goto-chg, emacs-guix, emacs-neotree, emacs-nginx-mode, emacs-org,
+emacs-goto-chg, emacs-Manifolding-OS, emacs-neotree, emacs-nginx-mode, emacs-org,
 emacs-org-trello, emacs-paredit, emacs-request, emacs-rudel, emacs-stream,
 enet, epic5, eschalot, espeak, exonerate, extempore, fatfsck-static, fbida,
 fcgi, fcgiwrap, femtolisp, filteraudio, fio, font-adobe-source-code-pro,
@@ -3715,7 +3715,7 @@ gtk+-3.20.9, gtk-doc-1.25, gtk-vnc-0.6.0, gtkmm-3.20.1, gtksourceview-3.20.4,
 guile-2.0.12, guile-daemon-0.1.1, guile-irregex-0.9.6, guile-lib-0.2.3,
 guile-ncurses-2.1, guile-next-2.1.5, guile-ssh-0.10.2,
 guile-static-stripped-2.0.12, guile-static-stripped-tarball-2.0.12,
-guile-xosd-0.2.1, guitarix-0.35.2, guix-0.11.0, guix-0.11.0-8.8d12,
+guile-xosd-0.2.1, guitarix-0.35.2, Manifolding-OS-0.11.0, Manifolding-OS-0.11.0-8.8d12,
 gvfs-1.28.3, gvpe-3.0, gzochi-0.10.1, harfbuzz-1.3.3, haskell-mode-16.1,
 hdf5-1.8.18, hdf5-parallel-openmpi-1.8.18, hexchat-2.12.2, higan-101,
 hop-2.5.1, hplip-3.16.11, httping-2.5, hunspell-1.5.4, hurd-core-headers-0.9,
@@ -3895,22 +3895,22 @@ zynaddsubfx-3.0.1
 ** Programming interfaces
 
 *** New procedure ‘package-for-guile-2.2’ for Guile package variants
-*** New ‘package-input-rewriting’ customization procedure in (guix packages)
-*** New ‘deprecated-package’ procedure in (guix packages)
-*** New ‘file-append’ procedure in (guix gexp)
-*** New (guix modules) module, to determine the closure of a Guile module
-*** ‘wrap-program’ from (guix utils) now produces only one wrapper file.
+*** New ‘package-input-rewriting’ customization procedure in (Manifolding-OS packages)
+*** New ‘deprecated-package’ procedure in (Manifolding-OS packages)
+*** New ‘file-append’ procedure in (Manifolding-OS gexp)
+*** New (Manifolding-OS modules) module, to determine the closure of a Guile module
+*** ‘wrap-program’ from (Manifolding-OS utils) now produces only one wrapper file.
 
 ** Noteworthy bug fixes
 
 *** ‘ld-wrapper’ no longer aborts if Guile 2.2 modules are in the search path
-*** ‘guix system reconfigure’ no longer unloads services depended on
+*** ‘Manifolding-OS system reconfigure’ no longer unloads services depended on
 *** GuixSD ‘menu-entry’ can specify arbitrary kernel and initrd file names
     (<http://bugs.gnu.org/20067>)
 *** Fix typo in device-opening code for ‘raid-device-type’
 *** Grafts are applied to replacement packages (<http://bugs.gnu.org/24418>)
-*** guix-daemon does not fail when deduplicating would lead to ENOSPC
-*** ‘guix download’ now checks X.509 certificates by default (<http://bugs.gnu.org/24466>)
+*** Manifolding-OS-daemon does not fail when deduplicating would lead to ENOSPC
+*** ‘Manifolding-OS download’ now checks X.509 certificates by default (<http://bugs.gnu.org/24466>)
 *** Avoid bootstrapping issue for HTTPS downloads (<http://bugs.gnu.org/22774>)
 *** Failed build directories are owned by the user to ease debugging (<http://bugs.gnu.org/15890>)
 *** Significantly reduced the closure of Perl (<http://bugs.gnu.org/23077>)
@@ -3925,28 +3925,28 @@ Updated translations: da (Danish), pl (Polish), de (German), pt_BR (Portuguese, 
 ** Package management
 
 *** Substitute display adjusts to client locale and terminal width
-*** New ‘--free-space’ option for ‘guix gc’
-*** ‘guix gc’ shows the amount of disk space freed
+*** New ‘--free-space’ option for ‘Manifolding-OS gc’
+*** ‘Manifolding-OS gc’ shows the amount of disk space freed
 *** Source code downloads fall back to content-addressed mirrors
-*** ‘guix graph’ can now be passed a store file name
+*** ‘Manifolding-OS graph’ can now be passed a store file name
 *** Building the profile is faster, noticeably so on slow file systems
 *** Profiles now include XDG desktop and MIME databases
-*** ‘guix size’ can be passed more than one package
+*** ‘Manifolding-OS size’ can be passed more than one package
 *** ‘--check’ and ‘--rounds’ save the differing build output upon failure
-*** New Emacs interface for package locations: M-x guix-locations
+*** New Emacs interface for package locations: M-x Manifolding-OS-locations
 
 See “Package Source Locations” in the manual.
 *** Emacs modes show the full profile name in buffer names
 *** Emacs “Package Info” buffer now have a “Build Log” button
-*** ‘guix environment’ sets $GUIX_ENVIRONMENT to the environment’s profile
-*** New ‘--ttl’ option for ‘guix publish’
-*** New ‘--compression’ option for ‘guix publish’
-*** ‘guix publish’ serves source files over content-address “/file” URLs
-*** New ‘hackage’ updater for ‘guix refresh’
-*** ‘guix lint -c cve’ uses a faster caching method
-*** ‘guix lint -c cve’ now reports up to 3-year-old vulnerabilities
-*** ‘guix lint -c source,home-page’ reports suspiciously small HTTP replies
-*** ‘guix lint -c inputs-should-be-native’ makes more suggestions
+*** ‘Manifolding-OS environment’ sets $GUIX_ENVIRONMENT to the environment’s profile
+*** New ‘--ttl’ option for ‘Manifolding-OS publish’
+*** New ‘--compression’ option for ‘Manifolding-OS publish’
+*** ‘Manifolding-OS publish’ serves source files over content-address “/file” URLs
+*** New ‘hackage’ updater for ‘Manifolding-OS refresh’
+*** ‘Manifolding-OS lint -c cve’ uses a faster caching method
+*** ‘Manifolding-OS lint -c cve’ now reports up to 3-year-old vulnerabilities
+*** ‘Manifolding-OS lint -c source,home-page’ reports suspiciously small HTTP replies
+*** ‘Manifolding-OS lint -c inputs-should-be-native’ makes more suggestions
 
 ** Distribution
 
@@ -4110,7 +4110,7 @@ grilo-plugins-0.3.1, grub-2.02beta3, gsettings-desktop-schemas-3.20.0,
 gst-libav-1.8.2, gst-plugins-base-1.8.2, gst-plugins-good-1.8.2,
 gst-plugins-ugly-1.8.2, gstreamer-1.8.2, gtk+-2.24.30, gtk+-3.20.3,
 gtkmm-3.20.1, gtksourceview-3.20.2, guile-irregex-0.9.4, guile-ncurses-1.7,
-guile-next-2.1.3, guitarix-0.35.0, guix-0.10.0, guix-0.10.0-1.97c8,
+guile-next-2.1.3, guitarix-0.35.0, Manifolding-OS-0.10.0, Manifolding-OS-0.10.0-1.97c8,
 gvfs-1.28.1, gzip-1.8, harfbuzz-1.2.4, haunt-0.2, hdf5-1.8.17,
 help2man-1.47.4, hexchat-2.12.0, hoedown-3.0.7, htop-2.0.2, htslib-1.3.1,
 httpd-2.4.23, hurd-headers-0.8, hurd-minimal-0.8, hwloc-1.11.2, i3-wm-4.12,
@@ -4240,7 +4240,7 @@ zynaddsubfx-2.5.4
 
 ** Programming interfaces
 
-*** New ‘with-imported-modules’ form provided by (guix gexp)
+*** New ‘with-imported-modules’ form provided by (Manifolding-OS gexp)
 
 It supersedes the #:modules parameter of ‘gexp->derivation’, ‘compute-file’,
 ‘gexp->script’, ‘program-file’, etc, as well as the ‘imported-modules’ fields
@@ -4250,12 +4250,12 @@ of <origin> and <shepherd-service>.  See “G-Expressions” in the manual.
 
 See <http://savannah.gnu.org/forum/forum.php?forum_id=8605> for background.
 
-*** New (guix zlib) module
-*** New (guix hg-download) module, for Mercurial checkouts
-*** (guix download) supports HTTP basic authentication
-*** (guix svn-download) supports authentication
+*** New (Manifolding-OS zlib) module
+*** New (Manifolding-OS hg-download) module, for Mercurial checkouts
+*** (Manifolding-OS download) supports HTTP basic authentication
+*** (Manifolding-OS svn-download) supports authentication
 *** The ‘source’ of packages can be a ‘local-file’ or any lowerable object
-*** Part of (guix utils) moved to the new (guix combinators)
+*** Part of (Manifolding-OS utils) moved to the new (Manifolding-OS combinators)
 *** GNU updater honors the ‘ftp-server’ and ‘ftp-directory’ package properties
 *** CVE linter honors the ‘cpe-name’ and ‘cpe-version’ package properties
 *** ‘add-to-store’ and ‘local-file’ have a new #:select? parameter
@@ -4268,15 +4268,15 @@ See <http://savannah.gnu.org/forum/forum.php?forum_id=8605> for background.
 *** ‘call-with-container’ gracefully reports mount errors
     (<http://bugs.gnu.org/23306>)
 *** ‘herd start cow-store’ now bind-mounts the target /tmp
-*** ‘guix environment’ now honors ‘--system’ (<http://bugs.gnu.org/23682>)
-*** ‘guix publish’ properly encodes archive URIs (<http://bugs.gnu.org/21888>)
+*** ‘Manifolding-OS environment’ now honors ‘--system’ (<http://bugs.gnu.org/23682>)
+*** ‘Manifolding-OS publish’ properly encodes archive URIs (<http://bugs.gnu.org/21888>)
 *** ‘NIX_CONF_DIR’ is now ignored (<http://bugs.gnu.org/22459>)
 *** The shell of user ‘nobody’ is ‘nologin’ (<http://bugs.gnu.org/23971>)
 *** Source code location is more precise in error messages involving records
     (<http://bugs.gnu.org/23969>)
-*** ‘guix --version’ is correct in the presence of ‘guix pull’
+*** ‘Manifolding-OS --version’ is correct in the presence of ‘Manifolding-OS pull’
     (<http://bugs.gnu.org/19278>)
-*** Git commits are now signed, for eventual authentication by ‘guix pull’
+*** Git commits are now signed, for eventual authentication by ‘Manifolding-OS pull’
     (in preparation of a fix for <http://bugs.gnu.org/22883>)
 
 ** Native language support
@@ -4313,20 +4313,20 @@ packages.  See “Security Updates” in the manual, as well as
 *** Substitutes are fetched over HTTPS by default
 *** Substitutes are cached for the duration reported in ‘Cache-Control’ headers
 *** Default substitute URL list includes a faster mirror, mirror.hydra.gnu.org
-*** New ‘--with-input’ and ‘--with-source’ for ‘guix package’ and ‘guix build’
+*** New ‘--with-input’ and ‘--with-source’ for ‘Manifolding-OS package’ and ‘Manifolding-OS build’
 
 See “Package Transformation Options” in the manual.
 
-*** ‘guix package --search-paths -p X -p Y’ combines search paths for X and Y
-*** ‘guix package’ can be passed several ‘--search’ options
-*** New ‘--rounds’ and ‘--check’ for ‘guix build’, for bit-reproducibility
-*** New ‘--rounds’ option for ‘guix-daemon’
-*** New ‘--quiet’ option for ‘guix build’
-*** ‘guix package -u’ no longer checks for upstream GNU releases
-*** ‘guix-daemon’ always uses /tmp in chroots, regardless of $TMPDIR
-*** New Emacs interface to browse licenses: M-x guix-licenses
-*** New Emacs interface to list system generations: M-x guix-system-generations
-*** New Emacs interface for hydra.gnu.org: M-x guix-hydra-…
+*** ‘Manifolding-OS package --search-paths -p X -p Y’ combines search paths for X and Y
+*** ‘Manifolding-OS package’ can be passed several ‘--search’ options
+*** New ‘--rounds’ and ‘--check’ for ‘Manifolding-OS build’, for bit-reproducibility
+*** New ‘--rounds’ option for ‘Manifolding-OS-daemon’
+*** New ‘--quiet’ option for ‘Manifolding-OS build’
+*** ‘Manifolding-OS package -u’ no longer checks for upstream GNU releases
+*** ‘Manifolding-OS-daemon’ always uses /tmp in chroots, regardless of $TMPDIR
+*** New Emacs interface to browse licenses: M-x Manifolding-OS-licenses
+*** New Emacs interface to list system generations: M-x Manifolding-OS-system-generations
+*** New Emacs interface for hydra.gnu.org: M-x Manifolding-OS-hydra-…
 *** Changes in Emacs interface variables and faces
 
 In the following names, BUFFER-TYPE means "info" or "list";
@@ -4334,35 +4334,35 @@ ENTRY-TYPE means "package", "output" or "generation".
 
 **** Removed
 
-- guix-info-fill-column
-- guix-info-insert-ENTRY-TYPE-function
+- Manifolding-OS-info-fill-column
+- Manifolding-OS-info-insert-ENTRY-TYPE-function
 
 **** Renamed
 
-- guix-info-ignore-empty-vals -> guix-info-ignore-empty-values
-- guix-output-name-width -> guix-generation-output-name-width
-- guix-buffer-name-function -> guix-ui-buffer-name-function
-- guix-update-after-operation -> guix-ui-update-after-operation
-- guix-search-params -> guix-package-search-params
-- guix-BUFFER-TYPE-file-path (face) -> guix-BUFFER-TYPE-file-name
+- Manifolding-OS-info-ignore-empty-vals -> Manifolding-OS-info-ignore-empty-values
+- Manifolding-OS-output-name-width -> Manifolding-OS-generation-output-name-width
+- Manifolding-OS-buffer-name-function -> Manifolding-OS-ui-buffer-name-function
+- Manifolding-OS-update-after-operation -> Manifolding-OS-ui-update-after-operation
+- Manifolding-OS-search-params -> Manifolding-OS-package-search-params
+- Manifolding-OS-BUFFER-TYPE-file-path (face) -> Manifolding-OS-BUFFER-TYPE-file-name
 
 **** Replaced
 
-- guix-list-column-format, guix-list-column-value-methods ->
-  guix-ENTRY-TYPE-list-format
-- guix-info-displayed-params, guix-info-insert-methods,
-  guix-package-info-heading-params -> guix-ENTRY-TYPE-info-format
-- guix-param-titles, guix-list-column-titles ->
-  guix-ENTRY-TYPE-BUFFER-TYPE-titles
-- guix-list-describe-warning-count ->
-  guix-ENTRY-TYPE-list-describe-warning-count
-- guix-package-info-fill-heading -> guix-info-fill
+- Manifolding-OS-list-column-format, Manifolding-OS-list-column-value-methods ->
+  Manifolding-OS-ENTRY-TYPE-list-format
+- Manifolding-OS-info-displayed-params, Manifolding-OS-info-insert-methods,
+  Manifolding-OS-package-info-heading-params -> Manifolding-OS-ENTRY-TYPE-info-format
+- Manifolding-OS-param-titles, Manifolding-OS-list-column-titles ->
+  Manifolding-OS-ENTRY-TYPE-BUFFER-TYPE-titles
+- Manifolding-OS-list-describe-warning-count ->
+  Manifolding-OS-ENTRY-TYPE-list-describe-warning-count
+- Manifolding-OS-package-info-fill-heading -> Manifolding-OS-info-fill
 
-*** New ‘cve’ linter: ‘guix lint -c cve’ reports pending vulnerabilities
-*** New ‘gnome’, ‘xorg’, and ‘github’ updaters for ‘guix refresh’
-*** ‘guix lint’ times out after 3 seconds when probing URLs
-*** ‘guix graph -t bag-with-origins’ includes origins in the graph
-*** ‘guix import cran’ can import packages from bioconductor.org
+*** New ‘cve’ linter: ‘Manifolding-OS lint -c cve’ reports pending vulnerabilities
+*** New ‘gnome’, ‘xorg’, and ‘github’ updaters for ‘Manifolding-OS refresh’
+*** ‘Manifolding-OS lint’ times out after 3 seconds when probing URLs
+*** ‘Manifolding-OS graph -t bag-with-origins’ includes origins in the graph
+*** ‘Manifolding-OS import cran’ can import packages from bioconductor.org
 
 ** Distribution
 
@@ -4379,13 +4379,13 @@ information on the changes between GNU dmd 0.2 and the GNU Shepherd 0.3.1.
 *** New ‘fstab-service-type’, to populate /etc/fstab
 *** New ‘mount?’ field for ‘file-system’ forms
 *** Most global environment variables are now set in /etc/environment (pam_env)
-*** ‘guix system reconfigure’ now loads/starts new services, stops old ones
+*** ‘Manifolding-OS system reconfigure’ now loads/starts new services, stops old ones
     (see <http://bugs.gnu.org/22039>)
 *** ‘local-file’ resolves file names relative to the current source file
 *** Many reproducibility issues fixed: glibc, perl, bison, emacs-*, python-*, …
 *** Initial RAM disk supports ‘modprobe.blacklist’ on the kernel command line
 *** New “Running GuixSD in a VM” section in the manual
-*** ‘dmd’ changed to ’shepherd’ in ‘guix system’ sub-commands
+*** ‘dmd’ changed to ’shepherd’ in ‘Manifolding-OS system’ sub-commands
 *** A Bourne-like shell is spawned upon ‘fsck’ failure
     (see <http://bugs.gnu.org/22588>)
 *** 639 new packages
@@ -4565,8 +4565,8 @@ goffice-0.10.24, gp2c-0.0.9pl5, gpgme-1.6.0, gpsbabel-1.5.2, graphite2-1.3.6,
 grep-2.22, grilo-0.2.14, grilo-plugins-0.2.16, gsl-2.1, gst-libav-1.6.3,
 gst-plugins-base-1.6.3, gst-plugins-good-1.6.3, gst-plugins-ugly-1.6.3,
 gstreamer-1.6.3, gtksourceview-3.18.2, guile-2.0.11, guile-2.0.11,
-guile-json-0.5.0, guile-ssh-0.9.0, guitarix-0.34.0, guix-0.9.0,
-guix-0.9.0-1.dd21, gvfs-1.26.2, harfbuzz-1.0.6, help2man-1.47.3, hevea-2.28,
+guile-json-0.5.0, guile-ssh-0.9.0, guitarix-0.34.0, Manifolding-OS-0.9.0,
+Manifolding-OS-0.9.0-1.dd21, gvfs-1.26.2, harfbuzz-1.0.6, help2man-1.47.3, hevea-2.28,
 htop-2.0.1, hwloc-1.11.1, hydrogen-0.9.6.1, iceauth-1.0.7, icecast-2.4.3,
 icecat-38.6.0-gnu1, iproute2-4.4.0, irssi-0.8.18, isc-dhcp-4.3.3-P1,
 isync-1.2.1, jrnl-1.9.7, julia-0.4.3, kbproto-1.0.7, keepassx-2.0.2,
@@ -4688,8 +4688,8 @@ zlib-1.2.8, znc-1.6.2, zynaddsubfx-2.5.3
 ** Programming interfaces
 
 *** Build systems always set the ‘SOURCE_DATE_EPOCH’ environment variable
-*** New (guix graph) graph manipulation module, abstracted from ‘guix graph’
-*** New (guix cve) module, to navigate the CVE database
+*** New (Manifolding-OS graph) graph manipulation module, abstracted from ‘Manifolding-OS graph’
+*** New (Manifolding-OS cve) module, to navigate the CVE database
 *** ‘build-things’ procedure takes a new ‘mode’ parameter
 *** Mass rename of ‘dmd’ to ‘shepherd’ in the (gnu …) modules
 *** New ‘gnome-desktop-service’ and ‘xfce-desktop-service’ procedures
@@ -4702,25 +4702,25 @@ zlib-1.2.8, znc-1.6.2, zynaddsubfx-2.5.3
 *** Grafts are applied recursively (<http://bugs.gnu.org/22139>)
 *** Commands correctly handle numbers in package names
     (http://bugs.gnu.org/19219)
-*** ‘guix-daemon’ deduplication code detects corrupt items
+*** ‘Manifolding-OS-daemon’ deduplication code detects corrupt items
 *** eudev now populates /dev/disk/by-{id,label}
 *** Selected locale is automatically built (<http://bugs.gnu.org/22572>)
 *** Substitutes can be downloaded over HTTPS (<http://bugs.gnu.org/22937>)
 *** umask explicitly set in /etc/profile (<http://bugs.gnu.org/22650>)
-*** ‘guix system init’ writes GC root on the target file system
+*** ‘Manifolding-OS system init’ writes GC root on the target file system
     (<http://bugs.gnu.org/22802>)
-*** ‘guix system vm’ now works in the absence of KVM support
+*** ‘Manifolding-OS system vm’ now works in the absence of KVM support
     (<http://bugs.gnu.org/22633>)
 *** GuixSD includes an Info reader by default (<http://bugs.gnu.org/22598>)
 *** MacBook keyboards are now properly detected (<http://bugs.gnu.org/20433>)
 *** GRUB searches root by label or UUID (<http://bugs.gnu.org/22281>)
-*** ‘guix package --search-paths’ honors propagated inputs
+*** ‘Manifolding-OS package --search-paths’ honors propagated inputs
     (<http://bugs.gnu.org/22073>)
 *** GCC uses ‘C_INCLUDE_PATH’ et al. instead of ‘CPATH’
     (<http://bugs.gnu.org/22186>)
 *** ‘ld-wrapper’ computes library search path based on all ‘-L’ flags
     (<http://bugs.gnu.org/21941>)
-*** ‘guix environment --container’ gracefully handles abnormal exists
+*** ‘Manifolding-OS environment --container’ gracefully handles abnormal exists
     (<http://bugs.gnu.org/21958>)
 
 ** Native language support
@@ -4732,25 +4732,25 @@ zlib-1.2.8, znc-1.6.2, zynaddsubfx-2.5.3
 
 ** Package management
 
-*** New ‘guix graph’ command, to draw package graphs
-*** New ‘guix challenge’ command, to challenge the authenticity of binaries
-*** ‘guix environment’ has a new ‘--container’ option
-*** ‘guix substitute’ now honors all the specified substitute URLs
-*** New ‘guix import cran’ command, to import R packages from CRAN
+*** New ‘Manifolding-OS graph’ command, to draw package graphs
+*** New ‘Manifolding-OS challenge’ command, to challenge the authenticity of binaries
+*** ‘Manifolding-OS environment’ has a new ‘--container’ option
+*** ‘Manifolding-OS substitute’ now honors all the specified substitute URLs
+*** New ‘Manifolding-OS import cran’ command, to import R packages from CRAN
 *** Package descriptions can now include Texinfo markup rendered on the fly
-*** ‘guix package’ has a new ‘--install-from-file’ option
-*** ‘guix package --search’ shows package outputs
-*** ‘guix refresh’ can refresh selected non-GNU package definitions
-*** The ‘--ad-hoc’ option of ‘guix environment’ is now positional
-*** The ‘--exec’ option of ‘guix environment’ is deprecated; use ‘--’ instead
-*** ‘guix build’ has a new ‘--file’ option
-*** ‘guix build --log-file’ can now return URLs
-*** ‘guix size’ now has a ‘--substitute-urls’ option and is much faster
-*** New ‘guix lint’ checkers: ‘formatting’, ‘license’, ‘source-file-name’
+*** ‘Manifolding-OS package’ has a new ‘--install-from-file’ option
+*** ‘Manifolding-OS package --search’ shows package outputs
+*** ‘Manifolding-OS refresh’ can refresh selected non-GNU package definitions
+*** The ‘--ad-hoc’ option of ‘Manifolding-OS environment’ is now positional
+*** The ‘--exec’ option of ‘Manifolding-OS environment’ is deprecated; use ‘--’ instead
+*** ‘Manifolding-OS build’ has a new ‘--file’ option
+*** ‘Manifolding-OS build --log-file’ can now return URLs
+*** ‘Manifolding-OS size’ now has a ‘--substitute-urls’ option and is much faster
+*** New ‘Manifolding-OS lint’ checkers: ‘formatting’, ‘license’, ‘source-file-name’
 *** Download progress report has been improved
-*** Emacs shell-mode completions for ‘guix’ commands updated
-*** Emacs: New ‘M-x guix’ popup interface
-*** Emacs: modes for viewing build logs (‘guix-build-log-mode’)
+*** Emacs shell-mode completions for ‘Manifolding-OS’ commands updated
+*** Emacs: New ‘M-x Manifolding-OS’ popup interface
+*** Emacs: modes for viewing build logs (‘Manifolding-OS-build-log-mode’)
 
 ** Distribution
 
@@ -4763,12 +4763,12 @@ Consequently, several sources of redundancy and confusion in
 ‘operating-system’ declarations have been eliminated.  See “Service
 Composition” in the manual.
 
-*** New ‘extension-graph’ and ‘dmd-graph’ sub-commands for ‘guix system’
-*** New ‘container’ sub-command for ‘guix system’
-*** New ‘guix container’ command, to deal with GuixSD containers
-*** New ‘list-generations’ sub-command for ‘guix system’
+*** New ‘extension-graph’ and ‘dmd-graph’ sub-commands for ‘Manifolding-OS system’
+*** New ‘container’ sub-command for ‘Manifolding-OS system’
+*** New ‘Manifolding-OS container’ command, to deal with GuixSD containers
+*** New ‘list-generations’ sub-command for ‘Manifolding-OS system’
 *** ‘operating-system’ has a new ‘locale-libcs’ field
-*** New services: ‘nginx-service’, ‘udisks-service’, ‘guix-publish-service’
+*** New services: ‘nginx-service’, ‘udisks-service’, ‘Manifolding-OS-publish-service’
 *** ‘%desktop-services’ now includes Polkit, GeoClue, elogind, UDisks, and more
 *** ‘dbus-daemon’ now has proper support for lazy service activation
 *** ‘wicd-service’ automatically adds Wicd to the system profile
@@ -4923,7 +4923,7 @@ gp2c-0.0.9pl3, graphite2-1.3.3, graphviz-2.38.0,
 gsettings-desktop-schemas-3.18.0, gsl-2.0, gst-libav-1.6.1,
 gst-plugins-base-1.6.1, gst-plugins-good-1.6.1, gst-plugins-ugly-1.6.1,
 gstreamer-1.6.1, gtk+-3.18.2, gtkmm-3.18.0, guile-ssh-0.8.0, guitarix-0.33.0,
-guix-0.8.3, guix-0.8.3.b485f75, harfbuzz-1.0.5, help2man-1.47.2,
+Manifolding-OS-0.8.3, Manifolding-OS-0.8.3.b485f75, harfbuzz-1.0.5, help2man-1.47.2,
 hurd-headers-0.7, ibus-1.5.11, icecat-38.3.0-gnu1, icedtea6-1.13.8,
 icedtea7-2.6.2, imagemagick-6.9.2-1, intltool-0.51.0, json-glib-1.0.4,
 leptonica-1.72, less-481, libbluray-0.9.0, libcap-2.24, libdrm-2.4.65,
@@ -4965,22 +4965,22 @@ youtube-dl-2015.11.01, zsh-5.1.1
 
 *** Rewritten (gnu services) module; (gnu services …) modules adjusted
 *** New Emacs development tools, see “Development” in the manual
-*** (guix gexp) provides the declarative ‘computed-file’, ‘program-file’, etc.
-*** New (guix upstream) module, for generalized upstream release tracking
+*** (Manifolding-OS gexp) provides the declarative ‘computed-file’, ‘program-file’, etc.
+*** New (Manifolding-OS upstream) module, for generalized upstream release tracking
 
 ** Noteworthy bug fixes
 
 *** Passwords in /etc/shadow are SHA512-hashed (http://bugs.gnu.org/21318)
 *** daemon: Require a signature for imports made by root
     (http://bugs.gnu.org/21354)
-*** emacs: Fix guix-guile-program default value (http://bugs.gnu.org/21127)
+*** emacs: Fix Manifolding-OS-guile-program default value (http://bugs.gnu.org/21127)
 *** Compressed initrds no longer include timestamps
 *** Partly fix handling of encrypted root partitions
     (http://bugs.gnu.org/19190)
 *** Python now includes tkinter (http://bugs.gnu.org/20889)
 *** Memoize the results of ‘package-with-python2’ (http://bugs.gnu.org/21675)
 *** Use the daemon's substitute URLs by default (http://bugs.gnu.org/20217)
-*** ‘guix system --no-grub’ works correctly for ‘init’ and ‘reconfigure’
+*** ‘Manifolding-OS system --no-grub’ works correctly for ‘init’ and ‘reconfigure’
     (http://bugs.gnu.org/21068)
 
 ** Native language support
@@ -4991,28 +4991,28 @@ youtube-dl-2015.11.01, zsh-5.1.1
 
 ** Package management
 
-*** New ‘guix edit’ and ‘guix size’ commands
-*** New ‘--manifest’ option for ‘guix package’, for declarative profiles
-*** Similarly, new ‘M-x guix-apply-manifest’ for the Emacs UI
-*** Emacs support now includes completion for ‘guix’ commands in shell-mode
-*** ‘guix package --search-paths’ now takes an optional argument
-*** ‘guix environment --ad-hoc’ creates a custom development environment
-*** New ‘--system’ option for ‘guix environment’
-*** ‘guix environment’ defines $GUIX_ENVIRONMENT, useful to adjust ‘PS1’
-*** New ‘--optimize’ and ‘--verify’ options to ‘guix gc’
-*** ‘guix build --with-source’ can now be passed a directory
-*** New ‘elpa’ importer for ‘guix import’
-*** ‘guix import pypi’ determines the list of dependencies
-*** New ‘--substitute-urls’ option for ‘guix build’ and other commands
-*** ‘guix substitute’ can now alternate between different substitute URLs
+*** New ‘Manifolding-OS edit’ and ‘Manifolding-OS size’ commands
+*** New ‘--manifest’ option for ‘Manifolding-OS package’, for declarative profiles
+*** Similarly, new ‘M-x Manifolding-OS-apply-manifest’ for the Emacs UI
+*** Emacs support now includes completion for ‘Manifolding-OS’ commands in shell-mode
+*** ‘Manifolding-OS package --search-paths’ now takes an optional argument
+*** ‘Manifolding-OS environment --ad-hoc’ creates a custom development environment
+*** New ‘--system’ option for ‘Manifolding-OS environment’
+*** ‘Manifolding-OS environment’ defines $GUIX_ENVIRONMENT, useful to adjust ‘PS1’
+*** New ‘--optimize’ and ‘--verify’ options to ‘Manifolding-OS gc’
+*** ‘Manifolding-OS build --with-source’ can now be passed a directory
+*** New ‘elpa’ importer for ‘Manifolding-OS import’
+*** ‘Manifolding-OS import pypi’ determines the list of dependencies
+*** New ‘--substitute-urls’ option for ‘Manifolding-OS build’ and other commands
+*** ‘Manifolding-OS substitute’ can now alternate between different substitute URLs
 *** New “Running Guix Before It Is Installed” section in the manual
-*** Basic manual pages for the ‘guix’ commands are now shipped
+*** Basic manual pages for the ‘Manifolding-OS’ commands are now shipped
 *** Building the daemon now necessitates a C++11 compiler
 
 ** Distribution
 
 *** New ‘%base-user-accounts’ variable, for common system accounts
-*** New ‘--on-error’ option for ‘guix system’
+*** New ‘--on-error’ option for ‘Manifolding-OS system’
 *** New ‘plain-file’ construct, for use in ‘operating-system’ declarations
 *** ‘sudoers’ field of ‘operating-system’ renamed to ‘sudoers-file’
 *** ‘sudoers-file’ and ‘hosts-file’ fields now take file-like objects
@@ -5075,7 +5075,7 @@ gcj-4.8.5, gdb-7.9.1, geoclue-2.2.0, gettext-0.19.5, gfortran-4.8.5,
 gfortran-4.9.3, gfortran-4.9.3, girara-0.2.4, git-2.4.3, git-manpages-2.4.3,
 global-6.5, gnu-pw-mgr-1.4, gnupg-2.1.6, gnutls-3.4.1, goffice-0.10.14,
 gpgme-1.5.5, gtk+-3.16.3, gtkmm-3.16.0, guile-2.0.11, guile-2.0.11,
-guile-reader-0.6.1, guile-sdl-0.5.2, guix-0.8.2, guix-0.8.2.72cd8ec,
+guile-reader-0.6.1, guile-sdl-0.5.2, Manifolding-OS-0.8.2, Manifolding-OS-0.8.2.72cd8ec,
 gxmessage-3.4.3, harfbuzz-0.9.40, help2man-1.47.1, httpd-2.4.16, hwloc-1.10.1,
 icecat-31.8.0-gnu1, imagemagick-6.9.1-3, inetutils-1.9.4, julia-0.3.10,
 libassuan-2.2.1, libdvdnav-5.0.3, libdvdread-5.0.3, libetonyek-0.1.3,
@@ -5106,8 +5106,8 @@ zathura-0.3.3
 
 *** New “package Reference” and “origin Reference” sections in the manual
 *** New ‘emacs-build-system’, which mimics what package.el does
-*** New (guix cpio) module, used to produce Linux initrds deterministically
-*** New ‘clone’, ‘setns’, and ‘pivot_root’ bindings in (guix build syscalls)
+*** New (Manifolding-OS cpio) module, used to produce Linux initrds deterministically
+*** New ‘clone’, ‘setns’, and ‘pivot_root’ bindings in (Manifolding-OS build syscalls)
 *** New ‘dependencies’ field in <file-system>
 *** New #:gem-flags parameter for ‘ruby-build-system’
 
@@ -5118,27 +5118,27 @@ zathura-0.3.3
 *** Binary installation tarball now has files root-owned, with zeroed mtime
     (<http://bugs.gnu.org/21101>)
 *** GRUB background image is always available (<http://bugs.gnu.org/20591>)
-*** ‘guix system’ catches references to non-existent user groups
+*** ‘Manifolding-OS system’ catches references to non-existent user groups
     (<http://bugs.gnu.org/20646>)
-*** Ignore trailing components for ‘guix gc -d’ (<http://bugs.gnu.org/19757>)
-*** ‘guix lint’ warns only when all the URIs are unreachable
-*** ‘guix system init’ overwrites the items in the target store
+*** Ignore trailing components for ‘Manifolding-OS gc -d’ (<http://bugs.gnu.org/19757>)
+*** ‘Manifolding-OS lint’ warns only when all the URIs are unreachable
+*** ‘Manifolding-OS system init’ overwrites the items in the target store
     (<http://bugs.gnu.org/20722>)
-*** ‘guix-register’ performs deduplication even when --prefix is passed
+*** ‘Manifolding-OS-register’ performs deduplication even when --prefix is passed
     (<http://bugs.gnu.org/19044>)
 *** The ‘location’ of packages is no longer preserved by ‘inherit’
 *** GuixSD installation image has udev rules for device-mapper
     (<http://bugs.gnu.org/20791>)
 *** Daemon distinguishes between “substitutable” and “offloadable” derivations
     (<http://bugs.gnu.org/18747>)
-*** Avoid infinite loop in ‘guix substitute’
-*** ‘guix environment’ now returns the exit code of its command
+*** Avoid infinite loop in ‘Manifolding-OS substitute’
+*** ‘Manifolding-OS environment’ now returns the exit code of its command
 *** ‘file-system’ declarations can now really use UUIDs
     (<http://bugs.gnu.org/19778>)
 *** Daemon preserves build user groups (<http://bugs.gnu.org/18994>)
 *** Fix quadratic behavior when building packages with many propagated inputs
 *** Tarballs for origins with patches/snippet are now build deterministically
-*** Scalability issues in ‘guix publish’ have been fixed
+*** Scalability issues in ‘Manifolding-OS publish’ have been fixed
 
 ** Native language support
 
@@ -5152,24 +5152,24 @@ zathura-0.3.3
 
 See “Binary Installation” in the manual.
 
-*** New ‘guix publish’ command, to publish one’s store
+*** New ‘Manifolding-OS publish’ command, to publish one’s store
 
-See “Invoking guix publish” in the manual.
+See “Invoking Manifolding-OS publish” in the manual.
 
-*** ‘guix package’ runs “profile creation hooks” as needed
+*** ‘Manifolding-OS package’ runs “profile creation hooks” as needed
 
 It creates X.509 certificate bundles in the profile’s etc/ssl directory, if
 needed, generates a package database cache for GHC if the profile includes GHC
 (the Haskell compiler), and generates an Info ‘dir’ file (this part was
 already done before.)
 
-*** ‘guix package’ creates an ‘etc/profile’ file in the profile
+*** ‘Manifolding-OS package’ creates an ‘etc/profile’ file in the profile
 
-See “Invoking guix package” in the manual.
+See “Invoking Manifolding-OS package” in the manual.
 
 *** Commands understand version prefixes, such as ‘gcc-5’ for ‘gcc-5.1.0’
 
-*** ‘guix package --search’ now sorts packages by name and version
+*** ‘Manifolding-OS package --search’ now sorts packages by name and version
 
 *** Substitute information is now fetched using HTTP pipelining
 
@@ -5177,21 +5177,21 @@ Before that the “substituter” used threads.  Using HTTP pipelining means tha
 resource consumption is reduced on both the client and server sides.  As a
 side effect, a progress report is displayed as substitute info is downloaded.
 
-*** ‘guix package’ warns when a $GUIX_PACKAGE_PATH module cannot be loaded
+*** ‘Manifolding-OS package’ warns when a $GUIX_PACKAGE_PATH module cannot be loaded
 
-*** New ‘--sources’ option to ‘guix build’
+*** New ‘--sources’ option to ‘Manifolding-OS build’
 
 *** New Bash completion file, installed in $sysconfdir/bash_completion.d
 
-*** New ‘guix import hackage’ command
+*** New ‘Manifolding-OS import hackage’ command
 
-See “Invoking guix import” in the manual.
+See “Invoking Manifolding-OS import” in the manual.
 
-*** ‘guix lint’ supports FTP for the ‘source’ and ‘home-page’ checkers
+*** ‘Manifolding-OS lint’ supports FTP for the ‘source’ and ‘home-page’ checkers
 
-*** ‘guix lint’ has a new ‘derivation’ checker
+*** ‘Manifolding-OS lint’ has a new ‘derivation’ checker
 
-*** ‘guix import cpan’ better handles dependencies and licenses
+*** ‘Manifolding-OS import cpan’ better handles dependencies and licenses
 
 *** Packages are now build in an environment with a UTF-8 locale
 
@@ -5211,7 +5211,7 @@ See “Name Service Switch” in the manual.
 
 See “X.509 Certificates” in the manual.
 
-*** ‘guix system’ reports duplicate service identifiers
+*** ‘Manifolding-OS system’ reports duplicate service identifiers
 
 *** New /etc/bashrc file that loads Bash completion when available
 
@@ -5420,7 +5420,7 @@ gnu-pw-mgr-1.3, gnubik-2.4.2, gnumach-headers-1.5, gnunet-0.10.1,
 gnupg-1.4.19, gnupg-2.0.27, gnupg-2.1.4, gnutls-3.4.0,
 gobject-introspection-1.44.0, gpgme-1.5.4, gsettings-desktop-schemas-3.16.0,
 gst-plugins-base-1.4.5, gst-plugins-good-1.4.5, gstreamer-1.4.5, gtk+-3.16.2,
-gtkmm-2.24.4, gtkmm-3.16.0, guile-ssh-0.7.2, guix-0.8.1, guix-0.8.1.fc34dee,
+gtkmm-2.24.4, gtkmm-3.16.0, guile-ssh-0.7.2, Manifolding-OS-0.8.1, Manifolding-OS-0.8.1.fc34dee,
 help2man-1.46.6, httpd-2.4.12, hurd-headers-0.6, icecat-31.6.0-gnu1,
 icu4c-55.1, imagemagick-6.9.0-4, imlib2-1.4.7, inetutils-1.9.3, inkscape-0.91,
 isc-dhcp-4.3.1, itstool-2.0.2, kbd-2.0.2, libgcrypt-1.6.3, libgpg-error-1.18,
@@ -5451,40 +5451,40 @@ xfwm4-4.12.0, xorg-server-1.16.4, xterm-317
 
 ** Programming interfaces
 
-*** New (guix build gremlin) to parse and validate ELF dynamic link info
+*** New (Manifolding-OS build gremlin) to parse and validate ELF dynamic link info
 
-*** (guix build-system gnu) has a new ‘validate-runpath’ phase
+*** (Manifolding-OS build-system gnu) has a new ‘validate-runpath’ phase
 
 This phase reads the dynamic entries of ELF files and reports libraries listed
 as NEEDED that are not found in the RUNPATH.
 
 *** New (gnu services desktop) module and ‘%desktop-services’ variable
 
-*** New (guix cvs-download) module, for CVS checkouts
+*** New (Manifolding-OS cvs-download) module, for CVS checkouts
 
-*** New (guix build-system waf) module, for the Waf build system
+*** New (Manifolding-OS build-system waf) module, for the Waf build system
 
-*** New (guix build-system haskell) module, to build Haskell packages
+*** New (Manifolding-OS build-system haskell) module, to build Haskell packages
 
-*** (guix build-system gnu) now supports zip archives
+*** (Manifolding-OS build-system gnu) now supports zip archives
 
-*** New convenience syntax ‘modify-phases’ added in (guix build utils)
+*** New convenience syntax ‘modify-phases’ added in (Manifolding-OS build utils)
 
 *** The ‘ld’ wrapper more finely determines whether to use ‘-rpath’
 
-*** (guix gexp) exports ‘gexp-input’ to describe input unambiguously
+*** (Manifolding-OS gexp) exports ‘gexp-input’ to describe input unambiguously
 
-*** The ‘define-gexp-compiler’ form allows (guix gexp) to be extended
+*** The ‘define-gexp-compiler’ form allows (Manifolding-OS gexp) to be extended
 
-*** New ‘local-file’ constructor exported by (guix gexp)
+*** New ‘local-file’ constructor exported by (Manifolding-OS gexp)
 
 ** Noteworthy bug fixes
 
-*** Profiles created with ‘guix package -p’ as indirect GC roots
+*** Profiles created with ‘Manifolding-OS package -p’ as indirect GC roots
 
 Before that they were made permanent GC roots–i.e., uncollectable.
 
-*** ‘guix package’ distinguishes downgrades from upgrades
+*** ‘Manifolding-OS package’ distinguishes downgrades from upgrades
 
 *** Handle HTTP redirects to relative URI references
     (<http://bugs.gnu.org/19840>)
@@ -5493,7 +5493,7 @@ Before that they were made permanent GC roots–i.e., uncollectable.
     (<http://bugs.gnu.org/20402>)
 
 *** ‘--no-*’ options are now always correctly handled
-    (<http://lists.gnu.org/archive/html/guix-devel/2015-02/msg00702.html>)
+    (<http://lists.gnu.org/archive/html/Manifolding-OS-devel/2015-02/msg00702.html>)
 
 *** SLiM no longer leaks open file descriptors
 
@@ -5520,15 +5520,15 @@ Before that they were made permanent GC roots–i.e., uncollectable.
 
 ** Package management
 
-*** New ‘--share’ and ‘--expose’ options for ‘guix system vm’
+*** New ‘--share’ and ‘--expose’ options for ‘Manifolding-OS system vm’
 
-See “Invoking guix system” in the manual.
+See “Invoking Manifolding-OS system” in the manual.
 
 *** Emacs mode now automatically loads newly installed Emacs packages
 
 See “Emacs Initial Setup” in the manual.
 
-*** ‘guix-daemon’ now defaults to ‘--cores=0 --jobs=1’
+*** ‘Manifolding-OS-daemon’ now defaults to ‘--cores=0 --jobs=1’
 
 In other words, at any given time, only one derivation is being built or
 substituted, and it can use as many cores as available.  Before, there could
@@ -5536,24 +5536,24 @@ be N derivations using N cores, which was obviously not desirable.
 
 *** Command-line tools support the ‘GUIX_BUILD_OPTIONS’ environment variable
 
-See “Invoking guix build” in the manual.
+See “Invoking Manifolding-OS build” in the manual.
 
-*** ‘guix environment’ is faster
+*** ‘Manifolding-OS environment’ is faster
 
-*** New ‘--recursive’ option for ‘guix archive’
+*** New ‘--recursive’ option for ‘Manifolding-OS archive’
 
-See “Invoking guix archive” in the manual.
+See “Invoking Manifolding-OS archive” in the manual.
 
 *** Missing patches required by a package definition are gracefully reported
 
-*** ‘guix lint’ supports additional checkers
+*** ‘Manifolding-OS lint’ supports additional checkers
 
 The new checkers are ‘gnu-description’, ‘home-page’, and ‘source’.
-See “Invoking guix lint” in the manual.
+See “Invoking Manifolding-OS lint” in the manual.
 
-*** New CPAN importer for ‘guix import’
+*** New CPAN importer for ‘Manifolding-OS import’
 
-See “Invoking guix import” in the manual.
+See “Invoking Manifolding-OS import” in the manual.
 
 ** Distribution
 
@@ -5657,7 +5657,7 @@ gfortran-4.8.4, ghostscript-9.14.0, ghostscript-with-x-9.14.0, gimp-2.8.14,
 git-2.2.1, glib-2.42.1, glibmm-2.42.0, global-6.3.3, glproto-1.4.17,
 gnutls-3.2.21, gobject-introspection-1.42.0, gp2c-0.0.9pl2, grep-2.21,
 groff-1.22.3, gss-1.0.3, gst-plugins-base-1.0.10, gtk+-3.14.7, gtkmm-3.14.0,
-guix-0.8, guix-0.8.4ad8789, help2man-1.46.4, iceauth-1.0.6, icu4c-54.1,
+Manifolding-OS-0.8, Manifolding-OS-0.8.4ad8789, help2man-1.46.4, iceauth-1.0.6, icu4c-54.1,
 inkscape-0.48.5, inputproto-2.3.1, lcms-2.6, lftp-4.6.1, libassuan-2.2.0,
 libcdio-0.93, libdmx-1.1.3, libdrm-2.4.58, libfontenc-1.1.2, libfs-1.0.6,
 libgcrypt-1.6.2, libgpg-error-1.17, libice-1.0.9, libjpeg-9a, libksba-1.3.2,
@@ -5701,10 +5701,10 @@ xwd-1.0.6, xwininfo-1.1.3, youtube-dl-2015.01.23.4, zsh-5.0.7
 
 ** Programming interfaces
 
-*** New (guix elf) and (gnu build linux-modules) modules
+*** New (Manifolding-OS elf) and (gnu build linux-modules) modules
 
 These provide resolution of Linux kernel module dependencies.  See
-<https://lists.gnu.org/archive/html/guix-devel/2014-11/msg00670.html>.
+<https://lists.gnu.org/archive/html/Manifolding-OS-devel/2014-11/msg00670.html>.
 
 *** ‘glib-or-gtk-build-system’ has been extended
 
@@ -5717,25 +5717,25 @@ For example, the ‘search-path-specification’ attached to libxml2 specifies a
 file pattern, which allows all the ‘catalog.xml’ files to be added to the
 ‘XML_CATALOG_FILES’ environment variable.
 
-*** (guix build syscalls) has more network-related procedures
+*** (Manifolding-OS build syscalls) has more network-related procedures
 
 ‘set-network-interface-flags’, ‘set-network-interface-address’,
 ‘network-interface-address’, and ‘configure-network-interface’ are ioctl
 bindings used by network-handling dmd services.
 
-*** (guix monads) refactoring
+*** (Manifolding-OS monads) refactoring
 
-‘%store-monad’ is now in (guix store) and is an alias for the new
-‘%state-monad’ provided by (guix monads).  Monadic procedures dealing with the
-store, with derivations, and with packages have been moved from (guix monads)
-to (guix store), (guix derivations), and (guix packages).  See “The Store
+‘%store-monad’ is now in (Manifolding-OS store) and is an alias for the new
+‘%state-monad’ provided by (Manifolding-OS monads).  Monadic procedures dealing with the
+store, with derivations, and with packages have been moved from (Manifolding-OS monads)
+to (Manifolding-OS store), (Manifolding-OS derivations), and (Manifolding-OS packages).  See “The Store
 Monad” in the manual.
 
-*** (guix build utils) provides ‘parallel-job-count’
+*** (Manifolding-OS build utils) provides ‘parallel-job-count’
 
 *** ‘wrap-program’ preserves the original argv[0]
 
-*** New (guix sets) module
+*** New (Manifolding-OS sets) module
 
 *** ‘define-record-type*’ now support “delayed” fields
 
@@ -5752,14 +5752,14 @@ Monad” in the manual.
 *** Adjust 'grub.cfg' to work on systems with a separate /boot
     (<http://bugs.gnu.org/19220>)
 *** Fix removal of next-to-last item in a profile
-    (<http://lists.gnu.org/archive/html/guix-devel/2014-12/msg00292.html>)
+    (<http://lists.gnu.org/archive/html/Manifolding-OS-devel/2014-12/msg00292.html>)
 *** Apply patches with "patch --force" (<http://bugs.gnu.org/19402>)
 *** Extend ‘search-path-specification’ for libxml2-style use cases
     (<http://bugs.gnu.org/18033>)
 *** Search for patches under $GUIX_PACKAGE_PATH (<http://bugs.gnu.org/19364>)
 *** Use executables from the target inputs in 'patch-shebangs'
     (<http://bugs.gnu.org/18895>)
-*** guix-daemon now automatically creates '…/profiles/per-user'
+*** Manifolding-OS-daemon now automatically creates '…/profiles/per-user'
     (<http://bugs.gnu.org/19315>)
 *** Make /etc/mtab a symlink to /proc/self/mounts
     (<http://bugs.gnu.org/19491>)
@@ -5783,18 +5783,18 @@ Monad” in the manual.
 
 See “Emacs Interface” in the manual.
 
-*** New ‘guix environment’ command to produce development environment
+*** New ‘Manifolding-OS environment’ command to produce development environment
 
-See “Invoking guix environment” in the manual.
+See “Invoking Manifolding-OS environment” in the manual.
 
-*** The ‘guix import’ command has been extended and documented
+*** The ‘Manifolding-OS import’ command has been extended and documented
 
 It can now import packages from pypi.python.org and from GNU.
-See “Invoking guix import” in the manual.
+See “Invoking Manifolding-OS import” in the manual.
 
-*** New ‘guix lint’ command, for use by Guix developers
+*** New ‘Manifolding-OS lint’ command, for use by Guix developers
 
-See “Invoking guix lint” in the manual.
+See “Invoking Manifolding-OS lint” in the manual.
 
 *** Packages can now be “grafted” with replacements of their dependencies
 
@@ -5805,15 +5805,15 @@ See “Security Updates” in the manual.
 This allows users to maintain their own package definitions, and make them
 visible to the various user interfaces.  See “Package Modules” in the manual.
 
-*** ‘guix package’ better reports package upgrades
+*** ‘Manifolding-OS package’ better reports package upgrades
 
-*** ‘guix package’ has a new ‘--switch-generation’ option
+*** ‘Manifolding-OS package’ has a new ‘--switch-generation’ option
 
-See “Invoking guix package” in the manual.
+See “Invoking Manifolding-OS package” in the manual.
 
-*** ‘guix-daemon’ has a new ‘--substitute-urls’ option
+*** ‘Manifolding-OS-daemon’ has a new ‘--substitute-urls’ option
 
-See “Invoking guix-daemon” in the manual.
+See “Invoking Manifolding-OS-daemon” in the manual.
 
 ** Distribution
 
@@ -5846,9 +5846,9 @@ Existing uses in ‘operating-system’ declarations need to be updated.  See
 
 *** eudev is now used by default, instead of an old udev release
 
-*** ‘guix system vm’ has a new ‘--full-boot’ option
+*** ‘Manifolding-OS system vm’ has a new ‘--full-boot’ option
 
-See “Invoking guix system” in the manual.
+See “Invoking Manifolding-OS system” in the manual.
 
 *** The ‘file’ command is now part of the package build environment
 
@@ -5901,8 +5901,8 @@ gcl-2.6.11, gdb-7.8.1, geiser-0.6, gettext-0.19.3, git-2.1.2, glibc-2.20,
 glibc-2.20, glibc-stripped-tarball-2.20, global-6.3.2, glpk-4.55,
 gnupg-1.4.18, gnupg-2.0.26, gnurl-7.37.0, gnutls-3.2.20, gpgme-1.5.1,
 gst-plugins-base-1.0.10, gstreamer-1.0.10, gtk+-3.10.1, gtkmm-3.9.16,
-guile-1.8.8, guile-json-0.4.0, guile-ncurses-1.6, guile-ssh-0.7.1, guix-0.7,
-guix-0.7.48bd76e, hello-2.10, help2man-1.46.3, icecat-31.2.0,
+guile-1.8.8, guile-json-0.4.0, guile-ncurses-1.6, guile-ssh-0.7.1, Manifolding-OS-0.7,
+Manifolding-OS-0.7.48bd76e, hello-2.10, help2man-1.46.3, icecat-31.2.0,
 libart-lgpl-2.3.21, libassuan-2.1.3, libatomic-ops-7.4.2, libdrm-2.4.33,
 libffi-3.1, libgc-7.2f, libgc-7.4.2, libgcrypt-1.5.4, libgcrypt-1.6.2,
 libidn-1.29, libjpeg-9a, libotr-4.0.0, libsodium-1.0.0, libtasn1-4.1,
@@ -5954,37 +5954,37 @@ They implement “grafts”, as described under “Security Updates” in the ma
 “Bags” are used internally as an intermediate representation between packages
 and derivations.  See “Build Systems” in the manual.
 
-*** New (guix monad-repl) module, for monadic interaction at the REPL
+*** New (Manifolding-OS monad-repl) module, for monadic interaction at the REPL
 
 See “The Store Monad” in the manual.
 
-*** New (guix build emacs-utils) module, to facilitate building Emacs packages
+*** New (Manifolding-OS build emacs-utils) module, to facilitate building Emacs packages
 
-*** New (guix tests) module, with tools used by the test suite
+*** New (Manifolding-OS tests) module, with tools used by the test suite
 
-*** The internal ‘guix-register’ command now deduplicates files in store items
+*** The internal ‘Manifolding-OS-register’ command now deduplicates files in store items
 
-*** Several system modules moved from (guix build …) to (gnu build …)
+*** Several system modules moved from (Manifolding-OS build …) to (gnu build …)
 
 Also, the (gnu build linux-boot) module has been introduced, with code
 typically used by initial RAM disks when booting on GNU/Linux-libre.
 
-*** (guix profiles) provides a representation of package transactions
+*** (Manifolding-OS profiles) provides a representation of package transactions
 
-This factorizes code between ‘guix package’ and the Emacs user interface.
+This factorizes code between ‘Manifolding-OS package’ and the Emacs user interface.
 
 *** Bootstrapping packages moved to (gnu packages commencement) modules
 
 ** Bugs fixed
 
-*** ‘guix-daemon’ now really deduplicates store items by default
+*** ‘Manifolding-OS-daemon’ now really deduplicates store items by default
 
 Deduplication means that identical files found in /gnu/store are stored only
 once, using hard links.  This feature was wrongfully disabled, and is now
 enabled by default.  The former ‘--disable-store-optimization’ option has been
 renamed to ‘--disable-deduplication’.
 
-*** ‘guix-daemon’ no longer uses ‘vfork’
+*** ‘Manifolding-OS-daemon’ no longer uses ‘vfork’
 
 This could cause problems with ancient Linux kernel.
 
@@ -5992,8 +5992,8 @@ This could cause problems with ancient Linux kernel.
 *** 'make clean' doesn't delete os-config.tmpl (<http://bugs.gnu.org/18243>)
 *** Fix handling of periods by fill-paragraph (<http://bugs.gnu.org/17468>)
 *** Produce a top-level Info 'dir' file (<http://bugs.gnu.org/18305>)
-*** guix offload ignores unreachable machines (<http://bugs.gnu.org/18070>)
-*** guix offload: Ignore EEXIST when registering a .drv as a GC root
+*** Manifolding-OS offload ignores unreachable machines (<http://bugs.gnu.org/18070>)
+*** Manifolding-OS offload: Ignore EEXIST when registering a .drv as a GC root
     (<http://bugs.gnu.org/18115>)
 *** perl-tk: Build sequentially (<http://bugs.gnu.org/18262>)
 *** download: Use the 'SERVER NAME' TLS extension when possible
@@ -6004,13 +6004,13 @@ This could cause problems with ancient Linux kernel.
 *** nss-mdns: Add alternate source URLs (<http://bugs.gnu.org/18704>)
 *** download: Add "Accept: */*" to the HTTP headers
     (<http://bugs.gnu.org/18768>)
-*** guix-register: Do not attempt to create NIX_STORE_DIR
+*** Manifolding-OS-register: Do not attempt to create NIX_STORE_DIR
     (<http://bugs.gnu.org/18689>)
 *** Allow Linux-libre to find our 'modprobe' command
     (<http://bugs.gnu.org/18525>)
 *** man-pages: Build sequentially (<http://bugs.gnu.org/18701>)
 *** Fix intermittent test failures involving GC (<http://bugs.gnu.org/18935>)
-*** guix import: pypi: Gracefully handle non-existent packages
+*** Manifolding-OS import: pypi: Gracefully handle non-existent packages
     (<http://bugs.gnu.org/18831>)
 *** Make sure the shared library has the '.so' extension
     (<http://bugs.gnu.org/18521>)
@@ -6030,11 +6030,11 @@ These come in addition to the x86_64-linux and i686-linux binaries already
 provided, thanks to our generous donor and friendly admins.  See
 “Substitutes” in the manual.
 
-*** ‘guix package’ has a new ‘--show’ option
-*** ‘guix refresh’ has a new ‘--list-dependent’ option
+*** ‘Manifolding-OS package’ has a new ‘--show’ option
+*** ‘Manifolding-OS refresh’ has a new ‘--list-dependent’ option
 
 ** Programming interfaces
-*** New (guix gexp) module, which implements “G-expressions”
+*** New (Manifolding-OS gexp) module, which implements “G-expressions”
 
 G-expressions are a new mechanism to embed build-side code in host-side
 code.  See “G-Expressions” in the manual.
@@ -6046,10 +6046,10 @@ references to the packages or derivations it uses.
 
 *** ‘build-expression->derivation’ is deprecated in favor of G-expressions
 *** The (gnu system) module has been largely augmented and factorized
-*** New (guix build vm) module, support for virtual machine images
-*** New (guix build activation) module, for “system activation”
-*** New (guix build syscalls) module
-*** New (guix build install) and module for whole system installation
+*** New (Manifolding-OS build vm) module, support for virtual machine images
+*** New (Manifolding-OS build activation) module, for “system activation”
+*** New (Manifolding-OS build syscalls) module
+*** New (Manifolding-OS build install) and module for whole system installation
 *** New (gnu system install) module, for the installation system
 *** New (gnu system file-systems) module, for ‘file-system’ declarations
 *** New (gnu) module, which aggregates common (gnu …) modules
@@ -6070,10 +6070,10 @@ Operating system declarations can now provide a list of file systems, a list
 of setuid programs, bootloader options, and more.  See “System Configuration”
 in the manual.
 
-*** ‘guix system’ supports more actions
+*** ‘Manifolding-OS system’ supports more actions
 
 Newly supported actions are ‘init’, ‘build’, ‘reconfigure’, and ‘disk-image’.
-See “Invoking guix system” in the manual.
+See “Invoking Manifolding-OS system” in the manual.
 
 *** User accounts and groups are created at system activation time
 *** Virtual machine support uses para-virtualized devices
@@ -6112,7 +6112,7 @@ gcc-toolchain-4.8.3, gcc-toolchain-4.9.1, gccgo-4.8.3, gdb-7.7.1,
 gettext-0.19.2, gfortran-4.8.3, glib-2.40.0, global-6.3, gmp-6.0.0a,
 gnupg-1.4.18, gnupg-2.0.25, gnutls-3.2.15, gp2c-0.0.9pl1, grep-2.20,
 gst-plugins-base-1.0.10, gstreamer-0.10.36, gtk+-3.10.1, gtkmm-2.24.2,
-guile-2.0.11, guile-2.0.11, guix-0.6, guix-0.6.0ae8c15, htop-1.0.3,
+guile-2.0.11, guile-2.0.11, Manifolding-OS-0.6, Manifolding-OS-0.6.0ae8c15, htop-1.0.3,
 icu4c-53.1, imagemagick-6.8.9-0, json-c-0.12, libdrm-2.4.33, libgc-7.2e,
 libgcrypt-1.5.3, libgpg-error-1.13, libjpeg-8d, libmicrohttpd-0.9.37,
 libogg-1.3.2, libotr-4.0.0, libtasn1-3.6, libvorbis-1.3.4, lightning-2.0.4,
@@ -6126,16 +6126,16 @@ wdiff-1.2.2, xorriso-1.3.8, xterm-304
 ** Native language support
 *** New translations: de (German), and hu (Hungarian)
 *** Updated translations: eo, pt_BR, sr, vi
-*** Package descriptions moved from the ‘guix’ text domain to ‘guix-packages’
+*** Package descriptions moved from the ‘Manifolding-OS’ text domain to ‘Manifolding-OS-packages’
 ** Bugs fixed
 *** Downloads are now faster (<http://bugs.gnu.org/15368>)
-*** ‘guix authenticate’ properly writes signatures to stdout
+*** ‘Manifolding-OS authenticate’ properly writes signatures to stdout
     (<http://bugs.gnu.org/17312>)
 *** Progress report of downloads is now properly displayed
 *** Error reporting of pk-crypto errors has been improved
 *** The 'patches' field now works for origins with no extension
 *** Synchronization and GC issues fixed in the offload hook
-*** (guix ftp-client) emits USER commands suitable for all servers
+*** (Manifolding-OS ftp-client) emits USER commands suitable for all servers
 
 * Changes in 0.6 (since 0.5)
 ** Package management
@@ -6146,23 +6146,23 @@ directory, we recommend that you start with a fresh install to /gnu/store.
 
 *** Substitutes from hydra.gnu.org must now be signed and authorized
 *** Support for offloading builds to other Guix machines over SSH
-*** New ‘guix archive’ command
-*** New ‘guix system’ command; it can currently build VM images
-*** ‘guix package’ accepts several arguments after -i, -r, and -u
-*** Updating a profile with ‘guix package’ is now noticeably faster
-*** ‘guix build’ can override a package’s source with the new ‘--with-source’
-*** ‘guix build’ has a new ‘--no-build-hook’ option
-*** ‘guix’ commands that build packages have a common set of options
-*** ‘guix hash’ has a new ‘--recursive’ option
+*** New ‘Manifolding-OS archive’ command
+*** New ‘Manifolding-OS system’ command; it can currently build VM images
+*** ‘Manifolding-OS package’ accepts several arguments after -i, -r, and -u
+*** Updating a profile with ‘Manifolding-OS package’ is now noticeably faster
+*** ‘Manifolding-OS build’ can override a package’s source with the new ‘--with-source’
+*** ‘Manifolding-OS build’ has a new ‘--no-build-hook’ option
+*** ‘Manifolding-OS’ commands that build packages have a common set of options
+*** ‘Manifolding-OS hash’ has a new ‘--recursive’ option
 *** Daemon no longer bind-mounts the host’s /dev (improves reproducibility)
 ** Programming interfaces
-*** New (guix pk-crypto) and (guix pki) modules for public key cryptography
+*** New (Manifolding-OS pk-crypto) and (Manifolding-OS pki) modules for public key cryptography
 *** New #:local-build? parameter for derivations that shouldn’t be offloaded
 *** (gnu system vm) has procedures to build VMs that share the host’s store
-*** New ‘text-file*’ procedure in (guix monads)
-*** System service definitions are now provided by the (guix services) modules
+*** New ‘text-file*’ procedure in (Manifolding-OS monads)
+*** System service definitions are now provided by the (Manifolding-OS services) modules
 *** New X and SLiM services in (gnu services xorg)
-*** New (guix git-download) and (guix svn-download) for git/svn checkouts
+*** New (Manifolding-OS git-download) and (Manifolding-OS svn-download) for git/svn checkouts
 ** GNU distribution
 *** 91 new packages
 
@@ -6190,7 +6190,7 @@ glibc-2.19, glibc-stripped-tarball-2.19, global-6.2.12, glpk-4.54,
 gnu-pw-mgr-1.2, gnupg-1.4.16, gnutls-3.2.12, gp2c-0.0.8pl1, grep-2.18,
 gst-plugins-base-0.10.36, gstreamer-1.0.10, gtk+-3.10.1, gtkmm-2.24.2,
 guile-2.0.11, guile-ssh-0.6.0, guile-static-stripped-tarball-2.0.11,
-guile-wm-1.0, guile-xcb-1.3, guix-0.5, help2man-1.45.1, icu4c-52.1,
+guile-wm-1.0, guile-xcb-1.3, Manifolding-OS-0.5, help2man-1.45.1, icu4c-52.1,
 imagemagick-6.8.8-10, inetutils-1.9.2, lapack-3.5.0, libcdio-0.92,
 libdrm-2.4.46, libextractor-1.3, libgc-7.2e, libgc-7.4.0, libgcrypt-1.6.1,
 libjpeg-9, libmicrohttpd-0.9.34, libssh-0.6.3, libtasn1-3.4, lightning-2.0.3,
@@ -6209,12 +6209,12 @@ xnee-3.18, xorriso-1.3.6.pl01, zile-2.4.11
 *** Packages that populated man/man* now populate share/man/man*
 *** Many other packaging improvements
 ** Bugs fixed
-*** ‘guix pull’ consumes less memory, compiles in parallel
-*** ‘guix package --list-*’ gracefully handles EPIPE when used in a pipeline
-*** ‘guix package’ handles collisions between a symlink and a directory
+*** ‘Manifolding-OS pull’ consumes less memory, compiles in parallel
+*** ‘Manifolding-OS package --list-*’ gracefully handles EPIPE when used in a pipeline
+*** ‘Manifolding-OS package’ handles collisions between a symlink and a directory
     (http://bugs.gnu.org/17083)
 *** HTTP downloads provide a ‘User-Agent’ field (http://bugs.gnu.org/16703)
-*** ‘guix package’ no longer shows misleading installed package number
+*** ‘Manifolding-OS package’ no longer shows misleading installed package number
     (http://bugs.gnu.org/16484)
 *** Manual suggests ‘useradd --system’ (http://bugs.gnu.org/16289)
 *** Python is built with ctypes support (http://bugs.gnu.org/16569)
@@ -6234,16 +6234,16 @@ meta-data.
 
 The ‘origin’ form supports two new fields: ‘patches’ (list of patches), and
 ‘snippet’ (code snippet to modify the source.)  These are applied when running
-‘guix build --source’.  See “Defining Packages” in the manual.
+‘Manifolding-OS build --source’.  See “Defining Packages” in the manual.
 
-*** New (guix monads) monadic interface to operate on the store
+*** New (Manifolding-OS monads) monadic interface to operate on the store
 
 See “The Store Monad” in the manual.  The (gnu system …) modules have been
 rewritten to use this monadic interface.
 
-*** New (guix profiles) module
+*** New (Manifolding-OS profiles) module
 
-It provides an API for dealing with profiles, as with the ‘guix package’
+It provides an API for dealing with profiles, as with the ‘Manifolding-OS package’
 command.
 
 *** New (gnu system) module
@@ -6252,7 +6252,7 @@ This module provides a generic way to describe the system’s configuration,
 and to instantiate it, regardless of the final medium (QEMU image, etc.)
 See “System Configuration” in the manual.
 
-This is work in progress.  Send feedback to guix-devel@gnu.org!
+This is work in progress.  Send feedback to Manifolding-OS-devel@gnu.org!
 
 *** ‘build-expression->derivation’ uses more parameters
 
@@ -6310,15 +6310,15 @@ tar 1.27.1, texinfo 5.2, units 2.02, xorriso 1.3.2
 *** New ‘vi’ (Vietnamese) translation
 *** Updated ‘pt_BR’ (Brazilian Portuguese) translation
 ** Bugs fixed
-*** ‘guix pull’ compiles Guix deterministically and correctly
+*** ‘Manifolding-OS pull’ compiles Guix deterministically and correctly
 
 Previously, the build environment was not cleared in between ‘compile-file’
 calls, leading to build errors due to Guile bug http://bugs.gnu.org/15602 .
 
-*** ‘guix package’ allows removal of a specific package output
+*** ‘Manifolding-OS package’ allows removal of a specific package output
     (http://bugs.gnu.org/15756)
-*** ‘guix-daemon’ always sets umask to 022
-    (http://lists.gnu.org/archive/html/bug-guix/2013-07/msg00033.html)
+*** ‘Manifolding-OS-daemon’ always sets umask to 022
+    (http://lists.gnu.org/archive/html/bug-Manifolding-OS/2013-07/msg00033.html)
 *** Files referenced by environment variables are protected from GC
 *** Yet unbuilt packages get correctly installed (http://bugs.gnu.org/15283)
 *** ‘bootstrap-graph.{png,eps,pdf}’ built in srcdir (http://bugs.gnu.org/15640)
@@ -6329,10 +6329,10 @@ calls, leading to build errors due to Guile bug http://bugs.gnu.org/15602 .
 
 *** New ‘--list-generations’ and ‘--delete-generations’ options
 
-The ‘guix package’ command has these two new options, which make it easier to
-deal with a profile’s generation.  See “Invoking guix package” in the manual.
+The ‘Manifolding-OS package’ command has these two new options, which make it easier to
+deal with a profile’s generation.  See “Invoking Manifolding-OS package” in the manual.
 
-*** New ‘guix-register’ program
+*** New ‘Manifolding-OS-register’ program
 
 This program allows the meta-data of a new store to be initialized, by
 copying info from an existing store.  It is mostly an internal tool.
@@ -6341,7 +6341,7 @@ copying info from an existing store.  It is mostly an internal tool.
 
 *** New API to bootstrap Autotools-based packages
 
-The (guix build-system gnu) has a new ‘dist-package’ procedure that takes a
+The (Manifolding-OS build-system gnu) has a new ‘dist-package’ procedure that takes a
 package object and source directory, and returns a new package object that
 runs ‘./bootstrap && make dist’ or anything similar.
 
@@ -6378,7 +6378,7 @@ file name.  See “Derivations” in the manual for details.
 
 apr, apr-util, cdparanoia, dbus-glib, dfc, dmd, dvdisaster, exiv2, fetchmail,
 freefont-ttf, freeglut, geeqie, git, gkrellm, glu, gnome-doc-utils,
-gst-plugins-base, gstreamer, guile-cairo, guile-lib, guile-xcb, guix, htop,
+gst-plugins-base, gstreamer, guile-cairo, guile-lib, guile-xcb, Manifolding-OS, htop,
 itstool, lame, libextractor, libmicrohttpd, lightning, lzip, mingetty, mutt,
 net-base, net-tools, ocrad, pspp, python-babel, python-dateutil, python-pytz,
 python-setuptools, python-simplejson, python-wrapper, python2-babel,
@@ -6438,31 +6438,31 @@ Updated translations: eo.
 *** Cross-compilation support
 
 Guix can now cross-build packages.  On the command-line, this is achieved with
-the new ‘--target’ command-line option of ‘guix build’.  At the Scheme level,
+the new ‘--target’ command-line option of ‘Manifolding-OS build’.  At the Scheme level,
 the guts of this is the ‘package-cross-derivation’ procedure.  Core packages
 of the distribution can already be cross-compiled.  See the manual for
 details.
 
-*** New ‘--max-silent-time’ option for “guix build” and “guix package”
+*** New ‘--max-silent-time’ option for “Manifolding-OS build” and “Manifolding-OS package”
 
 See the manual for details.
 
-*** New ‘--fallback’ option for “guix build” and “guix package”
+*** New ‘--fallback’ option for “Manifolding-OS build” and “Manifolding-OS package”
 
 This option instructs to fall back to local builds when the substituter fails
 to download a substitute.
 
-*** New ‘--requisites’ option for “guix gc”
+*** New ‘--requisites’ option for “Manifolding-OS gc”
 
 See the manual for details.
 
-*** New ‘--key-download’ option for “guix refresh”
+*** New ‘--key-download’ option for “Manifolding-OS refresh”
 
 See the manual for details.
 
 ** Programming interfaces
 
-*** New ‘package-cross-derivation’ procedure in (guix derivations)
+*** New ‘package-cross-derivation’ procedure in (Manifolding-OS derivations)
 
 See the manual for details.
 
@@ -6472,7 +6472,7 @@ This parameter is like ‘%current-system’, but for cross-compilation.  It
 allows code in package definitions (such as in the ‘arguments’ field) to know
 whether it is being cross-compiled, and what the target system is.
 
-*** New (guix hash) module; new ‘open-sha256-port’ and ‘sha256-port’ procedures
+*** New (Manifolding-OS hash) module; new ‘open-sha256-port’ and ‘sha256-port’ procedures
 
 This improves performance of SHA256 computations.
 
@@ -6522,7 +6522,7 @@ distribution builds “from scratch”.
 New translations: eo, pt_BR.
 
 ** Bugs fixed
-*** “guix --help” now works when using Guile 2.0.5
+*** “Manifolding-OS --help” now works when using Guile 2.0.5
 *** Binary substituter multi-threading and pipe issues fixed
 
 These could lead to random substituter crashes while substituting a binary.
@@ -6534,10 +6534,10 @@ See commits 0332386 and 101d9f3 for details.
 
 Previously it would fail when rebuilding a multiple-output derivation when
 some (but not all) of its outputs were already present.  See
-http://lists.gnu.org/archive/html/bug-guix/2013-06/msg00038.html and
+http://lists.gnu.org/archive/html/bug-Manifolding-OS/2013-06/msg00038.html and
 https://github.com/NixOS/nix/issues/122 .
 
-*** ‘guix package -i foo:out’ no longer removes other outputs of ‘foo’
+*** ‘Manifolding-OS package -i foo:out’ no longer removes other outputs of ‘foo’
 
 Previously only the ‘out’ output of package ‘foo’ would be kept in the
 profile.
@@ -6552,25 +6552,25 @@ command-line argument processing in some cases.
 
 ** Package management
 
-*** Guix commands are now sub-commands of the “guix” program
+*** Guix commands are now sub-commands of the “Manifolding-OS” program
 
-Instead of typing “guix-package”, one now has to type “guix package”, and so
+Instead of typing “Manifolding-OS-package”, one now has to type “Manifolding-OS package”, and so
 on.  This has allowed us to homogenize the user interface and initial program
-setup, and to allow commands to be upgradable through “guix pull”.
+setup, and to allow commands to be upgradable through “Manifolding-OS pull”.
 
-*** New “guix package --upgrade” option
+*** New “Manifolding-OS package --upgrade” option
 
 As the name implies, this option atomically upgrades all the packages
 installed in a profile or the set of packages matching a given regexp.
-See “Invoking guix package” in the manual.
+See “Invoking Manifolding-OS package” in the manual.
 
-*** New “guix package --search” option
+*** New “Manifolding-OS package --search” option
 
 Performs a full text search in package synopses and descriptions, and returns
-the matching packages in recutils format.  See “Invoking guix package” in the
+the matching packages in recutils format.  See “Invoking Manifolding-OS package” in the
 manual, for details.
 
-*** New “guix pull” command
+*** New “Manifolding-OS pull” command
 
 The command pulls the latest version of Guix–both the package management
 modules and the distribution.  See the manual for details.
@@ -6585,24 +6585,24 @@ distribution is continuously built and binaries are made available from there.
 See http://hydra.gnu.org/jobset/gnu/master under “Job status” for the list of
 available binary packages.
 
-*** New “guix refresh” command
+*** New “Manifolding-OS refresh” command
 
 The command is used by Guix maintainers.  It automatically updates the
 distribution to the latest upstream releases of GNU software.
 
-*** New “guix hash” command
+*** New “Manifolding-OS hash” command
 
 Convenience command to compute the hash of a file.  See the manual for
 details.
 
 *** Nix daemon code updated
 
-The daemon code from Nix, used by the ‘guix-daemon’ command, has been updated
+The daemon code from Nix, used by the ‘Manifolding-OS-daemon’ command, has been updated
 to current Nix ‘master’.
 
 ** Programming interfaces
 
-*** (guix download) now supports HTTPS, using GnuTLS
+*** (Manifolding-OS download) now supports HTTPS, using GnuTLS
 
 It allows package source tarballs to be retrieved over HTTPS.
 

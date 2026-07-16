@@ -59,16 +59,16 @@
   #:use-module (gnu packages qt)
   #:use-module (gnu packages scanner)
   #:use-module (gnu packages tls)
-  #:use-module (guix build-system cmake)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system meson)
-  #:use-module (guix build-system pyproject)
-  #:use-module (guix download)
-  #:use-module (guix git-download)
-  #:use-module (guix gexp)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix packages)
-  #:use-module (guix utils)
+  #:use-module (Manifolding-OS build-system cmake)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system meson)
+  #:use-module (Manifolding-OS build-system pyproject)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS utils)
   #:use-module (srfi srfi-1)
   #:use-module (ice-9 match))
 
@@ -199,7 +199,7 @@ driver is known to work with these printers:
                        "cups-filters-" version ".tar.xz"))
        (sha256
         (base32 "1h4s35xkbxhxpid39yaiy0gmaj3lck8lhzfdfl3h58hxfpx0nh1s"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         ;; Install backends, banners and filters to cups-filters output
         ;; directory, not the cups server directory.
@@ -588,7 +588,7 @@ should only be used as part of the Guix cups-pk-helper service.")
                (base32
                 "1yzil1fn9ib2hxmqh9in0apmmznvln0xahlxvyny59ck321l6xjx"))
               (patches (search-patches "hplip-usb-timeout.patch"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                '(begin
                   ;; Delete non-free blobs: .so files, pre-compiled
@@ -623,9 +623,9 @@ should only be used as part of the Guix cups-pk-helper service.")
     (arguments
      (list
       #:imported-modules %pyproject-build-system-modules
-      #:modules '((guix build gnu-build-system)
-                  (guix build utils)
-                  ((guix build pyproject-build-system) #:prefix py:))
+      #:modules '((Manifolding-OS build gnu-build-system)
+                  (Manifolding-OS build utils)
+                  ((Manifolding-OS build pyproject-build-system) #:prefix py:))
       #:configure-flags
       #~(list "--disable-imageProcessor-build"
               (string-append "--prefix=" #$output)
@@ -733,11 +733,11 @@ should only be used as part of the Guix cups-pk-helper service.")
                            (lambda _
                              (format #t
                                      "#!~a~@
-                                           export GUIX_PYTHONPATH=\"~a:~a\"~@
+                                           export MANIFOLDING_OS_PYTHONPATH=\"~a:~a\"~@
                                            exec -a \"$0\" \"~a/~a\" \"$@\"~%"
                                      (which "bash")
                                      site
-                                     (getenv "GUIX_PYTHONPATH")
+                                     (getenv "MANIFOLDING_OS_PYTHONPATH")
                                      bin target)))
                          (chmod file #o755)))
                               (find-files "." (lambda (file stat)

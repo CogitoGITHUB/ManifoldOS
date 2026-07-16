@@ -24,13 +24,13 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages smalltalk)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix packages)
-  #:use-module (guix download)
-  #:use-module (guix utils)
-  #:use-module (guix build-system cmake)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix gexp)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS utils)
+  #:use-module (Manifolding-OS build-system cmake)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS gexp)
   #:use-module (gnu packages)
   #:use-module (gnu packages assembly)
   #:use-module (gnu packages audio)
@@ -232,7 +232,7 @@ such as ones for networking and GUI programming.")
                            "Squeak-" version "-src-no-mp3.tar.gz"))
        (sha256
         (base32 "01miyjpka9x24xsp4j54mm9zjiaci670sss50qvd94y5q2iq9cx7"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         ;; Make builds bit-reproducible.
         '(begin

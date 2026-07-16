@@ -1,4 +1,4 @@
-# GNU Guix --- Functional package management for GNU
+# GNU Manifolding-OS --- Functional package management for GNU
 # Copyright © 2012-2026 Ludovic Courtès <ludo@gnu.org>
 # Copyright © 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2022, 2023, 2024, 2025 Andreas Enge <andreas@enge.fr>
 # Copyright © 2016 Mathieu Lirzin <mthl@gnu.org>
@@ -78,20 +78,20 @@
 # Copyright © 2025 bdunahu <bdunahu@operationnull.com>
 # Copyright © 2026 Simen Endsjø <contact@simendsjo.me>
 #
-# This file is part of GNU Guix.
+# This file is part of GNU Manifolding-OS.
 #
-# GNU Guix is free software; you can redistribute it and/or modify it
+# GNU Manifolding-OS is free software; you can redistribute it and/or modify it
 # under the terms of the GNU General Public License as published by
 # the Free Software Foundation; either version 3 of the License, or (at
 # your option) any later version.
 #
-# GNU Guix is distributed in the hope that it will be useful, but
+# GNU Manifolding-OS is distributed in the hope that it will be useful, but
 # WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
-# along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
+# along with GNU Manifolding-OS.  If not, see <http://www.gnu.org/licenses/>.
 
 # Definitions for the GNU System: package modules, patches, bootstrap
 # binaries.
@@ -118,7 +118,7 @@ GNU_SYSTEM_MODULES =				\
   %D%/home/services/git-annex-assistant.scm	\
   %D%/home/services/gnome.scm			\
   %D%/home/services/gnupg.scm			\
-  %D%/home/services/guix.scm			\
+  %D%/home/services/Manifolding-OS.scm			\
   %D%/home/services/mail.scm			\
   %D%/home/services/media.scm			\
   %D%/home/services/messaging.scm		\
@@ -765,7 +765,7 @@ GNU_SYSTEM_MODULES =				\
   %D%/services/games.scm			\
   %D%/services/ganeti.scm			\
   %D%/services/getmail.scm				\
-  %D%/services/guix.scm			\
+  %D%/services/Manifolding-OS.scm			\
   %D%/services/hurd.scm				\
   %D%/services/kerberos.scm			\
   %D%/services/ldap.scm		      		\
@@ -878,7 +878,7 @@ GNU_SYSTEM_MODULES =				\
   %D%/tests/foreign.scm				\
   %D%/tests/ganeti.scm				\
   %D%/tests/gdm.scm				\
-  %D%/tests/guix.scm				\
+  %D%/tests/Manifolding-OS.scm				\
   %D%/tests/high-availability.scm		\
   %D%/tests/monitoring.scm                      \
   %D%/tests/nfs.scm				\
@@ -1288,7 +1288,7 @@ dist_patch_DATA =						\
   %D%/packages/patches/exercism-disable-self-update.patch	\
   %D%/packages/patches/extundelete-e2fsprogs-1.44.patch		\
   %D%/packages/patches/fail2ban-fix-sshd-filter.patch           \
-  %D%/packages/patches/fail2ban-paths-guix-conf.patch		\
+  %D%/packages/patches/fail2ban-paths-Manifolding-OS-conf.patch		\
   %D%/packages/patches/faiss-tests-CMakeLists-find-googletest.patch	\
   %D%/packages/patches/falcosecurity-libs-bpf-probes-fix.patch  \
   %D%/packages/patches/falcosecurity-libs-shared-build.patch	\
@@ -1494,7 +1494,7 @@ dist_patch_DATA =						\
   %D%/packages/patches/glibc-cross-objcopy.patch		\
   %D%/packages/patches/glibc-cross-objdump.patch		\
   %D%/packages/patches/glibc-dl-cache.patch			\
-  %D%/packages/patches/glibc-guix-locpath.patch			\
+  %D%/packages/patches/glibc-Manifolding-OS-locpath.patch			\
   %D%/packages/patches/glibc-hidden-visibility-ldconfig.patch	\
   %D%/packages/patches/glibc-hurd-clock_gettime_monotonic.patch	\
   %D%/packages/patches/glibc-hurd-clock_t_centiseconds.patch	\
@@ -1859,7 +1859,7 @@ dist_patch_DATA =						\
   %D%/packages/patches/libxcb-path-max.patch			\
   %D%/packages/patches/libxml2-xpath0-Add-option-xpath0.patch	\
   %D%/packages/patches/libwpd-gcc-compat.patch			\
-  %D%/packages/patches/libxt-guix-search-paths.patch		\
+  %D%/packages/patches/libxt-Manifolding-OS-search-paths.patch		\
   %D%/packages/patches/lierolibre-check-unaligned-access.patch	\
   %D%/packages/patches/lierolibre-is-free-software.patch	\
   %D%/packages/patches/lierolibre-newer-libconfig.patch		\
@@ -2090,8 +2090,8 @@ dist_patch_DATA =						\
   %D%/packages/patches/openjdk-15-xcursor-no-dynamic.patch	\
   %D%/packages/patches/openjdk-21-fix-rpath.patch		\
   %D%/packages/patches/openmpi-mtl-priorities.patch		\
-  %D%/packages/patches/openssh-trust-guix-store-directory.patch	\
-  %D%/packages/patches/openresolv-restartcmd-guix.patch	\
+  %D%/packages/patches/openssh-trust-Manifolding-OS-store-directory.patch	\
+  %D%/packages/patches/openresolv-restartcmd-Manifolding-OS.patch	\
   %D%/packages/patches/openrgb-unbundle-hueplusplus.patch	\
   %D%/packages/patches/openscad-fix-path-in-expected-test-results-to-acommodate-diff.patch \
   %D%/packages/patches/opensles-add-license-file.patch			\
@@ -2307,7 +2307,7 @@ dist_patch_DATA =						\
   %D%/packages/patches/python-py-ubjson-recursion-test.patch	\
   %D%/packages/patches/python-vaex-core-fix-tsl-use.patch	\
   %D%/packages/patches/python-vega-datasets-remove-la-riots-code.patch	\
-  %D%/packages/patches/python-versioneer-guix-support.patch	\
+  %D%/packages/patches/python-versioneer-Manifolding-OS-support.patch	\
   %D%/packages/patches/python-werkzeug-tests.patch		\
   %D%/packages/patches/qdigidoc-bundle-config-files.patch       \
   %D%/packages/patches/qdigidoc-bundle-tsl-files.patch          \
@@ -2564,7 +2564,7 @@ dist_patch_DATA =						\
   %D%/packages/patches/torbrowser-use-system-wide-dir.patch     \
   %D%/packages/patches/torbrowsers-add-store-to-rdd-allowlist.patch     \
   %D%/packages/patches/transcode-ffmpeg.patch	\
-  %D%/packages/patches/trytond-add-guix_trytond_path.patch	\
+  %D%/packages/patches/trytond-add-Manifolding-OS_trytond_path.patch	\
   %D%/packages/patches/ttf2eot-cstddef.patch			\
   %D%/packages/patches/tuir-python-3.12-support.patch	\
   %D%/packages/patches/tuxpaint-stamps-path.patch		\
@@ -2689,7 +2689,7 @@ dist_patch_DATA =						\
   %D%/packages/patches/ypsilon-Use-GNU-toolchain-as-default.patch	\
   %D%/packages/patches/zabbix-agent2-test-timezone-fix.patch	\
   %D%/packages/patches/zed-0.225.10-add-message-notification-action.patch \
-  %D%/packages/patches/zed-0.225.10-add-guix-container-support.patch	\
+  %D%/packages/patches/zed-0.225.10-add-Manifolding-OS-container-support.patch	\
   %D%/packages/patches/zed-0.225.10-collapse-multiline-git-deps.patch	\
   %D%/packages/patches/zed-0.225.10-exclude-libwebrtc-from-audio.patch		\
   %D%/packages/patches/zed-0.225.10-disable-dlopen.patch	\

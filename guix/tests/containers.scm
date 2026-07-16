@@ -18,17 +18,17 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (test-containers)
-  #:use-module (guix utils)
-  #:use-module (guix build syscalls)
+  #:use-module (Manifolding-OS utils)
+  #:use-module (Manifolding-OS build syscalls)
   #:use-module (gnu build linux-container)
   #:use-module ((gnu system linux-container)
                 #:select (eval/container))
   #:use-module (gnu system file-systems)
-  #:use-module (guix store)
-  #:use-module (guix monads)
-  #:use-module (guix gexp)
-  #:use-module (guix derivations)
-  #:use-module (guix tests)
+  #:use-module (Manifolding-OS store)
+  #:use-module (Manifolding-OS monads)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS derivations)
+  #:use-module (Manifolding-OS tests)
   #:use-module (srfi srfi-1)
   #:use-module (srfi srfi-64)
   #:use-module (ice-9 match)
@@ -361,9 +361,9 @@
      (mkdir result)
      (run-with-store store
        (mlet %store-monad ((status (eval/container
-                                    (with-imported-modules '((guix build utils))
+                                    (with-imported-modules '((Manifolding-OS build utils))
                                       #~(begin
-                                          (use-modules (guix build utils))
+                                          (use-modules (Manifolding-OS build utils))
                                           (mkdir-p "/result/a/b/c")))
                                     #:mappings
                                     (list (file-system-mapping

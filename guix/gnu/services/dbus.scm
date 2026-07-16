@@ -30,11 +30,11 @@
   #:use-module (gnu packages polkit)
   #:use-module (gnu packages admin)
   #:use-module (gnu packages freedesktop)
-  #:use-module (guix deprecation)
-  #:use-module (guix gexp)
-  #:use-module ((guix packages) #:select (package-name))
-  #:use-module (guix records)
-  #:use-module (guix modules)
+  #:use-module (Manifolding-OS deprecation)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module ((Manifolding-OS packages) #:select (package-name))
+  #:use-module (Manifolding-OS records)
+  #:use-module (Manifolding-OS modules)
   #:use-module (srfi srfi-1)
   #:use-module (ice-9 match)
   #:export (dbus-configuration
@@ -69,9 +69,9 @@
   "Return the system service directory, containing @code{.service} files for
 all the services that may be activated by the daemon."
   (computed-file "dbus-system-services"
-                 (with-imported-modules '((guix build utils))
+                 (with-imported-modules '((Manifolding-OS build utils))
                    #~(begin
-                       (use-modules (guix build utils)
+                       (use-modules (Manifolding-OS build utils)
                                     (srfi srfi-1))
 
                        (define files
@@ -184,10 +184,10 @@ includes the @code{etc/dbus-1/system.d} directories of each package listed in
   "Return an activation gexp for D-Bus using @var{config}."
   (with-imported-modules (source-module-closure
                           '((gnu build activation)
-                            (guix build utils)))
+                            (Manifolding-OS build utils)))
     #~(begin
         (use-modules (gnu build activation)
-                     (guix build utils))
+                     (Manifolding-OS build utils))
 
         (let ((user (getpwnam "messagebus")))
           ;; This directory contains the daemon's socket so it must be
@@ -322,9 +322,9 @@ tuples, are all set as environment variables when the bus daemon launches it."
                              (cdr (command-line))))))
 
   (define build
-    (with-imported-modules '((guix build utils))
+    (with-imported-modules '((Manifolding-OS build utils))
       #~(begin
-          (use-modules (guix build utils))
+          (use-modules (Manifolding-OS build utils))
 
           (define service-directory
             "/share/dbus-1/system-services")
@@ -378,10 +378,10 @@ tuples, are all set as environment variables when the bus daemon launches it."
 (define (polkit-directory packages)
   "Return a directory containing an @file{actions} and possibly a
 @file{rules.d} sub-directory, for use as @file{/etc/polkit-1}."
-  (with-imported-modules '((guix build union))
+  (with-imported-modules '((Manifolding-OS build union))
     (computed-file "etc-polkit-1"
                    #~(begin
-                       (use-modules (guix build union) (srfi srfi-26))
+                       (use-modules (Manifolding-OS build union) (srfi srfi-26))
 
                        (union-build #$output
                                     (map (cut string-append <>

@@ -32,13 +32,13 @@
   #:use-module (gnu packages xorg)
   #:use-module (gnu packages python-build)
   #:use-module (gnu packages sdl)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system pyproject)
-  #:use-module (guix gexp)
-  #:use-module (guix git-download)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix packages)
-  #:use-module (guix utils))
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system pyproject)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS utils))
 
 (define-public imgui
   (package
@@ -53,7 +53,7 @@
               (sha256
                (base32
                 "108dvbsqyf9am0f744z3ymgfppw1ad0amqkbwwwg2kqdm85dq1wv"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                ;; Remove bundled fonts.
                #~(for-each delete-file
@@ -63,8 +63,8 @@
     (arguments
      (list
       #:tests? #f                       ;no test suite
-      #:modules '((guix build gnu-build-system)
-                  (guix build utils)
+      #:modules '((Manifolding-OS build gnu-build-system)
+                  (Manifolding-OS build utils)
                   (ice-9 ftw)
                   (srfi srfi-26))
       ;; The build phase does not use make but we will use make-flags in a

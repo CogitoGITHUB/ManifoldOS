@@ -18,14 +18,14 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages axoloti)
-  #:use-module (guix gexp)
-  #:use-module (guix utils)
-  #:use-module (guix packages)
-  #:use-module (guix download)
-  #:use-module (guix git-download)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system ant)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS utils)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system ant)
   #:use-module (gnu packages)
   #:use-module (gnu packages base)
   #:use-module (gnu packages compression)
@@ -84,7 +84,7 @@
        (file-name (git-file-name name version))
        (sha256
         (base32 "1qffis277wshldr3i939b0r2x3a2mlr53samxqmr2nk1sfm2b4w9"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        ;; Remove pre-built Java binaries.
        (snippet
         '(delete-file-recursively "lib/"))))
@@ -92,8 +92,8 @@
     (arguments
      (list
       #:tests? #f ; no check target
-      #:modules '((guix build gnu-build-system)
-                  (guix build utils)
+      #:modules '((Manifolding-OS build gnu-build-system)
+                  (Manifolding-OS build utils)
                   (srfi srfi-1)
                   (srfi srfi-26)
                   (ice-9 match)
@@ -217,9 +217,9 @@ runtime.")
     (arguments
      (list
       #:tests? #f ; no check target
-      #:modules '((guix build gnu-build-system)
-                  ((guix build ant-build-system) #:prefix ant:)
-                  (guix build utils)
+      #:modules '((Manifolding-OS build gnu-build-system)
+                  ((Manifolding-OS build ant-build-system) #:prefix ant:)
+                  (Manifolding-OS build utils)
                   (srfi srfi-1)
                   (srfi srfi-26)
                   (ice-9 match)
@@ -227,7 +227,7 @@ runtime.")
                   (sxml simple)
                   (sxml xpath)
                   (sxml transform))
-      #:imported-modules `((guix build ant-build-system)
+      #:imported-modules `((Manifolding-OS build ant-build-system)
                            ,@%default-gnu-imported-modules)
        #:phases
        #~(modify-phases %standard-phases
@@ -364,7 +364,7 @@ patcher application.")))
          (file-name (git-file-name name version))
          (sha256
           (base32 "0pf8zpzfx6nibwqrxbagpp3qpypfabshs7mign84dwsl9qdal1cv"))
-         (modules '((guix build utils)))
+         (modules '((Manifolding-OS build utils)))
          ;; Remove pre-built Java binaries.
          (snippet
           '(delete-file-recursively "lib/"))))
@@ -372,8 +372,8 @@ patcher application.")))
       (arguments
        (list
         #:tests? #f                       ; no check target
-        #:modules '((guix build gnu-build-system)
-                    (guix build utils)
+        #:modules '((Manifolding-OS build gnu-build-system)
+                    (Manifolding-OS build utils)
                     (srfi srfi-1)
                     (srfi srfi-26)
                     (ice-9 match)
@@ -500,9 +500,9 @@ This package provides the runtime.")
     (arguments
      (list
       #:tests? #f                       ; no check target
-      #:modules '((guix build gnu-build-system)
-                  ((guix build ant-build-system) #:prefix ant:)
-                  (guix build utils)
+      #:modules '((Manifolding-OS build gnu-build-system)
+                  ((Manifolding-OS build ant-build-system) #:prefix ant:)
+                  (Manifolding-OS build utils)
                   (srfi srfi-1)
                   (srfi srfi-26)
                   (ice-9 match)
@@ -510,7 +510,7 @@ This package provides the runtime.")
                   (sxml simple)
                   (sxml xpath)
                   (sxml transform))
-      #:imported-modules `((guix build ant-build-system)
+      #:imported-modules `((Manifolding-OS build ant-build-system)
                            ,@%default-gnu-imported-modules)
       #:phases
       #~(modify-phases %standard-phases

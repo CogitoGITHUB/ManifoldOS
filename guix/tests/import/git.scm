@@ -18,17 +18,17 @@
 
 (define-module (test-import-git)
   #:use-module (git)
-  #:use-module (guix git)
-  #:use-module (guix tests)
-  #:use-module (guix packages)
-  #:use-module (guix import git)
-  #:use-module ((guix import utils) #:select (find-version))
-  #:use-module (guix git-download)
-  #:use-module (guix tests git)
+  #:use-module (Manifolding-OS git)
+  #:use-module (Manifolding-OS tests)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS import git)
+  #:use-module ((Manifolding-OS import utils) #:select (find-version))
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS tests git)
   #:use-module (srfi srfi-1)
   #:use-module (srfi srfi-64))
 
-;; Test the (guix import git) tools.
+;; Test the (Manifolding-OS import git) tools.
 
 (test-begin "git")
 
@@ -47,7 +47,7 @@
          "0000000000000000000000000000000000000000000000000000"))))))
 
 (define (latest-git-tag-version package)
-  (find-version (map car ((@@ (guix import git) get-package-tags) package))))
+  (find-version (map car ((@@ (Manifolding-OS import git) get-package-tags) package))))
 
 (test-equal "latest-git-tag-version: no custom prefix, suffix, and delimiter"
   "1.0.1"

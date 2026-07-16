@@ -24,7 +24,7 @@
   #:use-module (gnu services dns)
   #:use-module (gnu services networking)
   #:use-module (gnu packages dns)
-  #:use-module (guix gexp)
+  #:use-module (Manifolding-OS gexp)
   #:export (%test-unbound))
 
 (define %unbound-os

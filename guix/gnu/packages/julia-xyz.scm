@@ -23,14 +23,14 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages julia-xyz)
-  #:use-module ((guix licenses) #:prefix license:)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
   #:use-module (gnu packages)
-  #:use-module (guix gexp)
-  #:use-module (guix utils)
-  #:use-module (guix packages)
-  #:use-module (guix git-download)
-  #:use-module (guix build-system julia)
-  #:use-module (guix build-system pyproject)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS utils)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS build-system julia)
+  #:use-module (Manifolding-OS build-system pyproject)
   #:use-module (gnu packages gcc)
   #:use-module (gnu packages julia-jll)
   #:use-module (gnu packages python)
@@ -462,7 +462,7 @@ axes, allowing column names or interval selections.")
          (base32 "0nrcasjdpwf15z7l2lzyhxjqxlnqk5if78s15sh4gdgxf9kzj3a6"))
         (snippet
          #~(begin
-             (use-modules (guix build utils))
+             (use-modules (Manifolding-OS build utils))
              ;; From upstream commit 8bbf901bb7fb417fe90be26e0cd9a141cfdfe19c,
              ;; included in 0.17.34.
              (substitute* "src/BandedMatrices.jl"
@@ -4352,7 +4352,7 @@ by @code{NTuples} in Julia.")
          (base32 "08kb28dv1zzqbbxblhyllgs4sjxyp76dgjqhdizcq4zg4i1kls6p"))
         (snippet
          #~(begin
-             (use-modules (guix build utils))
+             (use-modules (Manifolding-OS build utils))
              ;; Fix deprecation warning
              ;; https://github.com/JuliaArrays/MappedArrays.jl/pull/51
              (substitute* "src/MappedArrays.jl"
@@ -5448,9 +5448,9 @@ This can help users track the progress of long-running tasks.")
      (list
       #:imported-modules (append %julia-build-system-modules
                                  %pyproject-build-system-modules)
-      #:modules '((guix build julia-build-system)
-                  (guix build utils)
-                  ((guix build pyproject-build-system) #:prefix py:))
+      #:modules '((Manifolding-OS build julia-build-system)
+                  (Manifolding-OS build utils)
+                  ((Manifolding-OS build pyproject-build-system) #:prefix py:))
       #:phases
       #~(modify-phases %standard-phases
         (add-after 'link-depot 'remove-conda

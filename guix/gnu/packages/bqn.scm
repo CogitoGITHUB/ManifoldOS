@@ -20,13 +20,13 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages bqn)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix gexp)
-  #:use-module (guix packages)
-  #:use-module (guix download)
-  #:use-module (guix git-download)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix utils)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS utils)
   #:use-module (gnu packages)
   #:use-module (gnu packages bash)
   #:use-module (gnu packages libffi)
@@ -52,12 +52,12 @@
     (build-system gnu-build-system)
     (arguments
      (list
-      #:imported-modules `((guix build ant-build-system)
+      #:imported-modules `((Manifolding-OS build ant-build-system)
                            ,@%default-gnu-imported-modules)
-      #:modules '((guix build gnu-build-system)
-                  ((guix build ant-build-system)
+      #:modules '((Manifolding-OS build gnu-build-system)
+                  ((Manifolding-OS build ant-build-system)
                    #:prefix ant:)
-                  (guix build utils))
+                  (Manifolding-OS build utils))
       #:phases
       #~(modify-phases %standard-phases
           (delete 'configure)
@@ -202,14 +202,14 @@ by APL.")
 
 (define* (cbqn-combined-source name version #:key cbqn-sources replxx-sources singeli-sources)
   (origin
-    (method (@@ (guix packages) computed-origin-method))
+    (method (@@ (Manifolding-OS packages) computed-origin-method))
     (file-name (string-append name "-" version ".tar.gz"))
     (sha256 #f)
     (uri
      (delay
-       (with-imported-modules '((guix build utils))
+       (with-imported-modules '((Manifolding-OS build utils))
          #~(begin
-             (use-modules (guix build utils))
+             (use-modules (Manifolding-OS build utils))
              (let* ((dir (string-append "cbqn" #$version))
                     (replxx-local-dir "build/replxxLocal")
                     (singeli-local-dir "build/singeliLocal"))

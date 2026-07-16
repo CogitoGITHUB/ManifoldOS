@@ -36,15 +36,15 @@
 
 (define-module (gnu packages calendar)
   #:use-module (gnu packages)
-  #:use-module (guix gexp)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix git-download)
-  #:use-module (guix packages)
-  #:use-module (guix download)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system go)
-  #:use-module (guix build-system cmake)
-  #:use-module (guix build-system pyproject)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system go)
+  #:use-module (Manifolding-OS build-system cmake)
+  #:use-module (Manifolding-OS build-system pyproject)
   #:use-module (gnu packages admin)
   #:use-module (gnu packages autotools)
   #:use-module (gnu packages base)
@@ -159,9 +159,9 @@ the beginning of the file or directory name.")
       #:configure-flags
       #~(list "-DUSE_SYSTEM_TZ_DB=ON" "-DBUILD_SHARED_LIBS=ON"
               "-DBUILD_TZ_LIB=ON" "-DENABLE_DATE_TESTING=ON")
-      #:modules '((guix build cmake-build-system)
-                  ((guix build gnu-build-system) #:prefix gnu:)
-                  (guix build utils))
+      #:modules '((Manifolding-OS build cmake-build-system)
+                  ((Manifolding-OS build gnu-build-system) #:prefix gnu:)
+                  (Manifolding-OS build utils))
       #:phases
       #~(modify-phases %standard-phases
           (add-after 'unpack 'patch-bin-bash
@@ -395,7 +395,7 @@ proper handling of holidays.")
          (base32
           "0qkpq412p78znw8gckwcx3l0wcss9s0dgw1pvjb1ih2pxf6hm4rw"))
         (snippet
-         #~(begin (use-modules (guix build utils))
+         #~(begin (use-modules (Manifolding-OS build utils))
                   (substitute* "libhdate.pc.in"
                     (("prefix=/usr") "prefix=@prefix@"))))))
     (build-system gnu-build-system)
@@ -519,7 +519,7 @@ traditional Chinese characters.")
          "1p3q6his31bxs24nsgpfavw3nlhalqf0zak4f3b530p725s2vgfq"))
        (snippet
         #~(begin
-            (use-modules (guix build utils))
+            (use-modules (Manifolding-OS build utils))
             ;; Adjust the bundled gnulib to work with glibc 2.28.  See e.g.
             ;; "m4-gnulib-libio.patch".  This is a phase rather than patch
             ;; or snippet to work around <https://bugs.gnu.org/32347>.
@@ -568,7 +568,7 @@ Gregorian, Islamic, Chinese and more.")
                 (sha256
                  (base32
                   "0ypnq9q6v2l8jg0ah31d8502jig1rk2bz749ljj97wk0rg1rixpi"))
-                (modules '((guix build utils)))))
+                (modules '((Manifolding-OS build utils)))))
       (build-system gnu-build-system)
       (inputs (list gtk+))
       (native-inputs (list autoconf automake pkg-config))

@@ -47,18 +47,18 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages image-processing)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix packages)
-  #:use-module (guix gexp)
-  #:use-module (guix utils)
-  #:use-module (guix download)
-  #:use-module (guix git-download)
-  #:use-module (guix build-system copy)
-  #:use-module (guix build-system qt)
-  #:use-module (guix build-system cmake)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system meson)
-  #:use-module (guix build-system pyproject)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS utils)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS build-system copy)
+  #:use-module (Manifolding-OS build-system qt)
+  #:use-module (Manifolding-OS build-system cmake)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system meson)
+  #:use-module (Manifolding-OS build-system pyproject)
   #:use-module (gnu packages)
   #:use-module (gnu packages algebra)
   #:use-module (gnu packages base)
@@ -363,7 +363,7 @@ many popular formats.")
               (sha256
                (base32
                 "1wmq7cd6c60hp7xip08mjrwhwygna4vabfbqcn0xrbzsjh31hzfp"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                '(begin
                   (for-each
@@ -495,7 +495,7 @@ integrates with various databases on GUI toolkits such as Qt and Tk.")
               (sha256
                (base32
                 "12f9cbazgxrm71r4fpdlxk0mlpgzim2i7vziv8177zvhsac4prnf"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                '(begin
                   (for-each
@@ -520,7 +520,7 @@ integrates with various databases on GUI toolkits such as Qt and Tk.")
               (sha256
                (base32
                 "00kahpi53hld3ip3cfswdnvfg4llmabq0w2kzqq2mcbbm46qxj9n"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                '(begin
                   (for-each
@@ -545,7 +545,7 @@ integrates with various databases on GUI toolkits such as Qt and Tk.")
               (sha256
                (base32
                 "1f6ac40db7wkb3bfh31d71qc5gy44cw29r6v4cyxrlm09q4fqm43"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                '(begin
                   (for-each
@@ -580,7 +580,7 @@ integrates with various databases on GUI toolkits such as Qt and Tk.")
     (arguments
      (list
       #:tests? #f ;There are no tests.
-      #:configure-flags #~(list "-DGUIX_BUILD=ON")))
+      #:configure-flags #~(list "-DMANIFOLDING_OS_BUILD=ON")))
     (home-page "https://github.com/ufz/vtkdiff")
     (synopsis "Numerical difference of data arrays in vtk files")
     (description
@@ -600,7 +600,7 @@ different data arrays similar to those available in the numdiff software.")
               (file-name (git-file-name name version))
               (snippet
                #~(begin
-                   (use-modules (guix build utils)
+                   (use-modules (Manifolding-OS build utils)
                                 (ice-9 ftw)
                                 (srfi srfi-26))
                    ;; Delete any bundled .jar files.
@@ -1045,7 +1045,7 @@ recalculates.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "1m1c7vngrpaqdqvnjx4wj0va20hih5rb7rf0a44mp3wqgp4wgy0f"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         ;; TODO: Also remove unused bundled libraries and plugins?
         #~(begin
@@ -1315,7 +1315,7 @@ programmatically.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "0iqq4lm51l5gvkax6r79ypifqmgir3p3vman9gsc2085d2agjvbs"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        ;; TODO: vxl includes an old version of dcmtk.  It won't build with
        ;; version 3.6.x.
        (snippet
@@ -1356,7 +1356,7 @@ libraries designed for computer vision research and implementation.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "1g4mr2cc58jwm0vasscbd4y5380wj3ahkvq121z4gs83fhavvxgz"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         '(begin
            (for-each delete-file-recursively
@@ -1418,9 +1418,9 @@ libraries designed for computer vision research and implementation.")
        (list
         #:imported-modules (append %cmake-build-system-modules
                                    %pyproject-build-system-modules)
-        #:modules '(((guix build pyproject-build-system) #:prefix py:)
-                    (guix build cmake-build-system)
-                    (guix build utils))
+        #:modules '(((Manifolding-OS build pyproject-build-system) #:prefix py:)
+                    (Manifolding-OS build cmake-build-system)
+                    (Manifolding-OS build utils))
         #:configure-flags
         #~(list "-DITK_USE_GPU=ON"
                 "-DITK_USE_SYSTEM_LIBRARIES=ON"

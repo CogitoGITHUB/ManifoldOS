@@ -24,17 +24,17 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages vnc)
-  #:use-module (guix build-system cmake)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system meson)
-  #:use-module (guix download)
-  #:use-module (guix gexp)
-  #:use-module (guix git-download)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix gexp)
-  #:use-module (guix git-download)
-  #:use-module (guix packages)
-  #:use-module (guix utils)
+  #:use-module (Manifolding-OS build-system cmake)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system meson)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS utils)
   #:use-module (gnu packages)
   #:use-module (gnu packages autotools)
   #:use-module (gnu packages base)
@@ -98,13 +98,13 @@
         ;; Disable online version checking.
         "-DWITH_NEWS=OFF")
        #:imported-modules
-       ((guix build glib-or-gtk-build-system)
+       ((Manifolding-OS build glib-or-gtk-build-system)
         ,@%cmake-build-system-modules)
        #:modules
-       (((guix build glib-or-gtk-build-system)
+       (((Manifolding-OS build glib-or-gtk-build-system)
          #:prefix glib-or-gtk:)
-        (guix build cmake-build-system)
-        (guix build utils))
+        (Manifolding-OS build cmake-build-system)
+        (Manifolding-OS build utils))
        #:phases
        (modify-phases %standard-phases
          (add-after 'install 'glib-or-gtk-compile-schemas
@@ -183,7 +183,7 @@ RDP, VNC, SPICE, NX, XDMCP, SSH and EXEC network protocols are supported.")
        (uri (git-reference
               (url "https://github.com/TurboVNC/turbovnc")
               (commit version)))
-       (modules '((guix build utils)
+       (modules '((Manifolding-OS build utils)
                   (ice-9 ftw)
                   (srfi srfi-26)))
        (snippet

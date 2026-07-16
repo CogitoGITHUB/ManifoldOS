@@ -34,27 +34,27 @@ lang_to_texinfo = $(foreach lang,$(1),$(srcdir)/%D%/$(2).$(lang).texi)
 
 # Automake does not understand GNU Make non-standard extensions,
 # unfortunately, so we cannot use the above patsubst-based function here.
-info_TEXINFOS = %D%/guix.texi			\
-  %D%/guix.de.texi				\
-  %D%/guix.es.texi				\
-  %D%/guix.fr.texi				\
-  %D%/guix.it.texi				\
-  %D%/guix.pt_BR.texi				\
-  %D%/guix.ru.texi				\
-  %D%/guix.zh_CN.texi				\
-  %D%/guix-cookbook.texi			\
-  %D%/guix-cookbook.de.texi			\
-  %D%/guix-cookbook.es.texi			\
-  %D%/guix-cookbook.fr.texi			\
-  %D%/guix-cookbook.it.texi			\
-  %D%/guix-cookbook.ko.texi			\
-  %D%/guix-cookbook.pt_BR.texi			\
-  %D%/guix-cookbook.ru.texi			\
-  %D%/guix-cookbook.sk.texi			\
-  %D%/guix-cookbook.sv.texi			\
-  %D%/guix-cookbook.zh_CN.texi
+info_TEXINFOS = %D%/Manifolding-OS.texi			\
+  %D%/Manifolding-OS.de.texi				\
+  %D%/Manifolding-OS.es.texi				\
+  %D%/Manifolding-OS.fr.texi				\
+  %D%/Manifolding-OS.it.texi				\
+  %D%/Manifolding-OS.pt_BR.texi				\
+  %D%/Manifolding-OS.ru.texi				\
+  %D%/Manifolding-OS.zh_CN.texi				\
+  %D%/Manifolding-OS-cookbook.texi			\
+  %D%/Manifolding-OS-cookbook.de.texi			\
+  %D%/Manifolding-OS-cookbook.es.texi			\
+  %D%/Manifolding-OS-cookbook.fr.texi			\
+  %D%/Manifolding-OS-cookbook.it.texi			\
+  %D%/Manifolding-OS-cookbook.ko.texi			\
+  %D%/Manifolding-OS-cookbook.pt_BR.texi			\
+  %D%/Manifolding-OS-cookbook.ru.texi			\
+  %D%/Manifolding-OS-cookbook.sk.texi			\
+  %D%/Manifolding-OS-cookbook.sv.texi			\
+  %D%/Manifolding-OS-cookbook.zh_CN.texi
 
-%C%_guix_TEXINFOS = \
+%C%_Manifolding-OS_TEXINFOS = \
   $(OS_CONFIG_EXAMPLES_TEXI) \
   %D%/contributing.texi \
   %D%/fdl-1.3.texi
@@ -88,16 +88,16 @@ OS_CONFIG_EXAMPLES_TEXI =			\
   %D%/he-config-bare-bones.scm
 
 TRANSLATED_INFO = 						\
-  $(call lang_to_texinfo,$(MANUAL_LANGUAGES),guix)		\
+  $(call lang_to_texinfo,$(MANUAL_LANGUAGES),Manifolding-OS)		\
   $(call lang_to_texinfo,$(MANUAL_LANGUAGES),contributing)	\
-  $(call lang_to_texinfo,$(COOKBOOK_LANGUAGES),guix-cookbook)
+  $(call lang_to_texinfo,$(COOKBOOK_LANGUAGES),Manifolding-OS-cookbook)
 
 # Bundle this file so that makeinfo finds it in out-of-source-tree builds.
 BUILT_SOURCES        += $(OS_CONFIG_EXAMPLES_TEXI) $(TRANSLATED_INFO)
 EXTRA_DIST           += $(OS_CONFIG_EXAMPLES_TEXI) $(TRANSLATED_INFO)
 MAINTAINERCLEANFILES  = $(OS_CONFIG_EXAMPLES_TEXI) $(TRANSLATED_INFO)
 
-# When a change to guix.texi occurs, it is not translated immediately.
+# When a change to Manifolding-OS.texi occurs, it is not translated immediately.
 # Because @pxref and @xref commands are references to sections by name, they
 # should be translated. If a modification adds a reference to a section, this
 # reference is not translated, which means it references a section that does not
@@ -112,29 +112,29 @@ endef
 # because the path extension is not 'pot'.
 dummy_pot = $(shell mktemp --suffix=.pot)
 
-$(srcdir)/%D%/guix.%.texi: po/doc/guix-manual.%.po $(srcdir)/%D%/contributing.%.texi guix/build/po.go
+$(srcdir)/%D%/Manifolding-OS.%.texi: po/doc/Manifolding-OS-manual.%.po $(srcdir)/%D%/contributing.%.texi Manifolding-OS/build/po.go
 	-$(AM_V_PO4A)$(PO4A) --no-update			\
 	    --variable localized="$@.tmp"			\
-	    --variable master="$(srcdir)/%D%/guix.texi"		\
+	    --variable master="$(srcdir)/%D%/Manifolding-OS.texi"		\
 	    --variable po="$<"					\
 	    --variable pot=$(dummy_pot)			\
 	    $(srcdir)/po/doc/po4a.cfg
-	-sed -i "s|guix\.info|$$(basename "$@" | sed 's|texi$$|info|')|" "$@.tmp"
+	-sed -i "s|Manifolding-OS\.info|$$(basename "$@" | sed 's|texi$$|info|')|" "$@.tmp"
 	-$(AM_V_POXREF)LC_ALL=en_US.UTF-8 $(xref_command)
 	-mv "$@.tmp" "$@"
 
-$(srcdir)/%D%/guix-cookbook.%.texi: po/doc/guix-cookbook.%.po guix/build/po.go
+$(srcdir)/%D%/Manifolding-OS-cookbook.%.texi: po/doc/Manifolding-OS-cookbook.%.po Manifolding-OS/build/po.go
 	-$(AM_V_PO4A)$(PO4A) --no-update				\
 	    --variable localized="$@.tmp"				\
-	    --variable master="$(srcdir)/%D%/guix-cookbook.texi"	\
+	    --variable master="$(srcdir)/%D%/Manifolding-OS-cookbook.texi"	\
 	    --variable po="$<"						\
 	    --variable pot=$(dummy_pot)			\
 	    $(srcdir)/po/doc/po4a.cfg
-	-sed -i "s|guix-cookbook\.info|$$(basename "$@" | sed 's|texi$$|info|')|" "$@.tmp"
+	-sed -i "s|Manifolding-OS-cookbook\.info|$$(basename "$@" | sed 's|texi$$|info|')|" "$@.tmp"
 	-$(AM_V_POXREF)LC_ALL=en_US.UTF-8 $(xref_command)
 	-mv "$@.tmp" "$@"
 
-$(srcdir)/%D%/contributing.%.texi: po/doc/guix-manual.%.po guix/build/po.go
+$(srcdir)/%D%/contributing.%.texi: po/doc/Manifolding-OS-manual.%.po Manifolding-OS/build/po.go
 	-$(AM_V_PO4A)$(PO4A) --no-update			\
 	    --variable localized="$@.tmp"			\
 	    --variable master="$(srcdir)/%D%/contributing.texi"		\
@@ -187,7 +187,7 @@ DOT_OPTIONS =					\
 	$(AM_V_GEN)convert "$<" "$@-tmp.eps"
 	$(AM_V_at)mv "$@-tmp.eps" "$@"
 
-# We cannot add new dependencies to `%D%/guix.pdf' & co. (info "(automake)
+# We cannot add new dependencies to `%D%/Manifolding-OS.pdf' & co. (info "(automake)
 # Extending").  Using the `-local' rules is imperfect, because they may be
 # triggered after the main rule.  Oh, well.
 pdf-local: $(DOT_FILES=%.dot=$(top_srcdir)/%.pdf)
@@ -207,46 +207,46 @@ dvi-local: ps-local
 # They are built in $(srcdir) like info manuals.
 
 sub_commands_mans =				\
-  $(srcdir)/%D%/guix-archive.1			\
-  $(srcdir)/%D%/guix-build.1			\
-  $(srcdir)/%D%/guix-challenge.1		\
-  $(srcdir)/%D%/guix-container.1		\
-  $(srcdir)/%D%/guix-deploy.1			\
-  $(srcdir)/%D%/guix-describe.1			\
-  $(srcdir)/%D%/guix-download.1			\
-  $(srcdir)/%D%/guix-edit.1			\
-  $(srcdir)/%D%/guix-environment.1		\
-  $(srcdir)/%D%/guix-gc.1			\
-  $(srcdir)/%D%/guix-git.1			\
-  $(srcdir)/%D%/guix-graph.1			\
-  $(srcdir)/%D%/guix-hash.1			\
-  $(srcdir)/%D%/guix-home.1			\
-  $(srcdir)/%D%/guix-import.1			\
-  $(srcdir)/%D%/guix-lint.1			\
-  $(srcdir)/%D%/guix-offload.1			\
-  $(srcdir)/%D%/guix-pack.1			\
-  $(srcdir)/%D%/guix-package.1			\
-  $(srcdir)/%D%/guix-processes.1		\
-  $(srcdir)/%D%/guix-publish.1			\
-  $(srcdir)/%D%/guix-pull.1			\
-  $(srcdir)/%D%/guix-refresh.1			\
-  $(srcdir)/%D%/guix-repl.1			\
-  $(srcdir)/%D%/guix-shell.1			\
-  $(srcdir)/%D%/guix-size.1			\
-  $(srcdir)/%D%/guix-style.1			\
-  $(srcdir)/%D%/guix-system.1			\
-  $(srcdir)/%D%/guix-time-machine.1		\
-  $(srcdir)/%D%/guix-weather.1
+  $(srcdir)/%D%/Manifolding-OS-archive.1			\
+  $(srcdir)/%D%/Manifolding-OS-build.1			\
+  $(srcdir)/%D%/Manifolding-OS-challenge.1		\
+  $(srcdir)/%D%/Manifolding-OS-container.1		\
+  $(srcdir)/%D%/Manifolding-OS-deploy.1			\
+  $(srcdir)/%D%/Manifolding-OS-describe.1			\
+  $(srcdir)/%D%/Manifolding-OS-download.1			\
+  $(srcdir)/%D%/Manifolding-OS-edit.1			\
+  $(srcdir)/%D%/Manifolding-OS-environment.1		\
+  $(srcdir)/%D%/Manifolding-OS-gc.1			\
+  $(srcdir)/%D%/Manifolding-OS-git.1			\
+  $(srcdir)/%D%/Manifolding-OS-graph.1			\
+  $(srcdir)/%D%/Manifolding-OS-hash.1			\
+  $(srcdir)/%D%/Manifolding-OS-home.1			\
+  $(srcdir)/%D%/Manifolding-OS-import.1			\
+  $(srcdir)/%D%/Manifolding-OS-lint.1			\
+  $(srcdir)/%D%/Manifolding-OS-offload.1			\
+  $(srcdir)/%D%/Manifolding-OS-pack.1			\
+  $(srcdir)/%D%/Manifolding-OS-package.1			\
+  $(srcdir)/%D%/Manifolding-OS-processes.1		\
+  $(srcdir)/%D%/Manifolding-OS-publish.1			\
+  $(srcdir)/%D%/Manifolding-OS-pull.1			\
+  $(srcdir)/%D%/Manifolding-OS-refresh.1			\
+  $(srcdir)/%D%/Manifolding-OS-repl.1			\
+  $(srcdir)/%D%/Manifolding-OS-shell.1			\
+  $(srcdir)/%D%/Manifolding-OS-size.1			\
+  $(srcdir)/%D%/Manifolding-OS-style.1			\
+  $(srcdir)/%D%/Manifolding-OS-system.1			\
+  $(srcdir)/%D%/Manifolding-OS-time-machine.1		\
+  $(srcdir)/%D%/Manifolding-OS-weather.1
 
 if HAVE_GUILE_SSH
-sub_commands_mans += $(srcdir)/%D%/guix-copy.1
+sub_commands_mans += $(srcdir)/%D%/Manifolding-OS-copy.1
 endif HAVE_GUILE_SSH
 
 # Assume that cross-compiled commands cannot be executed.
 if !CROSS_COMPILING
 
 dist_man1_MANS =				\
-  $(srcdir)/%D%/guix.1				\
+  $(srcdir)/%D%/Manifolding-OS.1				\
   $(sub_commands_mans)
 
 endif
@@ -260,25 +260,25 @@ HELP2MANFLAGS = --source=GNU --info-page=$(PACKAGE_TARNAME)
 SOURCE_DATE_EPOCH = $(shell git show HEAD --format=%ct --no-patch 2>/dev/null || echo 1)
 export SOURCE_DATE_EPOCH
 
-$(srcdir)/%D%/guix.1: scripts/guix.in $(sub_commands_mans)
+$(srcdir)/%D%/Manifolding-OS.1: scripts/Manifolding-OS.in $(sub_commands_mans)
 	-$(AM_V_HELP2MAN)$(gen_man) --output="$@" `basename "$@" .1`
 
 # The 'case' ensures the man pages are only generated if the corresponding
 # source script (the first prerequisite) has been changed.  The $(GOBJECTS)
 # prerequisite is solely meant to force these docs to be made only after all
-# Guile modules have been compiled.  We also need the guix script to exist.
-$(srcdir)/%D%/guix-%.1: guix/scripts/%.scm $(GOBJECTS) scripts/guix
+# Guile modules have been compiled.  We also need the Manifolding-OS script to exist.
+$(srcdir)/%D%/Manifolding-OS-%.1: Manifolding-OS/scripts/%.scm $(GOBJECTS) scripts/Manifolding-OS
 	-@case '$?' in								\
-	  *$<*) $(AM_V_HELP2MAN:@%=%)$(gen_man) --output="$@" "guix $*";;	\
+	  *$<*) $(AM_V_HELP2MAN:@%=%)$(gen_man) --output="$@" "Manifolding-OS $*";;	\
 	  *)    : ;;								\
 	esac
 
 if BUILD_DAEMON
 if !CROSS_COMPILING
 
-dist_man1_MANS += $(srcdir)/%D%/guix-daemon.1
+dist_man1_MANS += $(srcdir)/%D%/Manifolding-OS-daemon.1
 
-$(srcdir)/%D%/guix-daemon.1: guix-daemon$(EXEEXT)
+$(srcdir)/%D%/Manifolding-OS-daemon.1: Manifolding-OS-daemon$(EXEEXT)
 	-$(AM_V_HELP2MAN)$(gen_man) --output="$@" `basename "$@" .1`
 
 endif
@@ -299,17 +299,17 @@ auto-clean: maintainer-clean-vti doc-clean
 	    git clean -fdx -- '.am*' build-aux m4 po;	\
 	else						\
 	    rm -rf .am*;				\
-	    $(MAKE) -C po/guix maintainer-clean;	\
+	    $(MAKE) -C po/Manifolding-OS maintainer-clean;	\
 	    $(MAKE) -C po/packages maintainer-clean;	\
 	fi
 	rm -f guile
-	rm -f guix-daemon nix/nix-daemon/guix_daemon-guix-daemon.o
-# Automake fails if guix-cookbook-LANG.texi stubs are missing; running
+	rm -f Manifolding-OS-daemon nix/nix-daemon/Manifolding-OS_daemon-Manifolding-OS-daemon.o
+# Automake fails if Manifolding-OS-cookbook-LANG.texi stubs are missing; running
 # autoreconf -vif is not enough.
 	./bootstrap
-# The dependency chain for the guix-cookbook-LANG.texi was cut on purpose;
+# The dependency chain for the Manifolding-OS-cookbook-LANG.texi was cut on purpose;
 # they must be deleted to ensure a rebuild.
-	rm -f $(filter-out %D%/guix.texi %D%/guix-cookbook.texi, $(info_TEXINFOS))
+	rm -f $(filter-out %D%/Manifolding-OS.texi %D%/Manifolding-OS-cookbook.texi, $(info_TEXINFOS))
 	./configure $(DIST_CONFIGURE_FLAGS)
 
 # Delete all generated doc files to ensure a clean cache and distributing

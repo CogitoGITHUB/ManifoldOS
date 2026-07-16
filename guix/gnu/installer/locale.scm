@@ -20,7 +20,7 @@
 (define-module (gnu installer locale)
   #:use-module (gnu installer utils)
   #:use-module ((gnu build locale) #:select (normalize-codeset))
-  #:use-module (guix records)
+  #:use-module (Manifolding-OS records)
   #:use-module (json)
   #:use-module (srfi srfi-1)
   #:use-module (ice-9 match)
@@ -50,7 +50,7 @@
 ;; language[_territory[.codeset][@modifier]].
 (define locale-regexp "^([^_@]+)(_([^\\.@]+))?(\\.([^@]+))?(@([^$]+))?$")
 
-;; LOCALE will be better expressed in a (guix record) that in an association
+;; LOCALE will be better expressed in a (Manifolding-OS record) that in an association
 ;; list. However, loading large files containing records does not scale
 ;; well. The same thing goes for ISO639 and ISO3166 association lists used
 ;; later in this module.

@@ -25,7 +25,7 @@
   #:use-module (gnu system accounts)
   #:use-module (gnu system shadow)
   #:use-module (gnu system vm)
-  #:use-module (guix gexp)
+  #:use-module (Manifolding-OS gexp)
   #:export (%test-subids))
 
 
@@ -60,7 +60,7 @@
       %subids-os
       (list))
      #:imported-modules '((gnu services herd)
-                          (guix combinators))))
+                          (Manifolding-OS combinators))))
 
   (define vm
     (virtual-machine

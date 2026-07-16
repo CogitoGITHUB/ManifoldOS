@@ -20,8 +20,8 @@
 ;;; Simplistically, it selects packages whose names begin with "linux-libre".
 ;;; It is used to assist continuous integration of the kernel packages.
 
-(use-modules (guix packages)
-             (guix profiles)
+(use-modules (Manifolding-OS packages)
+             (Manifolding-OS profiles)
              (gnu packages))
 
 (manifest

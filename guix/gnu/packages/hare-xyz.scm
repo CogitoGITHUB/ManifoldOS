@@ -24,12 +24,12 @@
   #:use-module (gnu packages gnome)
   #:use-module (gnu packages gtk)
   #:use-module (gnu packages hare-apps)
-  #:use-module (guix build-system hare)
-  #:use-module (guix download)
-  #:use-module (guix gexp)
-  #:use-module (guix git-download)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix packages))
+  #:use-module (Manifolding-OS build-system hare)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS packages))
 
 (define-public hare-compress
   (package
@@ -213,8 +213,8 @@ and agent protocols in pure Hare.")
     (arguments
      (list
       #:modules '((ice-9 match)
-                  (guix build hare-build-system)
-                  (guix build utils))
+                  (Manifolding-OS build hare-build-system)
+                  (Manifolding-OS build utils))
       #:tests? #f
       #:phases
       #~(modify-phases %standard-phases

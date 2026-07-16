@@ -30,12 +30,12 @@
   #:use-module (gnu services shepherd)
   #:use-module (gnu services networking)
   #:use-module (gnu packages databases)
-  #:use-module (guix packages)
-  #:use-module (guix modules)
-  #:use-module (guix records)
-  #:use-module (guix gexp)
-  #:use-module (guix store)
-  #:use-module (guix utils)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS modules)
+  #:use-module (Manifolding-OS records)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS store)
+  #:use-module (Manifolding-OS utils)
   #:use-module (ice-9 match)
   #:export (%test-guix-build-coordinator
             %test-guix-data-service
@@ -57,7 +57,7 @@
     (marionette-operating-system
      %guix-build-coordinator-os
      #:imported-modules '((gnu services herd)
-                          (guix combinators))))
+                          (Manifolding-OS combinators))))
 
   (define forwarded-port 8745)
 
@@ -179,7 +179,7 @@ host	all	all	::1/128 	trust"))))))
     (marionette-operating-system
      %guix-data-service-os
      #:imported-modules '((gnu services herd)
-                          (guix combinators))))
+                          (Manifolding-OS combinators))))
 
   (define forwarded-port 8080)
 
@@ -344,7 +344,7 @@ host	all	all	::1/128 	trust"))))))
     (marionette-operating-system
      %nar-herder-os
      #:imported-modules '((gnu services herd)
-                          (guix combinators))))
+                          (Manifolding-OS combinators))))
 
   (define forwarded-port
     (nar-herder-configuration-port
@@ -440,7 +440,7 @@ host	all	all	::1/128 	trust"))))))
     (marionette-operating-system
      %bffe-os
      #:imported-modules '((gnu services herd)
-                          (guix combinators))))
+                          (Manifolding-OS combinators))))
 
   (define forwarded-port 8767)
 

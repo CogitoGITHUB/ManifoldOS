@@ -26,13 +26,13 @@
   #:use-module (gnu packages bash)
   #:use-module (gnu packages guile)
   #:use-module (gnu packages linux)               ;singularity
-  #:use-module (guix gexp)
-  #:use-module (guix store)
-  #:use-module (guix grafts)
-  #:use-module (guix monads)
-  #:use-module (guix packages)
-  #:use-module (guix profiles)
-  #:use-module (guix scripts pack)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS store)
+  #:use-module (Manifolding-OS grafts)
+  #:use-module (Manifolding-OS monads)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS profiles)
+  #:use-module (Manifolding-OS scripts pack)
   #:export (%test-singularity))
 
 (define %singularity-os

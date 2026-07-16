@@ -61,19 +61,19 @@
   #:use-module (gnu packages version-control)
   #:use-module (gnu packages web)
   #:use-module (gnu packages)
-  #:use-module (guix build-system cargo)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system trivial)
-  #:use-module (guix search-paths)
-  #:use-module (guix download)
-  #:use-module (guix memoization)
-  #:use-module (guix git-download)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix packages)
-  #:use-module (guix platform)
-  #:use-module ((guix build utils) #:select (alist-replace))
-  #:use-module (guix utils)
-  #:use-module (guix gexp)
+  #:use-module (Manifolding-OS build-system cargo)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system trivial)
+  #:use-module (Manifolding-OS search-paths)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS memoization)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS platform)
+  #:use-module ((Manifolding-OS build utils) #:select (alist-replace))
+  #:use-module (Manifolding-OS utils)
+  #:use-module (Manifolding-OS gexp)
   #:use-module (ice-9 match)
   #:use-module (ice-9 optargs)
   #:use-module (srfi srfi-1)
@@ -150,7 +150,7 @@
       (sha256
        (base32 "1m6ya3d653b5z0ygvr4y8hay1445gww9s8vyk8h0jdi42zkhzqkf"))
       (patches (search-patches "mrustc-patches.patch"))
-      (modules '((guix build utils)))
+      (modules '((Manifolding-OS build utils)))
       (snippet
        '(begin
           ;; Drastically reduces memory and build time requirements
@@ -175,7 +175,7 @@
        (method url-fetch)
        (uri (rust-uri version))
        (sha256 (base32 "0xk9dhfff16caambmwij67zgshd8v9djw6ha0fnnanlv7rii31dc"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         '(begin
            (for-each delete-file-recursively
@@ -210,9 +210,9 @@
        ("mrustc-source" ,%mrustc-source)))
     (arguments
      `(#:imported-modules ,%cargo-utils-modules ;for `generate-all-checksums'
-       #:modules ((guix build cargo-utils)
-                  (guix build utils)
-                  (guix build gnu-build-system))
+       #:modules ((Manifolding-OS build cargo-utils)
+                  (Manifolding-OS build utils)
+                  (Manifolding-OS build gnu-build-system))
        #:test-target "test"
        ;; Rust's own .so library files are not found in any RUNPATH, but
        ;; that doesn't seem to cause issues.
@@ -359,7 +359,7 @@ safety and thread safety guarantees.")
        (method url-fetch)
        (uri (rust-uri version))
        (sha256 (base32 "0j8hrwjjjjf7spy0hy7gami96swhfzr6kandfzzdri91qd5mhaw8"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         '(begin
            (for-each delete-file-recursively
@@ -396,9 +396,9 @@ safety and thread safety guarantees.")
     (arguments
      (list
       #:imported-modules %cargo-utils-modules ;for `generate-all-checksums'
-      #:modules '((guix build cargo-utils)
-                  (guix build utils)
-                  (guix build gnu-build-system))
+      #:modules '((Manifolding-OS build cargo-utils)
+                  (Manifolding-OS build utils)
+                  (Manifolding-OS build gnu-build-system))
       #:test-target "test"
       ;; Rust's own .so library files are not found in any RUNPATH, but
       ;; that doesn't seem to cause issues.
@@ -544,7 +544,7 @@ safety and thread safety guarantees.")
        (method url-fetch)
        (uri (rust-uri version))
        (sha256 (base32 "07l28f7grdmi65naq71pbmvdd61hwcpi40ry7kp7dy7m233rldxj"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         '(begin
            (for-each delete-file-recursively
@@ -574,9 +574,9 @@ safety and thread safety guarantees.")
        ;; for performance and simplicity.
        #:tests? #f
        #:imported-modules ,%cargo-utils-modules ;for `generate-all-checksums'
-       #:modules ((guix build cargo-utils)
-                  (guix build utils)
-                  (guix build gnu-build-system)
+       #:modules ((Manifolding-OS build cargo-utils)
+                  (Manifolding-OS build utils)
+                  (Manifolding-OS build gnu-build-system)
                   (ice-9 match)
                   (srfi srfi-1))
        #:phases
@@ -2373,10 +2373,10 @@ ar = \"" (search-input-file inputs (string-append "/bin/" #$(ar-for-target targe
     (build-system trivial-build-system)
     (arguments
      (list
-       #:modules '((guix build utils))
+       #:modules '((Manifolding-OS build utils))
        #:builder
        #~(begin
-           (use-modules (guix build utils))
+           (use-modules (Manifolding-OS build utils))
            (let ((rust (assoc-ref %build-inputs "rust")))
              (install-file (string-append rust "/bin/rust-analyzer")
                            (string-append #$output "/bin"))

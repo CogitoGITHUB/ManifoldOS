@@ -25,17 +25,17 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages nss)
-  #:use-module (guix packages)
-  #:use-module ((guix search-paths) #:select ($SSL_CERT_DIR $SSL_CERT_FILE))
-  #:use-module (guix utils)
-  #:use-module (guix gexp)
-  #:use-module (guix download)
-  #:use-module (guix git-download)
-  #:use-module (guix build-system cargo)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system mozilla)
-  #:use-module (guix build-system trivial)
-  #:use-module ((guix licenses) #:prefix license:)
+  #:use-module (Manifolding-OS packages)
+  #:use-module ((Manifolding-OS search-paths) #:select ($SSL_CERT_DIR $SSL_CERT_FILE))
+  #:use-module (Manifolding-OS utils)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS build-system cargo)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system mozilla)
+  #:use-module (Manifolding-OS build-system trivial)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
   #:use-module (gnu packages)
   #:use-module (gnu packages base)
   #:use-module (gnu packages bash)
@@ -120,7 +120,7 @@ in the Mozilla clients.")
                                        "nss-getcwd-nonnull.patch"
                                        "nss-increase-test-timeout.patch"
                                        "nss-disable-broken-tests.patch"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                '(begin
                   ;; Delete the bundled copy of these libraries.
@@ -161,8 +161,8 @@ in the Mozilla clients.")
                 ;; Add $out/lib/nss to RPATH.
                 (string-append "RPATH=" rpath)
                 (string-append "LDFLAGS=" rpath)))
-      #:modules '((guix build gnu-build-system)
-                  (guix build utils)
+      #:modules '((Manifolding-OS build gnu-build-system)
+                  (Manifolding-OS build utils)
                   (ice-9 ftw)
                   (ice-9 match)
                   (srfi srfi-26))
@@ -178,7 +178,7 @@ in the Mozilla clients.")
           ;; around that, set the time to roughly the release date.
           (add-after 'unpack 'set-release-date
             (lambda _
-              (setenv "GUIX_NSS_RELEASE_DATE" "2025-02-05")))
+              (setenv "MANIFOLDING_OS_NSS_RELEASE_DATE" "2025-02-05")))
           (replace 'configure
             (lambda _
               (setenv "CC" #$(cc-for-target))
@@ -220,9 +220,9 @@ in the Mozilla clients.")
                                  (string-append "SOURCE_DIR=" (getcwd) "/nss\n")))))
 
 
-                    (let ((release-date (getenv "GUIX_NSS_RELEASE_DATE")))
+                    (let ((release-date (getenv "MANIFOLDING_OS_NSS_RELEASE_DATE")))
                       (when (string=? "" release-date)
-                        (raise-exception "`GUIX_NSS_RELEASE_DATE' unset"))
+                        (raise-exception "`MANIFOLDING_OS_NSS_RELEASE_DATE' unset"))
                       (invoke #$(if (target-64bit?) "faketime" "datefudge")
                               release-date "./nss/tests/all.sh")))
                   (format #t "test suite not run~%"))))
@@ -325,8 +325,8 @@ This package tracks the Rapid Release channel, which updates frequently.")))
     (inputs '())
     (propagated-inputs '())
     (arguments
-     (list #:modules '((guix build gnu-build-system)
-                       (guix build utils)
+     (list #:modules '((Manifolding-OS build gnu-build-system)
+                       (Manifolding-OS build utils)
                        (rnrs io ports)
                        (srfi srfi-26))
            #:phases
@@ -366,9 +366,9 @@ taken from the NSS package and thus ultimately from the Mozilla project.")
      (arguments
       (list
        #:builder
-       (with-imported-modules '((guix build utils))
+       (with-imported-modules '((Manifolding-OS build utils))
          #~(begin
-             (use-modules (guix build utils)
+             (use-modules (Manifolding-OS build utils)
                           (rnrs io ports)
                           (srfi srfi-26))
              (define certs-dir (string-append #$output "/etc/ssl/certs/"))

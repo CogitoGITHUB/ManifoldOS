@@ -82,16 +82,16 @@
   #:use-module (gnu packages enlightenment)
   #:use-module (gnu packages haskell-apps)
   #:use-module (gnu packages rust-apps)
-  #:use-module (guix deprecation)
-  #:use-module (guix i18n)
-  #:use-module (guix records)
-  #:use-module (guix packages)
-  #:use-module (guix search-paths)
-  #:use-module (guix store)
-  #:use-module (guix ui)
-  #:use-module (guix utils)
-  #:use-module (guix gexp)
-  #:use-module (guix modules)
+  #:use-module (Manifolding-OS deprecation)
+  #:use-module (Manifolding-OS i18n)
+  #:use-module (Manifolding-OS records)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS search-paths)
+  #:use-module (Manifolding-OS store)
+  #:use-module (Manifolding-OS ui)
+  #:use-module (Manifolding-OS utils)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS modules)
   #:use-module (srfi srfi-1)
   #:use-module (srfi srfi-26)
   #:use-module (ice-9 format)
@@ -331,7 +331,7 @@ is a list, it recursively searches it until it locates the last item of TREE."
 
 (define %upower-activation
   #~(begin
-      (use-modules (guix build utils))
+      (use-modules (Manifolding-OS build utils))
       (mkdir-p "/var/lib/upower")))
 
 (define (upower-dbus-service config)
@@ -993,7 +993,7 @@ boot, which can be useful when using a bluetooth keyboard or mouse.
 
 (define %colord-activation
   #~(begin
-      (use-modules (guix build utils))
+      (use-modules (Manifolding-OS build utils))
       (mkdir-p "/var/lib/colord")
       (let ((user (getpwnam "colord")))
         (chown "/var/lib/colord"
@@ -1206,9 +1206,9 @@ the functionalities of different keyboards.")))
             (default udisks)))
 
 (define %udisks-activation
-  (with-imported-modules '((guix build utils))
+  (with-imported-modules '((Manifolding-OS build utils))
     #~(begin
-        (use-modules (guix build utils))
+        (use-modules (Manifolding-OS build utils))
 
         (let ((run-dir "/var/run/udisks2"))
           (mkdir-p run-dir)
@@ -1648,12 +1648,12 @@ the user shall be removed when the user fully logs out.")
 
 (define (elogind-etc-directory config)
   "Return the /etc/elogind directory for CONFIG."
-  (with-imported-modules (source-module-closure '((guix build utils)))
+  (with-imported-modules (source-module-closure '((Manifolding-OS build utils)))
     (computed-file
      "etc-elogind"
 
      #~(begin
-         (use-modules (guix build utils))
+         (use-modules (Manifolding-OS build utils))
 
          (define sleep-directory (string-append #$output "/system-sleep/"))
          (define shutdown-directory (string-append #$output "/system-shutdown/"))
@@ -1714,9 +1714,9 @@ started~%")
                           (wait-for-service 'elogind))))))
 
   (define build
-    (with-imported-modules '((guix build utils))
+    (with-imported-modules '((Manifolding-OS build utils))
       #~(begin
-          (use-modules (guix build utils)
+          (use-modules (Manifolding-OS build utils)
                        (ice-9 match))
 
           (define service-directory
@@ -1905,7 +1905,7 @@ as well as set a pretty hostname for display.")))
 
 (define %accountsservice-activation
   #~(begin
-      (use-modules (guix build utils))
+      (use-modules (Manifolding-OS build utils))
       (mkdir-p "/var/lib/AccountsService")))
 
 (define accountsservice-service-type
@@ -2139,11 +2139,11 @@ dependencies by filtering out the ignorelist."
    (computed-file
     "gnome-udev-configurations"
     (with-imported-modules
-        (source-module-closure '((guix build utils)
-                                 (guix build union)))
+        (source-module-closure '((Manifolding-OS build utils)
+                                 (Manifolding-OS build union)))
       #~(begin
-          (use-modules (guix build utils)
-                       (guix build union))
+          (use-modules (Manifolding-OS build utils)
+                       (Manifolding-OS build union))
           ;; If rules.d or hwdb.d is not a proper directory but a symlink,
           ;; then it will not be possible to delete individual files in this
           ;; directory.
@@ -2166,11 +2166,11 @@ rules."
    (computed-file
     "gnome-polkit-settings"
     (with-imported-modules
-        (source-module-closure '((guix build utils)
-                                 (guix build union)))
+        (source-module-closure '((Manifolding-OS build utils)
+                                 (Manifolding-OS build union)))
       #~(let ((output (string-append #$output "/share/polkit-1")))
-          (use-modules (guix build utils)
-                       (guix build union))
+          (use-modules (Manifolding-OS build utils)
+                       (Manifolding-OS build union))
           (mkdir-p (dirname output))
           (union-build output
                        (search-path-as-list

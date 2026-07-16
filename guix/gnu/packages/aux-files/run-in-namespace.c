@@ -80,7 +80,7 @@ concat (const char *directory, const char *file)
 static char *
 make_tmp_template (void)
 {
-  static const char suffix[] = "guix-exec-XXXXXX";
+  static const char suffix[] = "Manifolding-OS-exec-XXXXXX";
   const char *tmpdir = getenv ("TMPDIR");
 
   if (tmpdir == NULL || tmpdir[0] == '\0')
@@ -718,7 +718,7 @@ This may be because \"user namespaces\" are not supported on this system.\n\
 Consequently, we cannot run '@WRAPPED_PROGRAM@',\n\
 unless you move it to the '@STORE_DIRECTORY@' directory.\n\
 \n\
-Please refer to the 'guix pack' documentation for more information.\n");
+Please refer to the 'Manifolding-OS pack' documentation for more information.\n");
       return EXIT_FAILURE;
     }
 

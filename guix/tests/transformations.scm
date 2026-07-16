@@ -19,27 +19,27 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (test-transformations)
-  #:use-module (guix tests)
-  #:use-module (guix store)
-  #:use-module ((guix gexp) #:select (lower-object))
-  #:use-module ((guix profiles)
+  #:use-module (Manifolding-OS tests)
+  #:use-module (Manifolding-OS store)
+  #:use-module ((Manifolding-OS gexp) #:select (lower-object))
+  #:use-module ((Manifolding-OS profiles)
                 #:select (package->manifest-entry
                           manifest-entry-properties))
-  #:use-module (guix derivations)
-  #:use-module (guix packages)
-  #:use-module (guix git-download)
-  #:use-module (guix build-system)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix transformations)
-  #:use-module ((guix gexp)
+  #:use-module (Manifolding-OS derivations)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS build-system)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS transformations)
+  #:use-module ((Manifolding-OS gexp)
                 #:select (local-file? local-file-file
                           computed-file? computed-file-gexp
                           gexp-input-thing gexp->approximate-sexp))
-  #:use-module (guix ui)
-  #:use-module (guix utils)
-  #:use-module (guix git)
-  #:use-module (guix upstream)
-  #:use-module (guix diagnostics)
+  #:use-module (Manifolding-OS ui)
+  #:use-module (Manifolding-OS utils)
+  #:use-module (Manifolding-OS git)
+  #:use-module (Manifolding-OS upstream)
+  #:use-module (Manifolding-OS diagnostics)
   #:use-module (gnu packages)
   #:use-module (gnu packages base)
   #:use-module (gnu packages busybox)
@@ -60,8 +60,8 @@
 (test-assert "options->transformation, with-source"
   ;; Our pseudo-package is called 'guix.scm' so the 'guix.scm' source should
   ;; be applicable.
-  (let* ((p (dummy-package "guix.scm"))
-         (s (search-path %load-path "guix.scm"))
+  (let* ((p (dummy-package "Manifolding-OS.scm"))
+         (s (search-path %load-path "Manifolding-OS.scm"))
          (t (options->transformation `((with-source . ,s)))))
     (with-store store
       (let* ((new (t p))
@@ -69,14 +69,14 @@
                        (lower-object (package-source new)))))
         (and (not (eq? new p))
              (string=? source
-                       (add-to-store store "guix.scm" #t
+                       (add-to-store store "Manifolding-OS.scm" #t
                                      "sha256" s)))))))
 
 (test-assert "options->transformation, with-source, replacement"
   ;; Same, but this time the original package has a 'replacement' field.  We
   ;; expect that replacement to be set to #f in the new package.
-  (let* ((p (dummy-package "guix.scm" (replacement coreutils)))
-         (s (search-path %load-path "guix.scm"))
+  (let* ((p (dummy-package "Manifolding-OS.scm" (replacement coreutils)))
+         (s (search-path %load-path "Manifolding-OS.scm"))
          (t (options->transformation `((with-source . ,s)))))
     (let ((new (t p)))
       (and (not (eq? new p))
@@ -86,7 +86,7 @@
   ;; Our pseudo-package is called 'guix.scm' so the 'guix.scm-2.0' source
   ;; should be applicable, and its version should be extracted.
   (let ((p (dummy-package "foo"))
-        (s (search-path %load-path "guix.scm")))
+        (s (search-path %load-path "Manifolding-OS.scm")))
     (call-with-temporary-directory
      (lambda (directory)
        (let* ((f (string-append directory "/foo-42.0.tar.gz"))
@@ -105,14 +105,14 @@
 
 (test-assert "options->transformation, with-source, no matches"
   (let* ((p (dummy-package "foobar"))
-         (s (search-path %load-path "guix.scm"))
+         (s (search-path %load-path "Manifolding-OS.scm"))
          (t (options->transformation `((with-source . ,s)))))
     (eq? (package-source (t p))
          (package-source p))))
 
 (test-assert "options->transformation, with-source, PKG=URI"
   (let* ((p (dummy-package "foo"))
-         (s (search-path %load-path "guix.scm"))
+         (s (search-path %load-path "Manifolding-OS.scm"))
          (f (string-append "foo=" s))
          (t (options->transformation `((with-source . ,f)))))
     (with-store store
@@ -129,7 +129,7 @@
 
 (test-assert "options->transformation, with-source, PKG@VER=URI"
   (let* ((p (dummy-package "foo"))
-         (s (search-path %load-path "guix.scm"))
+         (s (search-path %load-path "Manifolding-OS.scm"))
          (f (string-append "foo@42.0=" s))
          (t (options->transformation `((with-source . ,f)))))
     (with-store store
@@ -145,7 +145,7 @@
 
 (test-assert "options->transformation, with-source, in depth"
   (let* ((p0 (dummy-package "foo" (version "0.0")))
-         (s  (search-path %load-path "guix.scm"))
+         (s  (search-path %load-path "Manifolding-OS.scm"))
          (f  (string-append "foo@42.0=" s))
          (t  (options->transformation `((with-source . ,f))))
          (p1 (dummy-package "bar" (inputs (list p0))))
@@ -167,7 +167,7 @@
                                      (package-source p0*))))))))))))))
 
 (test-assert "options->transformation, with-input"
-  (let* ((p (dummy-package "guix.scm"
+  (let* ((p (dummy-package "Manifolding-OS.scm"
               (inputs `(("foo" ,(specification->package "coreutils"))
                         ("bar" ,(specification->package "grep"))
                         ("baz" ,(dummy-package "chbouib"
@@ -194,7 +194,7 @@
   (test-skip 1))
 
 (test-assert "options->transformation, with-graft"
-  (let* ((p (dummy-package "guix.scm"
+  (let* ((p (dummy-package "Manifolding-OS.scm"
               (inputs `(("foo" ,grep)
                         ("bar" ,(dummy-package "chbouib"
                                   (native-inputs `(("x" ,grep)))))))))
@@ -219,7 +219,7 @@
 (test-equal "options->transformation, with-branch"
   (git-checkout (url "https://example.org")
                 (branch "devel"))
-  (let* ((p (dummy-package "guix.scm"
+  (let* ((p (dummy-package "Manifolding-OS.scm"
               (inputs `(("foo" ,grep)
                         ("bar" ,(dummy-package "chbouib"
                                   (source (origin
@@ -242,7 +242,7 @@
   (git-checkout (url "https://example.org")
                 (branch "devel")
                 (recursive? #t))
-  (let* ((p (dummy-package "guix.scm"
+  (let* ((p (dummy-package "Manifolding-OS.scm"
               (inputs `(("foo" ,grep)
                         ("bar" ,(dummy-package "chbouib"
                                   (source (origin
@@ -265,7 +265,7 @@
 (test-equal "options->transformation, with-commit"
   (git-checkout (url "https://example.org")
                 (commit "abcdef"))
-  (let* ((p (dummy-package "guix.scm"
+  (let* ((p (dummy-package "Manifolding-OS.scm"
               (inputs `(("foo" ,grep)
                         ("bar" ,(dummy-package "chbouib"
                                   (source (origin
@@ -288,7 +288,7 @@
   (git-checkout (url "https://example.org")
                 (commit "abcdef")
                 (recursive? #t))
-  (let* ((p (dummy-package "guix.scm"
+  (let* ((p (dummy-package "Manifolding-OS.scm"
               (inputs `(("foo" ,grep)
                         ("bar" ,(dummy-package "chbouib"
                                   (source (origin
@@ -311,7 +311,7 @@
 (test-equal "options->transformation, with-commit, version transformation"
   '("1.0" "1.0-rc1-2-gabc123" "git.abc123")
   (map (lambda (commit)
-         (let* ((p (dummy-package "guix.scm"
+         (let* ((p (dummy-package "Manifolding-OS.scm"
                      (inputs `(("foo" ,(dummy-package "chbouib"
                                          (source (origin
                                                    (method git-fetch)
@@ -332,7 +332,7 @@
   (let ((source (git-checkout (url "https://example.org")
                               (recursive? #t))))
     (list source source))
-  (let* ((p (dummy-package "guix.scm"
+  (let* ((p (dummy-package "Manifolding-OS.scm"
               (inputs `(("foo" ,grep)
                         ("bar" ,(dummy-package "chbouib"
                                   (native-inputs `(("x" ,grep)))))))))
@@ -355,7 +355,7 @@
                               (branch "BRANCH")
                               (recursive? #t))))
     (list source source))
-  (let* ((p (dummy-package "guix.scm"
+  (let* ((p (dummy-package "Manifolding-OS.scm"
               (inputs `(("foo" ,grep)
                         ("bar" ,(dummy-package "chbouib"
                                   (native-inputs `(("x" ,grep)))))))))
@@ -538,7 +538,7 @@
         ((? computed-file? source)
          (let* ((gexp   (computed-file-gexp source))
                 (inputs (map gexp-input-thing
-                             ((@@ (guix gexp) gexp-inputs) gexp))))
+                             ((@@ (Manifolding-OS gexp) gexp-inputs) gexp))))
            (list (any (lambda (input)
                         (and (git-checkout? input)
                              (string=? commit (git-checkout-commit input))))
@@ -564,7 +564,7 @@
   '("42.0" "42.0"
     ("http://example.org")
     ("a" "b") (do something))
-  (mock ((guix upstream) %updaters
+  (mock ((Manifolding-OS upstream) %updaters
          (delay (list (upstream-updater
                        (name 'dummy)
                        (pred (const #t))
@@ -591,7 +591,7 @@
 
 (test-equal "options->transformation, with-latest"
   "42.0"
-  (mock ((guix upstream) %updaters
+  (mock ((Manifolding-OS upstream) %updaters
          (delay (list (upstream-updater
                        (name 'dummy)
                        (pred (const #t))
@@ -607,7 +607,7 @@
 
 (test-equal "options->transformation, with-version"
   "1.0"
-  (mock ((guix upstream) %updaters
+  (mock ((Manifolding-OS upstream) %updaters
          (delay (list (upstream-updater
                        (name 'dummy)
                        (pred (const #t))

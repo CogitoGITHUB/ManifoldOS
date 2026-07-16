@@ -70,15 +70,15 @@
   #:use-module (gnu packages gnome)
   #:use-module (gnu packages ipfs)
   #:use-module (gnu build linux-container)
-  #:autoload   (guix least-authority) (least-authority-wrapper)
-  #:use-module (guix gexp)
-  #:use-module (guix records)
-  #:use-module (guix modules)
-  #:use-module (guix packages)
-  #:use-module (guix deprecation)
-  #:use-module (guix diagnostics)
-  #:autoload   (guix ui) (display-hint)
-  #:use-module (guix i18n)
+  #:autoload   (Manifolding-OS least-authority) (least-authority-wrapper)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS records)
+  #:use-module (Manifolding-OS modules)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS deprecation)
+  #:use-module (Manifolding-OS diagnostics)
+  #:autoload   (Manifolding-OS ui) (display-hint)
+  #:use-module (Manifolding-OS i18n)
   #:use-module (rnrs enums)
   #:use-module (srfi srfi-1)
   #:use-module (srfi srfi-9)
@@ -399,7 +399,7 @@
   (match-record config <dhcpd-configuration>
     (package config-file version run-directory
              lease-file pid-file interfaces)
-    (with-imported-modules '((guix build utils))
+    (with-imported-modules '((Manifolding-OS build utils))
       #~(begin
           (unless (file-exists? #$run-directory)
             (mkdir #$run-directory))
@@ -697,9 +697,9 @@ restrict source notrap nomodify noquery\n"))
 
 (define (ntp-service-activation config)
   "Return the activation gexp for CONFIG."
-  (with-imported-modules '((guix build utils))
+  (with-imported-modules '((Manifolding-OS build utils))
     #~(begin
-        (use-modules (guix build utils))
+        (use-modules (Manifolding-OS build utils))
         (define %user
           (getpw "ntpd"))
 
@@ -803,9 +803,9 @@ will keep the system clock synchronized with that of the given servers.")
 
 (define (openntpd-service-activation config)
   "Return the activation gexp for CONFIG."
-  (with-imported-modules '((guix build utils))
+  (with-imported-modules '((Manifolding-OS build utils))
     #~(begin
-        (use-modules (guix build utils))
+        (use-modules (Manifolding-OS build utils))
 
         (mkdir-p "/var/db")
         (mkdir-p "/var/run")
@@ -1115,9 +1115,9 @@ maps ports 22 and 80 of the Onion Service to the local ports 22 and 8080."))
          transport-plugins)
     (computed-file
      "torrc"
-     (with-imported-modules '((guix build utils))
+     (with-imported-modules '((Manifolding-OS build utils))
        #~(begin
-           (use-modules (guix build utils)
+           (use-modules (Manifolding-OS build utils)
                         (ice-9 match))
 
            (call-with-output-file #$output
@@ -1229,7 +1229,7 @@ HiddenServicePort ~a ~a~%"
 (define (tor-activation config)
   "Set up directories for Tor and its hidden services, if any."
   #~(begin
-      (use-modules (guix build utils))
+      (use-modules (Manifolding-OS build utils))
 
       (define %user
         (getpw "tor"))
@@ -1362,7 +1362,7 @@ project's documentation} for more information."
   (match-record config <network-manager-configuration>
                 (network-manager dns vpn-plugins extra-configuration-files dnsmasq-configuration-files)
     #~(begin
-        (use-modules (guix build utils))
+        (use-modules (Manifolding-OS build utils))
         (mkdir-p "/etc/NetworkManager/system-connections")
         #$@(if (equal? dns "dnsmasq")
                ;; create directory to store dnsmasq lease file
@@ -1776,9 +1776,9 @@ set @file{/dev/null}.")
 
 (define (connman-activation config)
   (let ((disable-vpn? (connman-configuration-disable-vpn? config)))
-    (with-imported-modules '((guix build utils))
+    (with-imported-modules '((Manifolding-OS build utils))
       #~(begin
-          (use-modules (guix build utils))
+          (use-modules (Manifolding-OS build utils))
           (mkdir-p "/var/lib/connman/")
           (unless #$disable-vpn?
             (mkdir-p "/var/lib/connman-vpn/"))))))
@@ -1888,9 +1888,9 @@ will be run by USB_ModeSwitch’s udev rules file when a modeswitchable USB
 device is detected."
   (computed-file
    "usb_modeswitch-sh"
-   (with-imported-modules '((guix build utils))
+   (with-imported-modules '((Manifolding-OS build utils))
      #~(begin
-         (use-modules (guix build utils))
+         (use-modules (Manifolding-OS build utils))
          (let ((cfg-param
                 #$(if config-file
                       #~(string-append " --config-file=" #$config-file)
@@ -1924,9 +1924,9 @@ config file."
     (usb-modeswitch usb-modeswitch-data config-file)
     (computed-file
      "usb_modeswitch.rules"
-     (with-imported-modules '((guix build utils))
+     (with-imported-modules '((Manifolding-OS build utils))
        #~(begin
-           (use-modules (guix build utils))
+           (use-modules (Manifolding-OS build utils))
            (let ((in (string-append #$usb-modeswitch-data
                                     "/udev/40-usb_modeswitch.rules"))
                  (out (string-append #$output "/lib/udev/rules.d"))
@@ -2378,9 +2378,9 @@ simulation."
 (define (openvswitch-activation config)
   (let ((ovsdb-tool (file-append (openvswitch-configuration-package config)
                                  "/bin/ovsdb-tool")))
-    (with-imported-modules '((guix build utils))
+    (with-imported-modules '((Manifolding-OS build utils))
       #~(begin
-          (use-modules (guix build utils))
+          (use-modules (Manifolding-OS build utils))
           (mkdir-p "/var/run/openvswitch")
           (mkdir-p "/var/lib/openvswitch")
           (let ((conf.db "/var/lib/openvswitch/conf.db"))

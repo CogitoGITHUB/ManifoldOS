@@ -20,8 +20,8 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu build bootloader)
-  #:use-module (guix build utils)
-  #:use-module (guix utils)
+  #:use-module (Manifolding-OS build utils)
+  #:use-module (Manifolding-OS utils)
   #:use-module (ice-9 binary-ports)
   #:use-module (ice-9 format)
   #:use-module (rnrs io ports)

@@ -21,8 +21,8 @@
              (ice-9 match)
              (ice-9 threads)
              (srfi srfi-1)
-             (guix build compile)
-             (guix build utils))
+             (Manifolding-OS build compile)
+             (Manifolding-OS build utils))
 
 (define host (getenv "host"))
 (define srcdir (getenv "srcdir"))
@@ -137,7 +137,7 @@ to 'make'."
                            (stack-ref stack 1)    ;skip the 'throw' frame
                            (stack-ref stack 0)))
               (ui      (false-if-exception
-                        (resolve-module '(guix ui))))
+                        (resolve-module '(Manifolding-OS ui))))
               (report  (and ui
                             (false-if-exception
                              (module-ref ui 'report-load-error)))))

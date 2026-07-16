@@ -46,14 +46,14 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages emacs)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix packages)
-  #:use-module (guix gexp)
-  #:use-module (guix download)
-  #:use-module (guix git-download)
-  #:use-module (guix build-system)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system glib-or-gtk)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS build-system)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system glib-or-gtk)
   #:use-module (gnu packages)
   #:use-module (gnu packages acl)
   #:use-module (gnu packages autotools)
@@ -91,15 +91,15 @@
   #:use-module (gnu packages webkit)
   #:use-module (gnu packages xml)
   #:use-module (gnu packages xorg)
-  #:use-module (guix utils)
+  #:use-module (Manifolding-OS utils)
   #:use-module (ice-9 match)
   #:use-module (srfi srfi-1)
   #:export (emacs->emacs-next))
 
 (define (%emacs-modules build-system)
   (let ((which (build-system-name build-system)))
-    `((guix build ,(symbol-append which '-build-system))
-      (guix build utils)
+    `((Manifolding-OS build ,(symbol-append which '-build-system))
+      (Manifolding-OS build utils)
       (srfi srfi-1)
       (ice-9 ftw))))
 
@@ -225,7 +225,7 @@
                                        "emacs-native-comp-fix-filenames.patch"
                                        "emacs-native-comp-pin-packages.patch"
                                        "emacs-zoom-image-test-fix.patch"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                '(with-directory-excursion "lisp"
                   ;; Delete the bundled byte-compiled elisp files and generated

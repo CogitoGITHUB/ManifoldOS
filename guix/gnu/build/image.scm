@@ -25,11 +25,11 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu build image)
-  #:use-module (guix build store-copy)
-  #:use-module (guix build syscalls)
-  #:use-module (guix build utils)
-  #:use-module (guix store database)
-  #:use-module (guix utils)
+  #:use-module (Manifolding-OS build store-copy)
+  #:use-module (Manifolding-OS build syscalls)
+  #:use-module (Manifolding-OS build utils)
+  #:use-module (Manifolding-OS store database)
+  #:use-module (Manifolding-OS utils)
   #:use-module (gnu build bootloader)
   #:use-module (gnu build install)
   #:use-module (gnu build linux-boot)

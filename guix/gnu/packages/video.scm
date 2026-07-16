@@ -100,28 +100,28 @@
   #:use-module (ice-9 match)
   #:use-module ((srfi srfi-1) #:hide (zip))
   #:use-module (srfi srfi-26)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix utils)
-  #:use-module (guix packages)
-  #:use-module (guix deprecation)
-  #:use-module (guix download)
-  #:use-module (guix gexp)
-  #:use-module (guix git-download)
-  #:use-module (guix svn-download)
-  #:use-module (guix hg-download)
-  #:use-module (guix build-system cargo)
-  #:use-module (guix build-system cmake)
-  #:use-module (guix build-system copy)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system go)
-  #:use-module (guix build-system glib-or-gtk)
-  #:use-module (guix build-system linux-module)
-  #:use-module (guix build-system meson)
-  #:use-module (guix build-system perl)
-  #:use-module (guix build-system pyproject)
-  #:use-module (guix build-system qt)
-  #:use-module (guix build-system waf)
-  #:use-module (guix build-system trivial)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS utils)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS deprecation)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS svn-download)
+  #:use-module (Manifolding-OS hg-download)
+  #:use-module (Manifolding-OS build-system cargo)
+  #:use-module (Manifolding-OS build-system cmake)
+  #:use-module (Manifolding-OS build-system copy)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system go)
+  #:use-module (Manifolding-OS build-system glib-or-gtk)
+  #:use-module (Manifolding-OS build-system linux-module)
+  #:use-module (Manifolding-OS build-system meson)
+  #:use-module (Manifolding-OS build-system perl)
+  #:use-module (Manifolding-OS build-system pyproject)
+  #:use-module (Manifolding-OS build-system qt)
+  #:use-module (Manifolding-OS build-system waf)
+  #:use-module (Manifolding-OS build-system trivial)
   #:use-module (gnu packages)
   #:use-module (gnu packages aidc)
   #:use-module (gnu packages algebra)
@@ -608,7 +608,7 @@ library.")
               (sha256
                (base32
                 "0w81pg228154blzbzr590xwhcll9baxyqxl6wxrgqsi9cd7pzq23"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                '(begin
                   (with-directory-excursion "mjpg-streamer-experimental/www"
@@ -917,7 +917,7 @@ mpv's powerful playback capabilities.")
              (file-name (git-file-name name version))
              (sha256
               (base32 "0k1y7irz1hqfzs6yqv4brgwpa04biv50z05gc584h9md0y5y52k7"))
-             (modules '((guix build utils)))
+             (modules '((Manifolding-OS build utils)))
              (snippet
               #~(begin (substitute* "liba52/Makefile.am"
                          ;; Set so name to liba52-$(VERSION).so
@@ -1097,7 +1097,7 @@ H.264 (MPEG-4 AVC) video streams.")
                            "mkvtoolnix-" version ".tar.xz"))
        (sha256
         (base32 "1lr9d6l4jj7pzjc78fhsg4qicyvizfidp8hnjpq5mzqiw1kbyhsx"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet '(begin
                    ;; Delete bundled libraries.
                    (for-each delete-file-recursively
@@ -1242,13 +1242,13 @@ H.264 (MPEG-4 AVC) video streams.")
     (build-system perl-build-system)
     (arguments
      `(#:imported-modules
-       ((guix build copy-build-system)
+       ((Manifolding-OS build copy-build-system)
         ,@%perl-build-system-modules)
        #:modules
-       (((guix build copy-build-system)
+       (((Manifolding-OS build copy-build-system)
          #:prefix copy:)
-        (guix build perl-build-system)
-        (guix build utils)
+        (Manifolding-OS build perl-build-system)
+        (Manifolding-OS build utils)
         (srfi srfi-26))
        #:module-build-flags
        (list
@@ -1351,7 +1351,7 @@ on the Invidious instances only as a fallback method.")
         (sha256
          (base32 "1s6afxj61jdwfjnn70dwiql34fbqsvn6zv10785vmjyar8sk62p7"))
         (patches (search-patches "x265-arm-flags.patch"))
-        (modules '((guix build utils)))
+        (modules '((Manifolding-OS build utils)))
         (snippet '(begin
                     (delete-file-recursively "source/compat/getopt")))))
     (build-system cmake-build-system)
@@ -1460,7 +1460,7 @@ designed to encode video or images into an H.265 / HEVC encoded bitstream.")
         (sha256
          (base32 "0acgmzbpjhwapxggx0h40m4lppk5vykydrai055vf1lqm339j5m3"))
         (patches (search-patches "x265-4-arm-flags.patch"))
-        (modules '((guix build utils)))
+        (modules '((Manifolding-OS build utils)))
         (snippet '(begin
                     (delete-file-recursively "source/compat/getopt")))))))
 
@@ -3021,9 +3021,9 @@ subtitles.  Menus are searchable and support mouse scroll wheel.")
      (list #:tests? #false              ; no tests
            #:make-flags #~(list (string-append "PREFIX=" #$output)
                                 (string-append "CC=" #+(cc-for-target)))
-           #:modules '((guix build qt-build-system)
-                       ((guix build gnu-build-system) #:prefix gnu:)
-                       (guix build utils))
+           #:modules '((Manifolding-OS build qt-build-system)
+                       ((Manifolding-OS build gnu-build-system) #:prefix gnu:)
+                       (Manifolding-OS build utils))
            #:phases
            #~(modify-phases %standard-phases
                (delete 'configure)
@@ -3213,7 +3213,7 @@ Interfacing Specification) plugin for the @code{mpv} media player.  It implement
 interfaces.
 
 To load this plugin, specify the following option when starting mpv:
-@code{--script $GUIX_PROFILE/lib/mpv-mpris/mpris.so} or link it into
+@code{--script $MANIFOLDING_OS_PROFILE/lib/mpv-mpris/mpris.so} or link it into
 @file{$HOME/.config/mpv/scripts}.")
     (license license:expat)))
 
@@ -3298,7 +3298,7 @@ wallpaper using mpv.")
               (sha256
                (base32
                 "0h1zcxxhvshbc3gkmr33npki6sdjh79haack1cci9k40a0gk144v"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet '(begin
                           ;; Delete prebuilt binary file.
                           (delete-file "orfondl")))))
@@ -3526,8 +3526,8 @@ audio, images) from the Web.  It can use either mpv or vlc for playback.")
            xdg-utils
            yt-dlp))
     (arguments
-     `(#:modules ((guix build perl-build-system)
-                  (guix build utils)
+     `(#:modules ((Manifolding-OS build perl-build-system)
+                  (Manifolding-OS build utils)
                   (srfi srfi-26))
        ;; gtk-2/3 variants are both installed by default but the gtk3 variant
        ;; is broken without perl-gtk3.
@@ -4414,8 +4414,8 @@ and JACK.")
     (build-system cmake-build-system)
     (arguments
      (list
-      #:modules '((guix build cmake-build-system)
-                  (guix build utils))
+      #:modules '((Manifolding-OS build cmake-build-system)
+                  (Manifolding-OS build utils))
       #:tests? #f ;no tests
       #:configure-flags
       #~(list (string-append "-DLIBOBS_INCLUDE_DIR="
@@ -4462,7 +4462,7 @@ applied via a static image (.png, .jpeg, etc).
        (sha256
         (base32
           "15r4ck2agzhjzjkmczs3ag36km32axcjsz0m57yh568b3nrcxmj3"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        ;; FIXME: libremidi@3.2 and jsoncons could be unbundled
        ;; cpp-httplib is too old to unbundle
        (snippet #~(begin
@@ -4561,8 +4561,8 @@ be used to simultaneously stream to multiple platforms, or to record
     (build-system cmake-build-system)
     (arguments
      (list
-      #:modules '((guix build cmake-build-system)
-                  (guix build utils))
+      #:modules '((Manifolding-OS build cmake-build-system)
+                  (Manifolding-OS build utils))
       #:tests? #f ;no tests
       #:configure-flags
       #~(list (string-append "-DLIBOBS_INCLUDE_DIR="
@@ -4638,8 +4638,8 @@ such as logos, lower thirds or anything done through a Nested Scene.")
     (build-system cmake-build-system)
     (arguments
      (list
-      #:modules '((guix build cmake-build-system)
-                  (guix build utils))
+      #:modules '((Manifolding-OS build cmake-build-system)
+                  (Manifolding-OS build utils))
       #:tests? #f ;no tests
       #:configure-flags
       #~(list (string-append "-DLIBOBS_INCLUDE_DIR="
@@ -4767,8 +4767,8 @@ Looking Glass.")
     (build-system cmake-build-system)
     (arguments
      (list
-      #:modules '((guix build cmake-build-system)
-                  (guix build utils))
+      #:modules '((Manifolding-OS build cmake-build-system)
+                  (Manifolding-OS build utils))
       #:tests? #f ;no tests
       #:configure-flags
       #~(list (string-append "-DLIBOBS_INCLUDE_DIR="
@@ -4860,8 +4860,8 @@ inputs and applications using PipeWire.")
     (build-system cmake-build-system)
     (arguments
      (list
-      #:modules '((guix build cmake-build-system)
-                  (guix build utils))
+      #:modules '((Manifolding-OS build cmake-build-system)
+                  (Manifolding-OS build utils))
       #:tests? #f ;no tests
       #:configure-flags
       #~(list (string-append "-DLIBOBS_INCLUDE_DIR="
@@ -4893,8 +4893,8 @@ shader code.")
     (build-system cmake-build-system)
     (arguments
      (list
-      #:modules '((guix build cmake-build-system)
-                  (guix build utils))
+      #:modules '((Manifolding-OS build cmake-build-system)
+                  (Manifolding-OS build utils))
       #:tests? #f ;no tests
       #:configure-flags
       #~(list (string-append "-DLIBOBS_INCLUDE_DIR="
@@ -5123,7 +5123,7 @@ implementation.")
          (base32
           "1x2ag1f2fwa4yh1g5spv99w9x1m33hbxlqwyhm205ssq0ra234bx"))
         (patches (search-patches "libvdpau-va-gl-unbundle.patch"))
-        (modules '((guix build utils)))
+        (modules '((Manifolding-OS build utils)))
         (snippet '(begin (delete-file-recursively "3rdparty")
                          #t))))
     (build-system cmake-build-system)
@@ -5405,7 +5405,7 @@ Content System specification.")
               (sha256
                (base32
                 "1nzqlpzgmkzs85c9lglqxj2z27p7c26w54kv20j6rhygz321qpn6"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                '(begin
                   (for-each delete-file-recursively
@@ -5632,7 +5632,7 @@ post-processing of video formats like MPEG2, H.264/AVC, and VC-1.")
               (sha256
                (base32
                 "0qram9cb77x0f29v6nbzwsd5mwdfw9m1k4d8pcny3ij7p26rfwp7"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                '(begin
                   (substitute* "CMakeLists.txt"
@@ -6137,7 +6137,7 @@ tools for styling them, including a built-in real-time video preview.")
          (add-after 'glib-or-gtk-wrap 'wrap-other-dependencies
            (lambda* (#:key outputs #:allow-other-keys)
              (wrap-program (search-input-file outputs "bin/pitivi")
-               `("GUIX_PYTHONPATH" = (,(getenv "GUIX_PYTHONPATH")))
+               `("MANIFOLDING_OS_PYTHONPATH" = (,(getenv "MANIFOLDING_OS_PYTHONPATH")))
                `("GI_TYPELIB_PATH" = (,(getenv "GI_TYPELIB_PATH")))
                ;; We've only added inputs for what Pitivi deems either
                ;; necessary or optional.  Let the user's packages take
@@ -6295,9 +6295,9 @@ changed.  Or in other words, it can detect motion.")
                   "0kmk5ck1j49q4ww0lvas2767kwnzhkq0vdwkmjypdx5zkxz73fn8"))))
       (build-system trivial-build-system)
       (arguments
-       `(#:modules ((guix build utils))
+       `(#:modules ((Manifolding-OS build utils))
          #:builder (begin
-                     (use-modules (guix build utils))
+                     (use-modules (Manifolding-OS build utils))
                      (let* ((out (assoc-ref %outputs "out"))
                             (bin (string-append out "/bin"))
                             (source (assoc-ref %build-inputs "source"))
@@ -6421,7 +6421,7 @@ create smoother and stable videos.")
               (sha256
                (base32
                 "1xkhkmjwidricnzzn5scbwiyiw8zx6nl2ylncyw474gx33jihp62"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet '(begin
                           ;; Allow overriding of the python installation dir
                           (substitute* "bindings/python/CMakeLists.txt"
@@ -6485,7 +6485,7 @@ API.  It includes bindings for Python, Ruby, and other languages.")
               (sha256
                (base32
                 "1ap322f5l5bxj28nlyfwz2jshsscf03d5ir3s9jw76gshxp59m8g"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         '(begin
            ;; TODO: Unbundle jquery and others from src/timeline/media
@@ -6493,11 +6493,11 @@ API.  It includes bindings for Python, Ruby, and other languages.")
     (build-system pyproject-build-system)
     (arguments
      (list
-      #:modules `((guix build pyproject-build-system)
-                  (guix build qt-utils)
-                  (guix build utils))
+      #:modules `((Manifolding-OS build pyproject-build-system)
+                  (Manifolding-OS build qt-utils)
+                  (Manifolding-OS build utils))
       #:imported-modules
-      (cons* '(guix build qt-utils) %pyproject-build-system-modules)
+      (cons* '(Manifolding-OS build qt-utils) %pyproject-build-system-modules)
       #:phases
       #~(modify-phases %standard-phases
           (replace 'check
@@ -7303,18 +7303,18 @@ others.")
         (base32 "08bgndszja4n2kql2qmzl6qrzawxvcwmywsc69lq0dzjnpdk96la"))
        ;; XXX: python-qt.py has to be unbundled too, with additional efforts.
        ;; Here, darkdetect is never reached and is thus easier to remove.
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet #~(delete-file-recursively "syncplay/vendor/darkdetect"))))
     (build-system pyproject-build-system)
     (arguments
      (list
       #:tests? #f                       ; No tests.
       #:imported-modules `(,@%pyproject-build-system-modules
-                           (guix build qt-utils)
-                           (guix build utils))
-      #:modules '((guix build pyproject-build-system)
-                  (guix build qt-utils)
-                  (guix build utils))
+                           (Manifolding-OS build qt-utils)
+                           (Manifolding-OS build utils))
+      #:modules '((Manifolding-OS build pyproject-build-system)
+                  (Manifolding-OS build qt-utils)
+                  (Manifolding-OS build utils))
       #:phases
       #~(modify-phases %standard-phases
           (replace 'install

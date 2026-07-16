@@ -18,12 +18,12 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu build chromium-extension)
-  #:use-module (guix gexp)
-  #:use-module (guix packages)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS packages)
   #:use-module (gnu packages gnupg)
   #:use-module (gnu packages tls)
   #:use-module (gnu packages node-xyz)
-  #:use-module (guix build-system trivial)
+  #:use-module (Manifolding-OS build-system trivial)
   #:export (make-chromium-extension))
 
 ;;; Commentary:
@@ -67,9 +67,9 @@ in PACKAGE-OUTPUT of PACKAGE.  The extension will be signed with SIGNING-KEY."
 
   (computed-file
    (string-append name "-" version ".crx")
-   (with-imported-modules '((guix build utils))
+   (with-imported-modules '((Manifolding-OS build utils))
      #~(begin
-         (use-modules (guix build utils))
+         (use-modules (Manifolding-OS build utils))
          (let ((crx3 #+(file-append node-crx3 "/bin/crx3"))
                (packdir (string-append (getcwd) "/extension")))
            (mkdir packdir)
@@ -131,7 +131,7 @@ Chromium browser extension.  PKG-OUTPUT specifies which output of PKG to use."
       (outputs '("out"))
       (build-system trivial-build-system)
       (arguments
-       (list #:modules '((guix build utils))
+       (list #:modules '((Manifolding-OS build utils))
              #:builder
              (let*
                  ((private-key (make-signing-key name))
@@ -140,7 +140,7 @@ Chromium browser extension.  PKG-OUTPUT specifies which output of PKG to use."
                   (crx (make-crx private-key pkg pkg-output))
                   (json (crx->chromium-json crx version)))
                #~(begin
-                   (use-modules (guix build utils))
+                   (use-modules (Manifolding-OS build utils))
                    (define (base16-char->chromium-base16 char)
                      ;; Translate CHAR, a hexadecimal character, to a Chromium-style
                      ;; representation using the letters a-p (where a=0, p=15).

@@ -27,11 +27,11 @@
   #:use-module (gnu packages base)
   #:use-module (gnu packages bash)
   #:use-module (gnu packages ncurses)
-  #:use-module (guix licenses)
-  #:use-module (guix packages)
-  #:use-module (guix download)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix utils))
+  #:use-module (Manifolding-OS licenses)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS utils))
 
 (define-public entr
   (package

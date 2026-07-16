@@ -34,20 +34,20 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages cmake)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix packages)
-  #:use-module (guix gexp)
-  #:use-module (guix download)
-  #:use-module (guix gexp)
-  #:use-module (guix git-download)
-  #:use-module (guix utils)
-  #:use-module (guix deprecation)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system cmake)
-  #:use-module (guix build-system copy)
-  #:use-module (guix build-system emacs)
-  #:use-module (guix build-system pyproject)
-  #:use-module ((guix search-paths) #:select ($SSL_CERT_DIR $SSL_CERT_FILE))
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS utils)
+  #:use-module (Manifolding-OS deprecation)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system cmake)
+  #:use-module (Manifolding-OS build-system copy)
+  #:use-module (Manifolding-OS build-system emacs)
+  #:use-module (Manifolding-OS build-system pyproject)
+  #:use-module ((Manifolding-OS search-paths) #:select ($SSL_CERT_DIR $SSL_CERT_FILE))
   #:use-module (gnu packages)
   #:use-module (gnu packages backup)
   #:use-module (gnu packages compression)
@@ -87,7 +87,7 @@
           (git-file-name name version))
          (sha256
           (base32 "05avwzqcnliwx9h7qi1kl0iz4smqmxc4vkavyjbmlc6h2b97i58g"))
-         (modules '((guix build utils)
+         (modules '((Manifolding-OS build utils)
                     (ice-9 ftw)
                     (srfi srfi-1)))
          (snippet
@@ -502,8 +502,8 @@ and workspaces that can be used in the compiler environment of your choice.")
     (arguments
      (list
       #:tests? #f        ;no test data in pypi archive
-      #:modules '((guix build pyproject-build-system)
-                  (guix build utils)
+      #:modules '((Manifolding-OS build pyproject-build-system)
+                  (Manifolding-OS build utils)
                   (ice-9 textual-ports))
       #:phases
       #~(modify-phases %standard-phases

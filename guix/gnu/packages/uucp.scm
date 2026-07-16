@@ -28,12 +28,12 @@
   #:use-module (gnu packages golang-web)
   #:use-module (gnu packages golang-xyz)
   #:use-module (gnu packages texinfo)
-  #:use-module (guix licenses)
-  #:use-module (guix packages)
-  #:use-module (guix download)
-  #:use-module (guix gexp)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system go))
+  #:use-module (Manifolding-OS licenses)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system go))
 
 (define-public uucp
   (package
@@ -81,7 +81,7 @@ between computers.")
         (base32
          "1x057liwly7pk73l866nsbk3pcx9ndh1f0syjzc9hl80k076iqwc"))
        (modules '((ice-9 ftw)
-                  (guix build utils)))
+                  (Manifolding-OS build utils)))
        (snippet
         #~(begin
             ;; TODO: Find out how to obtain sources for go.cypherpunks.ru and

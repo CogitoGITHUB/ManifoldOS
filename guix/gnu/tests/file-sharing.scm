@@ -27,7 +27,7 @@
   #:use-module (gnu services networking)
   #:use-module (gnu system vm)
   #:use-module (gnu tests)
-  #:use-module (guix gexp)
+  #:use-module (Manifolding-OS gexp)
   #:export (%test-transmission-daemon))
 
 (define %transmission-daemon-user "transmission")

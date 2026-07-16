@@ -20,11 +20,11 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages nicotine)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix packages)
-  #:use-module (guix gexp)
-  #:use-module (guix git-download)
-  #:use-module (guix build-system pyproject)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS build-system pyproject)
   #:use-module (gnu packages bash)
   #:use-module (gnu packages freedesktop)
   #:use-module (gnu packages glib)
@@ -52,19 +52,19 @@
     (arguments
      (list
       #:imported-modules
-      `((guix build glib-or-gtk-build-system)
+      `((Manifolding-OS build glib-or-gtk-build-system)
         ,@%pyproject-build-system-modules)
       #:modules
-      `((guix build utils)
-        (guix build pyproject-build-system)
-        ((guix build glib-or-gtk-build-system) #:prefix glib-or-gtk:))
+      `((Manifolding-OS build utils)
+        (Manifolding-OS build pyproject-build-system)
+        ((Manifolding-OS build glib-or-gtk-build-system) #:prefix glib-or-gtk:))
       #:phases
       #~(modify-phases %standard-phases
           (add-after 'install 'wrap-program
             (lambda _
               (wrap-program (string-append #$output "/bin/nicotine")
-                `("GUIX_GDK_PIXBUF_MODULE_FILES" ":" suffix
-                  (,(getenv "GUIX_GDK_PIXBUF_MODULE_FILES")))
+                `("MANIFOLDING_OS_GDK_PIXBUF_MODULE_FILES" ":" suffix
+                  (,(getenv "MANIFOLDING_OS_GDK_PIXBUF_MODULE_FILES")))
                 `("GI_TYPELIB_PATH" ":" prefix
                   (,(getenv "GI_TYPELIB_PATH"))))))
           (add-after 'wrap-program 'glib-or-gtk-wrap

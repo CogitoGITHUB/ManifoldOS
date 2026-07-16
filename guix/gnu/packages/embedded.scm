@@ -33,21 +33,21 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages embedded)
-  #:use-module (guix utils)
-  #:use-module (guix packages)
-  #:use-module (guix deprecation)
-  #:use-module (guix download)
-  #:use-module (guix gexp)
-  #:use-module (guix memoization)
-  #:use-module (guix svn-download)
-  #:use-module (guix git-download)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix build-system cargo)
-  #:use-module (guix build-system cmake)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system pyproject)
-  #:use-module (guix build-system trivial)
-  #:use-module ((guix build utils) #:select (alist-replace delete-file-recursively))
+  #:use-module (Manifolding-OS utils)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS deprecation)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS memoization)
+  #:use-module (Manifolding-OS svn-download)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS build-system cargo)
+  #:use-module (Manifolding-OS build-system cmake)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system pyproject)
+  #:use-module (Manifolding-OS build-system trivial)
+  #:use-module ((Manifolding-OS build utils) #:select (alist-replace delete-file-recursively))
   #:use-module (gnu packages)
   #:use-module (gnu packages admin)
   #:use-module (gnu packages autotools)
@@ -821,11 +821,11 @@ C library variant NEWLIB."
         (source #f)
         (build-system trivial-build-system)
         (arguments
-         '(#:modules ((guix build union))
+         '(#:modules ((Manifolding-OS build union))
            #:builder
            (begin
              (use-modules (ice-9 match)
-                          (guix build union))
+                          (Manifolding-OS build union))
              (match %build-inputs
                (((names . directories) ...)
                 (union-build (assoc-ref %outputs "out")
@@ -1457,9 +1457,9 @@ hardware.  The utility support USB and UART as serial link.")
      (list
       #:imported-modules `(,@%cargo-build-system-modules
                            ,@%pyproject-build-system-modules)
-      #:modules '(((guix build cargo-build-system) #:prefix cargo:)
-                  (guix build pyproject-build-system)
-                  (guix build utils))
+      #:modules '(((Manifolding-OS build cargo-build-system) #:prefix cargo:)
+                  (Manifolding-OS build pyproject-build-system)
+                  (Manifolding-OS build utils))
       #:phases
       #~(modify-phases %standard-phases
           (add-after 'unpack 'prepare-cargo-build-system
@@ -1819,7 +1819,7 @@ PicoBlaze; and Zilog Z80 families, plus many of their variants.")
               (sha256
                (base32
                 "0xbaj3vx5cp3na1kmyhy4jvhcqwrg648scjbykgq0xmibqb1535f"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                #~(begin
                    ;; Remove non-free source files.

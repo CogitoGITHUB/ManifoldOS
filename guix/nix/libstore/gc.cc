@@ -338,10 +338,10 @@ Roots LocalStore::findRoots()
 static void addAdditionalRoots(StoreAPI & store, PathSet & roots)
 {
     debug(std::format("executing `{} gc --list-busy' to find additional roots",
-	    settings.guixProgram));
+	    settings.ManifoldingOSProgram));
 
     const Strings args = { "gc", "--list-busy" };
-    string result = runProgram(settings.guixProgram, false, args);
+    string result = runProgram(settings.ManifoldingOSProgram, false, args);
 
     StringSet paths = tokenizeString<StringSet>(result, "\n");
 
@@ -662,7 +662,7 @@ void LocalStore::collectGarbage(const GCOptions & options, GCResults & results)
 
     for (auto& i : rootMap) state.roots.insert(i.second);
 
-    /* Add additional roots returned by 'guix gc --list-busy'.  This is
+    /* Add additional roots returned by 'Manifolding-OS gc --list-busy'.  This is
        typically used to add running programs to the set of roots (to prevent
        them from being garbage collected). */
     if (!options.ignoreLiveness)

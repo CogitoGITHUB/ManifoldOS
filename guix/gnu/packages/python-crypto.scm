@@ -51,14 +51,14 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages python-crypto)
-  #:use-module (guix packages)
-  #:use-module (guix download)
-  #:use-module (guix gexp)
-  #:use-module (guix hg-download)
-  #:use-module (guix git-download)
-  #:use-module (guix build-system cargo)
-  #:use-module (guix build-system pyproject)
-  #:use-module (guix utils)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS hg-download)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS build-system cargo)
+  #:use-module (Manifolding-OS build-system pyproject)
+  #:use-module (Manifolding-OS utils)
   #:use-module (gnu packages)
   #:use-module (gnu packages nss)
   #:use-module (gnu packages bash)
@@ -84,7 +84,7 @@
   #:use-module (gnu packages time)
   #:use-module (gnu packages tls)
   #:use-module (gnu packages xml)
-  #:use-module ((guix licenses) #:prefix license:)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
   #:use-module (srfi srfi-1))
 
 (define-public python-base58
@@ -461,9 +461,9 @@ production use.  Include this module and use its backends at your own risk.")
       #:install-source? #f
       #:imported-modules `(,@%pyproject-build-system-modules
                            ,@%cargo-build-system-modules)
-      #:modules `((guix build cargo-build-system)
-                  ((guix build pyproject-build-system) #:prefix py:)
-                  (guix build utils))
+      #:modules `((Manifolding-OS build cargo-build-system)
+                  ((Manifolding-OS build pyproject-build-system) #:prefix py:)
+                  (Manifolding-OS build utils))
       #:phases
       #~(modify-phases %standard-phases
           (add-after 'build 'build-python-module
@@ -615,7 +615,7 @@ is used by the Requests library to verify HTTPS requests.")
         (base32
          "00is2nzcl2pyhr90llga5mnbw3rvakn75rq10x1r6hhb6i7q6knd"))
        (snippet
-        #~(begin (use-modules (guix build utils))
+        #~(begin (use-modules (Manifolding-OS build utils))
                  (for-each delete-file
                            (find-files "." "Cargo\\.lock$"))
                  (substitute* "pyproject.toml"
@@ -625,9 +625,9 @@ is used by the Requests library to verify HTTPS requests.")
      (list
       #:imported-modules `(,@%cargo-build-system-modules
                            ,@%pyproject-build-system-modules)
-      #:modules '(((guix build cargo-build-system) #:prefix cargo:)
-                  (guix build pyproject-build-system)
-                  (guix build utils))
+      #:modules '(((Manifolding-OS build cargo-build-system) #:prefix cargo:)
+                  (Manifolding-OS build pyproject-build-system)
+                  (Manifolding-OS build utils))
       #:phases
       #~(modify-phases %standard-phases
           (add-after 'unpack 'prepare-cargo-build-system
@@ -884,7 +884,7 @@ PKCS#12, PKCS#5, X.509 and TSP.")
      (origin
        (method url-fetch)
        (uri (pypi-uri "PyNaCl" version))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         '(begin
            ;; Remove bundled libsodium.
@@ -1033,7 +1033,7 @@ Python.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "0j1dk55y0q7gqmig1l5b8774w63w2i7qrii1xzkpzz0c3i229i67"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet pycryptodome-unbundle-tomcrypt-snippet)))
     (build-system pyproject-build-system)
     (arguments
@@ -2037,9 +2037,9 @@ in different situations.
      (list
       #:imported-modules `(,@%cargo-build-system-modules
                            ,@%pyproject-build-system-modules)
-      #:modules '(((guix build cargo-build-system) #:prefix cargo:)
-                  (guix build pyproject-build-system)
-                  (guix build utils))
+      #:modules '(((Manifolding-OS build cargo-build-system) #:prefix cargo:)
+                  (Manifolding-OS build pyproject-build-system)
+                  (Manifolding-OS build utils))
       #:phases
       #~(modify-phases %standard-phases
           (add-after 'unpack 'prepare-cargo-build-system

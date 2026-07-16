@@ -24,7 +24,7 @@
   #:use-module (gnu system)
   #:use-module (gnu system pam)
   #:use-module (gnu system vm)
-  #:use-module (guix gexp)
+  #:use-module (Manifolding-OS gexp)
   #:use-module (ice-9 format)
   #:export (%test-pam-limits))
 
@@ -54,10 +54,10 @@
 
   (define test
     (with-imported-modules '((gnu build marionette)
-                             (guix build syscalls))
+                             (Manifolding-OS build syscalls))
       #~(begin
           (use-modules (gnu build marionette)
-                       (guix build syscalls)
+                       (Manifolding-OS build syscalls)
                        (srfi srfi-64))
 
           (let ((marionette (make-marionette (list #$vm))))

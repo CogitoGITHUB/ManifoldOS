@@ -20,8 +20,8 @@
   #:use-module (gnu services)
   #:use-module (gnu services shepherd)
   #:use-module (gnu packages linux)
-  #:use-module (guix gexp)
-  #:use-module (guix records)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS records)
   #:use-module (srfi srfi-1)
   #:use-module (ice-9 match)
   #:export (sysctl-configuration

@@ -24,13 +24,13 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages make-bootstrap)
-  #:use-module (guix gexp)
-  #:use-module (guix utils)
-  #:use-module (guix packages)
-  #:use-module (guix memoization)
-  #:use-module ((guix licenses) #:select (gpl3+))
-  #:use-module (guix build-system trivial)
-  #:use-module (guix build-system gnu)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS utils)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS memoization)
+  #:use-module ((Manifolding-OS licenses) #:select (gpl3+))
+  #:use-module (Manifolding-OS build-system trivial)
+  #:use-module (Manifolding-OS build-system gnu)
   #:use-module ((gnu packages) #:select (search-patch search-patches))
   #:use-module (gnu packages base)
   #:use-module (gnu packages cross-base)
@@ -211,7 +211,7 @@ for `sh' in $PATH, and without nscd, and with static NSS modules."
                 (inherit gawk)
                 (source (origin
                           (inherit (package-source gawk))
-                          (modules '((guix build utils)))
+                          (modules '((Manifolding-OS build utils)))
                           (snippet
                            ;; Do not build 'getopt.c' since that leads to a
                            ;; link failure due to duplicate symbols with
@@ -289,14 +289,14 @@ for `sh' in $PATH, and without nscd, and with static NSS modules."
     (source #f)
     (inputs %static-inputs)
     (arguments
-     `(#:modules ((guix build utils))
+     `(#:modules ((Manifolding-OS build utils))
        #:builder
        (begin
          (use-modules (ice-9 ftw)
                       (ice-9 match)
                       (srfi srfi-1)
                       (srfi srfi-26)
-                      (guix build utils))
+                      (Manifolding-OS build utils))
 
          (let ()
           (define (directory-contents dir)
@@ -361,12 +361,12 @@ for `sh' in $PATH, and without nscd, and with static NSS modules."
     (build-system trivial-build-system)
     (outputs '("out"))
     (arguments
-     `(#:modules ((guix build utils)
-                  (guix build make-bootstrap))
+     `(#:modules ((Manifolding-OS build utils)
+                  (Manifolding-OS build make-bootstrap))
        #:builder
        (begin
-         (use-modules (guix build utils)
-                      (guix build make-bootstrap))
+         (use-modules (Manifolding-OS build utils)
+                      (Manifolding-OS build make-bootstrap))
 
          (let* ((in  (assoc-ref %build-inputs "linux-libre-headers"))
                 (out (assoc-ref %outputs "out")))
@@ -418,10 +418,10 @@ for `sh' in $PATH, and without nscd, and with static NSS modules."
     (build-system trivial-build-system)
     (outputs '("out"))
     (arguments
-     (list #:modules '((guix build utils))
+     (list #:modules '((Manifolding-OS build utils))
            #:builder
            #~(begin
-               (use-modules (guix build utils))
+               (use-modules (Manifolding-OS build utils))
 
                (setvbuf (current-output-port)
                         (cond-expand (guile-2.0 _IOLBF) (else 'line)))
@@ -447,11 +447,11 @@ for `sh' in $PATH, and without nscd, and with static NSS modules."
       (name "glibc-stripped")
       (build-system trivial-build-system)
       (arguments
-       `(#:modules ((guix build utils)
-                    (guix build make-bootstrap))
+       `(#:modules ((Manifolding-OS build utils)
+                    (Manifolding-OS build make-bootstrap))
          #:builder
          (begin
-           (use-modules (guix build make-bootstrap))
+           (use-modules (Manifolding-OS build make-bootstrap))
            (make-stripped-libc (assoc-ref %outputs "out")
                                (assoc-ref %build-inputs "libc")
                                (assoc-ref %build-inputs "kernel-headers")))))
@@ -559,12 +559,12 @@ for `sh' in $PATH, and without nscd, and with static NSS modules."
     (inputs '())
     (native-inputs '())
     (arguments
-     (list #:modules '((guix build utils))
+     (list #:modules '((Manifolding-OS build utils))
            #:builder
            #~(begin
                (use-modules (srfi srfi-1)
                             (srfi srfi-26)
-                            (guix build utils))
+                            (Manifolding-OS build utils))
 
                (setvbuf (current-output-port)
                         (cond-expand (guile-2.0 _IOLBF) (else 'line)))
@@ -699,10 +699,10 @@ for `sh' in $PATH, and without nscd, and with static NSS modules."
     (arguments
      ;; The end result should depend on nothing but itself.
      (list #:allowed-references '("out")
-           #:modules '((guix build utils))
+           #:modules '((Manifolding-OS build utils))
            #:builder
            #~(let ((version #$(version-major+minor (package-version static-guile))))
-               (use-modules (guix build utils))
+               (use-modules (Manifolding-OS build utils))
 
                (let* ((in     #$static-guile)
                       (out    #$output)
@@ -775,10 +775,10 @@ for `sh' in $PATH, and without nscd, and with static NSS modules."
     (build-system trivial-build-system)
     (native-inputs (list tar xz))
     (arguments
-     (list #:modules '((guix build utils))
+     (list #:modules '((Manifolding-OS build utils))
            #:builder
            #~(begin
-               (use-modules (guix build utils))
+               (use-modules (Manifolding-OS build utils))
                (let ((out   #$output)
                      (input #$pkg)
                      (tar   #+(this-package-native-input "tar"))
@@ -832,10 +832,10 @@ for `sh' in $PATH, and without nscd, and with static NSS modules."
     (source #f)
     (build-system trivial-build-system)
     (arguments
-     (list #:modules '((guix build utils))
+     (list #:modules '((Manifolding-OS build utils))
            #:builder
            #~(begin
-               (use-modules (guix build utils)
+               (use-modules (Manifolding-OS build utils)
                             (ice-9 match)
                             (srfi srfi-26))
 

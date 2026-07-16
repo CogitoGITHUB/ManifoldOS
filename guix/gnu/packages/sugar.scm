@@ -45,15 +45,15 @@
   #:use-module (gnu packages time)
   #:use-module (gnu packages webkit)
   #:use-module (gnu packages xorg)
-  #:use-module (guix build-system glib-or-gtk)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system pyproject)
-  #:use-module (guix download)
-  #:use-module (guix git-download)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix packages)
-  #:use-module (guix utils)
-  #:use-module (guix gexp))
+  #:use-module (Manifolding-OS build-system glib-or-gtk)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system pyproject)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS utils)
+  #:use-module (Manifolding-OS gexp))
 
 (define-public sugar
   (package
@@ -75,7 +75,7 @@
       `(,@%glib-or-gtk-build-system-modules
         ,@%pyproject-build-system-modules)
       #:modules
-      `(((guix build pyproject-build-system) #:prefix py:)
+      `(((Manifolding-OS build pyproject-build-system) #:prefix py:)
         ,@%glib-or-gtk-build-system-default-modules)
       #:phases
         #~(modify-phases %standard-phases
@@ -136,7 +136,7 @@
                 (for-each
                  (lambda (executable)
                    (wrap-program executable
-                     `("GUIX_PYTHONPATH" = (,(getenv "GUIX_PYTHONPATH")
+                     `("MANIFOLDING_OS_PYTHONPATH" = (,(getenv "MANIFOLDING_OS_PYTHONPATH")
                                             ,(py:site-packages inputs outputs)))
                      `("GI_TYPELIB_PATH" prefix
                        (,(getenv "GI_TYPELIB_PATH")))))
@@ -252,7 +252,7 @@ activities and other Sugar components.")
       `(,@%glib-or-gtk-build-system-modules
         ,@%pyproject-build-system-modules)
       #:modules
-      `(((guix build pyproject-build-system) #:prefix py:)
+      `(((Manifolding-OS build pyproject-build-system) #:prefix py:)
         ,@%glib-or-gtk-build-system-default-modules)
       #:phases
         #~(modify-phases %standard-phases
@@ -275,7 +275,7 @@ activities and other Sugar components.")
                 (for-each
                  (lambda (executable)
                    (wrap-program executable
-                     `("GUIX_PYTHONPATH" = (,(getenv "GUIX_PYTHONPATH")
+                     `("MANIFOLDING_OS_PYTHONPATH" = (,(getenv "MANIFOLDING_OS_PYTHONPATH")
                                             ,(py:site-packages inputs outputs)))
                      `("GI_TYPELIB_PATH" = (,(getenv "GI_TYPELIB_PATH")))))
                  (list (search-input-file outputs "bin/copy-from-journal")
@@ -320,7 +320,7 @@ and metadata, and the journal with querying and full text search.")
      (list
       #:imported-modules (append %glib-or-gtk-build-system-modules
                                  %pyproject-build-system-modules)
-      #:modules `(((guix build pyproject-build-system) #:prefix python:)
+      #:modules `(((Manifolding-OS build pyproject-build-system) #:prefix python:)
                   ,@%glib-or-gtk-build-system-default-modules)
       #:phases
       #~(modify-phases %standard-phases
@@ -355,7 +355,7 @@ and metadata, and the journal with querying and full text search.")
           (add-after 'glib-or-gtk-wrap 'python-and-gi-wrap
             (lambda* (#:key inputs outputs #:allow-other-keys)
               (wrap-program (search-input-file outputs "bin/sugar-activity3")
-                `("GUIX_PYTHONPATH" = (,(getenv "GUIX_PYTHONPATH")
+                `("MANIFOLDING_OS_PYTHONPATH" = (,(getenv "MANIFOLDING_OS_PYTHONPATH")
                                        ,(python:site-packages inputs outputs)))
                 `("GI_TYPELIB_PATH" prefix
                   (,(getenv "GI_TYPELIB_PATH")
@@ -545,7 +545,7 @@ a Tetris-like game.")
                   (("^import pygame")
                    (string-append "\
 import sys
-for directory in \"" (getenv "GUIX_PYTHONPATH") "\".split(\":\"):
+for directory in \"" (getenv "MANIFOLDING_OS_PYTHONPATH") "\".split(\":\"):
     try:
         sys.path.index(directory)
     except ValueError:
@@ -703,7 +703,7 @@ on various criteria.")
                   (("^import logging")
                    (string-append "\
 import sys
-for directory in \"" (getenv "GUIX_PYTHONPATH") "\".split(\":\"):
+for directory in \"" (getenv "MANIFOLDING_OS_PYTHONPATH") "\".split(\":\"):
     try:
         sys.path.index(directory)
     except ValueError:
@@ -985,7 +985,7 @@ or you can also play with a friend!")
                   (("^import os")
                    (string-append "\
 import sys, os
-for directory in \"" (getenv "GUIX_PYTHONPATH") "\".split(\":\"):
+for directory in \"" (getenv "MANIFOLDING_OS_PYTHONPATH") "\".split(\":\"):
     try:
         sys.path.index(directory)
     except ValueError:
@@ -1151,7 +1151,7 @@ low power consumption and simple navigation controls.")
                   (("^import pygame")
                    (string-append "\
 import sys
-for directory in \"" (getenv "GUIX_PYTHONPATH") "\".split(\":\"):
+for directory in \"" (getenv "MANIFOLDING_OS_PYTHONPATH") "\".split(\":\"):
     try:
         sys.path.index(directory)
     except ValueError:
@@ -1352,7 +1352,7 @@ more adventurous student.")
                   (("^import logging")
                    (string-append "\
 import sys
-for directory in \"" (getenv "GUIX_PYTHONPATH") "\".split(\":\"):
+for directory in \"" (getenv "MANIFOLDING_OS_PYTHONPATH") "\".split(\":\"):
     try:
         sys.path.index(directory)
     except ValueError:

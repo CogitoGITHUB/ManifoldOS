@@ -35,7 +35,7 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages ruby)
-  #:use-module ((guix licenses) #:prefix license:)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
   #:use-module (gnu packages)
   #:use-module (gnu packages base)
   #:use-module (gnu packages bison)
@@ -78,16 +78,16 @@
   #:use-module (gnu packages virtualization)
   #:use-module (gnu packages web-browsers)
   #:use-module (gnu packages serialization)
-  #:use-module (guix packages)
-  #:use-module (guix download)
-  #:use-module (guix git-download)
-  #:use-module (guix gexp)
-  #:use-module (guix modules)
-  #:use-module (guix utils)
-  #:use-module (guix build-system gnu)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS modules)
+  #:use-module (Manifolding-OS utils)
+  #:use-module (Manifolding-OS build-system gnu)
   #:use-module (gnu packages xml)
   #:use-module (gnu packages web)
-  #:use-module (guix build-system ruby))
+  #:use-module (Manifolding-OS build-system ruby))
 
 (define-public ruby-4.0
   (package
@@ -297,7 +297,7 @@ a focus on simplicity and productivity.")
        (sha256
         (base32
          "182vni66djmiqagwzfsd0za7x9k3zag43b88c590aalgphybdnn2"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet `(begin
                    ;; Remove bundled libffi
                    (delete-file-recursively "ext/fiddle/libffi-3.2.1")

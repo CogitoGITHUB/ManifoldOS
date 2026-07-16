@@ -33,19 +33,19 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages benchmark)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix packages)
-  #:use-module (guix download)
-  #:use-module (guix gexp)
-  #:use-module (guix utils)
-  #:use-module (guix git-download)
-  #:use-module (guix amd-gpu)
-  #:use-module (guix search-paths)
-  #:use-module (guix build-system cmake)
-  #:use-module (guix build-system qt)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system pyproject)
-  #:use-module (guix build-system meson)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS utils)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS amd-gpu)
+  #:use-module (Manifolding-OS search-paths)
+  #:use-module (Manifolding-OS build-system cmake)
+  #:use-module (Manifolding-OS build-system qt)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system pyproject)
+  #:use-module (Manifolding-OS build-system meson)
   #:use-module (gnu packages)
   #:use-module (gnu packages autotools)
   #:use-module (gnu packages base)
@@ -163,7 +163,7 @@ is to write a job file matching the I/O load one wants to simulate.")
               (sha256
                (base32
                 "184r4h35mzxjzzjnl4nhr1vh00iiz8kf9vf4d8lrqbr62rqrwl7w"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                '(begin
                   ;; Some source configuration files in the original tarball
@@ -318,7 +318,7 @@ file metadata operations that can be performed per second.")
        (method url-fetch)
        (uri (string-append "https://phoronix-test-suite.com/releases/"
                            name "-" version ".tar.gz"))
-       (modules '((guix build utils)
+       (modules '((Manifolding-OS build utils)
                   (ice-9 ftw)
                   (ice-9 regex)
                   (srfi srfi-26)))
@@ -794,7 +794,7 @@ its features are:
                     (url "https://github.com/akopytov/sysbench")
                     (commit version)))
               (file-name (git-file-name name version))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet '(begin
                           ;; Ensure no bundled libraries get used.
                           (delete-file-recursively "third_party")

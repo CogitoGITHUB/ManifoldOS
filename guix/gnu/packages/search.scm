@@ -73,16 +73,16 @@
   #:use-module (gnu packages xdisorg)
   #:use-module (gnu packages xml)
   #:use-module (gnu packages)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system meson)
-  #:use-module (guix build-system perl)
-  #:use-module (guix build-system pyproject)
-  #:use-module (guix download)
-  #:use-module (guix gexp)
-  #:use-module (guix git-download)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix packages)
-  #:use-module (guix utils))
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system meson)
+  #:use-module (Manifolding-OS build-system perl)
+  #:use-module (Manifolding-OS build-system pyproject)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS utils))
 
 (define-public xapian
   (package
@@ -343,12 +343,12 @@ Search Engine.  It is written in C and based on GTK3.")
     (arguments
      (list
       #:imported-modules
-      `((guix build gremlin)
+      `((Manifolding-OS build gremlin)
         ,@%meson-build-system-modules)
       #:modules
-      '((guix build meson-build-system)
-        (guix build utils)
-        (guix build gremlin)
+      '((Manifolding-OS build meson-build-system)
+        (Manifolding-OS build utils)
+        (Manifolding-OS build gremlin)
         (ice-9 match))
       #:configure-flags
       #~(list "-Dwebkit=false"
@@ -612,8 +612,8 @@ search the generated indexes.")
      (list
       #:tests? #f                   ; A lot of tests are failing, unclear why.
       #:modules `((ice-9 rdelim)
-                  (guix build pyproject-build-system)
-                  (guix build utils))
+                  (Manifolding-OS build pyproject-build-system)
+                  (Manifolding-OS build utils))
       #:phases
       #~(modify-phases %standard-phases
           (add-after 'install 'install-doc
@@ -683,7 +683,7 @@ document and bibtex retrieval.")
               (sha256
                (base32 "1dipvv74flxvcx3ycnj9ymqhg2q016jj4bzxvdwx639gzhz3k58h"))
               (file-name (git-file-name name version))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                #~(begin
                    (delete-file-recursively "bin/win32") ; pre-built

@@ -93,17 +93,17 @@
   #:use-module (gnu packages xml)
   #:use-module (gnu packages xdisorg)
   #:use-module (gnu packages xorg)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix build-system cargo)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system pyproject)
-  #:use-module (guix deprecation)
-  #:use-module (guix download)
-  #:use-module (guix gexp)
-  #:use-module (guix git-download)
-  #:use-module (guix hg-download)
-  #:use-module (guix packages)
-  #:use-module (guix utils))
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS build-system cargo)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system pyproject)
+  #:use-module (Manifolding-OS deprecation)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS hg-download)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS utils))
 
 (define-public austin
   (package
@@ -5498,8 +5498,8 @@ unused.")
       #:cargo-install-paths ''("crates/ruff")
       #:install-source? #f
       #:modules
-      '((guix build cargo-build-system)
-        (guix build utils)
+      '((Manifolding-OS build cargo-build-system)
+        (Manifolding-OS build utils)
         (ice-9 match))
       #:phases
       #~(modify-phases %standard-phases

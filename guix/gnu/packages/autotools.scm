@@ -31,7 +31,7 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages autotools)
-  #:use-module (guix licenses)
+  #:use-module (Manifolding-OS licenses)
   #:use-module (gnu packages)
   #:use-module (gnu packages gcc)
   #:use-module (gnu packages perl)
@@ -39,13 +39,13 @@
   #:use-module (gnu packages m4)
   #:use-module (gnu packages man)
   #:use-module (gnu packages bash)
-  #:use-module (guix utils)
-  #:use-module (guix packages)
-  #:use-module (guix download)
-  #:use-module (guix git-download)
-  #:use-module (guix gexp)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system trivial)
+  #:use-module (Manifolding-OS utils)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system trivial)
   #:use-module (ice-9 match)
   #:export (autoconf-wrapper))
 
@@ -231,17 +231,17 @@ files with a system-specific shebang."
       bash-minimal))
     (arguments
      (list
-      #:modules '((guix build utils))
+      #:modules '((Manifolding-OS build utils))
       #:builder
       #~(begin
-          (use-modules (guix build utils))
+          (use-modules (Manifolding-OS build utils))
           (let ((bin      (string-append #$output "/bin"))
                 (autoconf (search-input-file %build-inputs "/bin/autoconf"))
                 (guile    (search-input-file %build-inputs "/bin/guile"))
                 (sh       (search-input-file %build-inputs "/bin/sh"))
                 (modules  ((compose dirname dirname dirname)
                            (search-path %load-path
-                                        "guix/build/utils.scm"))))
+                                        "Manifolding-OS/build/utils.scm"))))
             (mkdir-p bin)
 
             ;; Symlink all the binaries but `autoconf'.
@@ -265,7 +265,7 @@ exec ~a --no-auto-compile \"$0\" \"$@\"
                         sh modules modules guile)
                 (write
                  `(begin
-                    (use-modules (guix build utils))
+                    (use-modules (Manifolding-OS build utils))
                     (let ((result (apply system* ,autoconf
                                          (cdr (command-line)))))
                       (when (and (file-exists? "configure")
@@ -356,8 +356,8 @@ output is indexed in many ways to simplify browsing.")
     (arguments
      (list
       #:tests? #f ;with gcc-14, 23 compiler "tap" tests fail.
-      #:modules '((guix build gnu-build-system)
-                  (guix build utils)
+      #:modules '((Manifolding-OS build gnu-build-system)
+                  (Manifolding-OS build utils)
                   (srfi srfi-1)
                   (srfi srfi-26)
                   (rnrs io ports))

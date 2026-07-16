@@ -28,8 +28,8 @@
   #:autoload   (gnu packages glib)    (dbus)
   #:autoload   (gnu packages xdisorg) (darkman redshift unclutter)
   #:autoload   (gnu packages xorg) (setxkbmap xmodmap)
-  #:use-module (guix records)
-  #:use-module (guix gexp)
+  #:use-module (Manifolding-OS records)
+  #:use-module (Manifolding-OS gexp)
   #:use-module (srfi srfi-1)
   #:use-module (ice-9 match)
   #:export (home-x11-service-type

@@ -1,11 +1,11 @@
 ;; List of "historical" committers---people once authorized committers before
-;; the '.guix-authorizations' file was created.
+;; the '.Manifolding-OS-authorizations' file was created.
 ;;
 ;; This file is provided for historical and auditing purposes.  It is known
 ;; good starting at least at 'v1.0.0'.
 ;;
-;; The format is the same as for '.guix-authorizations'.  User names are those
-;; found on <https://savannah.gnu.org/project/memberlist.php?group=guix> along
+;; The format is the same as for '.Manifolding-OS-authorizations'.  User names are those
+;; found on <https://savannah.gnu.org/project/memberlist.php?group=Manifolding-OS> along
 ;; with the fingerprint of the signing (sub)key.
 
 (authorizations
@@ -84,7 +84,7 @@
    "0325 78A6 8298 94E7 2AA2  66F5 D415 BF25 3B51 5976"
    (name "iyzsong"))
 
-  ;; https://lists.gnu.org/archive/html/guix-devel/2018-04/msg00229.html
+  ;; https://lists.gnu.org/archive/html/Manifolding-OS-devel/2018-04/msg00229.html
   ("DB34 CB51 D25C 9408 156F  CDD6 A12F 8797 8D70 1B99"
    (name "janneke (old)"))
   ("1A85 8392 E331 EAFD B8C2  7FFB F3C1 A0D9 C1D6 5273"
@@ -140,13 +140,13 @@
   ("17CB 2812 EB63 3DFF 2C7F  0452 C3EC 1DCA 8430 72E1"
    (name "roelj (old)"))
   (;; From commit cc51c03ff867d4633505354819c6d88af88bf919 (March 2020).
-   ;; See <https://lists.gnu.org/archive/html/guix-devel/2020-03/msg00070.html>.
+   ;; See <https://lists.gnu.org/archive/html/Manifolding-OS-devel/2020-03/msg00070.html>.
    "F556 FD94 FB8F 8B87 79E3  6832 CBD0 CD51 38C1 9AFC"
    (name "roelj"))
   ("B5FA E628 5B41 3728 B2A0  FAED 4311 1F45 2008 6A0C"
    (name "roptat (old)"))
   (;; From commit 2cbede5935eb6a40173bbdf30a9ad22bf7574c22 (Jan. 2020).  See
-   ;; <https://lists.gnu.org/archive/html/guix-devel/2020-01/msg00499.html>.
+   ;; <https://lists.gnu.org/archive/html/Manifolding-OS-devel/2020-01/msg00499.html>.
    "1EFB 0909 1F17 D28C CBF9  B13A 53D4 57B2 D636 EE82"
    (name "roptat"))
   (;; primary: "D6B0 C593 DA8C 5EDC A44C  7A58 C336 91F7 1188 B004"
@@ -161,7 +161,7 @@
   ("9ADE 9ECF 2B19 C180 9C99  5CEA A1F4 CFCC 5283 6BAC"
    (name "taylanub"))
 
-  ;; https://lists.gnu.org/archive/html/guix-devel/2017-03/msg00826.html
+  ;; https://lists.gnu.org/archive/html/Manifolding-OS-devel/2017-03/msg00826.html
   (;; primary: "1DD1 681F E285 E07F 11DC  0C59 2E15 A6BC D77D 54FD"
    "3D2C DA58 819C 08C2 A649  D43D 5C3B 064C 724A 5726"
    (name "thomasd"))

@@ -30,17 +30,17 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages ebook)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix packages)
-  #:use-module (guix download)
-  #:use-module (guix utils)
-  #:use-module (guix gexp)
-  #:use-module (guix git-download)
-  #:use-module (guix build-system cmake)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system meson)
-  #:use-module (guix build-system pyproject)
-  #:use-module (guix build-system qt)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS utils)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS build-system cmake)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system meson)
+  #:use-module (Manifolding-OS build-system pyproject)
+  #:use-module (Manifolding-OS build-system qt)
   #:use-module (gnu packages)
   #:use-module (gnu packages autotools)
   #:use-module (gnu packages bash)
@@ -150,7 +150,7 @@ with Microsoft Compiled HTML (CHM) files.")
                            "/calibre-" version ".tar.xz"))
        (sha256
         (base32 "0v0w5hi8h1fykf1v2dqcz9zafc7ffxlh5nj125sc0g7mai1x11q1"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         '(begin
            ;; Unbundle python2-odfpy.
@@ -474,9 +474,9 @@ into an epub file and creates a thumbnail for it.")
       #:tests? #f                      ; no test suite
       #:make-flags
       #~(list (string-append "PREFIX=" #$output))
-      #:modules '((guix build qt-build-system)
-                  ((guix build gnu-build-system) #:prefix gnu:)
-                  (guix build utils))
+      #:modules '((Manifolding-OS build qt-build-system)
+                  ((Manifolding-OS build gnu-build-system) #:prefix gnu:)
+                  (Manifolding-OS build utils))
       #:phases
       #~(modify-phases %standard-phases
          (add-after 'unpack 'prefix-opt
@@ -636,12 +636,12 @@ following formats:
                      (gst-plugin-path   (getenv "GST_PLUGIN_SYSTEM_PATH"))
                      (libmagic-path     #$(file-append
                                            (this-package-input "file") "/lib"))
-                     (python-path     (getenv "GUIX_PYTHONPATH")))
+                     (python-path     (getenv "MANIFOLDING_OS_PYTHONPATH")))
                 (wrap-program (string-append #$output "/bin/cozy")
                   `("LD_LIBRARY_PATH" ":" prefix (,libmagic-path))
                   `("GI_TYPELIB_PATH" ":" prefix (,gi-typelib-path))
                   `("GST_PLUGIN_SYSTEM_PATH" ":" prefix (,gst-plugin-path))
-                  `("GUIX_PYTHONPATH" ":" prefix (,python-path ,pylib)))))))))
+                  `("MANIFOLDING_OS_PYTHONPATH" ":" prefix (,python-path ,pylib)))))))))
     (native-inputs
      (list desktop-file-utils
            gettext-minimal

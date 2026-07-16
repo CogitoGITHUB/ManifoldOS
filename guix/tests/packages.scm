@@ -22,32 +22,32 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (tests packages)
-  #:use-module (guix tests)
-  #:use-module (guix store)
-  #:use-module (guix monads)
-  #:use-module (guix gexp)
-  #:use-module (guix utils)
-  #:use-module ((guix build utils) #:select (tarball?))
-  #:use-module ((guix diagnostics)
+  #:use-module (Manifolding-OS tests)
+  #:use-module (Manifolding-OS store)
+  #:use-module (Manifolding-OS monads)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS utils)
+  #:use-module ((Manifolding-OS build utils) #:select (tarball?))
+  #:use-module ((Manifolding-OS diagnostics)
                 ;; Rename the 'location' binding to allow proper syntax
                 ;; matching when setting the 'location' field of a package.
                 #:renamer (lambda (name)
                             (cond ((eq? name 'location) 'make-location)
                                   (else name))))
   #:use-module ((gcrypt hash) #:prefix gcrypt:)
-  #:use-module (guix derivations)
-  #:use-module (guix download)
-  #:use-module (guix packages)
-  #:use-module (guix grafts)
-  #:use-module (guix search-paths)
-  #:use-module (guix build-system)
-  #:use-module (guix build-system trivial)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system pyproject)
-  #:use-module (guix memoization)
-  #:use-module (guix profiles)
-  #:use-module (guix scripts package)
-  #:use-module (guix sets)
+  #:use-module (Manifolding-OS derivations)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS grafts)
+  #:use-module (Manifolding-OS search-paths)
+  #:use-module (Manifolding-OS build-system)
+  #:use-module (Manifolding-OS build-system trivial)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system pyproject)
+  #:use-module (Manifolding-OS memoization)
+  #:use-module (Manifolding-OS profiles)
+  #:use-module (Manifolding-OS scripts package)
+  #:use-module (Manifolding-OS sets)
   #:use-module (gnu packages)
   #:use-module (gnu packages base)
   #:use-module (gnu packages guile)
@@ -575,7 +575,7 @@
 (test-skip (if (not %store) 8 0))
 
 (test-assert "package-source-derivation, file"
-  (let* ((file    (search-path %load-path "guix.scm"))
+  (let* ((file    (search-path %load-path "Manifolding-OS.scm"))
          (package (package (inherit (dummy-package "p"))
                     (source file)))
          (source  (package-source-derivation %store
@@ -586,8 +586,8 @@
                  (call-with-input-file file get-bytevector-all)))))
 
 (test-assert "package-source-derivation, store path"
-  (let* ((file    (add-to-store %store "guix.scm" #t "sha256"
-                                (search-path %load-path "guix.scm")))
+  (let* ((file    (add-to-store %store "Manifolding-OS.scm" #t "sha256"
+                                (search-path %load-path "Manifolding-OS.scm")))
          (package (package (inherit (dummy-package "p"))
                     (source file)))
          (source  (package-source-derivation %store
@@ -597,7 +597,7 @@
 (test-assert "package-source-derivation, indirect store path"
   (let* ((dir     (add-to-store %store "guix-build" #t "sha256"
                                 (dirname (search-path %load-path
-                                                      "guix/build/utils.scm"))))
+                                                      "Manifolding-OS/build/utils.scm"))))
          (package (package (inherit (dummy-package "p"))
                     (source (string-append dir "/utils.scm"))))
          (source  (package-source-derivation %store
@@ -606,7 +606,7 @@
          (string-suffix? "utils.scm" source))))
 
 (test-assert "package-source-derivation, local-file"
-  (let* ((file    (local-file "../guix/base32.scm"))
+  (let* ((file    (local-file "../Manifolding-OS/base32.scm"))
          (package (package (inherit (dummy-package "p"))
                     (source file)))
          (source  (package-source-derivation %store
@@ -616,7 +616,7 @@
          (valid-path? %store source)
          (equal? (call-with-input-file source get-bytevector-all)
                  (call-with-input-file
-                     (search-path %load-path "guix/base32.scm")
+                     (search-path %load-path "Manifolding-OS/base32.scm")
                    get-bytevector-all)))))
 
 (test-equal "package-source-derivation, origin, sha512"
@@ -691,7 +691,7 @@
                        ("xz" ,%bootstrap-coreutils&co)
                        ("patch" ,%bootstrap-coreutils&co)))
                     (patch-guile %bootstrap-guile)
-                    (modules '((guix build utils)))
+                    (modules '((Manifolding-OS build utils)))
                     (snippet '(begin
                                 ;; We end up in 'bin', because it's the first
                                 ;; directory, alphabetically.  Not a very good
@@ -713,10 +713,10 @@
                                                         (%current-system)))))
                     (arguments
                      `(#:guile ,%bootstrap-guile
-                       #:modules ((guix build utils))
+                       #:modules ((Manifolding-OS build utils))
                        #:builder
                        (begin
-                         (use-modules (guix build utils))
+                         (use-modules (Manifolding-OS build utils))
                          (let ((tar    (assoc-ref %build-inputs "tar"))
                                (xz     (assoc-ref %build-inputs "xz"))
                                (source (assoc-ref %build-inputs "source")))
@@ -765,7 +765,7 @@
                                        ("bzip2" ,%bootstrap-coreutils&co)
                                        ("gzip"  ,%bootstrap-coreutils&co)))
                        (patch-guile %bootstrap-guile)
-                       (modules '((guix build utils)))
+                       (modules '((Manifolding-OS build utils)))
                        (snippet `(substitute* ,name
                                    (("5") "4")))
                        (hash (content-hash hash))))
@@ -779,9 +779,9 @@
                                               "/bin"))
                         (f (computed-file
                             name
-                            (with-imported-modules '((guix build utils))
+                            (with-imported-modules '((Manifolding-OS build utils))
                               #~(begin
-                                  (use-modules (guix build utils))
+                                  (use-modules (Manifolding-OS build utils))
                                   (setenv "PATH" #+bin)
                                   (invoke "tar" "xvf" #+out)
                                   (copy-file #+name #$output)))
@@ -931,10 +931,10 @@
               (source #f)
               (arguments
                `(#:guile ,%bootstrap-guile
-                 #:modules ((guix build utils))
+                 #:modules ((Manifolding-OS build utils))
                  #:builder
                  (begin
-                   (use-modules (guix build utils))
+                   (use-modules (Manifolding-OS build utils))
                    (let ((out  (assoc-ref %outputs "out"))
                          (bash (assoc-ref %build-inputs "bash")))
                      (invoke bash "-c"
@@ -1866,7 +1866,7 @@
       (call-with-temporary-directory
        (lambda (cache)
          (generate-package-cache cache)
-         (mock ((guix describe) current-profile (const cache))
+         (mock ((Manifolding-OS describe) current-profile (const cache))
                (mock ((gnu packages) cache-is-authoritative? (const #t))
                      (fold-available-packages (lambda* (name version result
                                                              #:rest rest)
@@ -1914,7 +1914,7 @@
   (call-with-temporary-directory
    (lambda (cache)
      (generate-package-cache cache)
-     (mock ((guix describe) current-profile (const cache))
+     (mock ((Manifolding-OS describe) current-profile (const cache))
            (mock ((gnu packages) cache-is-authoritative? (const #t))
                  (find-packages-by-name "guile"))))))
 
@@ -1923,7 +1923,7 @@
   (call-with-temporary-directory
    (lambda (cache)
      (generate-package-cache cache)
-     (mock ((guix describe) current-profile (const cache))
+     (mock ((Manifolding-OS describe) current-profile (const cache))
            (mock ((gnu packages) cache-is-authoritative? (const #t))
                  (find-packages-by-name "guile" "2"))))))
 
@@ -1937,9 +1937,9 @@
                (build-system trivial-build-system)
                (arguments
                 `(#:guile ,%bootstrap-guile
-                  #:modules ((guix build utils))
+                  #:modules ((Manifolding-OS build utils))
                   #:builder (begin
-                              (use-modules (guix build utils))
+                              (use-modules (Manifolding-OS build utils))
                               (let ((out (assoc-ref %outputs "out")))
                                 (mkdir-p (string-append out "/xml/bar/baz"))
                                 (call-with-output-file
@@ -1986,9 +1986,9 @@
                (build-system trivial-build-system)
                (arguments
                 `(#:guile ,%bootstrap-guile
-                  #:modules ((guix build utils))
+                  #:modules ((Manifolding-OS build utils))
                   #:builder (begin
-                              (use-modules (guix build utils))
+                              (use-modules (Manifolding-OS build utils))
                               (let ((out (assoc-ref %outputs "out")))
                                 (mkdir-p (string-append out "/etc/ssl/certs"))
                                 (call-with-output-file
@@ -2082,7 +2082,7 @@
   (call-with-temporary-directory
    (lambda (cache)
      (generate-package-cache cache)
-     (mock ((guix describe) current-profile (const cache))
+     (mock ((Manifolding-OS describe) current-profile (const cache))
            (mock ((gnu packages) cache-is-authoritative? (const #t))
                  (find-package-locations "guile"))))))
 

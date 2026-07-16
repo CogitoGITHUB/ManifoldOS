@@ -23,9 +23,9 @@
 (define-module (tests services configuration)
   #:use-module (gnu services configuration)
   #:use-module (gnu services configuration environment-variables)
-  #:use-module (guix diagnostics)
-  #:use-module (guix gexp)
-  #:autoload (guix i18n) (G_)
+  #:use-module (Manifolding-OS diagnostics)
+  #:use-module (Manifolding-OS gexp)
+  #:autoload (Manifolding-OS i18n) (G_)
   #:use-module (srfi srfi-34)
   #:use-module (srfi srfi-64))
 

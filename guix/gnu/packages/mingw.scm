@@ -21,14 +21,14 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages mingw)
-  #:use-module ((guix licenses) #:prefix license:)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
   #:use-module (gnu packages)
   #:use-module (gnu packages cross-base)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix gexp)
-  #:use-module (guix memoization)
-  #:use-module (guix packages)
-  #:use-module (guix download)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS memoization)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS download)
   #:export (make-mingw-w64))
 
 (define* (make-mingw-w64/implementation machine
@@ -165,8 +165,8 @@ several new APIs such as DirectX and DDK, and 64-bit support.")
     (build-system gnu-build-system)
     (arguments
      (list
-      #:modules '((guix build gnu-build-system)
-                  (guix build utils)
+      #:modules '((Manifolding-OS build gnu-build-system)
+                  (Manifolding-OS build utils)
                   (srfi srfi-1))
       #:phases
       #~(append

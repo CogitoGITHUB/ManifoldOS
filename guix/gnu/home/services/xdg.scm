@@ -24,12 +24,12 @@
   #:use-module (gnu home services)
   #:use-module (gnu packages freedesktop)
   #:use-module (gnu home services utils)
-  #:use-module (guix deprecation)
-  #:use-module (guix gexp)
-  #:use-module (guix modules)
-  #:use-module (guix records)
-  #:use-module (guix i18n)
-  #:use-module (guix diagnostics)
+  #:use-module (Manifolding-OS deprecation)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS modules)
+  #:use-module (Manifolding-OS records)
+  #:use-module (Manifolding-OS i18n)
+  #:use-module (Manifolding-OS diagnostics)
 
   #:use-module (ice-9 match)
   #:use-module (srfi srfi-1)
@@ -136,9 +136,9 @@ portable enough to the user to warrant storing them in
         '(log-home) #t))))
 
 (define (ensure-xdg-base-dirs-on-activation config)
-  (with-imported-modules '((guix build utils))
+  (with-imported-modules '((Manifolding-OS build utils))
     #~(begin
-        (use-modules (guix build utils))
+        (use-modules (Manifolding-OS build utils))
         (map (lambda (xdg-base-dir-variable)
                (mkdir-p
                 (getenv
@@ -251,7 +251,7 @@ pre-populated content.")
                    home-xdg-user-directories-configuration-fields)))
     #~(let ((ensure-dir
              (lambda (path)
-               ((@ (guix build utils) mkdir-p)
+               ((@ (Manifolding-OS build utils) mkdir-p)
                 ((@ (ice-9 string-fun) string-replace-substring)
                  path "$HOME" (getenv "HOME"))))))
         (display "Creating XDG user directories...")

@@ -31,17 +31,17 @@
   #:use-module (gnu services web)
   #:use-module (gnu services)
   #:use-module (gnu system shadow)
-  #:use-module (guix gexp)
-  #:use-module ((guix modules) #:select (source-module-closure))
-  #:use-module (guix packages)
-  #:use-module ((guix profiles) #:select (packages->manifest
+  #:use-module (Manifolding-OS gexp)
+  #:use-module ((Manifolding-OS modules) #:select (source-module-closure))
+  #:use-module (Manifolding-OS packages)
+  #:use-module ((Manifolding-OS profiles) #:select (packages->manifest
                                           profile
                                           profile-search-paths))
-  #:use-module (guix records)
-  #:use-module ((guix search-paths) #:select (search-path-specification-variable))
-  #:use-module ((guix self) #:select (make-config.scm))
-  #:use-module ((guix ui) #:select (display-hint G_))
-  #:use-module (guix utils)
+  #:use-module (Manifolding-OS records)
+  #:use-module ((Manifolding-OS search-paths) #:select (search-path-specification-variable))
+  #:use-module ((Manifolding-OS self) #:select (make-config.scm))
+  #:use-module ((Manifolding-OS ui) #:select (display-hint G_))
+  #:use-module (Manifolding-OS utils)
   #:use-module (ice-9 match)
   #:use-module (ice-9 rdelim)
   #:use-module (srfi srfi-1)
@@ -268,10 +268,10 @@ HTTP.")
        (stop #~(make-kill-destructor)))))))
 
 (define (prometheus-node-exporter-activation config)
-  (with-imported-modules '((guix build utils))
+  (with-imported-modules '((Manifolding-OS build utils))
     #~(let ((textfile-directory
              #$(prometheus-node-exporter-textfile-directory config)))
-        (use-modules (guix build utils))
+        (use-modules (Manifolding-OS build utils))
 
         (when textfile-directory
           (let ((user (getpw "prometheus-node-exporter")))
@@ -848,9 +848,9 @@ configuration file."))
 
 (define (zabbix-server-activation config)
   "Return the activation gexp for CONFIG."
-  (with-imported-modules '((guix build utils))
+  (with-imported-modules '((Manifolding-OS build utils))
     #~(begin
-        (use-modules (guix build utils)
+        (use-modules (Manifolding-OS build utils)
                      (ice-9 rdelim))
         (let ((user (getpw #$(zabbix-server-configuration-user config))))
           (for-each (lambda (file)
@@ -1012,9 +1012,9 @@ configuration file."))
 
 (define (zabbix-agent-activation config)
   "Return the activation gexp for CONFIG."
-  (with-imported-modules '((guix build utils))
+  (with-imported-modules '((Manifolding-OS build utils))
     #~(begin
-        (use-modules (guix build utils)
+        (use-modules (Manifolding-OS build utils)
                      (ice-9 rdelim))
         (let ((user
                (getpw #$(zabbix-agent-configuration-user config))))
@@ -1214,7 +1214,7 @@ $IMAGE_FORMAT_DEFAULT = IMAGE_FORMAT_PNG;
 (define (zabbix-front-end-activation config)
   "Return the activation gexp for CONFIG."
   #~(begin
-      (use-modules (guix build utils))
+      (use-modules (Manifolding-OS build utils))
       (mkdir-p "/etc/zabbix")
       (call-with-output-file "/etc/zabbix/maintenance.inc.php"
             (lambda (port)
@@ -1684,9 +1684,9 @@ lookup of the name returned by @code{gethostname(2)}."
                               (packages->manifest packages)))))
     (computed-file
      "collectd-profile-wrapper"
-     (with-imported-modules '((guix build utils))
+     (with-imported-modules '((Manifolding-OS build utils))
        #~(begin
-           (use-modules (guix build utils))
+           (use-modules (Manifolding-OS build utils))
            (call-with-output-file #$output
              (lambda (output)
                (format output
@@ -1723,9 +1723,9 @@ lookup of the name returned by @code{gethostname(2)}."
 (define (collectd-activation config)
   (match-record config <collectd-configuration> (base-directory)
     (with-imported-modules
-        (source-module-closure '((guix build utils)))
+        (source-module-closure '((Manifolding-OS build utils)))
       #~(begin
-          (use-modules (guix build utils))
+          (use-modules (Manifolding-OS build utils))
           (mkdir-p #$base-directory)))))
 
 (define collectd-service-type

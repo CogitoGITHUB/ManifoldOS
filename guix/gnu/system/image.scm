@@ -23,23 +23,23 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu system image)
-  #:use-module (guix deprecation)
-  #:use-module (guix diagnostics)
-  #:autoload   (guix discovery) (fold-module-public-variables)
-  #:autoload   (guix describe) (modules-from-current-profile)
-  #:use-module (guix gexp)
-  #:use-module (guix modules)
-  #:use-module (guix monads)
-  #:use-module (guix records)
-  #:use-module (guix store)
-  #:use-module (guix ui)
-  #:use-module (guix utils)
-  #:use-module ((guix self) #:select (make-config.scm))
+  #:use-module (Manifolding-OS deprecation)
+  #:use-module (Manifolding-OS diagnostics)
+  #:autoload   (Manifolding-OS discovery) (fold-module-public-variables)
+  #:autoload   (Manifolding-OS describe) (modules-from-current-profile)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS modules)
+  #:use-module (Manifolding-OS monads)
+  #:use-module (Manifolding-OS records)
+  #:use-module (Manifolding-OS store)
+  #:use-module (Manifolding-OS ui)
+  #:use-module (Manifolding-OS utils)
+  #:use-module ((Manifolding-OS self) #:select (make-config.scm))
   #:use-module (gnu bootloader)
   #:use-module (gnu bootloader grub)
   #:use-module (gnu compression)
   #:use-module (gnu image)
-  #:use-module (guix platform)
+  #:use-module (Manifolding-OS platform)
   #:use-module (gnu services)
   #:use-module (gnu services base)
   #:use-module (gnu system)
@@ -48,7 +48,7 @@
   #:use-module (gnu system linux-container)
   #:use-module (gnu system uuid)
   #:use-module (gnu system vm)
-  #:use-module (guix packages)
+  #:use-module (Manifolding-OS packages)
   #:use-module (gnu packages base)
   #:use-module (gnu packages bash)
   #:use-module (gnu packages bootloaders)
@@ -199,7 +199,7 @@ parent image record."
    (partitions
     (list (partition
            (size 'guess)
-           (label "GUIX_IMAGE")
+           (label "MANIFOLDING_OS_IMAGE")
            (flags '(boot)))))))
 
 (define docker-image
@@ -317,7 +317,7 @@ set to the given OS."
 ;;
 
 (define neither-config-nor-git?
-  ;; Select (guix …) and (gnu …) modules, except (guix config) and (guix git).
+  ;; Select (Manifolding-OS …) and (gnu …) modules, except (Manifolding-OS config) and (Manifolding-OS git).
   ;; The latter is autoloaded by some modules but it is not supposed to be
   ;; actually used in the context of image creation; adding it to the module
   ;; closure would imply adding Guile-Git as well.
@@ -357,17 +357,17 @@ set to the given OS."
                                   (gnu build bootloader)
                                   (gnu build hurd-boot)
                                   (gnu build linux-boot)
-                                  (guix store database))
+                                  (Manifolding-OS store database))
                                 #:select? neither-config-nor-git?)
-                             ((guix config) => ,(make-config.scm)))
+                             ((Manifolding-OS config) => ,(make-config.scm)))
       #~(begin
           (use-modules (ice-9 optargs)
                        (gnu build image)
                        (gnu build bootloader)
                        (gnu build hurd-boot)
                        (gnu build linux-boot)
-                       (guix store database)
-                       (guix build utils))
+                       (Manifolding-OS store database)
+                       (Manifolding-OS build utils))
           gexp* ...))))
 
 (define (partition-has-flag? partition flag)
@@ -500,7 +500,7 @@ used in the image."
       ;; partition file-system type.
       (let* ((os (image-operating-system image))
              (schema (local-file (search-path %load-path
-                                              "guix/store/schema.sql")))
+                                              "Manifolding-OS/store/schema.sql")))
              (graph (match inputs
                       (((names . _) ...)
                        names)))
@@ -530,7 +530,7 @@ used in the image."
 
                  ;; Allow non-ASCII file names--e.g., 'nss-certs'--to be
                  ;; decoded.
-                 (setenv "GUIX_LOCPATH"
+                 (setenv "MANIFOLDING_OS_LOCPATH"
                          #+(file-append (libc-utf8-locales-for-target
                                          (%current-system))
                                         "/lib/locale"))
@@ -689,7 +689,7 @@ used in the image. "
          (compression? (image-compression? image))
          (substitutable? (image-substitutable? image))
          (schema (local-file (search-path %load-path
-                                          "guix/store/schema.sql")))
+                                          "Manifolding-OS/store/schema.sql")))
          (graph (match inputs
                   (((names . _) ...)
                    names)))
@@ -701,7 +701,7 @@ used in the image. "
              (sql-schema #$schema)
 
              ;; Allow non-ASCII file names--e.g., 'nss-certs'--to be decoded.
-             (setenv "GUIX_LOCPATH"
+             (setenv "MANIFOLDING_OS_LOCPATH"
                      #+(file-append (libc-utf8-locales-for-target (%current-system))
                                     "/lib/locale"))
 
@@ -761,7 +761,7 @@ output file."
     ;; Program that runs the boot script of OS, which in turn starts shepherd.
     (program-file "boot-program"
                   #~(let ((system (cadr (command-line))))
-                      (setenv "GUIX_NEW_SYSTEM" system)
+                      (setenv "MANIFOLDING_OS_NEW_SYSTEM" system)
                       (execl #$(file-append guile-3.0 "/bin/guile")
                              "guile" "--no-auto-compile"
                              (string-append system "/boot")))))
@@ -781,34 +781,34 @@ output file."
          (register-closures? (has-guix-service-type? os))
          (schema (and register-closures?
                       (local-file (search-path %load-path
-                                               "guix/store/schema.sql"))))
+                                               "Manifolding-OS/store/schema.sql"))))
          (name (string-append name ".tar.gz"))
          (graph "system-graph"))
     (define builder
-      (with-extensions (cons guile-json-3         ;for (guix docker)
-                             gcrypt-sqlite3&co)   ;for (guix store database)
+      (with-extensions (cons guile-json-3         ;for (Manifolding-OS docker)
+                             gcrypt-sqlite3&co)   ;for (Manifolding-OS store database)
         (with-imported-modules `(,@(source-module-closure
-                                    '((guix docker)
-                                      (guix store database)
-                                      (guix build utils)
-                                      (guix build store-copy)
+                                    '((Manifolding-OS docker)
+                                      (Manifolding-OS store database)
+                                      (Manifolding-OS build utils)
+                                      (Manifolding-OS build store-copy)
                                       (gnu build image))
                                     #:select? neither-config-nor-git?)
-                                 ((guix config) => ,(make-config.scm)))
+                                 ((Manifolding-OS config) => ,(make-config.scm)))
           #~(begin
-              (use-modules (guix docker)
-                           (guix build utils)
+              (use-modules (Manifolding-OS docker)
+                           (Manifolding-OS build utils)
                            (gnu build image)
                            (srfi srfi-1)
                            (srfi srfi-19)
-                           (guix build store-copy)
-                           (guix store database))
+                           (Manifolding-OS build store-copy)
+                           (Manifolding-OS store database))
 
               ;; Set the SQL schema location.
               (sql-schema #$schema)
 
               ;; Allow non-ASCII file names--e.g., 'nss-certs'--to be decoded.
-              (setenv "GUIX_LOCPATH"
+              (setenv "MANIFOLDING_OS_LOCPATH"
                       #+(file-append (libc-utf8-locales-for-target (%current-system))
                                      "/lib/locale"))
               (setlocale LC_ALL "en_US.utf8")
@@ -860,7 +860,7 @@ output file."
 ;;; Tarball image.
 ;;;
 
-;; TODO: Some bits can be factorized with (guix scripts pack).
+;; TODO: Some bits can be factorized with (Manifolding-OS scripts pack).
 (define* (system-tarball-image image
                                #:key
                                (name "image")
@@ -871,7 +871,7 @@ output file."
   (let* ((os (image-operating-system image))
          (substitutable? (image-substitutable? image))
          (schema (local-file (search-path %load-path
-                                          "guix/store/schema.sql")))
+                                          "Manifolding-OS/store/schema.sql")))
          (name (string-append name ".tar" (compressor-extension compressor)))
          (graph "system-graph")
          (root (srfi-1:find (lambda (user)
@@ -880,27 +880,27 @@ output file."
          (root-shell (or (and=> root user-account-shell)
                          (file-append bash "/bin/bash"))))
     (define builder
-      (with-extensions gcrypt-sqlite3&co          ;for (guix store database)
+      (with-extensions gcrypt-sqlite3&co          ;for (Manifolding-OS store database)
         (with-imported-modules `(,@(source-module-closure
-                                    '((guix build pack)
-                                      (guix build store-copy)
-                                      (guix build utils)
-                                      (guix store database)
+                                    '((Manifolding-OS build pack)
+                                      (Manifolding-OS build store-copy)
+                                      (Manifolding-OS build utils)
+                                      (Manifolding-OS store database)
                                       (gnu build image))
                                     #:select? neither-config-nor-git?)
-                                 ((guix config) => ,(make-config.scm)))
+                                 ((Manifolding-OS config) => ,(make-config.scm)))
           #~(begin
-              (use-modules (guix build pack)
-                           (guix build store-copy)
-                           (guix build utils)
-                           (guix store database)
+              (use-modules (Manifolding-OS build pack)
+                           (Manifolding-OS build store-copy)
+                           (Manifolding-OS build utils)
+                           (Manifolding-OS store database)
                            (gnu build image))
 
               ;; Set the SQL schema location.
               (sql-schema #$schema)
 
               ;; Allow non-ASCII file names--e.g., 'nss-certs'--to be decoded.
-              (setenv "GUIX_LOCPATH"
+              (setenv "MANIFOLDING_OS_LOCPATH"
                       #+(file-append (libc-utf8-locales-for-target (%current-system))
                                      "/lib/locale"))
               (setlocale LC_ALL "en_US.utf8")

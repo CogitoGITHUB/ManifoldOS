@@ -19,5 +19,5 @@
 
 (define-module (gnu home services guix)
   #:use-module (gnu home services)
-  #:use-module (guix gexp)
+  #:use-module (Manifolding-OS gexp)
   #:use-module (srfi srfi-1))

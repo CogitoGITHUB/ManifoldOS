@@ -27,7 +27,7 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages openstack)
-  #:use-module ((guix licenses) #:prefix license:)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
   #:use-module (gnu packages)
   #:use-module (gnu packages bash)
   #:use-module (gnu packages check)
@@ -47,12 +47,12 @@
   #:use-module (gnu packages version-control)
   #:use-module (gnu packages virtualization)
   #:use-module (gnu packages xml)
-  #:use-module (guix gexp)
-  #:use-module (guix build-system pyproject)
-  #:use-module (guix download)
-  #:use-module (guix git-download)
-  #:use-module (guix utils)
-  #:use-module (guix packages)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS build-system pyproject)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS utils)
+  #:use-module (Manifolding-OS packages)
   #:use-module (srfi srfi-1))
 
 (define-public python-cliff

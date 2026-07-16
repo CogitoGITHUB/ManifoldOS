@@ -23,9 +23,9 @@
   #:use-module (gnu services base)
   #:use-module (gnu services shepherd)
   #:use-module (gnu packages admin)
-  #:use-module (guix records)
-  #:use-module (guix gexp)
-  #:use-module (guix packages)
+  #:use-module (Manifolding-OS records)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS packages)
   #:export (auditd-configuration
             auditd-service-type
             %default-auditd-configuration-directory))

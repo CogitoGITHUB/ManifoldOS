@@ -179,22 +179,22 @@
   #:use-module (gnu packages xdisorg)
   #:use-module (gnu packages xml)
   #:use-module (gnu packages xorg)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix build-system cargo)
-  #:use-module (guix build-system cmake)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system go)
-  #:use-module (guix build-system meson)
-  #:use-module (guix build-system pyproject)
-  #:use-module (guix build-system ruby)
-  #:use-module (guix build-system trivial)
-  #:use-module (guix deprecation)
-  #:use-module (guix download)
-  #:use-module (guix gexp)
-  #:use-module (guix git-download)
-  #:use-module (guix packages)
-  #:use-module (guix modules)
-  #:use-module (guix utils)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS build-system cargo)
+  #:use-module (Manifolding-OS build-system cmake)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system go)
+  #:use-module (Manifolding-OS build-system meson)
+  #:use-module (Manifolding-OS build-system pyproject)
+  #:use-module (Manifolding-OS build-system ruby)
+  #:use-module (Manifolding-OS build-system trivial)
+  #:use-module (Manifolding-OS deprecation)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS modules)
+  #:use-module (Manifolding-OS utils)
   #:use-module (srfi srfi-1)
   #:use-module (srfi srfi-26)
   #:use-module (ice-9 match))
@@ -216,7 +216,7 @@
        (patches (search-patches "qemu-build-info-manual.patch"
                                 "qemu-fix-agent-paths.patch"
                                 "qemu-fix-test-virtio-version.patch"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         '(begin
            ;; Delete the bundled rust crates.
@@ -290,7 +290,7 @@
                   (srfi srfi-26)
                   (ice-9 ftw)
                   (ice-9 match)
-                  ((guix build cargo-build-system) #:prefix cargo:)
+                  ((Manifolding-OS build cargo-build-system) #:prefix cargo:)
                   ,@%default-gnu-modules)
       #:imported-modules `(,@%cargo-build-system-modules
                            ,@%default-gnu-imported-modules)
@@ -774,7 +774,7 @@ server and embedded PowerPC, and S390 guests.")
               (file-name (git-file-name name version))
               (sha256
                (base32 "11nj3y7maz9ch15b1c2b69gd8d7mpaha377zpdbvfsmg5w9zz93l"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet `(begin
                           ;; Remove git2log program file.
                           (delete-file "git2log")
@@ -854,7 +854,7 @@ firmware blobs.  You can
      (list
       #:imported-modules %pyproject-build-system-modules
       #:modules `(,@%default-gnu-modules
-                  ((guix build pyproject-build-system) #:select (site-packages))
+                  ((Manifolding-OS build pyproject-build-system) #:select (site-packages))
                   (srfi srfi-1)
                   (srfi srfi-26)
                   (ice-9 match)
@@ -1042,7 +1042,7 @@ firmware blobs.  You can
                      (sbin (string-append out "/sbin"))
                      (lib (string-append out "/lib"))
                      (PYTHONPATH (string-append (site-packages inputs outputs)
-                                                ":" (getenv "GUIX_PYTHONPATH"))))
+                                                ":" (getenv "MANIFOLDING_OS_PYTHONPATH"))))
                 (define (shell-script? file)
                   (call-with-ascii-input-file file
                    (lambda (port)
@@ -1062,7 +1062,7 @@ firmware blobs.  You can
                       (not (shell-script? file))))
 
                 (for-each (cut wrap-program <>
-                              `("GUIX_PYTHONPATH" ":" prefix
+                              `("MANIFOLDING_OS_PYTHONPATH" ":" prefix
                                 (,PYTHONPATH)))
                           (append-map (cut find-files <> wrap?)
                                      (list (string-append lib "/ganeti")
@@ -1302,8 +1302,8 @@ Debian or a derivative using @command{debootstrap}.")
                #~'()
                #~(list "-DRVVM_USE_JIT=NO")))
        #:modules `((srfi srfi-26)
-                  (guix build utils)
-                  (guix build cmake-build-system))
+                  (Manifolding-OS build utils)
+                  (Manifolding-OS build cmake-build-system))
        #:phases
        #~(modify-phases %standard-phases
            ;; Install phase inspired by the Makefile.
@@ -1385,7 +1385,7 @@ of one or more RISC-V harts.")
        (snippet
         #~(begin
             ;; Do not attempt to install /var.
-            (use-modules (guix build utils))
+            (use-modules (Manifolding-OS build utils))
             (substitute* "samples/Makefile.am"
               (("install-data-local")
                "install-data-local-DISABLED"))))))
@@ -1762,8 +1762,8 @@ It started as a side project of LXC but can be used by any run-time.")
     (build-system meson-build-system)
     (arguments
      (list
-      #:modules '((guix build meson-build-system)
-                  (guix build utils)
+      #:modules '((Manifolding-OS build meson-build-system)
+                  (Manifolding-OS build utils)
                   (ice-9 format))
       #:configure-flags
       #~(list "-Ddriver_qemu=enabled"
@@ -1954,8 +1954,8 @@ virtualization library.")
       '((ice-9 match)
         (srfi srfi-1)
         (srfi srfi-26)
-        (guix build meson-build-system)
-        (guix build utils))
+        (Manifolding-OS build meson-build-system)
+        (Manifolding-OS build utils))
       #:glib-or-gtk? #t
       #:phases
       #~(modify-phases %standard-phases
@@ -1982,9 +1982,9 @@ virtualization library.")
                             (format #t "wrapping ~a~%" file)
                             (wrap-program file
                               `("GI_TYPELIB_PATH" prefix ,paths)
-                              `("GUIX_PYTHONPATH" prefix
+                              `("MANIFOLDING_OS_PYTHONPATH" prefix
                                 ;; FIXME: This wraps too much (see: bug#25235).
-                                (,(getenv "GUIX_PYTHONPATH")))))
+                                (,(getenv "MANIFOLDING_OS_PYTHONPATH")))))
                           (find-files (string-append #$output "/bin"))))))
           (replace 'check
             (lambda* (#:key tests? #:allow-other-keys)
@@ -2222,9 +2222,9 @@ client desktops.
               (string-append "PYTHON=python3")
               (string-append "XMLTO="
                              (search-input-file %build-inputs "/bin/xmlto")))
-      #:modules '((guix build gnu-build-system)
-                  (guix build utils)
-                  ((guix build pyproject-build-system) #:prefix py:))
+      #:modules '((Manifolding-OS build gnu-build-system)
+                  (Manifolding-OS build utils)
+                  ((Manifolding-OS build pyproject-build-system) #:prefix py:))
       #:imported-modules (append %default-gnu-imported-modules
                                  %pyproject-build-system-modules)
       #:phases
@@ -2260,11 +2260,11 @@ client desktops.
             (lambda* (#:key inputs outputs #:allow-other-keys)
               ;; Make sure 'crit' runs with the correct PYTHONPATH.
               (let* ((site (py:site-packages inputs outputs))
-                     (path (getenv "GUIX_PYTHONPATH")))
+                     (path (getenv "MANIFOLDING_OS_PYTHONPATH")))
                 ;; manually install stuff that was pip-installed
                 (for-each (lambda (dir)
                             (with-directory-excursion dir
-                              (setenv "GUIX_PYTHONPATH"
+                              (setenv "MANIFOLDING_OS_PYTHONPATH"
                                       (string-append site ":" path))
                               (invoke "python3" "setup.py" "install"
                                       (string-append "--prefix=" #$output)
@@ -2272,7 +2272,7 @@ client desktops.
                                       "--single-version-externally-managed")))
                           (list "lib" "crit"))
                 (wrap-program (string-append #$output "/bin/crit")
-                  `("GUIX_PYTHONPATH" ":" prefix (,site ,path))))))
+                  `("MANIFOLDING_OS_PYTHONPATH" ":" prefix (,site ,path))))))
           (add-after 'install 'delete-static-libraries
             ;; Not building/installing these at all doesn't seem to be supported.
             (lambda* (#:key outputs #:allow-other-keys)
@@ -2612,7 +2612,7 @@ helpers that let you write your own unit and acceptance tests for Vagrant.")
                   line))))))))
     (native-search-paths
      (list (search-path-specification
-            (variable "GUIX_VAGRANT_PLUGINS_PATH")
+            (variable "MANIFOLDING_OS_VAGRANT_PLUGINS_PATH")
             (files '("share/vagrant-plugins")))))
     ;; TODO: install bash/zsh completions, man-page, etc.
     ;; see http://svnweb.mageia.org/packages/cauldron/vagrant/current/SPECS/vagrant.spec
@@ -2944,7 +2944,7 @@ by default and can be made read-only.")
                 "1al1fx8dbb0ny7a4wbngnz8pqav0nl6rhakb434jqnpka4mm8vyb"))
               (snippet
                #~(begin
-                   (use-modules (guix build utils))
+                   (use-modules (Manifolding-OS build utils))
                    ;; This file is non-free.
                    (delete-file "bios/i440fx.bin")
                    ;; make -C bios bios-clean
@@ -3331,10 +3331,10 @@ administrators and developers in managing the database.")
     (build-system trivial-build-system)
     (arguments
      (list
-      #:modules '((guix build utils))
+      #:modules '((Manifolding-OS build utils))
       #:builder
       #~(begin
-          (use-modules (guix build utils))
+          (use-modules (Manifolding-OS build utils))
           (let ((osinfo (string-append #$output "/share/osinfo"))
                 (source (assoc-ref %build-inputs "source"))
                 (import-osinfo-db

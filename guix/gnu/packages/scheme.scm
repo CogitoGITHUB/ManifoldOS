@@ -95,18 +95,18 @@
   #:use-module (gnu packages version-control)
   #:use-module (gnu packages xorg)
   #:use-module (gnu packages)
-  #:use-module (guix build-system asdf)
-  #:use-module (guix build-system cmake)
-  #:use-module (guix build-system copy)
-  #:use-module (guix build-system emacs)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system trivial)
-  #:use-module (guix download)
-  #:use-module (guix gexp)
-  #:use-module (guix git-download)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix packages)
-  #:use-module (guix utils)
+  #:use-module (Manifolding-OS build-system asdf)
+  #:use-module (Manifolding-OS build-system cmake)
+  #:use-module (Manifolding-OS build-system copy)
+  #:use-module (Manifolding-OS build-system emacs)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system trivial)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS utils)
   #:use-module (ice-9 match)
   #:use-module (srfi srfi-1))
 
@@ -245,7 +245,7 @@ features an integrated Emacs-like editor and a large runtime library.")
                  (base32
                   "0xvrd9557x3n9s981ppz27xscrr5lf0g367fxim2xnv2a5rh4wni"))
                 ;; Remove bundled libraries.
-                (modules '((guix build utils)))
+                (modules '((Manifolding-OS build utils)))
                 (snippet
                  #~(begin
                      (for-each delete-file-recursively
@@ -413,8 +413,8 @@ implementation techniques and as an expository tool.")
     (arguments
      (list
       #:tests? #f ; tests only cover scheme48
-      #:modules '((guix build gnu-build-system)
-                  (guix build utils)
+      #:modules '((Manifolding-OS build gnu-build-system)
+                  (Manifolding-OS build utils)
                   (ice-9 popen)
                   (srfi srfi-1))
       #:phases
@@ -757,10 +757,10 @@ on-the-fly FFI and native stub code generation, making use of the LLVM.")
          (file-name (string-append name "-" version "-checkout"))))
       (build-system trivial-build-system)
       (arguments
-       `(#:modules ((guix build utils))
+       `(#:modules ((Manifolding-OS build utils))
          #:builder
          (begin
-           (use-modules (guix build utils))
+           (use-modules (Manifolding-OS build utils))
            (let ((share (string-append %output
                                        "/share/scheme48-"
                                        ,(package-version scheme48)
@@ -959,7 +959,7 @@ developers freedom in balancing features and footprint.")
                 (sha256
                  (base32
                   "15a5gxj9v7jqlgkg0543gdflw0rbrir7fj5zgifnb33m074wiyhn"))
-                (modules '((guix build utils)))
+                (modules '((Manifolding-OS build utils)))
                 (snippet
                  ;; remove gc libs from build, we have them as input
                  '(begin
@@ -1394,7 +1394,7 @@ application.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "1qfd0dk4l4dccdhi6lmgv74g98m6mpdiif1qrzgwbj8awbb8x1jy"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         #~(begin
             ;; autogen.sh lacks shebang.  Let's delete it, the default action

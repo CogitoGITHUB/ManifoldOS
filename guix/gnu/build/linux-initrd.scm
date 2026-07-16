@@ -17,9 +17,9 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu build linux-initrd)
-  #:use-module ((guix cpio) #:prefix cpio:)
-  #:use-module (guix build utils)
-  #:use-module (guix build store-copy)
+  #:use-module ((Manifolding-OS cpio) #:prefix cpio:)
+  #:use-module (Manifolding-OS build utils)
+  #:use-module (Manifolding-OS build store-copy)
   #:use-module (system base compile)
   #:use-module (rnrs bytevectors)
   #:use-module ((system foreign) #:select (sizeof))

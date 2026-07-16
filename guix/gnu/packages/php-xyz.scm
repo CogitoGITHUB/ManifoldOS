@@ -19,11 +19,11 @@
 (define-module (gnu packages php-xyz)
   #:use-module (gnu packages)
   #:use-module (gnu packages php)
-  #:use-module (guix packages)
-  #:use-module (guix git-download)
-  #:use-module (guix build-system copy)
-  #:use-module (guix utils)
-  #:use-module ((guix licenses) #:prefix license:))
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS build-system copy)
+  #:use-module (Manifolding-OS utils)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:))
 
 (define-public composer-classloader
   (package

@@ -22,7 +22,7 @@
   #:use-module (gnu bootloader u-boot)
   #:use-module (gnu image)
   #:use-module (gnu packages linux)
-  #:use-module (guix platforms arm)
+  #:use-module (Manifolding-OS platforms arm)
   #:use-module (gnu services)
   #:use-module (gnu services base)
   #:use-module (gnu system)

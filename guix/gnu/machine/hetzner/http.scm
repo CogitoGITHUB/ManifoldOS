@@ -18,10 +18,10 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu machine hetzner http)
-  #:use-module (guix diagnostics)
-  #:use-module (guix i18n)
-  #:use-module (guix memoization)
-  #:use-module (guix records)
+  #:use-module (Manifolding-OS diagnostics)
+  #:use-module (Manifolding-OS i18n)
+  #:use-module (Manifolding-OS memoization)
+  #:use-module (Manifolding-OS records)
   #:use-module (ice-9 iconv)
   #:use-module (ice-9 match)
   #:use-module (ice-9 pretty-print)
@@ -186,7 +186,7 @@
 ;;;
 
 (define %hetzner-default-api-token
-  (make-parameter (getenv "GUIX_HETZNER_API_TOKEN")))
+  (make-parameter (getenv "MANIFOLDING_OS_HETZNER_API_TOKEN")))
 
 ;; Ideally this would be a Guix image. Maybe one day.
 (define %hetzner-default-server-image

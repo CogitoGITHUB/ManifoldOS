@@ -22,14 +22,14 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (test-gem)
-  #:use-module (guix import gem)
-  #:use-module (guix upstream)
-  #:use-module ((guix download) #:select (url-fetch))
-  #:use-module ((guix build-system ruby) #:select (rubygems-uri))
-  #:use-module (guix base32)
+  #:use-module (Manifolding-OS import gem)
+  #:use-module (Manifolding-OS upstream)
+  #:use-module ((Manifolding-OS download) #:select (url-fetch))
+  #:use-module ((Manifolding-OS build-system ruby) #:select (rubygems-uri))
+  #:use-module (Manifolding-OS base32)
   #:use-module (gcrypt hash)
-  #:use-module (guix tests)
-  #:use-module ((guix build utils) #:select (delete-file-recursively))
+  #:use-module (Manifolding-OS tests)
+  #:use-module ((Manifolding-OS build utils) #:select (delete-file-recursively))
   #:use-module (srfi srfi-64)
   #:use-module (ice-9 match))
 
@@ -168,7 +168,7 @@
 
 (test-assert "gem->guix-package"
   ;; Replace network resources with sample data.
-  (mock ((guix http-client) http-fetch
+  (mock ((Manifolding-OS http-client) http-fetch
          (lambda (url . rest)
            (match url
              ("https://rubygems.org/api/v1/gems/foo.json"
@@ -197,7 +197,7 @@
 
 (test-assert "gem->guix-package with a specific version"
   ;; Replace network resources with sample data.
-  (mock ((guix http-client) http-fetch
+  (mock ((Manifolding-OS http-client) http-fetch
          (lambda (url . rest)
            (match url
              ("https://rubygems.org/api/v2/rubygems/foo/versions/2.0.0.json"
@@ -226,7 +226,7 @@
 
 (test-assert "gem-recursive-import"
   ;; Replace network resources with sample data.
-  (mock ((guix http-client) http-fetch
+  (mock ((Manifolding-OS http-client) http-fetch
          (lambda (url . rest)
            (match url
              ("https://rubygems.org/api/v1/gems/foo.json"
@@ -278,7 +278,7 @@
 
 (test-assert "gem-recursive-import with a specific version"
   ;; Replace network resources with sample data.
-  (mock ((guix http-client) http-fetch
+  (mock ((Manifolding-OS http-client) http-fetch
          (lambda (url . rest)
            (match url
              ("https://rubygems.org/api/v2/rubygems/foo/versions/2.0.0.json"
@@ -338,7 +338,7 @@
                (name "bar")
                (downstream-name "ruby-bar")
                (type 'propagated))))
-  (mock ((guix http-client) http-fetch
+  (mock ((Manifolding-OS http-client) http-fetch
          (lambda (url . rest)
            (match url
              ("https://rubygems.org/api/v1/gems/foo.json"
@@ -359,7 +359,7 @@
                 (upstream-source-inputs source)))))
 
 (test-assert "gem->guix-package, bald homepage_uri"
-  (mock ((guix http-client) http-fetch
+  (mock ((Manifolding-OS http-client) http-fetch
          (lambda (url . rest)
            (match url
              ("https://rubygems.org/api/v1/gems/no-homepage.json"
@@ -386,7 +386,7 @@
        (pk 'fail x #f)))))
 
 (test-assert "gem->guix-package with SPDX license identifiers"
-  (mock ((guix http-client) http-fetch
+  (mock ((Manifolding-OS http-client) http-fetch
          (lambda (url . rest)
            (match url
              ("https://rubygems.org/api/v1/gems/spdx-gem.json"
@@ -413,7 +413,7 @@
        (pk 'fail x #f)))))
 
 (test-assert "gem->guix-package with gibberish license identifiers"
-  (mock ((guix http-client) http-fetch
+  (mock ((Manifolding-OS http-client) http-fetch
          (lambda (url . rest)
            (match url
              ("https://rubygems.org/api/v1/gems/gibberish-license-gem.json"
@@ -440,7 +440,7 @@
        (pk 'fail x #f)))))
 
 (test-assert "gem->guix-package with mixed valid and gibberish licenses"
-  (mock ((guix http-client) http-fetch
+  (mock ((Manifolding-OS http-client) http-fetch
          (lambda (url . rest)
            (match url
              ("https://rubygems.org/api/v1/gems/mixed-license-gem.json"

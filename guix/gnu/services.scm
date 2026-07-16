@@ -27,23 +27,23 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu services)
-  #:use-module (guix derivations)
-  #:use-module (guix gexp)
-  #:use-module (guix monads)
-  #:use-module (guix store)
-  #:use-module (guix records)
-  #:use-module (guix profiles)
-  #:use-module (guix discovery)
-  #:use-module (guix combinators)
-  #:use-module (guix describe)
-  #:use-module (guix sets)
-  #:use-module (guix ui)
-  #:use-module (guix diagnostics)
-  #:autoload   (guix openpgp) (openpgp-format-fingerprint)
-  #:use-module (guix modules)
-  #:use-module (guix packages)
-  #:use-module (guix utils)
-  #:use-module (guix deprecation)
+  #:use-module (Manifolding-OS derivations)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS monads)
+  #:use-module (Manifolding-OS store)
+  #:use-module (Manifolding-OS records)
+  #:use-module (Manifolding-OS profiles)
+  #:use-module (Manifolding-OS discovery)
+  #:use-module (Manifolding-OS combinators)
+  #:use-module (Manifolding-OS describe)
+  #:use-module (Manifolding-OS sets)
+  #:use-module (Manifolding-OS ui)
+  #:use-module (Manifolding-OS diagnostics)
+  #:autoload   (Manifolding-OS openpgp) (openpgp-format-fingerprint)
+  #:use-module (Manifolding-OS modules)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS utils)
+  #:use-module (Manifolding-OS deprecation)
   #:use-module (gnu packages base)
   #:use-module (gnu packages bash)
   #:use-module (gnu packages gnome)
@@ -218,7 +218,7 @@
 
 (define %distro-root-directory
   ;; Absolute file name of the module hierarchy.
-  (dirname (search-path %load-path "guix.scm")))
+  (dirname (search-path %load-path "Manifolding-OS.scm")))
 
 (define %service-type-path
   ;; Search path for service types.
@@ -566,9 +566,9 @@ list of channels (always empty) and its configuration file."
 
 (define (cleanup-gexp _)
   "Return a gexp to clean up /tmp and similar places upon boot."
-  (with-imported-modules '((guix build utils))
+  (with-imported-modules '((Manifolding-OS build utils))
     #~(begin
-        (use-modules (guix build utils))
+        (use-modules (Manifolding-OS build utils))
 
         ;; Clean out /tmp, /var/run, and /run.
         ;;
@@ -594,7 +594,7 @@ list of channels (always empty) and its configuration file."
 
            ;; Force file names to be decoded as UTF-8.  See
            ;; <https://bugs.gnu.org/26353>.
-           (setenv "GUIX_LOCPATH"
+           (setenv "MANIFOLDING_OS_LOCPATH"
                    #+(file-append
                       (libc-utf8-locales-for-target (%current-system))
                       "/lib/locale"))
@@ -636,24 +636,24 @@ ACTIVATION-SCRIPT-TYPE."
            (program-file "activate-service.scm"
                          (with-imported-modules (source-module-closure
                                                  '((gnu build activation)
-                                                   (guix build utils)))
+                                                   (Manifolding-OS build utils)))
                            #~(begin
                                (use-modules (gnu build activation)
-                                            (guix build utils))
+                                            (Manifolding-OS build utils))
                                #$action))))
          gexps))
 
   (program-file "activate.scm"
                 (with-imported-modules (source-module-closure
                                         '((gnu build activation)
-                                          (guix build utils)
-                                          (guix diagnostics)
-                                          (guix i18n)))
+                                          (Manifolding-OS build utils)
+                                          (Manifolding-OS diagnostics)
+                                          (Manifolding-OS i18n)))
                   #~(begin
                       (use-modules (gnu build activation)
-                                   (guix build utils)
-                                   (guix diagnostics)
-                                   (guix i18n)
+                                   (Manifolding-OS build utils)
+                                   (Manifolding-OS diagnostics)
+                                   (Manifolding-OS i18n)
                                    (srfi srfi-34))
 
                       (mkdir-p "/var/run")
@@ -761,13 +761,13 @@ system directory."
   ;; The RC script to be started upon boot.
   (program-file "rc"
                 (with-imported-modules (source-module-closure
-                                        '((guix build utils)
+                                        '((Manifolding-OS build utils)
                                           (gnu build hurd-boot)
-                                          (guix build syscalls)))
+                                          (Manifolding-OS build syscalls)))
                   #~(begin
-                      (use-modules (guix build utils)
+                      (use-modules (Manifolding-OS build utils)
                                    (gnu build hurd-boot)
-                                   (guix build syscalls)
+                                   (Manifolding-OS build syscalls)
                                    (ice-9 match)
                                    (system repl repl)
                                    (srfi srfi-1)
@@ -874,9 +874,9 @@ two-elements list suitable for extending `etc-service-type'."
     `((,name
        ,(computed-file name
          ;; This is specialized variant of `file-union'.
-         (with-imported-modules '((guix build utils))
+         (with-imported-modules '((Manifolding-OS build utils))
            #~(begin
-               (use-modules (guix build utils)
+               (use-modules (Manifolding-OS build utils)
                             (ice-9 ftw)
                             (ice-9 match)
                             (srfi srfi-1)

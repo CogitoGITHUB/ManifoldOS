@@ -18,10 +18,10 @@
 
 
 (define-module (test build-emacs-utils)
-  #:use-module (guix tests)
-  #:use-module (guix build emacs-utils)
-  #:use-module (guix build utils)
-  #:use-module ((guix utils)
+  #:use-module (Manifolding-OS tests)
+  #:use-module (Manifolding-OS build emacs-utils)
+  #:use-module (Manifolding-OS build utils)
+  #:use-module ((Manifolding-OS utils)
                 #:select (call-with-temporary-directory))
   #:use-module (ice-9 regex)
   #:use-module (srfi srfi-34)

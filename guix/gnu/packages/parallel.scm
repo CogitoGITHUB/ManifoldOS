@@ -37,16 +37,16 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages parallel)
-  #:use-module (guix download)
-  #:use-module (guix git-download)
-  #:use-module (guix build-system cmake)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system pyproject)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module ((guix utils) #:select (target-32bit?))
-  #:use-module (guix packages)
-  #:use-module (guix utils)
-  #:use-module (guix gexp)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS build-system cmake)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system pyproject)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module ((Manifolding-OS utils) #:select (target-32bit?))
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS utils)
+  #:use-module (Manifolding-OS gexp)
   #:use-module (gnu packages)
   #:use-module (gnu packages admin)
   #:use-module (gnu packages autotools)
@@ -92,7 +92,7 @@
        (base32 "0rd8avxkxp0rwiyjr106iy2f2mvbqa83s52yq2ba9w59j9np1nxw"))
       (snippet
        '(begin
-          (use-modules (guix build utils))
+          (use-modules (Manifolding-OS build utils))
           ;; Delete pre-generated manpages and documents.
           ;; TODO: generate rst files.
           ;; parallel_cheat_bw.pdf uses libreoffice to be generated.
@@ -229,7 +229,7 @@ when jobs finish.")
               (sha256
                (base32
                 "0gf7x85bzpkrx87mb16wyiyvkjxqq01sbajsjxwrspyi2v675hgr"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                '(begin
                   ;; According to
@@ -439,7 +439,7 @@ minimal slurm package BASE-SLURM."
                (base32
                 "1vydd44wp1xns7dd6zh7yin7i5p0ia3x2bk7ql56wfzhi22yf9sd"))
               (patches (search-patches "slurm-drmaa-25.patch"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                ;; This is a typo fixed in upstream commit
                ;; d4a43450a42b25c491217ed8b8e0af79a538c6e3
@@ -793,7 +793,7 @@ commonly needed services in distributed and parallel computing systems.")
              (sha256
               (base32
                "0f40hpppvfcc2ckryb1v6wckjqw6j0480dmixrf0ip69mcb9vv8l"))
-             (modules '((guix build utils)))
+             (modules '((Manifolding-OS build utils)))
              (snippet
               ;; Prevent 'autogen.pl' from running 'git submodule'.
               #~(substitute* "autogen.pl"

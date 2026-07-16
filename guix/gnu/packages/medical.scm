@@ -20,17 +20,17 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages medical)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix build-system cmake)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system pyproject)
-  #:use-module (guix build-system qt)
-  #:use-module (guix download)
-  #:use-module (guix gexp)
-  #:use-module (guix git-download)
-  #:use-module (guix hg-download)
-  #:use-module (guix packages)
-  #:use-module (guix utils)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS build-system cmake)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system pyproject)
+  #:use-module (Manifolding-OS build-system qt)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS hg-download)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS utils)
   #:use-module (gnu packages base)
   #:use-module (gnu packages bash) ; wrap-program
   #:use-module (gnu packages boost)
@@ -78,9 +78,9 @@
       `(,@%pyproject-build-system-modules
         ,@%qt-build-system-modules)
       #:modules
-      `(((guix build qt-build-system) #:prefix qt:)
-        (guix build pyproject-build-system)
-        (guix build utils))
+      `(((Manifolding-OS build qt-build-system) #:prefix qt:)
+        (Manifolding-OS build pyproject-build-system)
+        (Manifolding-OS build utils))
       #:phases
       #~(modify-phases %standard-phases
           (add-after 'install 'qt-wrap

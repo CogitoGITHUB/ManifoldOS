@@ -21,14 +21,14 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu services shepherd)
-  #:use-module (guix ui)
-  #:use-module (guix sets)
-  #:use-module (guix gexp)
-  #:use-module (guix store)
-  #:use-module (guix records)
-  #:use-module (guix packages)
-  #:use-module (guix utils)
-  #:use-module ((guix diagnostics)
+  #:use-module (Manifolding-OS ui)
+  #:use-module (Manifolding-OS sets)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS store)
+  #:use-module (Manifolding-OS records)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS utils)
+  #:use-module ((Manifolding-OS diagnostics)
                 #:select (define-with-syntax-properties formatted-message))
   #:use-module (gnu services)
   #:use-module (gnu services configuration)
@@ -197,14 +197,14 @@ DEFAULT is given, use it as the service's default value."
 
 (define %default-imported-modules
   ;; Default set of modules imported for a service's consumption.
-  '((guix build utils)
-    (guix build syscalls)))
+  '((Manifolding-OS build utils)
+    (Manifolding-OS build syscalls)))
 
 (define %default-modules
   ;; Default set of modules visible in a service's file.
   `((shepherd service)
-    ((guix build utils) #:hide (delete))
-    (guix build syscalls)))
+    ((Manifolding-OS build utils) #:hide (delete))
+    (Manifolding-OS build syscalls)))
 
 (define-with-syntax-properties (validate-provision (provision properties))
   (match provision

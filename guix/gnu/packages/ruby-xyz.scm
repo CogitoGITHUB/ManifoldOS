@@ -54,15 +54,15 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages ruby-xyz)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix build-system ruby)
-  #:use-module (guix deprecation)
-  #:use-module (guix download)
-  #:use-module (guix gexp)
-  #:use-module (guix git-download)
-  #:use-module (guix packages)
-  #:use-module (guix modules)
-  #:use-module (guix utils)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS build-system ruby)
+  #:use-module (Manifolding-OS deprecation)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS modules)
+  #:use-module (Manifolding-OS utils)
   #:use-module (gnu packages)
   #:use-module (gnu packages)
   #:use-module (gnu packages base)
@@ -2501,8 +2501,8 @@ complexity.")
                 "191j1f4gjw8wij1jy2fvddgi8cv1mm0ki7v0b0795clix1avnj29"))))
     (build-system ruby-build-system)
     (arguments
-     (list #:modules '((guix build ruby-build-system)
-                       (guix build utils)
+     (list #:modules '((Manifolding-OS build ruby-build-system)
+                       (Manifolding-OS build utils)
                        (ice-9 regex)
                        (ice-9 textual-ports))
            #:phases
@@ -8103,7 +8103,7 @@ with PostgreSQL 10 and later.")
        (sha256
         (base32
          "0pjdadc079rmasgiwdxcz8h9wvzk3mb6xq8xr02xxv616ihwxllk"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         '(begin
            ;; Remove wrappers that try to setup a bundle environment.
@@ -10528,8 +10528,8 @@ methods for copying, moving, removing, etc.")
     (arguments
      (list
       #:gem-flags #~(list "--" "--enable-system-libraries")
-      #:modules '((guix build ruby-build-system)
-                  (guix build utils)
+      #:modules '((Manifolding-OS build ruby-build-system)
+                  (Manifolding-OS build utils)
                   (ice-9 rdelim)
                   (ice-9 textual-ports))
       #:phases
@@ -10717,7 +10717,7 @@ more complex, and error-prone.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "1zczv2z4yk73gymh5ymjgf857z6274nwv7gnslip507ds67r78ay"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet #~(begin
                     (delete-file-recursively "ext")
                     (substitute* "unf.gemspec"
@@ -12983,8 +12983,8 @@ features that don't exist yet like variables, nesting, mixins and inheritance.")
          "0gpqv48xhl8mb8qqhcifcp0pixn206a7imc07g48armklfqa4q2c"))))
     (build-system ruby-build-system)
     (arguments
-     '(#:modules ((guix build ruby-build-system)
-                  (guix build utils)
+     '(#:modules ((Manifolding-OS build ruby-build-system)
+                  (Manifolding-OS build utils)
                   (ice-9 textual-ports))
        #:phases
        (modify-phases %standard-phases
@@ -14151,8 +14151,8 @@ Unicode formatted tables.")
                 "13cgr7nhxsmackzc976pcvrmam0il623rz13fnr9f7g4g3d1m1lq"))))
     (build-system ruby-build-system)
     (arguments
-     (list #:modules '((guix build ruby-build-system)
-                       (guix build utils)
+     (list #:modules '((Manifolding-OS build ruby-build-system)
+                       (Manifolding-OS build utils)
                        (ice-9 ftw)
                        (srfi srfi-26))
            ;; The cucumber acceptance suite is not run as it depends on an old
@@ -14620,9 +14620,9 @@ can be used to build formatters, linters, language servers, and more.")
   "Return the source of GEM, a sub-directory."
   (computed-file
    (string-append "ruby-sorbet-" gem "-" sorbet-version "-checkout")
-   (with-imported-modules (source-module-closure '((guix build utils)))
+   (with-imported-modules (source-module-closure '((Manifolding-OS build utils)))
      #~(begin
-         (use-modules (guix build utils))
+         (use-modules (Manifolding-OS build utils))
          (copy-recursively (string-append #$sorbet-monorepo
                                           "/gems/sorbet-" #$gem)
                            #$output)))))
@@ -15307,7 +15307,7 @@ files/directories.")
               (sha256
                (base32
                 "0gw7vfnbb41cy67yw82zji3jkhfsgmzcgzaszm99ax77y18wclf2"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                '(begin
                   ;; Remove bundled library.
@@ -16918,8 +16918,8 @@ the power of the built-in @code{OptionParser}.")
      (list
       #:tests? #f ;; there are none
       #:modules
-      `((guix build ruby-build-system)
-        (guix build utils)
+      `((Manifolding-OS build ruby-build-system)
+        (Manifolding-OS build utils)
         (srfi srfi-26))
       #:phases
       #~(modify-phases %standard-phases
@@ -16969,7 +16969,7 @@ the power of the built-in @code{OptionParser}.")
                ;; <https://github.com/inukshuk/anystyle/issues/186>.  For
                ;; now, patch it out, but leave a pointer to follow up.
                #~(begin
-                   (use-modules (guix build utils))
+                   (use-modules (Manifolding-OS build utils))
                    (substitute* "Gemfile"
                      (("gem 'language_detector', github: '[^']*'" orig)
                       (string-append "# " orig " # unclear license")))
@@ -17073,10 +17073,10 @@ though the later has not yet been packaged for Guix.")
     (arguments
      (list
       #:modules
-      `((guix build ruby-build-system)
+      `((Manifolding-OS build ruby-build-system)
         (ice-9 popen)
         (srfi srfi-1)
-        (guix build utils))
+        (Manifolding-OS build utils))
       #:phases
       #~(modify-phases %standard-phases
           (add-after 'extract-gemspec 'less-strict-dependencies

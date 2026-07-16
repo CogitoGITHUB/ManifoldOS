@@ -39,12 +39,12 @@
   #:use-module (gnu packages admin)
   #:use-module (gnu packages dav)
   #:use-module (gnu packages tls)
-  #:use-module (guix deprecation)
-  #:use-module ((guix diagnostics) #:select (source-properties->location))
-  #:use-module (guix modules)
-  #:use-module (guix records)
-  #:use-module (guix packages)
-  #:use-module (guix gexp)
+  #:use-module (Manifolding-OS deprecation)
+  #:use-module ((Manifolding-OS diagnostics) #:select (source-properties->location))
+  #:use-module (Manifolding-OS modules)
+  #:use-module (Manifolding-OS records)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS gexp)
   #:use-module (ice-9 curried-definitions)
   #:use-module (ice-9 match)
   #:use-module (ice-9 format)
@@ -1544,11 +1544,11 @@ plugins that needs to be available for dovecot and its modules.")
   "Return a computed file containing a union of Dovecot module directories from PACKAGES.
 Each package's '/lib/dovecot' directory is combined into a single location."
   ;; Create a union of the set of modules and dovecot itself.
-  (with-imported-modules '((guix build union))
+  (with-imported-modules '((Manifolding-OS build union))
     (computed-file
      "dovecot-moduledir"
      #~(begin
-         (use-modules (guix build union) (srfi srfi-26))
+         (use-modules (Manifolding-OS build union) (srfi srfi-26))
 
          (union-build #$output
                       (map (cut string-append <>
@@ -1576,7 +1576,7 @@ Each package's '/lib/dovecot' directory is combined into a single location."
                                           (dovecot-configuration-extensions config)))))))
     (with-imported-modules (source-module-closure '((gnu build activation)))
       #~(begin
-          (use-modules (guix build utils) (gnu build activation))
+          (use-modules (Manifolding-OS build utils) (gnu build activation))
           (define (build-subject parameters)
             (string-concatenate
              (map (lambda (pair)
@@ -1774,7 +1774,7 @@ match from local for any action outbound
   (match-record config <opensmtpd-configuration> (package config-file)
     (let ((smtpd (file-append package "/sbin/smtpd")))
       #~(begin
-          (use-modules (guix build utils))
+          (use-modules (Manifolding-OS build utils))
           ;; Create mbox and spool directories.
           (mkdir-p "/var/mail")
           (mkdir-p "/var/spool/smtpd")
@@ -1902,9 +1902,9 @@ exim_group = exim
 (define exim-activation
   (match-lambda
     (($ <exim-configuration> package config-file)
-     (with-imported-modules '((guix build utils))
+     (with-imported-modules '((Manifolding-OS build utils))
        #~(begin
-           (use-modules (guix build utils))
+           (use-modules (Manifolding-OS build utils))
 
            (let ((uid (passwd:uid (getpw "exim")))
                  (gid (group:gid (getgr "exim"))))
@@ -2284,9 +2284,9 @@ authentication plugin that extracts the username from the certificate.")
        (if (maybe-value-set? password-file-val)
            (dirname password-file-val)
            "/etc/radicale"))
-     (with-imported-modules '((guix build utils))
+     (with-imported-modules '((Manifolding-OS build utils))
        #~(begin
-           (use-modules (guix build utils))
+           (use-modules (Manifolding-OS build utils))
            (let ((user (getpwnam "radicale")))
              ;; Collections directory perms
              (mkdir-p/perms #$collections-dir user #o700)

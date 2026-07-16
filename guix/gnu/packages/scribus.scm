@@ -22,11 +22,11 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages scribus)
-  #:use-module (guix packages)
-  #:use-module (guix download)
-  #:use-module (guix utils)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix build-system cmake)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS utils)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS build-system cmake)
   #:use-module (gnu packages)
   #:use-module (gnu packages boost)
   #:use-module (gnu packages compression)

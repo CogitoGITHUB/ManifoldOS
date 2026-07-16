@@ -54,21 +54,21 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages qt)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix packages)
-  #:use-module (guix download)
-  #:use-module (guix git-download)
-  #:use-module (guix build-system cmake)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system meson)
-  #:use-module (guix build-system trivial)
-  #:use-module (guix build-system pyproject)
-  #:use-module (guix build-system qt)
-  #:use-module (guix gexp)
-  #:use-module (guix packages)
-  #:use-module (guix deprecation)
-  #:use-module (guix search-paths)
-  #:use-module (guix utils)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS build-system cmake)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system meson)
+  #:use-module (Manifolding-OS build-system trivial)
+  #:use-module (Manifolding-OS build-system pyproject)
+  #:use-module (Manifolding-OS build-system qt)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS deprecation)
+  #:use-module (Manifolding-OS search-paths)
+  #:use-module (Manifolding-OS utils)
   #:use-module (gnu packages)
   #:use-module (gnu packages backup)
   #:use-module (gnu packages bash)
@@ -297,7 +297,7 @@ your QtWidgets application.")
          (file-name (git-file-name name version))
          (sha256
           (base32 "13rwlb77hw44qksfh82mpklhkjr6z4pv1n4dj906hdw6213448vj"))
-         (modules '((guix build utils)))
+         (modules '((Manifolding-OS build utils)))
          (snippet
           #~(begin
               (substitute* "libqite/CMakeLists.txt"
@@ -496,7 +496,7 @@ practicality.")
           (git-file-name name version))
          (sha256
           (base32 "1zdrcb39fhhmn76w8anv1dnspz26pdl6izmj1mlm02aza4y8ffp4"))
-         (modules '((guix build utils)
+         (modules '((Manifolding-OS build utils)
                     (ice-9 ftw)
                     (srfi srfi-1)))
          (snippet
@@ -587,7 +587,7 @@ system, and the core design of Django is reused in Grantlee.")
               (patches (search-patches "qtbase-5-use-TZDIR.patch"
                                        "qtbase-moc-ignore-gcc-macro.patch"
                                        "qtbase-absolute-runpath.patch"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                ;; corelib uses bundled harfbuzz, md4, md5, sha3
                '(begin
@@ -847,7 +847,7 @@ developers using C++ or QML, a CSS & JavaScript like language.")
               (sha256
                (base32
                 "0h149x8l2ywfr5m034n20z6cjxnldary39x0vv22jhg0ryg9rgj4"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                ;; corelib uses bundled harfbuzz, md4, md5, sha3
                '(with-directory-excursion "src/3rdparty"
@@ -1562,7 +1562,7 @@ HostData=lib/qt5
               (sha256
                (base32
                 "1lff6s212bl44ryfzq8hkp80vl37la7hmpvgz5fp553qi14y4623"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                '(begin
                   (delete-file-recursively "src/3rdparty")))))
@@ -2094,7 +2094,7 @@ recognition API for devices.")))
               (sha256
                (base32
                 "14rx3dgq1jzp4pii5ywxdpkrpwasbn5z0c518z09gwaafv7wcp56"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                '(begin
                   (delete-file-recursively
@@ -2608,7 +2608,7 @@ Server Protocol (LSP) for Qt.")
                 "1kqljk3ax2dfib4g0nh9zwdabiv8lyr7hxbj9qh05lrhcyshkrpk"))
               (patches
                (search-patches "qtlocation-5.15.8-mapboxgl-gcc13.patch"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                #~(begin
                    ;; TODO: Unvendor more deps.
@@ -2820,11 +2820,11 @@ ECMAScript and Qt.")))
                 "002888xfnkxmvn8413fllidl3mm2fcwc4gbzdnbvpjlysaq9f3ig"))))
     (build-system cmake-build-system)
     (arguments
-     (list #:modules '((guix build cmake-build-system)
-                       (guix build qt-utils)
-                       (guix build utils))
+     (list #:modules '((Manifolding-OS build cmake-build-system)
+                       (Manifolding-OS build qt-utils)
+                       (Manifolding-OS build utils))
            #:imported-modules `(,@%cmake-build-system-modules
-                                (guix build qt-utils))
+                                (Manifolding-OS build qt-utils))
            #:phases
            #~(modify-phases %standard-phases
                (delete 'check)          ;moved after install phase
@@ -2987,7 +2987,7 @@ and mobile applications targeting TV-like form factors.")))
               (sha256
                (base32
                 "1dpb687zbw4akx42kfpbb5cpdlq3hcqn8l3l0x7sd5i9061z2sp0"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                '(delete-file-recursively "tests/3rdparty"))))
     (build-system cmake-build-system)
@@ -3455,7 +3455,7 @@ using the Enchant spell-checking library.")
                   (ice-9 match)
                   (srfi srfi-1)
                   (srfi srfi-26)
-                  (guix build utils)))
+                  (Manifolding-OS build utils)))
        (snippet
         #~(begin
             (let ((preserved-third-party-files
@@ -3706,8 +3706,8 @@ linux/libcurl_wrapper.h")
     (arguments
      (substitute-keyword-arguments arguments
        ((#:modules modules '())
-        `((guix build gnu-build-system)
-          (guix build utils)
+        `((Manifolding-OS build gnu-build-system)
+          (Manifolding-OS build utils)
           (ice-9 textual-ports)))
        ((#:phases phases)
         #~(modify-phases #$phases
@@ -3792,7 +3792,7 @@ and binaries removed, and adds modular support for using system libraries.")
                   (ice-9 match)
                   (srfi srfi-1)
                   (srfi srfi-26)
-                  (guix build utils)))
+                  (Manifolding-OS build utils)))
        ;; This is only needed until 6.10, where it arrived upstream.
        ;; https://codereview.qt-project.org/c/qt/qtwebengine/+/675112
        (patches (search-patches "qtwebengine-revert-egl.patch"))
@@ -4349,9 +4349,9 @@ instances and can send data to the primary instance from secondary instances.")
     (arguments
      (list
       #:qtbase qtbase
-      #:modules '((guix build qt-build-system)
-                  ((guix build gnu-build-system) #:prefix gnu:)
-                  (guix build utils))
+      #:modules '((Manifolding-OS build qt-build-system)
+                  ((Manifolding-OS build gnu-build-system) #:prefix gnu:)
+                  (Manifolding-OS build utils))
       #:phases
       #~(modify-phases %standard-phases
           (add-after 'unpack 'fix-installation-prefix
@@ -4422,7 +4422,7 @@ Python.")
        (sha256
         (base32
          "1il938crjap0f05773mk70fjp91b1fbn76hi64r4j5akz2afsg08"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         ;; Relax setuptools dependency
         #~(substitute* "pyproject.toml"
@@ -4494,7 +4494,7 @@ module provides support functions to the automatically generated code.")
       #:tests? #f ;no check target
       #:imported-modules %pyproject-build-system-modules
       #:modules `((srfi srfi-1)
-                  ((guix build pyproject-build-system) #:prefix py:)
+                  ((Manifolding-OS build pyproject-build-system) #:prefix py:)
                   ,@%default-gnu-modules)
       #:phases
       #~(modify-phases %standard-phases
@@ -4718,7 +4718,7 @@ itself.")
        (uri (pypi-uri "pyqt6_webengine" version))
        (sha256
         (base32 "09dah4cv3jgw86ar4irwah03pg70jwi8br1mcphbh1nspgikgrba"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         ;; Fix missing include for QVariant.
         '(substitute* "sip/QtWebEngineCore/qwebengineframe.sip"
@@ -4993,10 +4993,10 @@ This package provides the Python bindings.")))
     (source #f)
     (build-system trivial-build-system)
     (arguments
-     '(#:modules ((guix build union))
+     '(#:modules ((Manifolding-OS build union))
        #:builder (begin
                    (use-modules (ice-9 match)
-                                (guix build union))
+                                (Manifolding-OS build union))
                    (match %build-inputs
                      (((names . directories) ...)
                       (union-build (assoc-ref %outputs "out")
@@ -5153,7 +5153,7 @@ securely.  It will not store any data unencrypted unless explicitly requested.")
          (file-name (git-file-name name version))
          (sha256
           (base32 "044dzxxhjldzmxd1pqi7p1ppppjvqjdr42bm60gbl8902rda6qrk"))
-         (modules '((guix build utils)
+         (modules '((Manifolding-OS build utils)
                     (ice-9 ftw)
                     (srfi srfi-1)))
          (snippet
@@ -5178,12 +5178,12 @@ securely.  It will not store any data unencrypted unless explicitly requested.")
       (arguments
        `(#:tests? #f                    ; No target
          #:imported-modules
-         ((guix build copy-build-system)
+         ((Manifolding-OS build copy-build-system)
           ,@%default-gnu-imported-modules)
          #:modules
-         (((guix build copy-build-system) #:prefix copy:)
-          (guix build gnu-build-system)
-          (guix build utils))
+         (((Manifolding-OS build copy-build-system) #:prefix copy:)
+          (Manifolding-OS build gnu-build-system)
+          (Manifolding-OS build utils))
          #:phases
          (modify-phases %standard-phases
            (add-after 'unpack 'patch-source
@@ -5545,9 +5545,9 @@ programming paradigm.")
       (arguments
        (list #:qtbase qtbase
              #:tests? #f ;no tests
-             #:modules '((guix build qt-build-system)
-                         ((guix build gnu-build-system) #:prefix gnu:)
-                         (guix build utils))
+             #:modules '((Manifolding-OS build qt-build-system)
+                         ((Manifolding-OS build gnu-build-system) #:prefix gnu:)
+                         (Manifolding-OS build utils))
              #:phases
              #~(modify-phases %standard-phases
                  ;; This project does not have any build rule but its demo has
@@ -6259,9 +6259,9 @@ a secure way.")
       (arguments
        (list #:qtbase qtbase
              #:tests? #f                  ; Figure out how to run tests
-             #:modules '((guix build qt-build-system)
-                         ((guix build gnu-build-system) #:prefix gnu:)
-                         (guix build utils))
+             #:modules '((Manifolding-OS build qt-build-system)
+                         ((Manifolding-OS build gnu-build-system) #:prefix gnu:)
+                         (Manifolding-OS build utils))
              #:phases
              #~(modify-phases %standard-phases
                  (replace 'configure
@@ -6327,7 +6327,7 @@ including @i{fix-its} for automatic refactoring.")
                     "mirror://qt/qtcreator/"
                     (version-major+minor version) "/" version
                     "/qt-creator-opensource-src-" version ".tar.gz"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet '(begin
                           (for-each
                            delete-file-recursively

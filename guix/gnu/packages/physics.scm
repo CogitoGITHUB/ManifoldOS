@@ -21,17 +21,17 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages physics)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix build-system cmake)
-  #:use-module (guix build-system copy)
-  #:use-module (guix build-system meson)
-  #:use-module (guix build-system pyproject)
-  #:use-module (guix build-system qt)
-  #:use-module (guix download)
-  #:use-module (guix gexp)
-  #:use-module (guix git-download)
-  #:use-module (guix packages)
-  #:use-module (guix utils)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS build-system cmake)
+  #:use-module (Manifolding-OS build-system copy)
+  #:use-module (Manifolding-OS build-system meson)
+  #:use-module (Manifolding-OS build-system pyproject)
+  #:use-module (Manifolding-OS build-system qt)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS utils)
   #:use-module (gnu packages)
   #:use-module (gnu packages algebra)
   #:use-module (gnu packages boost)
@@ -303,9 +303,9 @@ Chung, Ying-Jer Kao, Pochung Chen;
          (string-append "-DSKBUILD_PROJECT_VERSION=" #$version))
       #:imported-modules (append %cmake-build-system-modules
                                  %pyproject-build-system-modules)
-      #:modules '((guix build cmake-build-system)
-                  ((guix build pyproject-build-system) #:select (site-packages))
-                  (guix build utils))
+      #:modules '((Manifolding-OS build cmake-build-system)
+                  ((Manifolding-OS build pyproject-build-system) #:select (site-packages))
+                  (Manifolding-OS build utils))
       #:phases
       #~(modify-phases %standard-phases
           (add-after 'unpack 'create-pkg-info
@@ -800,9 +800,9 @@ remove spurious artifacts in the data.")
      (list
       #:imported-modules (append %pyproject-build-system-modules
                                  %meson-build-system-modules)
-      #:modules '((guix build meson-build-system)
-                  ((guix build pyproject-build-system) #:prefix py:)
-                  (guix build utils))
+      #:modules '((Manifolding-OS build meson-build-system)
+                  ((Manifolding-OS build pyproject-build-system) #:prefix py:)
+                  (Manifolding-OS build utils))
       #:phases
       #~(modify-phases %standard-phases
           (add-after 'install 'add-install-to-pythonpath
@@ -1116,8 +1116,8 @@ eigenvectors, and structure factors.")
                              "/lib/python"
                              #$(version-major+minor (package-version python))
                              "/site-packages/PyQt5/bindings"))
-      #:modules '((guix build qt-build-system)
-                  (guix build utils)
+      #:modules '((Manifolding-OS build qt-build-system)
+                  (Manifolding-OS build utils)
                   (ice-9 textual-ports))
       #:phases
       #~(modify-phases %standard-phases
@@ -1324,8 +1324,8 @@ import matplotlib.pyplot as plt"))
                 (for-each
                  (lambda (prog)
                    (wrap-program (string-append bin-dir "/" prog)
-                     `("GUIX_PYTHONPATH" prefix
-                       (,site-packages ,(getenv "GUIX_PYTHONPATH")))
+                     `("MANIFOLDING_OS_PYTHONPATH" prefix
+                       (,site-packages ,(getenv "MANIFOLDING_OS_PYTHONPATH")))
                      `("PYTHONPATH" prefix (,bin-dir))
                      `("FORCE_QT_API" = ("PyQt5"))))
                  '("launch_mantidworkbench" "workbench" "instrumentview")))))
@@ -1381,7 +1381,7 @@ import matplotlib.pyplot as plt"))
                    (string-append "PROPERTIES ENVIRONMENT \"PYTHONPATH="
                                   all-paths "\" LABELS"))))
               ;; Disable mantid's sitecustomize.py - it shadows Guix's and
-              ;; prevents GUIX_PYTHONPATH from being processed.
+              ;; prevents MANIFOLDING_OS_PYTHONPATH from being processed.
               (rename-file "bin/sitecustomize.py" "bin/sitecustomize.py.bak")))
           ;; Set HOME for tests - mantid's ConfigService needs to create
           ;; files in ~/.mantid during initialization.  Create the directory

@@ -20,7 +20,7 @@
   #:use-module (gnu installer steps)
   #:use-module (gnu installer timezone)
   #:use-module (gnu installer newt page)
-  #:use-module (guix i18n)
+  #:use-module (Manifolding-OS i18n)
   #:use-module (srfi srfi-1)
   #:use-module (srfi srfi-26)
   #:use-module (srfi srfi-34)

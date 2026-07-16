@@ -34,16 +34,16 @@
   #:use-module (gnu packages linux)
   #:use-module (gnu packages hurd)
   #:use-module (gnu packages mingw)
-  #:use-module (guix memoization)
-  #:use-module (guix platform)
-  #:use-module (guix packages)
-  #:use-module (guix diagnostics)
-  #:use-module (guix download)
-  #:use-module (guix i18n)
-  #:use-module (guix utils)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system trivial)
-  #:use-module (guix gexp)
+  #:use-module (Manifolding-OS memoization)
+  #:use-module (Manifolding-OS platform)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS diagnostics)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS i18n)
+  #:use-module (Manifolding-OS utils)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system trivial)
+  #:use-module (Manifolding-OS gexp)
   #:use-module (srfi srfi-1)
   #:use-module (srfi srfi-26)
   #:use-module (ice-9 match)
@@ -340,7 +340,7 @@ target that libc."
                   (else
                    (search-patches "gcc-cross-environment-variables.patch")))
                  (cross-gcc-patches xgcc target))))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         (cross-gcc-snippet target))))
 
@@ -350,8 +350,8 @@ target that libc."
      `(#:implicit-inputs? #f
        #:imported-modules ((gnu build cross-toolchain)
                            ,@%default-gnu-imported-modules)
-       #:modules ((guix build gnu-build-system)
-                  (guix build utils)
+       #:modules ((Manifolding-OS build gnu-build-system)
+                  (Manifolding-OS build utils)
                   (gnu build cross-toolchain)
                   (srfi srfi-1)
                   (srfi srfi-26)
@@ -552,8 +552,8 @@ the base compiler.  Use XBINUTILS as the associated cross-Binutils."
 
       (arguments
        (substitute-keyword-arguments
-           `(#:modules ((guix build gnu-build-system)
-                        (guix build utils)
+           `(#:modules ((Manifolding-OS build gnu-build-system)
+                        (Manifolding-OS build utils)
                         (srfi srfi-26))
              ,@(package-arguments glibc/hurd-headers))
          ((#:phases phases)
@@ -587,8 +587,8 @@ the base compiler.  Use XBINUTILS as the associated cross-Binutils."
                            "-cross-" target))
       (arguments
        (substitute-keyword-arguments
-           `(#:modules ((guix build gnu-build-system)
-                        (guix build utils)
+           `(#:modules ((Manifolding-OS build gnu-build-system)
+                        (Manifolding-OS build utils)
                         (srfi srfi-26))
              ,@(package-arguments hurd-minimal))
          ((#:configure-flags flags)
@@ -690,8 +690,8 @@ returned."
            #:implicit-cross-inputs? #f
 
            ;; We need SRFI 26.
-           #:modules ((guix build gnu-build-system)
-                      (guix build utils)
+           #:modules ((Manifolding-OS build gnu-build-system)
+                      (Manifolding-OS build utils)
                       (srfi srfi-26))
 
                ,@(package-arguments libc))
@@ -799,11 +799,11 @@ with XBINUTILS, XGCC and LIBC (if exists for TARGET)."
     (source #f)
     (build-system trivial-build-system)
     (arguments
-     (list #:modules '((guix build union))
+     (list #:modules '((Manifolding-OS build union))
            #:builder
            #~(begin
                (use-modules (ice-9 match)
-                            (guix build union))
+                            (Manifolding-OS build union))
 
                (match %build-inputs
                  (((names . directory) ...)

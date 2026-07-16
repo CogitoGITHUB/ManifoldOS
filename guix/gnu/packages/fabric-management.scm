@@ -20,13 +20,13 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages fabric-management)
-  #:use-module (guix gexp)
-  #:use-module (guix packages)
-  #:use-module (guix licenses)
-  #:use-module (guix download)
-  #:use-module (guix git-download)
-  #:use-module (guix utils)
-  #:use-module (guix build-system gnu)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS licenses)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS utils)
+  #:use-module (Manifolding-OS build-system gnu)
   #:use-module (gnu packages)
   #:use-module (gnu packages autotools)
   #:use-module (gnu packages bison)
@@ -199,7 +199,7 @@ testing InfiniBand networks.")
                 "12w1mxacml1w8zvl1hpn786cs77y056b9hxv7q1kq482bgc2si0v"))
               (snippet
                ;; As seen in commit b0a275a5492125a13020cd095fe9934e0b5e7c6a.
-               #~(begin (use-modules (guix build utils))
+               #~(begin (use-modules (Manifolding-OS build utils))
                         (substitute* "src/ucs/time/time.h"
                           (("#include <limits.h>")
                            "#include <limits.h>\n#include <math.h>"))))))

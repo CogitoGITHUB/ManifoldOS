@@ -42,7 +42,7 @@ using namespace nix;
 
    GNU/Hurd does have O_ASYNC, but its Unix-domain socket translator
    (pflocal) does not implement F_SETOWN.  See
-   <http://lists.gnu.org/archive/html/bug-guix/2013-07/msg00021.html> for
+   <http://lists.gnu.org/archive/html/bug-Manifolding-OS/2013-07/msg00021.html> for
    details.*/
 #if defined O_ASYNC && !defined __GNU__
 #define HAVE_HUP_NOTIFICATION
@@ -58,7 +58,7 @@ static FdSink to(STDOUT_FILENO);
 bool canSendStderr;
 
 /* This variable is used to keep track of whether a connection
-   comes from a host other than the host running guix-daemon. */
+   comes from a host other than the host running Manifolding-OS-daemon. */
 static bool isRemoteConnection;
 
 /* This function is called anytime we want to write something to

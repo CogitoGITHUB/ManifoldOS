@@ -19,12 +19,12 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (test-opam)
-  #:use-module (guix import opam)
-  #:use-module (guix base32)
+  #:use-module (Manifolding-OS import opam)
+  #:use-module (Manifolding-OS base32)
   #:use-module (gcrypt hash)
-  #:use-module (guix tests)
-  #:use-module ((guix build syscalls) #:select (mkdtemp!))
-  #:use-module ((guix build utils)
+  #:use-module (Manifolding-OS tests)
+  #:use-module ((Manifolding-OS build syscalls) #:select (mkdtemp!))
+  #:use-module ((Manifolding-OS build utils)
                 #:select (delete-file-recursively mkdir-p which
                           call-with-temporary-output-file))
   #:use-module (srfi srfi-1)
@@ -73,9 +73,9 @@ url {
 (test-begin "opam")
 
 (test-assert "opam->guix-package"
-  (mock ((guix import opam) get-opam-repository
+  (mock ((Manifolding-OS import opam) get-opam-repository
          (const test-repo))
-        (mock ((guix import utils) url-fetch
+        (mock ((Manifolding-OS import utils) url-fetch
                (lambda (url file-name)
                  (match url
                    ("https://example.org/foo-1.0.0.tar.gz"

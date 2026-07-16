@@ -23,11 +23,11 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (test-utils)
-  #:use-module ((guix config) #:select (%gzip))
-  #:use-module (guix utils)
-  #:use-module ((guix build utils) #:select (call-with-temporary-output-file))
-  #:use-module ((guix store) #:select (%store-prefix store-path-package-name))
-  #:use-module ((guix search-paths) #:select (string-tokenize*))
+  #:use-module ((Manifolding-OS config) #:select (%gzip))
+  #:use-module (Manifolding-OS utils)
+  #:use-module ((Manifolding-OS build utils) #:select (call-with-temporary-output-file))
+  #:use-module ((Manifolding-OS store) #:select (%store-prefix store-path-package-name))
+  #:use-module ((Manifolding-OS search-paths) #:select (string-tokenize*))
   #:use-module (srfi srfi-1)
   #:use-module (srfi srfi-11)
   #:use-module (srfi srfi-64)
@@ -154,7 +154,7 @@
           ((#:bar b) (cons 42 b)))))
 
 (test-assert "filtered-port, file"
-  (let* ((file  (search-path %load-path "guix.scm"))
+  (let* ((file  (search-path %load-path "Manifolding-OS.scm"))
          (input (open-file file "r0b")))
     (let*-values (((compressed pids1)
                    (filtered-port `(,%gzip "-c" "--fast") input))
@@ -166,7 +166,7 @@
                    (call-with-input-file file get-bytevector-all))))))
 
 (test-assert "filtered-port, non-file"
-  (let ((data (call-with-input-file (search-path %load-path "guix.scm")
+  (let ((data (call-with-input-file (search-path %load-path "Manifolding-OS.scm")
                 get-bytevector-all)))
     (let*-values (((compressed pids1)
                    (filtered-port `(,%gzip "-c" "--fast")
@@ -178,7 +178,7 @@
            (equal? (get-bytevector-all decompressed) data)))))
 
 (test-assert "filtered-port, does not exist"
-  (let* ((file  (search-path %load-path "guix.scm"))
+  (let* ((file  (search-path %load-path "Manifolding-OS.scm"))
          (input (open-file file "r0b")))
     (let-values (((port pids)
                   (filtered-port '("/does/not/exist") input)))
@@ -191,7 +191,7 @@ skip these tests."
   (unless (run?) (test-skip 1))
   (test-assert (format #f "compressed-port, decompressed-port, non-file [~a]"
                        method)
-    (let ((data (call-with-input-file (search-path %load-path "guix.scm")
+    (let ((data (call-with-input-file (search-path %load-path "Manifolding-OS.scm")
                   get-bytevector-all)))
       (call-with-temporary-output-file
        (lambda (output port)
@@ -226,7 +226,7 @@ skip these tests."
   (unless (run?) (test-skip 1))
   (test-assert (format #f "compressed-output-port + decompressed-port [~a]"
                        method)
-    (let* ((file (search-path %load-path "guix/derivations.scm"))
+    (let* ((file (search-path %load-path "Manifolding-OS/derivations.scm"))
            (data (call-with-input-file file get-bytevector-all))
            (port (open-file temp-file "w0b")))
       (call-with-compressed-output-port method port
@@ -244,7 +244,7 @@ skip these tests."
                 (lambda ()
                   (resolve-module '(zstd) #t #f #:ensure #f))))
 
-;; This is actually in (guix store).
+;; This is actually in (Manifolding-OS store).
 (test-equal "store-path-package-name"
   "bash-4.2-p24"
   (store-path-package-name

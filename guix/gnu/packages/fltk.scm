@@ -23,7 +23,7 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages fltk)
-  #:use-module ((guix licenses) #:select (lgpl2.0 lgpl2.0+))
+  #:use-module ((Manifolding-OS licenses) #:select (lgpl2.0 lgpl2.0+))
   #:use-module (gnu packages)
   #:use-module (gnu packages autotools)
   #:use-module (gnu packages build-tools)
@@ -35,11 +35,11 @@
   #:use-module (gnu packages pkg-config)
   #:use-module (gnu packages python)
   #:use-module (gnu packages python-xyz)
-  #:use-module (guix packages)
-  #:use-module (guix download)
-  #:use-module (guix git-download)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system waf)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system waf)
   #:use-module (srfi srfi-1))
 
 (define-public fltk-1.3

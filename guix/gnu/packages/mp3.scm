@@ -32,7 +32,7 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages mp3)
-  #:use-module ((guix licenses) #:prefix license:)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
   #:use-module (gnu packages)
   #:use-module (gnu packages autotools)
   #:use-module (gnu packages base)
@@ -63,16 +63,16 @@
   #:use-module (gnu packages linux)               ;alsa-lib
   #:use-module (gnu packages textutils)           ;utfcpp
   #:use-module (gnu packages video)               ;ffmpeg
-  #:use-module (guix packages)
-  #:use-module (guix download)
-  #:use-module (guix gexp)
-  #:use-module (guix git-download)
-  #:use-module (guix utils)
-  #:use-module (guix build-system copy)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system pyproject)
-  #:use-module (guix build-system cmake)
-  #:use-module (guix build-system meson))
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS utils)
+  #:use-module (Manifolding-OS build-system copy)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system pyproject)
+  #:use-module (Manifolding-OS build-system cmake)
+  #:use-module (Manifolding-OS build-system meson))
 
 (define-public libmad
   (package
@@ -208,7 +208,7 @@ versions of ID3v2.")
             (sha256
              (base32
               "0yfhqwk0w8q2hyv1jib1008jvzmwlpsxvc8qjllhna6p1hycqj97"))
-            (modules '((guix build utils)))
+            (modules '((Manifolding-OS build utils)))
             ;; Don't use bundled zlib
             (snippet '(begin (delete-file-recursively "zlib") #t))
             (patches (search-patches "id3lib-CVE-2007-4460.patch"
@@ -326,7 +326,7 @@ Speex, WavPack TrueAudio, WAV, AIFF, MP4 and ASF files.")
               (sha256
                (base32
                 "042f1czcs9n2sbqvg4rsvfwlqib2gk976mfa2kxlfjghx5laqf04"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                '(begin
                   (substitute* "Makefile"
@@ -865,8 +865,8 @@ fingerprinting library and the Acoustid API.")
     (build-system meson-build-system)
     (arguments
      '(#:modules
-       ((guix build utils)
-        (guix build meson-build-system))
+       ((Manifolding-OS build utils)
+        (Manifolding-OS build meson-build-system))
 
        #:phases
        (modify-phases %standard-phases

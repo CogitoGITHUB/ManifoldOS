@@ -17,8 +17,8 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu home services music)
-  #:use-module (guix gexp)
-  #:use-module (guix records)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS records)
   #:use-module (gnu home services)
   #:use-module (gnu packages music)
   #:use-module (gnu packages video)

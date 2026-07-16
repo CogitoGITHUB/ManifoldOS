@@ -41,20 +41,20 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages flashing-tools)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix build-system cargo)
-  #:use-module (guix build-system cmake)
-  #:use-module (guix build-system copy)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system go)
-  #:use-module (guix build-system meson)
-  #:use-module (guix build-system pyproject)
-  #:use-module (guix build-system qt)
-  #:use-module (guix download)
-  #:use-module (guix gexp)
-  #:use-module (guix git-download)
-  #:use-module (guix packages)
-  #:use-module (guix utils)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS build-system cargo)
+  #:use-module (Manifolding-OS build-system cmake)
+  #:use-module (Manifolding-OS build-system copy)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system go)
+  #:use-module (Manifolding-OS build-system meson)
+  #:use-module (Manifolding-OS build-system pyproject)
+  #:use-module (Manifolding-OS build-system qt)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS utils)
   #:use-module (gnu packages)
   #:use-module (gnu packages admin)
   #:use-module (gnu packages autotools)
@@ -368,7 +368,7 @@ specification file.")
        (sha256
         (base32 "0kqjmbmns3ansmrs6pbpsqk0g4d82hxknpng6lp7375zccsq52im"))
        (file-name (git-file-name name version))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         `(begin
            ;; Remove example flash files and teensy rebooter flash binaries.
@@ -688,7 +688,7 @@ this package, as in:
 @end lisp
 Additionally, the @samp{plugdev} group should be registered in the
 @code{supplementary-groups} field of your @code{user-account} declaration. Refer
-to @samp{info \"(guix) Base Services\"} for examples.")
+to @samp{info \"(Manifolding-OS) Base Services\"} for examples.")
     (home-page "https://trabucayre.github.io/openFPGALoader/")
     (license license:asl2.0)))
 
@@ -704,7 +704,7 @@ to @samp{info \"(guix) Base Services\"} for examples.")
                            "srecord-" version "-Source.tar.gz"))
        (sha256
         (base32 "0i3n6g8i28xx8761nadm6p2nf9y31bywx0isyi0h9rawy5yd1hw1"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         '(begin
            ;; Fix building without Git.  Upstream tries to allow it but is buggy.
@@ -721,8 +721,8 @@ to @samp{info \"(guix) Base Services\"} for examples.")
     (build-system cmake-build-system)
     (arguments
      (list
-      #:modules '((guix build cmake-build-system)
-                  (guix build utils)
+      #:modules '((Manifolding-OS build cmake-build-system)
+                  (Manifolding-OS build utils)
                   (srfi srfi-26))
       #:phases
       #~(modify-phases %standard-phases
@@ -772,10 +772,10 @@ formats, and can perform many different manipulations.")
     (arguments
      (list
       #:tests? #f                      ; no tests
-      #:modules '((guix build utils)
+      #:modules '((Manifolding-OS build utils)
                   (ice-9 popen)
                   (srfi srfi-26)
-                  (guix build cmake-build-system))
+                  (Manifolding-OS build cmake-build-system))
       #:phases
       #~(modify-phases %standard-phases
           (add-before 'configure 'fix-version-gen

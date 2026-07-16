@@ -23,8 +23,8 @@
   #:use-module (ice-9 match)
   #:use-module (ice-9 rdelim)
   #:use-module (srfi srfi-98)
-  #:use-module (guix build utils)
-  #:use-module (guix build syscalls)
+  #:use-module (Manifolding-OS build utils)
+  #:use-module (Manifolding-OS build syscalls)
   #:use-module (gnu system file-systems)          ;<file-system>
   #:use-module ((gnu build file-systems) #:select (mount-file-system))
   #:export (user-namespace-supported?
@@ -362,8 +362,8 @@ that host UIDs (respectively GIDs) map to in the namespace."
             (_                          ;unexpected termination
              #f))))))))
 
-;; FIXME: This is copied from (guix utils), which we cannot use because it
-;; would pull (guix config) and all.
+;; FIXME: This is copied from (Manifolding-OS utils), which we cannot use because it
+;; would pull (Manifolding-OS config) and all.
 (define (call-with-temporary-directory proc)
   "Call PROC with a name of a temporary directory; close the directory and
 delete it when leaving the dynamic extent of this call."

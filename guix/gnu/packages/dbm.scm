@@ -29,12 +29,12 @@
 (define-module (gnu packages dbm)
   #:use-module (gnu packages)
   #:use-module (gnu packages autotools)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix packages)
-  #:use-module (guix download)
-  #:use-module (guix gexp)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix utils)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS utils)
   #:use-module (ice-9 match))
 
 ;;; Commentary:
@@ -78,7 +78,7 @@
                 "0a1n5hbl7027fbz5lm0vp0zzfp1hmxnz14wx3zl9563h83br5ag0"))
               (patch-flags '("-p0"))
               (patches (search-patches "bdb-5.3-atomics-on-gcc-9.patch"))
-              (modules '((guix build utils)
+              (modules '((Manifolding-OS build utils)
                          (srfi srfi-1)))
               (snippet bdb-snippet)))
     (build-system gnu-build-system)
@@ -168,7 +168,7 @@ SQL, Key/Value, XML/XQuery or Java Object storage for their data model.")
               (sha256
                (base32
                 "1yx8wzhch5wwh016nh0kfxvknjkafv6ybkqh6nh7lxx50jqf5id9"))
-              (modules '((guix build utils)
+              (modules '((Manifolding-OS build utils)
                          (srfi srfi-1)))
               (snippet bdb-snippet)))
     ;; Copy-paste the arguments from bdb-5.3 and drop the

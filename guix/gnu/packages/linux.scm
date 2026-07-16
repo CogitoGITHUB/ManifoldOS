@@ -212,25 +212,25 @@
   #:use-module (gnu packages xml)
   #:use-module (gnu packages xorg)
   #:use-module (gnu packages)
-  #:use-module (guix build-system cmake)
-  #:use-module (guix build-system copy)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system go)
-  #:use-module (guix build-system linux-module)
-  #:use-module (guix build-system meson)
-  #:use-module (guix build-system pyproject)
-  #:use-module (guix build-system qt)
-  #:use-module (guix build-system trivial)
-  #:use-module (guix deprecation)    ;for libcap/next
-  #:use-module (guix download)
-  #:use-module (guix gexp)
-  #:use-module (guix git-download)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix monads)
-  #:use-module (guix packages)
-  #:use-module (guix platform)
-  #:use-module (guix store)
-  #:use-module (guix utils)
+  #:use-module (Manifolding-OS build-system cmake)
+  #:use-module (Manifolding-OS build-system copy)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system go)
+  #:use-module (Manifolding-OS build-system linux-module)
+  #:use-module (Manifolding-OS build-system meson)
+  #:use-module (Manifolding-OS build-system pyproject)
+  #:use-module (Manifolding-OS build-system qt)
+  #:use-module (Manifolding-OS build-system trivial)
+  #:use-module (Manifolding-OS deprecation)    ;for libcap/next
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS monads)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS platform)
+  #:use-module (Manifolding-OS store)
+  #:use-module (Manifolding-OS utils)
   #:use-module (ice-9 match)
   #:use-module (ice-9 regex)
   #:use-module (srfi srfi-1)
@@ -300,9 +300,9 @@ of 'uname -r' behind the Linux version numbers."
      (substitute-keyword-arguments
          (package-arguments linux)
        ((#:imported-modules imported-modules %default-gnu-imported-modules)
-        `((guix build kconfig) ,@imported-modules))
+        `((Manifolding-OS build kconfig) ,@imported-modules))
        ((#:modules modules)
-        `((guix build kconfig) ,@modules))
+        `((Manifolding-OS build kconfig) ,@modules))
        ((#:phases phases)
         #~(modify-phases #$phases
             (replace 'configure
@@ -400,7 +400,7 @@ defconfig.  Return the appropriate Make target if applicable, otherwise return
           (sha256 deblob-check-hash))))
 
 ;; XXXX: Workaround 'snippet' limitations
-(define computed-origin-method (@@ (guix packages) computed-origin-method))
+(define computed-origin-method (@@ (Manifolding-OS packages) computed-origin-method))
 
 (define (make-linux-libre-source version
                                  upstream-source
@@ -420,9 +420,9 @@ corresponding UPSTREAM-SOURCE (an origin), using the given DEBLOB-SCRIPTS."
        (sha256 #f)
        (uri
         (delay
-          (with-imported-modules '((guix build utils))
+          (with-imported-modules '((Manifolding-OS build utils))
             #~(begin
-                (use-modules (guix build utils)
+                (use-modules (Manifolding-OS build utils)
                              (srfi srfi-1)
                              (ice-9 match)
                              (ice-9 ftw))
@@ -780,8 +780,8 @@ corresponding UPSTREAM-SOURCE (an origin), using the given DEBLOB-SCRIPTS."
                              ("bison" ,bison))
                            '())))
     (arguments
-     `(#:modules ((guix build gnu-build-system)
-                  (guix build utils)
+     `(#:modules ((Manifolding-OS build gnu-build-system)
+                  (Manifolding-OS build utils)
                   (srfi srfi-1)
                   (ice-9 match))
        #:phases
@@ -1082,8 +1082,8 @@ ARCH and optionally VARIANT, or #f if there is no such configuration."
     (build-system gnu-build-system)
     (arguments
      (list
-      #:modules '((guix build gnu-build-system)
-                  (guix build utils)
+      #:modules '((Manifolding-OS build gnu-build-system)
+                  (Manifolding-OS build utils)
                   (srfi srfi-1)
                   (srfi srfi-26)
                   (ice-9 ftw)
@@ -2878,11 +2878,11 @@ and should be used with caution, especially on untested models.")
     (build-system linux-module-build-system)
     (outputs (list "out" "linux-module"))
     (arguments
-     (list #:imported-modules `((guix build gnu-build-system)
+     (list #:imported-modules `((Manifolding-OS build gnu-build-system)
                                 ,@%linux-module-build-system-modules)
-           #:modules `((guix build linux-module-build-system)
-                       ((guix build gnu-build-system) #:prefix gnu:)
-                       (guix build utils))
+           #:modules `((Manifolding-OS build linux-module-build-system)
+                       ((Manifolding-OS build gnu-build-system) #:prefix gnu:)
+                       (Manifolding-OS build utils))
            #:make-flags
            #~(list (string-append "CC=" #$(cc-for-target))
                    "OPTIM_LVL=3"
@@ -3592,7 +3592,7 @@ deviation, and minimum and maximum values.  It can show a nice histogram too.")
                (base32
                 "0ygvflcr7v7x2rmr9h5mi07yx00i9368ggf3znd8bs847drsy7aw"))
               (patches (search-patches "util-linux-tests.patch"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                ;; We take 'nologin' from Shadow, the 'logger' program from
                ;; GNU Inetutils and 'kill' from GNU Coreutils.
@@ -3870,8 +3870,8 @@ pahole from BTF and DWARF, to make sure they produce the same results.")
         (base32 "080wnisi0jq7dp0jcwdp83rq8q8s3kw41vc712516xbv4jq4mzs0"))))
     (build-system gnu-build-system)
     (arguments
-     '(#:modules ((guix build gnu-build-system)
-                  (guix build utils)
+     '(#:modules ((Manifolding-OS build gnu-build-system)
+                  (Manifolding-OS build utils)
                   (srfi srfi-26))
        #:phases
        (modify-phases %standard-phases
@@ -3926,8 +3926,8 @@ parameters.")
               (patches (search-patches "procps-strtod-test.patch"))))
     (build-system gnu-build-system)
     (arguments
-     (list #:modules '((guix build utils)
-                       (guix build gnu-build-system)
+     (list #:modules '((Manifolding-OS build utils)
+                       (Manifolding-OS build gnu-build-system)
                        (srfi srfi-1)
                        (srfi srfi-26))
            #:configure-flags
@@ -4206,10 +4206,10 @@ module.")
     (inputs
      (list e2fsprogs/static))
     (arguments
-     `(#:modules ((guix build utils))
+     `(#:modules ((Manifolding-OS build utils))
        #:builder
        (begin
-         (use-modules (guix build utils)
+         (use-modules (Manifolding-OS build utils)
                       (ice-9 ftw)
                       (srfi srfi-26))
 
@@ -4919,8 +4919,8 @@ inadequately in modern network environments, and both should be deprecated.")
       (home-page "https://net-tools.sourceforge.net/")
       (build-system gnu-build-system)
       (arguments
-       `(#:modules ((guix build gnu-build-system)
-                    (guix build utils)
+       `(#:modules ((Manifolding-OS build gnu-build-system)
+                    (Manifolding-OS build utils)
                     (srfi srfi-1)
                     (srfi srfi-26))
          #:phases
@@ -5118,8 +5118,8 @@ configuration and monitoring interfaces.")
       (outputs '("out"))
       (arguments
        (list
-        #:modules `((guix build gnu-build-system)
-                    (guix build utils)
+        #:modules `((Manifolding-OS build gnu-build-system)
+                    (Manifolding-OS build utils)
                     (srfi srfi-1))
         #:phases
         #~(modify-phases %standard-phases
@@ -5363,8 +5363,8 @@ or kill them altogether.")
            ;; Build static libraries.
            "--default-library=both")
        #:tests? #f
-       #:modules ((guix build meson-build-system)
-                  (guix build utils)
+       #:modules ((Manifolding-OS build meson-build-system)
+                  (Manifolding-OS build utils)
                   (ice-9 ftw))
        #:phases
        ,#~(modify-phases %standard-phases
@@ -5534,7 +5534,7 @@ UnionFS-FUSE additionally supports copy-on-write.")
     (source
      (origin
        (inherit (package-source fuse))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         #~(begin
             ;; Normally libfuse invokes mount(8) so that /etc/mtab is updated.
@@ -5557,7 +5557,7 @@ UnionFS-FUSE additionally supports copy-on-write.")
     (source
      (origin
        (inherit (package-source unionfs-fuse))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         #~(begin
             ;; Add -ldl to the libraries, because libfuse.a needs that.
@@ -5685,9 +5685,9 @@ NUMA performance on your system.")
          "19mfrd31vzpsjiwc7pshxm0b0sz5dd17xrz6k079cy4im1vf0r4g"))))
     (build-system trivial-build-system)
     (arguments
-     `(#:modules ((guix build utils))
+     `(#:modules ((Manifolding-OS build utils))
        #:builder (begin
-                   (use-modules (guix build utils))
+                   (use-modules (Manifolding-OS build utils))
                    (let ((out (string-append %output "/share/keymaps"))
                          (source (assoc-ref %build-inputs "source")))
                      (mkdir-p out)
@@ -5713,7 +5713,7 @@ NUMA performance on your system.")
                            ".tar.xz"))
        (sha256
         (base32 "10s608i4blprgy9nynlid0hglfdrrgln6wwjs9rhjf56hwilbpyc"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         '(begin
            (substitute* '("src/unicode_start" "src/unicode_stop")
@@ -6177,10 +6177,10 @@ one to send arbitrary keycodes when a given key is tapped or held.")
                (base32
                 "0z6w6bknhwh1n3qfkb5ij6x57q3wjf28lq3l8kh7rkhsplinjnjc"))
               (patches (search-patches "lvm2-no-systemd.patch"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                '(begin
-                  (use-modules (guix build utils))
+                  (use-modules (Manifolding-OS build utils))
 
                   ;; Honor sysconfdir.
                   (substitute* "make.tmpl.in"
@@ -6840,7 +6840,7 @@ thanks to the use of namespaces.")
               (sha256
                (base32
                 "1whx0hqqi1326scgdxxxa1d94vn95mnq0drid6s8wdp84ni4d3gk"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                '(begin
                   ;; Do not create directories in /var.
@@ -7353,7 +7353,7 @@ arrays when needed.")
               (sha256
                (base32
                 "1yl2cd4xgw2l5xzx5dbdf7awhrvfbjsrspli9i6bmxc5j4jkvazr"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                '(begin
                   ;; Drop bundled valgrind headers.
@@ -7751,7 +7751,7 @@ Ridge, Joliet, and zisofs.")
               (sha256
                (base32
                 "13d426a8h403ckpc8zyf7s2p5rql0lqbg2bv0454x0pvgbfbf4gh"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                '(begin
                   ;; Take a patch from upstream to fix building with -fno-common,
@@ -7950,10 +7950,10 @@ repair and easy administration.")
     (inputs
      `(("btrfs-progs:static" ,btrfs-progs "static")))
     (arguments
-     `(#:modules ((guix build utils))
+     `(#:modules ((Manifolding-OS build utils))
        #:builder
        (begin
-         (use-modules (guix build utils)
+         (use-modules (Manifolding-OS build utils)
                       (ice-9 ftw)
                       (srfi srfi-26))
 
@@ -8148,10 +8148,10 @@ disks and SD cards.  This package provides the userland utilities.")
     (source #f)
     (build-system trivial-build-system)
     (arguments
-     `(#:modules ((guix build utils))
+     `(#:modules ((Manifolding-OS build utils))
        #:builder
        (begin
-         (use-modules (guix build utils)
+         (use-modules (Manifolding-OS build utils)
                       (ice-9 ftw)
                       (srfi srfi-26))
          (let* ((f2fs-tools (assoc-ref %build-inputs "f2fs-tools-static"))
@@ -8260,8 +8260,8 @@ interfaces as the original NBFC, although the implementation differs.")
     (build-system cmake-build-system)
     (arguments
      (list
-      #:modules '((guix build cmake-build-system)
-                  (guix build utils)
+      #:modules '((Manifolding-OS build cmake-build-system)
+                  (Manifolding-OS build utils)
                   (srfi srfi-26))
       #:tests? #f                       ; no test target
       #:configure-flags
@@ -8529,10 +8529,10 @@ The package provides additional NTFS tools.")
     (build-system trivial-build-system)
     (arguments
      (list
-      #:modules `((guix build utils))
+      #:modules `((Manifolding-OS build utils))
       #:builder
       #~(begin
-          (use-modules (guix build utils))
+          (use-modules (Manifolding-OS build utils))
           (let ((bin (string-append #$output "/bin")))
             (install-file (search-input-file %build-inputs "/bin/ntfsfix") bin)
             (with-directory-excursion bin
@@ -9129,7 +9129,7 @@ the @code{mce-inject} module loaded if it exists.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "1bg2bj8flybd8kzmmaaslisc6lc1fs9nbv09im6r32dq48skx5aj"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         `(begin
            ;; The checkout lacks a .git directory, breaking ‘git describe’.
@@ -9591,8 +9591,8 @@ interface in sysfs, which can be accomplished with the included udev rules.")
       #:make-flags
       #~(list "TLP_CONFUSR=/etc/tlp.conf" "TLP_CONFDIR=/etc/tlp.d")
       #:test-target "shellcheck"
-      #:modules '((guix build gnu-build-system)
-                  (guix build utils)
+      #:modules '((Manifolding-OS build gnu-build-system)
+                  (Manifolding-OS build utils)
                   (srfi srfi-1))
       #:phases
       #~(modify-phases %standard-phases
@@ -10688,7 +10688,7 @@ libraries, which are often integrated directly into libfabric.")
                  "psm-ldflags.patch"  ; build shared lib with LDFLAGS
                  "psm-repro.patch"    ; reproducibility
                  "psm-disable-memory-stats.patch"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         ;; That file declares its own 'strlcat' as static.  To avoid a
         ;; conflict with the function now in glibc 2.39, give it a
@@ -10948,7 +10948,7 @@ privileges.")
               (patches
                (search-patches
                 "psm2-compile-ctor-without-avx.patch"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                ;; That file declares its own 'strlcat' as static.  To avoid a
                ;; conflict with the function now in glibc 2.39, give it a
@@ -11001,8 +11001,8 @@ high-speed networking devices.")
                 "1qp4g4n6dw42p2w5rkwzdb7ynk8h7g5vg01ybpmvxncgwa7bw3yv"))))
     (build-system gnu-build-system)
     (arguments
-     '(#:modules ((guix build utils)
-                  (guix build gnu-build-system))
+     '(#:modules ((Manifolding-OS build utils)
+                  (Manifolding-OS build gnu-build-system))
        #:phases (modify-phases %standard-phases
                   (delete 'configure)
                   (delete 'check)
@@ -11231,10 +11231,10 @@ file systems.")
     (source #f)
     (build-system trivial-build-system)
     (arguments
-     `(#:modules ((guix build utils))
+     `(#:modules ((Manifolding-OS build utils))
        #:builder
        (begin
-         (use-modules (guix build utils))
+         (use-modules (Manifolding-OS build utils))
          (let* ((xfsprogs (assoc-ref %build-inputs "xfsprogs"))
                 (out      (assoc-ref %outputs "out"))
                 (sbin     (string-append out "/sbin")))
@@ -11286,7 +11286,7 @@ the superuser to make device nodes.")
        (file-name (string-append name "-" version ".tar.gz"))
        (sha256
         (base32 "00p07xi1j61i4bbxymydihff8frw9bs0g0fr6rpm88q94wclcl1p"))
-       (modules '((guix build utils)
+       (modules '((Manifolding-OS build utils)
                   (ice-9 ftw)))
        (snippet
         `(begin
@@ -11433,9 +11433,9 @@ set as @code{LD_PRELOAD} to override the C library file system functions.")
               #$(string-append "-DFALCOSECURITY_LIBS_VERSION=" version))
       ;; Only the libsinsp test suite is run, as the one for libscap requires
       ;; elevated privileges.
-      #:modules '((guix build cmake-build-system)
-                  ((guix build gnu-build-system) #:prefix gnu:)
-                  (guix build utils))
+      #:modules '((Manifolding-OS build cmake-build-system)
+                  ((Manifolding-OS build gnu-build-system) #:prefix gnu:)
+                  (Manifolding-OS build utils))
       #:phases
       #~(modify-phases %standard-phases
           (add-after 'unpack 'disable-problematic-tests
@@ -11725,7 +11725,7 @@ tools for managing PipeWire.")
               (sha256
                (base32
                 "1ywq84jgvf7f86srqwpq31w2kzdp875fx039x5g4lx486plgf526"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                #~(begin
                    (substitute* "Makefile.am"
@@ -11944,7 +11944,7 @@ headers.")
                 (for-each (lambda (python-executable)
                             (format #t "Wrapping: ~A.~%" python-executable)
                             (wrap-program python-executable
-                              `("GUIX_PYTHONPATH" ":" prefix
+                              `("MANIFOLDING_OS_PYTHONPATH" ":" prefix
                                 (,(string-append lib
                                                  "/python"
                                                  #$(version-major+minor
@@ -12771,7 +12771,7 @@ error detection and correction (EDAC).")
                (search-patches
                 "spectre-meltdown-checker-externalize-fwdb.patch"))
               ;; Remove builtin firmware database.
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet '(substitute* "spectre-meltdown-checker.sh"
                           (("^# [AI],.*") "")))
               (sha256
@@ -12942,7 +12942,7 @@ to build scalable network services based on a cluster of two or more nodes.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "0dpznl4h1f5syq5464a0h9grqlvlp0qmjxr59nq3gp363gr5vjfv"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         '(begin
            (delete-file-recursively "win32")))))

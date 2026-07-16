@@ -31,15 +31,15 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages wxwidgets)
-  #:use-module (guix packages)
-  #:use-module (guix gexp)
-  #:use-module (guix download)
-  #:use-module (guix git-download)
-  #:use-module ((guix licenses) #:prefix l:)
-  #:use-module (guix build-system glib-or-gtk)
-  #:use-module (guix build-system perl)
-  #:use-module (guix build-system pyproject)
-  #:use-module (guix utils)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module ((Manifolding-OS licenses) #:prefix l:)
+  #:use-module (Manifolding-OS build-system glib-or-gtk)
+  #:use-module (Manifolding-OS build-system perl)
+  #:use-module (Manifolding-OS build-system pyproject)
+  #:use-module (Manifolding-OS utils)
   #:use-module (gnu packages)
   #:use-module (gnu packages build-tools)
   #:use-module (gnu packages check)
@@ -82,7 +82,7 @@
                            "/wxWidgets-" version ".tar.bz2"))
        (sha256
         (base32 "15mq8k1z0q9s67xifjaz7slq7nlvk843k5b941cllylld6ar4vnn"))
-       (modules '((guix build utils)
+       (modules '((Manifolding-OS build utils)
                   (ice-9 ftw)
                   (srfi srfi-26)))
        (snippet
@@ -240,7 +240,7 @@ and many other languages.")
        (uri (pypi-uri "wxPython" version))
        (sha256
         (base32 "1fp2717a96hd5pdai6hlzc4pngdazxas55apjv2w5zb71xjv1g2x"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet #~(begin
                     ;; Remove bundled wxWidgets
                     (delete-file-recursively "ext/wxWidgets")))))
@@ -250,8 +250,8 @@ and many other languages.")
      (list
       #:test-backend #~'custom
       #:test-flags #~(list "build.py" "-v" "test")
-      #:modules '((guix build pyproject-build-system)
-                  (guix build utils)
+      #:modules '((Manifolding-OS build pyproject-build-system)
+                  (Manifolding-OS build utils)
                   (ice-9 ftw)
                   (ice-9 match)
                   (srfi srfi-26))

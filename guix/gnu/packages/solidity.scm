@@ -27,11 +27,11 @@
   #:use-module (gnu packages python)
   #:use-module (gnu packages ncurses)
   #:use-module (gnu packages pretty-print)
-  #:use-module (guix packages)
-  #:use-module (guix gexp)
-  #:use-module (guix download)
-  #:use-module (guix build-system cmake)
-  #:use-module ((guix licenses) #:prefix license:))
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS build-system cmake)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:))
 
 (define-public solidity
   (package

@@ -19,7 +19,7 @@
 ;; This whole file was deprecated at 2026-07-08.
 
 (define-module (gnu packages wm)
-  #:use-module (guix deprecation))
+  #:use-module (Manifolding-OS deprecation))
 
 (define-deprecated/public-alias avizo
   (@ (gnu packages window-management) avizo))

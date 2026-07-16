@@ -16,9 +16,9 @@
 ;;; You should have received a copy of the GNU General Public License
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
-(use-modules (guix packages)
-             (guix profiles)
-             (guix utils)
+(use-modules (Manifolding-OS packages)
+             (Manifolding-OS profiles)
+             (Manifolding-OS utils)
              (gnu packages))
 
 (define* (qt-packages-manifest #:key major-version negate-version-test?)

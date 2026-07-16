@@ -36,20 +36,20 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages astronomy)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix build-system ant)
-  #:use-module (guix build-system cmake)
-  #:use-module (guix build-system copy)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system go)
-  #:use-module (guix build-system meson)
-  #:use-module (guix build-system pyproject)
-  #:use-module (guix build-system qt)
-  #:use-module (guix download)
-  #:use-module (guix gexp)
-  #:use-module (guix git-download)
-  #:use-module (guix packages)
-  #:use-module (guix utils)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS build-system ant)
+  #:use-module (Manifolding-OS build-system cmake)
+  #:use-module (Manifolding-OS build-system copy)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system go)
+  #:use-module (Manifolding-OS build-system meson)
+  #:use-module (Manifolding-OS build-system pyproject)
+  #:use-module (Manifolding-OS build-system qt)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS utils)
   #:use-module (gnu packages)
   #:use-module (gnu packages algebra)
   #:use-module (gnu packages audio)
@@ -1785,9 +1785,9 @@ standard astronomy libraries:
       #:make-flags
       #~(list (string-append "CC=" #$(cc-for-target))
               (string-append "PREFIX=" #$output))
-      #:modules '((guix build cmake-build-system)
-                  ((guix build gnu-build-system) #:prefix gnu:)
-                  (guix build utils))
+      #:modules '((Manifolding-OS build cmake-build-system)
+                  ((Manifolding-OS build gnu-build-system) #:prefix gnu:)
+                  (Manifolding-OS build utils))
       #:phases
       #~(modify-phases %standard-phases
           (replace 'check
@@ -1986,7 +1986,7 @@ R. Seaman's protocol}
          (file-name (git-file-name name version))
          (sha256
           (base32 "0n2jzlpwvjgj8ydg7hsqxnvy8s9pdi5z96id0231kgi87pyfkh7s"))
-         (modules '((guix build utils)
+         (modules '((Manifolding-OS build utils)
                     (ice-9 ftw)
                     (srfi srfi-26)))
          (snippet
@@ -3389,7 +3389,7 @@ constraints (i.e., altitude, airmass, moon separation/illumination, etc.)
        (uri (pypi-uri "astropy" version))
        (sha256
         (base32 "1hzxl7xkr19kkjlgiy9ph2dw3hdzi92pipgd6c218vzj87dyakbz"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         '(begin
            ;; Remove Python bundles.
@@ -5661,7 +5661,7 @@ all the input image headers.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "1vqin0ixk9div0bjfqh4b63a85n8kg0959ngsaz2qy07r38q9cxx"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         ;; Remove the bundled cfitsio. When update the package check the
         ;; current bundled version.
@@ -6879,7 +6879,7 @@ milliarcsecond).")
        (file-name (git-file-name name version))
        (sha256
         (base32 "1gp8s69bc7m1jyvrjm77ik7n6dvd3gh3cpwkdqa9j80pfnvnxpnw"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         #~(begin
             ;; Replace reference to external configobj.
@@ -8493,7 +8493,7 @@ built-in functions are implemented to support this.")
        (uri (pypi-uri "pyerfa" version))
        (sha256
         (base32 "1h7nw61wqx9qsznnl8qandixr6c1n3f65hyqwzanav44wi7v5mhp"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         #~(begin
             ;; Remove bundled submodule library.
@@ -8798,7 +8798,7 @@ plot a single (or a few) model(s).")
        (file-name (git-file-name name version))
        (sha256
         (base32 "03gzqxkk8cj3riba7ssnq16ww70ll7rlxpdvppq0g4m65rd93mrn"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         ;; Symlink goes to not existing directory.
         #~(for-each delete-file '("docs/testdata"
@@ -10991,7 +10991,7 @@ about the underlying principles, see
        (file-name (git-file-name name version))
        (sha256
         (base32 "120wzvi6hf6n1qj0lpa1h2akdic4nk1nphgwglgib216az77xwfa"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         #~(begin
             ;; Remove bundled library.
@@ -11320,7 +11320,7 @@ implemented in the @acronym{JWST, James Webb Space Telescope} and
        (file-name (git-file-name name version))
        (sha256
         (base32 "1ngyygax9zjxgzfrbl20y0nd102a5m3xkhy2kphzkdrmxfyqp4d7"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         #~(begin
             ;; Replace reference to external configobj.
@@ -12945,7 +12945,7 @@ It can be used to calculate the trajectory of satellites.")
        (sha256
         (base32 "00js51nnb5kwm6p9lp2s8yl0y2cjiy1zbddxsq4y8mccydwvy0aj"))
        (file-name (git-file-name name version))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         #~(begin
             ;; Remove bundled libraries.
@@ -12969,11 +12969,11 @@ It can be used to calculate the trajectory of satellites.")
       #:configure-flags
       #~(list "--wrap-mode=nodownload")
       #:imported-modules `(,@%meson-build-system-modules
-                           (guix build glib-or-gtk-build-system))
-      #:modules '((guix build meson-build-system)
-                  ((guix build glib-or-gtk-build-system)
+                           (Manifolding-OS build glib-or-gtk-build-system))
+      #:modules '((Manifolding-OS build meson-build-system)
+                  ((Manifolding-OS build glib-or-gtk-build-system)
                    #:prefix glib-or-gtk:)
-                  (guix build utils))
+                  (Manifolding-OS build utils))
       #:phases
       #~(modify-phases %standard-phases
           (add-after 'unpack 'generate-gdk-pixbuf-loaders-cache-file
@@ -13751,7 +13751,7 @@ Features:
                 (sha256
                  (base32
                   "0diiiflwz5yw2hpk3xj5x5iviyfibim4lhs02qn07hfw86qi9vn2"))
-                (modules '((guix build utils)))
+                (modules '((Manifolding-OS build utils)))
                 (snippet
                   ;; force installation into lib/ instead of lib64/
                   #~(substitute* "cmake/DetectCpackGenerator.cmake"
@@ -13893,7 +13893,7 @@ traveling to a star 100 light years away looks like.")
        (sha256
         (base32 "1z2bxbhpix7w552bcpb376wphgilcsc0y7wy8pid05l0wr9bkmfw"))
        (snippet
-        #~(begin (use-modules (guix build utils))
+        #~(begin (use-modules (Manifolding-OS build utils))
                  (delete-file-recursively "C/flexed")))))
     (build-system gnu-build-system)
     (arguments
@@ -13938,7 +13938,7 @@ header.")
        (sha256
         (base32 "1m3bx6gh5w3c7vvsqcki0x20mg8lilg13m0i8nh7za89w58dxy4w"))
        (snippet
-        #~(begin (use-modules (guix build utils))
+        #~(begin (use-modules (Manifolding-OS build utils))
                  (delete-file-recursively "C/flexed")))))
     (properties '((hidden? . #t)))))
 
@@ -13957,7 +13957,7 @@ header.")
        (sha256
         (base32 "0nndcz82qvfx3hhhw0bylyrydnc23a8bqhp71w4yz6d10lv44c70"))
        (snippet
-        #~(begin (use-modules (guix build utils))
+        #~(begin (use-modules (Manifolding-OS build utils))
                  (delete-file-recursively "C/flexed")))))))
 
 (define-public wcstools

@@ -67,12 +67,12 @@
   #:use-module (gnu packages vim)
   #:use-module (gnu packages web)
   #:use-module (gnu packages xml)
-  #:use-module (guix build-system pyproject)
-  #:use-module (guix gexp)
-  #:use-module (guix git-download)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix packages)
-  #:use-module (guix utils)
+  #:use-module (Manifolding-OS build-system pyproject)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS utils)
   #:use-module (ice-9 match))
 
 (define-public diffoscope

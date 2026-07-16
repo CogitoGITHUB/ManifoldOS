@@ -5,12 +5,12 @@
 
 ;; To build a disk image for a virtual machine, do:
 ;;
-;;     ./pre-inst-env guix system image --image-type=hurd64-qcow2 \
+;;     ./pre-inst-env Manifolding-OS system image --image-type=hurd64-qcow2 \
 ;;         gnu/system/examples/bare-hurd64.tmpl
 ;;
 ;; You may run it like so:
 ;;
-;;     guix shell qemu -- qemu-system-x86_64 -m 2048 -M q35       \
+;;     Manifolding-OS shell qemu -- qemu-system-x86_64 -m 2048 -M q35       \
 ;;       --enable-kvm                                             \
 ;;       --device e1000,netdev=net0                               \
 ;;       --netdev user,id=net0,hostfwd=tcp:127.0.0.1:10022-:2222  \
@@ -20,13 +20,13 @@
 ;; and use it like:
 ;;
 ;;     ssh -p 10022 root@localhost
-;;     guix build -e '(@@ (gnu packages commencement) gnu-make-boot0)'
+;;     Manifolding-OS build -e '(@@ (gnu packages commencement) gnu-make-boot0)'
 ;;
 ;; or even, if you build the image with at least --image-size=3G:
 ;;
-;;     guix build hello
+;;     Manifolding-OS build hello
 
-(use-modules (gnu) (gnu system hurd) (guix utils))
+(use-modules (gnu) (gnu system hurd) (Manifolding-OS utils))
 (use-service-modules ssh)
 (use-package-modules ssh)
 
@@ -41,10 +41,10 @@
                           (mount-point "/")
                           (type "ext2"))
                         %base-file-systems))
-    (host-name "guixygnu64")
+    (host-name "Manifolding-OSygnu64")
     (timezone "Europe/Amsterdam")
     (users (cons (user-account
-                  (name "guix")
+                  (name "Manifolding-OS")
                   (comment "Anonymous Hurd Hacker")
                   (group "users")
                   (supplementary-groups '("wheel")))

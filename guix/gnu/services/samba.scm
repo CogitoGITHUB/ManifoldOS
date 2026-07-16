@@ -27,10 +27,10 @@
   #:use-module (gnu services base)
   #:use-module (gnu system shadow)
 
-  #:use-module (guix gexp)
-  #:use-module (guix packages)
-  #:use-module (guix modules)
-  #:use-module (guix records)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS modules)
+  #:use-module (Manifolding-OS records)
 
   #:use-module (ice-9 format)
   #:use-module (ice-9 match)
@@ -63,7 +63,7 @@
 (define (samba-activation config)
   (let ((package (samba-configuration-package config))
         (config-file (samba-configuration-config-file config)))
-    (with-imported-modules '((guix build utils))
+    (with-imported-modules '((Manifolding-OS build utils))
       (let ((lib-dir "/var/lib/samba")
             (log-dir "/var/log/samba")
             (run-dir "/var/run/samba")
@@ -72,7 +72,7 @@
             (etc-dir "/etc/samba")
             (smb.conf "/etc/samba/smb.conf"))
         #~(begin
-            (use-modules (guix build utils))
+            (use-modules (Manifolding-OS build utils))
             (mkdir-p #$etc-dir)
             (mkdir-p #$lib-dir)
             (mkdir-p/perms (string-append #$lib-dir "/private")

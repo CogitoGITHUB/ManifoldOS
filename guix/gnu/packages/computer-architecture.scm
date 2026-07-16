@@ -18,13 +18,13 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages computer-architecture)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix build-system qt)
-  #:use-module (guix build-system scons)
-  #:use-module (guix gexp)
-  #:use-module (guix git-download)
-  #:use-module (guix packages)
-  #:use-module (guix utils)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS build-system qt)
+  #:use-module (Manifolding-OS build-system scons)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS utils)
   #:use-module (gnu packages)
   #:use-module (gnu packages boost)
   #:use-module (gnu packages compression)
@@ -60,7 +60,7 @@
         (base32 "0p40cb3g29zwy3fskah6rxyn8a8xjh9cc6riyigg5l4i854hj2nj"))
        (snippet
         #~(begin
-            (use-modules (guix build utils))
+            (use-modules (Manifolding-OS build utils))
             ;; For reproducibility.
             (substitute* "src/base/date.cc"
               (("__DATE__") "\"1970-01-01\"")
@@ -127,8 +127,8 @@
               (for-each
                (lambda (file)
                  (wrap-program file
-                   `("GUIX_PYTHONPATH" ":" prefix
-                     (,(getenv "GUIX_PYTHONPATH")))))
+                   `("MANIFOLDING_OS_PYTHONPATH" ":" prefix
+                     (,(getenv "MANIFOLDING_OS_PYTHONPATH")))))
                (find-files (string-append #$output "/bin"))))))))
     (inputs
      (list capstone

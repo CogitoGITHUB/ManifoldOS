@@ -17,24 +17,24 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (test-store)
-  #:use-module (guix tests)
-  #:use-module (guix config)
-  #:use-module (guix store)
-  #:use-module (guix utils)
-  #:use-module (guix monads)
+  #:use-module (Manifolding-OS tests)
+  #:use-module (Manifolding-OS config)
+  #:use-module (Manifolding-OS store)
+  #:use-module (Manifolding-OS utils)
+  #:use-module (Manifolding-OS monads)
   #:use-module ((gcrypt hash) #:prefix gcrypt:)
   #:use-module ((gcrypt pk-crypto) #:prefix gcrypt:)
-  #:use-module (guix pki)
-  #:use-module (guix base32)
-  #:use-module (guix packages)
-  #:use-module (guix derivations)
-  #:use-module ((guix modules)
+  #:use-module (Manifolding-OS pki)
+  #:use-module (Manifolding-OS base32)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS derivations)
+  #:use-module ((Manifolding-OS modules)
                 #:select (source-module-closure))
-  #:use-module (guix serialization)
-  #:use-module (guix build utils)
+  #:use-module (Manifolding-OS serialization)
+  #:use-module (Manifolding-OS build utils)
   #:use-module ((gnu build linux-container)
                 #:select (unprivileged-user-namespace-supported?))
-  #:use-module (guix gexp)
+  #:use-module (Manifolding-OS gexp)
   #:use-module (gnu packages)
   #:use-module (gnu packages bootstrap)
   #:use-module (ice-9 binary-ports)
@@ -50,7 +50,7 @@
   #:use-module (srfi srfi-34)
   #:use-module (srfi srfi-64))
 
-;; Test the (guix store) module.
+;; Test the (Manifolding-OS store) module.
 
 (define %store
   (open-connection-for-tests))
@@ -150,7 +150,7 @@
 (test-skip (if %store 0 18))
 
 (test-equal "substitute-urls, default"
-  (list (getenv "GUIX_BINARY_SUBSTITUTE_URL"))
+  (list (getenv "MANIFOLDING_OS_BINARY_SUBSTITUTE_URL"))
   (with-store store
     (set-build-options store #:use-substitutes? #t)
     (substitute-urls store)))
@@ -182,10 +182,10 @@
 
 (test-equal "add-to-store"
   '("sha1" "sha256" "sha512" "sha3-256" "sha3-512" "blake2s-256")
-  (let* ((file    (search-path %load-path "guix.scm"))
+  (let* ((file    (search-path %load-path "Manifolding-OS.scm"))
          (content (call-with-input-file file get-bytevector-all)))
     (map (lambda (hash-algo)
-           (let ((file (add-to-store %store "guix.scm" #f hash-algo file)))
+           (let ((file (add-to-store %store "Manifolding-OS.scm" #f hash-algo file)))
              (and (direct-store-path? file)
                   (bytevector=? (call-with-input-file file get-bytevector-all)
                                 content)
@@ -302,7 +302,7 @@
   ;; store item without noticing that it is no longer valid.
   (with-store store
     (let* ((text    (random-text))
-           (file    (search-path %load-path "guix.scm"))
+           (file    (search-path %load-path "Manifolding-OS.scm"))
            (path1   (add-text-to-store store "delete-me" text))
            (path2   (add-to-store store "delete-me" #t "sha256" file))
            (deleted (delete-paths store (list path1 path2))))
@@ -551,9 +551,9 @@
             (gexp->derivation
              "attempt-to-write-to-input"
              (with-imported-modules (source-module-closure
-                                     '((guix build syscalls)))
+                                     '((Manifolding-OS build syscalls)))
                #~(begin
-                   (use-modules (guix build syscalls))
+                   (use-modules (Manifolding-OS build syscalls))
 
                    (let ((input #$input))
                      (chmod input #o666)
@@ -575,9 +575,9 @@
            (gexp->derivation
             "attempt-to-remount-input-read-write"
             (with-imported-modules (source-module-closure
-                                    '((guix build syscalls)))
+                                    '((Manifolding-OS build syscalls)))
               #~(begin
-                  (use-modules (guix build syscalls))
+                  (use-modules (Manifolding-OS build syscalls))
 
                   (let ((input #$(plain-file "input-that-might-be-tampered-with"
                                              "All good!")))
@@ -972,7 +972,7 @@
       (build-things s (list o))
       (not (valid-path? s o)))))
 
-(test-skip (if (getenv "GUIX_BINARY_SUBSTITUTE_URL") 0 1))
+(test-skip (if (getenv "MANIFOLDING_OS_BINARY_SUBSTITUTE_URL") 0 1))
 
 (test-assert "substitute query"
   (with-store s

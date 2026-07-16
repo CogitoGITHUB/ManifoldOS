@@ -27,12 +27,12 @@
 
 (define-module (gnu packages libevent)
   #:use-module (gnu packages)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix packages)
-  #:use-module (guix download)
-  #:use-module (guix git-download)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system perl)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system perl)
   #:use-module (gnu packages autotools)
   #:use-module (gnu packages base)
   #:use-module (gnu packages perl)
@@ -274,7 +274,7 @@ not rely on XS.")
               (sha256
                (base32
                 "1jxlhnvrqim39977zwavjrcbdf9bifb46pwaxvm0s8klq121kjwb"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                '(begin
                   ;; Drop bundled libev.

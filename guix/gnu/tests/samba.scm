@@ -24,8 +24,8 @@
   #:use-module (gnu services networking)
   #:use-module (gnu services samba)
   #:use-module (gnu packages samba)
-  #:use-module (guix gexp)
-  #:use-module (guix store)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS store)
   #:export (%test-samba
             %test-wsdd))
 

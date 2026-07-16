@@ -32,16 +32,16 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages graph)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix build-system cmake)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system pyproject)
-  #:use-module (guix build-system r)
-  #:use-module (guix download)
-  #:use-module (guix gexp)
-  #:use-module (guix git-download)
-  #:use-module (guix packages)
-  #:use-module (guix utils)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS build-system cmake)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system pyproject)
+  #:use-module (Manifolding-OS build-system r)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS utils)
   #:use-module (gnu packages)
   #:use-module (gnu packages autotools)
   #:use-module (gnu packages base)
@@ -118,7 +118,7 @@ distributions in empirical data.  SIAM Review 51, 661-703 (2009)}).")
              (url "https://github.com/igraph/igraph")
              (commit version)))
        (file-name (git-file-name name version))
-       (modules '((guix build utils)
+       (modules '((Manifolding-OS build utils)
                   (ice-9 ftw)
                   (srfi srfi-26)))
        (snippet '(begin
@@ -148,9 +148,9 @@ distributions in empirical data.  SIAM Review 51, 661-703 (2009)}).")
               ;; Use the same integer width as suitesparse-cxsparse, which
               ;; uses int64_t in SuiteSparse v6.0.0 and later.
               "-DIGRAPH_INTEGER_SIZE=64")
-      #:modules '((guix build cmake-build-system)
-                  ((guix build gnu-build-system) #:prefix gnu:)
-                  (guix build utils))
+      #:modules '((Manifolding-OS build cmake-build-system)
+                  ((Manifolding-OS build gnu-build-system) #:prefix gnu:)
+                  (Manifolding-OS build utils))
       #:phases
       #~(modify-phases %standard-phases
           (add-after 'unpack 'version-file
@@ -240,7 +240,7 @@ more.")
         (sha256
          (base32
           "01mynhbl2ph0gkc0zr5klwqvczwcimfs2kdn6didwg4k8gsrcxlr"))
-        (modules '((guix build utils)
+        (modules '((Manifolding-OS build utils)
                    (ice-9 ftw)
                    (srfi srfi-26)))
         ;; We need the vendored versions of qhull and cxsparse.
@@ -584,7 +584,7 @@ intuitive way.")
          "1x6z94f6vhh7ppsn7wll46k7i63lzcnc3r3rv5zfarljybqhrsjd"))
        ;; Including but skipping perf_tests requires to patch
        ;; perf_tests/CMakeLists.txt. KISS: Remove it instead.
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet #~(begin
                     (delete-file-recursively "perf_tests")
                     (substitute* "CMakeLists.txt"
@@ -659,9 +659,9 @@ contains supporting code for evaluation and parameter tuning.")
      (list
       #:imported-modules (append %cmake-build-system-modules
                                  %pyproject-build-system-modules)
-      #:modules '((guix build cmake-build-system)
-                  ((guix build pyproject-build-system) #:prefix py:)
-                  (guix build utils))
+      #:modules '((Manifolding-OS build cmake-build-system)
+                  ((Manifolding-OS build pyproject-build-system) #:prefix py:)
+                  (Manifolding-OS build utils))
       #:phases
       (with-extensions (list (pyproject-guile-json))
         #~(modify-phases %standard-phases
@@ -684,7 +684,7 @@ contains supporting code for evaluation and parameter tuning.")
                     (with-directory-excursion "../../tests"
                       (setenv "PYTHONPATH"
                               (string-append (py:site-packages inputs outputs)
-                                             ":" (getenv "GUIX_PYTHONPATH")))
+                                             ":" (getenv "MANIFOLDING_OS_PYTHONPATH")))
                       (let ((ignored '(;; External module removed
                                        "./external_module_test.py"
                                        ;; Avoid torch dependency

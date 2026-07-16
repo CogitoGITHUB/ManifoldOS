@@ -22,11 +22,11 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages xfig)
-  #:use-module (guix packages)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix download)
-  #:use-module (guix gexp)
-  #:use-module (guix build-system gnu)
+  #:use-module (Manifolding-OS packages)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS build-system gnu)
   #:use-module (gnu packages)
   #:use-module (gnu packages autotools)
   #:use-module (gnu packages freedesktop)
@@ -54,8 +54,8 @@
     (build-system gnu-build-system)
     (arguments
      (list
-      #:modules '((guix build gnu-build-system)
-                  (guix build utils)
+      #:modules '((Manifolding-OS build gnu-build-system)
+                  (Manifolding-OS build utils)
                   (srfi srfi-26))
       #:phases
       #~(modify-phases %standard-phases
@@ -115,7 +115,7 @@ variety of environments.")
         (search-patches "xfig-Enable-error-message-for-missing-libraries.patch"
                         "xfig-Use-pkg-config-to-set-fontconfig-CFLAGS-and-LIBS.patch"
                         "xfig-Fix-double-free-when-requesting-MediaBox.patch"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         ;; The patch-dot-desktop-files phase requires a relative name.
         #~(begin
@@ -127,8 +127,8 @@ variety of environments.")
     (build-system gnu-build-system)
     (arguments
      (list
-      #:modules '((guix build gnu-build-system)
-                  (guix build utils)
+      #:modules '((Manifolding-OS build gnu-build-system)
+                  (Manifolding-OS build utils)
                   (srfi srfi-26))
       #:phases
       #~(modify-phases %standard-phases

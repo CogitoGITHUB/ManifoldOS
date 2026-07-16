@@ -42,7 +42,7 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages ssh)
-  #:use-module (guix gexp)
+  #:use-module (Manifolding-OS gexp)
   #:use-module (gnu packages)
   #:use-module (gnu packages admin)
   #:use-module (gnu packages autotools)
@@ -81,16 +81,16 @@
   #:use-module (gnu packages texinfo)
   #:use-module (gnu packages tls)
   #:use-module (gnu packages xorg)
-  #:use-module (guix build-system cmake)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system go)
-  #:use-module (guix build-system pyproject)
-  #:use-module (guix download)
-  #:use-module (guix git-download)
-  #:use-module (guix gexp)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix packages)
-  #:use-module (guix utils)
+  #:use-module (Manifolding-OS build-system cmake)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system go)
+  #:use-module (Manifolding-OS build-system pyproject)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS utils)
   #:use-module (srfi srfi-1))
 
 (define-public hss
@@ -641,7 +641,7 @@ responsive, especially over Wi-Fi, cellular, and long-distance links.")
              "dropbear-" version ".tar.bz2"))
        (sha256
         (base32 "0d1n26g8rddflyja0bgy08x25n6gp7575rl5ibf3dhyg26kpq7qd"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         '(begin
            (delete-file-recursively "libtommath")
@@ -1025,8 +1025,8 @@ clients at a time.")
     (arguments
      (list
       #:modules '((srfi srfi-26)
-                  (guix build go-build-system)
-                  (guix build utils))
+                  (Manifolding-OS build go-build-system)
+                  (Manifolding-OS build utils))
       #:install-source? #f
       #:import-path "codeberg.org/vaporup/ssh-tools/cmd/go/..."
       #:unpack-path "codeberg.org/vaporup/ssh-tools"

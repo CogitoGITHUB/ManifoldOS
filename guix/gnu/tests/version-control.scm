@@ -34,9 +34,9 @@
   #:use-module (gnu services networking)
   #:use-module (gnu packages version-control)
   #:use-module (gnu packages ssh)
-  #:use-module (guix gexp)
-  #:use-module (guix store)
-  #:use-module (guix modules)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS store)
+  #:use-module (Manifolding-OS modules)
   #:export (%test-cgit
             %test-git-http
             %test-git-http-root-path
@@ -50,9 +50,9 @@
 (define %make-git-repository
   ;; Create Git repository in /srv/git/test.
   (with-imported-modules (source-module-closure
-                          '((guix build utils)))
+                          '((Manifolding-OS build utils)))
     #~(begin
-        (use-modules (guix build utils))
+        (use-modules (Manifolding-OS build utils))
 
         (let ((git (string-append #$git "/bin/git")))
           (mkdir-p "/tmp/test-repo")
@@ -116,7 +116,7 @@ HTTP-PORT."
     (marionette-operating-system
      %cgit-os
      #:imported-modules '((gnu services herd)
-                          (guix combinators))))
+                          (Manifolding-OS combinators))))
 
   (define vm
     (virtual-machine
@@ -244,7 +244,7 @@ HTTP-PORT."
     (marionette-operating-system
      (git-http-os uri-path)
      #:imported-modules '((gnu services herd)
-                          (guix combinators))))
+                          (Manifolding-OS combinators))))
 
   (define vm
     (virtual-machine
@@ -253,12 +253,12 @@ HTTP-PORT."
 
   (define test
     (with-imported-modules '((gnu build marionette)
-                             (guix build utils))
+                             (Manifolding-OS build utils))
       #~(begin
           (use-modules (srfi srfi-64)
                        (rnrs io ports)
                        (gnu build marionette)
-                       (guix build utils))
+                       (Manifolding-OS build utils))
 
           (define marionette
             (make-marionette (list #$vm)))
@@ -318,10 +318,10 @@ HTTP-PORT."
   (computed-file
    "gitolite-test-admin-keypair"
    (with-imported-modules (source-module-closure
-                           '((guix build utils)))
+                           '((Manifolding-OS build utils)))
      #~(begin
          (use-modules (ice-9 match) (srfi srfi-26)
-                      (guix build utils))
+                      (Manifolding-OS build utils))
 
          (mkdir #$output)
          (invoke #$(file-append openssh "/bin/ssh-keygen")
@@ -344,7 +344,7 @@ HTTP-PORT."
     (marionette-operating-system
      %gitolite-os
      #:imported-modules '((gnu services herd)
-                          (guix combinators))))
+                          (Manifolding-OS combinators))))
 
   (define vm
     (virtual-machine
@@ -353,12 +353,12 @@ HTTP-PORT."
 
   (define test
     (with-imported-modules '((gnu build marionette)
-                             (guix build utils))
+                             (Manifolding-OS build utils))
       #~(begin
           (use-modules (srfi srfi-64)
                        (rnrs io ports)
                        (gnu build marionette)
-                       (guix build utils))
+                       (Manifolding-OS build utils))
 
           (define marionette
             (make-marionette (list #$vm)))
@@ -448,7 +448,7 @@ HTTP-PORT."
     (marionette-operating-system
      %gitile-os
      #:imported-modules '((gnu services herd)
-                          (guix combinators))))
+                          (Manifolding-OS combinators))))
 
   (define vm
     (virtual-machine
@@ -561,10 +561,10 @@ HTTP-PORT."
             (vm (virtual-machine (operating-system os)
                                  (port-forwardings (list (cons port port))))))
        (with-imported-modules '((gnu build marionette)
-                                (guix build utils))
+                                (Manifolding-OS build utils))
          #~(begin
              (use-modules (gnu build marionette)
-                          (guix build utils)
+                          (Manifolding-OS build utils)
                           (srfi srfi-64)
                           (srfi srfi-71)
                           (web client)

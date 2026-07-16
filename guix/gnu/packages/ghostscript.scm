@@ -39,12 +39,12 @@
   #:use-module (gnu packages python)
   #:use-module (gnu packages tcl)
   #:use-module (gnu packages xorg)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix packages)
-  #:use-module (guix download)
-  #:use-module (guix gexp)
-  #:use-module (guix utils)
-  #:use-module (guix build-system gnu)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS utils)
+  #:use-module (Manifolding-OS build-system gnu)
   #:use-module (srfi srfi-1))
 
 (define-public lcms
@@ -190,7 +190,7 @@ printing, and psresize, for adjusting page sizes.")
                                 "ghostscript-no-header-uuid.patch"
                                 "ghostscript-CVE-2023-36664.patch"
                                 "ghostscript-CVE-2023-36664-fixup.patch"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         ;; Remove bundled libraries. The bundled OpenJPEG is a patched fork so
         ;; we leave it, at least for now.
@@ -384,8 +384,8 @@ architecture.")
    (arguments
     `(#:tests? #f ; nothing to check, just files to copy
 
-      #:modules ((guix build gnu-build-system)
-                 (guix build utils)
+      #:modules ((Manifolding-OS build gnu-build-system)
+                 (Manifolding-OS build utils)
                  (srfi srfi-1))
       #:phases
       (modify-phases %standard-phases

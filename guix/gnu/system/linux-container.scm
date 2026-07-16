@@ -28,12 +28,12 @@
 (define-module (gnu system linux-container)
   #:use-module (ice-9 match)
   #:use-module (srfi srfi-1)
-  #:use-module (guix config)
-  #:use-module (guix store)
-  #:use-module (guix gexp)
-  #:use-module (guix derivations)
-  #:use-module (guix monads)
-  #:use-module (guix modules)
+  #:use-module (Manifolding-OS config)
+  #:use-module (Manifolding-OS store)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS derivations)
+  #:use-module (Manifolding-OS monads)
+  #:use-module (Manifolding-OS modules)
   #:use-module (gnu build linux-container)
   #:use-module (gnu services)
   #:use-module (gnu services base)
@@ -46,7 +46,7 @@
             containerized-operating-system
             container-script
             eval/container)
-  ;; Re-export some variables from (guix build linux-container), for
+  ;; Re-export some variables from (Manifolding-OS build linux-container), for
   ;; convenience.
   #:re-export (%namespaces
                %writable-/tmp))
@@ -228,16 +228,16 @@ that will be shared with the host system."
 
     (define script
       (with-imported-modules (source-module-closure
-                              '((guix build utils)
+                              '((Manifolding-OS build utils)
                                 (gnu build linux-container)
-                                (guix i18n)
-                                (guix diagnostics)))
+                                (Manifolding-OS i18n)
+                                (Manifolding-OS diagnostics)))
         #~(begin
             (use-modules (gnu build linux-container)
                          (gnu system file-systems) ;spec->file-system
-                         (guix build utils)
-                         (guix i18n)
-                         (guix diagnostics)
+                         (Manifolding-OS build utils)
+                         (Manifolding-OS i18n)
+                         (Manifolding-OS diagnostics)
                          (srfi srfi-1)
                          (srfi srfi-37)
                          (ice-9 match))
@@ -323,7 +323,7 @@ Run the container with the given options."))
                 (lambda ()
                   (setenv "HOME" "/root")
                   (setenv "TMPDIR" "/tmp")
-                  (setenv "GUIX_NEW_SYSTEM" #$os)
+                  (setenv "MANIFOLDING_OS_NEW_SYSTEM" #$os)
                   (for-each mkdir-p '("/run" "/bin" "/etc" "/home" "/var"))
                   (primitive-load (string-append #$os "/boot")))
                 ;; A range of 65536 uid/gids is used to cover 16 bits worth of

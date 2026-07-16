@@ -40,16 +40,16 @@
   #:use-module (srfi srfi-1)
   #:use-module (srfi srfi-26)
   #:use-module (gnu packages)
-  #:use-module (guix gexp)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix packages)
-  #:use-module (guix download)
-  #:use-module (guix git-download)
-  #:use-module (guix utils)
-  #:use-module (guix build-system cmake)
-  #:use-module (guix build-system copy)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system trivial)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS utils)
+  #:use-module (Manifolding-OS build-system cmake)
+  #:use-module (Manifolding-OS build-system copy)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system trivial)
   #:use-module (gnu packages audio)
   #:use-module (gnu packages autotools)
   #:use-module (gnu packages compression)
@@ -564,7 +564,7 @@ tagged text in SDL2 applications.")
                (base32
                 "1id1cdign615wd5rq0g4ppzwclvhkwd61yb5rwvvvakkpplp3lvd"))
               ;; Remove bundled libraries.
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet '(delete-file-recursively "external"))))
     (build-system gnu-build-system)
     (propagated-inputs (list sdl))
@@ -586,10 +586,10 @@ If PACKAGES are not specified, all SDL packages are used."
     (source #f)
     (build-system trivial-build-system)
     (arguments
-     '(#:modules ((guix build union))
+     '(#:modules ((Manifolding-OS build union))
        #:builder (begin
                    (use-modules (ice-9 match)
-                                (guix build union))
+                                (Manifolding-OS build union))
                    (match %build-inputs
                      (((names . directories) ...)
                       (union-build (assoc-ref %outputs "out")
@@ -657,7 +657,7 @@ directory.")
        (uri
         (string-append "http://www.libsdl.org/projects/SDL_mixer/release/"
                        "SDL2_mixer-" version ".tar.gz"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet '(begin
                    ;; Remove bundled libraries.
                    (delete-file-recursively "external")))
@@ -738,7 +738,7 @@ and supporting more audio formats.")))
              (uri
               (string-append "https://www.libsdl.org/projects/SDL_ttf/release/SDL2_ttf-"
                              version ".tar.gz"))
-             (modules '((guix build utils)))
+             (modules '((Manifolding-OS build utils)))
              (snippet
               ;; Remove bundled libraries.
               '(delete-file-recursively "external"))

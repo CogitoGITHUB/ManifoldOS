@@ -21,7 +21,7 @@
   #:use-module (ice-9 match)
   #:use-module (gnu packages linux)
   #:use-module (gnu services linux)
-  #:use-module (guix gexp)
+  #:use-module (Manifolding-OS gexp)
   #:use-module (srfi srfi-64))
 
 ;;; Tests for the (gnu services linux) module.

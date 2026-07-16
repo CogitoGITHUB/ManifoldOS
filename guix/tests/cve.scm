@@ -17,7 +17,7 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (test-cve)
-  #:use-module (guix cve)
+  #:use-module (Manifolding-OS cve)
   #:use-module (srfi srfi-1)
   #:use-module (srfi srfi-19)
   #:use-module (srfi srfi-64))
@@ -28,7 +28,7 @@
   (search-path %load-path "tests/cve-sample.json"))
 
 (define (vulnerability id packages)
-  (make-struct/no-tail (@@ (guix cve) <vulnerability>) id packages))
+  (make-struct/no-tail (@@ (Manifolding-OS cve) <vulnerability>) id packages))
 
 (define %expected-vulnerabilities
   ;; What we should get when reading %SAMPLE.

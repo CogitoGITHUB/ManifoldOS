@@ -24,15 +24,15 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages kde-systemtools)
-  #:use-module (guix build-system cmake)
-  #:use-module (guix build-system qt)
-  #:use-module (guix deprecation)
-  #:use-module (guix download)
-  #:use-module (guix git-download)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix packages)
-  #:use-module (guix utils)
-  #:use-module (guix gexp)
+  #:use-module (Manifolding-OS build-system cmake)
+  #:use-module (Manifolding-OS build-system qt)
+  #:use-module (Manifolding-OS deprecation)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS utils)
+  #:use-module (Manifolding-OS gexp)
   #:use-module (gnu packages)
   #:use-module (gnu packages admin)
   #:use-module (gnu packages aidc)
@@ -662,9 +662,9 @@ FAT16/32, JFS, XFS and more.")
     (arguments
      (list #:qtbase qtbase
            #:tests? #f ;no tests
-           #:modules '((guix build qt-build-system)
-                       ((guix build gnu-build-system) #:prefix gnu:)
-                       (guix build utils))
+           #:modules '((Manifolding-OS build qt-build-system)
+                       ((Manifolding-OS build gnu-build-system) #:prefix gnu:)
+                       (Manifolding-OS build utils))
            #:phases
            #~(modify-phases %standard-phases
                (replace 'configure

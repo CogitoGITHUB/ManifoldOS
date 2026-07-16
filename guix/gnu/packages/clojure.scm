@@ -32,15 +32,15 @@
   #:use-module (gnu packages java)
   #:use-module (gnu packages maven)
   #:use-module (gnu packages)
-  #:use-module (guix build-system ant)
-  #:use-module (guix build-system clojure)
-  #:use-module (guix build-system copy)
-  #:use-module (guix build-system go)
-  #:use-module (guix download)
-  #:use-module (guix gexp)
-  #:use-module (guix git-download)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix packages))
+  #:use-module (Manifolding-OS build-system ant)
+  #:use-module (Manifolding-OS build-system clojure)
+  #:use-module (Manifolding-OS build-system copy)
+  #:use-module (Manifolding-OS build-system go)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS packages))
 
 (define-public clojure-spec-alpha
   (package
@@ -280,14 +280,14 @@ and line numbers not only to lists, but also to symbols, vectors and maps.")
                     "072dv6s2gxcg8snlgkpjk6bp1cb17bgfshdq6ijsa4yslpqbf9wc")))))
       (build-system ant-build-system)
       (arguments
-       `(#:imported-modules ((guix build clojure-utils)
-                             (guix build clojure-build-system)
+       `(#:imported-modules ((Manifolding-OS build clojure-utils)
+                             (Manifolding-OS build clojure-build-system)
                              ,@%ant-build-system-modules)
-         #:modules ((guix build ant-build-system)
-                    ((guix build clojure-build-system) #:prefix clj:)
-                    (guix build clojure-utils)
-                    (guix build java-utils)
-                    (guix build utils)
+         #:modules ((Manifolding-OS build ant-build-system)
+                    ((Manifolding-OS build clojure-build-system) #:prefix clj:)
+                    (Manifolding-OS build clojure-utils)
+                    (Manifolding-OS build java-utils)
+                    (Manifolding-OS build utils)
                     (srfi srfi-26))
          #:test-target "test"
          #:phases
@@ -1216,7 +1216,7 @@ asynchronous support.")
               (sha256
                (base32
                 "0ivlcmsr7rvr7741k9wzniv2zxijida0b588nqngm5vrgna816yl"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                '(begin
                   (for-each delete-file

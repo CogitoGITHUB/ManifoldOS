@@ -21,13 +21,13 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu system linux-initrd)
-  #:use-module (guix gexp)
-  #:use-module (guix utils)
-  #:use-module ((guix store)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS utils)
+  #:use-module ((Manifolding-OS store)
                 #:select (%store-prefix))
-  #:use-module ((guix derivations)
+  #:use-module ((Manifolding-OS derivations)
                 #:select (derivation->output-path))
-  #:use-module (guix modules)
+  #:use-module (Manifolding-OS modules)
   #:use-module (gnu packages compression)
   #:use-module (gnu packages disk)
   #:use-module (gnu packages linux)
@@ -79,10 +79,10 @@ the derivations referenced by EXP are automatically copied to the initrd."
 
   (define (import-module? module)
     ;; Since we don't use deduplication support in 'populate-store', don't
-    ;; import (guix store deduplication) and its dependencies, which includes
+    ;; import (Manifolding-OS store deduplication) and its dependencies, which includes
     ;; Guile-Gcrypt.  That way we can run tests with '--bootstrap'.
     (and (guix-module-name? module)
-         (not (equal? module '(guix store deduplication)))))
+         (not (equal? module '(Manifolding-OS store deduplication)))))
 
   (define builder
     ;; Do not use "guile-zlib" extension here, otherwise it would drag the
@@ -125,14 +125,14 @@ the derivations referenced by EXP are automatically copied to the initrd."
 MODULES and taken from LINUX."
   (define imported-modules
     (source-module-closure '((gnu build linux-modules)
-                             (guix build utils))))
+                             (Manifolding-OS build utils))))
 
   (define build-exp
     (with-imported-modules imported-modules
       (with-extensions (list guile-zlib guile-zstd)
         #~(begin
             (use-modules (gnu build linux-modules)
-                         (guix build utils)
+                         (Manifolding-OS build utils)
                          (rnrs io ports)
                          (srfi srfi-1)
                          (srfi srfi-26)
@@ -253,15 +253,15 @@ upon error."
   (expression->initrd
    (with-imported-modules (source-module-closure
                            '((gnu build linux-boot)
-                             (guix build utils)
-                             (guix build bournish)
+                             (Manifolding-OS build utils)
+                             (Manifolding-OS build bournish)
                              (gnu system file-systems)
                              (gnu build file-systems)))
      #~(begin
          (use-modules (gnu build linux-boot)
                       (gnu system file-systems)
-                      ((guix build utils) #:hide (delete))
-                      (guix build bournish)   ;add the 'bournish' meta-command
+                      ((Manifolding-OS build utils) #:hide (delete))
+                      (Manifolding-OS build bournish)   ;add the 'bournish' meta-command
                       (srfi srfi-1)           ;for lvm-device-mapping
                       (srfi srfi-26)
 

@@ -29,7 +29,7 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages bash)
-  #:use-module ((guix licenses) #:prefix license:)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
   #:use-module (gnu packages)
   #:use-module (gnu packages autotools)
   #:use-module (gnu packages base)
@@ -45,18 +45,18 @@
   #:use-module (gnu packages guile)
   #:use-module (gnu packages version-control)
   #:use-module (gnu packages less)
-  #:use-module (guix packages)
-  #:use-module (guix download)
-  #:use-module (guix git-download)
-  #:use-module (guix utils)
-  #:use-module (guix gexp)
-  #:use-module (guix monads)
-  #:use-module (guix store)
-  #:use-module (guix build-system copy)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system trivial)
-  #:autoload   (guix gnupg) (gnupg-verify*)
-  #:autoload   (guix base32) (bytevector->nix-base32-string)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS utils)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS monads)
+  #:use-module (Manifolding-OS store)
+  #:use-module (Manifolding-OS build-system copy)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system trivial)
+  #:autoload   (Manifolding-OS gnupg) (gnupg-verify*)
+  #:autoload   (Manifolding-OS base32) (bytevector->nix-base32-string)
 
   ;; See <https://bugs.gnu.org/41457> for why not #:autoload here.
   #:use-module ((gcrypt hash) #:select (port-sha256))
@@ -200,8 +200,8 @@ number/base32-hash tuples, directly usable in the 'patch-series' form."
          #:tests? #f
 
          #:modules ((srfi srfi-26)
-                    (guix build utils)
-                    (guix build gnu-build-system))
+                    (Manifolding-OS build utils)
+                    (Manifolding-OS build gnu-build-system))
 
          #:phases
          (modify-phases %standard-phases
@@ -290,8 +290,8 @@ without modification.")
     (arguments
      (substitute-keyword-arguments arguments
        ((#:modules _ '())
-        '((guix build gnu-build-system)
-          (guix build utils)
+        '((Manifolding-OS build gnu-build-system)
+          (Manifolding-OS build utils)
           (srfi srfi-1)
           (srfi srfi-26)))
        ((#:configure-flags flags '())
@@ -449,10 +449,10 @@ capturing.")
      (list bash coreutils guile-3.0 ;for wrap-script
            grep))
     (arguments
-     `(#:modules ((guix build utils))
+     `(#:modules ((Manifolding-OS build utils))
        #:builder
        (begin
-         (use-modules (guix build utils))
+         (use-modules (Manifolding-OS build utils))
          (copy-recursively (assoc-ref %build-inputs "source") ".")
          (setenv "PATH"
                  (string-append (assoc-ref %build-inputs "bash") "/bin"

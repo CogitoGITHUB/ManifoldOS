@@ -43,16 +43,16 @@
 
 (define-module (gnu packages librewolf)
   #:use-module ((srfi srfi-1) #:hide (zip))
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system cargo)
-  #:use-module (guix build-system trivial)
-  #:use-module (guix download)
-  #:use-module (guix git-download)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix gexp)
-  #:use-module (guix packages)
-  #:use-module (guix utils)
-  #:use-module ((guix build utils) #:select (alist-replace))
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system cargo)
+  #:use-module (Manifolding-OS build-system trivial)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS utils)
+  #:use-module ((Manifolding-OS build utils) #:select (alist-replace))
 
   #:use-module (gnu packages)
   #:use-module (gnu packages assembly)
@@ -114,7 +114,7 @@
     (patches (search-patches "librewolf-neuter-locale-download.patch"))
     (sha256 (base32 hash))))
 
-(define computed-origin-method (@@ (guix packages) computed-origin-method))
+(define computed-origin-method (@@ (Manifolding-OS packages) computed-origin-method))
 
 (define firefox-l10n
   ;; Match this commit to the upstream tarball.  The hash is in
@@ -149,9 +149,9 @@
       (sha256 #f)
       (uri
        (delay
-         (with-imported-modules '((guix build utils))
+         (with-imported-modules '((Manifolding-OS build utils))
            #~(begin
-               (use-modules (guix build utils))
+               (use-modules (Manifolding-OS build utils))
                (set-path-environment-variable
                 "PATH" '("bin")
                 (list #+python
@@ -210,7 +210,7 @@
       ;; Slim down the tarball by removing unbundled libraries and 75 Mo (800+
       ;; Mo uncompressed) of unused tests.
       ;; TODO: Unbundle security/nss and media/libpng.
-      (modules '((guix build utils)))
+      (modules '((Manifolding-OS build utils)))
       (snippet
        #~(for-each delete-file-recursively
                    '("testing/web-platform"
@@ -307,8 +307,8 @@
                   (srfi srfi-26)
                   (rnrs bytevectors)
                   (rnrs io ports)
-                  (guix elf)
-                  (guix build gremlin)
+                  (Manifolding-OS elf)
+                  (Manifolding-OS build gremlin)
                   ,@%default-gnu-imported-modules)
       #:phases
       #~(modify-phases %standard-phases
@@ -367,7 +367,7 @@
                       "https://gnuzilla.gnu.org")))))))
           (add-after 'patch-source-shebangs 'patch-cargo-checksums
             (lambda _
-              (use-modules (guix build cargo-utils))
+              (use-modules (Manifolding-OS build cargo-utils))
               (let ((null-hash
                      ;; This is the SHA256 output of an empty string.
                      (string-append
@@ -453,7 +453,7 @@
               (setenv "LANG" "en_US.utf8")
               ;; This should use the host info probably (does it
               ;; build on non-x86_64 though?)
-              (setenv "GUIX_PYTHONPATH"
+              (setenv "MANIFOLDING_OS_PYTHONPATH"
                       (string-append
                        (getcwd)
                        "/obj-x86_64-pc-linux-gnu/_virtualenvs/build"))

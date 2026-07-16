@@ -17,7 +17,7 @@
 
 (define-module (gnu installer hardware)
   #:use-module (gnu build linux-modules)
-  #:use-module (guix i18n)
+  #:use-module (Manifolding-OS i18n)
   #:use-module (srfi srfi-1)
   #:use-module (srfi srfi-71)
   #:export (unsupported-pci-device?

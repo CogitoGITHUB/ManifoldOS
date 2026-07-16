@@ -18,7 +18,7 @@
 
 (define-module (gnu installer kernel)
   #:use-module (gnu system hurd)
-  #:use-module (guix read-print)
+  #:use-module (Manifolding-OS read-print)
   #:export (kernel->configuration))
 
 (define-syntax-rule (G_ str)

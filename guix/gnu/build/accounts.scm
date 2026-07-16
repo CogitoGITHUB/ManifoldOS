@@ -18,8 +18,8 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu build accounts)
-  #:use-module (guix records)
-  #:use-module (guix combinators)
+  #:use-module (Manifolding-OS records)
+  #:use-module (Manifolding-OS combinators)
   #:use-module (gnu system accounts)
   #:use-module (srfi srfi-1)
   #:use-module (srfi srfi-11)

@@ -17,13 +17,13 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (test-ipfs)
-  #:use-module (guix ipfs)
-  #:use-module ((guix utils) #:select (call-with-temporary-directory))
-  #:use-module (guix tests)
+  #:use-module (Manifolding-OS ipfs)
+  #:use-module ((Manifolding-OS utils) #:select (call-with-temporary-directory))
+  #:use-module (Manifolding-OS tests)
   #:use-module (web uri)
   #:use-module (srfi srfi-64))
 
-;; Test the (guix ipfs) module.
+;; Test the (Manifolding-OS ipfs) module.
 
 (define (ipfs-gateway-running?)
   "Return true if the IPFS gateway is running at %IPFS-BASE-URL."
@@ -48,7 +48,7 @@
 (test-assert "add-file-tree + restore-file-tree"
   (call-with-temporary-directory
    (lambda (directory)
-     (let* ((source  (dirname (search-path %load-path "guix/base32.scm")))
+     (let* ((source  (dirname (search-path %load-path "Manifolding-OS/base32.scm")))
             (target  (string-append directory "/r"))
             (content (pk 'content (add-file-tree source))))
        (restore-file-tree (content-name content) target)

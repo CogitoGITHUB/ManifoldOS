@@ -18,9 +18,9 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu home services gnupg)
-  #:use-module (guix gexp)
-  #:use-module (guix modules)
-  #:use-module ((guix records) #:select (match-record))
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS modules)
+  #:use-module ((Manifolding-OS records) #:select (match-record))
   #:use-module (gnu services)
   #:use-module (gnu services configuration)
   #:use-module (gnu home services)
@@ -209,7 +209,7 @@ tor directly.")
       (list (shepherd-service
               (provision '(parcimonie))
               (modules '((shepherd support)   ;for '%user-log-dir'
-                         (guix build utils)
+                         (Manifolding-OS build utils)
                          (srfi srfi-1)))
               (start #~(make-forkexec-constructor
                          (cons*

@@ -17,8 +17,8 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (test-http-client)
-  #:use-module (guix http-client)
-  #:use-module (guix tests http)
+  #:use-module (Manifolding-OS http-client)
+  #:use-module (Manifolding-OS tests http)
   #:use-module (srfi srfi-1)
   #:use-module (srfi srfi-34)
   #:use-module (srfi srfi-64)

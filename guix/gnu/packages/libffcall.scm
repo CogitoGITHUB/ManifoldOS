@@ -20,10 +20,10 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages libffcall)
-  #:use-module ((guix licenses) #:prefix l:)
-  #:use-module (guix packages)
-  #:use-module (guix download)
-  #:use-module (guix build-system gnu))
+  #:use-module ((Manifolding-OS licenses) #:prefix l:)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS build-system gnu))
 
 (define-public libffcall
    (package

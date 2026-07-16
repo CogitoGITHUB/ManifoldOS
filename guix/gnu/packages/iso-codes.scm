@@ -20,13 +20,13 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages iso-codes)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix gexp)
-  #:use-module (guix packages)
-  #:use-module (guix download)
-  #:use-module (guix git-download)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system pyproject)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system pyproject)
   #:use-module (gnu packages check)
   #:use-module (gnu packages gettext)
   #:use-module (gnu packages perl)
@@ -82,7 +82,7 @@ information.")
      (source
       (origin
         (inherit (package-source iso-codes/official))
-        (modules '((guix build utils)))
+        (modules '((Manifolding-OS build utils)))
         (snippet
          '(begin
             (substitute* (find-files "." "\\.po$")
@@ -181,7 +181,7 @@ region, WIOD classification, ccTLD.")
             (lambda _
               (setenv "PYTHONPATH"
                       (string-append (getcwd) ":"
-                                     (getenv "GUIX_PYTHONPATH"))))))))
+                                     (getenv "MANIFOLDING_OS_PYTHONPATH"))))))))
     (native-inputs (list python-pycountry python-pytest python-setuptools))
     (home-page "https://github.com/noumar/iso639")
     (synopsis "Python library for ISO 639 standard")

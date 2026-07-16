@@ -18,7 +18,7 @@
 
 ;; Translate cross-references in a translated .texi manual.
 
-(use-modules (guix build po)
+(use-modules (Manifolding-OS build po)
              (ice-9 match))
 
 (match (command-line)

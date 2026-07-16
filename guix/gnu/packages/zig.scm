@@ -22,15 +22,15 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages zig)
-  #:use-module (guix gexp)
-  #:use-module (guix packages)
-  #:use-module (guix platform)
-  #:use-module (guix search-paths)
-  #:use-module (guix utils)
-  #:use-module (guix download)
-  #:use-module (guix git-download)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix build-system cmake)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS platform)
+  #:use-module (Manifolding-OS search-paths)
+  #:use-module (Manifolding-OS utils)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS build-system cmake)
   #:use-module (gnu packages)
   #:use-module (gnu packages compression)
   #:use-module (gnu packages llvm)
@@ -45,7 +45,7 @@
           (commit commit)))
     (file-name (git-file-name "zig" version))
     (sha256 (base32 hash))
-    (modules '((guix build utils)))
+    (modules '((Manifolding-OS build utils)))
     (snippet
      #~(for-each
         (lambda (file)
@@ -91,12 +91,12 @@
     (arguments
      (list
       #:imported-modules
-      (cons '(guix build zig-utils)
+      (cons '(Manifolding-OS build zig-utils)
             %cmake-build-system-modules)
       #:modules
-      (cons '(guix build zig-utils)
-            '((guix build cmake-build-system)
-              (guix build utils)))
+      (cons '(Manifolding-OS build zig-utils)
+            '((Manifolding-OS build cmake-build-system)
+              (Manifolding-OS build utils)))
       #:configure-flags
       #~(list (string-append "-DZIG_LIB_DIR=" #$output "/lib/zig")
               "-DZIG_TARGET_MCPU=baseline"
@@ -178,7 +178,7 @@
            $CPLUS_INCLUDE_PATH
            $LIBRARY_PATH
            (search-path-specification
-            (variable "GUIX_ZIG_PACKAGE_PATH")
+            (variable "MANIFOLDING_OS_ZIG_PACKAGE_PATH")
             (files '("src/zig")))))
     (synopsis "General purpose programming language and toolchain")
     (description "Zig is a general-purpose programming language and
@@ -209,7 +209,7 @@ toolchain.  Among other features it provides
     (file-name "libc-abi-tools")
     (sha256
      (base32 "0csn3c9pj8wchwy5sk5lfnhjn8a3c8cp45fv7mkpi5bqxzdzf1na"))
-    (modules '((guix build utils)))
+    (modules '((Manifolding-OS build utils)))
     (snippet
      #~(substitute* "consolidate.zig"
          (("(@ctz.)u.., " _ prefix) prefix)
@@ -248,12 +248,12 @@ toolchain.  Among other features it provides
               "-DZIG_USE_LLVM_CONFIG=ON"
               "-DZIG_SHARED_LLVM=ON")
       #:imported-modules
-      (cons '(guix build zig-utils)
+      (cons '(Manifolding-OS build zig-utils)
             %cmake-build-system-modules)
       #:modules
-      (cons '(guix build zig-utils)
-            '((guix build cmake-build-system)
-              (guix build utils)))
+      (cons '(Manifolding-OS build zig-utils)
+            '((Manifolding-OS build cmake-build-system)
+              (Manifolding-OS build utils)))
       #:phases
       #~(modify-phases %standard-phases
           (add-after 'patch-source-shebangs 'patch-more-shebangs
@@ -309,7 +309,7 @@ toolchain.  Among other features it provides
            $CPLUS_INCLUDE_PATH
            $LIBRARY_PATH
            (search-path-specification
-             (variable "GUIX_ZIG_PACKAGE_PATH")
+             (variable "MANIFOLDING_OS_ZIG_PACKAGE_PATH")
              (files '("src/zig")))))
     (synopsis "General purpose programming language and toolchain")
     (description "Zig is a general-purpose programming language and
@@ -1960,7 +1960,7 @@ toolchain.  Among other features it provides
     (file-name "libc-abi-tools")
     (sha256
      (base32 "09m0ipixxw0dnal0zsgk6kvcz29y9s256b9y00s4hkhj95n630il"))
-    (modules '((guix build utils)))
+    (modules '((Manifolding-OS build utils)))
     (snippet
      #~(begin
          (substitute* "consolidate.zig"

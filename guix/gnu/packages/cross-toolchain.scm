@@ -19,7 +19,7 @@
 (define-module (gnu packages cross-toolchain)
   #:use-module (gnu packages cross-base)
   #:use-module (gnu packages gcc)
-  #:use-module (guix packages))
+  #:use-module (Manifolding-OS packages))
 
 ;;; Commentary:
 ;;;

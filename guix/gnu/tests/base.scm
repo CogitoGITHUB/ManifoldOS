@@ -43,13 +43,13 @@
   #:use-module (gnu packages package-management)
   #:use-module (gnu packages tmux)
   #:use-module (gnu packages virtualization)
-  #:use-module (guix gexp)
-  #:use-module (guix store)
-  #:use-module (guix monads)
-  #:use-module (guix modules)
-  #:use-module (guix packages)
-  #:use-module (guix profiles)
-  #:use-module (guix utils)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS store)
+  #:use-module (Manifolding-OS monads)
+  #:use-module (Manifolding-OS modules)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS profiles)
+  #:use-module (Manifolding-OS utils)
   #:use-module ((srfi srfi-1) #:hide (partition))
   #:use-module (ice-9 match)
   #:export (run-basic-test
@@ -106,10 +106,10 @@ tests that are defined within this procedure."
 
   (define test
     (with-imported-modules '((gnu build marionette)
-                             (guix build syscalls))
+                             (Manifolding-OS build syscalls))
       #~(begin
           (use-modules (gnu build marionette)
-                       (guix build syscalls)
+                       (Manifolding-OS build syscalls)
                        (srfi srfi-1)
                        (srfi srfi-19)
                        (srfi srfi-26)
@@ -285,7 +285,7 @@ info --version")
                                   (operating-system-user-accounts os))))
               (marionette-eval
                `(begin
-                  (use-modules (guix build utils) (srfi srfi-1)
+                  (use-modules (Manifolding-OS build utils) (srfi srfi-1)
                                (ice-9 ftw) (ice-9 match))
 
                   (every (match-lambda
@@ -412,7 +412,7 @@ info --version")
             '(("root" "tty1" #f))
             (marionette-eval
              '(begin
-                (use-modules (guix build syscalls)
+                (use-modules (Manifolding-OS build syscalls)
                              (srfi srfi-1))
 
                 (filter-map (lambda (entry)
@@ -427,7 +427,7 @@ info --version")
           (test-assert "wtmp entry"
             (match (marionette-eval
                     '(begin
-                       (use-modules (guix build syscalls)
+                       (use-modules (Manifolding-OS build syscalls)
                                     (srfi srfi-1))
 
                        (define (entry->list entry)
@@ -499,7 +499,7 @@ info --version")
           (test-eq "/run/current-system is a GC root"
             'success!
             (marionette-eval '(begin
-                                ;; Make sure the (guix …) modules are found.
+                                ;; Make sure the (Manifolding-OS …) modules are found.
                                 (eval-when (expand load eval)
                                   (set! %load-path
                                         (append (map (lambda (package)
@@ -509,7 +509,7 @@ info --version")
                                                      '#$guix&co)
                                                 %load-path)))
 
-                                (use-modules (srfi srfi-34) (guix store))
+                                (use-modules (srfi srfi-34) (Manifolding-OS store))
 
                                 (let ((system (readlink "/run/current-system")))
                                   (guard (c ((store-protocol-error? c)
@@ -619,7 +619,7 @@ functionality tests, using the given KERNEL.")
                                              "not a Bash script -- ignore me")))
                                     %base-services)))
                  #:imported-modules '((gnu services herd)
-                                      (guix combinators))))
+                                      (Manifolding-OS combinators))))
            (vm  (virtual-machine os)))
       ;; XXX: Add call to 'virtualized-operating-system' to get the exact same
       ;; set of services as the OS produced by
@@ -751,7 +751,7 @@ in a loop.  See <http://bugs.gnu.org/26931>.")
                  (inherit %simple-os)
                  (packages (cons tmux %base-packages)))
                #:imported-modules '((gnu services herd)
-                                    (guix combinators)))))
+                                    (Manifolding-OS combinators)))))
       (run-halt-test (virtual-machine os))))))
 
 
@@ -777,16 +777,16 @@ in a loop.  See <http://bugs.gnu.org/26931>.")
     (marionette-operating-system
      %simple-os
      #:imported-modules
-     (source-module-closure '((guix build syscalls)
+     (source-module-closure '((Manifolding-OS build syscalls)
                               (gnu build file-systems)))))
 
   (define test
     (with-imported-modules (source-module-closure
                             '((gnu build marionette)
-                              (guix build utils)))
+                              (Manifolding-OS build utils)))
       #~(begin
           (use-modules (gnu build marionette)
-                       (guix build utils)
+                       (Manifolding-OS build utils)
                        (srfi srfi-64)
                        (ice-9 ftw))
 
@@ -817,7 +817,7 @@ in a loop.  See <http://bugs.gnu.org/26931>.")
           (let ((marionette (test-system-marionette)))
             (test-assert "file created"
               (marionette-eval `(begin
-                                  (use-modules (guix build utils))
+                                  (use-modules (Manifolding-OS build utils))
                                   (call-with-output-file "/witness"
                                     (lambda (port)
                                       (call-with-input-file "/dev/random"
@@ -880,7 +880,7 @@ in a loop.  See <http://bugs.gnu.org/26931>.")
               witness-size
               (let ((files (marionette-eval
                             '(begin
-                               (use-modules (guix build syscalls)
+                               (use-modules (Manifolding-OS build syscalls)
                                             (ice-9 ftw))
                                (mount (find-partition-by-label "root-under-test")
                                       "/mnt" "ext4" MS_RDONLY)
@@ -905,7 +905,7 @@ halted.")
     (let ((os (marionette-operating-system
                %simple-os
                #:imported-modules '((gnu services herd)
-                                    (guix combinators)))))
+                                    (Manifolding-OS combinators)))))
       (run-root-unmount-test os)))))
 
 
@@ -924,7 +924,7 @@ halted.")
                                    "set -e; set -x\n"
                                    "touch /witness\n"
                                    "exec touch /tmp/λαμβδα"))))
-                     (with-imported-modules '((guix build utils))
+                     (with-imported-modules '((Manifolding-OS build utils))
                        #~(begin
                            (setenv "PATH"
                                    #$(file-append coreutils "/bin"))
@@ -935,7 +935,7 @@ halted.")
   (define os
     (marionette-operating-system %cleanup-os
                                  #:imported-modules '((gnu services herd)
-                                                      (guix combinators))))
+                                                      (Manifolding-OS combinators))))
   (define test
     (with-imported-modules '((gnu build marionette))
       #~(begin
@@ -1147,7 +1147,7 @@ test."
     ;; the right context.
     '(object->string
       `(begin
-         (use-modules (guix)
+         (use-modules (Manifolding-OS)
                       (gnu packages bootstrap))
          (computed-file "chown-to-supplementary-group"
                         #~(begin
@@ -1273,10 +1273,10 @@ to supplementary group ~a...~%" other)
   (define test
     (with-imported-modules (source-module-closure
                             '((gnu build marionette)
-                              (guix build utils)))
+                              (Manifolding-OS build utils)))
       #~(begin
           (use-modules (gnu build marionette)
-                       (guix build utils)
+                       (Manifolding-OS build utils)
                        (srfi srfi-64))
 
           (define marionette
@@ -1324,7 +1324,7 @@ to supplementary group ~a...~%" other)
                                (group "users"))
                               %base-user-accounts)))
                #:imported-modules '((gnu services herd)
-                                    (guix combinators)))))
+                                    (Manifolding-OS combinators)))))
       (run-guix-daemon-test os "guix-daemon-test")))))
 
 (define %test-guix-daemon-unprivileged
@@ -1354,7 +1354,7 @@ runs unprivileged.")
                                   (inherit config)
                                   (privileged? #f)))))))
                #:imported-modules '((gnu services herd)
-                                    (guix combinators)))))
+                                    (Manifolding-OS combinators)))))
       (run-guix-daemon-test os "guix-daemon-unprivileged-test")))))
 
 (define %test-missing-file-system
@@ -1393,7 +1393,7 @@ is specified and isn't provided by any device.")
                             (type "ext4"))
                           %base-file-systems)))
                 #:imported-modules '((gnu services herd)
-                                     (guix combinators))))
+                                     (Manifolding-OS combinators))))
            (image (system-image (os->image os #:type qcow2-image-type)))
            (command
             #~`(,(string-append #$qemu-minimal "/bin/" (qemu-command))

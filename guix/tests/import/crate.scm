@@ -23,14 +23,14 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (test-crate)
-  #:use-module (guix import crate)
-  #:use-module (guix base32)
-  #:use-module (guix build-system cargo)
+  #:use-module (Manifolding-OS import crate)
+  #:use-module (Manifolding-OS base32)
+  #:use-module (Manifolding-OS build-system cargo)
   #:use-module ((gcrypt hash)
                 #:select ((sha256 . gcrypt-sha256)))
-  #:use-module (guix packages)
-  #:use-module (guix read-print)
-  #:use-module (guix tests)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS read-print)
+  #:use-module (Manifolding-OS tests)
   #:use-module (gnu packages)
   #:use-module (ice-9 iconv)
   #:use-module (ice-9 match)
@@ -122,7 +122,7 @@
 (unless have-guile-semver? (test-skip 3))
 (test-assert "crate->guix-package"
   ;; Replace network resources with sample data.
-  (mock ((guix http-client) http-fetch
+  (mock ((Manifolding-OS http-client) http-fetch
          (lambda (url . rest)
            (match url
              ("https://crates.io/api/v1/crates/foo"
@@ -159,7 +159,7 @@
 
 (test-assert "crate->guix-package yanked"
   (mock
-   ((guix http-client) http-fetch
+   ((Manifolding-OS http-client) http-fetch
     (lambda (url . rest)
       (match url
         ("https://crates.io/api/v1/crates/foo"
@@ -197,7 +197,7 @@
 
 (test-assert "crate->guix-package only yanked available"
   (mock
-   ((guix http-client) http-fetch
+   ((Manifolding-OS http-client) http-fetch
     (lambda (url . rest)
       (match url
         ("https://crates.io/api/v1/crates/bar"
@@ -291,7 +291,7 @@ dependencies = [
 name = \"test\"
 version = \"25.2.0\"\n" port)))
     (mock
-     ((guix scripts download) guix-download
+     ((Manifolding-OS scripts download) guix-download
       (lambda _
         (format #t "~a/~a~%~a~%"
                 "/gnu/store"

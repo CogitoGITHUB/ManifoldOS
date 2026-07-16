@@ -20,10 +20,10 @@
 (define-module (gnu packages hare-apps)
   #:use-module (gnu packages hare-xyz)
   #:use-module (gnu packages man)
-  #:use-module (guix build-system hare)
-  #:use-module (guix git-download)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix packages))
+  #:use-module (Manifolding-OS build-system hare)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS packages))
 
 (define-public bonsai
   (package

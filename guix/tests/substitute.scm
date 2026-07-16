@@ -18,23 +18,23 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (test-substitute)
-  #:use-module (guix scripts substitute)
-  #:use-module (guix narinfo)
-  #:use-module (guix base64)
+  #:use-module (Manifolding-OS scripts substitute)
+  #:use-module (Manifolding-OS narinfo)
+  #:use-module (Manifolding-OS base64)
   #:use-module (gcrypt hash)
-  #:use-module (guix serialization)
+  #:use-module (Manifolding-OS serialization)
   #:use-module (gcrypt pk-crypto)
-  #:use-module (guix pki)
-  #:use-module (guix config)
-  #:use-module (guix base32)
-  #:use-module ((guix store) #:select (%store-prefix))
-  #:use-module ((guix ui) #:select (guix-warning-port))
-  #:use-module ((guix utils)
+  #:use-module (Manifolding-OS pki)
+  #:use-module (Manifolding-OS config)
+  #:use-module (Manifolding-OS base32)
+  #:use-module ((Manifolding-OS store) #:select (%store-prefix))
+  #:use-module ((Manifolding-OS ui) #:select (guix-warning-port))
+  #:use-module ((Manifolding-OS utils)
                 #:select (call-with-temporary-directory
                           call-with-compressed-output-port))
-  #:use-module ((guix build utils)
+  #:use-module ((Manifolding-OS build utils)
                 #:select (mkdir-p delete-file-recursively dump-port))
-  #:use-module (guix tests http)
+  #:use-module (Manifolding-OS tests http)
   #:use-module (rnrs bytevectors)
   #:use-module (rnrs io ports)
   #:use-module (web uri)
@@ -132,7 +132,7 @@ version identifier.."
 
 (define %main-substitute-directory
   ;; The place where 'call-with-narinfo' stores its data by default.
-  (uri-path (string->uri (getenv "GUIX_BINARY_SUBSTITUTE_URL"))))
+  (uri-path (string->uri (getenv "MANIFOLDING_OS_BINARY_SUBSTITUTE_URL"))))
 
 (define %alternate-substitute-directory
   ;; Another place.
@@ -263,7 +263,7 @@ a file for NARINFO."
   (call-with-narinfo narinfo (lambda () body ...) #:directory? #t))
 
 ;; Transmit these options to 'guix substitute'.
-(substitute-urls (list (getenv "GUIX_BINARY_SUBSTITUTE_URL")))
+(substitute-urls (list (getenv "MANIFOLDING_OS_BINARY_SUBSTITUTE_URL")))
 
 ;; Never use file descriptor 4, unlike what happens when invoked by the
 ;; daemon.

@@ -38,13 +38,13 @@
   #:use-module (gnu system shadow)
   #:use-module (gnu packages admin)
   #:use-module (gnu packages vpn)
-  #:use-module (guix modules)
-  #:use-module (guix packages)
-  #:use-module (guix records)
-  #:use-module (guix gexp)
-  #:use-module (guix diagnostics)
-  #:use-module (guix i18n)
-  #:use-module (guix deprecation)
+  #:use-module (Manifolding-OS modules)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS records)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS diagnostics)
+  #:use-module (Manifolding-OS i18n)
+  #:use-module (Manifolding-OS deprecation)
   #:use-module (srfi srfi-1)
   #:use-module (ice-9 format)
   #:use-module (ice-9 match)
@@ -285,9 +285,9 @@ client.  Each file is named after the name of the client."
                                  ccd openvpn-ccd-configuration-fields)))))
                     val)))
     (computed-file "ccd"
-                   (with-imported-modules '((guix build utils))
+                   (with-imported-modules '((Manifolding-OS build utils))
                      #~(begin
-                         (use-modules (guix build utils))
+                         (use-modules (Manifolding-OS build utils))
                          (use-modules (ice-9 match))
                          (mkdir-p #$output)
                          (for-each
@@ -520,7 +520,7 @@ is truncated and rewritten every minute.")
 
 (define %openvpn-activation
   #~(begin
-      (use-modules (guix build utils))
+      (use-modules (Manifolding-OS build utils))
       (mkdir-p "/var/run/openvpn")))
 
 (define openvpn-server-service-type
@@ -839,7 +839,7 @@ strongSwan.")))
   (match-record config <wireguard-configuration>
     (private-key bootstrap-private-key? wireguard)
     #~(begin
-        (use-modules (guix build utils)
+        (use-modules (Manifolding-OS build utils)
                      (ice-9 popen)
                      (ice-9 rdelim))
         (when (and #$private-key
@@ -857,7 +857,7 @@ strongSwan.")))
               (chmod #$private-key #o400)
               (close-pipe pipe)))))))
 
-;;; XXX: Copied from (guix scripts pack), changing define to define*.
+;;; XXX: Copied from (Manifolding-OS scripts pack), changing define to define*.
 (define-syntax-rule (define-with-source (variable args ...) body body* ...)
   "Bind VARIABLE to a procedure accepting ARGS defined as BODY, also setting
 its source property."
@@ -923,10 +923,10 @@ public key, if any."
        (format #f "wireguard-~a-monitoring" interface)
        (with-imported-modules (source-module-closure
                                '((gnu services herd)
-                                 (guix build utils)))
+                                 (Manifolding-OS build utils)))
          #~(begin
              (use-modules (gnu services herd)
-                          (guix build utils)
+                          (Manifolding-OS build utils)
                           (ice-9 popen)
                           (ice-9 match)
                           (ice-9 textual-ports)

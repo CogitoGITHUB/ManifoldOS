@@ -25,18 +25,18 @@
 
 (define-module (gnu packages chez)
   #:use-module (gnu packages)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix packages)
-  #:use-module (guix deprecation)
-  #:use-module (guix download)
-  #:use-module (guix diagnostics)
-  #:use-module (guix i18n)
-  #:use-module (guix git-download)
-  #:use-module (guix utils)
-  #:use-module (guix gexp)
-  #:use-module (guix build-system copy)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system copy)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS deprecation)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS diagnostics)
+  #:use-module (Manifolding-OS i18n)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS utils)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS build-system copy)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system copy)
   #:use-module (gnu packages compression)
   #:use-module (gnu packages ncurses)
   #:use-module (gnu packages ghostscript)
@@ -152,7 +152,7 @@ in Chez Scheme machine types, or '#f' if none is defined."
     "gnu")
    ((target-mingw? system)
     "nt")
-   ;; missing (guix utils) predicates
+   ;; missing (Manifolding-OS utils) predicates
    ;; cf. https://github.com/NixOS/nixpkgs/blob/master/lib/systems/doubles.nix
    ((string-suffix? "-darwin" system)
     "osx")
@@ -329,8 +329,8 @@ will name the threaded machine type unless THREADS? is provided as #f."
     (arguments
      (list
       #:modules
-      '((guix build gnu-build-system)
-        (guix build utils)
+      '((Manifolding-OS build gnu-build-system)
+        (Manifolding-OS build utils)
         (ice-9 ftw)
         (ice-9 match)
         (srfi srfi-34))
@@ -519,9 +519,9 @@ version of Chez Scheme.")
               (file-name (git-file-name name version))
               (patches (search-patches "chez-scheme-bin-sh.patch"))
               (snippet #~(begin
-                           (use-modules (guix build utils))
-                           ;; TODO: consider putting this in a (guix ...) or
-                           ;; (guix build ...)  module so it can be shared
+                           (use-modules (Manifolding-OS build utils))
+                           ;; TODO: consider putting this in a (Manifolding-OS ...) or
+                           ;; (Manifolding-OS build ...)  module so it can be shared
                            ;; with the Racket origin without cyclic issues.
                            (for-each (lambda (dir)
                                        (when (directory-exists? dir)
@@ -748,8 +748,8 @@ package @code{cs-bootstrap} to bootstrap its initial version of Chez Scheme.")
                             ("Mf-stex" "lib/stex/")
                             ("Makefile.template" "lib/stex/"))
          #:modules
-         '((guix build copy-build-system)
-           (guix build utils)
+         '((Manifolding-OS build copy-build-system)
+           (Manifolding-OS build utils)
            (ice-9 popen))
          #:phases
          #~(modify-phases %standard-phases
@@ -854,7 +854,7 @@ User's Guix}, among other documents.")
         (file-name (git-file-name "nanopass-framework-scheme" version))
         (snippet
          #~(begin
-             (use-modules (guix build utils))
+             (use-modules (Manifolding-OS build utils))
              (when (file-exists? "doc/user-guide.pdf")
                (delete-file "doc/user-guide.pdf"))
              (substitute* "doc/Makefile"
@@ -1279,7 +1279,7 @@ strings.")
         ;; Workaround for chez-scheme-for-racket.
         ;; See: https://github.com/racket/racket/issues/4151
         #~(begin
-            (use-modules (guix build utils))
+            (use-modules (Manifolding-OS build utils))
             (substitute* "mit/core.sls"
               (("[(]import ")
                "(import (only (chezscheme) import)\n")

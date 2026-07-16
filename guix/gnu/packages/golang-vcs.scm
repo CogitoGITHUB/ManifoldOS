@@ -22,12 +22,12 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages golang-vcs)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix build-system go)
-  #:use-module (guix gexp)
-  #:use-module (guix git-download)
-  #:use-module (guix packages)
-  #:use-module (guix utils)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS build-system go)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS utils)
   #:use-module (gnu packages)
   #:use-module (gnu packages golang)
   #:use-module (gnu packages golang-build)
@@ -770,7 +770,7 @@ interact with GitLab in a simple and uniform way.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "1faif57081yajmh0lfi2l8j9imkq1zv2nlccg84izi520rwjd6f6"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         '(begin
            (delete-file-recursively "vendor")))))

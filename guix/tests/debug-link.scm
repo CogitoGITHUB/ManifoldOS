@@ -17,14 +17,14 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (test-debug-link)
-  #:use-module (guix elf)
-  #:use-module (guix build utils)
-  #:use-module (guix build debug-link)
-  #:use-module (guix gexp)
-  #:use-module (guix store)
-  #:use-module (guix tests)
-  #:use-module (guix monads)
-  #:use-module (guix derivations)
+  #:use-module (Manifolding-OS elf)
+  #:use-module (Manifolding-OS build utils)
+  #:use-module (Manifolding-OS build debug-link)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS store)
+  #:use-module (Manifolding-OS tests)
+  #:use-module (Manifolding-OS monads)
+  #:use-module (Manifolding-OS derivations)
   #:use-module (gnu packages bootstrap)
   #:use-module (srfi srfi-1)
   #:use-module (srfi srfi-26)
@@ -62,13 +62,13 @@
   ;; Check whether we can compute the CRC just like objcopy, and whether we
   ;; can retrieve it.
   (let* ((code (plain-file "test.c" "int main () { return 42; }"))
-         (exp  (with-imported-modules '((guix build utils)
-                                        (guix build debug-link)
-                                        (guix elf))
+         (exp  (with-imported-modules '((Manifolding-OS build utils)
+                                        (Manifolding-OS build debug-link)
+                                        (Manifolding-OS elf))
                  #~(begin
-                     (use-modules (guix build utils)
-                                  (guix build debug-link)
-                                  (guix elf)
+                     (use-modules (Manifolding-OS build utils)
+                                  (Manifolding-OS build debug-link)
+                                  (Manifolding-OS elf)
                                   (rnrs io ports))
 
                      (define read-elf
@@ -107,13 +107,13 @@
   ;; Check whether 'set-debuglink-crc' successfully updates the CRC.
   (let* ((code  (plain-file "test.c" "int main () { return 42; }"))
          (debug (plain-file "exe.debug" "a"))
-         (exp   (with-imported-modules '((guix build utils)
-                                         (guix build debug-link)
-                                         (guix elf))
+         (exp   (with-imported-modules '((Manifolding-OS build utils)
+                                         (Manifolding-OS build debug-link)
+                                         (Manifolding-OS elf))
                   #~(begin
-                      (use-modules (guix build utils)
-                                   (guix build debug-link)
-                                   (guix elf)
+                      (use-modules (Manifolding-OS build utils)
+                                   (Manifolding-OS build debug-link)
+                                   (Manifolding-OS elf)
                                    (rnrs io ports))
 
                       (define read-elf

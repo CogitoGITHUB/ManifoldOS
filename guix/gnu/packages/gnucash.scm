@@ -27,7 +27,7 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages gnucash)
-  #:use-module ((guix licenses) #:prefix license:)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
   #:use-module (gnu packages autotools)
   #:use-module (gnu packages base)
   #:use-module (gnu packages bash)
@@ -55,13 +55,13 @@
   #:use-module (gnu packages webkit)
   #:use-module (gnu packages xml)
   #:use-module (gnu packages)
-  #:use-module (guix build-system cmake)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix download)
-  #:use-module (guix git-download)
-  #:use-module (guix gexp)
-  #:use-module (guix packages)
-  #:use-module (guix utils))
+  #:use-module (Manifolding-OS build-system cmake)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS utils))
 
 (define-public gnucash
   ;; TODO: Unbundle libraries such as guile-json found under the "borrowed/"
@@ -88,12 +88,12 @@
       #:configure-flags #~(list "-DWITH_PYTHON=ON")
       #:make-flags #~(list "GUILE_AUTO_COMPILE=0")
       #:imported-modules `(,@%default-gnu-imported-modules
-                           (guix build cmake-build-system)
-                           (guix build glib-or-gtk-build-system))
-      #:modules '((guix build cmake-build-system)
-                  ((guix build gnu-build-system) #:prefix gnu:)
-                  ((guix build glib-or-gtk-build-system) #:prefix glib-or-gtk:)
-                  (guix build utils))
+                           (Manifolding-OS build cmake-build-system)
+                           (Manifolding-OS build glib-or-gtk-build-system))
+      #:modules '((Manifolding-OS build cmake-build-system)
+                  ((Manifolding-OS build gnu-build-system) #:prefix gnu:)
+                  ((Manifolding-OS build glib-or-gtk-build-system) #:prefix glib-or-gtk:)
+                  (Manifolding-OS build utils))
       #:phases
       #~(modify-phases %standard-phases
           (add-after 'unpack 'remove-changelog-from-install-target

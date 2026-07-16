@@ -26,7 +26,7 @@ z40=0000000000000000000000000000000000000000
 
 perform_checks() {
 	set -e
-	guix git authenticate
+	Manifolding-OS git authenticate
 	exec make check-channel-news
 	exit 127
 }
@@ -45,7 +45,7 @@ do
                         ;;
                     # ... or when pushing a new PGP key to the keyring branch,
                     # as this branch doesn't share ancestry with the master
-                    # branch and fails the 'guix git authenticate' check.
+                    # branch and fails the 'Manifolding-OS git authenticate' check.
                     refs/heads/keyring)
                         exit 0
                         ;;
@@ -54,18 +54,18 @@ do
 		# Only perform checks when pushing to upstream.
 		case "$2" in
 	            *savannah.gnu.org*)
-			printf "ERROR: The repositories on Savannah are read-only mirrors of our repos at <https://codeberg.org/guix>.\n" 1>&2
+			printf "ERROR: The repositories on Savannah are read-only mirrors of our repos at <https://codeberg.org/Manifolding-OS>.\n" 1>&2
 			exit 1
 			;;
 		    *.gnu.org*)
 			perform_checks
 			;;
                     # HTTPS Git remote.
-		    *codeberg.org/guix/*)
+		    *codeberg.org/Manifolding-OS/*)
 			perform_checks
 			;;
 		    # SSH Git remote.
-		    *codeberg.org:guix/*)
+		    *codeberg.org:Manifolding-OS/*)
 			perform_checks
 			;;
 		    *)

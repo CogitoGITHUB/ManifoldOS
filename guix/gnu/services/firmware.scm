@@ -22,8 +22,8 @@
   #:use-module (gnu services base)
   #:use-module (gnu services configuration)
   #:use-module (gnu services dbus)
-  #:use-module (guix packages)
-  #:use-module (guix gexp)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS gexp)
   #:export (fwupd-configuration
             fwupd-configuration?
             fwupd-configuration-fields

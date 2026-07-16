@@ -19,15 +19,15 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages rust-sources)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix gexp)
-  #:use-module (guix packages)
-  #:use-module (guix download)
-  #:use-module (guix git-download)
-  #:use-module (guix search-paths)
-  #:use-module (guix build-system cargo)
-  #:use-module ((guix config) #:select (%storedir))
-  #:use-module (guix utils)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS search-paths)
+  #:use-module (Manifolding-OS build-system cargo)
+  #:use-module ((Manifolding-OS config) #:select (%storedir))
+  #:use-module (Manifolding-OS utils)
   #:use-module (gnu packages)
   #:use-module (gnu packages assembly)
   #:use-module (gnu packages base)
@@ -247,7 +247,7 @@
                (sha256
                 (base32
                  "0bhbkfhh5qd4ygx47jj7j6h722i1skmkwashmj5wlh648f5gdmx4"))
-               (modules '((guix build utils)))
+               (modules '((Manifolding-OS build utils)))
                (snippet
                 '(for-each delete-file-recursively
                            '("scripts/gemoji"
@@ -396,7 +396,7 @@ used to write R packages that link with Rust libraries.")
         (file-name (git-file-name name version))
         (sha256
          (base32 "0nqwrk9fi9d9rn4sj081k1v5zhls8xg6rsmrrickv362p8zw0mlj"))
-        (modules '((guix build utils)))
+        (modules '((Manifolding-OS build utils)))
         ;; Pre-generated.
         (snippet '(for-each delete-file (find-files "tries")))))
      (build-system cargo-build-system)
@@ -498,7 +498,7 @@ used to write R packages that link with Rust libraries.")
          (git-file-name "rust-livekit" "0.7.8.5f04705"))
         (sha256
          (base32 "1irnw9dax0nl8rl7jxdxs5vw6hg166jj4gf1s5cza6igvmrkl6y9"))
-        (modules '((guix build utils)))
+        (modules '((Manifolding-OS build utils)))
         (snippet
          '(begin
             (for-each delete-file-recursively
@@ -657,7 +657,7 @@ for Rust.")
                (sha256
                 (base32
                  "0mhjw7fvrzxb3fd0c534a17qgy6svz0z8269d2fs6q8aw11610mr"))
-               (modules '((guix build utils)))
+               (modules '((Manifolding-OS build utils)))
                (snippet '(delete-file-recursively "pcre2-sys/upstream"))))
      (build-system cargo-build-system)
      (arguments
@@ -757,7 +757,7 @@ UTF-32 support.")
                (sha256
                 (base32 "0rqfal81bf4l3dja98cajfjq2jbz1rcx7xdp2r33cxrm5y5psr28"))
                (patches (search-patches "rust-ring-0.17-ring-core.patch"))
-               (modules '((guix build utils)))
+               (modules '((Manifolding-OS build utils)))
                (snippet
                 #~(begin
                     ;; It turns out Guix's nasm works just fine here.
@@ -1107,7 +1107,7 @@ extensions, such as @code{wlr-protocols} and @code{plasma-wayland-protocols}.")
                (sha256
                 (base32
                  "095yvdd4lpzfywcg5zr7pq28fm9iarx6a85mpgdc0g6d1waydp68"))
-               (modules '((guix build utils)))
+               (modules '((Manifolding-OS build utils)))
                (snippet
                 '(begin
                    (delete-file-recursively "scripts")

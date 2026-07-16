@@ -36,12 +36,12 @@
   #:use-module (gnu packages python-xyz)
   #:use-module (gnu packages serialization)
   #:use-module (gnu packages tls)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix packages)
-  #:use-module (guix gexp)
-  #:use-module (guix git-download)
-  #:use-module (guix build-system cmake)
-  #:use-module (guix utils))
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS build-system cmake)
+  #:use-module (Manifolding-OS utils))
 
 (define-public cogutil
   ;; The last release was in 2016.  Other OpenCog packages require a later
@@ -66,9 +66,9 @@
         ;; Skip ldconfig, which requires root and is unnecessary in Guix.
         #:configure-flags
         #~(list "-DSKIP_LDCONF=ON")
-        #:modules '((guix build cmake-build-system)
-                    ((guix build gnu-build-system) #:prefix gnu:)
-                    (guix build utils))
+        #:modules '((Manifolding-OS build cmake-build-system)
+                    ((Manifolding-OS build gnu-build-system) #:prefix gnu:)
+                    (Manifolding-OS build utils))
         #:phases
         #~(modify-phases %standard-phases
             (replace 'check
@@ -124,9 +124,9 @@ utilities use for typical programming tasks in multiple OpenCog projects.")
                                "/lib/python"
                                #$(version-major+minor (package-version python))
                                "/site-packages"))
-        #:modules '((guix build cmake-build-system)
-                    ((guix build gnu-build-system) #:prefix gnu:)
-                    (guix build utils))
+        #:modules '((Manifolding-OS build cmake-build-system)
+                    ((Manifolding-OS build gnu-build-system) #:prefix gnu:)
+                    (Manifolding-OS build utils))
         #:phases
         #~(modify-phases %standard-phases
             (replace 'check
@@ -240,9 +240,9 @@ between AtomSpaces.")
                                "/lib/python"
                                #$(version-major+minor (package-version python))
                                "/site-packages"))
-        #:modules '((guix build cmake-build-system)
-                    ((guix build gnu-build-system) #:prefix gnu:)
-                    (guix build utils))
+        #:modules '((Manifolding-OS build cmake-build-system)
+                    ((Manifolding-OS build gnu-build-system) #:prefix gnu:)
+                    (Manifolding-OS build utils))
         #:phases
         #~(modify-phases %standard-phases
             (replace 'check

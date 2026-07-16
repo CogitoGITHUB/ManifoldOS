@@ -18,7 +18,7 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages llvm-meta)
-  #:use-module (guix utils)
+  #:use-module (Manifolding-OS utils)
   #:export (clang-compiler-cpu-architectures))
 
 (define (clang-compiler-cpu-architectures version)

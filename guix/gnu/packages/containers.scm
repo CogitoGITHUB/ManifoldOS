@@ -37,21 +37,21 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages containers)
-  #:use-module (guix gexp)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix modules)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS modules)
   #:use-module (gnu packages)
-  #:use-module (guix packages)
-  #:use-module (guix download)
-  #:use-module (guix git-download)
-  #:use-module (guix build-system copy)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system go)
-  #:use-module (guix build-system guile)
-  #:use-module (guix build-system meson)
-  #:use-module (guix build-system pyproject)
-  #:use-module ((guix search-paths) #:select ($GUIX_EXTENSIONS_PATH))
-  #:use-module (guix utils)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS build-system copy)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system go)
+  #:use-module (Manifolding-OS build-system guile)
+  #:use-module (Manifolding-OS build-system meson)
+  #:use-module (Manifolding-OS build-system pyproject)
+  #:use-module ((Manifolding-OS search-paths) #:select ($MANIFOLDING_OS_EXTENSIONS_PATH))
+  #:use-module (Manifolding-OS utils)
   #:use-module (gnu packages admin)
   #:use-module (gnu packages autotools)
   #:use-module (gnu packages base)
@@ -110,7 +110,7 @@
         (base32 "0qvgld9vji5f7h2idk6r3q30909hqws0rkpvgina43i57bsfh2sv"))
        (snippet
         #~(begin
-            (use-modules (guix build utils))
+            (use-modules (Manifolding-OS build utils))
             (delete-file-recursively "vendor")))))
     (build-system go-build-system)
     (arguments
@@ -145,7 +145,7 @@ archives as created by Podman, CRI-O and containerd.")
        (sha256
         (base32 "0wxy5np689571s6lw77mx63nw75fx85w5svi0jplksmqzmjqp8wd"))
        (snippet
-        #~(begin (use-modules (guix build utils))
+        #~(begin (use-modules (Manifolding-OS build utils))
          (delete-file-recursively "vendor")
             ;; Submodules with their own go.mod files and packaged separately:
             ;;
@@ -365,7 +365,7 @@ attachments, etc.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "1xz710dmy58gngd0qizjw8g9nkraksqald8vzhwc5h36dqkc8nrf"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         #~(begin
             (delete-file-recursively "vendor")
@@ -458,7 +458,7 @@ The binary is called @command{gvproxy}.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "0jg1wfbr6rva24cz6q6d73wgaridzkh9sclzm2dwxpiwmbkcas38"))
-         (modules '((guix build utils)
+         (modules '((Manifolding-OS build utils)
                     (ice-9 ftw)
                     (srfi srfi-26)))
          (snippet
@@ -893,7 +893,7 @@ contents, and discovering ways to shrink the size of Docker/OCI image.")
     ;; Avoid setting propagated so that we use the user’s profile.
     (inputs (list guix guile-dotenv guile-yamlpp))
     (native-search-paths
-     (list $GUIX_EXTENSIONS_PATH))
+     (list $MANIFOLDING_OS_EXTENSIONS_PATH))
     (synopsis "Guix' docker compose compatibility layer")
     (description "A toolkit to run, read and write docker-compose.yml files with
 Guix machinery.")
@@ -915,7 +915,7 @@ Guix machinery.")
         (base32 "0midvxwmj4fvhy5mqv616bhlx39j0gd6y890adx7dnz5in506ym1"))
        (snippet
         #~(begin
-            (use-modules (guix build utils))
+            (use-modules (Manifolding-OS build utils))
             (delete-file-recursively "vendor")))))
     (build-system go-build-system)
     (arguments
@@ -1042,7 +1042,7 @@ containers or various tools.")
       #:test-target "test-unit"
       #:imported-modules
       (source-module-closure `(,@%default-gnu-imported-modules
-                               (guix build go-build-system)))
+                               (Manifolding-OS build go-build-system)))
       #:phases
       #~(modify-phases %standard-phases
           (delete 'configure)
@@ -1177,7 +1177,7 @@ Layer-4 sockets.")
        (sha256
         (base32 "12z6w2jk6xgfiwdxys7skpkxldz1cgaa7scgfcr90lsghay59s6w"))
        (snippet
-        #~(begin (use-modules (guix build utils))
+        #~(begin (use-modules (Manifolding-OS build utils))
                  (delete-file-recursively "vendor")))))
     (build-system go-build-system)
     (arguments
@@ -1548,7 +1548,7 @@ layer to create a new image.
         (base32 "0m50x2q2h34g6sh786blf8r9wh098yzgwnicdlx0cgsqqwjsn0ia"))
        (snippet
         #~(begin
-            (use-modules (guix build utils))
+            (use-modules (Manifolding-OS build utils))
             (delete-file-recursively "vendor")))))
     (build-system go-build-system)
     (arguments

@@ -19,10 +19,10 @@
 ;;; This file returns a manifest of tree-sitter packages, which can be use
 ;;; to quickly check that all tree-sitter grammars build.
 
-(use-modules (guix packages)
-             (guix profiles)
-             (guix gexp)
-             (guix build-system)
+(use-modules (Manifolding-OS packages)
+             (Manifolding-OS profiles)
+             (Manifolding-OS gexp)
+             (Manifolding-OS build-system)
              (ice-9 match)
              (srfi srfi-1)
              (srfi srfi-26))

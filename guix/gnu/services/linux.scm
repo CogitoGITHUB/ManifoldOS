@@ -27,13 +27,13 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu services linux)
-  #:use-module (guix diagnostics)
-  #:use-module (guix gexp)
-  #:use-module (guix records)
-  #:use-module (guix modules)
-  #:use-module (guix i18n)
-  #:use-module (guix packages)
-  #:use-module (guix ui)
+  #:use-module (Manifolding-OS diagnostics)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS records)
+  #:use-module (Manifolding-OS modules)
+  #:use-module (Manifolding-OS i18n)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS ui)
   #:use-module (gnu services)
   #:use-module (gnu services admin)
   #:use-module (gnu services base)
@@ -705,7 +705,7 @@ the Linux @code{cachefiles} module.")
 (define (rasdaemon-activation config)
   (let ((record? (rasdaemon-configuration-record? config))
         (rasdaemon-dir "/var/lib/rasdaemon"))
-    (with-imported-modules '((guix build utils))
+    (with-imported-modules '((Manifolding-OS build utils))
       #~(if #$record? (mkdir-p #$rasdaemon-dir)))))
 
 (define (rasdaemon-shepherd-service config)
@@ -1047,7 +1047,7 @@ to @code{%default-tuned-configuration-recommend.conf}."))
   (match-record config <tuned-configuration>
                 (profiles settings ppd-settings recommend.conf)
     #~(begin
-        (use-modules (guix build utils))
+        (use-modules (Manifolding-OS build utils))
         (let ((data-directory "/var/lib/tuned")
               (config-directory "/etc/tuned"))
           ;; Setup TuneD directories.

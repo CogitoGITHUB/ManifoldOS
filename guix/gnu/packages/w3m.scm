@@ -23,7 +23,7 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages w3m)
-  #:use-module ((guix licenses) #:select (x11-style))
+  #:use-module ((Manifolding-OS licenses) #:select (x11-style))
   #:use-module (gnu packages gettext)
   #:use-module (gnu packages bdw-gc)
   #:use-module (gnu packages compression)
@@ -35,10 +35,10 @@
   #:use-module (gnu packages tls)
   #:use-module (gnu packages xorg)
   #:use-module (gnu packages)
-  #:use-module (guix packages)
-  #:use-module (guix git-download)
-  #:use-module (guix build-system gnu)
-  #:use-module ((guix search-paths) #:select ($SSL_CERT_DIR $SSL_CERT_FILE)))
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module ((Manifolding-OS search-paths) #:select ($SSL_CERT_DIR $SSL_CERT_FILE)))
 
 (define-public w3m
   (package

@@ -71,19 +71,19 @@
   #:use-module (gnu packages xdisorg)
   #:use-module (gnu packages xml)
   #:use-module (gnu packages xorg)
-  #:use-module (guix download)
-  #:use-module (guix git-download)
-  #:use-module (guix hg-download)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS hg-download)
   #:use-module (gnu packages cmake)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system cargo)
-  #:use-module (guix build-system cmake)
-  #:use-module (guix build-system meson)
-  #:use-module (guix build-system pyproject)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix packages)
-  #:use-module (guix gexp)
-  #:use-module (guix utils)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system cargo)
+  #:use-module (Manifolding-OS build-system cmake)
+  #:use-module (Manifolding-OS build-system meson)
+  #:use-module (Manifolding-OS build-system pyproject)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS utils)
   #:use-module (ice-9 match)
   #:use-module ((srfi srfi-1) #:hide (zip))
   #:use-module (srfi srfi-26))
@@ -453,9 +453,9 @@ panfrost,r300,r600,svga,softpipe,lima,llvmpipe,tegra,v3d,vc4,virgl,zink"))
        #:modules '((ice-9 match)
                    (ice-9 ftw)
                    (srfi srfi-1)
-                   (guix build utils)
-                   ((guix build cargo-build-system) #:prefix cargo:)
-                   (guix build meson-build-system))
+                   (Manifolding-OS build utils)
+                   ((Manifolding-OS build cargo-build-system) #:prefix cargo:)
+                   (Manifolding-OS build meson-build-system))
       #:imported-modules (append %cargo-build-system-modules
                                  %meson-build-system-modules)
        #:phases
@@ -759,7 +759,7 @@ glxdemo, glxgears, glxheads, and glxinfo.")
               (sha256
                (base32
                 "1qak8f7g1iswgswrgkzc7idk7jmqgwrs58fhg2ai007v7j4q5z6l"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                '(begin
                   (substitute* "config/Makefile.linux"
@@ -1011,8 +1011,8 @@ OpenGL.")
     (build-system cmake-build-system)
     (arguments
      (list
-      #:modules '((guix build cmake-build-system)
-                  (guix build utils)
+      #:modules '((Manifolding-OS build cmake-build-system)
+                  (Manifolding-OS build utils)
                   (ice-9 format))
       #:tests? #f                       ;no test target
       #:configure-flags #~(list "-DBUILD_SHARED_LIBS=ON")
@@ -1106,7 +1106,7 @@ and surfaces, receiving input and events.")
                 (sha256
                  (base32
                   "1zp355pw6xnb5mjarz67cxkglv7j1s0qzv705fz1wf0gl0sjhy8f"))
-                (modules '((guix build utils)))
+                (modules '((Manifolding-OS build utils)))
                 (snippet
                  ;; Fix including freetype.
                  '(substitute* (find-files "." "\\.(c|h)$")
@@ -1385,7 +1385,7 @@ original glmark benchmark by Ben Smith.")
               (sha256
                (base32 "1mrw0arlrpm83cwaz7rnimkkjv3a134rcmi1h512y2g4yjzhnm8r"))
               (modules '((ice-9 ftw)
-                         (guix build utils)))
+                         (Manifolding-OS build utils)))
               (snippet #~(with-directory-excursion "third_party"
                            (let ((keep '("." ".." "meson.build" "threads")))
                              (for-each (lambda (f)
@@ -1434,8 +1434,8 @@ original glmark benchmark by Ben Smith.")
                 (add-after 'install 'wrap
                   (lambda* (#:key outputs #:allow-other-keys)
                     (wrap-script (string-append #$output "/bin/piglit")
-                      `("GUIX_PYTHONPATH" prefix
-                        (,(getenv "GUIX_PYTHONPATH")))))))))
+                      `("MANIFOLDING_OS_PYTHONPATH" prefix
+                        (,(getenv "MANIFOLDING_OS_PYTHONPATH")))))))))
      (inputs (list glslang
                    guile-3.0            ; for wrap-script
                    libxkbcommon

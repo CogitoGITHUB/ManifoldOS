@@ -22,7 +22,7 @@ is a list of items we want for version "1.0" of the Guix System Distribution.
 There will be a few 0.x releases by then to give the new features more
 exposure and testing.
 
-You're welcome to discuss this road map on guix-devel@gnu.org or #guix on
+You're welcome to discuss this road map on Manifolding-OS-devel@gnu.org or #Manifolding-OS on
 the Libera Chat IRC network!
 
 * Features scheduled for 1.0
@@ -30,7 +30,7 @@ the Libera Chat IRC network!
   - larger & more robust build farm
     + we need a powerful, dedicated front-end
     + armhf-linux build machine
-    + leave Hydra in favor of 'guix publish' + custom code?
+    + leave Hydra in favor of 'Manifolding-OS publish' + custom code?
   - more OS features
     + LVM support
     + encrypted root
@@ -38,10 +38,10 @@ the Libera Chat IRC network!
     + whole-system unit tests, using VMs
   - more service definitions
     + mcron, postfix(?), wicd(?), etc.
-  - better 'guix system'
+  - better 'Manifolding-OS system'
     + 'reconfigure' should be able to restart non-essential services
     + support for '--list-generations' and '--delete-generations'
-  - better 'guix pull'
+  - better 'Manifolding-OS pull'
     + using Git to fetch the source instead of re-downloading everything
     + build more quickly
     + install new .mo files and new manual
@@ -50,9 +50,9 @@ the Libera Chat IRC network!
     + it should be possible to inspect the service instance declarations and
       settings
   - GUIs
-    + integrate guix-web?
+    + integrate Manifolding-OS-web?
     + guile-ncurses installer?
-  - 'guix publish'?
+  - 'Manifolding-OS publish'?
 
 * Features for later
 
@@ -67,14 +67,14 @@ the Libera Chat IRC network!
   - peer-to-peer distribution of updates (GNUnet?)
   - more deterministic builds
     + identify & fix sources of non-determinism in builds
-    + strengthen guix-daemon containers to further increase reproducibility
+    + strengthen Manifolding-OS-daemon containers to further increase reproducibility
     + trusting-trust: bootstrap with different tool chains
     + fixed-point: re-bootstrap until fixed point is reached
     + distributed validation: compare contents of store items with others
       * resist a hydra.gnu.org compromise
-  - reproducible containers: mix of 'guix environment' and 'guix system vm'
+  - reproducible containers: mix of 'Manifolding-OS environment' and 'Manifolding-OS system vm'
   - execute code with least privilege
-    + build containers like guix-daemon does
+    + build containers like Manifolding-OS-daemon does
     + provide a Plash-like interface in Bash
   - daemon rewritten in Guile
   - more shepherd integration

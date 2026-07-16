@@ -37,15 +37,15 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages boost)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix utils)
-  #:use-module (guix gexp)
-  #:use-module (guix packages)
-  #:use-module (guix download)
-  #:use-module (guix git-download)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system pyproject)
-  #:use-module (guix build-system trivial)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS utils)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system pyproject)
+  #:use-module (Manifolding-OS build-system trivial)
   #:use-module (gnu packages)
   #:use-module (gnu packages autotools)
   #:use-module (gnu packages compression)
@@ -413,10 +413,10 @@ across a broad spectrum of applications.")
                   "0473hb15affjq2804xa99ikk4y1gzi46rygd9zhncl28ib7mnn26"))))
       (build-system trivial-build-system)
       (arguments
-       `(#:modules ((guix build utils))
+       `(#:modules ((Manifolding-OS build utils))
          #:builder
          (begin
-           (use-modules (guix build utils))
+           (use-modules (Manifolding-OS build utils))
            (let ((source (assoc-ref %build-inputs "source")))
              (copy-recursively (string-append source "/include")
                                (string-append %output "/include"))))))
@@ -446,10 +446,10 @@ Boost.Thread.")
       (build-system trivial-build-system)
       (arguments
        (list
-        #:modules '((guix build utils))
+        #:modules '((Manifolding-OS build utils))
         #:builder
         #~(begin
-            (use-modules (guix build utils))
+            (use-modules (Manifolding-OS build utils))
             (let ((source (assoc-ref %build-inputs "source")))
               (copy-recursively (string-append source "/include")
                                 (string-append %output "/include"))))))

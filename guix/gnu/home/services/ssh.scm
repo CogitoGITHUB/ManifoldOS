@@ -21,15 +21,15 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu home services ssh)
-  #:use-module (guix gexp)
-  #:use-module (guix records)
-  #:use-module (guix deprecation)
-  #:use-module (guix diagnostics)
-  #:use-module (guix i18n)
-  #:use-module ((guix utils) #:select (%current-system))
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS records)
+  #:use-module (Manifolding-OS deprecation)
+  #:use-module (Manifolding-OS diagnostics)
+  #:use-module (Manifolding-OS i18n)
+  #:use-module ((Manifolding-OS utils) #:select (%current-system))
   #:use-module (gnu services)
   #:use-module (gnu services configuration)
-  #:use-module (guix modules)
+  #:use-module (Manifolding-OS modules)
   #:use-module (gnu home services)
   #:use-module (gnu home services shepherd)
   #:use-module ((gnu home services utils)
@@ -423,12 +423,12 @@ configured to accept those environment variables.")
 of all the file-like objects listed in @var{files}, with @var{delimited}
 inserted after each of them."
   (computed-file name
-                 (with-imported-modules '((guix build utils))
+                 (with-imported-modules '((Manifolding-OS build utils))
                    #~(begin
-                       (use-modules (guix build utils))
+                       (use-modules (Manifolding-OS build utils))
 
                        ;; Support non-ASCII file names.
-                       (setenv "GUIX_LOCPATH"
+                       (setenv "MANIFOLDING_OS_LOCPATH"
                                #+(file-append
                                   (libc-utf8-locales-for-target (%current-system))
                                   "/lib/locale"))

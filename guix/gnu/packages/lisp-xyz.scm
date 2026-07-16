@@ -74,18 +74,18 @@
 
 (define-module (gnu packages lisp-xyz)
   #:use-module (gnu packages)
-  #:use-module (guix gexp)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix packages)
-  #:use-module (guix download)
-  #:use-module (guix git-download)
-  #:use-module (guix hg-download)
-  #:use-module (guix utils)
-  #:use-module (guix build-system asdf)
-  #:use-module (guix build-system emacs)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system pyproject)
-  #:use-module (guix build-system trivial)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS hg-download)
+  #:use-module (Manifolding-OS utils)
+  #:use-module (Manifolding-OS build-system asdf)
+  #:use-module (Manifolding-OS build-system emacs)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system pyproject)
+  #:use-module (Manifolding-OS build-system trivial)
   #:use-module (gnu packages audio)
   #:use-module (gnu packages autotools)
   #:use-module (gnu packages base)
@@ -1402,7 +1402,7 @@ Common Lisp.")
          (file-name (git-file-name "cl-april" version))
          (sha256
           (base32 "0hvlp2286z1ksa7jr7r661kdr0lpfv25n5chl72jrzq5zz70lidx"))
-         (modules '((guix build utils)))
+         (modules '((Manifolding-OS build utils)))
          (snippet '(begin
                      ;; Remove bundled Apache-relicensed MaxPC.
                      (delete-file-recursively "maxpc-apache")
@@ -2117,7 +2117,7 @@ between Lisp objects and some binary (i.e. octet-based) representation.")
          (file-name (git-file-name "cl-binascii" version))
          (sha256
           (base32 "000rcdl8qshr7n48zq9bzrc4lkjx4ylb3r3w9x9syhiwfla9j4b7"))
-         (modules '((guix build utils)))
+         (modules '((Manifolding-OS build utils)))
          (snippet
           ;; Unbundle the RT test framework.
           '(begin
@@ -4604,7 +4604,7 @@ to cl-async.")
          (file-name (git-file-name name version))
          (sha256
           (base32 "0ykbkmcf46rgiphsb8c03xf9l4l23xn1rppm51mviz7brs0zx7g4"))
-         (modules '((guix build utils)))
+         (modules '((Manifolding-OS build utils)))
          (snippet
           ;; Delete precompiled artifacts.
           `(begin
@@ -4837,7 +4837,7 @@ reference.")
          (file-name (git-file-name name version))
          (sha256
           (base32 "12jj54h0fs6n237cvnp8v6hn0imfksammq22ys6pi0gwz2w47rbj"))
-         (modules '((guix build utils)))
+         (modules '((Manifolding-OS build utils)))
          (snippet
           ;; The useless bundled debian folder drags `make' into the closure.
           `(begin
@@ -6136,7 +6136,7 @@ mostly Common Lisp implementation.")
          (file-name (git-file-name "cl-flac" version))
          (sha256
           (base32 "1dgr5xqf175hzq3sxpbixxia2k2g3rz0pn6msch4dnvk7a1naqlc"))
-         (modules '((guix build utils)))
+         (modules '((Manifolding-OS build utils)))
          (snippet
           ;; Delete bundled libraries.
           `(begin
@@ -8390,7 +8390,7 @@ of http://code.google.com/p/mimeparse/, with a Common Lisp flavor.")
          (file-name (git-file-name "cl-mixed" version))
          (sha256
           (base32 "0i7bb2b3a9i4kgp7dzzs5211xj56zzcpwkjlfxpslfp7iz0685y0"))
-         (modules '((guix build utils)))
+         (modules '((Manifolding-OS build utils)))
          (snippet
           ;; Delete bundled libraries.
           `(begin
@@ -8568,7 +8568,7 @@ related C functions to get information about the mounted file system.")
          (file-name (git-file-name "cl-mpg123" version))
          (sha256
           (base32 "1hl721xaczxck008ax2y3jpkm509ry1sg3lklh2k76764m3ndrjf"))
-         (modules '((guix build utils)))
+         (modules '((Manifolding-OS build utils)))
          (snippet
           '(begin
              ;; Remove bundled pre-compiled libraries.
@@ -8892,7 +8892,7 @@ OpenGL (Mesa), GLU and GLUT (FreeGLUT) APIs using CFFI.")
          (file-name (git-file-name "cl-out123" version))
          (sha256
           (base32 "0ahgc5l5lbpl3ini4pn5crh8b7dlr386pxczl0d4h6djhccxzs4w"))
-         (modules '((guix build utils)))
+         (modules '((Manifolding-OS build utils)))
          (snippet
           '(begin
              ;; Remove bundled pre-compiled libraries.
@@ -10857,11 +10857,11 @@ compressor.  It works on data produced by @code{parse-js} to generate a
     (name "uglify-js")
     (build-system trivial-build-system)
     (arguments
-     `(#:modules ((guix build utils))
+     `(#:modules ((Manifolding-OS build utils))
        #:builder
        (let* ((bin    (string-append (assoc-ref %outputs "out") "/bin/"))
               (script (string-append bin "uglify-js")))
-         (use-modules (guix build utils))
+         (use-modules (Manifolding-OS build utils))
          (mkdir-p bin)
          (with-output-to-file script
            (lambda _
@@ -11106,7 +11106,7 @@ anti-aliased vectorial paths.")
          (file-name (git-file-name "cl-vorbis" version))
          (sha256
           (base32 "0713pl5c2khfpf8m3h1l2y0ilack7akf580h70jq6qcrnq3h4b40"))
-         (modules '((guix build utils)))
+         (modules '((Manifolding-OS build utils)))
          (snippet
           ;; Delete bundled libraries, GlibC and Vorbis sources.
           `(begin
@@ -11581,7 +11581,7 @@ Python's WSGI and Ruby's Rack.")
          (file-name (git-file-name "cl-clad" version))
          (sha256
           (base32 "184mhdq7pxd6hd4rzv8z4lfbwnkyhgm5bdn3xsqaav2j0d1dqm6i"))
-         (modules '((guix build utils)))
+         (modules '((Manifolding-OS build utils)))
          (snippet
           ;; Delete compiled ABCL files.
           '(begin
@@ -12419,7 +12419,7 @@ Closure Templates.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "1v1k3s5bsy3lgd9gk459bzpb1r0kdjda25s29samxw4gsgf1fqvp"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         '(begin
            ;; The useless bundled debian folder drags `make' into the closure.
@@ -12771,7 +12771,7 @@ from other CLXes around the net.")
          (sha256
           (base32
            "079hyp92cjkdfn6bhkxsrwnibiqbz4y4af6nl31lzw6nm91j5j37"))
-         (modules '((guix build utils)))
+         (modules '((Manifolding-OS build utils)))
          (snippet
           '(begin
              (substitute* "package.lisp"
@@ -16199,7 +16199,7 @@ sacrificing much in the way of power.")
          (file-name (git-file-name "cl-f2cl" version))
          (sha256
           (base32 "1fc54n3g7kah93yj99dkvac4i765sysvcc6pwajhp2srr1np204s"))
-         (modules '((guix build utils)))
+         (modules '((Manifolding-OS build utils)))
          (snippet #~(delete-file-recursively "debian"))))
       (build-system asdf-build-system/sbcl)
       (arguments
@@ -20549,7 +20549,7 @@ camelCase, snake_case, kebab-case (lisp-case).")
          (file-name (git-file-name name version))
          (sha256
           (base32 "06gx04mah5nc8w78s0j8628divbf1s5w7af8w7pvzb2d5mgvrbd2"))
-         (modules '((guix build utils)))
+         (modules '((Manifolding-OS build utils)))
          (snippet
           ;; The useless bundled debian folder drags `make' into the closure.
           `(begin
@@ -27180,7 +27180,7 @@ the 9p network filesystem protocol.")
          (file-name (git-file-name "puri" version))
          (sha256
           (base32 "0gq2rsr0aihs0z20v4zqvmdl4szq53b52rh97pvnmwrlbn4mapmd"))
-         (modules '((guix build utils)))
+         (modules '((Manifolding-OS build utils)))
          (snippet
           ;; The useless bundled debian folder drags `make' into the closure.
           `(begin
@@ -28048,7 +28048,7 @@ for mapping URLs.")
          (file-name (git-file-name name version))
          (sha256
           (base32 "0wv3j13fj73gigriw5r9vi920hz05ld7zllsvbxdxvmyfy9k1kly"))
-         (modules '((guix build utils)))
+         (modules '((Manifolding-OS build utils)))
          (snippet
           ;; The useless bundled debian folder drags `make' into the closure.
           `(begin
@@ -29739,7 +29739,7 @@ the Processing language and shares some of the API.")
              (commit (string-append "v" version))))
        (sha256
         (base32 "0s7m7j7y1p8fb6ncpxcxdrrrxp5aw67xl7wrqy8zjjvwzljbs548"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         ;; The doc folder drags `gawk' into the closure.  Doc is already
         ;; provided by emacs-slime.
@@ -33674,7 +33674,7 @@ avoid consing) is too computationally expensive.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "1hqszvz0a3wk4s9faa83sc3vjxcb5rxmjclyr17yzwg55z733kry"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
          (snippet
           ;; The useless bundled debian folder drags `make' into the closure.
           `(begin
@@ -34152,7 +34152,7 @@ algorithms.")
          (file-name (git-file-name name version))
          (sha256
           (base32 "19vzn28hw4is4sgmvzqin18ds89s0pai21vcm0ky10vmfv6wg745"))
-         (modules '((guix build utils)))
+         (modules '((Manifolding-OS build utils)))
          (snippet
           '(begin
              ;; The demo depends on cl-js, which we don't have at this point.

@@ -21,7 +21,7 @@
   #:use-module (gnu system vm)
   #:use-module (gnu services)
   #:use-module (gnu services security-token)
-  #:use-module (guix gexp)
+  #:use-module (Manifolding-OS gexp)
   #:export (%test-pcscd))
 
 (define %pcscd-os

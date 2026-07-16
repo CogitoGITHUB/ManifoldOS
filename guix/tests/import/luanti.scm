@@ -17,14 +17,14 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (test-luanti)
-  #:use-module (guix build-system luanti)
-  #:use-module (guix upstream)
-  #:use-module (guix memoization)
-  #:use-module (guix import luanti)
-  #:use-module (guix import utils)
-  #:use-module (guix tests)
-  #:use-module (guix packages)
-  #:use-module (guix git-download)
+  #:use-module (Manifolding-OS build-system luanti)
+  #:use-module (Manifolding-OS upstream)
+  #:use-module (Manifolding-OS memoization)
+  #:use-module (Manifolding-OS import luanti)
+  #:use-module (Manifolding-OS import utils)
+  #:use-module (Manifolding-OS tests)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS git-download)
   #:use-module ((gnu packages luanti)
                 #:select (luanti luanti-technic))
   #:use-module ((gnu packages base)
@@ -193,7 +193,7 @@
     (define argument-list->json (cut apply arguments->json <>))
     (scm->json-port
      (list->vector (filter-map argument-list->json sorted-argument-lists))))
-  (mock ((guix http-client) http-fetch
+  (mock ((Manifolding-OS http-client) http-fetch
          (lambda* (url #:key headers timeout)
            (unless (string-prefix? "mock://api/packages/" url)
              (error "the URL ~a should not be used" url))

@@ -23,10 +23,10 @@
   #:use-module (gnu packages haskell-check)
   #:use-module (gnu packages haskell-crypto)
   #:use-module (gnu packages haskell-web)
-  #:use-module (guix download)
-  #:use-module (guix build-system haskell)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix packages))
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS build-system haskell)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS packages))
 
 (define-public dhall
   (package

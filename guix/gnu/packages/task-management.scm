@@ -32,9 +32,9 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages task-management)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix gexp)
-  #:use-module (guix packages)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS packages)
   #:use-module (gnu packages)
   #:use-module (gnu packages bash)
   #:use-module (gnu packages check)
@@ -71,18 +71,18 @@
   #:use-module (gnu packages time)
   #:use-module (gnu packages tls)
   #:use-module (gnu packages version-control)
-  #:use-module (guix deprecation)
-  #:use-module (guix download)
-  #:use-module (guix git-download)
-  #:use-module (guix hg-download)
-  #:use-module (guix utils)
-  #:use-module (guix build-system cargo)
-  #:use-module (guix build-system cmake)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system go)
-  #:use-module (guix build-system meson)
-  #:use-module (guix build-system pyproject)
-  #:use-module (guix build-system qt))
+  #:use-module (Manifolding-OS deprecation)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS hg-download)
+  #:use-module (Manifolding-OS utils)
+  #:use-module (Manifolding-OS build-system cargo)
+  #:use-module (Manifolding-OS build-system cmake)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system go)
+  #:use-module (Manifolding-OS build-system meson)
+  #:use-module (Manifolding-OS build-system pyproject)
+  #:use-module (Manifolding-OS build-system qt))
 
 (define-public beads
   (package
@@ -181,7 +181,7 @@ following the Japanese kanban (boarding) style.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "1s3y8ll2942d6my2wz6bbipram4l6brbwwfvp2nr8cchzrb23dl8"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         #~(begin
             ;; git-bug supports v2, remove when a fresh release is tagged.
@@ -398,7 +398,7 @@ to finish tasks, not organize them.")
        (patches (search-patches
                  "taskwarrior-link-taskchampion-cpp-with-sqlite3.patch"))
        (snippet
-        #~(begin (use-modules (guix build utils))
+        #~(begin (use-modules (Manifolding-OS build utils))
                  (delete-file-recursively "doc/ref")
                  (substitute* "doc/CMakeLists.txt"
                    ((".*task-ref.*") ""))))))
@@ -408,9 +408,9 @@ to finish tasks, not organize them.")
       #:tests? #f ;No tests implemented.
       #:imported-modules `(,@%cargo-build-system-modules
                            ,@%cmake-build-system-modules)
-      #:modules '(((guix build cargo-build-system) #:prefix cargo:)
-                  (guix build cmake-build-system)
-                  (guix build utils))
+      #:modules '(((Manifolding-OS build cargo-build-system) #:prefix cargo:)
+                  (Manifolding-OS build cmake-build-system)
+                  (Manifolding-OS build utils))
       #:phases
       #~(modify-phases %standard-phases
           (add-after 'unpack 'prepare-cargo-build-system
@@ -485,9 +485,9 @@ execution, and libreadline support.")
     (build-system cmake-build-system)
     (arguments
      (list
-      #:modules '((guix build cmake-build-system)
-                  ((guix build gnu-build-system) #:prefix gnu:)
-                  (guix build utils))
+      #:modules '((Manifolding-OS build cmake-build-system)
+                  ((Manifolding-OS build gnu-build-system) #:prefix gnu:)
+                  (Manifolding-OS build utils))
       #:phases
       #~(modify-phases %standard-phases
           (add-after 'patch-source-shebangs 'patch-cmake-shell
@@ -678,8 +678,8 @@ export, password protection and auto-saving.")
       #:cargo-install-paths ''("pueue")
       #:install-source? #f
       #:modules
-      '((guix build cargo-build-system)
-        (guix build utils)
+      '((Manifolding-OS build cargo-build-system)
+        (Manifolding-OS build utils)
         (ice-9 match))
       #:phases
       #~(modify-phases %standard-phases
@@ -881,7 +881,7 @@ projects, tagging and reports.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "0g77sd8aw3mqcc4wqvrv5ir524i3x3qmpavqsl7f2hci7j4j2v2r"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         ;; Remove the sqlite database tests as they require a dependency on
         ;; github.com/go-testfixtures/testfixtures/v3 which itself requires

@@ -17,12 +17,12 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages kubernetes)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix build-system go)
-  #:use-module (guix gexp)
-  #:use-module (guix git-download)
-  #:use-module (guix packages)
-  #:use-module (guix utils)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS build-system go)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS utils)
   #:use-module (gnu packages golang-build)
   #:use-module (gnu packages golang-check)
   #:use-module (gnu packages golang-crypto)
@@ -48,7 +48,7 @@
        (file-name (git-file-name name version))
        (sha256
         (base32 "0vg3zjcgcq04cbqc8sk638q9v5r62w8r8x22yl7g9blbbr13sj7s"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         #~(begin
             ;; Submodules with their own go.mod files and packaged separately:
@@ -92,7 +92,7 @@ tree for exported @acronym{CustomResourceDefinition, CRD} types.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "0d9rjyl5h0xm9isgr8b2fz8528wk3pds71rjl8g08fgsmsa5kicb"))
-       (modules '((guix build utils)
+       (modules '((Manifolding-OS build utils)
                   (ice-9 ftw)
                   (srfi srfi-26)))
        (snippet #~(begin
@@ -182,7 +182,7 @@ tree for exported @acronym{CustomResourceDefinition, CRD} types.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "0d9rjyl5h0xm9isgr8b2fz8528wk3pds71rjl8g08fgsmsa5kicb"))
-       (modules '((guix build utils)
+       (modules '((Manifolding-OS build utils)
                   (ice-9 ftw)
                   (srfi srfi-26)))
        (snippet #~(begin
@@ -265,7 +265,7 @@ system.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "0d9rjyl5h0xm9isgr8b2fz8528wk3pds71rjl8g08fgsmsa5kicb"))
-       (modules '((guix build utils)
+       (modules '((Manifolding-OS build utils)
                   (ice-9 ftw)
                   (srfi srfi-26)))
        (snippet #~(begin
@@ -672,7 +672,7 @@ Kubernetes APIs.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "1n6vc681bhhk972l1ijg7m01xy3zvi5i17y6fhac1m7bs7rrgz1l"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         #~(begin
             ;; Submodules with their own go.mod files and packaged separately:

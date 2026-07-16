@@ -18,8 +18,8 @@
 
 (use-modules (gnu tests)
              (gnu packages package-management)
-             (guix monads)
-             (guix store)
+             (Manifolding-OS monads)
+             (Manifolding-OS store)
              (ice-9 match))
 
 (define (system-test-manifest)

@@ -44,19 +44,19 @@
 
 (define-module (gnu packages security-token)
   #:use-module (gnu packages)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix packages)
-  #:use-module (guix download)
-  #:use-module (guix gexp)
-  #:use-module (guix utils)
-  #:use-module (guix git-download)
-  #:use-module (guix build-system cargo)
-  #:use-module (guix build-system cmake)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system glib-or-gtk)
-  #:use-module (guix build-system meson)
-  #:use-module (guix build-system pyproject)
-  #:use-module (guix build-system qt)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS utils)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS build-system cargo)
+  #:use-module (Manifolding-OS build-system cmake)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system glib-or-gtk)
+  #:use-module (Manifolding-OS build-system meson)
+  #:use-module (Manifolding-OS build-system pyproject)
+  #:use-module (Manifolding-OS build-system qt)
   #:use-module (gnu packages autotools)
   #:use-module (gnu packages base)
   #:use-module (gnu packages bash)
@@ -729,7 +729,7 @@ with the @code{nitropy} CLI application.")
               (sha256
                (base32
                 "14wvlwqnwj0gllkpvfqiy8ns938bwvjsz8x1hmymmx32m074vj0f"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                ;; Fix build with GCC 10, remove for versions > 1.20.0.
                '(begin
@@ -1084,9 +1084,9 @@ an unprivileged user.")
     (arguments
      (list
       #:tests? #f                       ;no test suite
-      #:modules '((guix build qt-build-system)
-                  ((guix build gnu-build-system) #:prefix gnu:)
-                  (guix build utils))
+      #:modules '((Manifolding-OS build qt-build-system)
+                  ((Manifolding-OS build gnu-build-system) #:prefix gnu:)
+                  (Manifolding-OS build utils))
       #:phases
       #~(modify-phases %standard-phases
           (add-after 'unpack 'patch-paths
@@ -1114,8 +1114,8 @@ an unprivileged user.")
               (wrap-program (string-append #$output "/bin/ykman-gui")
                 ;; Wrap PYTHONPATH so that pyotherside can find the
                 ;; yubikey-manager library.
-                `("GUIX_PYTHONPATH" prefix
-                  (,(getenv "GUIX_PYTHONPATH")))))))))
+                `("MANIFOLDING_OS_PYTHONPATH" prefix
+                  (,(getenv "MANIFOLDING_OS_PYTHONPATH")))))))))
     (native-inputs (list python-wrapper))
     (inputs (list pyotherside-for-qt5
                   python-yubikey-manager

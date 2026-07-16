@@ -62,20 +62,20 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages xorg)
-  #:use-module (guix gexp)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix packages)
-  #:use-module (guix download)
-  #:use-module (guix git-download)
-  #:use-module (guix build-system cargo)
-  #:use-module (guix build-system cmake)
-  #:use-module (guix build-system copy)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system haskell)
-  #:use-module (guix build-system meson)
-  #:use-module (guix build-system perl)
-  #:use-module (guix build-system pyproject)
-  #:use-module (guix utils)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS build-system cargo)
+  #:use-module (Manifolding-OS build-system cmake)
+  #:use-module (Manifolding-OS build-system copy)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system haskell)
+  #:use-module (Manifolding-OS build-system meson)
+  #:use-module (Manifolding-OS build-system perl)
+  #:use-module (Manifolding-OS build-system pyproject)
+  #:use-module (Manifolding-OS utils)
   #:use-module (gnu packages)
   #:use-module (gnu packages aidc)
   #:use-module (gnu packages anthy)
@@ -2936,7 +2936,7 @@ X server.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "1c4iiggb5r9i2hxhk8c6q1m2vpfva39l1w33fsfkrz6fav6x34pp"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         '(begin
            ;; remove bundled x86emu
@@ -2961,8 +2961,8 @@ X server.")
     (build-system gnu-build-system)
     (arguments
      `(#:tests? #f ;there are no tests
-       #:modules ((guix build utils)
-                  (guix build gnu-build-system)
+       #:modules ((Manifolding-OS build utils)
+                  (Manifolding-OS build gnu-build-system)
                   (ice-9 popen))
        #:phases
        (modify-phases %standard-phases
@@ -4745,7 +4745,7 @@ used to connect to VNC servers such as the tigervnc-server package.")
     (source
      (origin
        (inherit (package-source xorg-server))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         #~(begin
             ;; Copy the VNC extension into the xorg-server sources.
@@ -4798,8 +4798,8 @@ used to connect to VNC servers such as the tigervnc-server package.")
        ((#:modules modules)
         `(append '((ice-9 ftw)
                    (ice-9 match)
-                   (guix build utils)
-                   (guix build gnu-build-system))
+                   (Manifolding-OS build utils)
+                   (Manifolding-OS build gnu-build-system))
                  modules))
        ((#:phases phases)
         #~(modify-phases #$phases
@@ -6001,11 +6001,11 @@ X11 servers, Windows, or macOS.")
            pkg-config))
     (arguments
      (list
-      #:modules '((guix build gnu-build-system)
-                  (guix build utils)
-                  (guix build emacs-utils))
+      #:modules '((Manifolding-OS build gnu-build-system)
+                  (Manifolding-OS build utils)
+                  (Manifolding-OS build emacs-utils))
       #:imported-modules `(,@%default-gnu-imported-modules
-                           (guix build emacs-utils))
+                           (Manifolding-OS build emacs-utils))
       #:configure-flags
       #~(list "--with-anthy-utf8"
               ;; gettext 0.23.1 is strict about file encodings and breaks the
@@ -6162,7 +6162,7 @@ user set the transparency on a window.")
               (sha256
                (base32
                 "0n3i29wicak8n10vkkippym8yw4ir8f7a263a8rwb8q16wqrxx85"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                '(begin
                   (for-each make-file-writable (find-files "."))
@@ -6460,9 +6460,9 @@ the server and cleaning up before returning the exit status of the command.")
       (append %meson-build-system-modules
               %pyproject-build-system-modules)
       #:modules
-      '((guix build utils)
-        (guix build meson-build-system)
-        ((guix build pyproject-build-system) #:prefix py:))
+      '((Manifolding-OS build utils)
+        (Manifolding-OS build meson-build-system)
+        ((Manifolding-OS build pyproject-build-system) #:prefix py:))
       #:phases
       #~(modify-phases %standard-phases
           (add-after 'unpack 'enable-bytecode-determinism
@@ -6510,7 +6510,7 @@ direct replacement for @command{xvfb-run} specifically.
               (sha256
                (base32
                 "0w1ihmr20ayqc72qwc4sq4gsrikzwdrmag3mmgin686bg3a3hh85"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet '(delete-file "OpenSans-Regular.ttf"))))
     (build-system cargo-build-system)
     (arguments

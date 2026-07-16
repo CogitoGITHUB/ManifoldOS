@@ -525,7 +525,7 @@ LOG-DIRECTORY is specified, create log file within it."
               ;; At this point LOG-PORT is not closed yet; flush it.
               (force-output log-port)
 
-              ;; Brute force to avoid dependency on (guix build utils) for
+              ;; Brute force to avoid dependency on (Manifolding-OS build utils) for
               ;; 'dump-port'.
               (let ((content (call-with-input-file log-file
                                get-bytevector-all)))

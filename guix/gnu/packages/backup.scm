@@ -45,18 +45,18 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages backup)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix build-system cmake)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system go)
-  #:use-module (guix build-system pyproject)
-  #:use-module (guix build-system qt)
-  #:use-module (guix download)
-  #:use-module (guix gexp)
-  #:use-module (guix gexp)
-  #:use-module (guix git-download)
-  #:use-module (guix packages)
-  #:use-module (guix utils)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS build-system cmake)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system go)
+  #:use-module (Manifolding-OS build-system pyproject)
+  #:use-module (Manifolding-OS build-system qt)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS utils)
   #:use-module (gnu packages)
   #:use-module (gnu packages acl)
   #:use-module (gnu packages autotools)
@@ -645,8 +645,8 @@ rsnapshot uses hard links to deduplicate identical files.")
     (arguments
      (list
       #:modules '((srfi srfi-26)        ; for cut
-                  (guix build utils)
-                  (guix build pyproject-build-system))
+                  (Manifolding-OS build utils)
+                  (Manifolding-OS build pyproject-build-system))
       ;; tests: 1318 passed, 293 skipped
       #:test-flags
       #~(list "--benchmark-skip"
@@ -1339,13 +1339,13 @@ borgmatic is powered by borg.")
               "--ignore=tests/integration"
               "--ignore=tests/unit"
               "--ignore=tests/network_manager/test_darwin.py")
-      #:imported-modules `((guix build qt-utils)
-                           (guix build cmake-build-system)
-                           (guix build qt-build-system)
+      #:imported-modules `((Manifolding-OS build qt-utils)
+                           (Manifolding-OS build cmake-build-system)
+                           (Manifolding-OS build qt-build-system)
                            ,@%pyproject-build-system-modules)
-      #:modules '((guix build utils)
-                  (guix build pyproject-build-system)
-                  ((guix build qt-build-system) #:prefix qt:))
+      #:modules '((Manifolding-OS build utils)
+                  (Manifolding-OS build pyproject-build-system)
+                  ((Manifolding-OS build qt-build-system) #:prefix qt:))
       #:phases
       #~(modify-phases %standard-phases
           (add-after 'unpack 'patch-borg-path

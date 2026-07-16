@@ -25,15 +25,15 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu services configuration)
-  #:use-module (guix packages)
-  #:use-module (guix records)
-  #:use-module (guix gexp)
-  #:use-module ((guix utils) #:select (source-properties->location))
-  #:use-module ((guix diagnostics)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS records)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module ((Manifolding-OS utils) #:select (source-properties->location))
+  #:use-module ((Manifolding-OS diagnostics)
                 #:select (formatted-message location-file &error-location
                           warning))
-  #:use-module ((guix modules) #:select (file-name->module-name))
-  #:use-module (guix i18n)
+  #:use-module ((Manifolding-OS modules) #:select (file-name->module-name))
+  #:use-module (Manifolding-OS i18n)
   #:autoload   (texinfo) (texi-fragment->stexi)
   #:autoload   (texinfo serialize) (stexi->texi)
   #:use-module (ice-9 curried-definitions)

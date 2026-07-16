@@ -46,12 +46,12 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages golang-check)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix packages)
-  #:use-module (guix build-system go)
-  #:use-module (guix gexp)
-  #:use-module (guix git-download)
-  #:use-module (guix utils)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS build-system go)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS utils)
   #:use-module (gnu packages)
   #:use-module (gnu packages bash)
   #:use-module (gnu packages golang)
@@ -828,7 +828,7 @@ test minimization algorithm.")
        (sha256
         (base32 "1aw8s3aljhw9vpzcf8m64r5yv5g0j09dky30shzxvpjwpl5yxhir"))
        (snippet
-        #~(begin (use-modules (guix build utils))
+        #~(begin (use-modules (Manifolding-OS build utils))
                  (delete-file-recursively "vendor")))))
     (build-system go-build-system)
     (arguments
@@ -859,7 +859,7 @@ accurate testing of your code.")
        (sha256
         (base32 "07ckgxxphv0157g6gyganrinynvw43c3mvizagjbjm3q2blymfh3"))
        (snippet
-        #~(begin (use-modules (guix build utils))
+        #~(begin (use-modules (Manifolding-OS build utils))
                  (for-each delete-file-recursively
                            (list "go-fuzz/vendor" "test/vendor"))))))
     (build-system go-build-system)
@@ -1260,7 +1260,7 @@ ci-info} in Go.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "0rg5q7xif4gmhc99kkgvnz03d0d0z2vanyv8xa4myn6ykvacw458"))
-       (modules '((guix build utils)
+       (modules '((Manifolding-OS build utils)
                   (ice-9 ftw)
                   (srfi srfi-26)))
        (snippet
@@ -1303,7 +1303,7 @@ and YAML transformations.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "10p3pxgcag3xyp36w52m86b88lgj3hqbl9r7i4zyyfchkcf8nqkc"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         ;; It's a helper for go-build-system to compile import-path and
         ;; unpack-path when it struggles to find module.
@@ -1340,7 +1340,7 @@ YAMLEq} capability in testify.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "0fs6xh9wz8wwiw6gq6csfhm3f51yzsdh1pw2miy4vylvvvyx4n15"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         #~(begin
             ;; Submodules with their own go.mod files and packaged separately:
@@ -1521,7 +1521,7 @@ when comparing complex types like structures and maps.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "104nfwnv61cvidnvbddvaanwc9pd5a1iybdras4rrrpsdvnksrzs"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         #~(begin
             ;; Submodules with their own go.mod files and packaged separately:
@@ -1587,7 +1587,7 @@ is cleaned and the fixture data is loaded into the database.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "1n7lrr3282q3li4f06afms444qy13rfd316za0drqihakwyki2jk"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         #~(begin
             (substitute* (find-files "." "\\.go$")
@@ -2144,7 +2144,7 @@ gems.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "0f32qgzhx7pl3s0g4v916z21kfyh5v1dv28aakxisiw23936wf68"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         #~(begin
             ;; Module name has not been changed after been forked upstream.
@@ -2938,7 +2938,7 @@ and summarizing @code{go test} output.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "0zirws8wfnswzxqhpv6vjf5sc7i5yssf2zzypvhrsmk4lfn4bhyz"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         #~(begin
             ;; Submodules with their own go.mod files and packaged separately:
@@ -4163,7 +4163,7 @@ during debugging.")
        (sha256
         (base32 "0j45zxmh1jza54sif7jx2qdw503z2nxvkjccsh3wd8sif0v4jqfc"))
        (snippet
-        #~(begin (use-modules (guix build utils))
+        #~(begin (use-modules (Manifolding-OS build utils))
                  (delete-file-recursively "vendor")))))
     (build-system go-build-system)
     (arguments
@@ -4905,7 +4905,7 @@ the end of a test.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "0svwxxdaix45hy3j4p9r27pqqfk8ghdp20ylp7f0ja97wzx0p1c1"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         #~(begin
             ;; Submodules with their own go.mod files and packaged separately:
@@ -5087,7 +5087,7 @@ the source code, it only prints out style mistakes.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "00kv9j55sgidyya8n0m11sp8ianqy7iknyqhi1qr0ck9mq9bnj1s"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         #~(begin
             ;; Submodules with their own go.mod files and packaged separately:
@@ -5348,7 +5348,7 @@ thoroughly
        (file-name (git-file-name name version))
        (sha256
         (base32 "1s3slsr9d21zbcks9c7l3vli2pam2waww4bk63dy4qw9qsgaga90"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         #~(begin
             ;; Submodules with their own go.mod files and packaged separately:

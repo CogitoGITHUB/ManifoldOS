@@ -32,16 +32,16 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages libreoffice)
-  #:use-module (guix build-system cmake)
-  #:use-module (guix build-system glib-or-gtk)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system pyproject)
-  #:use-module (guix gexp)
-  #:use-module (guix download)
-  #:use-module (guix git-download)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix packages)
-  #:use-module (guix utils)
+  #:use-module (Manifolding-OS build-system cmake)
+  #:use-module (Manifolding-OS build-system glib-or-gtk)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system pyproject)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS utils)
   #:use-module (ice-9 match)
   #:use-module (gnu packages)
   #:use-module (gnu packages aidc)
@@ -281,7 +281,7 @@ into other word processors.")
         (sha256
          (base32
           "1yg1vws1wggzhjw672bpgh2x541g5i9wryf67g51m0r79zrqz3by"))
-        (modules '((guix build utils)))
+        (modules '((Manifolding-OS build utils)))
         (snippet
          '(begin
             ;; This can be removed with the next release.
@@ -577,7 +577,7 @@ Aldus/Macromedia/Adobe FreeHand documents.")
                           name "-" version ".tar.xz"))
       (sha256 (base32
                "1fhkn013gzg59f4z7rldpbi0nj7lgdqzxanspsqa6axvmahw2dpg"))
-      (modules '((guix build utils)))
+      (modules '((Manifolding-OS build utils)))
       (snippet
        '(begin
           ;; This can be removed with the next release.
@@ -935,7 +935,7 @@ commonly called @code{ftoa} or @code{dtoa}.")
      (list
       #:imported-modules (append %glib-or-gtk-build-system-modules
                                  %pyproject-build-system-modules)
-      #:modules `(((guix build pyproject-build-system) #:prefix py:)
+      #:modules `(((Manifolding-OS build pyproject-build-system) #:prefix py:)
                   (ice-9 textual-ports)
                   (srfi srfi-1)
                   (srfi srfi-26)

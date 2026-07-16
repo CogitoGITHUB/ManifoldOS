@@ -27,7 +27,7 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages javascript)
-  #:use-module ((guix licenses) #:prefix license:)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
   #:use-module (gnu packages)
   #:use-module (gnu packages base)
   #:use-module (gnu packages bash)
@@ -40,16 +40,16 @@
   #:use-module (gnu packages uglifyjs)
   #:use-module (gnu packages unicode)
   #:use-module (gnu packages web)
-  #:use-module (guix gexp)
-  #:use-module (guix packages)
-  #:use-module (guix download)
-  #:use-module (guix git-download)
-  #:use-module (guix build-system ant)
-  #:use-module (guix build-system cmake)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system minify)
-  #:use-module (guix build-system trivial)
-  #:use-module (guix utils))
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS build-system ant)
+  #:use-module (Manifolding-OS build-system cmake)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system minify)
+  #:use-module (Manifolding-OS build-system trivial)
+  #:use-module (Manifolding-OS utils))
 
 (define-public cjson
   (package
@@ -87,10 +87,10 @@
          "1q063l6477z285j6h5wvccp6iswvlp0jmb96sgk32sh0lf7nhknh"))))
     (build-system trivial-build-system)
     (arguments
-     `(#:modules ((guix build utils))
+     `(#:modules ((Manifolding-OS build utils))
        #:builder
        (begin
-         (use-modules (guix build utils))
+         (use-modules (Manifolding-OS build utils))
          (chdir (assoc-ref %build-inputs "source"))
          (let ((target (string-append %output "/share/javascript/context-menu")))
            (apply invoke (search-input-file %build-inputs "/bin/esbuild")
@@ -122,10 +122,10 @@ context menu in TypeScript.")
          "127j12g7v2hx6k7r00b8cp49s7nkrwhxy6l8p03pw34xpxbgbimm"))))
     (build-system trivial-build-system)
     (arguments
-     `(#:modules ((guix build utils))
+     `(#:modules ((Manifolding-OS build utils))
        #:builder
        (begin
-         (use-modules (guix build utils)
+         (use-modules (Manifolding-OS build utils)
                       (ice-9 match))
          (let ((install-directory (string-append %output "/share/fonts/mathjax")))
            (mkdir-p install-directory)
@@ -142,10 +142,10 @@ context menu in TypeScript.")
     (inherit font-mathjax)
     (name "js-mathjax")
     (arguments
-     `(#:modules ((guix build utils))
+     `(#:modules ((Manifolding-OS build utils))
        #:builder
        (begin
-         (use-modules (guix build utils)
+         (use-modules (Manifolding-OS build utils)
                       (ice-9 match)
                       (ice-9 popen)
                       (ice-9 regex))
@@ -155,7 +155,7 @@ context menu in TypeScript.")
                                   input))
                                %build-inputs))
          (set-path-environment-variable
-          "GUIX_LOCPATH" '("lib/locale")
+          "MANIFOLDING_OS_LOCPATH" '("lib/locale")
           (list (assoc-ref %build-inputs "glibc-utf8-locales")))
          (setenv "LANG" "en_US.UTF-8")
          (let ((install-directory (string-append %output "/share/javascript/mathjax")))
@@ -508,10 +508,10 @@ be able to view it naturally and easily.")))
          "126m25s6mxpxmdj4aw5awz06b47r8r798lcf1c5bnmmh39cik5i1"))))
     (build-system trivial-build-system)
     (arguments
-     `(#:modules ((guix build utils))
+     `(#:modules ((Manifolding-OS build utils))
        #:builder
        (begin
-         (use-modules (guix build utils))
+         (use-modules (Manifolding-OS build utils))
          (chdir (assoc-ref %build-inputs "source"))
          (let ((esbuild (search-input-file %build-inputs "/bin/esbuild"))
                (target (string-append %output "/share/javascript/commander")))
@@ -549,10 +549,10 @@ command-line interfaces.")
            "0a88v0id3mjflpvjqhv8a28br0xvaaszxbf7alg6pxfbnkb69yyq"))))
       (build-system trivial-build-system)
       (arguments
-       `(#:modules ((guix build utils))
+       `(#:modules ((Manifolding-OS build utils))
          #:builder
          (begin
-           (use-modules (guix build utils))
+           (use-modules (Manifolding-OS build utils))
            (chdir (assoc-ref %build-inputs "source"))
            (let ((esbuild (search-input-file %build-inputs "/bin/esbuild"))
                  (target (string-append %output "/share/javascript/xmldom-sre")))
@@ -977,7 +977,7 @@ animating a series of images.")
         (base32 "17fq82h1z4p1j1g5hqmzz5ar4lz2p63qfmbkhsjmmzjfvlh5lvcm"))
        (snippet
         #~(begin
-            (use-modules (guix build utils))
+            (use-modules (Manifolding-OS build utils))
             (for-each delete-file
                       (list "astnames.h"
                             "opnames.h"
@@ -1034,7 +1034,7 @@ roots, or wrestle with obscure build systems.")
                (base32
                 "1d5hz1ykzmcb870aanl21jh8adkirglx09k4s3a5m5gw3186nv4r"))
               (snippet
-               #~(begin (use-modules (guix build utils))
+               #~(begin (use-modules (Manifolding-OS build utils))
                         (for-each delete-file
                                   '("doc/quickjs.pdf"
                                     "doc/quickjs.html"
@@ -1147,7 +1147,7 @@ game Warzone2100."))))
                         (commit "a6f387de323eb9ae56448bdb71c5d315df631ce4")))
     (file-name "test262")
     (sha256 (base32 "09avg4f75rzbmh3hcybdvjij7hbl2m79x6xp1hgl6h8ihfbn33l0"))
-    (modules '((guix build utils)))
+    (modules '((Manifolding-OS build utils)))
     (snippet #~(begin
                  (for-each delete-file
                            (list "ECMA TR-104.pdf" "docs/coverage.html"
@@ -1309,7 +1309,7 @@ and vice versa.")
                 (sha256
                  (base32
                   "09i4yr98hs6855fs7fhgmrpiwpr90lhxdv2bvfj97nn4rv1d7wl8"))
-                (modules '((guix build utils)))
+                (modules '((Manifolding-OS build utils)))
                 (snippet '(begin
                             ;; Remove benchmark testing
                             (delete-file-recursively "testsrc/benchmarks")

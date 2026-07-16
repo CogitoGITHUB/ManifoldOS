@@ -21,11 +21,11 @@
 ;; keeping only actually translated messages.
 
 ;; Note: This does not work for PO files of the guix domain, which needed
-;; support for plural forms in (@ (guix build po) read-po-file).  The guix
+;; support for plural forms in (@ (Manifolding-OS build po) read-po-file).  The guix
 ;; domain's files are comparatively small and the read-po-file API would
 ;; have to be expanded to use records or such; it is not worth it.
 
-(use-modules (guix build po)
+(use-modules (Manifolding-OS build po)
              (ice-9 match)
              (ice-9 textual-ports))
 

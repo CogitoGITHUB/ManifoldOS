@@ -17,7 +17,7 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages rcm)
-  #:use-module (guix deprecation))
+  #:use-module (Manifolding-OS deprecation))
 
 ;; Deprecated on 2026-06-07.
 (define-deprecated/public-alias rcm

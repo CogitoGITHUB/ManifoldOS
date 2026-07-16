@@ -21,8 +21,8 @@
 
 (define-module (gnu home services symlink-manager)
   #:use-module (gnu home services)
-  #:use-module (guix gexp)
-  #:use-module (guix modules)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS modules)
   #:export (home-symlink-manager-service-type))
 
 ;;; Comment:
@@ -39,14 +39,14 @@
   (program-file
    "update-symlinks"
    (with-imported-modules (source-module-closure
-                           '((guix build utils)
-                             (guix i18n)))
+                           '((Manifolding-OS build utils)
+                             (Manifolding-OS i18n)))
      #~(begin
          (use-modules (ice-9 ftw)
                       (ice-9 match)
                       (srfi srfi-1)
-                      (guix i18n)
-                      (guix build utils))
+                      (Manifolding-OS i18n)
+                      (Manifolding-OS build utils))
 
          (define home-directory
            (getenv "HOME"))
@@ -238,8 +238,8 @@ subdirectory from XDG_CONFIG_HOME to generate a target path."
 
          (let* ((home     (string-append home-directory "/.guix-home"))
                 (pivot    (string-append home ".new"))
-                (new-home (getenv "GUIX_NEW_HOME"))
-                (old-home (getenv "GUIX_OLD_HOME")))
+                (new-home (getenv "MANIFOLDING_OS_NEW_HOME"))
+                (old-home (getenv "MANIFOLDING_OS_OLD_HOME")))
            (when old-home
              (cleanup-symlinks old-home))
 

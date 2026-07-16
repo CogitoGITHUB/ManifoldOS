@@ -19,12 +19,12 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages genealogy)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix build-system glib-or-gtk)
-  #:use-module (guix build-system pyproject)
-  #:use-module (guix gexp)
-  #:use-module (guix git-download)
-  #:use-module (guix packages)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS build-system glib-or-gtk)
+  #:use-module (Manifolding-OS build-system pyproject)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS packages)
   #:use-module (gnu packages base)
   #:use-module (gnu packages bash)
   #:use-module (gnu packages check)
@@ -66,9 +66,9 @@
       #:modules
       `((ice-9 match)
         (srfi srfi-1)
-        (guix build pyproject-build-system)
-        ((guix build glib-or-gtk-build-system) #:prefix glib-or-gtk:)
-        (guix build utils))
+        (Manifolding-OS build pyproject-build-system)
+        ((Manifolding-OS build glib-or-gtk-build-system) #:prefix glib-or-gtk:)
+        (Manifolding-OS build utils))
       ;; tests: 32408 passed, 44 skipped, 9 deselected, 1 warning, 65730 subtests passed
       #:test-flags
       ;; Tests failing during collection.

@@ -74,17 +74,17 @@
   #:use-module (gnu packages xiph)
   #:use-module (gnu packages xml)
   #:use-module (gnu packages xorg)
-  #:use-module (guix download)
-  #:use-module (guix gexp)
-  #:use-module (guix git-download)
-  #:use-module (guix svn-download)
-  #:use-module (guix build-system cmake)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system pyproject)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix packages)
-  #:use-module (guix gexp)
-  #:use-module (guix utils)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS svn-download)
+  #:use-module (Manifolding-OS build-system cmake)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system pyproject)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS utils)
   #:use-module (ice-9 ftw)
   #:use-module (ice-9 match)
   #:use-module (ice-9 regex)
@@ -182,8 +182,8 @@
                   (ice-9 regex)
                   (ice-9 string-fun)
                   (srfi srfi-1)
-                  (guix build gnu-build-system)
-                  (guix build utils))
+                  (Manifolding-OS build gnu-build-system)
+                  (Manifolding-OS build utils))
 
       #:phases
       #~(modify-phases %standard-phases
@@ -716,7 +716,7 @@ functions in virtual scenarios.")
                     (commit (string-append "v" version))))
               (file-name (git-file-name name version))
               (patches (search-patches "esmini-use-pkgconfig.patch"))
-              (modules '((guix build utils) (ice-9 ftw)))
+              (modules '((Manifolding-OS build utils) (ice-9 ftw)))
               (snippet
                #~(with-directory-excursion "externals"
                    (for-each
@@ -972,7 +972,7 @@ FFC is part of the FEniCS Project.")
                                 "fenics-dolfin-config-slepc.patch"
                                 "fenics-dolfin-hdf5-version-check.patch"
                                 "fenics-dolfin-integer-types.patch"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet '(begin
                    ;; Make sure we don't use the bundled test framework.
                    (delete-file-recursively "test/unit/cpp/catch")

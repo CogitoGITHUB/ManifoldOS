@@ -82,13 +82,13 @@
   #:use-module (gnu packages version-control)
   #:use-module (gnu packages xml)
   #:use-module (gnu packages xorg)
-  #:use-module (guix build-system haskell)
-  #:use-module (guix download)
-  #:use-module (guix gexp)
-  #:use-module (guix git-download)
-  #:use-module (guix utils)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix packages)
+  #:use-module (Manifolding-OS build-system haskell)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS utils)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS packages)
   #:use-module (srfi srfi-1))
 
 (define-public ghc-abstract-deque
@@ -5454,7 +5454,7 @@ functions for Haskell.")
          #~(substitute* "hookup.cabal"
              (("(base|network)  *[0-9<>=^&|. ]*" _ package)
               package)))
-       (modules '((guix build utils)))))
+       (modules '((Manifolding-OS build utils)))))
     (build-system haskell-build-system)
     (inputs
      (list ghc-async
@@ -5610,7 +5610,7 @@ MODS-format XML intermediate.")
                #~(substitute* "hs-conllu.cabal"
                   (("(containers|filepath)  *[0-9<>=^&|.* ]*" _ package)
                    package)))
-              (modules '((guix build utils)))))
+              (modules '((Manifolding-OS build utils)))))
     (build-system haskell-build-system)
     (inputs (list ghc-megaparsec ghc-void))
     (home-page "https://github.com/arademaker/hs-conllu")
@@ -15107,7 +15107,7 @@ library targets typst 0.13 and currently offers only partial support.")
        (snippet
          #~(substitute* "selective.cabal"
              (("QuickCheck [<>=0-9. &|]*") "QuickCheck < 2.16")))
-       (modules '((guix build utils)))))
+       (modules '((Manifolding-OS build utils)))))
     (build-system haskell-build-system)
     (properties '((upstream-name . "selective")))
     (native-inputs (list ghc-quickcheck))

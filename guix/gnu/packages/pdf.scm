@@ -49,19 +49,19 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages pdf)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix packages)
-  #:use-module (guix download)
-  #:use-module (guix gexp)
-  #:use-module (guix git-download)
-  #:use-module (guix utils)
-  #:use-module (guix build-system ant)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system cmake)
-  #:use-module (guix build-system meson)
-  #:use-module (guix build-system ocaml)
-  #:use-module (guix build-system pyproject)
-  #:use-module (guix build-system qt)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS utils)
+  #:use-module (Manifolding-OS build-system ant)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system cmake)
+  #:use-module (Manifolding-OS build-system meson)
+  #:use-module (Manifolding-OS build-system ocaml)
+  #:use-module (Manifolding-OS build-system pyproject)
+  #:use-module (Manifolding-OS build-system qt)
   #:use-module (gnu packages)
   #:use-module (gnu packages aidc)
   #:use-module (gnu packages audio)
@@ -951,7 +951,7 @@ and based on PDF specification 1.7.")
                            "mupdf-" version "-source.tar.lz"))
        (sha256
         (base32 "0j183r32hifygcxk76a7sh71x9a1dfylpsx1rki1nm0s1g6rs11m"))
-       (modules '((guix build utils)
+       (modules '((Manifolding-OS build utils)
                   (ice-9 ftw)
                   (srfi srfi-1)))
        (snippet
@@ -1265,9 +1265,9 @@ program capable of converting PDF into other formats.")
            qtwayland-5))
     (arguments
      (list #:tests? #f ; no tests
-           #:modules '((guix build qt-build-system)
-                       ((guix build gnu-build-system) #:prefix gnu:)
-                       (guix build utils))
+           #:modules '((Manifolding-OS build qt-build-system)
+                       ((Manifolding-OS build gnu-build-system) #:prefix gnu:)
+                       (Manifolding-OS build utils))
            #:phases
            #~(modify-phases %standard-phases
                (replace 'configure
@@ -1377,11 +1377,11 @@ using a stylus.")
       #:configure-flags
       #~(list "-DENABLE_GTEST=ON"
               "-DENABLE_CPPTRACE=OFF") ;require unpackaged "cpp-trace"
-      #:imported-modules `((guix build glib-or-gtk-build-system)
+      #:imported-modules `((Manifolding-OS build glib-or-gtk-build-system)
                            ,@%cmake-build-system-modules)
-      #:modules '(((guix build glib-or-gtk-build-system) #:prefix glib-or-gtk:)
-                  (guix build cmake-build-system)
-                  (guix build utils))
+      #:modules '(((Manifolding-OS build glib-or-gtk-build-system) #:prefix glib-or-gtk:)
+                  (Manifolding-OS build cmake-build-system)
+                  (Manifolding-OS build utils))
       #:phases
       #~(modify-phases %standard-phases
           ;; Fix path to addr2line utility, which the crash reporter uses.
@@ -2089,7 +2089,7 @@ Keywords: html2pdf, htmltopdf")
          (file-name (git-file-name name version))
          (sha256
           (base32 "10d08ajcm5ckvrj5xkgi0dj9ibndi961v2yacw7a8mxkdqki6ck6"))
-         (modules '((guix build utils)))
+         (modules '((Manifolding-OS build utils)))
          ;; libmupdf-third.so no longer available since mupdf 1.18.0.
          (snippet '(substitute* "pdf_viewer_build_config.pro"
                      (("-lmupdf-third") "")))))
@@ -2099,9 +2099,9 @@ Keywords: html2pdf, htmltopdf")
         #:tests? #f ; no tests
         #:configure-flags
         #~(list (string-append "PREFIX=" #$output))
-        #:modules '((guix build cmake-build-system)
-                    ((guix build gnu-build-system) #:prefix gnu:)
-                    (guix build utils))
+        #:modules '((Manifolding-OS build cmake-build-system)
+                    ((Manifolding-OS build gnu-build-system) #:prefix gnu:)
+                    (Manifolding-OS build utils))
         #:phases
         #~(modify-phases %standard-phases
             (add-after 'unpack 'patch-paths

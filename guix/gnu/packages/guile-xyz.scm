@@ -78,7 +78,7 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages guile-xyz)
-  #:use-module ((guix licenses) #:prefix license:)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
   #:use-module (gnu packages)
   #:use-module (gnu packages admin)
   #:use-module (gnu packages algebra)
@@ -149,19 +149,19 @@
   #:use-module (gnu packages webkit)
   #:use-module (gnu packages xdisorg)
   #:use-module (gnu packages xorg)
-  #:use-module (guix packages)
-  #:use-module (guix download)
-  #:use-module (guix gexp)
-  #:use-module (guix git-download)
-  #:use-module (guix hg-download)
-  #:use-module (guix build-system cmake)
-  #:use-module (guix build-system emacs)
-  #:use-module (guix build-system glib-or-gtk)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system guile)
-  #:use-module (guix build-system meson)
-  #:use-module (guix utils)
-  #:use-module ((guix build utils) #:select (alist-replace))
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS hg-download)
+  #:use-module (Manifolding-OS build-system cmake)
+  #:use-module (Manifolding-OS build-system emacs)
+  #:use-module (Manifolding-OS build-system glib-or-gtk)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system guile)
+  #:use-module (Manifolding-OS build-system meson)
+  #:use-module (Manifolding-OS utils)
+  #:use-module ((Manifolding-OS build utils) #:select (alist-replace))
   #:use-module (ice-9 match)
   #:use-module ((srfi srfi-1) #:select (alist-delete))
   #:use-module (srfi srfi-26))
@@ -178,7 +178,7 @@
               (file-name (git-file-name name version))
               (sha256 (base32
                        "0qpksi681z10jsip8ka0phq5kmkpxfcy5nvm861dsbjb335klbb6"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                '(begin
                   (delete-file-recursively "artanis/third-party/json.scm")
@@ -223,10 +223,10 @@
            pkg-config
            util-linux))                           ;for the `script' command
     (arguments
-     `(#:modules (((guix build guile-build-system)
+     `(#:modules (((Manifolding-OS build guile-build-system)
                    #:select (target-guile-effective-version))
                   ,@%default-gnu-modules)
-       #:imported-modules ((guix build guile-build-system)
+       #:imported-modules ((Manifolding-OS build guile-build-system)
                            ,@%default-gnu-imported-modules)
        #:make-flags
        ;; TODO: The documentation must be built with the `docs' target.
@@ -312,10 +312,10 @@ more.")
     (build-system gnu-build-system)
     (arguments
      (list #:make-flags #~(list "GUILE_AUTO_COMPILE=0")
-           #:modules `(((guix build guile-build-system)
+           #:modules `(((Manifolding-OS build guile-build-system)
                         #:select (target-guile-effective-version))
                        ,@%default-gnu-modules)
-           #:imported-modules `((guix build guile-build-system)
+           #:imported-modules `((Manifolding-OS build guile-build-system)
                                 ,@%default-gnu-imported-modules)
            #:phases #~(modify-phases %standard-phases
                         (add-after 'install 'wrap-guilescript
@@ -838,7 +838,7 @@ library for GNU Guile based on the actor model.")
                  (base32
                   "0m3k3cizi89frnw58dws3g4jcssck6jf1ahpadxxg3ncclqzad8r"))
                 (file-name (git-file-name name version))
-                (modules '((guix build utils)))
+                (modules '((Manifolding-OS build utils)))
                 (snippet
                  '(substitute* "Makefile.am"
                     (("2.2") "3.0")))))
@@ -1005,12 +1005,12 @@ variables from them.")
    (name "guile-dotenv-cli")
    (arguments
     (list
-     #:modules `(((guix build guile-build-system)
+     #:modules `(((Manifolding-OS build guile-build-system)
                   #:select
                   (target-guile-effective-version))
                  ,@%default-gnu-modules)
      #:phases
-     (with-imported-modules `((guix build guile-build-system)
+     (with-imported-modules `((Manifolding-OS build guile-build-system)
                               ,@%default-gnu-imported-modules)
        #~(modify-phases %standard-phases
            (replace 'install
@@ -1081,10 +1081,10 @@ invocations."))))
     (inputs (list bash-minimal guile-3.0))
     (propagated-inputs (list guile-fibers guile-lib guile-smc))
     (arguments
-     (list #:modules `(((guix build guile-build-system)
+     (list #:modules `(((Manifolding-OS build guile-build-system)
                         #:select (target-guile-effective-version))
                        ,@%default-gnu-modules)
-           #:imported-modules `((guix build guile-build-system)
+           #:imported-modules `((Manifolding-OS build guile-build-system)
                                 ,@%default-gnu-imported-modules)
            #:phases #~(modify-phases %standard-phases
                         (delete 'strip)
@@ -1467,7 +1467,7 @@ HTML (via SXML) or any other format for rendering.")
               (file-name (git-file-name name version))
               (sha256 (base32
                        "1npbla3vy1m0dqvr8gfzx1ncd2mp2cm59mnb7g490vak29kc8s9j"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                ;; Allow builds with Guile 3.0.
                #~(substitute* "configure.ac"
@@ -2009,7 +2009,7 @@ the Guile compiler tower to generate the DSL from AWS JSON specifications.")
        (sha256
         (base32 "1lvxic93cyzhdq7gb22pfz5j5pf7b1pcv0ahblkan8jbhzpqxvm0"))
        ;; FIXME: report upstream and remove when fixed.
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet '(substitute* "module/Makefile.am"
                    (("compile-ffi -o mosquitto-nyacc.scm")
                     "compile-ffi -X -o $(srcdir)/ffi/mosquitto-nyacc.scm")))))
@@ -2455,7 +2455,7 @@ microblogging service.")
               (sha256
                (base32
                 "1h9q5plmnc1zd5ikz2x538v4a8lmriai6yyfv53bk5vjls7mrf3r"))
-              (modules '((guix build utils)))))
+              (modules '((Manifolding-OS build utils)))))
     (build-system gnu-build-system)
     (arguments
      '(#:make-flags
@@ -2574,10 +2574,10 @@ bindings to the @code{yaml-cpp} C++ library.")
                 "123m4j82bi60s1v95pjh4djb7bh6zdwmljbpyg7zq8ni2gyal7lw"))))
     (build-system gnu-build-system)
     (arguments
-     `(#:modules (((guix build guile-build-system)
+     `(#:modules (((Manifolding-OS build guile-build-system)
                    #:select (target-guile-effective-version))
                   ,@%default-gnu-modules)
-       #:imported-modules ((guix build guile-build-system)
+       #:imported-modules ((Manifolding-OS build guile-build-system)
                            ,@%default-gnu-imported-modules)
        #:make-flags '("LDFLAGS=\"-Wl,-allow-multiple-definition\"")
        #:configure-flags
@@ -2804,12 +2804,12 @@ above command-line parameters.")
     (build-system gnu-build-system)
     (arguments
      (list
-      #:modules `(((guix build guile-build-system)
+      #:modules `(((Manifolding-OS build guile-build-system)
                    #:select
                    (target-guile-effective-version))
                   ,@%default-gnu-modules)
       #:phases
-      (with-imported-modules `((guix build guile-build-system)
+      (with-imported-modules `((Manifolding-OS build guile-build-system)
                                ,@%default-gnu-imported-modules)
         #~(modify-phases %standard-phases
             (add-after 'install 'hall-wrap-binaries
@@ -2949,10 +2949,10 @@ user which package sets would they like to install from it.")
                 "0fb4l0ww4rnkrsh4x46301j5xrqniny9b7yh7i6lp4wprwx0a7fs"))))
     (build-system gnu-build-system)
     (arguments
-     `(#:modules ((guix build gnu-build-system)
-                  ((guix build emacs-build-system) #:prefix emacs:)
-                  (guix build utils)
-                  (guix build emacs-utils)
+     `(#:modules ((Manifolding-OS build gnu-build-system)
+                  ((Manifolding-OS build emacs-build-system) #:prefix emacs:)
+                  (Manifolding-OS build utils)
+                  (Manifolding-OS build emacs-utils)
                   (ice-9 rdelim)
                   (ice-9 popen))
        #:imported-modules ,%emacs-build-system-modules
@@ -3178,13 +3178,13 @@ object-oriented programming system, GOOPS.")
                      "1cbvb42dy94612m8040y3km9941jhi17mf78yc4pavlala8x6937")))
     (arguments
      (list
-      #:modules `(((guix build guile-build-system)
+      #:modules `(((Manifolding-OS build guile-build-system)
                    #:select
                    (target-guile-effective-version))
                   (srfi srfi-26)
                   ,@%default-gnu-modules)
       #:phases
-      (with-imported-modules `((guix build guile-build-system)
+      (with-imported-modules `((Manifolding-OS build guile-build-system)
                                ,@%default-gnu-imported-modules)
         #~(modify-phases %standard-phases
             (add-after 'unpack 'prepare-examples
@@ -3375,18 +3375,18 @@ writing a Guix package.")))
     (arguments
      (list
       #:tests? #f ;there are no tests for examples
-      #:modules `(((guix build guile-build-system)
+      #:modules `(((Manifolding-OS build guile-build-system)
                    #:select
                    (target-guile-effective-version))
-                  (guix build glib-or-gtk-build-system)
+                  (Manifolding-OS build glib-or-gtk-build-system)
                   (srfi srfi-26)
                   ,@%default-gnu-modules)
       #:phases
-      (with-imported-modules `((guix build guile-build-system)
+      (with-imported-modules `((Manifolding-OS build guile-build-system)
                                ,@%default-gnu-imported-modules)
         ;; With above modules, %standard-phases would not be from
         ;; glib-or-gtk-build-system anymore:
-        #~(modify-phases (@ (guix build glib-or-gtk-build-system)
+        #~(modify-phases (@ (Manifolding-OS build glib-or-gtk-build-system)
                             %standard-phases)
             (add-after 'unpack 'prepare-examples
               (lambda _
@@ -3518,10 +3518,10 @@ wrap G-Golf applications when writing a Guix package.")))
     (build-system gnu-build-system)
     (arguments
      (list
-      #:modules `(((guix build guile-build-system)
+      #:modules `(((Manifolding-OS build guile-build-system)
                    #:select (target-guile-effective-version))
                   ,@%default-gnu-modules)
-      #:imported-modules `((guix build guile-build-system)
+      #:imported-modules `((Manifolding-OS build guile-build-system)
                            ,@%default-gnu-imported-modules)
       #:make-flags
       #~(list
@@ -3592,10 +3592,10 @@ Probably can be replaced with guile's built-ins: @code{fdes->ports},
     (build-system gnu-build-system)
     (arguments
      (list
-      #:modules `(((guix build guile-build-system)
+      #:modules `(((Manifolding-OS build guile-build-system)
                    #:select (target-guile-effective-version))
                   ,@%default-gnu-modules)
-      #:imported-modules `((guix build guile-build-system)
+      #:imported-modules `((Manifolding-OS build guile-build-system)
                            ,@%default-gnu-imported-modules)
       #:make-flags
       #~(list
@@ -3665,10 +3665,10 @@ Probably can be replaced with guile's built-in file-descriptor procedures.")
     (arguments
      (list
       #:tests? #f ;; no tests yet
-      #:modules `(((guix build guile-build-system)
+      #:modules `(((Manifolding-OS build guile-build-system)
                    #:select (target-guile-effective-version))
                   ,@%default-gnu-modules)
-      #:imported-modules `((guix build guile-build-system)
+      #:imported-modules `((Manifolding-OS build guile-build-system)
                            ,@%default-gnu-imported-modules)
       #:make-flags
       #~(let* ((wayland-dir #$(this-package-input "wayland")))
@@ -3901,11 +3901,11 @@ many readers as needed).")
     (inputs (list ncurses guile-3.0))
     (native-inputs (list autoconf automake libtool texinfo pkg-config))
     (arguments
-     `(#:modules ((guix build gnu-build-system)
-                  ((guix build guile-build-system)
+     `(#:modules ((Manifolding-OS build gnu-build-system)
+                  ((Manifolding-OS build guile-build-system)
                    #:select (target-guile-effective-version))
-                  (guix build utils))
-       #:imported-modules ((guix build guile-build-system)
+                  (Manifolding-OS build utils))
+       #:imported-modules ((Manifolding-OS build guile-build-system)
                            ,@%default-gnu-imported-modules)
        #:configure-flags (list "--with-gnu-filesystem-hierarchy")
        #:phases
@@ -4739,10 +4739,10 @@ serializing continuations or delimited continuations.")
      (list
       #:make-flags
       #~(list "GUILE_AUTO_COMPILE=0")
-      #:modules `(((guix build guile-build-system)
+      #:modules `(((Manifolding-OS build guile-build-system)
                    #:select (target-guile-effective-version))
                   ,@%default-gnu-modules)
-      #:imported-modules `((guix build guile-build-system)
+      #:imported-modules `((Manifolding-OS build guile-build-system)
                            ,@%default-gnu-imported-modules)
       #:phases
       #~(modify-phases %standard-phases
@@ -4831,8 +4831,8 @@ list of components.  This module takes care of that for you.")
      `(#:configure-flags '("CFLAGS=-Wno-error=incompatible-pointer-types"
                            "--with-gnu-filesystem-hierarchy"
                            "--enable-hardening")
-       #:modules ((guix build glib-or-gtk-build-system)
-                  (guix build utils)
+       #:modules ((Manifolding-OS build glib-or-gtk-build-system)
+                  (Manifolding-OS build utils)
                   (ice-9 popen)
                   (ice-9 rdelim))
        #:disallowed-references ,(list grilo gtk+)
@@ -4990,7 +4990,7 @@ by Haskell's @code{Data.Map.Strict} module.
             "https://github.com/scheme-requests-for-implementation/srfi-126")
            (commit commit)))
      (file-name (git-file-name name version))
-     (modules '((guix build utils)))
+     (modules '((Manifolding-OS build utils)))
      (snippet #~(begin
                  (delete-file-recursively "r6rs")
 
@@ -5306,7 +5306,7 @@ an extended environment, and modify the environment for future computations.")
          (sha256
           (base32
            "08lf70rsak8mwfij55xc37pg9zg7c87fizmhz7ln46skzj68sl3y"))
-         (modules '((guix build utils)))
+         (modules '((Manifolding-OS build utils)))
          (snippet
           '(begin
              (delete-file-recursively "srfi/files")
@@ -5346,7 +5346,7 @@ API.")
          (sha256
           (base32
            "0iqv4sjwbp4k87r9l9abzbs5yjcljm69m91kb1ypb03b0rx7napy"))
-         (modules '((guix build utils)))
+         (modules '((Manifolding-OS build utils)))
          (snippet
           '(begin
              (delete-file "test-syntax.scm")
@@ -5621,7 +5621,7 @@ code terse and reduce the need for ad hoc lambdas.")
               (sha256
                (base32
                 "1cpb85dl1nibd34c2x2h7vfmjpkgh353p5b1w20v6cs6gmvgg4np"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                '(begin
                   (substitute* "configure"
@@ -5663,8 +5663,8 @@ code terse and reduce the need for ad hoc lambdas.")
      `(("glib-networking" ,glib-networking)
        ("gssettings-desktop-schemas" ,gsettings-desktop-schemas)))
     (arguments
-     `(#:modules ((guix build gnu-build-system)
-                  (guix build utils)
+     `(#:modules ((Manifolding-OS build gnu-build-system)
+                  (Manifolding-OS build utils)
                   (ice-9 popen)
                   (ice-9 rdelim)
                   (ice-9 regex)
@@ -5759,7 +5759,7 @@ in C using Gtk+-3 and WebKitGtk.")
                  (base32
                   "05z9m408w3h6aqb5k3r3qa7khir0k10rxwvsrzhkcq1hr5vbmr4m"))
                 (file-name (git-file-name name version))
-                (modules '((guix build utils)))
+                (modules '((Manifolding-OS build utils)))
                 (snippet
                  '(begin
                     ;; Install .go files in the right place.
@@ -5819,10 +5819,10 @@ debugging code.")
     (build-system gnu-build-system)
     (arguments
      (list #:make-flags #~(list "GUILE_AUTO_COMPILE=0") ;to prevent guild warnings
-           #:modules `(((guix build guile-build-system)
+           #:modules `(((Manifolding-OS build guile-build-system)
                         #:select (target-guile-effective-version))
                        ,@%default-gnu-modules)
-           #:imported-modules `((guix build guile-build-system)
+           #:imported-modules `((Manifolding-OS build guile-build-system)
                                 ,@%default-gnu-imported-modules)
            #:phases #~(modify-phases %standard-phases
                         (delete 'strip)
@@ -6178,7 +6178,7 @@ implementation in itself.")
             (lambda _
               (invoke "guile" "--no-auto-compile" "run-tests.scm")
               (delete-file "run-tests.scm")
-              (delete-file "guix.scm")
+              (delete-file "Manifolding-OS.scm")
               (delete-file-recursively "tests")))
           (add-after 'build 'install-info-documentation
             (lambda _
@@ -6249,8 +6249,8 @@ the style of the Node Package Manager (NPM).")
                 "1362d3lmpv7slmv1zmr9wy8panq9sjr9787gc2hagd646mpsfpkl"))))
     (build-system guile-build-system)
     (arguments
-     `(#:modules ((guix build guile-build-system)
-                  (guix build utils)
+     `(#:modules ((Manifolding-OS build guile-build-system)
+                  (Manifolding-OS build utils)
                   (srfi srfi-26)
                   (ice-9 ftw))
        #:implicit-inputs? #f                      ;needs nothing but Guile
@@ -6423,7 +6423,7 @@ gnome-keyring, and many more.")
        (sha256
         (base32 "1xg6dhcnd6m5z9d7yzsa2vzdhzgifyk92gkfb6md8rbc8dilp2rh"))
        (snippet #~(for-each delete-file
-                            '("guix.scm" "test.scm")))))
+                            '("Manifolding-OS.scm" "test.scm")))))
     (build-system guile-build-system)
     (native-inputs (list guile-3.0))
     (home-page "https://github.com/ayys/guile-slugify")
@@ -6934,8 +6934,8 @@ more objects or strings, represented by a Json object or an IRI.")
     (build-system guile-build-system)
     (arguments
      `(#:compile-flags '("--r6rs" "-Wunbound-variable" "-Warity-mismatch")
-       #:modules ((guix build guile-build-system)
-                  (guix build utils)
+       #:modules ((Manifolding-OS build guile-build-system)
+                  (Manifolding-OS build utils)
                   (srfi srfi-26)
                   (ice-9 ftw))
        #:phases (modify-phases %standard-phases
@@ -6978,8 +6978,8 @@ similar to struct in Python or pack and unpack in Perl.")
     (build-system guile-build-system)
     (arguments
      `(#:compile-flags '("--r6rs" "-Wunbound-variable" "-Warity-mismatch")
-       #:modules ((guix build guile-build-system)
-                  (guix build utils)
+       #:modules ((Manifolding-OS build guile-build-system)
+                  (Manifolding-OS build utils)
                   (srfi srfi-26)
                   (ice-9 ftw))
        #:phases (modify-phases %standard-phases
@@ -7026,8 +7026,8 @@ object formats and related areas.")
     (build-system guile-build-system)
     (arguments
      `(#:compile-flags '("--r6rs" "-Wunbound-variable" "-Warity-mismatch")
-       #:modules ((guix build guile-build-system)
-                  (guix build utils)
+       #:modules ((Manifolding-OS build guile-build-system)
+                  (Manifolding-OS build utils)
                   (srfi srfi-26)
                   (ice-9 ftw))
        #:phases (modify-phases %standard-phases
@@ -7391,7 +7391,7 @@ schedulers.")
        (sha256
         (base32 "1qyalw2zx8xx5dc0pnms0va1ha1nmiv7yir9rabd324qgy4y1aiz"))
        (snippet #~(for-each delete-file
-                            '("guix.scm" "demo1.yml" "demo1.scm")))))
+                            '("Manifolding-OS.scm" "demo1.yml" "demo1.scm")))))
     (build-system guile-build-system)
     (arguments
      (list
@@ -7659,10 +7659,10 @@ high-level API for network management that uses rtnetlink.")
     (build-system gnu-build-system)
     (arguments
      `(#:make-flags '("GUILE_AUTO_COMPILE=0") ;to prevent guild warnings
-       #:modules (((guix build guile-build-system)
+       #:modules (((Manifolding-OS build guile-build-system)
                    #:select (target-guile-effective-version))
                   ,@%default-gnu-modules)
-       #:imported-modules ((guix build guile-build-system)
+       #:imported-modules ((Manifolding-OS build guile-build-system)
                            ,@%default-gnu-imported-modules)
        #:phases (modify-phases %standard-phases
                   (add-after 'install 'wrap-program
@@ -7717,10 +7717,10 @@ GitLab instance.")
     (arguments
      (list
       #:make-flags #~(list "GUILE_AUTO_COMPILE=0")     ;to prevent guild warnings
-      #:modules `(((guix build guile-build-system)
+      #:modules `(((Manifolding-OS build guile-build-system)
                    #:select (target-guile-effective-version))
                   ,@%default-gnu-modules)
-      #:imported-modules `((guix build guile-build-system)
+      #:imported-modules `((Manifolding-OS build guile-build-system)
                            ,@%default-gnu-imported-modules)
       #:phases
       #~(modify-phases %standard-phases

@@ -33,11 +33,11 @@
   #:use-module (gnu system shadow)
   #:use-module (gnu packages version-control)
   #:use-module (gnu packages admin)
-  #:use-module (guix deprecation)
-  #:use-module (guix packages)
-  #:use-module (guix records)
-  #:use-module (guix gexp)
-  #:use-module (guix store)
+  #:use-module (Manifolding-OS deprecation)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS records)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS store)
   #:use-module (srfi srfi-1)
   #:use-module (srfi srfi-26)
   #:use-module (ice-9 format)
@@ -217,7 +217,7 @@
   "Return the activation gexp for git-daemon using CONFIG."
   (let ((base-path (git-daemon-configuration-base-path config)))
     #~(begin
-        (use-modules (guix build utils))
+        (use-modules (Manifolding-OS build utils))
         ;; Create the 'base-path' directory when it's not '#f'.
         (and=> #$base-path mkdir-p))))
 
@@ -453,7 +453,7 @@ access to exported repositories under @file{/srv/git}."
                   admin-name git-config)
     #~(begin
         (use-modules (ice-9 match)
-                     (guix build utils))
+                     (Manifolding-OS build utils))
 
         (let* ((user-info (getpwnam #$user))
                (admin-pubkey #$admin-pubkey)
@@ -763,9 +763,9 @@ with which to enable TLS (HTTPS) encryption.")
 
 (define (fossil-activation config)
   (match-record config <fossil-configuration> (user create? repository)
-    (with-imported-modules '((guix build utils))
+    (with-imported-modules '((Manifolding-OS build utils))
       #~(begin
-          (use-modules (guix build utils))
+          (use-modules (Manifolding-OS build utils))
           (let* ((pw (getpwnam #$user))
                  (uid (passwd:uid pw))
                  (gid (passwd:gid pw)))

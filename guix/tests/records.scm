@@ -21,12 +21,12 @@
   #:use-module (srfi srfi-64)
   #:use-module (ice-9 match)
   #:use-module (ice-9 regex)
-  #:use-module (guix records))
+  #:use-module (Manifolding-OS records))
 
 (define (test-module)
   ;; A module in which to evaluate things that are known to fail.
   (let ((module (make-fresh-user-module)))
-    (module-use! module (resolve-interface '(guix records)))
+    (module-use! module (resolve-interface '(Manifolding-OS records)))
     module))
 
 (define (location-alist loc)
@@ -632,7 +632,7 @@ Description: 1st line,
   (catch 'syntax-error
     (lambda ()
       (eval '(begin
-               (use-modules (guix records))
+               (use-modules (Manifolding-OS records))
 
                (define-record-type* <foo> foo make-foo
                  foo?

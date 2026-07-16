@@ -31,10 +31,10 @@
   #:use-module (gnu services dns)
   #:use-module (gnu services networking)
   #:use-module (gnu services ssh)
-  #:use-module (guix gexp)
-  #:use-module (guix store)
-  #:use-module (guix monads)
-  #:use-module (guix modules)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS store)
+  #:use-module (Manifolding-OS monads)
+  #:use-module (Manifolding-OS modules)
   #:use-module (gnu packages admin)
   #:use-module (gnu packages bash)
   #:use-module (gnu packages dns)
@@ -66,10 +66,10 @@
 (define (run-static-networking-test vm)
   (define test
     (with-imported-modules '((gnu build marionette)
-                             (guix build syscalls))
+                             (Manifolding-OS build syscalls))
       #~(begin
           (use-modules (gnu build marionette)
-                       (guix build syscalls)
+                       (Manifolding-OS build syscalls)
                        (srfi srfi-64))
 
           (define marionette
@@ -89,7 +89,7 @@
           (test-assert "network interfaces"
             (marionette-eval
              '(begin
-                (use-modules (guix build syscalls))
+                (use-modules (Manifolding-OS build syscalls))
                 (network-interface-names))
              marionette))
 
@@ -133,7 +133,7 @@
                 (service static-networking-service-type
                          (list %qemu-static-networking)))
                #:imported-modules '((gnu services herd)
-                                    (guix combinators)))))
+                                    (Manifolding-OS combinators)))))
       (run-static-networking-test (virtual-machine os))))))
 
 
@@ -153,10 +153,10 @@
 (define (run-static-networking-failure-test vm)
   (define test
     (with-imported-modules '((gnu build marionette)
-                             (guix build syscalls))
+                             (Manifolding-OS build syscalls))
       #~(begin
           (use-modules (gnu build marionette)
-                       (guix build syscalls)
+                       (Manifolding-OS build syscalls)
                        (srfi srfi-64))
 
           (define marionette
@@ -181,7 +181,7 @@
             '("lo")
             (marionette-eval
              '(begin
-                (use-modules (guix build syscalls))
+                (use-modules (Manifolding-OS build syscalls))
                 (network-interface-names))
              marionette))
 
@@ -200,17 +200,17 @@ passed an invalid device.")
                 (service static-networking-service-type
                          (list %static-networking-with-nonexistent-device)))
                #:imported-modules '((gnu services herd)
-                                    (guix combinators)))))
+                                    (Manifolding-OS combinators)))))
       (run-static-networking-failure-test (virtual-machine os))))))
 
 
 (define (run-static-networking-advanced-test vm)
   (define test
     (with-imported-modules '((gnu build marionette)
-                             (guix build syscalls))
+                             (Manifolding-OS build syscalls))
       #~(begin
           (use-modules (gnu build marionette)
-                       (guix build syscalls)
+                       (Manifolding-OS build syscalls)
                        (srfi srfi-64))
 
           (define marionette
@@ -231,7 +231,7 @@ passed an invalid device.")
           (test-assert "network interfaces"
             (marionette-eval
              '(begin
-                (use-modules (guix build syscalls))
+                (use-modules (Manifolding-OS build syscalls))
                 (network-interface-names))
              marionette))
 
@@ -351,7 +351,7 @@ passed an invalid device.")
                                                   (value "192.168.1.4/24")
                                                   (device "bond0.1055"))))))))
                #:imported-modules '((gnu services herd)
-                                    (guix combinators)))))
+                                    (Manifolding-OS combinators)))))
       (run-static-networking-advanced-test (virtual-machine os))))))
 
 
@@ -362,10 +362,10 @@ passed an invalid device.")
 (define (run-network-manager-test vm)
   (define test
     (with-imported-modules '((gnu build marionette)
-                             (guix build syscalls))
+                             (Manifolding-OS build syscalls))
       #~(begin
           (use-modules (gnu build marionette)
-                       (guix build syscalls)
+                       (Manifolding-OS build syscalls)
                        (srfi srfi-64))
 
           (define marionette
@@ -385,7 +385,7 @@ passed an invalid device.")
           (test-assert "network interfaces"
             (marionette-eval
              '(begin
-               (use-modules (guix build syscalls))
+               (use-modules (Manifolding-OS build syscalls))
                (network-interface-names))
              marionette))
 
@@ -411,17 +411,17 @@ passed an invalid device.")
                  (service network-manager-service-type)
                  (service wpa-supplicant-service-type))
                #:imported-modules '((gnu services herd)
-                                    (guix combinators)))))
+                                    (Manifolding-OS combinators)))))
        (run-network-manager-test (virtual-machine os))))))
 
 
 (define (run-network-manager-dnsmasq-test vm)
   (define test
     (with-imported-modules '((gnu build marionette)
-                             (guix build syscalls))
+                             (Manifolding-OS build syscalls))
       #~(begin
           (use-modules (gnu build marionette)
-                       (guix build syscalls)
+                       (Manifolding-OS build syscalls)
                        (srfi srfi-64))
 
           (define marionette
@@ -441,7 +441,7 @@ passed an invalid device.")
           (test-assert "network interfaces"
             (marionette-eval
              '(begin
-               (use-modules (guix build syscalls))
+               (use-modules (Manifolding-OS build syscalls))
                (network-interface-names))
              marionette))
 
@@ -497,7 +497,7 @@ passed an invalid device.")
                      (append (list (list isc-bind "utils"))
                              (operating-system-packages base-os))))
                    #:imported-modules '((gnu services herd)
-                                    (guix combinators)))))
+                                    (Manifolding-OS combinators)))))
        (run-network-manager-dnsmasq-test (virtual-machine os))))))
 
 
@@ -657,14 +657,14 @@ port 7, and a dict service on port 2628."
   (define os
     (marionette-operating-system %openvswitch-os
                                  #:imported-modules '((gnu services herd)
-                                                      (guix build syscalls))))
+                                                      (Manifolding-OS build syscalls))))
 
   (define test
     (with-imported-modules '((gnu build marionette)
-                             (guix build syscalls))
+                             (Manifolding-OS build syscalls))
       #~(begin
           (use-modules (gnu build marionette)
-                       (guix build syscalls)
+                       (Manifolding-OS build syscalls)
                        (ice-9 popen)
                        (ice-9 rdelim)
                        (srfi srfi-64))
@@ -722,7 +722,7 @@ port 7, and a dict service on port 2628."
             IFF_UP
             (marionette-eval
              '(begin
-                (use-modules (guix build syscalls))
+                (use-modules (Manifolding-OS build syscalls))
 
                 (let* ((sock  (socket AF_INET SOCK_STREAM 0))
                        (flags (network-interface-flags sock "ovs0")))
@@ -1357,7 +1357,7 @@ connection to ports.")
     (marionette-operating-system %ipfs-os
                                  #:imported-modules (source-module-closure
                                                      '((gnu services herd)
-                                                       (guix ipfs)))
+                                                       (Manifolding-OS ipfs)))
                                  #:extensions (list guile-json-4)
                                  #:requirements '(ipfs)))
 
@@ -1396,7 +1396,7 @@ connection to ports.")
                 all-input)
              marionette))
 
-          (marionette-eval '(use-modules (guix ipfs)) marionette)
+          (marionette-eval '(use-modules (Manifolding-OS ipfs)) marionette)
           (test-runner-current (system-test-runner #$output))
           (test-begin "ipfs")
 

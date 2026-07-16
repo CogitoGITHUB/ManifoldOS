@@ -202,23 +202,23 @@
   #:use-module (gnu packages xiph)
   #:use-module (gnu packages xml)
   #:use-module (gnu packages xorg)
-  #:use-module (guix build-system asdf)
-  #:use-module (guix build-system cargo)
-  #:use-module (guix build-system cmake)
-  #:use-module (guix build-system copy)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system go)
-  #:use-module (guix build-system haskell)
-  #:use-module (guix build-system meson)
-  #:use-module (guix build-system perl)
-  #:use-module (guix build-system pyproject)
-  #:use-module (guix build-system trivial)
-  #:use-module (guix download)
-  #:use-module (guix gexp)
-  #:use-module (guix git-download)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix packages)
-  #:use-module (guix utils))
+  #:use-module (Manifolding-OS build-system asdf)
+  #:use-module (Manifolding-OS build-system cargo)
+  #:use-module (Manifolding-OS build-system cmake)
+  #:use-module (Manifolding-OS build-system copy)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system go)
+  #:use-module (Manifolding-OS build-system haskell)
+  #:use-module (Manifolding-OS build-system meson)
+  #:use-module (Manifolding-OS build-system perl)
+  #:use-module (Manifolding-OS build-system pyproject)
+  #:use-module (Manifolding-OS build-system trivial)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS utils))
 
 (define-public bspwm
   (package
@@ -552,7 +552,7 @@ loginctl commands (lock/unlock/before-sleep) and inhibit.")
               (uri (string-append "https://github.com/hyprwm/Hyprland"
                                   "/releases/download/v" version
                                   "/source-v" version ".tar.gz"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                '(begin
                   ;; Remove bundled sources and hyprpm utility.
@@ -1841,8 +1841,8 @@ tiling window manager for X.")
      (list libx11 libxext libxrandr))
     (arguments
      `(#:modules ((srfi srfi-26)
-                  (guix build utils)
-                  (guix build gnu-build-system))
+                  (Manifolding-OS build utils)
+                  (Manifolding-OS build gnu-build-system))
        #:make-flags (let ((inputs (map (cut assoc-ref %build-inputs <>)
                                        '("libx11" "libxext" "libxrandr")))
                           (join (lambda (proc strs)
@@ -1886,8 +1886,8 @@ drags, snap-to-border support, and virtual desktops.")
         #:features ''("x11" "wayland")
         #:cargo-install-paths ''("crates/eww")
         #:modules
-        '((guix build cargo-build-system)
-          (guix build utils)
+        '((Manifolding-OS build cargo-build-system)
+          (Manifolding-OS build utils)
           (ice-9 match))
         #:phases
         #~(modify-phases %standard-phases
@@ -2058,7 +2058,7 @@ for wlroots-based Wayland compositors.")
         (base32 "0lqpw401mkkmp9wgbvrmm45bqq2j9357l4irwdqv6l1305pls9kq"))
        (snippet
         #~(begin
-            (use-modules (guix build utils)
+            (use-modules (Manifolding-OS build utils)
                          (srfi srfi-19))
             ;; TODO: Drop the following substitution in the next release.
             ;; Fix compatibility with GLib 2.86:
@@ -2121,8 +2121,8 @@ for wlroots-based Wayland compositors.")
     (outputs '("out" "doc"))
     (arguments
      (list
-      #:modules '((guix build cmake-build-system)
-                  (guix build utils)
+      #:modules '((Manifolding-OS build cmake-build-system)
+                  (Manifolding-OS build utils)
                   (ice-9 match))
       ;; Let compression happen in our 'compress-documentation' phase
       ;; so that '--no-name' is used, which removes timestamps from
@@ -2161,8 +2161,8 @@ for wlroots-based Wayland compositors.")
             (lambda* (#:key inputs #:allow-other-keys)
               (let* ((cairo (string-append (assoc-ref inputs "cairo") "/lib")))
                 (wrap-program (string-append #$output "/bin/awesome")
-                  `("GUIX_LUA_PATH" ";" prefix (,(getenv "GUIX_LUA_PATH")))
-                  `("GUIX_LUA_CPATH" ";" prefix (,(getenv "GUIX_LUA_CPATH")))
+                  `("MANIFOLDING_OS_LUA_PATH" ";" prefix (,(getenv "MANIFOLDING_OS_LUA_PATH")))
+                  `("MANIFOLDING_OS_LUA_CPATH" ";" prefix (,(getenv "MANIFOLDING_OS_LUA_CPATH")))
                   `("GI_TYPELIB_PATH" ":" prefix (,(getenv "GI_TYPELIB_PATH")))
                   `("LD_LIBRARY_PATH" suffix (,cairo)))))))))
     (home-page "https://awesomewm.org/")
@@ -2637,8 +2637,8 @@ built on dwl — crafted for speed, flexibility, and a customizable desktop expe
           #:cargo-install-paths ''(".")
           #:modules
           '((ice-9 match)
-            (guix build utils)
-            (guix build cargo-build-system))
+            (Manifolding-OS build utils)
+            (Manifolding-OS build cargo-build-system))
           #:phases
           #~(modify-phases %standard-phases
               (add-after 'unpack 'use-guix-vendored-dependencies
@@ -3387,9 +3387,9 @@ works on Wayland compositors supporting the wlr-layer-shell protocol.")
       #:cargo-install-paths ''("daemon" "client")
       #:imported-modules (append %copy-build-system-modules
                                  %cargo-build-system-modules)
-      #:modules '((guix build cargo-build-system)
-                  ((guix build copy-build-system) #:prefix copy:)
-                  (guix build utils))
+      #:modules '((Manifolding-OS build cargo-build-system)
+                  ((Manifolding-OS build copy-build-system) #:prefix copy:)
+                  (Manifolding-OS build utils))
       #:phases
       #~(modify-phases %standard-phases
           (add-before 'build 'build-documentation
@@ -3589,12 +3589,12 @@ core/thread.")
     (arguments
      (list
       #:tests? #f                       ; no tests
-      #:modules `(((guix build guile-build-system)
+      #:modules `(((Manifolding-OS build guile-build-system)
                    #:select (target-guile-effective-version))
                   (srfi srfi-26)
                   ,@%default-gnu-imported-modules)
       #:phases
-      (with-imported-modules `((guix build guile-build-system)
+      (with-imported-modules `((Manifolding-OS build guile-build-system)
                                ,@%default-gnu-imported-modules)
         #~(modify-phases %standard-phases
             (delete 'strip)
@@ -3899,10 +3899,10 @@ productive, customizable lisp based systems.")
      (list bash rlwrap xprop))
     (build-system trivial-build-system)
     (arguments
-     '(#:modules ((guix build utils))
+     '(#:modules ((Manifolding-OS build utils))
        #:builder
        (begin
-         (use-modules (guix build utils))
+         (use-modules (Manifolding-OS build utils))
          (copy-recursively (assoc-ref %build-inputs "source") ".")
          (chdir "util/stumpish")
          (substitute* "stumpish"
@@ -4653,7 +4653,7 @@ selected to stdout.  It can be controlled both via mouse and via keyboard.")
        (sha256
         (base32
          "1lxk2yvgysxwl514zc82lwr1dwc8cd62slgr5lzdhjbdrxfymdyl"))
-       (modules '((guix build utils)
+       (modules '((Manifolding-OS build utils)
                   (ice-9 format)))
        (snippet
         '(let* ((file     "src/DesktopConfig.cpp")

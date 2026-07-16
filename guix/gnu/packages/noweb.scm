@@ -18,11 +18,11 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages noweb)
-  #:use-module (guix gexp)
-  #:use-module (guix packages)
-  #:use-module (guix git-download)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix licenses)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS licenses)
   #:use-module (gnu packages perl))
 
 (define-public noweb
@@ -49,8 +49,8 @@
               (string-append "TEXINPUTS=" #$output
                              "/share/texmf/tex/latex"))
       #:modules
-      '((guix build gnu-build-system)
-        (guix build utils)
+      '((Manifolding-OS build gnu-build-system)
+        (Manifolding-OS build utils)
         (srfi srfi-26))
       #:phases
       #~(modify-phases %standard-phases

@@ -22,7 +22,7 @@
   #:use-module (gnu installer steps)
   #:use-module (gnu installer newt utils)
   #:use-module (gnu installer newt page)
-  #:use-module (guix i18n)
+  #:use-module (Manifolding-OS i18n)
   #:use-module (ice-9 format)
   #:use-module (ice-9 match)
   #:use-module (srfi srfi-34)

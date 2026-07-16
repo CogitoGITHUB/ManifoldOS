@@ -26,7 +26,7 @@
             rshiny-service-type))
 
 (use-modules (gnu)
-             (guix records)
+             (Manifolding-OS records)
              (ice-9 match))
 (use-service-modules shepherd)
 (use-package-modules cran)

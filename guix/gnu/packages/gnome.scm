@@ -242,23 +242,23 @@
   #:use-module (gnu packages xml)
   #:use-module (gnu packages xorg)
   #:use-module (gnu artwork)
-  #:use-module (guix build-system cargo)
-  #:use-module (guix build-system cmake)
-  #:use-module (guix build-system copy)
-  #:use-module (guix build-system glib-or-gtk)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system meson)
-  #:use-module (guix build-system pyproject)
-  #:use-module (guix build-system trivial)
-  #:use-module ((guix config) #:select (%storedir))
-  #:use-module (guix deprecation)
-  #:use-module (guix download)
-  #:use-module (guix git-download)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix packages)
-  #:use-module (guix platform)
-  #:use-module (guix utils)
-  #:use-module (guix gexp)
+  #:use-module (Manifolding-OS build-system cargo)
+  #:use-module (Manifolding-OS build-system cmake)
+  #:use-module (Manifolding-OS build-system copy)
+  #:use-module (Manifolding-OS build-system glib-or-gtk)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system meson)
+  #:use-module (Manifolding-OS build-system pyproject)
+  #:use-module (Manifolding-OS build-system trivial)
+  #:use-module ((Manifolding-OS config) #:select (%storedir))
+  #:use-module (Manifolding-OS deprecation)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS platform)
+  #:use-module (Manifolding-OS utils)
+  #:use-module (Manifolding-OS gexp)
   #:use-module (ice-9 match)
   #:use-module (srfi srfi-1))
 
@@ -889,8 +889,8 @@ tomorrow, the rest of the week and for special occasions.")
                     (,(getenv "GST_PLUGIN_SYSTEM_PATH")))
                   `("GRL_PLUGIN_PATH" =
                     (,(getenv "GRL_PLUGIN_PATH")))
-                  `("GUIX_PYTHONPATH" =
-                    (,(getenv "GUIX_PYTHONPATH") ,pylib)))))))))
+                  `("MANIFOLDING_OS_PYTHONPATH" =
+                    (,(getenv "MANIFOLDING_OS_PYTHONPATH") ,pylib)))))))))
     (native-inputs
      (list desktop-file-utils
            gettext-minimal
@@ -1497,11 +1497,11 @@ tour of all gnome components and allows the user to set them up.")
     (arguments
      (list #:glib-or-gtk? #t
            #:imported-modules
-           `((guix build cargo-build-system)
+           `((Manifolding-OS build cargo-build-system)
              ,@%meson-build-system-modules)
-           #:modules '((guix build meson-build-system)
-                       ((guix build cargo-build-system) #:prefix cargo:)
-                       (guix build utils))
+           #:modules '((Manifolding-OS build meson-build-system)
+                       ((Manifolding-OS build cargo-build-system) #:prefix cargo:)
+                       (Manifolding-OS build utils))
            #:configure-flags
            #~(list "-Dsystemduserunitdir=/tmp/empty")
            #:phases
@@ -2121,7 +2121,7 @@ offline sources, providing a centralized place for managing your contacts.")
              (setenv "DISPLAY" ":1")
              (setenv "XDG_CACHE_HOME" "/tmp/xdg-cache")
              (setenv "XDG_CONFIG_HOME" "/tmp")
-             (setenv "GUIX_LOCPATH"
+             (setenv "MANIFOLDING_OS_LOCPATH"
                      (search-input-directory inputs
                                              "lib/locale")))))))
     (native-inputs
@@ -2615,9 +2615,9 @@ on the GNOME Desktop with a single simple application.")
       #~(list (string-append "-Dc_link_args=-Wl,-rpath=" #$output "/lib"))
       #:imported-modules `(,@%meson-build-system-modules
                            ,@%cargo-build-system-modules)
-      #:modules `(((guix build cargo-build-system) #:prefix cargo:)
-                  (guix build meson-build-system)
-                  (guix build utils))
+      #:modules `(((Manifolding-OS build cargo-build-system) #:prefix cargo:)
+                  (Manifolding-OS build meson-build-system)
+                  (Manifolding-OS build utils))
       #:phases
       #~(modify-phases %standard-phases
           (add-after 'unpack 'prepare-for-build
@@ -2789,15 +2789,15 @@ and how they are displayed (View).")
       #:glib-or-gtk? #t
       #:imported-modules (append %meson-build-system-modules
                                  %pyproject-build-system-modules)
-      #:modules '((guix build meson-build-system)
-                  ((guix build pyproject-build-system) #:prefix py:)
-                  (guix build utils))
+      #:modules '((Manifolding-OS build meson-build-system)
+                  ((Manifolding-OS build pyproject-build-system) #:prefix py:)
+                  (Manifolding-OS build utils))
       #:phases
       #~(modify-phases %standard-phases
           (add-after 'glib-or-gtk-wrap 'python-and-gi-wrap
             (lambda* (#:key inputs outputs #:allow-other-keys)
               (wrap-program (search-input-file outputs "bin/gtg")
-                `("GUIX_PYTHONPATH" = (,(getenv "GUIX_PYTHONPATH")
+                `("MANIFOLDING_OS_PYTHONPATH" = (,(getenv "MANIFOLDING_OS_PYTHONPATH")
                                        ,(py:site-packages inputs outputs)))
                 `("GI_TYPELIB_PATH" = (,(getenv "GI_TYPELIB_PATH")))))))))
     (native-inputs
@@ -2935,9 +2935,9 @@ guidelines.")
      (list
       #:imported-modules (append %glib-or-gtk-build-system-modules
                                  %pyproject-build-system-modules)
-      #:modules '((guix build glib-or-gtk-build-system)
-                  ((guix build pyproject-build-system) #:prefix py:)
-                  (guix build utils))
+      #:modules '((Manifolding-OS build glib-or-gtk-build-system)
+                  ((Manifolding-OS build pyproject-build-system) #:prefix py:)
+                  (Manifolding-OS build utils))
       #:phases
       #~(modify-phases %standard-phases
           (add-after 'unpack 'patch-build-files
@@ -3298,9 +3298,9 @@ the GNOME desktop environment.")
       (append %meson-build-system-modules
               %pyproject-build-system-modules)
       #:modules
-      `((guix build meson-build-system)
-        ((guix build pyproject-build-system) #:prefix py:)
-        (guix build utils))
+      `((Manifolding-OS build meson-build-system)
+        ((Manifolding-OS build pyproject-build-system) #:prefix py:)
+        (Manifolding-OS build utils))
       #:phases
       #~(modify-phases %standard-phases
           (add-before 'check 'pre-check
@@ -3368,9 +3368,9 @@ compiles to GTKBuilder XML.")
       #:glib-or-gtk? #t
       #:imported-modules (append %meson-build-system-modules
                                  %pyproject-build-system-modules)
-      #:modules '((guix build meson-build-system)
-                  ((guix build pyproject-build-system) #:prefix py:)
-                  (guix build utils))
+      #:modules '((Manifolding-OS build meson-build-system)
+                  ((Manifolding-OS build pyproject-build-system) #:prefix py:)
+                  (Manifolding-OS build utils))
       #:tests? #f                       ; XXX: tests spawn a socket...
       #:phases
       #~(modify-phases %standard-phases
@@ -3593,9 +3593,9 @@ for dealing with different structured file formats.")
                      #~()))
       #:imported-modules %cargo-build-system-modules
       #:modules
-      '(((guix build cargo-build-system) #:prefix cargo:)
-        (guix build gnu-build-system)
-        (guix build utils))
+      '(((Manifolding-OS build cargo-build-system) #:prefix cargo:)
+        (Manifolding-OS build gnu-build-system)
+        (Manifolding-OS build utils))
       #:phases
       #~(modify-phases %standard-phases
           (add-after 'unpack 'patch-gdk-pixbuf-thumbnailer
@@ -4346,9 +4346,9 @@ engineering.")
       #:glib-or-gtk? #t
       #:imported-modules (append %meson-build-system-modules
                                  %pyproject-build-system-modules)
-      #:modules '((guix build meson-build-system)
-                  ((guix build pyproject-build-system) #:prefix py:)
-                  (guix build utils))
+      #:modules '((Manifolding-OS build meson-build-system)
+                  ((Manifolding-OS build pyproject-build-system) #:prefix py:)
+                  (Manifolding-OS build utils))
       #:phases
       #~(modify-phases %standard-phases
           (add-after 'unpack 'disable-postinstall-script
@@ -4357,7 +4357,7 @@ engineering.")
           (add-after 'glib-or-gtk-wrap 'python-and-gi-wrap
             (lambda* (#:key inputs outputs #:allow-other-keys)
               (wrap-program (search-input-file outputs "bin/drawing")
-                `("GUIX_PYTHONPATH" = (,(getenv "GUIX_PYTHONPATH")
+                `("MANIFOLDING_OS_PYTHONPATH" = (,(getenv "MANIFOLDING_OS_PYTHONPATH")
                                        ,(py:site-packages inputs outputs)))
                 `("GI_TYPELIB_PATH" = (,(getenv "GI_TYPELIB_PATH")))))))))
     (native-inputs
@@ -5725,7 +5725,7 @@ faster results and to avoid unnecessary server load.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "0vscs2n1qdbylnz37janvk0241g3ww3xcsk9402zn9sivnvl1jfk"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         ;; Upstream commit <https://cgit.freedesktop.org/upower/commit/
         ;; ?id=18457c99b68786cd729b315723d680e6860d9cfa> moved
@@ -6345,9 +6345,9 @@ such as OpenStreetMap, OpenCycleMap, OpenAerialMap, and Maps for free.")
      (list
       #:imported-modules (append %meson-build-system-modules
                                  %pyproject-build-system-modules)
-      #:modules '((guix build meson-build-system)
-                  ((guix build pyproject-build-system) #:prefix py:)
-                  (guix build utils))
+      #:modules '((Manifolding-OS build meson-build-system)
+                  ((Manifolding-OS build pyproject-build-system) #:prefix py:)
+                  (Manifolding-OS build utils))
       #:configure-flags
       #~(list (string-append "-Dpygobject-override-dir="
                              (py:site-packages %build-inputs %outputs)
@@ -6590,9 +6590,9 @@ discovery protocols.")
      (list
       #:imported-modules (append %meson-build-system-modules
                                  %pyproject-build-system-modules)
-      #:modules `((guix build meson-build-system)
-                  ((guix build pyproject-build-system) #:prefix py:)
-                  (guix build utils))
+      #:modules `((Manifolding-OS build meson-build-system)
+                  ((Manifolding-OS build pyproject-build-system) #:prefix py:)
+                  (Manifolding-OS build utils))
       #:glib-or-gtk? #t
       #:phases
       #~(modify-phases %standard-phases
@@ -6789,8 +6789,8 @@ which can read a large number of file formats.")
                   (,(getenv "GST_PLUGIN_SYSTEM_PATH")))
                 `("GRL_PLUGIN_PATH"        ":" prefix
                   (,(getenv "GRL_PLUGIN_PATH")))
-                `("GUIX_PYTHONPATH"             ":" prefix
-                  (,(getenv "GUIX_PYTHONPATH")))))))))
+                `("MANIFOLDING_OS_PYTHONPATH"             ":" prefix
+                  (,(getenv "MANIFOLDING_OS_PYTHONPATH")))))))))
     (propagated-inputs
      (list dconf))
     (native-inputs
@@ -6979,9 +6979,9 @@ side panel;
      (list
       #:imported-modules `(,@%meson-build-system-modules
                            ,@%cargo-build-system-modules)
-      #:modules `(((guix build cargo-build-system) #:prefix cargo:)
-                  (guix build meson-build-system)
-                  (guix build utils))
+      #:modules `(((Manifolding-OS build cargo-build-system) #:prefix cargo:)
+                  (Manifolding-OS build meson-build-system)
+                  (Manifolding-OS build utils))
       #:phases
       (with-extensions (list (cargo-guile-json))
         #~(modify-phases %standard-phases
@@ -7099,9 +7099,9 @@ runtime image loader executables that are used inside the sandbox.")
       #:glib-or-gtk? #t
       #:imported-modules `(,@%meson-build-system-modules
                            ,@%cargo-build-system-modules)
-      #:modules `(((guix build cargo-build-system) #:prefix cargo:)
-                  (guix build meson-build-system)
-                  (guix build utils))
+      #:modules `(((Manifolding-OS build cargo-build-system) #:prefix cargo:)
+                  (Manifolding-OS build meson-build-system)
+                  (Manifolding-OS build utils))
       #:phases
       (with-extensions (list (cargo-guile-json))
         #~(modify-phases %standard-phases
@@ -7414,10 +7414,10 @@ almost all of them.")
     (arguments
      (list
       #:glib-or-gtk? #t
-      #:modules '((guix build meson-build-system)
-                  (guix build utils)
-                  (guix build union))
-      #:imported-modules `((guix build union)
+      #:modules '((Manifolding-OS build meson-build-system)
+                  (Manifolding-OS build utils)
+                  (Manifolding-OS build union))
+      #:imported-modules `((Manifolding-OS build union)
                            ,@%meson-build-system-modules)
       #:phases
       #~(modify-phases %standard-phases
@@ -7952,7 +7952,7 @@ configuration program to choose applications starting on login.")
               (sha256
                (base32
                 "0rh1fkkb35aa1zrhzbizzxllkwc3snkw67i901in61ap6kgjw51m"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                '(begin
                   (substitute* "installed-tests/scripts/testCommandLine.sh"
@@ -8052,7 +8052,7 @@ javascript engine and the GObject introspection framework.")
               (wrap-program (search-input-file outputs "bin/gedit")
                 ;; For plugins.
                 `("GI_TYPELIB_PATH" ":" prefix (,(getenv "GI_TYPELIB_PATH")))
-                `("GUIX_PYTHONPATH" ":" prefix (,(getenv "GUIX_PYTHONPATH")))
+                `("MANIFOLDING_OS_PYTHONPATH" ":" prefix (,(getenv "MANIFOLDING_OS_PYTHONPATH")))
                 ;; For language-specs.
                 `("XDG_DATA_DIRS" ":" prefix
                   (,(string-append #$(this-package-input "gtksourceview")
@@ -8518,12 +8518,12 @@ Evolution (hence the name), but is now used by other packages as well.")
                                   #$output "/lib/libcaribou.so")))))
             (add-after 'install 'wrap-programs
               (lambda* (#:key outputs #:allow-other-keys)
-                (let ((python-path (getenv "GUIX_PYTHONPATH"))
+                (let ((python-path (getenv "MANIFOLDING_OS_PYTHONPATH"))
                       (gi-typelib-path (getenv "GI_TYPELIB_PATH")))
                   (for-each
                    (lambda (prog)
                      (wrap-program prog
-                       `("GUIX_PYTHONPATH" ":" prefix (,python-path))
+                       `("MANIFOLDING_OS_PYTHONPATH" ":" prefix (,python-path))
                        `("GI_TYPELIB_PATH" ":" prefix (,gi-typelib-path))))
                    (list
                     (string-append #$output "/bin/caribou-preferences")
@@ -8906,7 +8906,7 @@ Cisco's AnyConnect SSL VPN.")
          (sha256
           (base32
            "0qgzm60y7kjvsda12m0sckd2v3x4nxf4g9k829sy2sqrmhhai7ws"))
-         (modules '((guix build utils)))
+         (modules '((Manifolding-OS build utils)))
          (snippet '(substitute* "Makefile.am"
                      ;; Use state directory of the NetworkManager service.
                      (("^(fortisslvpn_statedir = ).*" _ head)
@@ -9610,8 +9610,8 @@ properties, screen resolution, and other GNOME parameters.")
                                #$output "/lib/gnome-shell")
                 ;; TODO: Unbundle jasmine
                 "--wrap-mode=nodownload")
-        #:modules '((guix build meson-build-system)
-                    (guix build utils)
+        #:modules '((Manifolding-OS build meson-build-system)
+                    (Manifolding-OS build utils)
                     (ice-9 match)
                     (srfi srfi-1)
                     (srfi srfi-26))
@@ -9672,7 +9672,7 @@ properties, screen resolution, and other GNOME parameters.")
                         (filter (lambda (item)
                                   (not (any (cut string-prefix? <> item)
                                             '#$disallowed-references)))
-                                (string-split (getenv "GUIX_PYTHONPATH") #\:))
+                                (string-split (getenv "MANIFOLDING_OS_PYTHONPATH") #\:))
                         ":")))
                   (for-each
                    (lambda (prog)
@@ -10349,10 +10349,10 @@ software that do not provide their own configuration interface.")
     (propagated-inputs
      (list nautilus evince))
     (arguments
-     `(#:modules ((guix build utils))
+     `(#:modules ((Manifolding-OS build utils))
        #:builder
        (begin
-         (use-modules (guix build utils))
+         (use-modules (Manifolding-OS build utils))
          (let* ((out (assoc-ref %outputs "out"))
                 (apps (string-append out "/share/applications")))
            (mkdir-p apps)
@@ -10421,7 +10421,7 @@ associations for GNOME.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "0fzvgffwargmycxby6j2q0fka74hcb4ff8yvbh8w8a0vpvpnc9b1"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet #~(begin
                     (substitute* "src/widgets/window.rs"
                       (("let (name|version) = .*;" all what)
@@ -10436,9 +10436,9 @@ associations for GNOME.")
       `(,@%meson-build-system-modules
         ,@%cargo-build-system-modules)
       #:modules
-      `(((guix build cargo-build-system) #:prefix cargo:)
-        (guix build meson-build-system)
-        (guix build utils))
+      `(((Manifolding-OS build cargo-build-system) #:prefix cargo:)
+        (Manifolding-OS build meson-build-system)
+        (Manifolding-OS build utils))
       #:phases
       (with-extensions (list (cargo-guile-json))
         #~(modify-phases %standard-phases
@@ -11009,9 +11009,9 @@ existing databases over the internet.")
                                 "-Dsysconfdir=/tmp")
       #:imported-modules (append %meson-build-system-modules
                                  %pyproject-build-system-modules)
-      #:modules '((guix build meson-build-system)
-                  ((guix build pyproject-build-system) #:prefix py:)
-                  (guix build utils))
+      #:modules '((Manifolding-OS build meson-build-system)
+                  ((Manifolding-OS build pyproject-build-system) #:prefix py:)
+                  (Manifolding-OS build utils))
       #:phases
       #~(modify-phases %standard-phases
           (add-after 'unpack 'skip-gtk-update-icon-cache
@@ -11029,7 +11029,7 @@ existing databases over the internet.")
               (wrap-program (search-input-file outputs "bin/gnome-tweaks")
                 `("GI_TYPELIB_PATH" ":" prefix
                   (,(getenv "GI_TYPELIB_PATH")))
-                `("GUIX_PYTHONPATH" ":" prefix
+                `("MANIFOLDING_OS_PYTHONPATH" ":" prefix
                   (,(py:site-packages inputs outputs)))))))))
     (native-inputs
      (list `(,glib "bin")               ; for glib-compile-resources, etc.
@@ -11078,7 +11078,7 @@ GNOME Shell appearance and extension, etc.")
           (add-after 'unpack 'wrap-extensions
             (lambda _
               (use-modules (ice-9 textual-ports)
-                           (guix build utils))
+                           (Manifolding-OS build utils))
               (for-each
                (lambda (file-to-wrap)
                  (with-atomic-file-replacement file-to-wrap
@@ -11359,8 +11359,8 @@ basically a text box in which notes can be written.")
       (build-system meson-build-system)
       (arguments
        `(#:modules ((ice-9 match)
-                    (guix build meson-build-system)
-                    (guix build utils))
+                    (Manifolding-OS build meson-build-system)
+                    (Manifolding-OS build utils))
          #:glib-or-gtk? #t
          #:configure-flags
          (list
@@ -11572,9 +11572,9 @@ accessibility infrastructure.")
       #:imported-modules (append %meson-build-system-modules
                                  %pyproject-build-system-modules)
       #:modules
-      `((guix build meson-build-system)
-        ((guix build pyproject-build-system) #:prefix py:)
-        (guix build utils))
+      `((Manifolding-OS build meson-build-system)
+        ((Manifolding-OS build pyproject-build-system) #:prefix py:)
+        (Manifolding-OS build utils))
       #:phases
       #~(modify-phases %standard-phases
           (add-after 'unpack 'skip-gnome-post-install
@@ -11659,8 +11659,8 @@ for the GNOME desktop.")
                  (,(getenv "GI_TYPELIB_PATH")))
                `("GST_PLUGIN_SYSTEM_PATH" ":" prefix
                  (,(getenv "GST_PLUGIN_SYSTEM_PATH")))
-               `("GUIX_PYTHONPATH" ":" prefix
-                 (,(getenv "GUIX_PYTHONPATH")))))))))
+               `("MANIFOLDING_OS_PYTHONPATH" ":" prefix
+                 (,(getenv "MANIFOLDING_OS_PYTHONPATH")))))))))
     (native-inputs
      (list gettext-minimal
            itstool
@@ -11824,9 +11824,9 @@ views can be printed as PDF or PostScript files, or exported to HTML.")
     (arguments
      (list #:imported-modules (append %meson-build-system-modules
                                       %pyproject-build-system-modules)
-           #:modules '((guix build meson-build-system)
-                       ((guix build pyproject-build-system) #:prefix py:)
-                       (guix build utils))
+           #:modules '((Manifolding-OS build meson-build-system)
+                       ((Manifolding-OS build pyproject-build-system) #:prefix py:)
+                       (Manifolding-OS build utils))
            #:glib-or-gtk? #t
            #:phases
            #~(modify-phases %standard-phases
@@ -11985,10 +11985,10 @@ apply fancy special effects and lets you share the fun with others.")
       #:glib-or-gtk? #t
       #:imported-modules `(,@%meson-build-system-modules
                            ,@%cargo-build-system-modules)
-      #:modules `(((guix build cargo-build-system)
+      #:modules `(((Manifolding-OS build cargo-build-system)
                    #:prefix cargo:)
-                  (guix build meson-build-system)
-                  (guix build utils))
+                  (Manifolding-OS build meson-build-system)
+                  (Manifolding-OS build utils))
       #:phases
       #~(modify-phases %standard-phases
           (add-after 'unpack 'prepare-for-build
@@ -12350,10 +12350,10 @@ generic enough to work for everyone.")
      (list
       #:tests? #f
       #:imported-modules `(,@%cmake-build-system-modules
-                           (guix build glib-or-gtk-build-system))
-      #:modules '((guix build cmake-build-system)
-                  ((guix build glib-or-gtk-build-system) #:prefix glib-or-gtk:)
-                  (guix build utils))
+                           (Manifolding-OS build glib-or-gtk-build-system))
+      #:modules '((Manifolding-OS build cmake-build-system)
+                  ((Manifolding-OS build glib-or-gtk-build-system) #:prefix glib-or-gtk:)
+                  (Manifolding-OS build utils))
       #:configure-flags
       #~(list "-DENABLE_PST_IMPORT=OFF") ;libpst is not packaged
       #:phases
@@ -12479,12 +12479,12 @@ advanced image management tool")
          "--ignore=terminatorlib/"
          ;; Some of these tests fail due to dbus-python and python-notify.
          "--ignore=tests/test_prefseditor_keybindings.py")
-      #:imported-modules `((guix build glib-or-gtk-build-system)
+      #:imported-modules `((Manifolding-OS build glib-or-gtk-build-system)
                            ,@%pyproject-build-system-modules)
-      #:modules `((guix build pyproject-build-system)
-                  ((guix build glib-or-gtk-build-system)
+      #:modules `((Manifolding-OS build pyproject-build-system)
+                  ((Manifolding-OS build glib-or-gtk-build-system)
                    #:prefix glib-or-gtk:)
-                  (guix build utils))
+                  (Manifolding-OS build utils))
       #:phases
         #~(modify-phases %standard-phases
             (add-after 'unpack 'handle-dbus-python
@@ -12497,8 +12497,8 @@ advanced image management tool")
             (replace 'wrap
               (lambda* (#:key inputs outputs #:allow-other-keys)
                 (wrap-program (string-append #$output "/bin/terminator")
-                  `("GUIX_PYTHONPATH" =
-                    (,(getenv "GUIX_PYTHONPATH")
+                  `("MANIFOLDING_OS_PYTHONPATH" =
+                    (,(getenv "MANIFOLDING_OS_PYTHONPATH")
                      ,(site-packages inputs outputs)))
                   `("GI_TYPELIB_PATH" =
                     (,(getenv "GI_TYPELIB_PATH"))))))
@@ -12933,7 +12933,7 @@ desktop environment.")
     (description "GNOME Boxes is a simple application to view, access, and
 manage remote and virtual systems.  Note that this application requires the
 @code{libvirt} and @code{virtlog} daemons to run.  Use the command
-@command{info '(guix) Virtualization Services'} to learn how to configure
+@command{info '(Manifolding-OS) Virtualization Services'} to learn how to configure
 these services on the Guix System.
 
 To make it possible to redirect USB devices as a non-privileged user, some
@@ -13144,15 +13144,15 @@ and toolbars.")
       #:glib-or-gtk? #t
       #:imported-modules (append %meson-build-system-modules
                                  %pyproject-build-system-modules)
-      #:modules '((guix build meson-build-system)
-                  ((guix build pyproject-build-system) #:prefix py:)
-                  (guix build utils))
+      #:modules '((Manifolding-OS build meson-build-system)
+                  ((Manifolding-OS build pyproject-build-system) #:prefix py:)
+                  (Manifolding-OS build utils))
       #:phases
       #~(modify-phases %standard-phases
           (add-after 'glib-or-gtk-wrap 'python-and-gi-wrap
             (lambda* (#:key inputs outputs #:allow-other-keys)
               (wrap-program (search-input-file outputs "bin/setzer")
-                `("GUIX_PYTHONPATH" = (,(getenv "GUIX_PYTHONPATH")
+                `("MANIFOLDING_OS_PYTHONPATH" = (,(getenv "MANIFOLDING_OS_PYTHONPATH")
                                        ,(py:site-packages inputs outputs)))
                 `("GI_TYPELIB_PATH" = (,(getenv "GI_TYPELIB_PATH")))))))))
     (native-inputs
@@ -13224,7 +13224,7 @@ GTK.  It integrates well with the GNOME desktop environment.")
                     (pygo (string-append
                            (assoc-ref inputs "python-pygobject") site))
                     (python-wrap
-                     `("GUIX_PYTHONPATH" = (,evdev ,pygo))))
+                     `("MANIFOLDING_OS_PYTHONPATH" = (,evdev ,pygo))))
                (wrap-program (string-append out "/bin/" "ratbagctl")
                  python-wrap)
                #t))))))
@@ -13279,9 +13279,9 @@ your operating-system definition:
      (list
       #:imported-modules (append %meson-build-system-modules
                                  %pyproject-build-system-modules)
-      #:modules `(((guix build pyproject-build-system) #:prefix py:)
-                  (guix build meson-build-system)
-                  (guix build utils))
+      #:modules `(((Manifolding-OS build pyproject-build-system) #:prefix py:)
+                  (Manifolding-OS build meson-build-system)
+                  (Manifolding-OS build utils))
       #:phases
       #~(modify-phases %standard-phases
           (add-after 'unpack 'dont-update-gtk-icon-cache
@@ -13301,8 +13301,8 @@ your operating-system definition:
               (wrap-script (search-input-file outputs "bin/piper")
                 `("GI_TYPELIB_PATH" =
                   (,(getenv "GI_TYPELIB_PATH")))
-                `("GUIX_PYTHONPATH" =
-                  (,(getenv "GUIX_PYTHONPATH")
+                `("MANIFOLDING_OS_PYTHONPATH" =
+                  (,(getenv "MANIFOLDING_OS_PYTHONPATH")
                    ,(py:site-packages inputs outputs)))))))))
     (native-inputs
      (list appstream
@@ -13363,7 +13363,7 @@ provided there is a DBus service present:
                 "0qc8kk8wycjj65mh04pylh6fcxx5wj5bp5ipxc4a6k9nw6iaq5fd"))
               (snippet
                #~(begin
-                   (use-modules (guix build utils))
+                   (use-modules (Manifolding-OS build utils))
                    (delete-file-recursively "subprojects")))))
     (build-system meson-build-system)
     (arguments
@@ -13533,7 +13533,7 @@ host to avoid parser overhead and memory-allocator fragmentation.")
                 "0gfh965rddmg9glyh0gzkzxi27c7kfdakwrkycc7hg7s68p03xgh"))
               (snippet
                #~(begin
-                   (use-modules (guix build utils))
+                   (use-modules (Manifolding-OS build utils))
                    (delete-file-recursively "subprojects")))))
     (build-system meson-build-system)
     (arguments
@@ -13829,7 +13829,7 @@ exit(0 if importlib.util.find_spec(~a) else 1)"
             (lambda _
               (wrap-program (string-append #$output "/bin/ocrfeeder")
                 `("PYTHONPATH" =
-                  (,(getenv "GUIX_PYTHONPATH")
+                  (,(getenv "MANIFOLDING_OS_PYTHONPATH")
                    ,(string-append #$output "/lib/python"
                                    #$(version-major+minor
                                       (package-version python))
@@ -14197,9 +14197,9 @@ Protocol} for @acronym{VoIP, Voice over @acronym{IP, Internet Protocol}}.")
      (list #:glib-or-gtk? #t
            #:imported-modules (append %meson-build-system-modules
                                       %pyproject-build-system-modules)
-           #:modules '((guix build meson-build-system)
-                       ((guix build pyproject-build-system) #:prefix py:)
-                       (guix build utils))
+           #:modules '((Manifolding-OS build meson-build-system)
+                       ((Manifolding-OS build pyproject-build-system) #:prefix py:)
+                       (Manifolding-OS build utils))
            #:phases
            #~(modify-phases %standard-phases
                (add-after 'unpack 'disable-post-install
@@ -14212,8 +14212,8 @@ Protocol} for @acronym{VoIP, Voice over @acronym{IP, Internet Protocol}}.")
                (add-after 'glib-or-gtk-wrap 'python-and-gi-wrap
                  (lambda* (#:key inputs outputs #:allow-other-keys)
                    (wrap-program (search-input-file outputs "bin/confy")
-                     `("GUIX_PYTHONPATH" =
-                       (,(getenv "GUIX_PYTHONPATH")
+                     `("MANIFOLDING_OS_PYTHONPATH" =
+                       (,(getenv "MANIFOLDING_OS_PYTHONPATH")
                         ,(py:site-packages inputs outputs)))
                      `("GI_TYPELIB_PATH" = (,(getenv "GI_TYPELIB_PATH")))))))))
     (inputs (list gtk
@@ -14292,7 +14292,7 @@ you to mark favorite talks and highlights conflicts between favorited talks.")
                 "1l4z531p9mjv731wz0sz53addl93nab9gjxpyb32cmvba10gj3ip"))
               (snippet
                #~(begin
-                   (use-modules (guix build utils))
+                   (use-modules (Manifolding-OS build utils))
                    (delete-file-recursively "subprojects")))))
     (build-system meson-build-system)
     (arguments

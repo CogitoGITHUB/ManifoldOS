@@ -18,13 +18,13 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (test-eggs)
-  #:use-module (guix import egg)
-  #:use-module (guix gexp)
-  #:use-module (guix base32)
+  #:use-module (Manifolding-OS import egg)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS base32)
   #:use-module (gcrypt hash)
-  #:use-module (guix tests)
-  #:use-module ((guix build syscalls) #:select (mkdtemp!))
-  #:use-module ((guix build utils)
+  #:use-module (Manifolding-OS tests)
+  #:use-module ((Manifolding-OS build syscalls) #:select (mkdtemp!))
+  #:use-module ((Manifolding-OS build utils)
                 #:select (delete-file-recursively mkdir-p which
                           call-with-temporary-output-file))
   #:use-module (srfi srfi-1)

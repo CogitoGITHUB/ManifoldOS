@@ -43,19 +43,19 @@ PATH="$abs_top_builddir/scripts:$abs_top_builddir:$PATH"
 export PATH
 
 # The daemon invokes 'guix'; tell it which one to use.
-GUIX="$abs_top_builddir/scripts/guix"
-export GUIX
+MANIFOLDING_OS="$abs_top_builddir/scripts/Manifolding-OS"
+export MANIFOLDING_OS
 
 # Sanity check.
-if [ "$1" = "guix" ] && [ ! -f "$GUIX" ]; then
-    echo "$GUIX is not built.  Please run 'make scripts/guix'."
+if [ "$1" = "Manifolding-OS" ] && [ ! -f "$MANIFOLDING_OS" ]; then
+    echo "$MANIFOLDING_OS is not built.  Please run 'make scripts/Manifolding-OS'."
     exit 1
 fi
 
-# Define $GUIX_UNINSTALLED to prevent `guix' from
+# Define $MANIFOLDING_OS_UNINSTALLED to prevent `Manifolding-OS' from
 # prepending @guilemoduledir@ to the Guile load paths.
 
-GUIX_UNINSTALLED=1
-export GUIX_UNINSTALLED
+MANIFOLDING_OS_UNINSTALLED=1
+export MANIFOLDING_OS_UNINSTALLED
 
 exec "$@"

@@ -22,10 +22,10 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu services cuirass)
-  #:use-module (guix gexp)
-  #:use-module (guix records)
-  #:use-module (guix store)
-  #:use-module (guix utils)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS records)
+  #:use-module (Manifolding-OS store)
+  #:use-module (Manifolding-OS utils)
   #:use-module (gnu packages admin)
   #:use-module (gnu packages ci)
   #:use-module (gnu packages databases)
@@ -379,9 +379,9 @@
          (profile        (string-append "/var/guix/profiles/per-user/" user))
          (roots          (string-append profile "/cuirass"))
          (group          (cuirass-configuration-group config)))
-    (with-imported-modules '((guix build utils))
+    (with-imported-modules '((Manifolding-OS build utils))
       #~(begin
-          (use-modules (guix build utils))
+          (use-modules (Manifolding-OS build utils))
 
           (mkdir-p #$cache)
           (mkdir-p #$log)

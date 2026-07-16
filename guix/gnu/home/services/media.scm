@@ -26,9 +26,9 @@
   #:use-module (gnu packages video)
   #:use-module (gnu services configuration)
   #:use-module (gnu services shepherd)
-  #:use-module (guix packages)
-  #:use-module (guix records)
-  #:use-module (guix gexp)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS records)
+  #:use-module (Manifolding-OS gexp)
   #:export (home-kodi-configuration
             home-kodi-service-type
 

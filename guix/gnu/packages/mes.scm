@@ -33,13 +33,13 @@
   #:use-module (gnu packages perl)
   #:use-module (gnu packages pkg-config)
   #:use-module (gnu packages texinfo)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix download)
-  #:use-module (guix gexp)
-  #:use-module (guix git-download)
-  #:use-module (guix licenses)
-  #:use-module (guix packages)
-  #:use-module (guix utils))
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS licenses)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS utils))
 
 (define-public nyacc-1.08.1
   (package
@@ -52,7 +52,7 @@
               (sha256
                (base32
                 "1vrz3pnlr3njwk6ksz85slcwawi8ngiqbw94wd9x3mgv85vsfmys"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                '(substitute* "configure"
                   (("GUILE_GLOBAL_SITE=\\$prefix.*")
@@ -83,7 +83,7 @@ parsers to allow execution with Guile as extension languages.")
               (method url-fetch)
               (uri (string-append "mirror://savannah/nyacc/nyacc-"
                                   version ".tar.gz"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                '(begin
                   (substitute* (find-files "." "^Makefile\\.in$")
@@ -119,7 +119,7 @@ parsers to allow execution with Guile as extension languages.")
               (sha256
                (base32
                 "0wyrq9sc9j0yp34iwzsjfpz40503psbvd982vy8kx8ym99rn5w7r"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                '(begin
                   (substitute* "configure"
@@ -141,7 +141,7 @@ $prefix/share/guile/site/$GUILE_EFFECTIVE_VERSION\n"))
               (sha256
                (base32
                 "148hljzmikl68z8jzryrdmqy9ifgz5xmid2ggdxvbyb07iawx93g"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                '(begin
                   (substitute* "configure"

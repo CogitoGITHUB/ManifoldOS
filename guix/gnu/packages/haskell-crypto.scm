@@ -30,12 +30,12 @@
   #:use-module (gnu packages haskell-xyz)
   #:use-module (gnu packages pkg-config)
   #:use-module (gnu packages tls)
-  #:use-module (guix build-system haskell)
-  #:use-module (guix download)
-  #:use-module (guix gexp)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix packages)
-  #:use-module (guix utils))
+  #:use-module (Manifolding-OS build-system haskell)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS utils))
 
 (define-public ghc-asn1-types
   (package

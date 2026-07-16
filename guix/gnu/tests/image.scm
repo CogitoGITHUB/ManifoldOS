@@ -25,8 +25,8 @@
   #:use-module (gnu system vm)
   #:use-module (gnu packages guile)
   #:use-module (gnu packages guile-xyz)
-  #:use-module (guix gexp)
-  #:use-module (guix monads)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS monads)
   #:use-module (ice-9 format)
   #:export (%test-images))
 

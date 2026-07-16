@@ -27,12 +27,12 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages elixir)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix gexp)
-  #:use-module (guix utils)
-  #:use-module (guix git-download)
-  #:use-module (guix packages)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS utils)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS packages)
   #:use-module (gnu packages)
   #:use-module (gnu packages bash)
   #:use-module (gnu packages erlang)
@@ -150,7 +150,7 @@
                   (substitute* (string-append out "/bin/mix")
                     (("Mix.CLI.main\\(\\)")
                      (format #f "\
-~~w[GUIX_ELIXIR_LIBS ERL_LIBS]
+~~w[MANIFOLDING_OS_ELIXIR_LIBS ERL_LIBS]
 |> Enum.map(&System.get_env/1)
 |> Enum.reject(&is_nil/1)
 |> Enum.join(\":\")
@@ -161,14 +161,14 @@ Mix.CLI.main()"
                   (for-each
                    (lambda (program)
                      (wrap-program (string-append out "/bin/" program)
-                       '("ERL_LIBS" prefix ("${GUIX_ELIXIR_LIBS}"))))
+                       '("ERL_LIBS" prefix ("${MANIFOLDING_OS_ELIXIR_LIBS}"))))
                    programs))))))))
     (outputs '("out" "src"))
     (inputs (list bash-minimal erlang rebar3))
     (native-inputs (list git-minimal/pinned))
     (native-search-paths
      (list (search-path-specification
-            (variable "GUIX_ELIXIR_LIBS")
+            (variable "MANIFOLDING_OS_ELIXIR_LIBS")
             (files (list (string-append "lib/elixir/" (version-major+minor
                                                        version))
                          "lib/erlang/lib")))))

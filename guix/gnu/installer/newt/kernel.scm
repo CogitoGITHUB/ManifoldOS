@@ -18,8 +18,8 @@
 
 (define-module (gnu installer newt kernel)
   #:use-module (gnu installer newt page)
-  #:use-module (guix i18n)
-  #:use-module (guix utils)
+  #:use-module (Manifolding-OS i18n)
+  #:use-module (Manifolding-OS utils)
   #:export (run-kernel-page))
 
 (define (run-kernel-page)

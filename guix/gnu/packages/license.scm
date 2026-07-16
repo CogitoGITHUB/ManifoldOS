@@ -36,13 +36,13 @@
   #:use-module (gnu packages rust-apps)
   #:use-module (gnu packages version-control)
   #:use-module (gnu packages web)
-  #:use-module (guix build-system perl)
-  #:use-module (guix build-system pyproject)
-  #:use-module (guix download)
-  #:use-module (guix gexp)
-  #:use-module (guix git-download)
-  #:use-module (guix licenses)
-  #:use-module (guix packages))
+  #:use-module (Manifolding-OS build-system perl)
+  #:use-module (Manifolding-OS build-system pyproject)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS licenses)
+  #:use-module (Manifolding-OS packages))
 
 ;;;
 ;;; Please: Try to add new module packages in alphabetic order.

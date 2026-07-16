@@ -22,8 +22,8 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu build cross-toolchain)
-  #:use-module (guix build utils)
-  #:use-module (guix build gnu-build-system)
+  #:use-module (Manifolding-OS build utils)
+  #:use-module (Manifolding-OS build gnu-build-system)
   #:use-module (srfi srfi-1)
   #:use-module (srfi srfi-26)
   #:use-module (ice-9 match)
@@ -208,7 +208,7 @@ a target triplet."
       patch-genmultilib-shebang)
     (add-before 'configure 'set-cross-path
       ;; This mingw32 target checking logic should match that of target-mingw?
-      ;; in (guix utils), but (guix utils) is too large too copy over to the
+      ;; in (Manifolding-OS utils), but (Manifolding-OS utils) is too large too copy over to the
       ;; build side entirely and for now we have no way to select variables to
       ;; copy over. See (gnu packages cross-base) for more details.
       (cond

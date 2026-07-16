@@ -28,14 +28,14 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages kde-internet)
-  #:use-module (guix build-system cmake)
-  #:use-module (guix build-system qt)
-  #:use-module (guix download)
-  #:use-module (guix git-download)
-  #:use-module (guix gexp)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix packages)
-  #:use-module (guix utils)
+  #:use-module (Manifolding-OS build-system cmake)
+  #:use-module (Manifolding-OS build-system qt)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS utils)
   #:use-module (gnu packages)
   #:use-module (gnu packages bash)
   #:use-module (gnu packages boost)
@@ -195,7 +195,7 @@ framework.  It builds XMPP clients complying with the XMPP Compliance Suites
        (method url-fetch)
        (uri (string-append "mirror://kde/unstable/kaidan/" version
                            "/kaidan-" version ".tar.xz"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         #~(begin
             (delete-file-recursively "3rdparty")))
@@ -425,7 +425,7 @@ communicate with each other.  Here's a few things KDE Connect can do:
               (sha256
                (base32
                 "0slihvl6raz5vhr2a9wkbcygqjc0m12l0phrl3xwz5hg69iy6qdi"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                ;; Fix including libproxy.
                '(substitute* "kcms/proxy/wpad-detector/main.cpp"

@@ -19,7 +19,7 @@
 ;; This manifest lists all MPI-related packages: useful for 'guix refresh',
 ;; 'guix build', etc.
 
-(use-modules (guix)
+(use-modules (Manifolding-OS)
              (gnu packages fabric-management)
              (gnu packages linux)
              (gnu packages mpi)

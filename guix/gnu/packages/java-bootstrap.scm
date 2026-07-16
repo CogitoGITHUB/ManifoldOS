@@ -27,14 +27,14 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages java-bootstrap)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix packages)
-  #:use-module (guix download)
-  #:use-module (guix git-download)
-  #:use-module (guix utils)
-  #:use-module (guix gexp)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system trivial)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS utils)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system trivial)
   #:use-module (gnu packages)
   #:use-module (gnu packages autotools)
   #:use-module (gnu packages bash)
@@ -212,8 +212,8 @@ JNI.")
     (build-system gnu-build-system)
     (arguments
      `(#:modules ((srfi srfi-1)
-                  (guix build gnu-build-system)
-                  (guix build utils))
+                  (Manifolding-OS build gnu-build-system)
+                  (Manifolding-OS build utils))
        #:tests? #f ; no "check" target
        #:phases
        (modify-phases %standard-phases
@@ -383,10 +383,10 @@ requirement for all GNU Classpath releases after version 0.93.")
     (source #f)
     (build-system trivial-build-system)
     (arguments
-     `(#:modules ((guix build utils))
+     `(#:modules ((Manifolding-OS build utils))
        #:builder
        ,#~(begin
-            (use-modules (guix build utils))
+            (use-modules (Manifolding-OS build utils))
             (let* ((bin    (string-append #$output "/bin"))
                    (target (string-append bin "/javac"))
                    (guile  (string-append (assoc-ref %build-inputs "guile")
@@ -499,10 +499,10 @@ the standard javac executable.")))
     (build-system trivial-build-system)
     (arguments
      (list
-      #:modules '((guix build utils))
+      #:modules '((Manifolding-OS build utils))
       #:builder
       #~(begin
-          (use-modules (guix build utils))
+          (use-modules (Manifolding-OS build utils))
           (let ((bash      #$(this-package-native-input "bash-minimal"))
                 (jamvm     #$(this-package-native-input "jamvm"))
                 (classpath #$(this-package-native-input "classpath"))

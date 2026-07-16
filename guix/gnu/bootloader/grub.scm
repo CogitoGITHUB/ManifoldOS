@@ -28,12 +28,12 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu bootloader grub)
-  #:use-module (guix build union)
-  #:use-module (guix deprecation)
-  #:use-module (guix records)
-  #:use-module (guix store)
-  #:use-module (guix utils)
-  #:use-module (guix gexp)
+  #:use-module (Manifolding-OS build union)
+  #:use-module (Manifolding-OS deprecation)
+  #:use-module (Manifolding-OS records)
+  #:use-module (Manifolding-OS store)
+  #:use-module (Manifolding-OS utils)
+  #:use-module (Manifolding-OS gexp)
   #:use-module (gnu artwork)
   #:use-module (gnu bootloader)
   #:use-module (gnu build file-systems)
@@ -246,9 +246,9 @@ fi~%"
 and return a file in the format for GRUB keymaps.  LAYOUT must be present in
 the 'share/X11/xkb/symbols/' directory of 'xkeyboard-config'."
   (define builder
-    (with-imported-modules '((guix build utils))
+    (with-imported-modules '((Manifolding-OS build utils))
       #~(begin
-          (use-modules (guix build utils))
+          (use-modules (Manifolding-OS build utils))
 
           ;; 'grub-kbdcomp' passes all its arguments but '-o' to 'ckbcomp'
           ;; (from the 'console-setup' package).
@@ -747,7 +747,7 @@ underlying file-system, like FAT on an EFI System Partition (ESP), does not
 support symlinks.  In this case the MOUNT-POINT/TARGET/SUBDIR/grub.cfg will be
 created with the help of GRUB-EFI to load the /boot/grub/grub.cfg file.  A
 symlink to the store is not needed in this case."
-  (with-imported-modules '((guix build union))
+  (with-imported-modules '((Manifolding-OS build union))
     #~(lambda (bootloader target mount-point)
         ;; In context of a disk image creation TARGET will be #f and an
         ;; installer is expected to do necessary installations on MOUNT-POINT,
@@ -755,7 +755,7 @@ symlink to the store is not needed in this case."
         ;; installer has nothing to do, as it only cares about the EFI System
         ;; Partition (ESP).
         (when target
-          (use-modules ((guix build union) #:select (symlink-relative))
+          (use-modules ((Manifolding-OS build union) #:select (symlink-relative))
                        (ice-9 popen)
                        (ice-9 rdelim))
           (let* ((mount-point/target (string-append mount-point target "/"))

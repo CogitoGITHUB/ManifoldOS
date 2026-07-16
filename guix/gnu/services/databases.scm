@@ -39,13 +39,13 @@
   #:use-module (gnu packages admin)
   #:use-module (gnu packages base)
   #:use-module (gnu packages databases)
-  #:use-module (guix build-system trivial)
-  #:use-module (guix build union)
-  #:use-module (guix deprecation)
-  #:use-module (guix modules)
-  #:use-module (guix packages)
-  #:use-module (guix records)
-  #:use-module (guix gexp)
+  #:use-module (Manifolding-OS build-system trivial)
+  #:use-module (Manifolding-OS build union)
+  #:use-module (Manifolding-OS deprecation)
+  #:use-module (Manifolding-OS modules)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS records)
+  #:use-module (Manifolding-OS gexp)
   #:use-module (srfi srfi-1)
   #:use-module (ice-9 match)
   #:export (postgresql-config-file
@@ -240,10 +240,10 @@ host	all	all	::1/128 	scram-sha-256"))
       (source #f)
       (build-system trivial-build-system)
       (arguments
-       `(#:modules ((guix build utils) (guix build union))
+       `(#:modules ((Manifolding-OS build utils) (Manifolding-OS build union))
          #:builder
          (begin
-           (use-modules (guix build utils) (guix build union) (srfi srfi-26))
+           (use-modules (Manifolding-OS build utils) (Manifolding-OS build union) (srfi srfi-26))
            (union-build (assoc-ref %outputs "out")
                         (map (lambda (input) (cdr input))
                              %build-inputs))
@@ -259,7 +259,7 @@ host	all	all	::1/128 	scram-sha-256"))
         log-directory data-directory
         extension-packages)
     #~(begin
-        (use-modules (guix build utils)
+        (use-modules (Manifolding-OS build utils)
                      (ice-9 match))
 
         (let ((user (getpwnam "postgres")))
@@ -463,9 +463,9 @@ rolname = '" ,name "')) as not_exists;\n"
         (roles (postgresql-role-configuration-roles config)))
     (program-file "run-queries"
       (with-imported-modules (source-module-closure
-                              '((guix build utils)))
+                              '((Manifolding-OS build utils)))
         #~(begin
-            (use-modules (guix build utils)
+            (use-modules (Manifolding-OS build utils)
                          (ice-9 format)
                          (ice-9 match)
                          (ice-9 textual-ports)
@@ -594,7 +594,7 @@ created after the PostgreSQL database is started.")))
 
 (define memcached-activation
   #~(begin
-      (use-modules (guix build utils))
+      (use-modules (Manifolding-OS build utils))
       (let ((user (getpwnam "memcached")))
         (mkdir-p "/var/run/memcached")
         (chown "/var/run/memcached"
@@ -682,12 +682,12 @@ port=" (number->string port) "
   (program-file
    "mysqld-wrapper"
    (with-imported-modules (source-module-closure
-                           '((guix build utils)))
+                           '((Manifolding-OS build utils)))
      (let ((mysql     (mysql-configuration-mysql config))
            (datadir   (mysql-configuration-datadir config))
            (my.cnf    (mysql-configuration-file config)))
        #~(begin
-           (use-modules (guix build utils))
+           (use-modules (Manifolding-OS build utils))
            (let* ((mysqld (string-append #$mysql "/bin/mysqld"))
                   (user    (getpwnam "mysql"))
                   (uid     (passwd:uid user))
@@ -729,9 +729,9 @@ port=" (number->string port) "
     (program-file
      "mysql-install"
      (with-imported-modules (source-module-closure
-                             '((guix build utils)))
+                             '((Manifolding-OS build utils)))
        #~(begin
-           (use-modules (guix build utils))
+           (use-modules (Manifolding-OS build utils))
            ;; Make sed, mkdir, uname, etc available for mariadb-install-db.
            (set-path-environment-variable "PATH" '("bin")
                                           (list #$sed #$coreutils))
@@ -868,7 +868,7 @@ database and related files.")
   (match-lambda
     (($ <redis-configuration> redis bind port working-directory config-file)
      #~(begin
-         (use-modules (guix build utils)
+         (use-modules (Manifolding-OS build utils)
                       (ice-9 match))
 
          (let ((user (getpwnam "redis")))

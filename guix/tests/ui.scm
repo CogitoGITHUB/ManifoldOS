@@ -19,13 +19,13 @@
 
 
 (define-module (test-ui)
-  #:use-module (guix ui)
-  #:use-module (guix profiles)
-  #:use-module (guix store)
-  #:use-module (guix derivations)
+  #:use-module (Manifolding-OS ui)
+  #:use-module (Manifolding-OS profiles)
+  #:use-module (Manifolding-OS store)
+  #:use-module (Manifolding-OS derivations)
   #:use-module ((gnu packages) #:select (specification->package))
-  #:use-module (guix tests)
-  #:use-module (guix utils)
+  #:use-module (Manifolding-OS tests)
+  #:use-module (Manifolding-OS utils)
   #:use-module (srfi srfi-1)
   #:use-module (srfi srfi-11)
   #:use-module (srfi srfi-19)
@@ -36,7 +36,7 @@
   #:use-module (ice-9 match)
   #:use-module (ice-9 regex))
 
-;; Test the (guix ui) module.
+;; Test the (Manifolding-OS ui) module.
 
 (define %paragraph
   "GNU Guile is an implementation of the Scheme programming language, with
@@ -320,16 +320,16 @@ Second line" 24))
            (set! used-command command)
            (%make-void-port "")))
         (mock ((ice-9 popen) close-pipe (const 'ok))
-              (mock ((guix colors) isatty?* (const #t))
+              (mock ((Manifolding-OS colors) isatty?* (const #t))
                     (with-paginated-output-port port 'ok)
                     (string=? expected used-command)))))
 
 
-(test-assert "find-available-pager, GUIX_PAGER takes precedence"
+(test-assert "find-available-pager, MANIFOLDING_OS_PAGER takes precedence"
   (call-with-temporary-directory
    (lambda (dir)
      (with-environment-variables `(("PATH" ,dir)
-                                   ("GUIX_PAGER" "guix-pager")
+                                   ("MANIFOLDING_OS_PAGER" "guix-pager")
                                    ("PAGER" "pager"))
        (make-empty-file dir "less")
        (make-empty-file dir "more")
@@ -339,7 +339,7 @@ Second line" 24))
   (call-with-temporary-directory
    (lambda (dir)
      (with-environment-variables `(("PATH" ,dir)
-                                   ("GUIX_PAGER" #false)
+                                   ("MANIFOLDING_OS_PAGER" #false)
                                    ("PAGER" "pager"))
        (make-empty-file dir "less")
        (make-empty-file dir "more")
@@ -349,7 +349,7 @@ Second line" 24))
   (call-with-temporary-directory
    (lambda (dir)
      (with-environment-variables `(("PATH" ,dir)
-                                   ("GUIX_PAGER" #false)
+                                   ("MANIFOLDING_OS_PAGER" #false)
                                    ("PAGER" #false))
        (make-empty-file dir "less")
        (make-empty-file dir "more")
@@ -359,7 +359,7 @@ Second line" 24))
   (call-with-temporary-directory
    (lambda (dir)
      (with-environment-variables `(("PATH" ,dir)
-                                   ("GUIX_PAGER" #false)
+                                   ("MANIFOLDING_OS_PAGER" #false)
                                    ("PAGER" #false))
        (make-empty-file dir "more")
        (assert-equals-find-available-pager (in-vicinity dir "more"))))))
@@ -368,7 +368,7 @@ Second line" 24))
   (call-with-temporary-directory
    (lambda (dir)
      (with-environment-variables `(("PATH" ,dir)
-                                   ("GUIX_PAGER" #false)
+                                   ("MANIFOLDING_OS_PAGER" #false)
                                    ("PAGER" #false))
        (assert-equals-find-available-pager "")))))
 

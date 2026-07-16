@@ -30,8 +30,8 @@
   #:use-module (gnu services configuration)
   #:use-module (gnu services shepherd)
   #:use-module (gnu services)
-  #:use-module (guix packages)
-  #:use-module (guix records)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS records)
   #:use-module (ice-9 match)
   #:use-module (srfi srfi-1)
   #:use-module (srfi srfi-26)
@@ -519,8 +519,8 @@ file, 0 disables.")
          ;; Script dir depends on these, and the configuration depends on the
          ;; script dir.  To sever the cyclic dependency, pass the file names via
          ;; environment variables.
-         (define conf (getenv "GUIX_APCUPSD_CONF"))
-         (define powerfail-file (getenv "GUIX_APCUPSD_POWERFAIL_FILE"))
+         (define conf (getenv "MANIFOLDING_OS_APCUPSD_CONF"))
+         (define powerfail-file (getenv "MANIFOLDING_OS_APCUPSD_POWERFAIL_FILE"))
 
          (define (err . args)
            (apply format (current-error-port) args))
@@ -613,7 +613,7 @@ file, 0 disables.")
 (define (apcupsd-activation config)
   (match-record config <apcupsd-configuration> (run-dir)
     #~(begin
-        (use-modules (guix build utils))
+        (use-modules (Manifolding-OS build utils))
         (mkdir-p #$(string-append run-dir "/lock")))))
 
 (define (apcupsd-shepherd-services config)
@@ -636,9 +636,9 @@ file, 0 disables.")
                   #:log-file
                   #$(format #f "/var/log/~a.log" shepherd-service-name)
                   #:environment-variables
-                  (cons* (string-append "GUIX_APCUPSD_CONF="
+                  (cons* (string-append "MANIFOLDING_OS_APCUPSD_CONF="
                                         #$config-file)
-                         #$(string-append "GUIX_APCUPSD_POWERFAIL_FILE="
+                         #$(string-append "MANIFOLDING_OS_APCUPSD_POWERFAIL_FILE="
                                           run-dir "/powerfail")
                          (default-environment-variables))))
         (stop #~(make-kill-destructor))

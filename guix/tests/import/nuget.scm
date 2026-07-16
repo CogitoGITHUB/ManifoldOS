@@ -17,10 +17,10 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (test-nuget)
-  #:use-module (guix import nuget)
-  #:use-module (guix tests)
-  #:use-module (guix tests http)
-  #:use-module (guix http-client)
+  #:use-module (Manifolding-OS import nuget)
+  #:use-module (Manifolding-OS tests)
+  #:use-module (Manifolding-OS tests http)
+  #:use-module (Manifolding-OS http-client)
   #:use-module (json)
   #:use-module (semver)
   #:use-module (ice-9 match)
@@ -153,9 +153,9 @@
          (pk 'fail x #f))))))
 
 (test-assert "nuget-name->guix-name"
-  (and (string=? ((@@ (guix import nuget) nuget-name->guix-name) "Avalonia")
+  (and (string=? ((@@ (Manifolding-OS import nuget) nuget-name->guix-name) "Avalonia")
                  "dotnet-avalonia")
-       (string=? ((@@ (guix import nuget) nuget-name->guix-name) "System.Text.Json")
+       (string=? ((@@ (Manifolding-OS import nuget) nuget-name->guix-name) "System.Text.Json")
                  "dotnet-system-text-json")))
 
 (test-assert "nuget-recursive-import"
@@ -183,21 +183,21 @@
          (pk 'fail-recursive-count x #f))))))
 
 (test-assert "parse-nuget-range->primitives: exact version"
-  (let ((result ((@@ (guix import nuget) parse-nuget-range->primitives) "[1.0.0]")))
+  (let ((result ((@@ (Manifolding-OS import nuget) parse-nuget-range->primitives) "[1.0.0]")))
     (match result
       (((('= slice)))
        (equal? slice '(1 0 0 0 () ())))
       (_ #f))))
 
 (test-assert "parse-nuget-range->primitives: minimum version"
-  (let ((result ((@@ (guix import nuget) parse-nuget-range->primitives) "1.0.0")))
+  (let ((result ((@@ (Manifolding-OS import nuget) parse-nuget-range->primitives) "1.0.0")))
     (match result
       ((('>= slice))
        (equal? slice '(1 0 0 0 () ())))
       (_ #f))))
 
 (test-assert "parse-nuget-range->primitives: range with brackets"
-  (let ((result ((@@ (guix import nuget) parse-nuget-range->primitives) "[1.0.0,2.0.0]")))
+  (let ((result ((@@ (Manifolding-OS import nuget) parse-nuget-range->primitives) "[1.0.0,2.0.0]")))
     (match result
       ((('>= sv1) ('<= sv2))
        (and (semver? sv1)
@@ -207,7 +207,7 @@
       (_ #f))))
 
 (test-assert "parse-nuget-range->primitives: range with parens"
-  (let ((result ((@@ (guix import nuget) parse-nuget-range->primitives) "(1.0.0,2.0.0)")))
+  (let ((result ((@@ (Manifolding-OS import nuget) parse-nuget-range->primitives) "(1.0.0,2.0.0)")))
     (match result
       ((('> sv1) ('< sv2))
        (and (semver? sv1)
@@ -217,7 +217,7 @@
       (_ #f))))
 
 (test-assert "parse-nuget-range->primitives: open-ended range"
-  (let ((result ((@@ (guix import nuget) parse-nuget-range->primitives) "[1.0.0, )")))
+  (let ((result ((@@ (Manifolding-OS import nuget) parse-nuget-range->primitives) "[1.0.0, )")))
     (match result
       ((('>= sv))
        (and (semver? sv)
@@ -227,19 +227,19 @@
 (test-assert "nuget-find-best-version-for-range: stable version"
   ;; Test that it finds the highest stable version matching a range
   (with-nuget `(("/versions/avalonia/index.json" 200 ,test-avalonia-versions-json))
-    (let ((version ((@@ (guix import nuget) nuget-find-best-version-for-range)
+    (let ((version ((@@ (Manifolding-OS import nuget) nuget-find-best-version-for-range)
                     "Avalonia" "[11.0.0,)")))
       (string=? version "11.1.0"))))
 
 (test-assert "nuget-find-best-version-for-range: closed range"
   (with-nuget `(("/versions/avalonia/index.json" 200 ,test-avalonia-versions-json))
-    (let ((version ((@@ (guix import nuget) nuget-find-best-version-for-range)
+    (let ((version ((@@ (Manifolding-OS import nuget) nuget-find-best-version-for-range)
                     "Avalonia" "[11.0.0,12.0.0]")))
       (string=? version "11.1.0"))))
 
 (test-assert "nuget-fetch-catalog-entry: finds specific version"
   (with-nuget `(("/registration/avalonia/index.json" 200 ,test-avalonia-index-json))
-    (let ((entry ((@@ (guix import nuget) nuget-fetch-catalog-entry)
+    (let ((entry ((@@ (Manifolding-OS import nuget) nuget-fetch-catalog-entry)
                   "Avalonia" "11.1.0")))
       (and entry
            (string=? (assoc-ref entry "version") "11.1.0")

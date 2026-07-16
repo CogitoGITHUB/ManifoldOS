@@ -18,7 +18,7 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu system privilege)
-  #:use-module (guix records)
+  #:use-module (Manifolding-OS records)
   #:export (privileged-program
             privileged-program?
             privileged-program-program

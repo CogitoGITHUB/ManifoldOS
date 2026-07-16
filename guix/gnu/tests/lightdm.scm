@@ -38,8 +38,8 @@
   #:use-module (gnu system shadow)
   #:use-module (gnu system vm)
   #:use-module (gnu tests)
-  #:use-module (guix gexp)
-  #:use-module (guix modules)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS modules)
   #:use-module (srfi srfi-1)
   #:export (%test-lightdm))
 

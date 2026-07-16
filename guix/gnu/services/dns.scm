@@ -29,11 +29,11 @@
   #:use-module (gnu system shadow)
   #:use-module (gnu packages admin)
   #:use-module (gnu packages dns)
-  #:use-module (guix deprecation)
-  #:use-module (guix packages)
-  #:use-module (guix records)
-  #:use-module (guix gexp)
-  #:use-module (guix modules)
+  #:use-module (Manifolding-OS deprecation)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS records)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS modules)
   #:use-module (srfi srfi-1)
   #:use-module (srfi srfi-26)
   #:use-module (srfi srfi-34)
@@ -725,7 +725,7 @@ cache.size = 100 * MB
 
 (define (knot-resolver-activation config)
   #~(begin
-      (use-modules (guix build utils))
+      (use-modules (Manifolding-OS build utils))
       (let ((rundir "/var/cache/knot-resolver")
             (owner (getpwnam "knot-resolver")))
         (mkdir-p rundir)
@@ -996,7 +996,7 @@ cache.size = 100 * MB
 
 (define (dnsmasq-activation config)
   #~(begin
-      (use-modules (guix build utils))
+      (use-modules (Manifolding-OS build utils))
       ;; create directory to store dnsmasq lease file
       (mkdir-p "/var/lib/misc")))
 

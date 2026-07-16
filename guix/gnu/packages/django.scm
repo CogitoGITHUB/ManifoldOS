@@ -31,15 +31,15 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages django)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix packages)
-  #:use-module (guix download)
-  #:use-module (guix git-download)
-  #:use-module (guix gexp)
-  #:use-module (guix build-system pyproject)
-  #:use-module (guix deprecation)
-  #:use-module (guix search-paths)
-  #:use-module (guix utils)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS build-system pyproject)
+  #:use-module (Manifolding-OS deprecation)
+  #:use-module (Manifolding-OS search-paths)
+  #:use-module (Manifolding-OS utils)
   #:use-module (gnu packages)
   #:use-module (gnu packages base)
   #:use-module (gnu packages compression)
@@ -238,7 +238,7 @@ your project into different processes.")
          (add-before 'check 'delete-sitecustomize
            (lambda* _
              ;; This file gets loaded instead of the GUIX sitecustomize.py,
-             ;; so we end up ignoring GUIX_PYTHONPATH and breaking imports.
+             ;; so we end up ignoring MANIFOLDING_OS_PYTHONPATH and breaking imports.
              ;; It only contains a coverage hook that we don't need here.
              (delete-file "tests/sitecustomize.py")))
          (replace 'check
@@ -352,7 +352,7 @@ with a @var{CACHE_URL} environment variable.")
             (lambda* (#:key tests? #:allow-other-keys)
               (when tests?
                 (setenv "PYTHONPATH"
-                        (string-append ".:" (getenv "GUIX_PYTHONPATH")))
+                        (string-append ".:" (getenv "MANIFOLDING_OS_PYTHONPATH")))
                 (invoke "django-cadmin" "test" "-v2")))))))
     (native-inputs
      (list python-dj-database-url

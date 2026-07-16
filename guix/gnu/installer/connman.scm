@@ -18,7 +18,7 @@
 
 (define-module (gnu installer connman)
   #:use-module (gnu installer utils)
-  #:use-module (guix records)
+  #:use-module (Manifolding-OS records)
   #:use-module (ice-9 match)
   #:use-module (ice-9 popen)
   #:use-module (ice-9 regex)

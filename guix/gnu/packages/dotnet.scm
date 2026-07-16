@@ -20,7 +20,7 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages dotnet)
-  #:use-module ((guix licenses) #:prefix license:)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
   #:use-module (gnu packages assembly)
   #:use-module (gnu packages bash)
   #:use-module (gnu packages bison)
@@ -54,14 +54,14 @@
   #:use-module (gnu packages xorg)
   #:use-module (gnu packages version-control)
   #:use-module (gnu packages)
-  #:use-module (guix modules)
-  #:use-module (guix packages)
-  #:use-module (guix download)
-  #:use-module (guix git-download)
-  #:use-module (guix gexp)
-  #:use-module (guix utils)
-  #:use-module (guix build-system cmake)
-  #:use-module (guix build-system gnu)
+  #:use-module (Manifolding-OS modules)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS utils)
+  #:use-module (Manifolding-OS build-system cmake)
+  #:use-module (Manifolding-OS build-system gnu)
   #:use-module (ice-9 match))
 
 (define-public treecc
@@ -101,7 +101,7 @@ code to handle abstract syntax trees and operations upon the trees.")
                 (sha256
                  (base32
                   "0vznvrgz8l0mpib1rz5v3clr7cn570vyp80f7f1jvzivnc1imzn6"))
-                (modules '((guix build utils)))
+                (modules '((Manifolding-OS build utils)))
                 (snippet
                  #~(begin
                      (for-each delete-file-recursively '("libffi" "libgc"))
@@ -219,7 +219,7 @@ assembler, disassembler, and runtime engine.")
                 (sha256
                  (base32
                   "04dikki3lr3m1cacirld90rpi95656b2y2mc5rkycb7s0yfdz1nk"))
-                (modules '((guix build utils)))
+                (modules '((Manifolding-OS build utils)))
                 (snippet
                  #~(begin
                      (for-each delete-file
@@ -355,7 +355,7 @@ for use with .NET-capable runtime engines and applications.")
                       "mono-" version ".tar.bz2"))
                 (sha256
                  (base32 "03sn7wyvrjkkkbrqajpmqifxfn83p30qprizpb3m6c5cdhwlzk14"))
-                (modules '((guix build utils)
+                (modules '((Manifolding-OS build utils)
                            (ice-9 string-fun)))
                 (snippet #~(begin
                              #$prepare-mono-source
@@ -452,7 +452,7 @@ a C-style programming language from Microsoft that is very similar to Java.")
               (sha256
                (base32
                 "0s1n3zdhc2alk9smxfdl1kjz7lz2p19gs0ks4hgr864jlmf13bws"))
-              (modules '((guix build utils)
+              (modules '((Manifolding-OS build utils)
                          (ice-9 string-fun)))
               (snippet prepare-mono-source)
               (patches (search-patches
@@ -541,7 +541,7 @@ a C-style programming language from Microsoft that is very similar to Java.")
               (sha256
                (base32
                 "0mnrk17rd9c5rh30dh82a39c9ak1ns998b41ivprvy7m068skpda"))
-              (modules '((guix build utils)
+              (modules '((Manifolding-OS build utils)
                          (ice-9 string-fun)))
               (snippet prepare-mono-source)
               (patches (search-patches "mono-2.4.2.3-reproducibility.patch"
@@ -609,7 +609,7 @@ a C-style programming language from Microsoft that is very similar to Java.")
               (sha256
                (base32
                 "17977w45qh8jmfsl4bhi83si4fxd8s3x8b0pxnwdzjv3bqr54c85"))
-              (modules '((guix build utils)
+              (modules '((Manifolding-OS build utils)
                          (ice-9 string-fun)))
               (snippet prepare-mono-source)
               (patches (search-patches "mono-2.4.2.3-reproducibility.patch"
@@ -683,7 +683,7 @@ a C-style programming language from Microsoft that is very similar to Java.")
               (sha256
                (base32
                 "0y2bifi2avbjmfp80hjga2dyqip4b46zkvx6yfr9pa2hhm940rpx"))
-              (modules '((guix build utils)
+              (modules '((Manifolding-OS build utils)
                          (ice-9 string-fun)))
               (snippet #~(begin
                            #$(add-external-repos
@@ -748,7 +748,7 @@ a C-style programming language from Microsoft that is very similar to Java.")
               (sha256
                (base32
                 "110f3hcfikk6bxbrgjas5dqldci9f24gvm3vdgn4j9j7xhlcx1lj"))
-              (modules '((guix build utils)
+              (modules '((Manifolding-OS build utils)
                          (ice-9 string-fun)))
               (snippet #~(begin
                            #$(add-external-repos
@@ -815,7 +815,7 @@ a C-style programming language from Microsoft that is very similar to Java.")
               (sha256
                (base32
                 "01sxrnfch61k8v7av7ccbmy3v37ky8yp8460j6ycnbyfa3305y0f"))
-              (modules '((guix build utils)
+              (modules '((Manifolding-OS build utils)
                          (ice-9 string-fun)))
               (snippet #~(begin
                            #$(add-external-repos
@@ -892,7 +892,7 @@ a C-style programming language from Microsoft that is very similar to Java.")
               (sha256
                (base32
                 "0vqkkqkaqwbii4hdzg0vffyy31fz1kmmsa67jyqwxdsvgpjszih3"))
-              (modules '((guix build utils)
+              (modules '((Manifolding-OS build utils)
                          (ice-9 string-fun)))
               (snippet #~(begin
                            #$(add-external-repos
@@ -1037,7 +1037,7 @@ a C-style programming language from Microsoft that is very similar to Java.")
               (sha256
                (base32
                 "05z9bddljp8xwsw7qw3f7bic8i202wrc60pjb9fn4igwfz9278n5"))
-              (modules '((guix build utils)
+              (modules '((Manifolding-OS build utils)
                          (ice-9 string-fun)))
               (snippet #~(begin
                            #$(add-external-repos
@@ -1177,7 +1177,7 @@ unused0:")))))
               (sha256
                (base32
                 "1sxq40nay5ghhmfbdln98iri19y0h7q36r3pqnxmxnm94livx2k5"))
-              (modules '((guix build utils)
+              (modules '((Manifolding-OS build utils)
                          (ice-9 string-fun)))
               (snippet #~(begin
                            #$(add-external-repos
@@ -1265,7 +1265,7 @@ exec ~s ~s \"$@\"
               (sha256
                (base32
                 "0zsgfqyjkpix05gvgvhqyyqcwcjp5xlvcyv471q32qf307dccbfa"))
-              (modules '((guix build utils)
+              (modules '((Manifolding-OS build utils)
                          (ice-9 string-fun)))
               (snippet #~(begin
                            #$(add-external-repos
@@ -1354,7 +1354,7 @@ exec ~s ~s \"$@\"
               (sha256
                (base32
                 "0gx3fxz1wlq5fkj7iphv32vg9m78ia74m9pgn9rab4fyq2k9an2y"))
-              (modules '((guix build utils)
+              (modules '((Manifolding-OS build utils)
                          (ice-9 string-fun)))
               (snippet #~(begin
                            #$(add-external-repos
@@ -1426,7 +1426,7 @@ exec ~s ~s \"$@\"
                 (sha256
                  (base32
                   "0az5syk1nn9gd5imkbmpb13qm9q6ibr2d2ksdzpwsarkfyp4ic53"))
-                (modules '((guix build utils)
+                (modules '((Manifolding-OS build utils)
                            (ice-9 string-fun)))
                 (snippet #~(begin
                              #$(add-external-repos
@@ -1499,7 +1499,7 @@ exec ~s ~s \"$@\"
               (sha256
                (base32
                 "0130vd33yzp4w7570qw9xjq2g7b2xmacjbpkmzrpbhy8as5hy4z6"))
-              (modules '((guix build utils)
+              (modules '((Manifolding-OS build utils)
                          (ice-9 string-fun)))
               (snippet #~(begin
                            #$(add-external-repos
@@ -1630,7 +1630,7 @@ exec ~s ~s \"$@\"
                 (sha256
                  (base32
                   "0m8i0zgzh0fgb3ssy95v9czk1c0rl76q0jj7834s5fjnkdj8l4jb"))
-                (modules '((guix build utils)
+                (modules '((Manifolding-OS build utils)
                            (ice-9 string-fun)))
                 (snippet #~(begin
                              #$(add-external-repos
@@ -1698,7 +1698,7 @@ exec ~s ~s \"$@\"
               (sha256
                (base32
                 "1zvib164w4mzrsk06ym9my0208ccdanja2fx6x6mlyib358h3626"))
-              (modules '((guix build utils)
+              (modules '((Manifolding-OS build utils)
                          (ice-9 string-fun)))
               (snippet #~(begin
                            #$(add-external-repos
@@ -1780,7 +1780,7 @@ exec ~s ~s \"$@\"
        (file-name (git-file-name name version))
        (sha256
         (base32 "1gwmhrddr8kdlfprjqcd6gqiy8p5v8sl9215dbd949j1l76szl9v"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet #~(substitute* "./Makefile.am"
                     (("\\./update_submodules\\.sh")
                      ":")))))
@@ -1878,7 +1878,7 @@ most of the heavy lifting.")
               (sha256
                (base32
                 "1cw9v53bgbc6v7xmp5ij76y6inb6sz1g1zx2jk825rxshq96alvk"))
-              (modules '((guix build utils)
+              (modules '((Manifolding-OS build utils)
                          (ice-9 string-fun)))
               (snippet #~(begin
                            #$(add-external-repos
@@ -1895,8 +1895,8 @@ most of the heavy lifting.")
      (substitute-keyword-arguments
        (strip-keyword-arguments (list #:parallel-build?)
          (package-arguments mono-5.10.0))
-       ((#:modules modules '((guix build gnu-build-system)
-                             (guix build utils)))
+       ((#:modules modules '((Manifolding-OS build gnu-build-system)
+                             (Manifolding-OS build utils)))
         `((sxml simple)
           ,@modules))
        ((#:make-flags make-flags #~'())

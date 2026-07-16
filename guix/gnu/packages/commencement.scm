@@ -57,21 +57,21 @@
   #:use-module (gnu packages texinfo)
   #:use-module (gnu packages pkg-config)
   #:use-module (gnu packages xml)
-  #:use-module (guix gexp)
-  #:use-module (guix packages)
-  #:use-module (guix platform)
-  #:use-module ((guix store) #:select (%store-monad
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS platform)
+  #:use-module ((Manifolding-OS store) #:select (%store-monad
                                        store-lift
                                        built-in-builders))
-  #:use-module (guix monads)
-  #:use-module (guix download)
-  #:use-module ((guix git-download)
+  #:use-module (Manifolding-OS monads)
+  #:use-module (Manifolding-OS download)
+  #:use-module ((Manifolding-OS git-download)
                 #:select (git-fetch git-reference git-file-name git-version))
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system trivial)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix memoization)
-  #:use-module (guix utils)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system trivial)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS memoization)
+  #:use-module (Manifolding-OS utils)
   #:use-module (srfi srfi-1)
   #:use-module (ice-9 vlist)
   #:use-module (ice-9 match))
@@ -122,9 +122,9 @@ the checkout from TARBALL, a tarball containing said checkout.
           (mlet %store-monad ((guile (package->derivation guile system)))
             (gexp->derivation
              (or name "git-checkout")
-             (with-imported-modules '((guix build utils))
+             (with-imported-modules '((Manifolding-OS build utils))
                #~(begin
-                   (use-modules (guix build utils)
+                   (use-modules (Manifolding-OS build utils)
                                 (ice-9 ftw)
                                 (ice-9 match))
                    (setenv "PATH"
@@ -165,9 +165,9 @@ the checkout from TARBALL, a tarball containing said checkout.
      (list #:implicit-inputs? #f
            #:tests? #f
            #:guile %bootstrap-guile
-           #:imported-modules `((guix build gnu-bootstrap)
+           #:imported-modules `((Manifolding-OS build gnu-bootstrap)
                                 ,@%default-gnu-imported-modules)
-           #:modules `((guix build gnu-bootstrap)
+           #:modules `((Manifolding-OS build gnu-bootstrap)
                        ,@%default-gnu-modules)
            #:phases
            #~(modify-phases %standard-phases
@@ -209,9 +209,9 @@ pure Scheme to Tar and decompression in one easy step.")
      (list #:implicit-inputs? #f
            #:tests? #f
            #:guile %bootstrap-guile
-           #:imported-modules `((guix build gnu-bootstrap)
+           #:imported-modules `((Manifolding-OS build gnu-bootstrap)
                                 ,@%default-gnu-imported-modules)
-           #:modules `((guix build gnu-bootstrap)
+           #:modules `((Manifolding-OS build gnu-bootstrap)
                        ,@%default-gnu-modules)
            #:phases
            #~(modify-phases %standard-phases
@@ -239,9 +239,9 @@ pure Scheme to Tar and decompression in one easy step.")
      (list #:implicit-inputs? #f
            #:tests? #f
            #:guile %bootstrap-guile
-           #:imported-modules `((guix build gnu-bootstrap)
+           #:imported-modules `((Manifolding-OS build gnu-bootstrap)
                                 ,@%default-gnu-imported-modules)
-           #:modules `((guix build gnu-bootstrap)
+           #:modules `((Manifolding-OS build gnu-bootstrap)
                        ,@%default-gnu-modules)
            #:phases
            #~(modify-phases %standard-phases
@@ -370,10 +370,10 @@ pure Scheme to Tar and decompression in one easy step.")
       (arguments
        (list
         #:guile %bootstrap-guile
-        #:modules '((guix build utils))
+        #:modules '((Manifolding-OS build utils))
         #:builder
         #~(begin
-            (use-modules (guix build utils))
+            (use-modules (Manifolding-OS build utils))
             (let* ((source #$(package-source this-package))
                    (tar #$(this-package-native-input "bootar"))
                    (bash #$(this-package-native-input "bash"))
@@ -690,8 +690,8 @@ MesCC-Tools), and finally M2-Planet.")
                            "--build=i686-unknown-linux-gnu"
                            "--host=i686-unknown-linux-gnu"
                            "--disable-nls")
-       #:modules ((guix build gnu-build-system)
-                  (guix build utils)
+       #:modules ((Manifolding-OS build gnu-build-system)
+                  (Manifolding-OS build utils)
                   (srfi srfi-1))
        #:strip-binaries? #f             ; no strip yet
        #:phases
@@ -980,8 +980,8 @@ MesCC-Tools), and finally M2-Planet.")
                ,(string-append "BOOT_LDFLAGS="
                                " -B" (assoc-ref %build-inputs "tcc")
                                "/lib/"))
-           #:modules '((guix build gnu-build-system)
-                       (guix build utils)
+           #:modules '((Manifolding-OS build gnu-build-system)
+                       (Manifolding-OS build utils)
                        (srfi srfi-1))
            #:phases
            #~(modify-phases %standard-phases
@@ -1328,8 +1328,8 @@ ac_cv_c_float_format='IEEE (little-endian)'
      (list #:implicit-inputs? #f
            #:guile %bootstrap-guile
            #:tests? #f
-           #:modules '((guix build gnu-build-system)
-                       (guix build utils)
+           #:modules '((Manifolding-OS build gnu-build-system)
+                       (Manifolding-OS build utils)
                        (srfi srfi-1))
            #:parallel-build? #f             ; for debugging
            #:make-flags
@@ -1907,7 +1907,7 @@ exec " gcc "/bin/" program
                (string-append
                 previous-line
                 "  CONFIG_HEADER='$(CONFIG_HEADER)'\t\t\\\n")))))
-        (modules '((guix build utils))))))))
+        (modules '((Manifolding-OS build utils))))))))
 
 ;; "sed" from Gash-Utils lacks the 'w' command as of 0.2.0.
 (define coreutils-mesboot
@@ -2252,8 +2252,8 @@ exec " gcc "/bin/" program
      (append (list #:guile %bootstrap-guile
                    #:implicit-inputs? #f
 
-                   #:modules '((guix build gnu-build-system)
-                               (guix build utils)
+                   #:modules '((Manifolding-OS build gnu-build-system)
+                               (Manifolding-OS build utils)
                                (ice-9 ftw)) ; for 'scandir'
                    #:phases
                    #~(modify-phases %standard-phases
@@ -2317,8 +2317,8 @@ exec " gcc "/bin/" program
 
          ;; Explicitly add #:modules so MAKE-LIBSTDC++ can be changed
          ;; without a full bootstrap.
-         #:modules ((guix build gnu-build-system)
-                    (guix build utils))))
+         #:modules ((Manifolding-OS build gnu-build-system)
+                    (Manifolding-OS build utils))))
 
       (inputs (%boot0-inputs))
       (native-inputs '()))))
@@ -2401,8 +2401,8 @@ exec " gcc "/bin/" program
      (cons*
       #:guile %bootstrap-guile
       #:implicit-inputs? #f
-      #:modules '((guix build gnu-build-system)
-                  (guix build utils)
+      #:modules '((Manifolding-OS build gnu-build-system)
+                  (Manifolding-OS build utils)
                   (ice-9 regex)
                   (srfi srfi-1)
                   (srfi srfi-26))
@@ -2878,7 +2878,7 @@ memoized as a function of '%current-system'."
                (sha256
                 (base32
                  "0jdh9pvx6m6lfz2liwvvhn7vks7qrysqgwn517fkpxb77b33fjn2"))
-               (modules '((guix build utils)))
+               (modules '((Manifolding-OS build utils)))
                (snippet
                 '(begin
                    ;; Delete the bundled copy of libexpat.
@@ -3043,9 +3043,9 @@ that makes it available under the native tool names."
     (arguments
      (list
       #:guile %bootstrap-guile
-      #:modules '((guix build utils))
+      #:modules '((Manifolding-OS build utils))
       #:builder #~(begin
-                    (use-modules (guix build utils))
+                    (use-modules (Manifolding-OS build utils))
 
                     (let* ((binutils (assoc-ref %build-inputs "binutils"))
                            (gcc      (assoc-ref %build-inputs "gcc"))
@@ -3642,12 +3642,12 @@ COREUTILS-FINAL vs. COREUTILS, etc."
       (source #f)
       (build-system trivial-build-system)
       (arguments
-       '(#:modules ((guix build union))
+       '(#:modules ((Manifolding-OS build union))
          #:builder (begin
                      (use-modules (ice-9 match)
                                   (srfi srfi-1)
                                   (srfi srfi-26)
-                                  (guix build union))
+                                  (Manifolding-OS build union))
 
                      (let ((out (assoc-ref %outputs "out")))
                        (union-build out
@@ -3666,7 +3666,7 @@ COREUTILS-FINAL vs. COREUTILS, etc."
 
       (native-search-paths
        (append (package-native-search-paths gcc)
-               (package-native-search-paths libc))) ;GUIX_LOCPATH
+               (package-native-search-paths libc))) ;MANIFOLDING_OS_LOCPATH
       (search-paths
        (append (package-search-paths gcc)
                (package-search-paths libc)))

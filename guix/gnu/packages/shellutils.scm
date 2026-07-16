@@ -40,17 +40,17 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages shellutils)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix gexp)
-  #:use-module (guix utils)
-  #:use-module (guix packages)
-  #:use-module (guix download)
-  #:use-module (guix git-download)
-  #:use-module (guix build-system cargo)
-  #:use-module (guix build-system copy)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system go)
-  #:use-module (guix build-system pyproject)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS utils)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS build-system cargo)
+  #:use-module (Manifolding-OS build-system copy)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system go)
+  #:use-module (Manifolding-OS build-system pyproject)
   #:use-module (gnu packages)
   #:use-module (gnu packages admin)
   #:use-module (gnu packages autotools)
@@ -453,7 +453,7 @@ all of the regexes given on the command line in order.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "11rlx3l37aspd9674xdisw394bdly0yb38asqxaz4riadgj0vbfx"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         #~(begin
             ;; It fails during check phase, looks like a MVP: gosh is a proof
@@ -526,8 +526,8 @@ POSIX Shell}, @url{https://www.gnu.org/software/bash/, Bash}, and
      (list
       #:install-source? #f
       #:modules
-      '((guix build cargo-build-system)
-        (guix build utils)
+      '((Manifolding-OS build cargo-build-system)
+        (Manifolding-OS build utils)
         (ice-9 match))
       #:phases
       #~(modify-phases %standard-phases
@@ -626,8 +626,8 @@ between various shells or commands.")
     (build-system pyproject-build-system)
     (arguments
      (list
-      #:modules `((guix build pyproject-build-system)
-                  (guix build utils)
+      #:modules `((Manifolding-OS build pyproject-build-system)
+                  (Manifolding-OS build utils)
                   (ice-9 match))
       #:phases #~(modify-phases %standard-phases
                    (add-before 'build 'fix-setup.py
@@ -988,7 +988,7 @@ more than one point in the path).")
        (sha256
         (base32
          "18xlkr56jdyajjihcmfqlyyanzyiqqlzbhrm6695mkvw081g1lnb"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet '(begin
                    (substitute* "src/Makefile.in"
                      (("\\(\\$bindir\\)") "$(bindir)"))
@@ -1031,13 +1031,13 @@ The file renaming utilities consists of five programs: @command{qmv},
                 (("conffilenames = \\[.*\\]")
                  (string-append
                   "conffilenames = ["
-                  "os.environ.get('GUIX_ENVIRONMENT', '" #$output "') "
+                  "os.environ.get('MANIFOLDING_OS_ENVIRONMENT', '" #$output "') "
                   "+ '/etc/grc.conf']")))
               (substitute* "grcat"
                 (("conffilepath \\+= \\['/usr/.*\\]")
                  (string-append
                   "conffilepath += ["
-                  "os.environ.get('GUIX_ENVIRONMENT', '" #$output "') "
+                  "os.environ.get('MANIFOLDING_OS_ENVIRONMENT', '" #$output "') "
                   "+ '/share/grc/']"))))) ;; trailing slash!
           (delete 'check)
           (replace 'install
@@ -1052,7 +1052,7 @@ the box.
 You might want to add these lines you your @code{~/.bashrc}:
 @example
 GRC_ALIASES=true
-source ${GUIX_ENVIRONMENT:-$HOME/.guix-profile}/etc/profile.d/grc.sh
+source ${MANIFOLDING_OS_ENVIRONMENT:-$HOME/.guix-profile}/etc/profile.d/grc.sh
 @end example
 ")
     (license license:gpl2)))
@@ -1178,8 +1178,8 @@ shell with fzf, enabling fuzzy finding and multi-selection.")
      (list
        #:install-source? #f
        #:modules
-       '((guix build cargo-build-system)
-         (guix build utils)
+       '((Manifolding-OS build cargo-build-system)
+         (Manifolding-OS build utils)
          (ice-9 match))
        #:phases
        #~(modify-phases %standard-phases

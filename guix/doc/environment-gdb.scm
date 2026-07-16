@@ -1,4 +1,4 @@
-(use-modules (guix)
+(use-modules (Manifolding-OS)
              (gnu packages gdb)
              (gnu packages autotools)
              (gnu packages texinfo))

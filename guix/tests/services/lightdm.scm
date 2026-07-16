@@ -17,7 +17,7 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (tests services lightdm)
-  #:use-module (guix diagnostics)
+  #:use-module (Manifolding-OS diagnostics)
   #:use-module (gnu services lightdm)
   #:use-module (srfi srfi-64))
 

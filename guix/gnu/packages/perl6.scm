@@ -19,13 +19,13 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages perl6)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix download)
-  #:use-module (guix git-download)
-  #:use-module (guix packages)
-  #:use-module (guix utils)
-  #:use-module (guix build-system perl)
-  #:use-module (guix build-system rakudo)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS utils)
+  #:use-module (Manifolding-OS build-system perl)
+  #:use-module (Manifolding-OS build-system rakudo)
   #:use-module (gnu packages bdw-gc)
   #:use-module (gnu packages libevent)
   #:use-module (gnu packages libffi)
@@ -45,7 +45,7 @@
                            version ".tar.gz"))
        (sha256
         (base32 "0128fxqaz7cwjf6amaz2cgd7xl52zvi5fr7bwnj229snll5za1mf"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         '(begin
            ;(delete-file-recursively "3rdparty/dynasm") ; JIT
@@ -170,7 +170,7 @@ t/30-if-macro.t\n")))))
                            version "/nqp-" version ".tar.gz"))
        (sha256
         (base32 "1777shxr8qw6m2492ckb0r301qdx5gls6kphz554dh6k4n74avam"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         '(delete-file-recursively "3rdparty"))))
     (build-system perl-build-system)
@@ -235,7 +235,7 @@ regular expression engine for the virtual machine.")
                            version "/rakudo-" version ".tar.gz"))
        (sha256
         (base32 "0x0w5b8g5kna1mlvsli9dqmnwvqalrar3cgpixmyiyvyjb6ah4vy"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         '(delete-file-recursively "3rdparty"))))
     (build-system perl-build-system)

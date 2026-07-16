@@ -19,13 +19,13 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages kde-office)
-  #:use-module (guix packages)
-  #:use-module (guix download)
-  #:use-module (guix git-download)
-  #:use-module (guix build-system qt)
-  #:use-module (guix gexp)
-  #:use-module (guix utils)
-  #:use-module ((guix licenses) #:prefix license:)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS build-system qt)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS utils)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
   #:use-module (gnu packages)
   #:use-module (gnu packages algebra)
   #:use-module (gnu packages boost)
@@ -172,7 +172,7 @@ Advanced plugins:
                            "/crow-translate-" version ".tar.gz"))
        (sha256
         (base32 "0lrpxdgicbg0wj2cf0lif99pz5kiqck53qkm5385vymzn1w8wjz2"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         '(begin
            ;; Delete bundled breeze-icons, espeak-ng and qhotkey.
@@ -387,7 +387,7 @@ icon and an accent color for each notebook.")
               (file-name (git-file-name name version))
               (sha256
                (base32 "0930jh6b9cl3jvhmfv00l6566vsnpwkf6shz5w0hn67j0vpvhk7s"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                ;; Fix including QtPrintSupport.
                '(substitute* (find-files "src" "\\.(h|cpp)$")

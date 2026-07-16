@@ -1,7 +1,7 @@
 ;;; GNU Guix --- Functional package management for GNU
 ;;; Copyright © 2019-2026 Ludovic Courtès <ludo@gnu.org>
 ;;; Copyright © 2020 Björn Höfling <bjoern.hoefling@bjoernhoefling.de>
-;;; Copyright © 2022 Maxim Cournoyer <maxim@guixotic.coop>
+;;; Copyright © 2022 Maxim Cournoyer <maxim@Manifolding-OSotic.coop>
 ;;; Copyright © 2025 Florian Pelz <pelzflorian@pelzflorian.de>
 ;;;
 ;;; This file is part of GNU Guix.
@@ -23,17 +23,17 @@
 ;; This file contains machinery to build HTML and PDF copies of the manual
 ;; that can be readily published on the web site.  To do that, run:
 ;;
-;;  guix build -f build.scm
+;;  Manifolding-OS build -f build.scm
 ;;
 ;; The result is a directory hierarchy that can be used as the manual/
 ;; sub-directory of the web site.
 
-(use-modules (guix)
-             (guix gexp)
-             (guix git)
-             (guix git-download)
-             (guix profiles)
-             (guix utils)
+(use-modules (Manifolding-OS)
+             (Manifolding-OS gexp)
+             (Manifolding-OS git)
+             (Manifolding-OS git-download)
+             (Manifolding-OS profiles)
+             (Manifolding-OS utils)
              (git)
              (gnu packages base)
              (gnu packages compression)
@@ -52,35 +52,35 @@
              (srfi srfi-71))
 
 (define file-append*
-  (@@ (guix self) file-append*))
+  (@@ (Manifolding-OS self) file-append*))
 
 (define translated-texi-manuals
-  (@@ (guix self) translate-texi-manuals))
+  (@@ (Manifolding-OS self) translate-texi-manuals))
 
 (define info-manual
-  (@@ (guix self) info-manual))
+  (@@ (Manifolding-OS self) info-manual))
 
 (define %manual
-  ;; The manual to build--i.e., the base name of a .texi file, such as "guix"
-  ;; or "guix-cookbook".
-  (or (getenv "GUIX_MANUAL")
-      "guix"))
+  ;; The manual to build--i.e., the base name of a .texi file, such as "Manifolding-OS"
+  ;; or "Manifolding-OS-cookbook".
+  (or (getenv "MANIFOLDING_OS_MANUAL")
+      "Manifolding-OS"))
 
 (define %manual-languages
-  ;; Available translations for the 'guix-manual' text domain.
+  ;; Available translations for the 'Manifolding-OS-manual' text domain.
   '("de" "en" "es" "fr" "it" "pt_BR" "ru" "zh_CN"))
 
 (define %cookbook-languages
-  ;; Available translations for the 'guix-cookbook' text domain.
+  ;; Available translations for the 'Manifolding-OS-cookbook' text domain.
   '("de" "en" "es" "fr" "it" "ko" "pt_BR" "ru" "sk" "sv" "zh_CN"))
 
 (define %languages
   ;; Available translations for the document being built.
-  (if (string=? %manual "guix-cookbook")
+  (if (string=? %manual "Manifolding-OS-cookbook")
       %cookbook-languages
       %manual-languages))
 
-(define %latest-guix-version
+(define %latest-Manifolding-OS-version
   ;; Latest released version.
   "1.5.0")
 
@@ -95,9 +95,9 @@ from SOURCE, the root of the source tree."
     (file-append* source "doc/images"))
 
   (define build
-    (with-imported-modules '((guix build utils))
+    (with-imported-modules '((Manifolding-OS build utils))
       #~(begin
-          (use-modules (guix build utils)
+          (use-modules (Manifolding-OS build utils)
                        (srfi srfi-26))
 
           (define (dot->image dot-file format)
@@ -136,9 +136,9 @@ as well as images, OS examples, and translations."
   (define examples
     (file-append* source "gnu/system/examples"))
   (define build
-    (with-imported-modules '((guix build utils))
+    (with-imported-modules '((Manifolding-OS build utils))
       #~(begin
-          (use-modules (guix build utils)
+          (use-modules (Manifolding-OS build utils)
                        (ice-9 binary-ports)
                        (ice-9 textual-ports)
                        (srfi srfi-19))
@@ -190,10 +190,10 @@ as well as images, OS examples, and translations."
           ;; For CJK support in PDF, replace \input line.
           (with-directory-excursion #$output
             (replace-first-line
-             "guix.zh_CN.texi"
+             "Manifolding-OS.zh_CN.texi"
              "\\input texinfo-zh")
             (replace-first-line
-             "guix-cookbook.zh_CN.texi"
+             "Manifolding-OS-cookbook.zh_CN.texi"
              "\\input texinfo-zh"))
 
           ;; Create 'version.texi'.
@@ -215,7 +215,7 @@ as well as images, OS examples, and translations."
 
 (define %web-site-url
   ;; URL of the web site home page.
-  (or (getenv "GUIX_WEB_SITE_URL")
+  (or (getenv "MANIFOLDING_OS_WEB_SITE_URL")
       "/"))
 
 (define %manual-css-url
@@ -246,9 +246,9 @@ that identifier.  The URL is constructed by concatenating BASE-URL to the
 actual file name."
   (define build
     (with-extensions (list guile-lib)
-      (with-imported-modules '((guix build utils))
+      (with-imported-modules '((Manifolding-OS build utils))
         #~(begin
-            (use-modules (guix build utils)
+            (use-modules (Manifolding-OS build utils)
                          (htmlprag)
                          (srfi srfi-1)
                          (srfi srfi-26)
@@ -422,13 +422,13 @@ to (1) add them a link to SYNTAX-CSS-URL, and (2) highlight the syntax of all
 its <pre class=\"lisp\"> blocks (as produced by 'makeinfo --html')."
   (define build
     (with-extensions (list guile-lib guile-syntax-highlight)
-      (with-imported-modules '((guix build utils))
+      (with-imported-modules '((Manifolding-OS build utils))
         #~(begin
             (use-modules (htmlprag)
                          (syntax-highlight)
                          (syntax-highlight scheme)
                          (syntax-highlight lexers)
-                         (guix build utils)
+                         (Manifolding-OS build utils)
                          (srfi srfi-1)
                          (srfi srfi-26)
                          (ice-9 match)
@@ -649,16 +649,16 @@ its <pre class=\"lisp\"> blocks (as produced by 'makeinfo --html')."
               (map language+node-anchors '#$split-node-indexes))
 
             ;; Install a UTF-8 locale so we can process UTF-8 files.
-            (setenv "GUIX_LOCPATH"
+            (setenv "MANIFOLDING_OS_LOCPATH"
                     #+(file-append glibc-utf8-locales "/lib/locale"))
             (setlocale LC_ALL "en_US.utf8")
 
-            ;; First process the mono-node 'guix.html' files.
+            ;; First process the mono-node 'Manifolding-OS.html' files.
             (for-each (match-lambda
                         ((language . anchors)
                          (let ((files (find-files
                                        (string-append #$input "/" language)
-                                       "^guix(-cookbook|)(\\.[a-zA-Z_-]+)?\\.html$")))
+                                       "^Manifolding-OS(-cookbook|)(\\.[a-zA-Z_-]+)?\\.html$")))
                            (n-par-for-each (parallel-job-count)
                                            (cut process-html <> anchors)
                                            files))))
@@ -684,7 +684,7 @@ its <pre class=\"lisp\"> blocks (as produced by 'makeinfo --html')."
 
 (define* (stylized-html source input
                         #:key
-                        (latest-version %latest-guix-version)
+                        (latest-version %latest-Manifolding-OS-version)
                         (languages %languages)
                         (manual %manual)
                         (manual-css-url %manual-css-url))
@@ -693,14 +693,14 @@ link, and add a menu to choose among LANGUAGES.  Use the Guix PO files found
 in SOURCE."
   (define build
     (with-extensions (list guile-lib)
-      (with-imported-modules `((guix build utils)
+      (with-imported-modules `((Manifolding-OS build utils)
                                ((localization)
                                 => ,(localization-helper-module
                                      source languages)))
         #~(begin
             (use-modules (htmlprag)
                          (localization)
-                         (guix build utils)
+                         (Manifolding-OS build utils)
                          (srfi srfi-1)
                          (ice-9 match)
                          (ice-9 threads))
@@ -783,7 +783,7 @@ in SOURCE."
                        '#$%languages)
                   (list
                    (menu-item "⊕"
-                              (if (string=? #$manual "guix-cookbook")
+                              (if (string=? #$manual "Manifolding-OS-cookbook")
                                   "https://translate.codeberg.org/projects/guix/documentation-cookbook/"
                                   "https://translate.codeberg.org/projects/guix/documentation-manual/")))))
 
@@ -811,7 +811,7 @@ in SOURCE."
                                   (if split-node? "/html_node" "")))
                       menu-item-separator))
 
-              (append (if (string=? #$manual "guix")
+              (append (if (string=? #$manual "Manifolding-OS")
                           version-links
                           '())
                       (list (if split-node?
@@ -884,7 +884,7 @@ in SOURCE."
                 ((language _ ...) language)))
 
             ;; Install a UTF-8 locale so we can process UTF-8 files.
-            (setenv "GUIX_LOCPATH"
+            (setenv "MANIFOLDING_OS_LOCPATH"
                     #+(file-append glibc-utf8-locales "/lib/locale"))
             (setlocale LC_ALL "en_US.utf8")
             (setenv "LC_ALL" "en_US.utf8")
@@ -925,9 +925,9 @@ makeinfo OPTIONS."
     (texinfo-manual-images source))
 
   (define build
-    (with-imported-modules '((guix build utils))
+    (with-imported-modules '((Manifolding-OS build utils))
       #~(begin
-          (use-modules (guix build utils)
+          (use-modules (Manifolding-OS build utils)
                        (ice-9 match))
 
           (define (normalize language)
@@ -945,7 +945,7 @@ makeinfo OPTIONS."
                                #$manual "." language ".texi")))
 
           ;; Install a UTF-8 locale so that 'makeinfo' is at ease.
-          (setenv "GUIX_LOCPATH"
+          (setenv "MANIFOLDING_OS_LOCPATH"
                   #+(file-append glibc-utf8-locales "/lib/locale"))
           (setenv "LC_ALL" "en_US.utf8")
 
@@ -961,7 +961,7 @@ makeinfo OPTIONS."
                       (let* ((texi (language->texi-file-name language))
                              (opts `("--html"
                                      "-c" ,(string-append "TOP_NODE_UP_URL=/manual/"
-                                                          #$%latest-guix-version
+                                                          #$%latest-Manifolding-OS-version
                                                           "/" language)
                                      #$@options
                                      ,texi)))
@@ -1040,9 +1040,9 @@ makeinfo OPTIONS."
                        texlive-zhspacing)))))))
 
   (define build
-    (with-imported-modules '((guix build utils))
+    (with-imported-modules '((Manifolding-OS build utils))
       #~(begin
-          (use-modules (guix build utils)
+          (use-modules (Manifolding-OS build utils)
                        (srfi srfi-34)
                        (ice-9 match))
 
@@ -1054,12 +1054,12 @@ makeinfo OPTIONS."
                         (string-downcase language)))
 
           ;; Install a UTF-8 locale so that 'makeinfo' is at ease.
-          (setenv "GUIX_LOCPATH" #+(file-append glibc-utf8-locales
+          (setenv "MANIFOLDING_OS_LOCPATH" #+(file-append glibc-utf8-locales
                                                 "/lib/locale"))
           (setenv "LC_ALL" "en_US.utf8")
           (setenv "PATH" #+(file-append texinfo-profile "/bin"))
           (setenv "XDG_DATA_DIRS" #+(file-append texinfo-profile "/share"))
-          (setenv "GUIX_TEXMF" #+(file-append texinfo-profile
+          (setenv "MANIFOLDING_OS_TEXMF" #+(file-append texinfo-profile
                                               "/share/texmf-dist"))
 
           ;; Per Texinfo 7.2 manual, we are meant to use xetex for Chinese.
@@ -1113,17 +1113,17 @@ PDF for language '~a'!~%~%"
   (computed-file (string-append manual "-pdf-manual") build
                  #:local-build? #f))
 
-(define* (guix-manual-text-domain source
+(define* (Manifolding-OS-manual-text-domain source
                                   #:optional (languages %manual-languages))
-  "Return the PO files for LANGUAGES of the 'guix-manual' text domain taken
+  "Return the PO files for LANGUAGES of the 'Manifolding-OS-manual' text domain taken
 from SOURCE."
   (define po-directory
     (file-append* source "/po/doc"))
 
   (define build
-    (with-imported-modules '((guix build utils))
+    (with-imported-modules '((Manifolding-OS build utils))
       #~(begin
-          (use-modules (guix build utils))
+          (use-modules (Manifolding-OS build utils))
 
           (mkdir-p #$output)
           (for-each (lambda (language)
@@ -1134,12 +1134,12 @@ from SOURCE."
                       (mkdir-p directory)
                       (invoke #+(file-append gnu-gettext "/bin/msgfmt")
                               "-c" "-o"
-                              (string-append directory "/guix-manual.mo")
-                              (string-append #$po-directory "/guix-manual."
+                              (string-append directory "/Manifolding-OS-manual.mo")
+                              (string-append #$po-directory "/Manifolding-OS-manual."
                                              language ".po")))
                     '#$(delete "en" languages)))))
 
-  (computed-file "guix-manual-po" build))
+  (computed-file "Manifolding-OS-manual-po" build))
 
 (define* (localization-helper-module source
                                      #:optional (languages %languages))
@@ -1183,11 +1183,11 @@ must be the Guix top-level source directory, from which PO files are taken."
 
           ;; (put 'with-language 'scheme-indent-function 1)
           (define* (translate str language
-                              #:key (domain "guix-manual"))
+                              #:key (domain "Manifolding-OS-manual"))
             (define exp
               `(begin
-                 (bindtextdomain "guix-manual"
-                                 #+(guix-manual-text-domain source))
+                 (bindtextdomain "Manifolding-OS-manual"
+                                 #+(Manifolding-OS-manual-text-domain source))
                  (bindtextdomain "iso_639-3"      ;language names
                                  #+(file-append iso-codes "/share/locale"))
                  (setenv "LANGUAGE" ,language)
@@ -1240,44 +1240,44 @@ must be the Guix top-level source directory, from which PO files are taken."
                               #:key (languages %languages)
                               (version "0.0")
                               (manual %manual)
-                              (title (if (string=? "guix" manual)
+                              (title (if (string=? "Manifolding-OS" manual)
                                          "GNU Guix Reference Manual"
                                          "GNU Guix Cookbook"))
                               (date 1))
   (define build
-    (with-imported-modules `((guix build utils)
+    (with-imported-modules `((Manifolding-OS build utils)
                              ((localization)
                               => ,(localization-helper-module
                                    source languages)))
       #~(begin
-          (use-modules (guix build utils)
+          (use-modules (Manifolding-OS build utils)
                        (localization)
                        (sxml simple)
                        (srfi srfi-1))
 
-          (define (guix-url path)
+          (define (Manifolding-OS-url path)
             (string-append #$%web-site-url path))
 
           (define (sxml-index language title body)
-            ;; FIXME: Avoid duplicating styling info from guix-artwork.git.
+            ;; FIXME: Avoid duplicating styling info from Manifolding-OS-artwork.git.
             `(html (@ (lang ,language))
                    (head
                     (title ,(string-append title " — GNU Guix"))
                     (meta (@ (charset "UTF-8")))
                     (meta (@ (name "viewport") (content "width=device-width, initial-scale=1.0")))
                     ;; Menu prefetch.
-                    (link (@ (rel "prefetch") (href ,(guix-url "menu/index.html"))))
+                    (link (@ (rel "prefetch") (href ,(Manifolding-OS-url "menu/index.html"))))
                     ;; Base CSS.
-                    (link (@ (rel "stylesheet") (href ,(guix-url "themes/initial/css/elements.css"))))
-                    (link (@ (rel "stylesheet") (href ,(guix-url "themes/initial/css/common.css"))))
-                    (link (@ (rel "stylesheet") (href ,(guix-url "themes/initial/css/messages.css"))))
-                    (link (@ (rel "stylesheet") (href ,(guix-url "themes/initial/css/navbar.css"))))
-                    (link (@ (rel "stylesheet") (href ,(guix-url "themes/initial/css/breadcrumbs.css"))))
-                    (link (@ (rel "stylesheet") (href ,(guix-url "themes/initial/css/buttons.css"))))
-                    (link (@ (rel "stylesheet") (href ,(guix-url "themes/initial/css/footer.css"))))
+                    (link (@ (rel "stylesheet") (href ,(Manifolding-OS-url "themes/initial/css/elements.css"))))
+                    (link (@ (rel "stylesheet") (href ,(Manifolding-OS-url "themes/initial/css/common.css"))))
+                    (link (@ (rel "stylesheet") (href ,(Manifolding-OS-url "themes/initial/css/messages.css"))))
+                    (link (@ (rel "stylesheet") (href ,(Manifolding-OS-url "themes/initial/css/navbar.css"))))
+                    (link (@ (rel "stylesheet") (href ,(Manifolding-OS-url "themes/initial/css/breadcrumbs.css"))))
+                    (link (@ (rel "stylesheet") (href ,(Manifolding-OS-url "themes/initial/css/buttons.css"))))
+                    (link (@ (rel "stylesheet") (href ,(Manifolding-OS-url "themes/initial/css/footer.css"))))
 
-                    (link (@ (rel "stylesheet") (href ,(guix-url "themes/initial/css/page.css"))))
-                    (link (@ (rel "stylesheet") (href ,(guix-url "themes/initial/css/post.css")))))
+                    (link (@ (rel "stylesheet") (href ,(Manifolding-OS-url "themes/initial/css/page.css"))))
+                    (link (@ (rel "stylesheet") (href ,(Manifolding-OS-url "themes/initial/css/post.css")))))
                    (body
                     (header (@ (class "navbar"))
                             (h1 (a (@ (class "branding")
@@ -1354,7 +1354,7 @@ languages:\n"
                 (display "<!DOCTYPE html>\n" port)
                 (sxml->xml sxml port))))
 
-          (setenv "GUIX_LOCPATH"
+          (setenv "MANIFOLDING_OS_LOCPATH"
                   #+(file-append glibc-utf8-locales "/lib/locale"))
           (setenv "LC_ALL" "en_US.utf8")
           (setlocale LC_ALL "en_US.utf8")
@@ -1418,9 +1418,9 @@ commit date (an integer)."
   ;; the split-node "html_node" directory.
   (let ((guile guile-3.0-latest))
     (computed-file (string-append "guile-manual-" (package-version guile))
-                   (with-imported-modules '((guix build utils))
+                   (with-imported-modules '((Manifolding-OS build utils))
                      #~(begin
-                         (use-modules (guix build utils)
+                         (use-modules (Manifolding-OS build utils)
                                       (ice-9 match))
 
                          (setenv "PATH"
@@ -1494,38 +1494,38 @@ by 'html-identifier-indexes'."
                                  (string-append (getcwd) "/doc"))
                              "/..")))
        (commit date (latest-commit+date root))
-       (version (or (getenv "GUIX_MANUAL_VERSION")
+       (version (or (getenv "MANIFOLDING_OS_MANUAL_VERSION")
                     (string-take commit 7)))
        (select? (let ((vcs? (git-predicate root)))
                   (lambda (file stat)
                     (and (vcs? file stat)
                          ;; Filter out this file.
                          (not (string=? (basename file) "build.scm"))))))
-       (source (local-file root "guix" #:recursive? #t
+       (source (local-file root "Manifolding-OS" #:recursive? #t
                            #:select? select?)))
 
-  (define guix-manual
+  (define Manifolding-OS-manual
     (html-manual source
-                 #:manual "guix"
+                 #:manual "Manifolding-OS"
                  #:version version
                  #:date date))
 
-  (define guix-mono-node-indexes
+  (define Manifolding-OS-mono-node-indexes
     ;; Alist of indexes for GUIX-MANUAL, where each key is a language code and
     ;; each value is a file-like object containing the identifier index.
-    (html-identifier-indexes guix-manual ""
-                             #:manual-name "guix"
-                             #:base-url (if (string=? %manual "guix")
+    (html-identifier-indexes Manifolding-OS-manual ""
+                             #:manual-name "Manifolding-OS"
+                             #:base-url (if (string=? %manual "Manifolding-OS")
                                             (const "")
                                             (cut string-append
                                               "/manual/devel/" <>))
                              #:languages %languages))
 
-  (define guix-split-node-indexes
+  (define Manifolding-OS-split-node-indexes
     ;; Likewise for the split-node variant of GUIX-MANUAL.
-    (html-identifier-indexes guix-manual "/html_node"
-                             #:manual-name "guix"
-                             #:base-url (if (string=? %manual "guix")
+    (html-identifier-indexes Manifolding-OS-manual "/html_node"
+                             #:manual-name "Manifolding-OS"
+                             #:base-url (if (string=? %manual "Manifolding-OS")
                                             (const "")
                                             (cut string-append
                                               "/manual/devel/" <>
@@ -1533,10 +1533,10 @@ by 'html-identifier-indexes'."
                              #:languages %languages))
 
   (define mono-node-indexes
-    (merge-index-alists guix-mono-node-indexes guile-mono-node-indexes))
+    (merge-index-alists Manifolding-OS-mono-node-indexes guile-mono-node-indexes))
 
   (define split-node-indexes
-    (merge-index-alists guix-split-node-indexes guile-split-node-indexes))
+    (merge-index-alists Manifolding-OS-split-node-indexes guile-split-node-indexes))
 
   (format (current-error-port)
           "building manual from work tree (~a) around commit ~a, ~a~%"
@@ -1548,7 +1548,7 @@ by 'html-identifier-indexes'."
 
   (pdf+html-manual source
                    ;; Always use the identifier indexes of GUIX-MANUAL and
-                   ;; GUILE-MANUAL.  Both "guix" and "guix-cookbook" can
+                   ;; GUILE-MANUAL.  Both "Manifolding-OS" and "Manifolding-OS-cookbook" can
                    ;; contain links to definitions that appear in either of
                    ;; these two manuals.
                    #:mono-node-indexes mono-node-indexes

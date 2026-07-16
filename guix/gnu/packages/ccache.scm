@@ -21,11 +21,11 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages ccache)
-  #:use-module (guix gexp)
-  #:use-module (guix packages)
-  #:use-module ((guix licenses) #:select (gpl3+))
-  #:use-module (guix download)
-  #:use-module (guix build-system cmake)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS packages)
+  #:use-module ((Manifolding-OS licenses) #:select (gpl3+))
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS build-system cmake)
   #:use-module (gnu packages)
   #:use-module (gnu packages base)
   #:use-module (gnu packages compression)

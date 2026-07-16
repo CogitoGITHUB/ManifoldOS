@@ -186,24 +186,24 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages emacs-xyz)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix packages)
-  #:use-module (guix cvs-download)
-  #:use-module (guix fossil-download)
-  #:use-module (guix download)
-  #:use-module (guix deprecation)
-  #:use-module (guix bzr-download)
-  #:use-module (guix gexp)
-  #:use-module (guix i18n)
-  #:use-module (guix git-download)
-  #:use-module (guix hg-download)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system cmake)
-  #:use-module (guix build-system copy)
-  #:use-module (guix build-system emacs)
-  #:use-module (guix build-system perl)
-  #:use-module (guix build-system pyproject)
-  #:use-module (guix build-system trivial)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS cvs-download)
+  #:use-module (Manifolding-OS fossil-download)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS deprecation)
+  #:use-module (Manifolding-OS bzr-download)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS i18n)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS hg-download)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system cmake)
+  #:use-module (Manifolding-OS build-system copy)
+  #:use-module (Manifolding-OS build-system emacs)
+  #:use-module (Manifolding-OS build-system perl)
+  #:use-module (Manifolding-OS build-system pyproject)
+  #:use-module (Manifolding-OS build-system trivial)
   #:use-module (gnu packages)
   #:use-module (gnu packages admin)
   #:use-module (gnu packages aspell)
@@ -336,7 +336,7 @@
   #:use-module (gnu packages virtualization)
   #:use-module (gnu packages web-browsers)
   #:use-module (gnu packages wget)
-  #:use-module (guix utils)
+  #:use-module (Manifolding-OS utils)
   #:use-module (srfi srfi-1)
   #:use-module (ice-9 match))
 
@@ -4108,12 +4108,12 @@ entry.")
         (base32 "0q2pb3w8s833fjhkzicciw2php4lsnismad1dnwgp2lcway757ra"))))
     (build-system gnu-build-system)
     (arguments
-     `(#:modules ((guix build gnu-build-system)
-                  ((guix build emacs-build-system) #:prefix emacs:)
-                  (guix build utils))
+     `(#:modules ((Manifolding-OS build gnu-build-system)
+                  ((Manifolding-OS build emacs-build-system) #:prefix emacs:)
+                  (Manifolding-OS build utils))
        #:imported-modules (,@%default-gnu-imported-modules
-                           (guix build emacs-build-system)
-                           (guix build emacs-utils))
+                           (Manifolding-OS build emacs-build-system)
+                           (Manifolding-OS build emacs-utils))
        #:configure-flags (list (string-append "--with-lispdir="
                                               (emacs:elpa-directory %output)))
        #:phases
@@ -4222,11 +4222,11 @@ replacement.")
                       (string-append "EMACS=" #$emacs-minimal "/bin/emacs"))
       #:modules `((ice-9 match)
                   (srfi srfi-26)
-                  ((guix build emacs-build-system) #:prefix emacs:)
+                  ((Manifolding-OS build emacs-build-system) #:prefix emacs:)
                   ,@%default-gnu-imported-modules)
       #:imported-modules `(,@%default-gnu-imported-modules
-                           (guix build emacs-build-system)
-                           (guix build emacs-utils))
+                           (Manifolding-OS build emacs-build-system)
+                           (Manifolding-OS build emacs-utils))
       #:phases
       #~(modify-phases %standard-phases
           (delete 'configure)
@@ -5362,13 +5362,13 @@ or unexpected behavior inside an elisp configuration file (typically
       (inputs (list w3m imagemagick))
       (arguments
        (list
-        #:modules '((guix build gnu-build-system)
-                    ((guix build emacs-build-system) #:prefix emacs:)
-                    (guix build utils)
-                    (guix build emacs-utils))
+        #:modules '((Manifolding-OS build gnu-build-system)
+                    ((Manifolding-OS build emacs-build-system) #:prefix emacs:)
+                    (Manifolding-OS build utils)
+                    (Manifolding-OS build emacs-utils))
         #:imported-modules `(,@%default-gnu-imported-modules
-                             (guix build emacs-build-system)
-                             (guix build emacs-utils))
+                             (Manifolding-OS build emacs-build-system)
+                             (Manifolding-OS build emacs-utils))
         #:configure-flags
         #~(list (string-append "--with-lispdir=" (emacs:elpa-directory #$output))
                 (string-append "--with-icondir="
@@ -6125,13 +6125,13 @@ defined in RFC 2425 and RFC 2426 to/from The Insidious Big Brother Database
     (build-system gnu-build-system)
     (arguments
      (list
-      #:modules '((guix build gnu-build-system)
-                  ((guix build emacs-build-system) #:prefix emacs:)
-                  (guix build utils)
-                  (guix build emacs-utils))
+      #:modules '((Manifolding-OS build gnu-build-system)
+                  ((Manifolding-OS build emacs-build-system) #:prefix emacs:)
+                  (Manifolding-OS build utils)
+                  (Manifolding-OS build emacs-utils))
       #:imported-modules `(,@%default-gnu-imported-modules
-                           (guix build emacs-build-system)
-                           (guix build emacs-utils))
+                           (Manifolding-OS build emacs-build-system)
+                           (Manifolding-OS build emacs-utils))
       #:configure-flags
       #~(list (string-append "--with-lispdir="
                              (emacs:elpa-directory #$output)))
@@ -6889,12 +6889,12 @@ a set of simplified face specifications and a user-supplied color palette.")
     (arguments
      `(#:configure-flags
        (list (string-append "--with-howmdir=" (emacs:elpa-directory %output)))
-       #:modules ((guix build gnu-build-system)
-                  ((guix build emacs-build-system) #:prefix emacs:)
-                  (guix build utils))
+       #:modules ((Manifolding-OS build gnu-build-system)
+                  ((Manifolding-OS build emacs-build-system) #:prefix emacs:)
+                  (Manifolding-OS build utils))
        #:imported-modules (,@%default-gnu-imported-modules
-                           (guix build emacs-build-system)
-                           (guix build emacs-utils))
+                           (Manifolding-OS build emacs-build-system)
+                           (Manifolding-OS build emacs-utils))
        #:phases
        (modify-phases %standard-phases
          (add-after 'install 'make-autoloads
@@ -8259,13 +8259,13 @@ during idle time, while Emacs is doing nothing else.")
     (arguments
      (list
       #:tests? #f                       ;TODO: Run the tests.
-      #:modules '((guix build gnu-build-system)
-                  ((guix build emacs-build-system) #:prefix emacs:)
-                  (guix build utils)
-                  (guix build emacs-utils))
+      #:modules '((Manifolding-OS build gnu-build-system)
+                  ((Manifolding-OS build emacs-build-system) #:prefix emacs:)
+                  (Manifolding-OS build utils)
+                  (Manifolding-OS build emacs-utils))
       #:imported-modules `(,@%default-gnu-imported-modules
-                           (guix build emacs-build-system)
-                           (guix build emacs-utils))
+                           (Manifolding-OS build emacs-build-system)
+                           (Manifolding-OS build emacs-utils))
       #:phases
       #~(modify-phases %standard-phases
           ;; Build server side using 'gnu-build-system'.
@@ -8570,12 +8570,12 @@ type, for example: packages, buffers, files, etc.")
     (build-system gnu-build-system)
     (arguments
      (list
-      #:modules '((guix build gnu-build-system)
-                  ((guix build emacs-build-system) #:prefix emacs:)
-                  (guix build utils))
+      #:modules '((Manifolding-OS build gnu-build-system)
+                  ((Manifolding-OS build emacs-build-system) #:prefix emacs:)
+                  (Manifolding-OS build utils))
       #:imported-modules `(,@%default-gnu-imported-modules
-                           (guix build emacs-build-system)
-                           (guix build emacs-utils))
+                           (Manifolding-OS build emacs-build-system)
+                           (Manifolding-OS build emacs-utils))
       #:tests? #f    ; no tests
       #:configure-flags
       #~(list (string-append "--with-lispdir="
@@ -9711,7 +9711,7 @@ something with a bit more flair than the Modus themes.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "15mmpab2nh7imdza8p4wy27x4ckfi9dnqjm5a1k9ix02d0i3b3yz"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet #~(begin
                   ;; This variable is only mentioned in the tests. See
                   ;; https://github.com/protesilaos/doric-themes/issues/25
@@ -11583,9 +11583,9 @@ It is not intended as a user interface.")
     (arguments
      (list
       #:test-command #~(list "make" "test" "EMACS=emacs")
-      #:modules '((guix build emacs-build-system)
-                  (guix build emacs-utils)
-                  (guix build utils))
+      #:modules '((Manifolding-OS build emacs-build-system)
+                  (Manifolding-OS build emacs-utils)
+                  (Manifolding-OS build utils))
       #:phases
       #~(modify-phases %standard-phases
           (add-after 'unpack 'patch-module-load
@@ -12316,12 +12316,12 @@ completion of relevant keywords.")
       (build-system gnu-build-system)
       (arguments
        (list
-        #:modules `((guix build gnu-build-system)
-                    ((guix build emacs-build-system) #:prefix emacs:)
-                    (guix build utils))
+        #:modules `((Manifolding-OS build gnu-build-system)
+                    ((Manifolding-OS build emacs-build-system) #:prefix emacs:)
+                    (Manifolding-OS build utils))
         #:imported-modules `(,@%default-gnu-imported-modules
-                             (guix build emacs-build-system)
-                             (guix build emacs-utils))
+                             (Manifolding-OS build emacs-build-system)
+                             (Manifolding-OS build emacs-utils))
         #:configure-flags
         #~(list (string-append "--with-lispdir="
                                (emacs:elpa-directory #$output)))
@@ -12889,16 +12889,16 @@ These are distributed in separate files and can be used individually.")
       (version (git-version version revision commit))
       (source
        (origin
-         (method (@@ (guix packages) computed-origin-method))
+         (method (@@ (Manifolding-OS packages) computed-origin-method))
          (file-name (string-append name "-" version ".tar.gz"))
          (sha256 #f)
          (uri
           (delay
-            (with-imported-modules '((guix build emacs-utils)
-                                     (guix build utils))
+            (with-imported-modules '((Manifolding-OS build emacs-utils)
+                                     (Manifolding-OS build utils))
               #~(begin
-                  (use-modules (guix build utils)
-                               (guix build emacs-utils))
+                  (use-modules (Manifolding-OS build utils)
+                               (Manifolding-OS build emacs-utils))
                   (let* ((dir (string-append "emacs-company-box-" #$version)))
 
                     (set-path-environment-variable
@@ -13698,11 +13698,11 @@ to a key in your preferred mode.")
       (arguments
        (list
         #:tests? #f ; No tests.
-        #:modules '((guix build emacs-build-system)
-                    ((guix build cmake-build-system) #:prefix cmake:)
-                    (guix build utils))
+        #:modules '((Manifolding-OS build emacs-build-system)
+                    ((Manifolding-OS build cmake-build-system) #:prefix cmake:)
+                    (Manifolding-OS build utils))
         #:imported-modules `(,@%emacs-build-system-modules
-                             (guix build cmake-build-system))
+                             (Manifolding-OS build cmake-build-system))
         #:phases
         #~(modify-phases %standard-phases
             (add-after 'unpack 'configure
@@ -13792,7 +13792,7 @@ for @code{AUCTeX}.")
     (version "20140203")
     (source
      (origin
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         ;; keep only file of interest
         '(begin
@@ -14300,10 +14300,10 @@ libraries from Swagger specs.")
       #:test-command #~(list "make" "test" "CASK=")
       #:imported-modules (append %emacs-build-system-modules
                                  %pyproject-build-system-modules)
-      #:modules '((guix build emacs-build-system)
-                  ((guix build pyproject-build-system) #:prefix py:)
-                  (guix build emacs-utils)
-                  (guix build utils))
+      #:modules '((Manifolding-OS build emacs-build-system)
+                  ((Manifolding-OS build pyproject-build-system) #:prefix py:)
+                  (Manifolding-OS build emacs-utils)
+                  (Manifolding-OS build utils))
       #:phases
       (with-extensions (list (pyproject-guile-json))
         #~(modify-phases %standard-phases
@@ -15215,7 +15215,7 @@ started with 20 minutes.  All values are customizable.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "1gccih9wgi31m59flljw4cphfyhlfcqbjih91gkcnldq5z7n83nj"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet #~(begin
                     (delete-file-recursively "images")
                     ;; Contents of makem package, but no tests.
@@ -16425,7 +16425,7 @@ placed at the margin of the minibuffer for your completion candidates.")
                (url "https://github.com/Fuco1/smartparens")
                (commit commit)))
          (file-name (git-file-name name version))
-         (modules '((guix build utils)
+         (modules '((Manifolding-OS build utils)
                     (ice-9 ftw)
                     (srfi srfi-26)))
          (snippet
@@ -16604,7 +16604,7 @@ regexp that matches all known keywords.")
        (method url-fetch)
        (uri (string-append "mirror://cpan/authors/id/Y/YE/YEWENBIN/Emacs-PDE-v"
                            version ".tar.gz"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet '(begin
                    ;; Delete pre-generated Texinfo and HTML documentation.
                    (for-each delete-file '("lisp/doc/pde.info"
@@ -16617,9 +16617,9 @@ regexp that matches all known keywords.")
      (list
       #:imported-modules `(,@%emacs-build-system-modules
                            ,@%perl-build-system-modules)
-      #:modules '((guix build perl-build-system)
-                  (guix build emacs-utils)
-                  (guix build utils))
+      #:modules '((Manifolding-OS build perl-build-system)
+                  (Manifolding-OS build emacs-utils)
+                  (Manifolding-OS build utils))
       #:module-build-flags
       #~(list (string-append "--elispdir=" #$output
                              "/share/emacs/site-lisp/pde")
@@ -17250,7 +17250,7 @@ automatically.")
        (sha256
         (base32
          "08a15knkdq35pzjq82imff016fbfdib5q4glg2xmdy2b5fnk7jqa"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet #~(begin (substitute* "test/pretty-hydra-test.el"
                            (("\\(c1 \\(quote foo\\)\\)") "(c1 'foo)"))))))
     (build-system emacs-build-system)
@@ -19439,7 +19439,7 @@ efficient tabs plugin for Emacs with a lot of customization options.")
               (sha256
                (base32
                 "0npw7niqjhxspnaw4f2wnrjz5wr7qfkib0865hcri3aq8ccd46xr"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet #~(begin (for-each delete-file-recursively
                                           '("docs/resources" "resources"))))))
     (build-system emacs-build-system)
@@ -19816,7 +19816,7 @@ completion, interactive development and more.")
               (file-name (git-file-name name version))
               ;; Fix tests for Emacs 29
               ;; https://github.com/Fanael/rainbow-delimiters/pull/78
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet '(substitute* "rainbow-delimiters-test.el"
                           (("category c-type " all)
                            (string-append all "c-<>-c-types-set "))))
@@ -21067,7 +21067,7 @@ inside the source file.")
          (file-name (git-file-name name version))
          (sha256
           (base32 "07p0k797fagn1qha191p6g2b55hsqqkcj59mh0ms9id0ildydil0"))
-         (modules '((guix build utils)))
+         (modules '((Manifolding-OS build utils)))
          (snippet #~(for-each delete-file
                               (find-files "." ".*-autoloads\\.elc?$")))))
       (build-system emacs-build-system)
@@ -23107,7 +23107,7 @@ are common in Chromium-derived projects.")
      (list
       #:lisp-directory "lisp"
       #:test-command
-      #~(list "make" "-C" ".." "test" "GUIX_SHELL=")
+      #~(list "make" "-C" ".." "test" "MANIFOLDING_OS_SHELL=")
       #:emacs emacs-no-x ;tests require built-in SQLite support
       #:phases
       #~(modify-phases %standard-phases
@@ -23120,7 +23120,7 @@ are common in Chromium-derived projects.")
                         "/.emacs.d"))))
           (add-before 'install 'make-info
             (lambda _
-              (invoke "make" "-C" ".." "doc" "GUIX_SHELL="))))))
+              (invoke "make" "-C" ".." "doc" "MANIFOLDING_OS_SHELL="))))))
     (native-inputs (list texinfo))
     (propagated-inputs (list emacs-keymap-popup))
     (home-page "https://thanosapollo.org/projects/gnosis/")
@@ -28612,10 +28612,10 @@ the format.")
     (build-system trivial-build-system)
     (arguments
      `(#:modules
-       ((guix build utils))
+       ((Manifolding-OS build utils))
        #:builder
        (begin
-         (use-modules (guix build utils))
+         (use-modules (Manifolding-OS build utils))
          ;; Extract source.
          (copy-recursively (assoc-ref %build-inputs "source") "source")
          (chdir "source")
@@ -31823,7 +31823,7 @@ powerful Org contents.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "12qnr5k4y51q83y8fqrfn8ha7mrmdvv1blp9prrdrbqhhlcjq6q4"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet #~(begin (delete-file "cort-test.el")
                          (substitute* "org-re-reveal-tests.el"
                            (("\\(load \"cort-test\"\\)")
@@ -35928,7 +35928,7 @@ buffers – other modes on the TODO list).
        (sha256
         (base32
          "0wv64ihg90yfkzg1aayslq630704wlci39zdxcp3s2fn0fqr26zg"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet #~(begin
                     (delete-file-recursively "screenshots")
                     ;; Contents of makem package, but no tests.
@@ -36230,7 +36230,7 @@ and comments.")
     (build-system emacs-build-system)
     (arguments
      (list
-      #:test-command #~(list "make" "test" "GUIX_SHELL=")
+      #:test-command #~(list "make" "test" "MANIFOLDING_OS_SHELL=")
       #:phases
       #~(modify-phases %standard-phases
           (add-after 'unpack 'locate-binaries
@@ -37715,7 +37715,7 @@ tabulated-lists).")
        (sha256
         (base32
          "0h4j40amdd92h1bhwcyw0kn6j2ihs671xfmz028qklx5cw8a31yg"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         #~(begin
             ;; Remove generated terminfo database.
@@ -37773,12 +37773,12 @@ shell integration.")
                   "0j8ngl6k0i5nfhkrqvw0bdrk2m3yzjd7vsf3r9hz2gg2pln4za8p"))))
       (build-system emacs-build-system)
       (arguments
-       `(#:modules ((guix build emacs-build-system)
-                    ((guix build cmake-build-system) #:prefix cmake:)
-                    (guix build emacs-utils)
-                    (guix build utils))
+       `(#:modules ((Manifolding-OS build emacs-build-system)
+                    ((Manifolding-OS build cmake-build-system) #:prefix cmake:)
+                    (Manifolding-OS build emacs-utils)
+                    (Manifolding-OS build utils))
          #:imported-modules (,@%emacs-build-system-modules
-                             (guix build cmake-build-system))
+                             (Manifolding-OS build cmake-build-system))
          ;; Include the `etc' folder for shell-side configuration files
          #:include (cons* "^etc/.*" %default-include)
          #:phases
@@ -38594,16 +38594,16 @@ and Projectile.")
     (version "0.5")
     (source
      (origin
-       (method (@@ (guix packages) computed-origin-method))
+       (method (@@ (Manifolding-OS packages) computed-origin-method))
        (file-name (string-append name "-" version ".tar.gz"))
        (sha256 #f)
        (uri
         (delay
-          (with-imported-modules '((guix build emacs-utils)
-                                   (guix build utils))
+          (with-imported-modules '((Manifolding-OS build emacs-utils)
+                                   (Manifolding-OS build utils))
             #~(begin
-                (use-modules (guix build utils)
-                             (guix build emacs-utils))
+                (use-modules (Manifolding-OS build utils)
+                             (Manifolding-OS build emacs-utils))
                 (let* ((dir (string-append "emacs-lsp-treemacs-" #$version)))
 
                   (set-path-environment-variable
@@ -39002,11 +39002,11 @@ utilities.")
       (arguments
        (list
         #:tests? #f                     ;no test
-        #:modules '((guix build emacs-build-system)
-                    (guix build emacs-utils)
-                    (guix build utils))
+        #:modules '((Manifolding-OS build emacs-build-system)
+                    (Manifolding-OS build emacs-utils)
+                    (Manifolding-OS build utils))
         #:imported-modules `(,@%emacs-build-system-modules
-                             (guix build gnu-build-system))
+                             (Manifolding-OS build gnu-build-system))
         #:phases
         #~(modify-phases %standard-phases
             (add-after 'unpack 'substitute-libyaml-core-path
@@ -40237,7 +40237,7 @@ support JSX syntax.")
          (file-name (git-file-name name version))
          (sha256
           (base32 "0ha1qsz2p36pqa0sa2sp83lspbgx5lr7930qxnwd585liajzdd9x"))
-         (modules '((guix build utils)))
+         (modules '((Manifolding-OS build utils)))
          (snippet #~(substitute* (find-files "." "\\.el$")
                       (("\\(require 'cl\\)")
                        "(require 'cl-lib)")
@@ -41028,7 +41028,7 @@ or regions to a REPL from ~a buffers.") language))))
        (file-name (git-file-name name version))
        (sha256
         (base32 "1fjifl69qja3ab0g72f1hkfns992qq0v9pw8p4hgvjycx7fpzk0a"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         #~(begin (delete-file "eval-in-repl-matlab.el")))))
     (build-system emacs-build-system)
@@ -41322,7 +41322,7 @@ and article extracts for Wikipedia.")
      (sha256
       (base32 "1l128q424qsq9jv2wk8cv4zli71rk34q5kgwa9axdz0d27p9l6v4"))
      ;; Reset some timestamps for testdata.
-     (modules '((guix build utils)))
+     (modules '((Manifolding-OS build utils)))
      (snippet
       #~(substitute* (find-files "testdata")
           (("01:00:00 \\+0100")
@@ -43155,9 +43155,9 @@ contrast and few colors.")
       (native-inputs
        (list emacs-ert-runner))
       (arguments
-       (list #:modules '((guix build emacs-build-system)
-                         (guix build utils)
-                         (guix build emacs-utils)
+       (list #:modules '((Manifolding-OS build emacs-build-system)
+                         (Manifolding-OS build utils)
+                         (Manifolding-OS build emacs-utils)
                          (srfi srfi-1))
              #:phases
              #~(modify-phases %standard-phases
@@ -45692,11 +45692,11 @@ requires no external dependencies.")
           (base32 "0vfdbab3ncns8wwrna8h6y2w0grkphzr9s65sgxq98lpqmxbbr72"))))
       (build-system gnu-build-system)
       (arguments
-       (list #:modules '((guix build gnu-build-system)
-                         (guix build utils)
-                         (guix build emacs-utils))
+       (list #:modules '((Manifolding-OS build gnu-build-system)
+                         (Manifolding-OS build utils)
+                         (Manifolding-OS build emacs-utils))
              #:imported-modules `(,@%default-gnu-imported-modules
-                                  (guix build emacs-utils))
+                                  (Manifolding-OS build emacs-utils))
              #:test-target "test"
              #:phases
              #~(modify-phases %standard-phases
@@ -48241,7 +48241,7 @@ executed.")
                 (sha256
                  (base32
                   "1q30cbqq0h1gfwlcbnx9s930li7w7a0y8sx2ivbvvyyc2j5gsk4j"))
-                (modules '((guix build utils)))
+                (modules '((Manifolding-OS build utils)))
                 (snippet
                  #~(begin
                      (substitute* "global-tags.el"
@@ -49453,7 +49453,7 @@ EasyPG and latest Emacs.")
                       (url "https://github.com/wanderlust/wanderlust")
                       (commit commit)))
                 (file-name (git-file-name name version))
-                (modules '((guix build utils)))
+                (modules '((Manifolding-OS build utils)))
                 (snippet
                  '(begin (substitute* "WL-CFG"
                            ((".*WL_PREFIX.*")

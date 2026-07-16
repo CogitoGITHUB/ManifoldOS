@@ -40,7 +40,7 @@ exec guile --no-auto-compile -L $srcdir -C $srcdir -e main -s "$0" "$@"
              (ice-9 match)
              (ice-9 popen)
              (ice-9 rdelim)
-             (guix build utils))
+             (Manifolding-OS build utils))
 
 (define ((option? name) option)
   (string-prefix? name option))

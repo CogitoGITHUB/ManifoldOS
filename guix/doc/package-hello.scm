@@ -1,6 +1,6 @@
-(use-modules (guix)
-             (guix build-system gnu)
-             (guix licenses))
+(use-modules (Manifolding-OS)
+             (Manifolding-OS build-system gnu)
+             (Manifolding-OS licenses))
 
 (package
   (name "hello")

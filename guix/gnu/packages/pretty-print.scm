@@ -30,15 +30,15 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages pretty-print)
-  #:use-module (guix gexp)
-  #:use-module (guix packages)
-  #:use-module (guix licenses)
-  #:use-module (guix git-download)
-  #:use-module (guix download)
-  #:use-module (guix build-system cmake)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix gexp)
-  #:use-module (guix utils)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS licenses)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS build-system cmake)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS utils)
   #:use-module (gnu packages)
   #:use-module (gnu packages bison)
   #:use-module (gnu packages boost)
@@ -69,7 +69,7 @@
               (sha256
                (base32
                 "1yaksc57qx30ij6qx88pnan19ixdh7651crnnbksigzb6rd924wd"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                ;; Remove timestamp from the installed 'README' file.
                #~(begin

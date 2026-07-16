@@ -22,11 +22,11 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages golang-apps)
-  #:use-module (guix build-system go)
-  #:use-module (guix gexp)
-  #:use-module (guix git-download)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix packages)
+  #:use-module (Manifolding-OS build-system go)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS packages)
   #:use-module (gnu packages)
   #:use-module (gnu packages golang)
   #:use-module (gnu packages golang-build)
@@ -158,7 +158,7 @@ C++implementation.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "0rhhg73kzai6qzhw31yxw3nhpsijn849qai2v9am955svmnckvf4"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet '(delete-file-recursively "vendor"))))
     (build-system go-build-system)
     (arguments
@@ -192,7 +192,7 @@ definitions in Go programs.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "0c1rxbj3v3m0fqb8q96xlbawxm9scyx6vvr8pddkiwp7zkx4ajym"))
-       (modules '((guix build utils)
+       (modules '((Manifolding-OS build utils)
                   (ice-9 ftw)
                   (srfi srfi-26)))
        (snippet

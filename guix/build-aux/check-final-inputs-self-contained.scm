@@ -20,11 +20,11 @@
 ;;; Check whether important binaries are available.
 ;;;
 
-(use-modules (guix store)
-             (guix grafts)
-             (guix packages)
-             (guix derivations)
-             (guix ui)
+(use-modules (Manifolding-OS store)
+             (Manifolding-OS grafts)
+             (Manifolding-OS packages)
+             (Manifolding-OS derivations)
+             (Manifolding-OS ui)
              (gnu packages commencement)
              (ice-9 match)
              (srfi srfi-1)

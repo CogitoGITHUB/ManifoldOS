@@ -119,21 +119,21 @@
   #:use-module (gnu packages xdisorg)
   #:use-module (gnu packages xml)
   #:use-module (gnu packages xorg)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix packages)
-  #:use-module (guix gexp)
-  #:use-module (guix download)
-  #:use-module (guix git-download)
-  #:use-module (guix utils)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system cmake)
-  #:use-module (guix build-system copy)
-  #:use-module (guix build-system guile)
-  #:use-module (guix build-system meson)
-  #:use-module (guix build-system pyproject)
-  #:use-module (guix build-system qt)
-  #:use-module (guix build-system scons)
-  #:use-module (guix deprecation)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS utils)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system cmake)
+  #:use-module (Manifolding-OS build-system copy)
+  #:use-module (Manifolding-OS build-system guile)
+  #:use-module (Manifolding-OS build-system meson)
+  #:use-module (Manifolding-OS build-system pyproject)
+  #:use-module (Manifolding-OS build-system qt)
+  #:use-module (Manifolding-OS build-system scons)
+  #:use-module (Manifolding-OS deprecation)
   #:use-module (srfi srfi-1))
 
 (define-public converseen
@@ -200,10 +200,10 @@ convert images in more than 100 different formats.")
      (list
       #:imported-modules (append %meson-build-system-modules
                                  %pyproject-build-system-modules)
-      #:modules '((guix build meson-build-system)
-                  ((guix build pyproject-build-system)
+      #:modules '((Manifolding-OS build meson-build-system)
+                  ((Manifolding-OS build pyproject-build-system)
                    #:prefix py:)
-                  (guix build utils))
+                  (Manifolding-OS build utils))
       #:glib-or-gtk? #t
       #:phases
       #~(modify-phases %standard-phases
@@ -227,8 +227,8 @@ convert images in more than 100 different formats.")
           (add-after 'glib-or-gtk-wrap 'python-and-gi-wrap
             (lambda* (#:key inputs outputs #:allow-other-keys)
               (wrap-program (string-append #$output "/bin/gradia")
-                `("GUIX_PYTHONPATH" =
-                  (,(getenv "GUIX_PYTHONPATH") ,(py:site-packages inputs
+                `("MANIFOLDING_OS_PYTHONPATH" =
+                  (,(getenv "MANIFOLDING_OS_PYTHONPATH") ,(py:site-packages inputs
                                                                   outputs)))
                 `("GI_TYPELIB_PATH" =
                   (,(getenv "GI_TYPELIB_PATH")))
@@ -386,8 +386,8 @@ library.  It supports almost all PNG features and is extensible.")
         (base32 "0dv90dxvmqpk7mbywyjbz8lh08cv4b0ksqp1y62mzvmlf379cihz"))))
     (build-system gnu-build-system)
     (arguments
-     `(#:modules ((guix build gnu-build-system)
-                  (guix build utils)
+     `(#:modules ((Manifolding-OS build gnu-build-system)
+                  (Manifolding-OS build utils)
                   (srfi srfi-1))
        #:phases
        (modify-phases %standard-phases
@@ -1041,7 +1041,7 @@ work.")
                            "download/jbigkit-" version ".tar.gz"))
        (sha256
         (base32 "0cnrcdr1dwp7h7m0a56qw09bv08krb37mpf7cml5sjdgpyv0cwfy"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         '(begin
            ;; Remove files without clear licence information.
@@ -1550,7 +1550,7 @@ supplies a generic doubly-linked list and some string functions.")
               (sha256
                (base32
                 "1z9qwi9mlq69d5jipr3v2jika2g0kszqdzilggm99nls5xl7j4zl"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                '(begin
                   (for-each
@@ -1872,9 +1872,9 @@ channels.")
               ;; darktable needs BMFF to support
               ;; CR3 files.
               "-DEXIV2_ENABLE_BMFF=ON")
-      #:modules '((guix build cmake-build-system)
-                  ((guix build gnu-build-system) #:prefix gnu:)
-                  (guix build utils))
+      #:modules '((Manifolding-OS build cmake-build-system)
+                  ((Manifolding-OS build gnu-build-system) #:prefix gnu:)
+                  (Manifolding-OS build utils))
       #:phases
       #~(modify-phases %standard-phases
           (add-after 'unpack 'patch-gcc-reference
@@ -2080,7 +2080,7 @@ specifically at this tool.")
        (sha256
         (base32
          "0lj4clb851fzpaq446wgj0sfy922zs5l5misbpwv6w7qrqrz4cjg"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
          '(begin
             (delete-file-recursively "src/libpng")
@@ -2572,7 +2572,7 @@ stdout.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "1wvsf2kv90bqpyxcjilir4zgmaga0xjg96vnn7rzq4fkjx8pb3yg"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet '(begin (substitute* "configure.ac"
                           (("2.72") "2.69"))))))
     (build-system gnu-build-system)
@@ -2883,8 +2883,8 @@ This package can be used to create @code{favicon.ico} files for web sites.")
     (build-system cmake-build-system)
     (arguments
      (list
-      #:modules '((guix build cmake-build-system)
-                  (guix build utils)
+      #:modules '((Manifolding-OS build cmake-build-system)
+                  (Manifolding-OS build utils)
                   (srfi srfi-26))
       #:configure-flags
       #~(list "-DAVIF_CODEC_AOM=ON" "-DAVIF_CODEC_DAV1D=ON"
@@ -3002,7 +3002,7 @@ Format) file format decoder and encoder.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "1wfxzrhj8a19z6x47ib1qbmgyg56jsxjs955xcvqhdkrx8l2271r"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         ;; Delete the bundles that will not be used.
         '(begin
@@ -3013,8 +3013,8 @@ Format) file format decoder and encoder.")
                        "libpng" "zlib"))))))
     (build-system cmake-build-system)
     (arguments
-     `(#:modules ((guix build cmake-build-system)
-                  (guix build utils)
+     `(#:modules ((Manifolding-OS build cmake-build-system)
+                  (Manifolding-OS build utils)
                   (srfi srfi-26))
        #:configure-flags
        (list "-DJPEGXL_FORCE_SYSTEM_GTEST=true"
@@ -3168,10 +3168,10 @@ GIF, TIFF, WEBP, BMP, PNG, XPM formats.")
     (arguments
      (list
       #:imported-modules `(,@%pyproject-build-system-modules
-                           (guix build glib-or-gtk-build-system))
-      #:modules '((guix build pyproject-build-system)
-                  ((guix build glib-or-gtk-build-system) #:prefix glib-or-gtk:)
-                  (guix build utils))
+                           (Manifolding-OS build glib-or-gtk-build-system))
+      #:modules '((Manifolding-OS build pyproject-build-system)
+                  ((Manifolding-OS build glib-or-gtk-build-system) #:prefix glib-or-gtk:)
+                  (Manifolding-OS build utils))
       #:phases
       #~(modify-phases %standard-phases
           (add-after 'install 'move-assets-to-data
@@ -3282,9 +3282,9 @@ Wacom-style graphics tablets.")
            (lambda* (#:key inputs outputs #:allow-other-keys)
              (let ((out (assoc-ref outputs "out")))
                (wrap-program (string-append out "/bin/phockup")
-                 `("GUIX_PYTHONPATH" prefix
+                 `("MANIFOLDING_OS_PYTHONPATH" prefix
                    ,(search-path-as-string->list
-                     (getenv "GUIX_PYTHONPATH"))))))))))
+                     (getenv "MANIFOLDING_OS_PYTHONPATH"))))))))))
     (inputs
      (list bash-minimal perl-image-exiftool python python-tqdm))
     (native-inputs

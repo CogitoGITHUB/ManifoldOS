@@ -17,8 +17,8 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (use-modules (json)
-             (guix build node-build-system)
-             (guix tests)
+             (Manifolding-OS build node-build-system)
+             (Manifolding-OS tests)
              (srfi srfi-64))
 
 (define (package.json)
@@ -63,7 +63,7 @@
 (define* (modify-json* #:rest all-arguments)
   "Wrap modify-json to use our package.json test sample and avoid file I/O.
 It also returns the data as an alist directly."
-  (mock ((guix build utils) with-atomic-file-replacement
+  (mock ((Manifolding-OS build utils) with-atomic-file-replacement
          (lambda (_ proc)
            (call-with-input-string (package.json)
              (lambda (in)

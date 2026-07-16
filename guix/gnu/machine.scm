@@ -19,11 +19,11 @@
 
 (define-module (gnu machine)
   #:use-module (gnu system)
-  #:use-module (guix derivations)
-  #:use-module (guix monads)
-  #:use-module (guix records)
-  #:use-module (guix store)
-  #:use-module ((guix diagnostics) #:select (source-properties->location))
+  #:use-module (Manifolding-OS derivations)
+  #:use-module (Manifolding-OS monads)
+  #:use-module (Manifolding-OS records)
+  #:use-module (Manifolding-OS store)
+  #:use-module ((Manifolding-OS diagnostics) #:select (source-properties->location))
   #:use-module (srfi srfi-35)
   #:export (environment-type
             environment-type?

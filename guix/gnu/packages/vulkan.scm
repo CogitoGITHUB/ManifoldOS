@@ -29,15 +29,15 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages vulkan)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix packages)
-  #:use-module (guix download)
-  #:use-module (guix git-download)
-  #:use-module (guix utils)
-  #:use-module (guix gexp)
-  #:use-module (guix build-system cmake)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system meson)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS utils)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS build-system cmake)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system meson)
   #:use-module (gnu packages)
   #:use-module (gnu packages autotools)
   #:use-module (gnu packages bison)
@@ -209,9 +209,9 @@ SPIR-V, aiming to emit GLSL or MSL that looks like human-written code.")
                               #$output "/lib")
                "-DBUILD_SHARED_LIBS=ON"
                "-DLLVM_SPIRV_INCLUDE_TESTS=ON")
-       #:modules '((guix build cmake-build-system)
-                   ((guix build gnu-build-system) #:prefix gnu:)
-                   (guix build utils))
+       #:modules '((Manifolding-OS build cmake-build-system)
+                   ((Manifolding-OS build gnu-build-system) #:prefix gnu:)
+                   (Manifolding-OS build utils))
        #:phases
        #~(modify-phases %standard-phases
            (replace 'check
@@ -476,7 +476,7 @@ and the ICD.")
               (url "https://github.com/KhronosGroup/Vulkan-Tools")
               (commit (string-append "vulkan-sdk-" version))))
        (file-name (git-file-name name version))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         #~(substitute* "tests/icd/mock_icd_tests.cpp"
             ;; Disable driver info test since it relies on git branch info
@@ -654,7 +654,7 @@ constant management, and opcode emission.")
                      "https://github.com/KhronosGroup/Vulkan-ValidationLayers")
                     (commit (string-append "vulkan-sdk-" version))))
               (file-name (git-file-name name version))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               ;; We don't build static libraries in SPIRV-Tools.
               (snippet '(substitute* "tests/CMakeLists.txt"
                           (("-static")

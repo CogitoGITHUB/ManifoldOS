@@ -18,13 +18,13 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages hunspell)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system trivial)
-  #:use-module (guix download)
-  #:use-module (guix gexp)
-  #:use-module (guix git-download)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix packages)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system trivial)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS packages)
   #:use-module (ice-9 match)
   #:use-module (gnu packages aspell)
   #:use-module (gnu packages autotools)
@@ -83,9 +83,9 @@ word compounding or character encoding.")
     (build-system trivial-build-system)
     (native-inputs (list unzip))
     (arguments
-     `(#:modules ((guix build utils))
+     `(#:modules ((Manifolding-OS build utils))
        #:builder (begin
-                   (use-modules (guix build utils)
+                   (use-modules (Manifolding-OS build utils)
                                 (srfi srfi-26))
 
                    (let* ((out      (assoc-ref %outputs "out"))
@@ -155,9 +155,9 @@ library.")
     (build-system trivial-build-system)
     (native-inputs (list unzip))
     (arguments
-     `(#:modules ((guix build utils))
+     `(#:modules ((Manifolding-OS build utils))
        #:builder (begin
-                   (use-modules (guix build utils)
+                   (use-modules (Manifolding-OS build utils)
                                 (srfi srfi-26))
 
                    (let* ((out      (assoc-ref %outputs "out"))
@@ -423,9 +423,9 @@ spell-checking library.")
     (native-inputs
      `(("source" ,source)))
     (arguments
-     `(#:modules ((guix build utils))
+     `(#:modules ((Manifolding-OS build utils))
        #:builder (begin
-                   (use-modules (guix build utils))
+                   (use-modules (Manifolding-OS build utils))
                    (let* ((dictionary
                            (string-append (assoc-ref %build-inputs "source")
                                           "/" ,dict-name

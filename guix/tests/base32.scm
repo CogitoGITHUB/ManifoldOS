@@ -18,8 +18,8 @@
 
 (define-module (test-base32)
   #:use-module (gcrypt hash)
-  #:use-module (guix base32)
-  #:use-module (guix utils)
+  #:use-module (Manifolding-OS base32)
+  #:use-module (Manifolding-OS utils)
   #:use-module (srfi srfi-1)
   #:use-module (srfi srfi-34)
   #:use-module (srfi srfi-64)
@@ -27,7 +27,7 @@
   #:use-module (rnrs bytevectors)
   #:use-module (rnrs io ports))
 
-;; Test the (guix base32) module.
+;; Test the (Manifolding-OS base32) module.
 
 (test-begin "base32")
 

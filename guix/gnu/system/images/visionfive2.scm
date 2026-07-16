@@ -28,7 +28,7 @@
   #:use-module (gnu services networking)
   #:use-module (gnu image)
   #:use-module (gnu packages linux)
-  #:use-module (guix packages)
+  #:use-module (Manifolding-OS packages)
 
   #:use-module (gnu packages ssh)
   #:use-module (gnu packages guile-xyz)
@@ -40,7 +40,7 @@
   #:use-module (gnu system file-systems)
   #:use-module (gnu system image)
   #:use-module (gnu system linux-initrd)
-  #:use-module (guix platforms riscv)
+  #:use-module (Manifolding-OS platforms riscv)
   #:use-module (srfi srfi-26)
   #:export (visionfive2-barebones-os
             visionfive2-image-type

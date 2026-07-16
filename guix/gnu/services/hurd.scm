@@ -22,8 +22,8 @@
   #:use-module (gnu services)
   #:use-module (gnu services shepherd)
   #:use-module (gnu system)
-  #:use-module (guix gexp)
-  #:use-module (guix records)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS records)
   #:export (hurd-console-configuration
             hurd-console-service-type
             hurd-getty-configuration

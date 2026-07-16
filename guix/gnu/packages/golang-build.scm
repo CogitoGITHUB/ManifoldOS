@@ -38,12 +38,12 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages golang-build)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix build-system go)
-  #:use-module (guix gexp)
-  #:use-module (guix git-download)
-  #:use-module (guix packages)
-  #:use-module (guix utils)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS build-system go)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS utils)
   #:use-module (gnu packages)
   #:use-module (gnu packages audio)
   #:use-module (gnu packages gcc)
@@ -742,7 +742,7 @@ toolchain.  The parts needed in the main Go repository are copied in.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "1rk47vw7sirdakvl0z1ffgrsd1xm285i3wv6xbm47b8irvailxxf"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         #~(begin
             ;; Submodules with their own go.mod files and packaged separately:
@@ -834,7 +834,7 @@ language.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "0jmpq16f2d8i3bnwxa78j384vi5gynfajh34m2nh3vhji3d35777"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         #~(begin
             ;; Submodules with their own go.mod files and packed as separated
@@ -1266,7 +1266,7 @@ low-level interaction with the operating system.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "13z9sgs9lsaj2shv5hbv7i63pjjcw68r1vw7j5jkkqwcz5kkdwkp"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         #~(begin
             ;; Submodules with their own go.mod files and packaged separately:
@@ -1468,7 +1468,7 @@ time.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "0inivp0ih1ykl184d4sbshyb1crayj9iayl012ms1b2x0rjg5l0p"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         '(begin
            ;; Submodules with their own go.mod files and packaged separately:
@@ -1556,7 +1556,7 @@ Go programming language.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "0sjvngpahkb5x573i855fjlb1fdmr6n269nmb5xxnbabjb27mnvg"))
-       (modules '((guix build utils)
+       (modules '((Manifolding-OS build utils)
                   (ice-9 ftw)
                   (srfi srfi-26)))
        (snippet
@@ -1596,7 +1596,7 @@ Go source code (including go.mod and go.work files) as test expectations.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "0sjvngpahkb5x573i855fjlb1fdmr6n269nmb5xxnbabjb27mnvg"))
-       (modules '((guix build utils)
+       (modules '((Manifolding-OS build utils)
                   (ice-9 ftw)
                   (srfi srfi-26)))
        (snippet
@@ -1639,7 +1639,7 @@ tools on.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "1blk22apy424j9v58lfy4pxnrgh93yqchqhxsnf78dmx4vx5yi9r"))
-       (modules '((guix build utils)
+       (modules '((Manifolding-OS build utils)
                   (ice-9 ftw)
                   (srfi srfi-26)))
        (snippet

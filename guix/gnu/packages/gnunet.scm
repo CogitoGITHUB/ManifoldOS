@@ -76,14 +76,14 @@
   #:use-module (gnu packages web)
   #:use-module (gnu packages xiph)
   #:use-module (gnu packages backup)
-  #:use-module (guix gexp)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix packages)
-  #:use-module (guix deprecation)
-  #:use-module (guix download)
-  #:use-module (guix git-download)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system meson))
+  #:use-module (Manifolding-OS gexp)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS deprecation)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system meson))
 
 (define-public libextractor
   (package
@@ -281,7 +281,7 @@ For reliable NAT traversal, also install the @var{miniupnpc} package.")
               (sha256
                (base32
                 "0kvqbqijfyp3fhsqjyzwd7b3cm5khwv557wq196mv6rx47aaivgd"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                ;; Unbundle dependencies.  TODO: build-aux/test-driver.scm
                ;; is bundled too, but it's not yet automatically copied by

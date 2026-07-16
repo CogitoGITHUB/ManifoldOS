@@ -59,18 +59,18 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages textutils)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix build-system ant)
-  #:use-module (guix build-system cmake)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system go)
-  #:use-module (guix build-system perl)
-  #:use-module (guix build-system pyproject)
-  #:use-module (guix download)
-  #:use-module (guix gexp)
-  #:use-module (guix git-download)
-  #:use-module (guix packages)
-  #:use-module (guix utils)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS build-system ant)
+  #:use-module (Manifolding-OS build-system cmake)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system go)
+  #:use-module (Manifolding-OS build-system perl)
+  #:use-module (Manifolding-OS build-system pyproject)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS utils)
   #:use-module (gnu packages)
   #:use-module (gnu packages autotools)
   #:use-module (gnu packages base)
@@ -398,15 +398,15 @@ the Hannon Lab.")
     (build-system gnu-build-system)
     (arguments
      (list
-      #:modules '((guix build gnu-build-system)
-                  (guix build minify-build-system)
-                  (guix build utils)
+      #:modules '((Manifolding-OS build gnu-build-system)
+                  (Manifolding-OS build minify-build-system)
+                  (Manifolding-OS build utils)
                   (ice-9 match))
       #:imported-modules
       `(,@%default-gnu-imported-modules
-         (guix build minify-build-system))
+         (Manifolding-OS build minify-build-system))
       #:phases
-      '(modify-phases (@ (guix build gnu-build-system) %standard-phases)
+      '(modify-phases (@ (Manifolding-OS build gnu-build-system) %standard-phases)
          (add-after 'unpack 'process-javascript
            (lambda* (#:key inputs #:allow-other-keys)
              (with-directory-excursion "xohtml/external"
@@ -941,7 +941,7 @@ spreadsheets and outputs it in comma-separated-value format, and
                      (url "https://github.com/nemtrif/utfcpp")
                      (commit (string-append "v" version))))
               (file-name (git-file-name name version))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               ;; Unbundle ftest
               (snippet
                '(begin
@@ -1694,7 +1694,7 @@ absolute \"path\" to it.")
        (sha256
         (base32
          "07y0pvxjlmpcnym229j87qcfwnfm7vi10dad0a20xy6as55a9j3d"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         '(begin
            ;; TODO: Unbundle tclap, darts-clone, gtest
@@ -1708,9 +1708,9 @@ absolute \"path\" to it.")
       #:parallel-build? #f             ;occasionally failed.
       #:imported-modules (append %cmake-build-system-modules
                                  %pyproject-build-system-modules)
-      #:modules '((guix build cmake-build-system)
-                  ((guix build pyproject-build-system) #:prefix py:)
-                  (guix build utils))
+      #:modules '((Manifolding-OS build cmake-build-system)
+                  ((Manifolding-OS build pyproject-build-system) #:prefix py:)
+                  (Manifolding-OS build utils))
       #:phases
       #~(modify-phases %standard-phases
           (add-after 'unpack 'prevent-rebuild-during-installation
@@ -1736,7 +1736,7 @@ absolute \"path\" to it.")
                 (chdir "python")
                 (mkdir-p dist)
                 (setenv "PYTHONPATH"
-                        (string-append dist ":" (getenv "GUIX_PYTHONPATH")))
+                        (string-append dist ":" (getenv "MANIFOLDING_OS_PYTHONPATH")))
                 (invoke "python" "setup.py" "install"
                         "--root=/" "--single-version-externally-managed"
                         (string-append "--prefix=" #$output)))))

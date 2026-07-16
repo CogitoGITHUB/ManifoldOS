@@ -41,13 +41,13 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu services base)
-  #:use-module (guix store)
-  #:use-module (guix deprecation)
-  #:autoload   (guix diagnostics) (warning formatted-message &fix-hint)
-  #:autoload   (guix i18n) (G_)
-  #:use-module (guix combinators)
-  #:use-module (guix packages)
-  #:use-module (guix utils)
+  #:use-module (Manifolding-OS store)
+  #:use-module (Manifolding-OS deprecation)
+  #:autoload   (Manifolding-OS diagnostics) (warning formatted-message &fix-hint)
+  #:autoload   (Manifolding-OS i18n) (G_)
+  #:use-module (Manifolding-OS combinators)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS utils)
   #:use-module (gnu services)
   #:use-module (gnu services admin)
   #:use-module (gnu services configuration)
@@ -92,15 +92,15 @@
   #:use-module ((gnu build file-systems)
                 #:select (mount-flags->bit-mask
                           swap-space->flags-bit-mask))
-  #:use-module (guix gexp)
-  #:use-module ((guix packages) #:select (package-version))
-  #:use-module (guix records)
-  #:use-module (guix modules)
-  #:use-module (guix pki)
-  #:use-module ((guix self) #:select (make-config.scm))
-  #:use-module (guix diagnostics)
-  #:use-module (guix i18n)
-  #:autoload   (guix utils) (target-hurd?)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module ((Manifolding-OS packages) #:select (package-version))
+  #:use-module (Manifolding-OS records)
+  #:use-module (Manifolding-OS modules)
+  #:use-module (Manifolding-OS pki)
+  #:use-module ((Manifolding-OS self) #:select (make-config.scm))
+  #:use-module (Manifolding-OS diagnostics)
+  #:use-module (Manifolding-OS i18n)
+  #:autoload   (Manifolding-OS utils) (target-hurd?)
   #:use-module (srfi srfi-1)
   #:use-module (srfi srfi-26)
   #:use-module (srfi srfi-34)
@@ -1635,7 +1635,7 @@ the tty to run, among other things."
 (define nscd-activation
   ;; Actions to take before starting nscd.
   #~(begin
-      (use-modules (guix build utils))
+      (use-modules (Manifolding-OS build utils))
       (mkdir-p "/var/run/nscd")
       (mkdir-p "/var/db/nscd")                    ;for the persistent cache
 
@@ -1872,7 +1872,7 @@ GID."
           1))
 
 (define not-config?
-  ;; Select (guix …) and (gnu …) modules, except (guix config).
+  ;; Select (Manifolding-OS …) and (gnu …) modules, except (Manifolding-OS config).
   (match-lambda
     (('guix 'config) #f)
     (('guix rest ...) #t)
@@ -1881,9 +1881,9 @@ GID."
 
 (define (guix-configuration-file-installation name file)
   "Return a gexp that create a symlink '/etc/guix/NAME' to FILE."
-  (with-imported-modules '((guix build utils))
+  (with-imported-modules '((Manifolding-OS build utils))
     #~(begin
-        (use-modules (guix build utils))
+        (use-modules (Manifolding-OS build utils))
 
         (let* ((target #$(string-append "/etc/guix/" name))
                (install (lambda ()
@@ -1912,12 +1912,12 @@ GID."
 archive' public keys, with GUIX."
   (define default-acl
     (with-extensions (list guile-gcrypt)
-      (with-imported-modules `(((guix config) => ,(make-config.scm))
-                               ,@(source-module-closure '((guix pki))
+      (with-imported-modules `(((Manifolding-OS config) => ,(make-config.scm))
+                               ,@(source-module-closure '((Manifolding-OS pki))
                                                         #:select? not-config?))
         (computed-file "acl"
                        #~(begin
-                           (use-modules (guix pki)
+                           (use-modules (Manifolding-OS pki)
                                         (gcrypt pk-crypto)
                                         (ice-9 rdelim))
 
@@ -1959,10 +1959,10 @@ GID in a context where the store is writable, even if it was bind-mounted
 read-only via %IMMUTABLE-STORE (this wrapper must run as root)."
   (program-file "run-with-writable-store"
                 (with-imported-modules (source-module-closure
-                                        '((guix build syscalls)
+                                        '((Manifolding-OS build syscalls)
                                           (gnu build accounts)))
                   #~(begin
-                      (use-modules (guix build syscalls)
+                      (use-modules (Manifolding-OS build syscalls)
                                    (gnu build accounts)
                                    (srfi srfi-1)
                                    (ice-9 match))
@@ -2002,9 +2002,9 @@ of Guix to the given UID and GID."
   (program-file
    "validate-guix-ownership"
    (with-imported-modules (source-module-closure
-                           '((guix build utils)))
+                           '((Manifolding-OS build utils)))
      #~(begin
-         (use-modules (guix build utils)
+         (use-modules (Manifolding-OS build utils)
                       (ice-9 ftw)
                       (ice-9 match))
 
@@ -2065,7 +2065,7 @@ and data directories to ~a:~a...~%"
 (define-record-type* <guix-configuration>
   guix-configuration make-guix-configuration
   guix-configuration?
-  (guix             guix-configuration-guix       ;file-like
+  (Manifolding-OS             guix-configuration-guix       ;file-like
                     (default guix))
   (build-group      guix-configuration-build-group ;string
                     (default "guixbuild"))
@@ -2174,7 +2174,7 @@ proxy of 'guix-daemon'...~%")
           glibc-utf8-locales)))
 
   (match-record config <guix-configuration>
-    (guix privileged?
+    (Manifolding-OS privileged?
           build-group build-accounts chroot? authorize-key? authorized-keys
           use-substitutes? substitute-urls max-silent-time timeout
           log-compression discover? extra-options log-file
@@ -2231,12 +2231,12 @@ guix-daemon have the right ownership."))
            (modules '((srfi srfi-1)
                       (ice-9 match)
                       (gnu build shepherd)
-                      (guix build utils)))
+                      (Manifolding-OS build utils)))
            (start
-            (with-imported-modules `(((guix config) => ,(make-config.scm))
+            (with-imported-modules `(((Manifolding-OS config) => ,(make-config.scm))
                                      ,@(source-module-closure
                                         '((gnu build shepherd)
-                                          (guix build utils))
+                                          (Manifolding-OS build utils))
                                         #:select? not-config?))
               #~(lambda args
                   (define proxy
@@ -2295,13 +2295,13 @@ guix-daemon have the right ownership."))
                                   ;; that contain UTF-8 file names such as
                                   ;; 'nss-certs'.  See
                                   ;; <https://bugs.gnu.org/32942>.
-                                  (string-append "GUIX_LOCPATH="
+                                  (string-append "MANIFOLDING_OS_LOCPATH="
                                                  #$locales "/lib/locale")
                                   "LC_ALL=en_US.utf8"
                                   ;; Make 'tar' and 'gzip' available so
                                   ;; that 'guix perform-download' can use
                                   ;; them when downloading from Software
-                                  ;; Heritage via '(guix swh)'.  Last,
+                                  ;; Heritage via '(Manifolding-OS swh)'.  Last,
                                   ;; /run/privileged/bin is needed for
                                   ;; 'newgidmap', used by the unprivileged
                                   ;; daemon.
@@ -2389,7 +2389,7 @@ guix-daemon have the right ownership."))
 (define (guix-activation config)
   "Return the activation gexp for CONFIG."
   (match-record config <guix-configuration>
-    (guix generate-substitute-key? authorize-key? authorized-keys)
+    (Manifolding-OS generate-substitute-key? authorize-key? authorized-keys)
     #~(begin
         ;; Assume that the store has BUILD-GROUP as its group.  We could
         ;; otherwise call 'chown' here, but the problem is that on a COW overlayfs,
@@ -2489,7 +2489,7 @@ guix-daemon have the right ownership."))
 (define-record-type* <guix-publish-configuration>
   guix-publish-configuration make-guix-publish-configuration
   guix-publish-configuration?
-  (guix    guix-publish-configuration-guix        ;file-like
+  (Manifolding-OS    guix-publish-configuration-guix        ;file-like
            (default guix))
   (port    guix-publish-configuration-port        ;number
            (default 80))
@@ -2535,7 +2535,7 @@ raise a deprecation warning if the 'compression-level' field was used."
                    lst))))
 
   (match-record config <guix-publish-configuration>
-    (guix port host nar-path cache workers ttl negative-ttl
+    (Manifolding-OS port host nar-path cache workers ttl negative-ttl
           cache-bypass-threshold advertise?)
     (let ((command #~(list #$(file-append guix "/bin/guix")
                            "publish" "-u" "guix-publish"
@@ -2572,7 +2572,7 @@ raise a deprecation warning if the 'compression-level' field was used."
                       ;; Make sure we run in a UTF-8 locale so we can produce
                       ;; nars for packages that contain UTF-8 file names such
                       ;; as 'nss-certs'.  See <https://bugs.gnu.org/26948>.
-                      (list (string-append "GUIX_LOCPATH="
+                      (list (string-append "MANIFOLDING_OS_LOCPATH="
                                            #$(libc-utf8-locales-for-target)
                                            "/lib/locale")
                             "LC_ALL=en_US.utf8")
@@ -2610,9 +2610,9 @@ raise a deprecation warning if the 'compression-level' field was used."
 (define (guix-publish-activation config)
   (let ((cache (guix-publish-configuration-cache config)))
     (if cache
-        (with-imported-modules '((guix build utils))
+        (with-imported-modules '((Manifolding-OS build utils))
           #~(begin
-              (use-modules (guix build utils))
+              (use-modules (Manifolding-OS build utils))
 
               (mkdir-p #$cache)
               (let* ((pw  (getpw "guix-publish"))
@@ -2656,11 +2656,11 @@ command that allows you to share pre-built binaries with others over HTTP.")))
   "Return the union of the lib/udev/SUBDIRECTORY directories found in each
 item of PACKAGES."
   (define build
-    (with-imported-modules '((guix build union)
-                             (guix build utils))
+    (with-imported-modules '((Manifolding-OS build union)
+                             (Manifolding-OS build utils))
       #~(begin
-          (use-modules (guix build union)
-                       (guix build utils)
+          (use-modules (Manifolding-OS build union)
+                       (Manifolding-OS build utils)
                        (srfi srfi-1)
                        (srfi srfi-26))
 
@@ -2700,9 +2700,9 @@ item of PACKAGES."
   "Return a directory with a udev configuration file FILE-NAME which is a copy
  of FILE."
   (computed-file file-name
-                 (with-imported-modules '((guix build utils))
+                 (with-imported-modules '((Manifolding-OS build utils))
                    #~(begin
-                       (use-modules (guix build utils))
+                       (use-modules (Manifolding-OS build utils))
 
                        (define configuration-directory
                          (string-append #$output
@@ -2838,9 +2838,9 @@ item of PACKAGES."
            (hwdb.bin
             (computed-file
              "hwdb.bin"
-             (with-imported-modules '((guix build utils))
+             (with-imported-modules '((Manifolding-OS build utils))
                #~(begin
-                   (use-modules (guix build utils))
+                   (use-modules (Manifolding-OS build utils))
                    (setenv "UDEV_HWDB_PATH" #$hardware)
                    (invoke #+(file-append udev "/bin/udevadm")
                            "hwdb"
@@ -3318,9 +3318,9 @@ to CONFIG."
   (if (equal? (static-networking-provision config) '(loopback))
       (program-file "set-up-pflocal" #~(begin 'nothing-to-do! #t))
       (program-file "set-up-pfinet"
-                    (with-imported-modules '((guix build utils))
+                    (with-imported-modules '((Manifolding-OS build utils))
                       #~(begin
-                          (use-modules (guix build utils)
+                          (use-modules (Manifolding-OS build utils)
                                        (ice-9 format))
 
                           ;; TODO: Do that without forking.
@@ -3339,9 +3339,9 @@ to CONFIG."
 
 (define (network-tear-down/hurd config)
   (program-file "tear-down-pfinet"
-                (with-imported-modules '((guix build utils))
+                (with-imported-modules '((Manifolding-OS build utils))
                   #~(begin
-                      (use-modules (guix build utils))
+                      (use-modules (Manifolding-OS build utils))
 
                       ;; Forcefully terminate pfinet.  XXX: In theory this
                       ;; should just undo the addresses and routes of CONFIG;
@@ -3800,9 +3800,9 @@ to handle."
   (let ((sway-bin (file-append sway "/bin/sway")))
     (program-file
      "greeter-sway-command"
-     (with-imported-modules '((guix build utils))
+     (with-imported-modules '((Manifolding-OS build utils))
        #~(begin
-           (use-modules (guix build utils))
+           (use-modules (Manifolding-OS build utils))
 
            (let* ((username (getenv "USER"))
                   (user (getpwnam username))
@@ -4391,7 +4391,7 @@ greeter.")
 
 (define (greetd-run-user-activation config)
   #~(begin
-      (use-modules (guix build utils))
+      (use-modules (Manifolding-OS build utils))
       (let ((d "/run/user"))
         (mkdir-p d)
         (chmod d #o755))))

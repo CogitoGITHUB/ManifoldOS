@@ -45,12 +45,12 @@
   #:use-module (gnu packages python-web)
   #:use-module (gnu packages tls)
   #:use-module (gnu packages web)
-  #:use-module (guix packages)
-  #:use-module (guix modules)
-  #:use-module (guix records)
-  #:use-module (guix gexp)
-  #:use-module (guix store)
-  #:use-module (guix utils)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS modules)
+  #:use-module (Manifolding-OS records)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS store)
+  #:use-module (Manifolding-OS utils)
   #:use-module (ice-9 match)
   #:export (%test-httpd
             %test-nginx
@@ -110,7 +110,7 @@ the tests."
     (marionette-operating-system
      test-os
      #:imported-modules '((gnu services herd)
-                          (guix combinators))))
+                          (Manifolding-OS combinators))))
 
   (define forwarded-port 8080)
 
@@ -351,7 +351,7 @@ HTTP-PORT, along with php-fpm."
     (marionette-operating-system
      %php-fpm-os
      #:imported-modules '((gnu services herd)
-                          (guix combinators))))
+                          (Manifolding-OS combinators))))
 
   (define vm
     (virtual-machine
@@ -360,7 +360,7 @@ HTTP-PORT, along with php-fpm."
 
   (define test
     (with-imported-modules '((gnu build marionette)
-                             (guix build utils))
+                             (Manifolding-OS build utils))
       #~(begin
           (use-modules (srfi srfi-11) (srfi srfi-64)
                        (gnu build marionette)
@@ -431,7 +431,7 @@ HTTP-PORT, along with php-fpm."
     (marionette-operating-system
      test-os
      #:imported-modules '((gnu services herd)
-                          (guix combinators))))
+                          (Manifolding-OS combinators))))
 
   (define vm
     (virtual-machine
@@ -519,7 +519,7 @@ HTTP-PORT, along with php-fpm."
     (marionette-operating-system
      %anonip-os
      #:imported-modules '((gnu services herd)
-                          (guix combinators))))
+                          (Manifolding-OS combinators))))
 
   (define vm
     (virtual-machine
@@ -798,7 +798,7 @@ HTTP-PORT."
     (marionette-operating-system
      (patchwork-os patchwork)
      #:imported-modules '((gnu services herd)
-                          (guix combinators))))
+                          (Manifolding-OS combinators))))
 
   (define forwarded-port 8080)
 
@@ -963,7 +963,7 @@ HTTP-PORT."
     (marionette-operating-system
      test-os
      #:imported-modules '((gnu services herd)
-                          (guix combinators))
+                          (Manifolding-OS combinators))
      #:extensions (list guile-gemini guile-gnutls)))
 
   (define forwarded-port 1965)
@@ -1081,7 +1081,7 @@ HTTP-PORT."
     (marionette-operating-system
      test-os
      #:imported-modules '((gnu services herd)
-                          (guix combinators))))
+                          (Manifolding-OS combinators))))
 
   (define forwarded-port 8080)
 
@@ -1177,7 +1177,7 @@ HTTP-PORT."
     (marionette-operating-system
      test-os
      #:imported-modules '((gnu services herd)
-                          (guix combinators))))
+                          (Manifolding-OS combinators))))
 
   (define vm
     (virtual-machine

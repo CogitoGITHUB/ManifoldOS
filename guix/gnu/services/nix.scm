@@ -28,15 +28,15 @@
   #:use-module (gnu services)
   #:use-module (gnu system file-systems)
   #:use-module (gnu system shadow)
-  #:use-module (guix gexp)
-  #:use-module (guix packages)
-  #:use-module (guix records)
-  #:use-module (guix store)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS records)
+  #:use-module (Manifolding-OS store)
   #:use-module (srfi srfi-1)
   #:use-module (srfi srfi-26)
   #:use-module (ice-9 match)
   #:use-module (ice-9 format)
-  #:use-module (guix modules)
+  #:use-module (Manifolding-OS modules)
   #:export (nix-service-type
 
             nix-configuration
@@ -96,7 +96,7 @@ GID."
 (define (nix-activation _)
   ;; Return the activation gexp.
   #~(begin
-      (use-modules (guix build utils)
+      (use-modules (Manifolding-OS build utils)
                    (srfi srfi-26))
       (for-each (cut mkdir-p <>) '("/nix/var/log"
                                    "/nix/var/nix/gcroots/per-user"

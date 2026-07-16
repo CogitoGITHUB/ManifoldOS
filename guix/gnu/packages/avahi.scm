@@ -17,7 +17,7 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages avahi)
-  #:use-module (guix deprecation))
+  #:use-module (Manifolding-OS deprecation))
 
 ;; XXX: Deprecated on 2026-06-04.
 (define-deprecated/public-alias avahi

@@ -39,7 +39,7 @@
 
 MSGMERGE_UPDATE = @MSGMERGE@ --update
 
-bin_SCRIPTS = scripts/guix
+bin_SCRIPTS = scripts/Manifolding-OS
 
 # Handle substitution of fully-expanded Autoconf variables.
 do_subst = $(SED)					\
@@ -49,7 +49,7 @@ do_subst = $(SED)					\
   -e 's,[@]abs_top_builddir[@],$(abs_top_builddir),g'	\
   -e 's,[@]localedir[@],$(localedir),g'
 
-scripts/guix: scripts/guix.in Makefile guile$(EXEEXT)
+scripts/Manifolding-OS scripts/Manifolding-OS.in Makefile guile$(EXEEXT)
 	$(AM_V_at)rm -f $@ $@-t
 	$(AM_V_at)$(MKDIR_P) "$(@D)"
 	$(AM_V_GEN)$(do_subst) < "$(srcdir)/$@.in" > "$@-t"
@@ -62,9 +62,9 @@ guile_SOURCES = gnu/packages/aux-files/guile-launcher.c
 guile_LDADD   = $(GUILE_LIBS)
 guile_CFLAGS  = $(GUILE_CFLAGS)
 
-# Have the 'guix' command refer to our 'guile'.
+# Have the 'Manifolding-OS' command refer to our 'guile'.
 install-exec-hook:
-	$(SED) -i "$(DESTDIR)$(bindir)/guix"				\
+	$(SED) -i "$(DESTDIR)$(bindir)/Manifolding-OS"				\
 	       -e 's,^#![[:graph:]]\+,#!$(pkglibexecdir)/guile,g'
 
 nodist_noinst_SCRIPTS =				\
@@ -74,356 +74,356 @@ nodist_noinst_SCRIPTS =				\
 # Modules that are not compiled but are installed nonetheless, such as
 # build-side modules with unusual dependencies.
 MODULES_NOT_COMPILED =				\
-  guix/build/po.scm				\
-  guix/man-db.scm
+  Manifolding-OS/build/po.scm				\
+  Manifolding-OS/man-db.scm
 
 include gnu/local.mk
 include po/doc/local.mk
 
 MODULES =					\
-  guix/base16.scm				\
-  guix/base32.scm				\
-  guix/base64.scm				\
-  guix/ci.scm					\
-  guix/cpio.scm					\
-  guix/amd-gpu.scm				\
-  guix/cpu.scm					\
-  guix/deprecation.scm				\
-  guix/docker.scm	   			\
-  guix/records.scm				\
-  guix/openpgp.scm				\
-  guix/pki.scm					\
-  guix/progress.scm				\
-  guix/combinators.scm				\
-  guix/memoization.scm				\
-  guix/utils.scm				\
-  guix/sets.scm					\
-  guix/modules.scm				\
-  guix/download.scm				\
-  guix/discovery.scm				\
-  guix/android-repo-download.scm		\
-  guix/bzr-download.scm            		\
-  guix/fossil-download.scm			\
-  guix/git-download.scm				\
-  guix/hg-download.scm				\
-  guix/hash.scm					\
-  guix/swh.scm					\
-  guix/monads.scm				\
-  guix/monad-repl.scm				\
-  guix/gexp.scm					\
-  guix/profiles.scm				\
-  guix/serialization.scm			\
-  guix/nar.scm					\
-  guix/narinfo.scm				\
-  guix/derivations.scm				\
-  guix/grafts.scm				\
-  guix/remote-procedures.scm			\
-  guix/repl.scm					\
-  guix/rpm.scm					\
-  guix/transformations.scm			\
-  guix/inferior.scm				\
-  guix/describe.scm				\
-  guix/quirks.scm				\
-  guix/gnu-maintenance.scm			\
-  guix/self.scm					\
-  guix/substitutes.scm				\
-  guix/upstream.scm				\
-  guix/licenses.scm				\
-  guix/lint.scm				\
-  guix/glob.scm					\
-  guix/git.scm					\
-  guix/git-authenticate.scm			\
-  guix/graph.scm				\
-  guix/cache.scm				\
-  guix/cve.scm					\
-  guix/workers.scm				\
-  guix/least-authority.scm			\
-  guix/read-print.scm				\
-  guix/ipfs.scm					\
-  guix/platform.scm                             \
-  guix/platforms/arm.scm                        \
-  guix/platforms/avr.scm                        \
-  guix/platforms/loongarch.scm                  \
-  guix/platforms/mips.scm                       \
-  guix/platforms/or1k.scm                       \
-  guix/platforms/powerpc.scm                    \
-  guix/platforms/riscv.scm                      \
-  guix/platforms/x86.scm                        \
-  guix/platforms/xtensa.scm                     \
-  guix/build-system.scm				\
-  guix/build-system/agda.scm			\
-  guix/build-system/android-ndk.scm		\
-  guix/build-system/ant.scm			\
-  guix/build-system/asdf.scm			\
-  guix/build-system/cargo.scm			\
-  guix/build-system/chicken.scm		\
-  guix/build-system/clojure.scm		\
-  guix/build-system/cmake.scm			\
-  guix/build-system/copy.scm			\
-  guix/build-system/composer.scm		\
-  guix/build-system/dub.scm			\
-  guix/build-system/dune.scm			\
-  guix/build-system/elm.scm			\
-  guix/build-system/emacs.scm			\
-  guix/build-system/font.scm			\
-  guix/build-system/glib-or-gtk.scm		\
-  guix/build-system/gnu.scm			\
-  guix/build-system/go.scm			\
-  guix/build-system/guile.scm			\
-  guix/build-system/hare.scm			\
-  guix/build-system/haskell.scm		\
-  guix/build-system/julia.scm			\
-  guix/build-system/linux-module.scm		\
-  guix/build-system/luanti.scm		\
-  guix/build-system/maven.scm			\
-  guix/build-system/meson.scm			\
-  guix/build-system/minetest.scm		\
-  guix/build-system/minify.scm			\
-  guix/build-system/mix.scm			\
-  guix/build-system/mozilla.scm		\
-  guix/build-system/node.scm			\
-  guix/build-system/ocaml.scm			\
-  guix/build-system/perl.scm			\
-  guix/build-system/pyproject.scm		\
-  guix/build-system/python.scm			\
-  guix/build-system/qt.scm			\
-  guix/build-system/r.scm			\
-  guix/build-system/rakudo.scm			\
-  guix/build-system/rebar.scm			\
-  guix/build-system/renpy.scm			\
-  guix/build-system/ruby.scm			\
-  guix/build-system/scons.scm			\
-  guix/build-system/texlive.scm		\
-  guix/build-system/tree-sitter.scm		\
-  guix/build-system/trivial.scm		\
-  guix/build-system/vim.scm			\
-  guix/build-system/waf.scm			\
-  guix/build-system/zig.scm			\
-  guix/ftp-client.scm				\
-  guix/http-client.scm				\
-  guix/gnupg.scm				\
-  guix/elf.scm					\
-  guix/profiling.scm				\
-  guix/store.scm				\
-  guix/cvs-download.scm				\
-  guix/svn-download.scm				\
-  guix/colors.scm				\
-  guix/i18n.scm					\
-  guix/diagnostics.scm				\
-  guix/ui.scm					\
-  guix/status.scm				\
-  guix/build/agda-build-system.scm              \
-  guix/build/android-ndk-build-system.scm	\
-  guix/build/ant-build-system.scm		\
-  guix/build/download.scm			\
-  guix/build/download-nar.scm			\
-  guix/build/cargo-build-system.scm		\
-  guix/build/cargo-utils.scm			\
-  guix/build/chicken-build-system.scm		\
-  guix/build/cmake-build-system.scm		\
-  guix/build/composer-build-system.scm		\
-  guix/build/dub-build-system.scm		\
-  guix/build/dune-build-system.scm		\
-  guix/build/elm-build-system.scm		\
-  guix/build/emacs-build-system.scm		\
-  guix/build/meson-build-system.scm		\
-  guix/build/minify-build-system.scm		\
-  guix/build/font-build-system.scm		\
-  guix/build/go-build-system.scm		\
-  guix/build/android-repo.scm			\
-  guix/build/asdf-build-system.scm		\
-  guix/build/bzr.scm				\
-  guix/build/copy-build-system.scm		\
-  guix/build/fossil.scm				\
-  guix/build/git.scm				\
-  guix/build/hg.scm				\
-  guix/build/glib-or-gtk-build-system.scm	\
-  guix/build/gnu-bootstrap.scm			\
-  guix/build/gnu-build-system.scm		\
-  guix/build/gnu-dist.scm			\
-  guix/build/guile-build-system.scm		\
-  guix/build/hare-build-system.scm		\
-  guix/build/luanti-build-system.scm		\
-  guix/build/maven-build-system.scm		\
-  guix/build/minetest-build-system.scm		\
-  guix/build/mix-build-system.scm		\
-  guix/build/node-build-system.scm		\
-  guix/build/perl-build-system.scm		\
-  guix/build/pyproject-build-system.scm		\
-  guix/build/python-build-system.scm		\
-  guix/build/ocaml-build-system.scm		\
-  guix/build/qt-build-system.scm		\
-  guix/build/r-build-system.scm			\
-  guix/build/renpy-build-system.scm			\
-  guix/build/rakudo-build-system.scm		\
-  guix/build/rebar-build-system.scm		\
-  guix/build/ruby-build-system.scm		\
-  guix/build/scons-build-system.scm		\
-  guix/build/texlive-build-system.scm		\
-  guix/build/tree-sitter-build-system.scm	\
-  guix/build/vim-build-system.scm		\
-  guix/build/waf-build-system.scm		\
-  guix/build/haskell-build-system.scm		\
-  guix/build/julia-build-system.scm		\
-  guix/build/kconfig.scm			\
-  guix/build/linux-module-build-system.scm	\
-  guix/build/store-copy.scm			\
-  guix/build/pack.scm				\
-  guix/build/utils.scm				\
-  guix/build/union.scm				\
-  guix/build/profiles.scm			\
-  guix/build/compile.scm			\
-  guix/build/cvs.scm				\
-  guix/build/svn.scm				\
-  guix/build/syscalls.scm                       \
-  guix/build/gremlin.scm			\
-  guix/build/debug-link.scm			\
-  guix/build/clojure-build-system.scm		\
-  guix/build/clojure-utils.scm			\
-  guix/build/emacs-utils.scm			\
-  guix/build/java-utils.scm			\
-  guix/build/lisp-utils.scm			\
-  guix/build/meson-configuration.scm		\
-  guix/build/maven/java.scm			\
-  guix/build/maven/plugin.scm			\
-  guix/build/maven/pom.scm			\
-  guix/build/graft.scm				\
-  guix/build/bournish.scm			\
-  guix/build/qt-utils.scm			\
-  guix/build/zig-build-system.scm		\
-  guix/build/zig-utils.scm			\
-  guix/build/make-bootstrap.scm			\
-  guix/build/toml.scm			\
-  guix/search-paths.scm				\
-  guix/packages.scm				\
-  guix/import/apache.scm			\
-  guix/import/cabal.scm				\
-  guix/import/composer.scm			\
-  guix/import/cpan.scm				\
-  guix/import/cran.scm				\
-  guix/import/crate.scm				\
-  guix/import/crate/cargo-lock.scm		\
-  guix/import/egg.scm   			\
-  guix/import/elm.scm				\
-  guix/import/elpa.scm   			\
-  guix/import/gem.scm				\
-  guix/import/git.scm                           \
-  guix/import/github.scm   			\
-  guix/import/gnome.scm				\
-  guix/import/gnu.scm				\
-  guix/import/go.scm				\
-  guix/import/hackage.scm			\
-  guix/import/hexpm.scm				\
-  guix/import/json.scm				\
-  guix/import/kde.scm				\
-  guix/import/launchpad.scm   			\
-  guix/import/luanti.scm   			\
-  guix/import/minetest.scm   			\
-  guix/import/nuget.scm   			\
-  guix/import/npm-binary.scm			\
-  guix/import/opam.scm				\
-  guix/import/print.scm				\
-  guix/import/pypi.scm				\
-  guix/import/stackage.scm			\
-  guix/import/test.scm   			\
-  guix/import/texlive.scm   			\
-  guix/import/utils.scm				\
-  guix/scripts.scm				\
-  guix/scripts/download.scm			\
-  guix/scripts/perform-download.scm		\
-  guix/scripts/build.scm			\
-  guix/scripts/archive.scm			\
-  guix/scripts/import.scm			\
-  guix/scripts/package.scm			\
-  guix/scripts/locate.scm			\
-  guix/scripts/install.scm			\
-  guix/scripts/remove.scm			\
-  guix/scripts/upgrade.scm			\
-  guix/scripts/search.scm			\
-  guix/scripts/show.scm				\
-  guix/scripts/gc.scm				\
-  guix/scripts/hash.scm				\
-  guix/scripts/pack.scm				\
-  guix/scripts/pull.scm				\
-  guix/scripts/processes.scm			\
-  guix/scripts/substitute.scm			\
-  guix/scripts/authenticate.scm			\
-  guix/scripts/refresh.scm			\
-  guix/scripts/repl.scm				\
-  guix/scripts/describe.scm			\
-  guix/scripts/style.scm			\
-  guix/scripts/system.scm			\
-  guix/scripts/system/edit.scm			\
-  guix/scripts/system/reconfigure.scm		\
-  guix/scripts/system/search.scm		\
-  guix/scripts/home.scm			\
-  guix/scripts/home/edit.scm			\
-  guix/scripts/home/import.scm			\
-  guix/scripts/lint.scm				\
-  guix/scripts/challenge.scm			\
-  guix/scripts/import/composer.scm		\
-  guix/scripts/import/crate.scm			\
-  guix/scripts/import/cpan.scm			\
-  guix/scripts/import/cran.scm			\
-  guix/scripts/import/egg.scm   		\
-  guix/scripts/import/elm.scm			\
-  guix/scripts/import/elpa.scm  		\
-  guix/scripts/import/gem.scm			\
-  guix/scripts/import/gnu.scm			\
-  guix/scripts/import/go.scm			\
-  guix/scripts/import/hackage.scm		\
-  guix/scripts/import/hexpm.scm			\
-  guix/scripts/import/json.scm  		\
-  guix/scripts/import/luanti.scm  		\
-  guix/scripts/import/minetest.scm  		\
-  guix/scripts/import/npm-binary.scm		\
-  guix/scripts/import/nuget.scm  		\
-  guix/scripts/import/opam.scm			\
-  guix/scripts/import/pypi.scm			\
-  guix/scripts/import/stackage.scm		\
-  guix/scripts/import/texlive.scm  		\
-  guix/scripts/environment.scm			\
-  guix/scripts/shell.scm			\
-  guix/scripts/publish.scm			\
-  guix/scripts/edit.scm				\
-  guix/scripts/size.scm				\
-  guix/scripts/git.scm				\
-  guix/scripts/git/authenticate.scm		\
-  guix/scripts/graph.scm			\
-  guix/scripts/weather.scm			\
-  guix/scripts/container.scm			\
-  guix/scripts/container/exec.scm		\
-  guix/scripts/deploy.scm			\
-  guix/scripts/time-machine.scm			\
-  guix.scm					\
+  Manifolding-OS/base16.scm				\
+  Manifolding-OS/base32.scm				\
+  Manifolding-OS/base64.scm				\
+  Manifolding-OS/ci.scm					\
+  Manifolding-OS/cpio.scm					\
+  Manifolding-OS/amd-gpu.scm				\
+  Manifolding-OS/cpu.scm					\
+  Manifolding-OS/deprecation.scm				\
+  Manifolding-OS/docker.scm	   			\
+  Manifolding-OS/records.scm				\
+  Manifolding-OS/openpgp.scm				\
+  Manifolding-OS/pki.scm					\
+  Manifolding-OS/progress.scm				\
+  Manifolding-OS/combinators.scm				\
+  Manifolding-OS/memoization.scm				\
+  Manifolding-OS/utils.scm				\
+  Manifolding-OS/sets.scm					\
+  Manifolding-OS/modules.scm				\
+  Manifolding-OS/download.scm				\
+  Manifolding-OS/discovery.scm				\
+  Manifolding-OS/android-repo-download.scm		\
+  Manifolding-OS/bzr-download.scm            		\
+  Manifolding-OS/fossil-download.scm			\
+  Manifolding-OS/git-download.scm				\
+  Manifolding-OS/hg-download.scm				\
+  Manifolding-OS/hash.scm					\
+  Manifolding-OS/swh.scm					\
+  Manifolding-OS/monads.scm				\
+  Manifolding-OS/monad-repl.scm				\
+  Manifolding-OS/gexp.scm					\
+  Manifolding-OS/profiles.scm				\
+  Manifolding-OS/serialization.scm			\
+  Manifolding-OS/nar.scm					\
+  Manifolding-OS/narinfo.scm				\
+  Manifolding-OS/derivations.scm				\
+  Manifolding-OS/grafts.scm				\
+  Manifolding-OS/remote-procedures.scm			\
+  Manifolding-OS/repl.scm					\
+  Manifolding-OS/rpm.scm					\
+  Manifolding-OS/transformations.scm			\
+  Manifolding-OS/inferior.scm				\
+  Manifolding-OS/describe.scm				\
+  Manifolding-OS/quirks.scm				\
+  Manifolding-OS/gnu-maintenance.scm			\
+  Manifolding-OS/self.scm					\
+  Manifolding-OS/substitutes.scm				\
+  Manifolding-OS/upstream.scm				\
+  Manifolding-OS/licenses.scm				\
+  Manifolding-OS/lint.scm				\
+  Manifolding-OS/glob.scm					\
+  Manifolding-OS/git.scm					\
+  Manifolding-OS/git-authenticate.scm			\
+  Manifolding-OS/graph.scm				\
+  Manifolding-OS/cache.scm				\
+  Manifolding-OS/cve.scm					\
+  Manifolding-OS/workers.scm				\
+  Manifolding-OS/least-authority.scm			\
+  Manifolding-OS/read-print.scm				\
+  Manifolding-OS/ipfs.scm					\
+  Manifolding-OS/platform.scm                             \
+  Manifolding-OS/platforms/arm.scm                        \
+  Manifolding-OS/platforms/avr.scm                        \
+  Manifolding-OS/platforms/loongarch.scm                  \
+  Manifolding-OS/platforms/mips.scm                       \
+  Manifolding-OS/platforms/or1k.scm                       \
+  Manifolding-OS/platforms/powerpc.scm                    \
+  Manifolding-OS/platforms/riscv.scm                      \
+  Manifolding-OS/platforms/x86.scm                        \
+  Manifolding-OS/platforms/xtensa.scm                     \
+  Manifolding-OS/build-system.scm				\
+  Manifolding-OS/build-system/agda.scm			\
+  Manifolding-OS/build-system/android-ndk.scm		\
+  Manifolding-OS/build-system/ant.scm			\
+  Manifolding-OS/build-system/asdf.scm			\
+  Manifolding-OS/build-system/cargo.scm			\
+  Manifolding-OS/build-system/chicken.scm		\
+  Manifolding-OS/build-system/clojure.scm		\
+  Manifolding-OS/build-system/cmake.scm			\
+  Manifolding-OS/build-system/copy.scm			\
+  Manifolding-OS/build-system/composer.scm		\
+  Manifolding-OS/build-system/dub.scm			\
+  Manifolding-OS/build-system/dune.scm			\
+  Manifolding-OS/build-system/elm.scm			\
+  Manifolding-OS/build-system/emacs.scm			\
+  Manifolding-OS/build-system/font.scm			\
+  Manifolding-OS/build-system/glib-or-gtk.scm		\
+  Manifolding-OS/build-system/gnu.scm			\
+  Manifolding-OS/build-system/go.scm			\
+  Manifolding-OS/build-system/guile.scm			\
+  Manifolding-OS/build-system/hare.scm			\
+  Manifolding-OS/build-system/haskell.scm		\
+  Manifolding-OS/build-system/julia.scm			\
+  Manifolding-OS/build-system/linux-module.scm		\
+  Manifolding-OS/build-system/luanti.scm		\
+  Manifolding-OS/build-system/maven.scm			\
+  Manifolding-OS/build-system/meson.scm			\
+  Manifolding-OS/build-system/minetest.scm		\
+  Manifolding-OS/build-system/minify.scm			\
+  Manifolding-OS/build-system/mix.scm			\
+  Manifolding-OS/build-system/mozilla.scm		\
+  Manifolding-OS/build-system/node.scm			\
+  Manifolding-OS/build-system/ocaml.scm			\
+  Manifolding-OS/build-system/perl.scm			\
+  Manifolding-OS/build-system/pyproject.scm		\
+  Manifolding-OS/build-system/python.scm			\
+  Manifolding-OS/build-system/qt.scm			\
+  Manifolding-OS/build-system/r.scm			\
+  Manifolding-OS/build-system/rakudo.scm			\
+  Manifolding-OS/build-system/rebar.scm			\
+  Manifolding-OS/build-system/renpy.scm			\
+  Manifolding-OS/build-system/ruby.scm			\
+  Manifolding-OS/build-system/scons.scm			\
+  Manifolding-OS/build-system/texlive.scm		\
+  Manifolding-OS/build-system/tree-sitter.scm		\
+  Manifolding-OS/build-system/trivial.scm		\
+  Manifolding-OS/build-system/vim.scm			\
+  Manifolding-OS/build-system/waf.scm			\
+  Manifolding-OS/build-system/zig.scm			\
+  Manifolding-OS/ftp-client.scm				\
+  Manifolding-OS/http-client.scm				\
+  Manifolding-OS/gnupg.scm				\
+  Manifolding-OS/elf.scm					\
+  Manifolding-OS/profiling.scm				\
+  Manifolding-OS/store.scm				\
+  Manifolding-OS/cvs-download.scm				\
+  Manifolding-OS/svn-download.scm				\
+  Manifolding-OS/colors.scm				\
+  Manifolding-OS/i18n.scm					\
+  Manifolding-OS/diagnostics.scm				\
+  Manifolding-OS/ui.scm					\
+  Manifolding-OS/status.scm				\
+  Manifolding-OS/build/agda-build-system.scm              \
+  Manifolding-OS/build/android-ndk-build-system.scm	\
+  Manifolding-OS/build/ant-build-system.scm		\
+  Manifolding-OS/build/download.scm			\
+  Manifolding-OS/build/download-nar.scm			\
+  Manifolding-OS/build/cargo-build-system.scm		\
+  Manifolding-OS/build/cargo-utils.scm			\
+  Manifolding-OS/build/chicken-build-system.scm		\
+  Manifolding-OS/build/cmake-build-system.scm		\
+  Manifolding-OS/build/composer-build-system.scm		\
+  Manifolding-OS/build/dub-build-system.scm		\
+  Manifolding-OS/build/dune-build-system.scm		\
+  Manifolding-OS/build/elm-build-system.scm		\
+  Manifolding-OS/build/emacs-build-system.scm		\
+  Manifolding-OS/build/meson-build-system.scm		\
+  Manifolding-OS/build/minify-build-system.scm		\
+  Manifolding-OS/build/font-build-system.scm		\
+  Manifolding-OS/build/go-build-system.scm		\
+  Manifolding-OS/build/android-repo.scm			\
+  Manifolding-OS/build/asdf-build-system.scm		\
+  Manifolding-OS/build/bzr.scm				\
+  Manifolding-OS/build/copy-build-system.scm		\
+  Manifolding-OS/build/fossil.scm				\
+  Manifolding-OS/build/git.scm				\
+  Manifolding-OS/build/hg.scm				\
+  Manifolding-OS/build/glib-or-gtk-build-system.scm	\
+  Manifolding-OS/build/gnu-bootstrap.scm			\
+  Manifolding-OS/build/gnu-build-system.scm		\
+  Manifolding-OS/build/gnu-dist.scm			\
+  Manifolding-OS/build/guile-build-system.scm		\
+  Manifolding-OS/build/hare-build-system.scm		\
+  Manifolding-OS/build/luanti-build-system.scm		\
+  Manifolding-OS/build/maven-build-system.scm		\
+  Manifolding-OS/build/minetest-build-system.scm		\
+  Manifolding-OS/build/mix-build-system.scm		\
+  Manifolding-OS/build/node-build-system.scm		\
+  Manifolding-OS/build/perl-build-system.scm		\
+  Manifolding-OS/build/pyproject-build-system.scm		\
+  Manifolding-OS/build/python-build-system.scm		\
+  Manifolding-OS/build/ocaml-build-system.scm		\
+  Manifolding-OS/build/qt-build-system.scm		\
+  Manifolding-OS/build/r-build-system.scm			\
+  Manifolding-OS/build/renpy-build-system.scm			\
+  Manifolding-OS/build/rakudo-build-system.scm		\
+  Manifolding-OS/build/rebar-build-system.scm		\
+  Manifolding-OS/build/ruby-build-system.scm		\
+  Manifolding-OS/build/scons-build-system.scm		\
+  Manifolding-OS/build/texlive-build-system.scm		\
+  Manifolding-OS/build/tree-sitter-build-system.scm	\
+  Manifolding-OS/build/vim-build-system.scm		\
+  Manifolding-OS/build/waf-build-system.scm		\
+  Manifolding-OS/build/haskell-build-system.scm		\
+  Manifolding-OS/build/julia-build-system.scm		\
+  Manifolding-OS/build/kconfig.scm			\
+  Manifolding-OS/build/linux-module-build-system.scm	\
+  Manifolding-OS/build/store-copy.scm			\
+  Manifolding-OS/build/pack.scm				\
+  Manifolding-OS/build/utils.scm				\
+  Manifolding-OS/build/union.scm				\
+  Manifolding-OS/build/profiles.scm			\
+  Manifolding-OS/build/compile.scm			\
+  Manifolding-OS/build/cvs.scm				\
+  Manifolding-OS/build/svn.scm				\
+  Manifolding-OS/build/syscalls.scm                       \
+  Manifolding-OS/build/gremlin.scm			\
+  Manifolding-OS/build/debug-link.scm			\
+  Manifolding-OS/build/clojure-build-system.scm		\
+  Manifolding-OS/build/clojure-utils.scm			\
+  Manifolding-OS/build/emacs-utils.scm			\
+  Manifolding-OS/build/java-utils.scm			\
+  Manifolding-OS/build/lisp-utils.scm			\
+  Manifolding-OS/build/meson-configuration.scm		\
+  Manifolding-OS/build/maven/java.scm			\
+  Manifolding-OS/build/maven/plugin.scm			\
+  Manifolding-OS/build/maven/pom.scm			\
+  Manifolding-OS/build/graft.scm				\
+  Manifolding-OS/build/bournish.scm			\
+  Manifolding-OS/build/qt-utils.scm			\
+  Manifolding-OS/build/zig-build-system.scm		\
+  Manifolding-OS/build/zig-utils.scm			\
+  Manifolding-OS/build/make-bootstrap.scm			\
+  Manifolding-OS/build/toml.scm			\
+  Manifolding-OS/search-paths.scm				\
+  Manifolding-OS/packages.scm				\
+  Manifolding-OS/import/apache.scm			\
+  Manifolding-OS/import/cabal.scm				\
+  Manifolding-OS/import/composer.scm			\
+  Manifolding-OS/import/cpan.scm				\
+  Manifolding-OS/import/cran.scm				\
+  Manifolding-OS/import/crate.scm				\
+  Manifolding-OS/import/crate/cargo-lock.scm		\
+  Manifolding-OS/import/egg.scm   			\
+  Manifolding-OS/import/elm.scm				\
+  Manifolding-OS/import/elpa.scm   			\
+  Manifolding-OS/import/gem.scm				\
+  Manifolding-OS/import/git.scm                           \
+  Manifolding-OS/import/github.scm   			\
+  Manifolding-OS/import/gnome.scm				\
+  Manifolding-OS/import/gnu.scm				\
+  Manifolding-OS/import/go.scm				\
+  Manifolding-OS/import/hackage.scm			\
+  Manifolding-OS/import/hexpm.scm				\
+  Manifolding-OS/import/json.scm				\
+  Manifolding-OS/import/kde.scm				\
+  Manifolding-OS/import/launchpad.scm   			\
+  Manifolding-OS/import/luanti.scm   			\
+  Manifolding-OS/import/minetest.scm   			\
+  Manifolding-OS/import/nuget.scm   			\
+  Manifolding-OS/import/npm-binary.scm			\
+  Manifolding-OS/import/opam.scm				\
+  Manifolding-OS/import/print.scm				\
+  Manifolding-OS/import/pypi.scm				\
+  Manifolding-OS/import/stackage.scm			\
+  Manifolding-OS/import/test.scm   			\
+  Manifolding-OS/import/texlive.scm   			\
+  Manifolding-OS/import/utils.scm				\
+  Manifolding-OS/scripts.scm				\
+  Manifolding-OS/scripts/download.scm			\
+  Manifolding-OS/scripts/perform-download.scm		\
+  Manifolding-OS/scripts/build.scm			\
+  Manifolding-OS/scripts/archive.scm			\
+  Manifolding-OS/scripts/import.scm			\
+  Manifolding-OS/scripts/package.scm			\
+  Manifolding-OS/scripts/locate.scm			\
+  Manifolding-OS/scripts/install.scm			\
+  Manifolding-OS/scripts/remove.scm			\
+  Manifolding-OS/scripts/upgrade.scm			\
+  Manifolding-OS/scripts/search.scm			\
+  Manifolding-OS/scripts/show.scm				\
+  Manifolding-OS/scripts/gc.scm				\
+  Manifolding-OS/scripts/hash.scm				\
+  Manifolding-OS/scripts/pack.scm				\
+  Manifolding-OS/scripts/pull.scm				\
+  Manifolding-OS/scripts/processes.scm			\
+  Manifolding-OS/scripts/substitute.scm			\
+  Manifolding-OS/scripts/authenticate.scm			\
+  Manifolding-OS/scripts/refresh.scm			\
+  Manifolding-OS/scripts/repl.scm				\
+  Manifolding-OS/scripts/describe.scm			\
+  Manifolding-OS/scripts/style.scm			\
+  Manifolding-OS/scripts/system.scm			\
+  Manifolding-OS/scripts/system/edit.scm			\
+  Manifolding-OS/scripts/system/reconfigure.scm		\
+  Manifolding-OS/scripts/system/search.scm		\
+  Manifolding-OS/scripts/home.scm			\
+  Manifolding-OS/scripts/home/edit.scm			\
+  Manifolding-OS/scripts/home/import.scm			\
+  Manifolding-OS/scripts/lint.scm				\
+  Manifolding-OS/scripts/challenge.scm			\
+  Manifolding-OS/scripts/import/composer.scm		\
+  Manifolding-OS/scripts/import/crate.scm			\
+  Manifolding-OS/scripts/import/cpan.scm			\
+  Manifolding-OS/scripts/import/cran.scm			\
+  Manifolding-OS/scripts/import/egg.scm   		\
+  Manifolding-OS/scripts/import/elm.scm			\
+  Manifolding-OS/scripts/import/elpa.scm  		\
+  Manifolding-OS/scripts/import/gem.scm			\
+  Manifolding-OS/scripts/import/gnu.scm			\
+  Manifolding-OS/scripts/import/go.scm			\
+  Manifolding-OS/scripts/import/hackage.scm		\
+  Manifolding-OS/scripts/import/hexpm.scm			\
+  Manifolding-OS/scripts/import/json.scm  		\
+  Manifolding-OS/scripts/import/luanti.scm  		\
+  Manifolding-OS/scripts/import/minetest.scm  		\
+  Manifolding-OS/scripts/import/npm-binary.scm		\
+  Manifolding-OS/scripts/import/nuget.scm  		\
+  Manifolding-OS/scripts/import/opam.scm			\
+  Manifolding-OS/scripts/import/pypi.scm			\
+  Manifolding-OS/scripts/import/stackage.scm		\
+  Manifolding-OS/scripts/import/texlive.scm  		\
+  Manifolding-OS/scripts/environment.scm			\
+  Manifolding-OS/scripts/shell.scm			\
+  Manifolding-OS/scripts/publish.scm			\
+  Manifolding-OS/scripts/edit.scm				\
+  Manifolding-OS/scripts/size.scm				\
+  Manifolding-OS/scripts/git.scm				\
+  Manifolding-OS/scripts/git/authenticate.scm		\
+  Manifolding-OS/scripts/graph.scm			\
+  Manifolding-OS/scripts/weather.scm			\
+  Manifolding-OS/scripts/container.scm			\
+  Manifolding-OS/scripts/container/exec.scm		\
+  Manifolding-OS/scripts/deploy.scm			\
+  Manifolding-OS/scripts/time-machine.scm			\
+  Manifolding-OS.scm					\
   $(GNU_SYSTEM_MODULES)
 
 if HAVE_GUILE_SSH
 
 MODULES +=					\
-  guix/ssh.scm					\
-  guix/remote.scm				\
-  guix/scripts/copy.scm				\
-  guix/store/ssh.scm
+  Manifolding-OS/ssh.scm					\
+  Manifolding-OS/remote.scm				\
+  Manifolding-OS/scripts/copy.scm				\
+  Manifolding-OS/store/ssh.scm
 
 endif HAVE_GUILE_SSH
 
 if HAVE_GUILE_AVAHI
 
 MODULES += 					\
-  guix/avahi.scm				\
-  guix/scripts/discover.scm
+  Manifolding-OS/avahi.scm				\
+  Manifolding-OS/scripts/discover.scm
 
 endif HAVE_GUILE_AVAHI
 
 if BUILD_DAEMON_OFFLOAD
 
 MODULES +=					\
-  guix/scripts/offload.scm
+  Manifolding-OS/scripts/offload.scm
 
 endif BUILD_DAEMON_OFFLOAD
 
-INSTALLER_SCRIPT = guix/scripts/system/installer.scm
+INSTALLER_SCRIPT = Manifolding-OS/scripts/system/installer.scm
 
 if ENABLE_INSTALLER
 MODULES += $(INSTALLER_SCRIPT)
@@ -433,27 +433,27 @@ endif !ENABLE_INSTALLER
 
 # Scheme implementation of the build daemon and related functionality.
 STORE_MODULES =					\
-  guix/store/database.scm			\
-  guix/store/deduplication.scm			\
-  guix/store/roots.scm
+  Manifolding-OS/store/database.scm			\
+  Manifolding-OS/store/deduplication.scm			\
+  Manifolding-OS/store/roots.scm
 
 MODULES += $(STORE_MODULES)
 
 # Internal modules with test suite support.
 dist_noinst_DATA =				\
-  guix/tests.scm				\
-  guix/tests/http.scm				\
-  guix/tests/git.scm				\
-  guix/tests/gnupg.scm
+  Manifolding-OS/tests.scm				\
+  Manifolding-OS/tests/http.scm				\
+  Manifolding-OS/tests/git.scm				\
+  Manifolding-OS/tests/gnupg.scm
 
 # Auxiliary files for packages.
 AUX_FILES =						\
   gnu/packages/aux-files/chromium/master-preferences.json		\
   gnu/packages/aux-files/emacs/comp-integrity.el		\
-  gnu/packages/aux-files/emacs/guix-emacs.el		\
+  gnu/packages/aux-files/emacs/Manifolding-OS-emacs.el		\
   gnu/packages/aux-files/findclass.php			\
-  gnu/packages/aux-files/guix.vim			\
-  gnu/packages/aux-files/guix-nvim.vim			\
+  gnu/packages/aux-files/Manifolding-OS.vim			\
+  gnu/packages/aux-files/Manifolding-OS-nvim.vim			\
   gnu/packages/aux-files/linux-libre/7.1-arm64.conf	\
   gnu/packages/aux-files/linux-libre/7.1-x86_64.conf	\
   gnu/packages/aux-files/linux-libre/7.0-arm64.conf	\
@@ -488,7 +488,7 @@ AUX_FILES =						\
   gnu/packages/aux-files/linux-libre/5.10-x86_64.conf	\
   gnu/packages/aux-files/ovmf/51-edk2-ovmf-2m-raw-x64-nosb.json	\
   gnu/packages/aux-files/pack-audit.c			\
-  gnu/packages/aux-files/python/pytest_guix.py		\
+  gnu/packages/aux-files/python/pytest_Manifolding_OS.py		\
   gnu/packages/aux-files/python/sanity-check.py		\
   gnu/packages/aux-files/python/sitecustomize.py	\
   gnu/packages/aux-files/renpy/renpy.in	\
@@ -513,15 +513,15 @@ EXAMPLES =					\
   gnu/system/examples/vm-image.tmpl		\
   gnu/system/examples/vm-image-efi.tmpl
 
-GOBJECTS = $(MODULES:%.scm=%.go) guix/config.go $(dist_noinst_DATA:%.scm=%.go)
+GOBJECTS = $(MODULES:%.scm=%.go) Manifolding-OS/config.go $(dist_noinst_DATA:%.scm=%.go)
 
 nobase_dist_guilemodule_DATA =					\
-  guix/d3.v3.js							\
-  guix/graph.js							\
-  guix/store/schema.sql						\
+  Manifolding-OS/d3.v3.js							\
+  Manifolding-OS/graph.js							\
+  Manifolding-OS/store/schema.sql						\
   $(MODULES) $(MODULES_NOT_COMPILED) $(AUX_FILES) $(EXAMPLES)	\
   $(MISC_DISTRO_FILES)
-nobase_nodist_guilemodule_DATA = guix/config.scm
+nobase_nodist_guilemodule_DATA = Manifolding-OS/config.scm
 nobase_nodist_guileobject_DATA = $(GOBJECTS)
 
 # Handy way to remove the .go files without removing all the rest.
@@ -663,34 +663,34 @@ EXTRA_DIST += tests/offload.scm
 endif
 
 SH_TESTS =					\
-  tests/guix-build.sh				\
-  tests/guix-build-branch.sh			\
-  tests/guix-download.sh			\
-  tests/guix-gc.sh				\
-  tests/guix-git-authenticate.sh		\
-  tests/guix-hash.sh				\
-  tests/guix-locate.sh				\
-  tests/guix-pack.sh				\
-  tests/guix-pack-localstatedir.sh		\
-  tests/guix-pack-relocatable.sh		\
-  tests/guix-package.sh				\
-  tests/guix-package-aliases.sh			\
-  tests/guix-package-net.sh			\
-  tests/guix-style.sh				\
-  tests/guix-system.sh				\
-  tests/guix-home.sh				\
-  tests/guix-archive.sh				\
-  tests/guix-authenticate.sh			\
-  tests/guix-environment.sh			\
-  tests/guix-environment-container.sh		\
-  tests/guix-refresh.sh				\
-  tests/guix-shell.sh				\
-  tests/guix-shell-export-manifest.sh		\
-  tests/guix-time-machine.sh			\
-  tests/guix-graph.sh				\
-  tests/guix-describe.sh			\
-  tests/guix-repl.sh     			\
-  tests/guix-lint.sh
+  tests/Manifolding-OS-build.sh				\
+  tests/Manifolding-OS-build-branch.sh			\
+  tests/Manifolding-OS-download.sh			\
+  tests/Manifolding-OS-gc.sh				\
+  tests/Manifolding-OS-git-authenticate.sh		\
+  tests/Manifolding-OS-hash.sh				\
+  tests/Manifolding-OS-locate.sh				\
+  tests/Manifolding-OS-pack.sh				\
+  tests/Manifolding-OS-pack-localstatedir.sh		\
+  tests/Manifolding-OS-pack-relocatable.sh		\
+  tests/Manifolding-OS-package.sh				\
+  tests/Manifolding-OS-package-aliases.sh			\
+  tests/Manifolding-OS-package-net.sh			\
+  tests/Manifolding-OS-style.sh				\
+  tests/Manifolding-OS-system.sh				\
+  tests/Manifolding-OS-home.sh				\
+  tests/Manifolding-OS-archive.sh				\
+  tests/Manifolding-OS-authenticate.sh			\
+  tests/Manifolding-OS-environment.sh			\
+  tests/Manifolding-OS-environment-container.sh		\
+  tests/Manifolding-OS-refresh.sh				\
+  tests/Manifolding-OS-shell.sh				\
+  tests/Manifolding-OS-shell-export-manifest.sh		\
+  tests/Manifolding-OS-time-machine.sh			\
+  tests/Manifolding-OS-graph.sh				\
+  tests/Manifolding-OS-describe.sh			\
+  tests/Manifolding-OS-repl.sh     			\
+  tests/Manifolding-OS-lint.sh
 
 TESTS = $(SCM_TESTS) $(SH_TESTS)
 
@@ -706,11 +706,11 @@ AM_SCM_LOG_DRIVER_FLAGS = --brief=yes
 SH_LOG_COMPILER = $(top_builddir)/test-env $(SHELL)
 AM_SH_LOG_FLAGS = -x -e
 
-# Make sure `tests/guix-gc.sh' runs last, after all the others.  Otherwise it
+# Make sure `tests/Manifolding-OS-gc.sh' runs last, after all the others.  Otherwise it
 # could end up removing files from the store while they are being used by
 # other instances of the daemon.
-tests/guix-gc.log:							\
-  $(patsubst %.sh,%.log,$(filter-out tests/guix-gc.sh,$(SH_TESTS)))	\
+tests/Manifolding-OS-gc.log:							\
+  $(patsubst %.sh,%.log,$(filter-out tests/Manifolding-OS-gc.sh,$(SH_TESTS)))	\
   $(SCM_TESTS:%.scm=%.log)
 
 else !CAN_RUN_TESTS
@@ -731,7 +731,7 @@ endif !CAN_RUN_TESTS
 
 check-system: $(GOBJECTS)
 	$(AM_V_at)$(top_builddir)/pre-inst-env			\
-	  guix build -m $(top_srcdir)/etc/manifests/system-tests.scm -K
+	  Manifolding-OS build -m $(top_srcdir)/etc/manifests/system-tests.scm -K
 
 # Public keys used to sign substitutes.
 dist_pkgdata_DATA =				\
@@ -741,29 +741,29 @@ dist_pkgdata_DATA =				\
   etc/substitutes/bordeaux.guix.gnu.org.pub
 
 # Bash completion file.
-dist_bashcompletion_DATA = etc/completion/bash/guix	\
-  etc/completion/bash/guix-daemon
+dist_bashcompletion_DATA = etc/completion/bash/Manifolding-OS\
+  etc/completion/bash/Manifolding-OS-daemon
 
 # Zsh completion file.
-dist_zshcompletion_DATA = etc/completion/zsh/_guix
+dist_zshcompletion_DATA = etc/completion/zsh/_Manifolding-OS
 
 # Fish completion file.
-dist_fishcompletion_DATA = etc/completion/fish/guix.fish
+dist_fishcompletion_DATA = etc/completion/fish/Manifolding-OS.fish
 
 # SELinux policy
-nodist_selinux_policy_DATA = etc/guix-daemon.cil
+nodist_selinux_policy_DATA = etc/Manifolding-OS-daemon.cil
 
 # AppArmor profiles.
 dist_apparmor_profile_DATA =	\
-  etc/apparmor.d/guix		\
-  etc/apparmor.d/guix-daemon
+  etc/apparmor.d/Manifolding-OS		\
+  etc/apparmor.d/Manifolding-OS-daemon
 
 nodist_apparmor_profile_tunables_DATA = \
-  etc/apparmor.d/tunables/guix
+  etc/apparmor.d/tunables/Manifolding-OS
 
 EXTRA_DIST +=						\
   .dir-locals.el					\
-  .guix-authorizations					\
+  .Manifolding-OS-authorizations					\
   CODE-OF-CONDUCT					\
   HACKING						\
   ROADMAP						\
@@ -785,10 +785,10 @@ EXTRA_DIST +=						\
   build-aux/mdate-from-git.scm				\
   build-aux/test-driver.scm				\
   build-aux/update-NEWS.scm				\
-  build-aux/update-guix-package.scm			\
+  build-aux/update-Manifolding-OS-package.scm			\
   build-aux/xgettext.scm				\
   doc/build.scm						\
-  etc/guix-install.sh					\
+  etc/Manifolding-OS-install.sh					\
   etc/historical-authorizations				\
   etc/news.scm						\
   etc/teams.scm						\
@@ -803,7 +803,7 @@ EXTRA_DIST +=						\
   etc/manifests/time-travel.scm				\
   etc/manifests/ungraft.scm				\
   etc/manifests/upgrade.scm				\
-  scripts/guix.in					\
+  scripts/Manifolding-OS.in					\
   tests/cve-sample.json					\
   tests/keys/openpgp/civodul.pub			\
   tests/keys/openpgp/dsa.pub				\
@@ -822,7 +822,7 @@ EXTRA_DIST +=						\
 if !BUILD_DAEMON_OFFLOAD
 
 EXTRA_DIST +=					\
-  guix/scripts/offload.scm
+  Manifolding-OS/scripts/offload.scm
 
 endif !BUILD_DAEMON_OFFLOAD
 
@@ -878,7 +878,7 @@ fourth_fifth :=								\
   gnu/packages/j% gnu/packages/k% gnu/packages/l% gnu/packages/m% 	\
   gnu/packages/n% gnu/packages/o%
 
-MODULES_CORE      := guix.scm $(filter-out guix/scripts/%,$(filter guix/%,$(MODULES)))
+MODULES_CORE      := Manifolding-OS.scm $(filter-out Manifolding-OS/scripts/%,$(filter Manifolding-OS/%,$(MODULES)))
 MODULES_PACKAGES1 := $(filter $(first_fifth),$(MODULES))
 MODULES_PACKAGES2 := $(filter $(second_fifth),$(MODULES))
 MODULES_PACKAGES3 := $(filter $(third_fifth),$(MODULES))
@@ -890,11 +890,11 @@ MODULES_PACKAGES  := $(MODULES_PACKAGES1) $(MODULES_PACKAGES2)		\
 			$(MODULES_PACKAGES3) $(MODULES_PACKAGES4)	\
 			$(MODULES_PACKAGES5)
 MODULES_SYSTEM    := gnu.scm $(filter-out gnu/packages/%,$(filter gnu/%,$(MODULES)))
-MODULES_CLI       := $(filter guix/scripts/%,$(MODULES))
-MODULES_PO        := guix/build/po.scm
+MODULES_CLI       := $(filter Manifolding-OS/scripts/%,$(MODULES))
+MODULES_PO        := Manifolding-OS/build/po.scm
 
 $(eval $(call guile-compilation-rule,make-core-go,	\
-  $(MODULES_CORE) guix/config.scm $(dist_noinst_DATA),	\
+  $(MODULES_CORE) Manifolding-OS/config.scm $(dist_noinst_DATA),	\
   0,$(host)))
 .PHONY: make-core-go
 
@@ -941,7 +941,7 @@ $(eval $(call guile-compilation-rule,make-cli-go,			\
   $(words $(MODULES_CORE) $(MODULES_PACKAGES) $(MODULES_SYSTEM)),$(host)))
 .PHONY: make-cli-go
 
-$(eval $(call guile-compilation-rule,guix/build/po.go,			\
+$(eval $(call guile-compilation-rule,Manifolding-OS/build/po.go,			\
   $(MODULES_PO),							\
   0,$(build)))
 
@@ -952,14 +952,14 @@ SUFFIXES = .go
 # files.  See
 # <http://lists.gnu.org/archive/html/guile-devel/2010-07/msg00125.html>
 # for details.
-guix_install_go_files = install-nobase_nodist_guileobjectDATA
-$(guix_install_go_files): install-nobase_dist_guilemoduleDATA
+Manifolding_OS_install_go_files = install-nobase_nodist_guileobjectDATA
+$(Manifolding_OS_install_go_files): install-nobase_dist_guilemoduleDATA
 
 # The above trick doesn't work for 'config.go' because both 'config.scm' and
 # 'config.go' are listed in $(nobase_nodist_guileobject_DATA).  Thus, give it
 # special treatment.
 install-data-hook:
-	touch "$(DESTDIR)$(guileobjectdir)/guix/config.go"
+	touch "$(DESTDIR)$(guileobjectdir)/Manifolding-OS/config.go"
 
 # Assuming Guix is already installed and the daemon is up and running, this
 # rule builds from $(srcdir), creating and building derivations.
@@ -969,7 +969,7 @@ as-derivation:
 	  "$(top_srcdir)/build-aux/compile-as-derivation.scm"	\
 	  "$(abs_top_srcdir)"
 
-SUBDIRS = po/guix po/packages
+SUBDIRS = po/Manifolding-OS po/packages
 BUILT_SOURCES =
 
 include doc/local.mk
@@ -984,22 +984,22 @@ ACLOCAL_AMFLAGS = -I m4
 
 # Pass an explicit '--localstatedir' so that configure does not error out if
 # it finds an existing installation with a different localstatedir.  Inherit
-# 'ac_cv_guix_test_root' so that "make check" in $(distdir) does not have to
-# repopulate the whole store, and to make sure $(GUIX_TEST_ROOT) is short
+# 'ac_cv_Manifolding_OS_test_root' so that "make check" in $(distdir) does not have to
+# repopulate the whole store, and to make sure $(MANIFOLDING_OS_TEST_ROOT) is short
 # enough for shebangs.
 AM_DISTCHECK_CONFIGURE_FLAGS =			\
   --localstatedir="$$dc_install_base/var"	\
   --with-libgcrypt-prefix="$(LIBGCRYPT_PREFIX)"	\
   --with-libgcrypt-libdir="$(LIBGCRYPT_LIBDIR)"	\
   --enable-daemon				\
-  ac_cv_guix_test_root="$(GUIX_TEST_ROOT)"
+  ac_cv_Manifolding_OS_test_root="$(MANIFOLDING_OS_TEST_ROOT)"
 
 # The self-contained tarball.
-guix-binary.%.tar.xz:
+Manifolding-OS-binary.%.tar.xz:
 	$(AM_V_GEN)GUIX_PACKAGE_PATH=					\
-	tarball=`$(top_builddir)/pre-inst-env guix pack -C xz		\
+	tarball=`$(top_builddir)/pre-inst-env Manifolding-OS pack -C xz		\
 	  --fallback							\
-	  -s "$*" --localstatedir --profile-name=current-guix		\
+	  -s "$*" --localstatedir --profile-name=current-Manifolding-OS		\
 	  guix` ;					\
 	cp "$$tarball" "$@.tmp" ; mv "$@.tmp" "$@"
 
@@ -1012,7 +1012,7 @@ if in_git_p
 dist: dist-doc-pot-update
 dist-doc-pot-update: auto-clean
 	$(MAKE) guile$(EXEEXT)
-	$(MAKE) -C po/guix all
+	$(MAKE) -C po/Manifolding-OS all
 	$(MAKE) -C po/packages all
 	$(MAKE) doc-pot-update
 
@@ -1118,7 +1118,7 @@ SUPPORTED_SYSTEMS ?= x86_64-linux i686-linux armhf-linux aarch64-linux \
 
 # Guix binary tarballs.
 BINARY_TARBALLS =							\
-  $(foreach system,$(SUPPORTED_SYSTEMS),guix-binary.$(system).tar.xz)
+  $(foreach system,$(SUPPORTED_SYSTEMS),Manifolding-OS-binary.$(system).tar.xz)
 
 # Systems supported by the Guix System installer.
 # A Hurd install happens from a Linux installer image.
@@ -1128,14 +1128,14 @@ GUIX_SYSTEM_INSTALLER_SYSTEMS ?= x86_64-linux i686-linux
 GUIX_SYSTEM_VM_SYSTEMS ?= x86_64-linux
 
 # Prefix of the Guix installation image file name.
-GUIX_SYSTEM_IMAGE_BASE = guix-system-install-$(PACKAGE_VERSION)
+MANIFOLDING_OS_SYSTEM_IMAGE_BASE = Manifolding-OS-system-install-$(PACKAGE_VERSION)
 
 # Prefix of the Guix VM image file name.
-GUIX_SYSTEM_VM_IMAGE_BASE = guix-system-vm-image-$(PACKAGE_VERSION)
+MANIFOLDING_OS_SYSTEM_VM_IMAGE_BASE = Manifolding-OS-system-vm-image-$(PACKAGE_VERSION)
 
 # Flags for 'guix system vm-image'.  By default create a VM image that appears
 # to have a 20G hard disk.
-GUIX_SYSTEM_VM_IMAGE_FLAGS ?= --image-size=30G
+MANIFOLDING_OS_SYSTEM_VM_IMAGE_FLAGS ?= --image-size=30G
 
 # Return the sequence of '-s' flags for the given systems.
 system_flags = $(foreach system,$(1),-s $(system))
@@ -1144,9 +1144,9 @@ system_flags = $(foreach system,$(1),-s $(system))
 #
 #   0. We assume the developer created a 'vX.Y.Z' tag.
 #   1. Build the source tarball.
-#   2. Update the 'guix' package so that it corresponds to the 'vX.Y.Z' tag.
-#   3. Build the binary tarballs for that 'guix' package.
-#   4. Update the 'guix' package again.
+#   2. Update the 'Manifolding-OS' package so that it corresponds to the 'vX.Y.Z' tag.
+#   3. Build the binary tarballs for that 'Manifolding-OS' package.
+#   4. Update the 'Manifolding-OS' package again.
 #   5. Build the installation and VM images.  The images will run 'guix'
 #      corresponding to 'vX.Y.Z' + 1 commit, and they will install 'vX.Y.Z'.
 #
@@ -1172,11 +1172,11 @@ prepare-release: dist-with-updated-version all
 # Bump the Guix package version and build it.
 	GUIX_ALLOW_ME_TO_USE_PRIVATE_COMMIT=yes \
 	$(top_builddir)/pre-inst-env "$(GUILE)"	\
-		$(top_srcdir)/build-aux/update-guix-package.scm	\
+		$(top_srcdir)/build-aux/update-Manifolding-OS-package.scm	\
 	   	"`git rev-parse HEAD`" "$(PACKAGE_VERSION)"
 	git add $(top_srcdir)/gnu/packages/package-management.scm
-	git commit -m "gnu: guix: Update to $(PACKAGE_VERSION)."
-	$(top_builddir)/pre-inst-env guix build guix	\
+	git commit -m "gnu: Manifolding-OS: Update to $(PACKAGE_VERSION)."
+	$(top_builddir)/pre-inst-env Manifolding-OS build Manifolding-OS	\
 	      $(call system_flags,$(SUPPORTED_SYSTEMS))	\
 	      -v1 --no-grafts --fallback
 
@@ -1191,11 +1191,11 @@ release: all
 # Build the artifacts for current commit.
 # Use time-machine for provenance.
 	$(MKDIR_P) "$(releasedir)"
-	@echo "Building guix inferior for current commit."
+	@echo "Building Manifolding-OS inferior for current commit."
 	COMMIT="$$(git rev-parse HEAD)" &&					\
-	GUIX="$$(guix time-machine -q --commit=$$COMMIT)/bin/guix" &&		\
+	MANIFOLDING_OS="$$(guix time-machine -q --commit=$$COMMIT)/bin/guix" &&		\
 	echo "Building artifacts for current commit: $$COMMIT." &&		\
-	ARTIFACTS="$$($$GUIX build --no-grafts					\
+	ARTIFACTS="$$($$MANIFOLDING_OS build --no-grafts					\
 		-f ./etc/teams/release/artifacts.scm)" &&			\
 	echo "Artifacts built! Copying to $(releasedir)" &&			\
 	cp -f "$$ARTIFACTS"/* "$(releasedir)"
@@ -1203,29 +1203,29 @@ release: all
 	@echo "Congratulations!  All the release files are now in $(releasedir)."
 	@echo
 
-update-guix-package:
+update-Manifolding-OS-package:
 	git rev-parse HEAD
 	$(top_builddir)/pre-inst-env "$(GUILE)"			\
-	   $(top_srcdir)/build-aux/update-guix-package.scm	\
+	   $(top_srcdir)/build-aux/update-Manifolding-OS-package.scm	\
 	   "`git rev-parse HEAD`"
 
 # Location of a checkout of <git://git.savannah.gnu.org/guix/maintenance.git>.
 # Package data from this checkout is used by 'update-NEWS.scm'.
-GUIX_MAINTENANCE_DIRECTORY ?= $(top_srcdir)/../guix-maintenance
+MANIFOLDING_OS_MAINTENANCE_DIRECTORY ?= $(top_srcdir)/../Manifolding-OS-maintenance
 
 update-NEWS: $(GOBJECTS)
 	$(top_builddir)/pre-inst-env "$(GUILE)"				\
 	  $(top_srcdir)/build-aux/update-NEWS.scm			\
-	  $(top_srcdir)/NEWS "$(GUIX_MAINTENANCE_DIRECTORY)/data"
+	  $(top_srcdir)/NEWS "$(MANIFOLDING_OS_MAINTENANCE_DIRECTORY)/data"
 
 # Make sure we're not shipping a file that embeds a local /gnu/store file name.
 assert-no-store-file-names:
 	$(AM_V_at)if grep -r --exclude=*.texi --exclude=*.info			\
 	     --exclude=*.info-[0-9] --exclude=*.dot				\
 	     --exclude=*.eps --exclude-dir=bootstrap				\
-	     --exclude=guix-manual.pot --exclude=guix-manual.*.po		\
-	     --exclude=guix-cookbook.pot --exclude=guix-cookbook.*.po		\
-	     --exclude=guix-prettify.el						\
+	     --exclude=Manifolding-OS-manual.pot --exclude=Manifolding-OS-manual.*.po		\
+	     --exclude=Manifolding-OS-cookbook.pot --exclude=Manifolding-OS-cookbook.*.po		\
+	     --exclude=Manifolding-OS-prettify.el						\
 	     --exclude=ChangeLog*						\
 	     --exclude=binutils-boot-2.20*.patch				\
 	     -E "$(storedir)/[a-z0-9]{32}-" $(distdir) ;			\
@@ -1238,7 +1238,7 @@ assert-no-store-file-names:
 # server so that '--display-missing' doesn't print two lists.
 assert-binaries-available: $(GOBJECTS)
 	$(AM_V_at)$(top_builddir)/pre-inst-env					\
-	  guix weather -m "$(top_srcdir)/etc/manifests/release-minimal.scm"	\
+	  Manifolding-OS weather -m "$(top_srcdir)/etc/manifests/release-minimal.scm"	\
 	                -m "$(top_srcdir)/etc/manifests/release-desktop.scm"	\
 	                --substitute-urls="https://ci.guix.gnu.org"		\
 	                --display-missing
@@ -1259,7 +1259,7 @@ cuirass-jobs: $(GOBJECTS)
 .PHONY: assert-no-store-file-names assert-binaries-available
 .PHONY: assert-final-inputs-self-contained
 .PHONY: clean-go make-go as-derivation
-.PHONY: update-guix-package update-NEWS cuirass-jobs release
+.PHONY: update-Manifolding-OS-package update-NEWS cuirass-jobs release
 
 if in_git_p
 # Git auto-configuration.
@@ -1337,12 +1337,12 @@ WEBLATE_REPO = https://codeberg.org/guix/translations
 # they contain at least one translation, and they are well-formed (Scheme
 # format only), warn otherwise.  Copied files are converted to a canonical
 # form.  Note: The files will be minified to reduce file size, except the
-# guix domain, because they are comparatively small and it would need more
+# Manifolding-OS domain, because they are comparatively small and it would need more
 # comprehensive PO file parsing abilities for plural forms.
-download-po: guix/build/po.go
+download-po: Manifolding-OS/build/po.go
 	dir=$$(mktemp -d); \
 	git clone --depth 1 "$(WEBLATE_REPO)" "$$dir/translations" && \
-	for domain in po/doc po/guix po/packages; do \
+	for domain in po/doc po/Manifolding-OS po/packages; do \
 	    for po in "$$dir/translations/$$domain"/*.po; do \
 	        translated=$$(LANG=en_US.UTF-8 msgfmt --statistics "$$po" 2>&1 | cut -f1 -d' '); \
 	        untranslated=$$(LANG=en_US.UTF-8 msgfmt --statistics "$$po" 2>&1 | rev | cut -f3 -d' ' | rev); \
@@ -1352,7 +1352,7 @@ download-po: guix/build/po.go
 	        target="$$domain/$$target"; \
 	        msgfmt -c "$$po"; \
 	        if msgfmt -c "$$po" && [ "$$translated" != "0" ] && ([ "$$domain" != "po/doc" ] || [ "$$translated" -gt $$(($$total/10)) ] || [ -f $$target ]); then \
-	            if [ "$$domain" != "po/guix" ]; then \
+	            if [ "$$domain" != "po/Manifolding-OS" ]; then \
 	              $(GUILE) -L "$(top_builddir)" -L "$(top_srcdir)" \
 	                --no-auto-compile \
 	                -s "$(top_srcdir)"/build-aux/keep-only-translated.scm \
@@ -1383,7 +1383,7 @@ download-po: guix/build/po.go
 # Regenerate 'CODEOWNERS' when 'teams.scm' is modified so we don't forget.
 if in_git_p
 if !CROSS_COMPILING
-CODEOWNERS: etc/teams.scm scripts/guix
+CODEOWNERS: etc/teams.scm scripts/Manifolding-OS
 	./etc/teams.scm codeowners > "$@.tmp"
 	mv "$@.tmp" "$@"
 

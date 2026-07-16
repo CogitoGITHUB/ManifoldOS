@@ -20,16 +20,16 @@
 
 (define-module (test-git)
   #:use-module (git)
-  #:use-module (guix git)
-  #:use-module (guix tests git)
-  #:use-module ((guix utils) #:select (call-with-temporary-directory))
+  #:use-module (Manifolding-OS git)
+  #:use-module (Manifolding-OS tests git)
+  #:use-module ((Manifolding-OS utils) #:select (call-with-temporary-directory))
   #:use-module (srfi srfi-1)
   #:use-module (srfi srfi-64)
   #:use-module (srfi srfi-71)
   #:use-module (ice-9 popen)
   #:use-module (ice-9 textual-ports))
 
-;; Test the (guix git) tools.
+;; Test the (Manifolding-OS git) tools.
 
 (define (git . args)
   (let* ((pipe (apply open-pipe* OPEN_READ (git-command) args))

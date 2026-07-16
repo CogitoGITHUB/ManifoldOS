@@ -24,7 +24,7 @@
   #:use-module (gnu installer newt ethernet)
   #:use-module (gnu installer newt page)
   #:use-module (gnu installer newt wifi)
-  #:use-module (guix i18n)
+  #:use-module (Manifolding-OS i18n)
   #:use-module (srfi srfi-1)
   #:use-module (srfi srfi-11)
   #:use-module (srfi srfi-26)

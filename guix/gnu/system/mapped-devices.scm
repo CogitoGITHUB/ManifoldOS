@@ -20,16 +20,16 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu system mapped-devices)
-  #:use-module (guix gexp)
-  #:use-module (guix records)
-  #:use-module ((guix modules) #:hide (file-name->module-name))
-  #:use-module (guix i18n)
-  #:use-module ((guix diagnostics)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS records)
+  #:use-module ((Manifolding-OS modules) #:hide (file-name->module-name))
+  #:use-module (Manifolding-OS i18n)
+  #:use-module ((Manifolding-OS diagnostics)
                 #:select (source-properties->location
                           formatted-message
                           &fix-hint
                           &error-location))
-  #:use-module (guix deprecation)
+  #:use-module (Manifolding-OS deprecation)
   #:use-module (gnu services)
   #:use-module (gnu services shepherd)
   #:use-module (gnu system uuid)
@@ -209,12 +209,12 @@ requests is allowed for the underlying device.  EXTRA-OPTIONS is a list of
 additional options to be passed to the 'cryptsetup open' command."
   (with-imported-modules (source-module-closure
                           '((gnu build file-systems)
-                            (guix base16)
-                            (guix build utils))) ;; For mkdir-p
+                            (Manifolding-OS base16)
+                            (Manifolding-OS build utils))) ;; For mkdir-p
     (match targets
       ((target)
        #~(begin
-           (use-modules (guix base16))
+           (use-modules (Manifolding-OS base16))
 
            (let ((source #$(if (uuid? source)
                                (uuid-bytevector source)

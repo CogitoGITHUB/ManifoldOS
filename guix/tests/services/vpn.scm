@@ -19,7 +19,7 @@
 (define-module (tests services vpn)
   #:use-module (gnu packages vpn)
   #:use-module (gnu services vpn)
-  #:use-module (guix gexp)
+  #:use-module (Manifolding-OS gexp)
   #:use-module (ice-9 match)
   #:use-module (srfi srfi-1)
   #:use-module (srfi srfi-64))

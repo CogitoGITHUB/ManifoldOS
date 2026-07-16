@@ -17,10 +17,10 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (test-hexpm)
-  #:use-module (guix import hexpm)
-  #:use-module (guix base32)
+  #:use-module (Manifolding-OS import hexpm)
+  #:use-module (Manifolding-OS base32)
   #:use-module (gcrypt hash)
-  #:use-module (guix tests)
+  #:use-module (Manifolding-OS tests)
   #:use-module (srfi srfi-64)
   #:use-module (ice-9 binary-ports)
   #:use-module (ice-9 match))
@@ -117,7 +117,7 @@
 
 (test-assert "hexpm->guix-package"
   ;; Replace network resources with sample data.
-  (mock ((guix http-client) http-fetch
+  (mock ((Manifolding-OS http-client) http-fetch
          (lambda (url . rest)
            (match url
              ("https://hex.pm/api/packages/bla"
@@ -127,7 +127,7 @@
               (values (open-input-string test-bla-release)
                       (string-length test-bla-release)))
              (_ (error "http-fetch got unexpected URL: " url)))))
-  (mock ((guix build download) url-fetch
+  (mock ((Manifolding-OS build download) url-fetch
          (lambda* (url file-name
                        #:key
                        (mirrors '()) verify-certificate?)
@@ -161,7 +161,7 @@
 
 (test-assert "hexpm-recursive-import"
   ;; Replace network resources with sample data.
-  (mock ((guix http-client) http-fetch
+  (mock ((Manifolding-OS http-client) http-fetch
          (lambda (url . rest)
            (match url
              ("https://hex.pm/api/packages/bla"
@@ -183,7 +183,7 @@
               (values (open-input-string test-fasel-release)
                       (string-length test-fasel-release)))
              (_ (error "http-fetch got unexpected URL: " url)))))
-  (mock ((guix build download) url-fetch
+  (mock ((Manifolding-OS build download) url-fetch
          (lambda* (url file-name
                        #:key
                        (mirrors '()) verify-certificate?)

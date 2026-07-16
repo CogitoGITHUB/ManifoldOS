@@ -52,14 +52,14 @@ exec guile --no-auto-compile -L $srcdir -C $srcdir -e '(mdate-from-git)' -s "$0"
     (close-port port)
     output))
 
-(define (guix.LANG.texi->guix-manual.LANG.po file-name)
-  "Translated manuals doc/guix.LANG.texi are not tracked in Git and are
-generated from po/doc/guix-manual.LANG.po.  For such an untraced .TEXI file,
+(define (Manifolding-OS.LANG.texi->Manifolding-OS-manual.LANG.po file-name)
+  "Translated manuals doc/Manifolding-OS.LANG.texi are not tracked in Git and are
+generated from po/doc/Manifolding-OS-manual.LANG.po.  For such an untraced .TEXI file,
 return its .PO counterpart."
-  (let ((m (string-match "doc/guix.([^.]+).texi" file-name)))
+  (let ((m (string-match "doc/Manifolding-OS\\.([^.]+)\\.texi" file-name)))
     (if (not m) file-name
         (let ((lang (match:substring m 1)))
-          (format #f "po/doc/guix-manual.~a.po" lang)))))
+          (format #f "po/doc/Manifolding-OS-manual.~a.po" lang)))))
 
 
 ;;;
@@ -74,7 +74,7 @@ return its .PO counterpart."
                                  (with-output-to-port (%make-void-port "w")
                                    (lambda _ (apply system* command)))))))
             (file-name (if tracked? file-name
-                           (guix.LANG.texi->guix-manual.LANG.po file-name)))
+                           (Manifolding-OS.LANG.texi->Manifolding-OS-manual.LANG.po file-name)))
             (command `("git" "log" "--pretty=format:%ct" "-n1" "--" ,file-name))
             (timestamp (with-error-to-port  (%make-void-port "w")
                          (lambda _ (pipe-command command))))

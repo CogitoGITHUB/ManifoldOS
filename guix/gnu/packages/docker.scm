@@ -30,17 +30,17 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages docker)
-  #:use-module ((guix licenses) #:prefix license:)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
   #:use-module (gnu packages)
-  #:use-module (guix packages)
-  #:use-module (guix download)
-  #:use-module (guix gexp)
-  #:use-module (guix git-download)
-  #:use-module (guix build-system cmake)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system go)
-  #:use-module (guix build-system pyproject)
-  #:use-module (guix utils)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS build-system cmake)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system go)
+  #:use-module (Manifolding-OS build-system pyproject)
+  #:use-module (Manifolding-OS utils)
   #:use-module (gnu packages autotools)
   #:use-module (gnu packages base)
   #:use-module (gnu packages check)
@@ -80,7 +80,7 @@
        (file-name (git-file-name name version))
        (sha256
         (base32 "18z626vjd0cbqs130nsqhx0vfr6hxarvwgrw5acydy7hfv594aiq"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         #~(begin
             ;; Build fails when this file is kept: Code in directory
@@ -210,7 +210,7 @@ projects.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "12fa602jianip7dg98f2i9i686s2a9bsclw8sqxw1ac1v19qlqr8"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet '(delete-file-recursively "vendor"))))
     (build-system go-build-system)
     (arguments
@@ -529,7 +529,7 @@ network attachments.")
                  (base32
                   "1km3p6ya9az0ax2zww8wb5vbifr1gj5n9l82i273m9f3z9f2mq2p"))
                 ;; Delete bundled ("vendored") free software source code.
-                (modules '((guix build utils)))
+                (modules '((Manifolding-OS build utils)))
                 (snippet '(delete-file-recursively "vendor"))))
       (build-system go-build-system)
       (arguments
@@ -585,14 +585,14 @@ the built-in registry server of Docker.")
     (arguments
      (list
       #:modules
-      '((guix build gnu-build-system)
-        ((guix build go-build-system) #:prefix go:)
-        (guix build union)
-        (guix build utils))
+      '((Manifolding-OS build gnu-build-system)
+        ((Manifolding-OS build go-build-system) #:prefix go:)
+        (Manifolding-OS build union)
+        (Manifolding-OS build utils))
       #:imported-modules
       `(,@%default-gnu-imported-modules
-        (guix build union)
-        (guix build go-build-system))
+        (Manifolding-OS build union)
+        (Manifolding-OS build go-build-system))
       #:phases
       #~(modify-phases %standard-phases
           (add-after 'unpack 'patch-paths

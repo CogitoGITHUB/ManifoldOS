@@ -17,13 +17,13 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages netbeans)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix packages)
-  #:use-module (guix download)
-  #:use-module (guix git-download)
-  #:use-module (guix gexp)
-  #:use-module (guix utils)
-  #:use-module (guix build-system ant)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS utils)
+  #:use-module (Manifolding-OS build-system ant)
   #:use-module (gnu packages)
   #:use-module (gnu packages base)
   #:use-module (gnu packages bash)
@@ -57,9 +57,9 @@
       #:jdk openjdk17
       #:tests? #f
       #:modules
-      '((guix build utils)
-        (guix build ant-build-system)
-        (guix build java-utils)
+      '((Manifolding-OS build utils)
+        (Manifolding-OS build ant-build-system)
+        (Manifolding-OS build java-utils)
         (srfi srfi-13))
       #:phases
       #~(modify-phases %standard-phases
@@ -135,7 +135,7 @@ interfaces.")
                         "netbeans-25-nativeexecution-paths.patch"
                         "netbeans-25-terminal-no-login-shell.patch"
                         "netbeans-25-wayland-font-rendering.patch"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         '(begin
            ;; The official source archive is clean apart from source-adjacent
@@ -158,8 +158,8 @@ interfaces.")
       #:ant ant/java8-empty-etc
       #:tests? #f
       #:modules
-      '((guix build utils)
-        (guix build ant-build-system)
+      '((Manifolding-OS build utils)
+        (Manifolding-OS build ant-build-system)
         (ice-9 match)
         (ice-9 rdelim)
         (srfi srfi-1)

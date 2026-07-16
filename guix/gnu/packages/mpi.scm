@@ -27,16 +27,16 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages mpi)
-  #:use-module (guix gexp)
-  #:use-module (guix packages)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix download)
-  #:use-module (guix git-download)
-  #:use-module (guix utils)
-  #:use-module (guix deprecation)
-  #:use-module (guix build-system cmake)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system pyproject)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS packages)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS utils)
+  #:use-module (Manifolding-OS deprecation)
+  #:use-module (Manifolding-OS build-system cmake)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system pyproject)
   #:use-module (gnu packages)
   #:use-module (gnu packages autotools)
   #:use-module (gnu packages base)
@@ -336,7 +336,7 @@ software vendors, application developers and computer science researchers.")
        (uri (string-append "https://www.open-mpi.org/software/ompi/v"
                            (version-major+minor version)
                            "/downloads/openmpi-" version ".tar.bz2"))
-       (modules '((guix build utils)
+       (modules '((Manifolding-OS build utils)
                   (ice-9 ftw)
                   (srfi srfi-26)))
        (snippet
@@ -469,10 +469,10 @@ software vendors, application developers and computer science researchers.")
     (outputs '("out"))
     (arguments
      (cons*
-      #:modules '((guix build gnu-build-system)
-                  ((guix build ant-build-system) #:prefix ant:)
-                  (guix build utils))
-      #:imported-modules `((guix build ant-build-system)
+      #:modules '((Manifolding-OS build gnu-build-system)
+                  ((Manifolding-OS build ant-build-system) #:prefix ant:)
+                  (Manifolding-OS build utils))
+      #:imported-modules `((Manifolding-OS build ant-build-system)
                            ,@%default-gnu-imported-modules)
       (substitute-keyword-arguments arguments
         ((#:configure-flags flags)
@@ -769,7 +769,7 @@ programmable API.")
        (sha256
          (base32
           "15q93rc8wblbzqgh99rqzyq6fdp88mi6yziww05c6cbgrjs5s2jx"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
          ;; Remove bundled software.
          '(begin

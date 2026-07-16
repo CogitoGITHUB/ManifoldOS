@@ -60,24 +60,24 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages finance)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix packages)
-  #:use-module (guix download)
-  #:use-module (guix git-download)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system cargo)
-  #:use-module (guix build-system cmake)
-  #:use-module (guix build-system cargo)
-  #:use-module (guix build-system copy)
-  #:use-module (guix build-system emacs)
-  #:use-module (guix build-system haskell)
-  #:use-module (guix build-system pyproject)
-  #:use-module (guix build-system glib-or-gtk)
-  #:use-module (guix build-system go)
-  #:use-module (guix build-system qt)
-  #:use-module (guix deprecation)
-  #:use-module (guix gexp)
-  #:use-module (guix utils)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system cargo)
+  #:use-module (Manifolding-OS build-system cmake)
+  #:use-module (Manifolding-OS build-system cargo)
+  #:use-module (Manifolding-OS build-system copy)
+  #:use-module (Manifolding-OS build-system emacs)
+  #:use-module (Manifolding-OS build-system haskell)
+  #:use-module (Manifolding-OS build-system pyproject)
+  #:use-module (Manifolding-OS build-system glib-or-gtk)
+  #:use-module (Manifolding-OS build-system go)
+  #:use-module (Manifolding-OS build-system qt)
+  #:use-module (Manifolding-OS deprecation)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS utils)
   #:use-module (srfi srfi-26)
   #:use-module (gnu packages)
   #:use-module (gnu packages aidc)
@@ -436,9 +436,9 @@ and dynamically with report tools based on filtering and graphical charts.")
      (list
       #:imported-modules (append %cmake-build-system-modules
                                  %pyproject-build-system-modules)
-      #:modules '((guix build cmake-build-system)
-                  (guix build utils)
-                  ((guix build pyproject-build-system) #:prefix py:))
+      #:modules '((Manifolding-OS build cmake-build-system)
+                  (Manifolding-OS build utils)
+                  ((Manifolding-OS build pyproject-build-system) #:prefix py:))
       #:configure-flags
       #~(list "-DBUILD_DOCS:BOOL=ON"
               "-DBUILD_WEB_DOCS:BOOL=ON"
@@ -663,7 +663,7 @@ do so.")
        (uri (pypi-uri "electrum_ecc" version))
        (sha256
         (base32 "1lmp5zmhabaxp6jha3xlsmqviivrxxhsy20x6z42ayqgd9cvhczp"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         '(begin
            ;; Delete the vendored dependency.
@@ -801,10 +801,10 @@ other machines/servers.  Electrum does not download the Bitcoin blockchain.")
      (list
       #:tests? #f                       ; no tests
       #:imported-modules `(,@%pyproject-build-system-modules
-                           (guix build qt-utils))
-      #:modules '((guix build pyproject-build-system)
-                  (guix build qt-utils)
-                  (guix build utils))
+                           (Manifolding-OS build qt-utils))
+      #:modules '((Manifolding-OS build pyproject-build-system)
+                  (Manifolding-OS build qt-utils)
+                  (Manifolding-OS build utils))
       #:phases
         #~(modify-phases %standard-phases
             (add-after 'unpack 'create-output-directories
@@ -877,7 +877,7 @@ blockchain.")
              (commit (string-append "v" version))
              (recursive? #t)))
        (file-name (git-file-name name version))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         '(begin
            ;; Delete bundled dependencies.
@@ -980,7 +980,7 @@ the Monero command line client and daemon.")
              (commit (string-append "v" version))
              (recursive? #t)))
        (file-name (git-file-name name version))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         '(begin
            ;; Delete bundled monero sources, we already have them.
@@ -1298,7 +1298,7 @@ Ledger Blue/Nano S.")
        (sha256
         (base32 "06d4mw8iydgv2c3qxa47482k7dqpg89a2b6wd8f4g15ydn3gsfmn"))
        (modules
-        '((guix build utils)
+        '((Manifolding-OS build utils)
           (srfi srfi-26)
           (srfi srfi-1)
           (ice-9 ftw)))
@@ -1435,7 +1435,7 @@ the KeepKey Hardware Wallet.")
        (sha256
         (base32 "09y55ys3x5krszh58yhl5gpdri0zrlhfld6psrmiyxfbp344asin"))
        (modules
-        '((guix build utils)
+        '((Manifolding-OS build utils)
           (ice-9 ftw)
           (srfi srfi-1)
           (srfi srfi-26)))
@@ -1533,9 +1533,9 @@ agent.")
     (arguments
      (list #:tests? #f           ; tests do not even build with Qt6 anymore
            #:qtbase qtbase       ; use Qt6
-           #:modules '((guix build qt-build-system)
-                       ((guix build gnu-build-system) #:prefix gnu:)
-                       (guix build utils))
+           #:modules '((Manifolding-OS build qt-build-system)
+                       ((Manifolding-OS build gnu-build-system) #:prefix gnu:)
+                       (Manifolding-OS build utils))
            #:phases
            #~(modify-phases %standard-phases
                (replace 'configure
@@ -1824,7 +1824,7 @@ information.")
                    "use-treasury-api.patch")))
            (snippet
             #~(begin
-                (use-modules (guix build utils)
+                (use-modules (Manifolding-OS build utils)
                              (srfi srfi-26))
 
                 ;; Remove generated files, which have not been patched.
@@ -2080,7 +2080,7 @@ generate a variety of reports from them, and provides a web interface.")
        (uri (pypi-uri "beanquery" version))
        (sha256
         (base32 "0b6dhj9lcf3b347rsjb0k25qgsmqf9jnd0yizv3kad00745bawid"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet #~(substitute* "pyproject.toml"
                     (("tatsu-lts")
                      "tatsu")))))
@@ -2528,7 +2528,7 @@ files.")
              (commit (string-append "v" version))))
        (file-name (git-file-name name version))
        (sha256 (base32 "12s0nk3b1nyh76gqcfdr3158y0kcrkfprahajnbv0k34rp49m4k4"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         ;; TODO: Try to use system libraries instead of bundled ones in
         ;; "src/3rdparty/". It requires changes to some "cmake/..." scripts
@@ -2586,7 +2586,7 @@ mining.")
              (recursive? #t)))
        (file-name (git-file-name name version))
        (sha256 (base32 "058fflb18bxnlipi8wvl1487fpn0mn7j1xd5awpq8pyig8j9nbsb"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         #~(for-each delete-file-recursively
                     '("external/src/cppzmq"

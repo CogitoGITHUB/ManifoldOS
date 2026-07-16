@@ -62,21 +62,21 @@
 ;;; and electronic test and instrumentation software.
 
 (define-module (gnu packages electronics)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix build-system cargo)
-  #:use-module (guix build-system cmake)
-  #:use-module (guix build-system copy)
-  #:use-module (guix build-system glib-or-gtk)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system meson)
-  #:use-module (guix build-system pyproject)
-  #:use-module (guix build-system qt)
-  #:use-module (guix deprecation)
-  #:use-module (guix download)
-  #:use-module (guix gexp)
-  #:use-module (guix git-download)
-  #:use-module (guix packages)
-  #:use-module (guix utils)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS build-system cargo)
+  #:use-module (Manifolding-OS build-system cmake)
+  #:use-module (Manifolding-OS build-system copy)
+  #:use-module (Manifolding-OS build-system glib-or-gtk)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system meson)
+  #:use-module (Manifolding-OS build-system pyproject)
+  #:use-module (Manifolding-OS build-system qt)
+  #:use-module (Manifolding-OS deprecation)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS utils)
   #:use-module (gnu packages)
   #:use-module (gnu packages algebra)
   #:use-module (gnu packages autotools)
@@ -170,7 +170,7 @@
   #:use-module (gnu packages xml)
   #:use-module (gnu packages xorg))
 
-(define delkw (@@ (guix utils) delkw))
+(define delkw (@@ (Manifolding-OS utils) delkw))
 
 (define-public aacircuit
   ;; No release in PyPI or version tag on Git, use the latest commit.
@@ -191,12 +191,12 @@
       (build-system pyproject-build-system)
       (arguments
        (list
-        #:imported-modules `((guix build glib-or-gtk-build-system)
+        #:imported-modules `((Manifolding-OS build glib-or-gtk-build-system)
                              ,@%pyproject-build-system-modules)
-        #:modules '(((guix build glib-or-gtk-build-system)
+        #:modules '(((Manifolding-OS build glib-or-gtk-build-system)
                      #:prefix glib-or-gtk:)
-                    (guix build pyproject-build-system)
-                    (guix build utils))
+                    (Manifolding-OS build pyproject-build-system)
+                    (Manifolding-OS build utils))
         #:phases
         #~(modify-phases %standard-phases
             (add-after 'unpack 'generate-gdk-pixbuf-loaders-cache-file
@@ -267,7 +267,7 @@ are also taken from the original.")
                 ;; Remove *.dll and *.lib binaries.
                 (snippet
                  #~(begin
-                     (use-modules (guix build utils))
+                     (use-modules (Manifolding-OS build utils))
                      (with-directory-excursion "lib"
                        (for-each delete-file-recursively '("x64" "x86")))))
                 (sha256
@@ -321,7 +321,7 @@ formal verification.")
               ;; Remove *.dll and *.lib binaries.
               (snippet
                #~(begin
-                   (use-modules (guix build utils))
+                   (use-modules (Manifolding-OS build utils))
                    (with-directory-excursion "lib"
                      (for-each delete-file-recursively '("x64" "x86")))))
               (sha256
@@ -532,9 +532,9 @@ individual low-level driver modules.")
     (arguments
      (list
       #:imported-modules %pyproject-build-system-modules
-      #:modules '((guix build gnu-build-system)
-                  ((guix build pyproject-build-system) #:prefix py:)
-                  (guix build utils))
+      #:modules '((Manifolding-OS build gnu-build-system)
+                  ((Manifolding-OS build pyproject-build-system) #:prefix py:)
+                  (Manifolding-OS build utils))
       #:make-flags
       #~(list (string-append "PREFIX=" #$output))
       #:phases
@@ -632,7 +632,7 @@ hardware designs in Verilog.")
        (file-name (git-file-name name version))
        (snippet '(begin
                    ;; This snippet is also inherited by python-gdstk.
-                   (use-modules (guix build utils))
+                   (use-modules (Manifolding-OS build utils))
                    ;; Disable 'external' source code directory.
                    (substitute* "CMakeLists.txt"
                      (("add_subdirectory\\(external\\)")
@@ -803,7 +803,7 @@ Simulator Trace} files.")
         (search-patches "hal-disable-googletest.patch"))
        (snippet
         #~(begin
-            (use-modules (guix build utils)
+            (use-modules (Manifolding-OS build utils)
                          (ice-9 ftw)
                          (srfi srfi-26))
             (define (delete-all-but directory . preserve)
@@ -1259,9 +1259,9 @@ characterization result in a liberty library file.")
                                          ,(version-major+minor (package-version
                                                                 python))
                                          "/site-packages:"
-                                         (getenv "GUIX_PYTHONPATH"))))
+                                         (getenv "MANIFOLDING_OS_PYTHONPATH"))))
                (wrap-program file
-                 `("GUIX_PYTHONPATH" ":" prefix
+                 `("MANIFOLDING_OS_PYTHONPATH" ":" prefix
                    (,path))
                  `("PATH" ":" prefix
                    (,(string-append python "/bin:"))))))))))
@@ -1789,7 +1789,7 @@ exploration and optimization.")
               (commit version)
               (recursive? #t)))
        (file-name (git-file-name name version))
-       (modules '((guix build utils)
+       (modules '((Manifolding-OS build utils)
                   (ice-9 ftw)
                   (srfi srfi-26)))
        (snippet
@@ -2014,7 +2014,7 @@ libparse, enabling dotlib file parsing.")
          (file-name (git-file-name name version))
          (sha256
           (base32 "19k03hwwz4pkb98hd7vf15x6dnhfd48iqj62n90s7ycx1y5a378r"))
-         (modules '((guix build utils)))
+         (modules '((Manifolding-OS build utils)))
          ;; remove broken psftest binary using hardcoded paths
          (snippet '(substitute* "src/Makefile.am"
                     (("bin_PROGRAMS = psftest") "bin_PROGRAMS =")))))
@@ -2279,9 +2279,9 @@ versus schematic} tests and can assist with automatic routing.")
       #:tests? #f                       ;there are no tests
       #:imported-modules (append %qt-build-system-modules
                                  %pyproject-build-system-modules)
-      #:modules '((guix build qt-build-system)
-                  ((guix build pyproject-build-system) #:prefix py:)
-                  (guix build utils))
+      #:modules '((Manifolding-OS build qt-build-system)
+                  ((Manifolding-OS build pyproject-build-system) #:prefix py:)
+                  (Manifolding-OS build utils))
       #:phases
       #~(modify-phases %standard-phases
           (add-after 'unpack 'build-info-documentation
@@ -2376,7 +2376,7 @@ layout of a circuit corresponds to the desired netlists.")
        (file-name (git-file-name name version))
        (snippet
         #~(begin
-            (use-modules (guix build utils)
+            (use-modules (Manifolding-OS build utils)
                          (ice-9 ftw)
                          (srfi srfi-26))
             ;; XXX: 'delete-all-but' is copied from the turbovnc package.
@@ -2607,7 +2607,7 @@ Automation}, portable and vendor neutral FPGA place and route tool.")
               (file-name (git-file-name name version))
               (modules '((ice-9 ftw)
                          (srfi srfi-26)
-                         (guix build utils)))
+                         (Manifolding-OS build utils)))
               (snippet
                '(with-directory-excursion "src"
                   (define keep (list "." ".." "openboardview"))
@@ -2625,11 +2625,11 @@ Automation}, portable and vendor neutral FPGA place and route tool.")
     (arguments
      (list
       #:tests? #f                       ;no test suite
-      #:imported-modules `((guix build glib-or-gtk-build-system)
+      #:imported-modules `((Manifolding-OS build glib-or-gtk-build-system)
                            ,@%cmake-build-system-modules)
-      #:modules '((guix build cmake-build-system)
-                  (guix build utils)
-                  ((guix build glib-or-gtk-build-system) #:prefix gtk:))
+      #:modules '((Manifolding-OS build cmake-build-system)
+                  (Manifolding-OS build utils)
+                  ((Manifolding-OS build glib-or-gtk-build-system) #:prefix gtk:))
       #:phases
       #~(modify-phases %standard-phases
           (add-before 'configure 'configure-glad
@@ -2809,7 +2809,7 @@ architecture from Cologne Chip.  It also provides data needed to produce a
                ;; only by prjtrellis: there is no need to package it separately.
                (recursive? #t)))
          (file-name (git-file-name name version))
-         (modules '((guix build utils)))
+         (modules '((Manifolding-OS build utils)))
          (snippet
           ;; Remove bundled source code for which Guix has packages.
           '(with-directory-excursion "libtrellis/3rdparty"
@@ -4118,8 +4118,8 @@ Verilog (SystemVerilog >= 2012) code to be used for synthesis and simulation.")
     (build-system pyproject-build-system)
     (arguments
      (list
-      #:modules '((guix build pyproject-build-system)
-                  (guix build utils)
+      #:modules '((Manifolding-OS build pyproject-build-system)
+                  (Manifolding-OS build utils)
                   (ice-9 ftw)
                   (srfi srfi-26))
       #:phases
@@ -4560,9 +4560,9 @@ them usable as simple logic analyzer and/or oscilloscope hardware.")
       #:parallel-tests? #f
       #:test-target "test"
       #:imported-modules %pyproject-build-system-modules
-      #:modules `((guix build gnu-build-system)
-                  ((guix build pyproject-build-system) #:prefix python:)
-                  (guix build utils))
+      #:modules `((Manifolding-OS build gnu-build-system)
+                  ((Manifolding-OS build pyproject-build-system) #:prefix python:)
+                  (Manifolding-OS build utils))
       #:make-flags #~(list (string-append "PREFIX=" #$output))
       #:phases
       #~(modify-phases %standard-phases
@@ -4644,7 +4644,7 @@ code{yosys}-based formal hardware verification flows.")
        (file-name (git-file-name name version))
        (snippet
         #~(begin
-            (use-modules (guix build utils)
+            (use-modules (Manifolding-OS build utils)
                          (ice-9 ftw)
                          (srfi srfi-26))
             (define (delete-all-but directory . preserve)
@@ -4713,7 +4713,7 @@ Abstract Syntax Trees} API.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "146dah9j3rgwwkc331srvibphv3by5xf9yraz0hsaahscmd17vaq"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         '(begin
            ;; The dependency is not available through crates.io.
@@ -4835,9 +4835,9 @@ tools, simulators, linters, code editors, and refactoring tools.")
     (build-system cmake-build-system)
     (arguments
      (list
-      #:modules '((guix build cmake-build-system)
-                  ((guix build gnu-build-system) #:prefix gnu:)
-                  (guix build utils))
+      #:modules '((Manifolding-OS build cmake-build-system)
+                  ((Manifolding-OS build gnu-build-system) #:prefix gnu:)
+                  (Manifolding-OS build utils))
       #:phases
       #~(modify-phases %standard-phases
           (replace 'check (assoc-ref gnu:%standard-phases 'check)))))
@@ -5168,7 +5168,7 @@ parallel computing platforms.  It also supports serial execution.")
        (file-name (git-file-name name version))
        (snippet
         #~(begin
-            (use-modules (guix build utils)
+            (use-modules (Manifolding-OS build utils)
                          (srfi srfi-26))
             (delete-file-recursively "abc")
             (delete-file-recursively "libs/dlfcn-win32")
@@ -5234,8 +5234,8 @@ parallel computing platforms.  It also supports serial execution.")
           (add-after 'install 'wrap
             (lambda* (#:key inputs #:allow-other-keys)
               (wrap-program (string-append #$output "/bin/yosys-witness")
-                `("GUIX_PYTHONPATH" ":" prefix
-                  (,(getenv "GUIX_PYTHONPATH"))))))
+                `("MANIFOLDING_OS_PYTHONPATH" ":" prefix
+                  (,(getenv "MANIFOLDING_OS_PYTHONPATH"))))))
           (add-after 'install 'build-config
             (lambda _
               (mkdir-p (string-append #$output:config "/bin"))

@@ -31,20 +31,20 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages display-managers)
-  #:use-module (guix deprecation)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix packages)
-  #:use-module (guix download)
-  #:use-module (guix git-download)
-  #:use-module (guix build-system cmake)
-  #:use-module (guix build-system copy)
-  #:use-module (guix build-system qt)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system glib-or-gtk)
-  #:use-module (guix build-system trivial)
-  #:use-module (guix packages)
-  #:use-module (guix utils)
-  #:use-module (guix gexp)
+  #:use-module (Manifolding-OS deprecation)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS build-system cmake)
+  #:use-module (Manifolding-OS build-system copy)
+  #:use-module (Manifolding-OS build-system qt)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system glib-or-gtk)
+  #:use-module (Manifolding-OS build-system trivial)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS utils)
+  #:use-module (Manifolding-OS gexp)
   #:use-module (gnu packages)
   #:use-module (gnu packages autotools)
   #:use-module (gnu packages admin)
@@ -244,9 +244,9 @@ blurred background.")
         (base32 "09vb9b0pmyhj6fh0b6by59bykszbkdayhz678pnb4pyrdmlvv1am"))))
     (build-system trivial-build-system)
     (arguments
-     `(#:modules ((guix build utils))
+     `(#:modules ((Manifolding-OS build utils))
        #:builder (begin
-                   (use-modules (guix build utils)
+                   (use-modules (Manifolding-OS build utils)
                                 (srfi srfi-26))
                    (let* ((out (assoc-ref %outputs "out"))
                           (themes-dir (string-append out
@@ -273,7 +273,7 @@ Guix's logo.  Based on Arch linux's archlinux-simplyblack theme.")
     (source
      (origin
        (inherit (package-source guix-simplyblack-sddm-theme))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet '(begin
                    (substitute* "metadata.desktop"
                      (("QtVersion=6")
@@ -294,10 +294,10 @@ Guix's logo.  Based on Arch linux's archlinux-simplyblack theme.")
                 "036fxsa7m8ymmp3p40z671z163y6fcsa9a641lrxdrw225ssq5f3"))))
     (build-system trivial-build-system)
     (arguments
-     `(#:modules ((guix build utils))
+     `(#:modules ((Manifolding-OS build utils))
        #:builder
        (begin
-         (use-modules (guix build utils))
+         (use-modules (Manifolding-OS build utils))
          (let* ((out (assoc-ref %outputs "out"))
                 (sddm-themes (string-append out "/share/sddm/themes")))
            (mkdir-p sddm-themes)
@@ -327,10 +327,10 @@ easy to use, login interface with a modern yet classy touch.")
                 "0gx0am7vq1ywaw2rm1p015x90b75ccqxnb1sz3wy8yjl27v82yhb"))))
     (build-system trivial-build-system)
     (arguments
-     `(#:modules ((guix build utils))
+     `(#:modules ((Manifolding-OS build utils))
        #:builder
        (begin
-         (use-modules (guix build utils))
+         (use-modules (Manifolding-OS build utils))
          (let* ((out (assoc-ref %outputs "out"))
                 (sddm-themes (string-append out "/share/sddm/themes")))
            (mkdir-p sddm-themes)
@@ -361,10 +361,10 @@ experience for your users, your family and yourself")
                 "1sfd5bi5jcfz3hmvvr3smalywixa70g5j96qgx1220mp6rqf886k"))))
     (build-system trivial-build-system)
     (arguments
-     `(#:modules ((guix build utils))
+     `(#:modules ((Manifolding-OS build utils))
        #:builder
        (begin
-         (use-modules (guix build utils))
+         (use-modules (Manifolding-OS build utils))
          (let* ((out (assoc-ref %outputs "out"))
                 (sddm-themes (string-append out "/share/sddm/themes")))
            (mkdir-p sddm-themes)
@@ -453,7 +453,7 @@ the screen.")
             (lambda _
               (wrap-program "tests/src/test-python-greeter"
                 #:sh (which "bash")
-                `("GUIX_PYTHONPATH"      ":" prefix (,(getenv "GUIX_PYTHONPATH")))
+                `("MANIFOLDING_OS_PYTHONPATH"      ":" prefix (,(getenv "MANIFOLDING_OS_PYTHONPATH")))
                 `("GI_TYPELIB_PATH" ":" prefix (,(getenv "GI_TYPELIB_PATH"))))
               ;; Avoid printing locale warnings, which trip up the text
               ;; matching tests.

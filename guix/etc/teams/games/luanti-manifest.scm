@@ -19,9 +19,9 @@
 ;;; This file returns a manifest of packages built using the emacs-build-system.
 ;;; It is used to assist continuous integration of the emacs-team branch.
 
-(use-modules (guix packages)
-             (guix profiles)
-             (guix build-system luanti))
+(use-modules (Manifolding-OS packages)
+             (Manifolding-OS profiles)
+             (Manifolding-OS build-system luanti))
 
 (manifest
   (map package->manifest-entry

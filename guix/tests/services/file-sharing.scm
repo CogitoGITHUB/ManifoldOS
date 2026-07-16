@@ -18,7 +18,7 @@
 
 (define-module (tests services file-sharing)
   #:use-module (gnu services file-sharing)
-  #:use-module ((guix diagnostics) #:select (formatted-message?))
+  #:use-module ((Manifolding-OS diagnostics) #:select (formatted-message?))
   #:use-module (srfi srfi-64))
 
 ;;; Tests for the (gnu services file-sharing) module.

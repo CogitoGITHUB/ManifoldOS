@@ -1554,7 +1554,7 @@ HookReply DerivationGoal::tryBuildHook()
         std::format("{}", settings.buildTimeout)
 	};
 
-        worker.hook = std::make_shared<Agent>(settings.guixProgram, args);
+        worker.hook = std::make_shared<Agent>(settings.ManifoldingOSProgram, args);
     }
 
     /* Tell the hook about system features (beyond the system type)
@@ -2420,7 +2420,7 @@ void DerivationGoal::execBuilderOrBuiltin(SpawnContext & ctx)
     }
     /* Ensure that the builder is within the store.  This prevents users from
        using /proc/self/exe (or a symlink to it) as their builder, which could
-       allow them to overwrite the guix-daemon binary (CVE-2019-5736).
+       allow them to overwrite the Manifolding-OS-daemon binary (CVE-2019-5736).
 
        This attack is possible even if the target of /proc/self/exe is outside
        the chroot (it's as if it were a hard link), though it requires that
@@ -2592,13 +2592,13 @@ void DerivationGoal::startBuilder()
     /* Create a temporary directory where the build will take
        place. */
     auto drvName = storePathToName(drvPath);
-    tmpDir = createTempDir("", "guix-build-" + drvName, false, false, 0700);
+    tmpDir = createTempDir("", "Manifolding-OS-build-" + drvName, false, false, 0700);
 
     if (useChroot) {
 	/* Make the build directory seen by the build process a sub-directory.
-	   That way, "/tmp/guix-build-foo.drv-0" is root-owned, and thus its
+	   That way, "/tmp/Manifolding-OS-build-foo.drv-0" is root-owned, and thus its
 	   permissions cannot be changed by the build process, while
-	   "/tmp/guix-build-foo.drv-0/top" is owned by the build user.  This
+	   "/tmp/Manifolding-OS-build-foo.drv-0/top" is owned by the build user.  This
 	   cannot be done when !useChroot because then $NIX_BUILD_TOP would
 	   be inaccessible to the build user by its full file name.
 
@@ -2614,7 +2614,7 @@ void DerivationGoal::startBuilder()
 
     /* In a sandbox, for determinism, always use the same temporary
        directory. */
-    tmpDirInSandbox = useChroot ? canonPath("/tmp", true) + "/guix-build-" + drvName + "-0" : tmpDir;
+    tmpDirInSandbox = useChroot ? canonPath("/tmp", true) + "/Manifolding-OS-build-" + drvName + "-0" : tmpDir;
 
     ctx.setcwd = true;
     ctx.cwd = tmpDirInSandbox;
@@ -3040,7 +3040,7 @@ void DerivationGoal::startBuilder()
 	     /* Initialize the UID/GID mapping of the child process.
 
 		Try hard to map the "kvm" GID inside the user namespace ("kvm"
-	        is usually the only supplementary group of the 'guix-daemon'
+	        is usually the only supplementary group of the 'Manifolding-OS-daemon'
 	        privilege separation user) so that package test suites that
 	        expect to be able to chown to supplementary groups can do so
 	        (without that mapping, attempts to chown to the supplementary
@@ -3504,7 +3504,7 @@ void DerivationGoal::deleteTmpDir(bool force)
 {
     if (tmpDir != "") {
 	// When useChroot is true, tmpDir looks like
-	// "/tmp/guix-build-foo.drv-0/top".  Its parent is root-owned.
+	// "/tmp/Manifolding-OS-build-foo.drv-0/top".  Its parent is root-owned.
 	string top;
 	if (useChroot) {
 	    if (baseNameOf(tmpDir) != "top") abort();
@@ -3919,7 +3919,7 @@ void SubstitutionGoal::tryToRun()
 	      + (settings.autoOptimiseStore ? "yes" : "no")
 	    }
 	};
-	worker.substituter = std::make_shared<Agent>(settings.guixProgram, args, env);
+	worker.substituter = std::make_shared<Agent>(settings.ManifoldingOSProgram, args, env);
     }
 
     /* Borrow the worker's substituter.  */
@@ -3947,7 +3947,7 @@ void SubstitutionGoal::finished()
 {
     trace("substitute finished");
 
-    /* Remove the 'guix substitute' process from the list of children.  */
+    /* Remove the 'Manifolding-OS substitute' process from the list of children.  */
     worker.childTerminated(substituter->pid);
 
     /* If max-jobs > 1, the worker might have created a new 'substitute'
@@ -4018,7 +4018,7 @@ void SubstitutionGoal::finished()
 
     if (repair) replaceValidPath(storePath, destPath);
 
-    /* Note: 'guix substitute' takes care of resetting timestamps and of
+    /* Note: 'Manifolding-OS substitute' takes care of resetting timestamps and of
        deduplicating 'destPath', so no need to do it here.  */
 
     ValidPathInfo info2;

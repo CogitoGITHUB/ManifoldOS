@@ -17,11 +17,11 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (test-store-deduplication)
-  #:use-module (guix tests)
-  #:use-module (guix store deduplication)
+  #:use-module (Manifolding-OS tests)
+  #:use-module (Manifolding-OS store deduplication)
   #:use-module (gcrypt hash)
-  #:use-module ((guix utils) #:select (call-with-temporary-directory))
-  #:use-module (guix build utils)
+  #:use-module ((Manifolding-OS utils) #:select (call-with-temporary-directory))
+  #:use-module (Manifolding-OS build utils)
   #:use-module (rnrs bytevectors)
   #:use-module (ice-9 binary-ports)
   #:use-module (ice-9 match)

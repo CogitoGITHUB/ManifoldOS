@@ -23,7 +23,7 @@
   #:use-module (gnu services)
   #:use-module (gnu services configuration)
   #:use-module (gnu services shepherd)
-  #:use-module (guix gexp)
+  #:use-module (Manifolding-OS gexp)
   #:use-module (srfi srfi-1)
   #:export (wrap-himitsu-prompter
             home-himitsu-configuration

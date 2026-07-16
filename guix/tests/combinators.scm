@@ -18,7 +18,7 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (test-combinators)
-  #:use-module (guix combinators)
+  #:use-module (Manifolding-OS combinators)
   #:use-module (srfi srfi-1)
   #:use-module (srfi srfi-64)
   #:use-module (ice-9 vlist))

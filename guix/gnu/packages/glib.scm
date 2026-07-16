@@ -82,17 +82,17 @@
   #:use-module (gnu packages web)
   #:use-module (gnu packages xml)
   #:use-module (gnu packages xorg)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system cmake)
-  #:use-module (guix build-system meson)
-  #:use-module (guix build-system perl)
-  #:use-module (guix build-system pyproject)
-  #:use-module (guix download)
-  #:use-module (guix git-download)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix packages)
-  #:use-module (guix utils)
-  #:use-module (guix gexp)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system cmake)
+  #:use-module (Manifolding-OS build-system meson)
+  #:use-module (Manifolding-OS build-system perl)
+  #:use-module (Manifolding-OS build-system pyproject)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS utils)
+  #:use-module (Manifolding-OS gexp)
   #:use-module (srfi srfi-26)
   #:use-module ((srfi srfi-1) #:hide (zip))
 
@@ -259,7 +259,7 @@ information, refer to the @samp{dbus-daemon(1)} man page.")))
        (patches
         (search-patches "glib-appinfo-watch.patch"
                         "glib-skip-failing-test.patch"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         '(begin
            (substitute* "glib/tests/spawn-test.c"
@@ -547,8 +547,8 @@ be used when cross-compiling."
                  "-Dbuild_introspection_data=false"))
              '())
        #:modules
-       ((guix build meson-build-system)
-        (guix build utils)
+       ((Manifolding-OS build meson-build-system)
+        (Manifolding-OS build utils)
         (ice-9 match)
         (srfi srfi-1)
         (srfi srfi-26))
@@ -590,7 +590,7 @@ be used when cross-compiling."
                     (paths (search-input-directories pred site-path)))
                (for-each
                 (cute wrap-program <>
-                      `("GUIX_PYTHONPATH" ":" prefix
+                      `("MANIFOLDING_OS_PYTHONPATH" ":" prefix
                         (,(string-join paths ":"))))
                 ;; These require access to python-setuptools site-packages.
                 (list (search-input-file outputs "/bin/g-ir-annotation-tool")
@@ -725,7 +725,7 @@ The intltool collection can be used to do these things:
           (add-after 'install 'wrap-program
             (lambda _
               (wrap-program (string-append #$output "/bin/itstool")
-                `("GUIX_PYTHONPATH" = (,(getenv "GUIX_PYTHONPATH")))))))))
+                `("MANIFOLDING_OS_PYTHONPATH" = (,(getenv "MANIFOLDING_OS_PYTHONPATH")))))))))
     (home-page "https://itstool.org")
     (synopsis "Tool to translate XML documents with PO files")
     (description
@@ -803,9 +803,9 @@ by GDBus included in Glib.")
       #:tests? #f                  ;one test fails.
       #:imported-modules (append %meson-build-system-modules
                                  %pyproject-build-system-modules)
-      #:modules '(((guix build pyproject-build-system) #:prefix py:)
-                  (guix build meson-build-system)
-                  (guix build utils))
+      #:modules '(((Manifolding-OS build pyproject-build-system) #:prefix py:)
+                  (Manifolding-OS build meson-build-system)
+                  (Manifolding-OS build utils))
       ;; don't try installing to python store path.
       #:configure-flags
       #~(list (string-append "-Dpy-overrides-dir="
@@ -1161,7 +1161,7 @@ This package provides the library for GLib applications.")
               (sha256
                (base32
                 "0c9q2bjs4m66zq0qysyip8fnkvvjpj46rkjcvw15nhmfhzbq16ag"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet '(delete-file-recursively "tools/libcppgenerate"))))
     (build-system cmake-build-system)
     (arguments
@@ -1212,9 +1212,9 @@ Some codes examples can be find at:
                                 ;; Do not install tests.
                                 "-DSDBUSCPP_TESTS_INSTALL_PATH=/tmp"
                                 "-DCMAKE_VERBOSE_MAKEFILE=ON")
-      #:modules '((guix build cmake-build-system)
-                  ((guix build gnu-build-system) #:prefix gnu:)
-                  (guix build utils))
+      #:modules '((Manifolding-OS build cmake-build-system)
+                  ((Manifolding-OS build gnu-build-system) #:prefix gnu:)
+                  (Manifolding-OS build utils))
       #:phases
       #~(modify-phases %standard-phases
           (add-after 'unpack 'do-not-install-tests

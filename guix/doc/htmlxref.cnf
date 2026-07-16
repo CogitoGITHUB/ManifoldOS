@@ -468,46 +468,46 @@ guile-rpc	node	${GS}/guile-rpc/manual/html_node/
 
 GUIX_ROOT = https://guix.gnu.org
 GUIX = ${GUIX_ROOT}/manual/devel
- guix.de	mono	${GUIX}/de/guix.de.html
- guix.de	node	${GUIX}/de/html_node/
- guix.es	mono	${GUIX}/es/guix.es.html
- guix.es	node	${GUIX}/es/html_node/
- guix.fr	mono	${GUIX}/fr/guix.fr.html
- guix.fr	node	${GUIX}/fr/html_node/
- guix.it	mono	${GUIX}/it/guix.it.html
- guix.it	node	${GUIX}/it/html_node/
- guix.pt_BR	mono	${GUIX}/pt-br/guix.pt_BR.html
- guix.pt_BR	node	${GUIX}/pt-br/html_node/
- guix.ru	mono	${GUIX}/ru/guix.ru.html
- guix.ru	node	${GUIX}/ru/html_node/
- guix.zh_CN	mono	${GUIX}/zh-cn/guix.zh_CN.html
- guix.zh_CN	node	${GUIX}/zh-cn/html_node/
- guix		mono	${GUIX}/en/guix.html
- guix		node	${GUIX}/en/html_node/
+ Manifolding-OS.de	mono	${GUIX}/de/guix.de.html
+ Manifolding-OS.de	node	${GUIX}/de/html_node/
+ Manifolding-OS.es	mono	${GUIX}/es/guix.es.html
+ Manifolding-OS.es	node	${GUIX}/es/html_node/
+ Manifolding-OS.fr	mono	${GUIX}/fr/guix.fr.html
+ Manifolding-OS.fr	node	${GUIX}/fr/html_node/
+ Manifolding-OS.it	mono	${GUIX}/it/guix.it.html
+ Manifolding-OS.it	node	${GUIX}/it/html_node/
+ Manifolding-OS.pt_BR	mono	${GUIX}/pt-br/guix.pt_BR.html
+ Manifolding-OS.pt_BR	node	${GUIX}/pt-br/html_node/
+ Manifolding-OS.ru	mono	${GUIX}/ru/guix.ru.html
+ Manifolding-OS.ru	node	${GUIX}/ru/html_node/
+ Manifolding-OS.zh_CN	mono	${GUIX}/zh-cn/guix.zh_CN.html
+ Manifolding-OS.zh_CN	node	${GUIX}/zh-cn/html_node/
+ Manifolding-OS		mono	${GUIX}/en/guix.html
+ Manifolding-OS		node	${GUIX}/en/html_node/
 
 GUIX_COOKBOOK = ${GUIX_ROOT}/cookbook
- guix-cookbook.de	mono    ${GUIX_COOKBOOK}/de/guix-cookbook.de.html
- guix-cookbook.de	node    ${GUIX_COOKBOOK}/de/html_node/
- guix-cookbook.es	mono    ${GUIX_COOKBOOK}/es/guix-cookbook.de.html
- guix-cookbook.es	node    ${GUIX_COOKBOOK}/es/html_node/
- guix-cookbook.fr	mono    ${GUIX_COOKBOOK}/fr/guix-cookbook.fr.html
- guix-cookbook.fr	node    ${GUIX_COOKBOOK}/fr/html_node/
- guix-cookbook.it	mono    ${GUIX_COOKBOOK}/it/guix-cookbook.it.html
- guix-cookbook.it	node    ${GUIX_COOKBOOK}/it/html_node/
- guix-cookbook.ko	mono    ${GUIX_COOKBOOK}/ko/guix-cookbook.ko.html
- guix-cookbook.ko	node    ${GUIX_COOKBOOK}/ko/html_node/
- guix-cookbook.pt_BR	mono    ${GUIX_COOKBOOK}/pt-br/guix-cookbook.pt_BR.html
- guix-cookbook.pt_BR	node    ${GUIX_COOKBOOK}/pt-br/html_node/
- guix-cookbook.ru	mono    ${GUIX_COOKBOOK}/ru/guix-cookbook.ru.html
- guix-cookbook.ru	node    ${GUIX_COOKBOOK}/ru/html_node/
- guix-cookbook.sk	mono    ${GUIX_COOKBOOK}/sk/guix-cookbook.sk.html
- guix-cookbook.sk	node    ${GUIX_COOKBOOK}/sk/html_node/
- guix-cookbook.sv	mono    ${GUIX_COOKBOOK}/sv/guix-cookbook.sv.html
- guix-cookbook.sv	node    ${GUIX_COOKBOOK}/sv/html_node/
- guix-cookbook		mono    ${GUIX_COOKBOOK}/en/guix-cookbook.html
- guix-cookbook		node	${GUIX_COOKBOOK}/en/html_node/
- guix-cookbook.zh_CN	mono    ${GUIX_COOKBOOK}/zh-cn/guix-cookbook.zh_CN.html
- guix-cookbook.zh_CN	node    ${GUIX_COOKBOOK}/zh-cn/html_node/
+ Manifolding-OS-cookbook.de	mono    ${GUIX_COOKBOOK}/de/guix-cookbook.de.html
+ Manifolding-OS-cookbook.de	node    ${GUIX_COOKBOOK}/de/html_node/
+ Manifolding-OS-cookbook.es	mono    ${GUIX_COOKBOOK}/es/guix-cookbook.de.html
+ Manifolding-OS-cookbook.es	node    ${GUIX_COOKBOOK}/es/html_node/
+ Manifolding-OS-cookbook.fr	mono    ${GUIX_COOKBOOK}/fr/guix-cookbook.fr.html
+ Manifolding-OS-cookbook.fr	node    ${GUIX_COOKBOOK}/fr/html_node/
+ Manifolding-OS-cookbook.it	mono    ${GUIX_COOKBOOK}/it/guix-cookbook.it.html
+ Manifolding-OS-cookbook.it	node    ${GUIX_COOKBOOK}/it/html_node/
+ Manifolding-OS-cookbook.ko	mono    ${GUIX_COOKBOOK}/ko/guix-cookbook.ko.html
+ Manifolding-OS-cookbook.ko	node    ${GUIX_COOKBOOK}/ko/html_node/
+ Manifolding-OS-cookbook.pt_BR	mono    ${GUIX_COOKBOOK}/pt-br/guix-cookbook.pt_BR.html
+ Manifolding-OS-cookbook.pt_BR	node    ${GUIX_COOKBOOK}/pt-br/html_node/
+ Manifolding-OS-cookbook.ru	mono    ${GUIX_COOKBOOK}/ru/guix-cookbook.ru.html
+ Manifolding-OS-cookbook.ru	node    ${GUIX_COOKBOOK}/ru/html_node/
+ Manifolding-OS-cookbook.sk	mono    ${GUIX_COOKBOOK}/sk/guix-cookbook.sk.html
+ Manifolding-OS-cookbook.sk	node    ${GUIX_COOKBOOK}/sk/html_node/
+ Manifolding-OS-cookbook.sv	mono    ${GUIX_COOKBOOK}/sv/guix-cookbook.sv.html
+ Manifolding-OS-cookbook.sv	node    ${GUIX_COOKBOOK}/sv/html_node/
+ Manifolding-OS-cookbook		mono    ${GUIX_COOKBOOK}/en/guix-cookbook.html
+ Manifolding-OS-cookbook		node	${GUIX_COOKBOOK}/en/html_node/
+ Manifolding-OS-cookbook.zh_CN	mono    ${GUIX_COOKBOOK}/zh-cn/guix-cookbook.zh_CN.html
+ Manifolding-OS-cookbook.zh_CN	node    ${GUIX_COOKBOOK}/zh-cn/html_node/
 
 gv		mono	${GS}/gv/manual/gv.html
 gv		node	${GS}/gv/manual/html_node/

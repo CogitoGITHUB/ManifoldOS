@@ -30,11 +30,11 @@
   #:use-module (gnu services xorg)
   #:use-module (gnu system pam)
   #:use-module (gnu system shadow)
-  #:use-module (guix gexp)
-  #:use-module (guix records)
-  #:use-module (guix deprecation)
-  #:use-module (guix utils)
-  #:use-module (guix packages)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS records)
+  #:use-module (Manifolding-OS deprecation)
+  #:use-module (Manifolding-OS utils)
+  #:use-module (Manifolding-OS packages)
   #:export (sddm-configuration
             sddm-configuration?
             sddm-service-type

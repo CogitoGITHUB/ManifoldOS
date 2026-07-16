@@ -24,23 +24,23 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages bootstrap)
-  #:use-module (guix licenses)
+  #:use-module (Manifolding-OS licenses)
   #:use-module (gnu packages)
-  #:use-module (guix platform)
-  #:use-module (guix packages)
-  #:use-module (guix download)
-  #:use-module (guix build-system)
-  #:use-module (guix build-system trivial)
-  #:use-module ((guix store)
+  #:use-module (Manifolding-OS platform)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS build-system)
+  #:use-module (Manifolding-OS build-system trivial)
+  #:use-module ((Manifolding-OS store)
                 #:select (%store-monad interned-file text-file store-lift))
-  #:use-module ((guix derivations)
+  #:use-module ((Manifolding-OS derivations)
                 #:select (raw-derivation derivation-input derivation->output-path))
-  #:use-module (guix utils)
-  #:use-module ((guix build utils) #:select (elf-file?))
-  #:use-module ((guix gexp) #:select (lower-object local-file))
-  #:use-module (guix monads)
-  #:use-module (guix memoization)
-  #:use-module (guix i18n)
+  #:use-module (Manifolding-OS utils)
+  #:use-module ((Manifolding-OS build utils) #:select (elf-file?))
+  #:use-module ((Manifolding-OS gexp) #:select (lower-object local-file))
+  #:use-module (Manifolding-OS monads)
+  #:use-module (Manifolding-OS memoization)
+  #:use-module (Manifolding-OS i18n)
   #:use-module (srfi srfi-1)
   #:use-module (srfi srfi-26)
   #:use-module (srfi srfi-34)
@@ -268,10 +268,10 @@ or false to signal an error."
     (build-system trivial-build-system)
     (arguments
      `(#:guile ,%bootstrap-guile
-       #:modules ((guix build utils))
+       #:modules ((Manifolding-OS build utils))
        #:builder
        (begin
-         (use-modules (guix build utils))
+         (use-modules (Manifolding-OS build utils))
 
          (let ((out     (assoc-ref %outputs "out"))
               (tar     (assoc-ref %build-inputs "tar"))
@@ -767,10 +767,10 @@ $out/bin/guile --version~%"
     (build-system trivial-build-system)
     (arguments
      `(#:guile ,%bootstrap-guile
-       #:modules ((guix build utils))
+       #:modules ((Manifolding-OS build utils))
        #:builder
        (begin
-         (use-modules (guix build utils))
+         (use-modules (Manifolding-OS build utils))
 
          (let ((out     (assoc-ref %outputs "out"))
               (tar     (assoc-ref %build-inputs "tar"))
@@ -874,10 +874,10 @@ $out/bin/guile --version~%"
     (build-system trivial-build-system)
     (arguments
      `(#:guile ,%bootstrap-guile
-       #:modules ((guix build utils))
+       #:modules ((Manifolding-OS build utils))
        #:builder
        (begin
-         (use-modules (guix build utils)
+         (use-modules (Manifolding-OS build utils)
                       (ice-9 popen))
 
          (let ((out     (assoc-ref %outputs "out"))

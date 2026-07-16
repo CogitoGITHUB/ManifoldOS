@@ -22,10 +22,10 @@
 
 (define-module (gnu packages pth)
   #:use-module (gnu packages autotools)
-  #:use-module (guix licenses)
-  #:use-module (guix packages)
-  #:use-module (guix download)
-  #:use-module (guix build-system gnu))
+  #:use-module (Manifolding-OS licenses)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS build-system gnu))
 
 (define-public pth
   (package

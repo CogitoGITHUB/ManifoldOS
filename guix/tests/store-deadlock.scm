@@ -18,11 +18,11 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (test-store-deadlock)
-  #:use-module (guix tests)
-  #:use-module (guix store)
-  #:use-module (guix derivations)
-  #:use-module (guix gexp)
-  #:use-module (guix monads)
+  #:use-module (Manifolding-OS tests)
+  #:use-module (Manifolding-OS store)
+  #:use-module (Manifolding-OS derivations)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS monads)
   #:use-module (gnu packages bootstrap)
   #:use-module (ice-9 threads)
   #:use-module (srfi srfi-1)

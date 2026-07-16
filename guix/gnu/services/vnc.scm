@@ -24,8 +24,8 @@
   #:use-module (gnu system shadow)
   #:use-module (gnu services configuration)
   #:use-module (gnu services shepherd)
-  #:use-module (guix gexp)
-  #:use-module (guix records)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS records)
 
   #:export (xvnc-configuration
             xvnc-configuration-xvnc

@@ -45,7 +45,7 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages telephony)
-  #:use-module (guix gexp)
+  #:use-module (Manifolding-OS gexp)
   #:use-module (gnu packages)
   #:use-module (gnu packages admin)
   #:use-module (gnu packages algebra)
@@ -95,16 +95,16 @@
   #:use-module (gnu packages compiler-tools)
   #:use-module (gnu packages libevent)
   #:use-module (gnu packages video)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix utils)
-  #:use-module (guix packages)
-  #:use-module (guix gexp)
-  #:use-module (guix download)
-  #:use-module (guix git-download)
-  #:use-module (guix build-system cmake)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system meson)
-  #:use-module (guix build-system qt))
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS utils)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS build-system cmake)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system meson)
+  #:use-module (Manifolding-OS build-system qt))
 
 (define-public phonesim
   (package
@@ -576,7 +576,7 @@ address of one of the participants.")
               (sha256
                (base32
                 "0irvkhz8189kqn0n670l55grk4kvb126n9p944yji69gn86fwqp0"))
-              (modules '((guix build utils)
+              (modules '((Manifolding-OS build utils)
                          (ice-9 ftw)
                          (srfi srfi-1)))
               (snippet
@@ -752,7 +752,7 @@ your calls and messages.")
        (sha256
         (base32
          "0ddn92imbxa17b4v1nm8g226zypk9yfkm3rn6d7bvjw6llhcwv7m"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         '(begin
            ;; Remove bundled libraries.

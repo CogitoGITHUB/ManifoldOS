@@ -26,7 +26,7 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages minetest)
-  #:use-module (guix packages)
+  #:use-module (Manifolding-OS packages)
   #:use-module (gnu packages luanti))
 
 (define-deprecated-package minetest

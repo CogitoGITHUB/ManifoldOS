@@ -16,11 +16,11 @@
 ;;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages rocm-tools)
-  #:use-module (guix build-system cmake)
-  #:use-module (guix gexp)
-  #:use-module (guix git-download)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix packages)
+  #:use-module (Manifolding-OS build-system cmake)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS packages)
   #:use-module (gnu packages check)
   #:use-module (gnu packages elf)
   #:use-module (gnu packages libffi)

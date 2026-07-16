@@ -43,20 +43,20 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages vpn)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix packages)
-  #:use-module (guix download)
-  #:use-module (guix gexp)
-  #:use-module (guix git-download)
-  #:use-module (guix build-system cargo)
-  #:use-module (guix build-system cmake)
-  #:use-module (guix build-system copy)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system go)
-  #:use-module (guix build-system linux-module)
-  #:use-module (guix build-system pyproject)
-  #:use-module (guix build-system qt)
-  #:use-module (guix utils)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS build-system cargo)
+  #:use-module (Manifolding-OS build-system cmake)
+  #:use-module (Manifolding-OS build-system copy)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system go)
+  #:use-module (Manifolding-OS build-system linux-module)
+  #:use-module (Manifolding-OS build-system pyproject)
+  #:use-module (Manifolding-OS build-system qt)
+  #:use-module (Manifolding-OS utils)
   #:use-module (gnu packages)
   #:use-module (gnu packages admin)
   #:use-module (gnu packages authentication)
@@ -126,8 +126,8 @@
     (arguments
      (list
       #:tests? #f ;; no test suite
-      #:modules '((guix build linux-module-build-system)
-                  (guix build utils)
+      #:modules '((Manifolding-OS build linux-module-build-system)
+                  (Manifolding-OS build utils)
                   (ice-9 popen)
                   (ice-9 textual-ports))
       #:phases
@@ -231,7 +231,7 @@ detection by @acronym{DPI, Deep Packet Inspection} systems.")
        (sha256
         (base32 "1zphigfrks1j3snbc748b3mk0qb1r7n2v7p7l6w1xiiil4dql6cs"))
        (modules
-        '((guix build utils)))
+        '((Manifolding-OS build utils)))
        (snippet
         `(begin
            (delete-file-recursively "branding/thirdparty")
@@ -242,21 +242,21 @@ detection by @acronym{DPI, Deep Packet Inspection} systems.")
     (build-system go-build-system)
     (arguments
      `(#:imported-modules
-       ((guix build cmake-build-system)
-        (guix build copy-build-system)
-        (guix build qt-build-system)
-        (guix build qt-utils)
+       ((Manifolding-OS build cmake-build-system)
+        (Manifolding-OS build copy-build-system)
+        (Manifolding-OS build qt-build-system)
+        (Manifolding-OS build qt-utils)
         ,@%go-build-system-modules
         ,@%pyproject-build-system-modules)
        #:modules
-       (((guix build copy-build-system)
+       (((Manifolding-OS build copy-build-system)
          #:prefix copy:)
-        ((guix build pyproject-build-system)
+        ((Manifolding-OS build pyproject-build-system)
          #:prefix py:)
-        ((guix build qt-build-system)
+        ((Manifolding-OS build qt-build-system)
          #:prefix qt:)
-        (guix build utils)
-        (guix build go-build-system))
+        (Manifolding-OS build utils)
+        (Manifolding-OS build go-build-system))
        #:unpack-path "0xacab.org/leap/bitmask-vpn"
        #:import-path "0xacab.org/leap/bitmask-vpn/cmd/bitmask-helper"
        #:phases
@@ -417,7 +417,7 @@ Networks and The Calyx Institute, where the former is default.")
               (lambda _
                 (let ((prog (string-append #$output "/bin/gp-saml-gui")))
                   (wrap-program prog
-                    `("GUIX_PYTHONPATH" = (,(getenv "GUIX_PYTHONPATH")))
+                    `("MANIFOLDING_OS_PYTHONPATH" = (,(getenv "MANIFOLDING_OS_PYTHONPATH")))
                     `("GI_TYPELIB_PATH" = (,(getenv "GI_TYPELIB_PATH"))))))))))
       (native-inputs
        (list python-setuptools))
@@ -512,7 +512,7 @@ networks bypassing intermediate firewalls.")
         (base32 "0y1nqd7vb4s6wzvyrbmxpbglw9wcvcypvjffqiklrcscvbfjg03j"))
        (snippet
         #~(begin
-            (use-modules (guix build utils))
+            (use-modules (Manifolding-OS build utils))
             (with-directory-excursion "src"
               (for-each delete-file
                       '("starter/parser/lexer.c"
@@ -1111,9 +1111,9 @@ packages.")
         #:install-source? #false
         #:imported-modules `(,@%cargo-build-system-modules
                              ,@%pyproject-build-system-modules)
-        #:modules '((guix build cargo-build-system)
-                    ((guix build pyproject-build-system) #:prefix py:)
-                    (guix build utils))
+        #:modules '((Manifolding-OS build cargo-build-system)
+                    ((Manifolding-OS build pyproject-build-system) #:prefix py:)
+                    (Manifolding-OS build utils))
         #:phases
           #~(modify-phases %standard-phases
               (add-after 'unpack 'chdir
@@ -1184,7 +1184,7 @@ name = ~s~%"
         (origin
           (inherit base-origin)
           (file-name (git-file-name "local_agent_rs" local-agent-version))
-          (modules '((guix build utils)
+          (modules '((Manifolding-OS build utils)
                      (ice-9 ftw)))
           (snippet
            #~(begin
@@ -1292,8 +1292,8 @@ private network between hosts on the internet.")
     (build-system pyproject-build-system)
     (arguments
      (list #:modules
-           `((guix build pyproject-build-system)
-             (guix build utils)
+           `((Manifolding-OS build pyproject-build-system)
+             (Manifolding-OS build utils)
              (ice-9 match)
              (srfi srfi-26))
            #:phases

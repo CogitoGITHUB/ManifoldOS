@@ -26,10 +26,10 @@
   #:use-module (gnu packages mail)
   #:use-module (gnu packages admin)
   #:use-module (gnu packages tls)
-  #:use-module (guix records)
-  #:use-module (guix store)
-  #:use-module (guix packages)
-  #:use-module (guix gexp)
+  #:use-module (Manifolding-OS records)
+  #:use-module (Manifolding-OS store)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS gexp)
   #:use-module (ice-9 match)
   #:use-module (ice-9 format)
   #:use-module (srfi srfi-1)
@@ -323,9 +323,9 @@ notifications.  This depends on the server supporting the IDLE extension.")
 
 (define (getmail-activation configs)
   "Return the activation GEXP for CONFIGS."
-  (with-imported-modules '((guix build utils))
+  (with-imported-modules '((Manifolding-OS build utils))
     #~(begin
-        (use-modules (guix build utils))
+        (use-modules (Manifolding-OS build utils))
         #$@(map
             (lambda (config)
               #~(let* ((pw (getpw #$(getmail-configuration-user config)))

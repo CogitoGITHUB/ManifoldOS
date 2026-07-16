@@ -24,9 +24,9 @@
   #:use-module (gnu services)
   #:use-module (gnu services shepherd)
   #:use-module (gnu system shadow)
-  #:use-module (guix gexp)
-  #:use-module (guix modules)
-  #:use-module (guix records)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS modules)
+  #:use-module (Manifolding-OS records)
   #:use-module (ice-9 match)
   #:use-module (ice-9 format)
 
@@ -85,9 +85,9 @@ distribution.listener.interface = 127.0.0.1
 (define (rabbitmq-activation config)
   (let* ((data-directory (rabbitmq-configuration-data-directory config))
          (plugins (string-join (rabbitmq-configuration-plugins config) ",")))
-    (with-imported-modules '((guix build utils))
+    (with-imported-modules '((Manifolding-OS build utils))
       #~(begin
-          (use-modules (guix build utils))
+          (use-modules (Manifolding-OS build utils))
           (let ((user (getpwnam "rabbitmq"))
                 (srv-directories (list
                                   "/var/lib/rabbitmq"

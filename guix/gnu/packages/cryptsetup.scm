@@ -22,13 +22,13 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages cryptsetup)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix packages)
-  #:use-module (guix download)
-  #:use-module (guix build-system cmake)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix gexp)
-  #:use-module (guix utils)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS build-system cmake)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS utils)
   #:use-module (gnu packages)
   #:use-module (gnu packages gnupg)
   #:use-module (gnu packages password-utils)
@@ -158,8 +158,8 @@ files).  This assumes LIBRARY uses Libtool."
        ((#:modules modules '())
         '((ice-9 ftw)
           (ice-9 match)
-          (guix build utils)
-          (guix build gnu-build-system)))
+          (Manifolding-OS build utils)
+          (Manifolding-OS build gnu-build-system)))
        ((#:phases phases #~%standard-phases)
         #~(modify-phases #$phases
             (add-after 'install 'remove-cruft

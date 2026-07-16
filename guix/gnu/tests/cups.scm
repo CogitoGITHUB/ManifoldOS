@@ -23,9 +23,9 @@
   #:use-module (gnu services)
   #:use-module (gnu services cups)
   #:use-module (gnu services networking)
-  #:use-module (guix gexp)
-  #:use-module (guix store)
-  #:use-module (guix monads)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS store)
+  #:use-module (Manifolding-OS monads)
   #:export (%test-cups))
 
 ;;;

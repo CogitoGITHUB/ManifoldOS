@@ -17,12 +17,12 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages mruby-xyz)
-  #:use-module (guix gexp)
-  #:use-module (guix packages)
-  #:use-module (guix git-download)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix utils)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS utils)
   #:use-module (gnu packages)
   #:use-module (gnu packages audio)
   #:use-module (gnu packages fonts)
@@ -50,7 +50,7 @@
               (sha256
                (base32
                 "0dz4zv1km9805lji2q2qqdd8s8hgfd723dxdzcivbhm612szm1mc"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                '(begin
                   ;; This package contains a custom "pugl".  Replacing it with

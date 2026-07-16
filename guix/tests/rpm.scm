@@ -17,7 +17,7 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (test-rpm)
-  #:use-module (guix rpm)
+  #:use-module (Manifolding-OS rpm)
   #:use-module (rnrs bytevectors)
   #:use-module (srfi srfi-1)
   #:use-module (srfi srfi-26)
@@ -26,7 +26,7 @@
 
 ;; For white-box testing.
 (define-syntax-rule (expose-internal name)
-  (define name (@@ (guix rpm) name)))
+  (define name (@@ (Manifolding-OS rpm) name)))
 
 (expose-internal RPMTAG_ARCH)
 (expose-internal RPMTAG_LICENSE)

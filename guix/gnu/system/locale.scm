@@ -19,12 +19,12 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu system locale)
-  #:use-module (guix gexp)
-  #:use-module (guix store)
-  #:use-module (guix modules)
-  #:use-module (guix records)
-  #:use-module (guix packages)
-  #:use-module (guix utils)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS store)
+  #:use-module (Manifolding-OS modules)
+  #:use-module (Manifolding-OS records)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS utils)
   #:use-module (gnu packages base)
   #:use-module (gnu packages compression)
   #:use-module (srfi srfi-26)
@@ -139,9 +139,9 @@ data format changes between libc versions."
                         (single-locale-directory locales #:libc libc))
                       libcs)))
        (computed-file "locale-multiple-versions"
-                      (with-imported-modules '((guix build union))
+                      (with-imported-modules '((Manifolding-OS build union))
                         #~(begin
-                            (use-modules (guix build union))
+                            (use-modules (Manifolding-OS build union))
                             (union-build #$output (list #$@dirs))))
                       #:options '(#:local-build? #t
                                   #:substitutable? #f))))))
@@ -190,10 +190,10 @@ pairs such as (\"oc_FR.UTF-8\" . \"UTF-8\").  Each pair corresponds to a
 locale supported by GLIBC."
   (define build
     (with-imported-modules (source-module-closure
-                            '((guix build gnu-build-system)
+                            '((Manifolding-OS build gnu-build-system)
                               (gnu build locale)))
       #~(begin
-          (use-modules (guix build gnu-build-system)
+          (use-modules (Manifolding-OS build gnu-build-system)
                        (gnu build locale)
                        (ice-9 pretty-print))
 

@@ -63,20 +63,20 @@
   #:use-module (gnu packages logging)
   #:use-module (gnu packages mail)
   #:use-module (gnu packages rust-apps)
-  #:autoload   (guix i18n) (G_)
+  #:autoload   (Manifolding-OS i18n) (G_)
   #:autoload   (gnu build linux-container) (%namespaces)
-  #:use-module (guix diagnostics)
-  #:use-module (guix gexp)
-  #:use-module (guix least-authority)
-  #:use-module (guix modules)
-  #:use-module (guix packages)
-  #:use-module (guix profiles)
-  #:use-module (guix records)
-  #:use-module (guix search-paths)
-  #:use-module (guix utils)
-  #:use-module ((guix store) #:select (text-file))
-  #:use-module ((guix utils) #:select (version-major))
-  #:use-module ((guix packages) #:select (package-version))
+  #:use-module (Manifolding-OS diagnostics)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS least-authority)
+  #:use-module (Manifolding-OS modules)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS profiles)
+  #:use-module (Manifolding-OS records)
+  #:use-module (Manifolding-OS search-paths)
+  #:use-module (Manifolding-OS utils)
+  #:use-module ((Manifolding-OS store) #:select (text-file))
+  #:use-module ((Manifolding-OS utils) #:select (version-major))
+  #:use-module ((Manifolding-OS packages) #:select (package-version))
   #:use-module (srfi srfi-1)
   #:use-module (srfi srfi-9)
   #:use-module (srfi srfi-26)
@@ -549,7 +549,7 @@
       <httpd-config-file>
       (error-log document-root)
       #~(begin
-          (use-modules (guix build utils))
+          (use-modules (Manifolding-OS build utils))
 
           (mkdir-p #$(dirname error-log))
           (mkdir-p #$document-root))))))
@@ -945,7 +945,7 @@ of index files."
                 <nginx-configuration>
                 (nginx log-directory run-directory file)
    #~(begin
-       (use-modules (guix build utils))
+       (use-modules (Manifolding-OS build utils))
 
        (format #t "creating nginx log directory '~a'~%" #$log-directory)
        (mkdir-p #$log-directory)
@@ -1145,9 +1145,9 @@ changed (for example, TLS certificates).")
   (dirname (uri-path (string->uri string))))
 
 (define (gunicorn-activation config)
-  (with-imported-modules '((guix build utils))
+  (with-imported-modules '((Manifolding-OS build utils))
     #~(begin
-        (use-modules (guix build utils)
+        (use-modules (Manifolding-OS build utils)
                      (ice-9 match))
 
         ;; Create socket directories and set ownership.
@@ -1182,7 +1182,7 @@ changed (for example, TLS certificates).")
                                           "."))
             (provision (list (string->symbol name)))
             (requirement '(networking))
-            (modules '((guix search-paths)
+            (modules '((Manifolding-OS search-paths)
                        (ice-9 match)))
             (start
              (let* ((app-manifest (packages->manifest
@@ -1195,7 +1195,7 @@ changed (for example, TLS certificates).")
                                   (content app-manifest)
                                   (allow-collisions? #t))))
                (with-imported-modules
-                   (source-module-closure '((guix search-paths)))
+                   (source-module-closure '((Manifolding-OS search-paths)))
                  #~(make-forkexec-constructor
                     (cons*
                      #$(least-authority-wrapper
@@ -1512,7 +1512,7 @@ and the back-end of a Web service.")))
 
 (define (php-fpm-activation config)
   #~(begin
-      (use-modules (guix build utils))
+      (use-modules (Manifolding-OS build utils))
       (let* ((user (getpwnam #$(php-fpm-configuration-user config)))
              (touch (lambda (file-name)
                       (call-with-output-file file-name (const #t))))
@@ -1612,9 +1612,9 @@ a webserver.")
          (shell (file-append shadow "/sbin/nologin")))))
 
 (define %hpcguix-web-activation
-  (with-imported-modules '((guix build utils))
+  (with-imported-modules '((Manifolding-OS build utils))
     #~(begin
-        (use-modules (guix build utils)
+        (use-modules (Manifolding-OS build utils)
                      (ice-9 ftw))
 
         (let ((home-dir "/var/cache/guix/web")
@@ -1707,9 +1707,9 @@ a webserver.")
                      (default #f)))
 
 (define (anonip-activation config)
-  (with-imported-modules '((guix build utils))
+  (with-imported-modules '((Manifolding-OS build utils))
     #~(begin
-        (use-modules (guix build utils))
+        (use-modules (Manifolding-OS build utils))
         (for-each
          (lambda (directory)
            (mkdir-p directory)
@@ -1762,7 +1762,7 @@ a webserver.")
              '#$(optional anonip-configuration-regex "--regex"))
             ;; Run in a UTF-8 locale
             #:environment-variables
-            (list (string-append "GUIX_LOCPATH="
+            (list (string-append "MANIFOLDING_OS_LOCPATH="
                                  #$(libc-utf8-locales-for-target)
                                  "/lib/locale")
                   "LC_ALL=en_US.utf8"))))
@@ -2018,13 +2018,13 @@ Whoogle."))
                                     extra-configuration)
      (gexp->derivation
       "patchwork-settings"
-      (with-imported-modules '((guix build utils))
+      (with-imported-modules '((Manifolding-OS build utils))
         #~(let ((output #$output))
             (define (create-__init__.py filename)
               (call-with-output-file filename
                 (lambda (port) (display "" port))))
 
-            (use-modules (guix build utils)
+            (use-modules (Manifolding-OS build utils)
                          (srfi srfi-1))
 
             (mkdir-p (string-append output "/guix/patchwork"))
@@ -2420,9 +2420,9 @@ WSGIPassAuthorization On
              (default '())))
 
 (define %mumi-activation
-  (with-imported-modules '((guix build utils))
+  (with-imported-modules '((Manifolding-OS build utils))
     #~(begin
-        (use-modules (guix build utils))
+        (use-modules (Manifolding-OS build utils))
 
         (mkdir-p "/var/mumi/db")
         (mkdir-p "/var/mumi/mails")
@@ -2489,9 +2489,9 @@ WSGIPassAuthorization On
   (match-record config <mumi-configuration>
     (data-directory rsync-remote rsync-flags)
     (program-file "mumi-rsync-and-index"
-                  (with-imported-modules '((guix build utils))
+                  (with-imported-modules '((Manifolding-OS build utils))
                     #~(begin
-                        (use-modules (guix build utils))
+                        (use-modules (Manifolding-OS build utils))
 
                         (invoke #$(file-append rsync "/bin/rsync")
                                 "--delete" "--archive" "--verbose"
@@ -2505,7 +2505,7 @@ WSGIPassAuthorization On
 (define (mumi-shepherd-services config)
   (define environment
     #~(list "LC_ALL=en_US.utf8"
-            (string-append "GUIX_LOCPATH="
+            (string-append "MANIFOLDING_OS_LOCPATH="
                            #$(libc-utf8-locales-for-target)
                            "/lib/locale")))
 
@@ -2613,9 +2613,9 @@ root=/srv/gemini
          (shell (file-append shadow "/sbin/nologin")))))
 
 (define %gmnisrv-activation
-  (with-imported-modules '((guix build utils))
+  (with-imported-modules '((Manifolding-OS build utils))
     #~(begin
-        (use-modules (guix build utils))
+        (use-modules (Manifolding-OS build utils))
 
         (mkdir-p "/var/lib/gemini/certs")
         (let* ((pw  (getpwnam "gmnisrv"))

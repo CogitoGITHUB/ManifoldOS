@@ -18,22 +18,22 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (test-home-import)
-  #:use-module (guix scripts home import)
-  #:use-module (guix utils)
-  #:use-module (guix build utils)
-  #:use-module (guix packages)
+  #:use-module (Manifolding-OS scripts home import)
+  #:use-module (Manifolding-OS utils)
+  #:use-module (Manifolding-OS build utils)
+  #:use-module (Manifolding-OS packages)
   #:use-module (ice-9 match)
-  #:use-module ((guix read-print) #:select (blank?))
-  #:use-module ((guix profiles) #:hide (manifest->code))
-  #:use-module ((guix build syscalls) #:select (mkdtemp!))
-  #:use-module ((guix scripts package)
+  #:use-module ((Manifolding-OS read-print) #:select (blank?))
+  #:use-module ((Manifolding-OS profiles) #:hide (manifest->code))
+  #:use-module ((Manifolding-OS build syscalls) #:select (mkdtemp!))
+  #:use-module ((Manifolding-OS scripts package)
                 #:select (manifest-entry-version-prefix))
   #:use-module (gnu packages)
   #:use-module (srfi srfi-1)
   #:use-module (srfi srfi-26)
   #:use-module (srfi srfi-64))
 
-;; Test the (guix scripts home import) tools.
+;; Test the (Manifolding-OS scripts home import) tools.
 
 (test-begin "home-import")
 

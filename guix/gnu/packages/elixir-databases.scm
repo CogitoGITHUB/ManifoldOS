@@ -19,13 +19,13 @@
 (define-module (gnu packages elixir-databases)
   #:use-module (gnu packages erlang-xyz)
   #:use-module (gnu packages elixir-xyz)
-  #:use-module (guix build-system mix)
-  #:use-module (guix download)
-  #:use-module (guix git-download)
-  #:use-module (guix gexp)
-  #:use-module ((guix licenses)
+  #:use-module (Manifolding-OS build-system mix)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module ((Manifolding-OS licenses)
                 #:prefix license:)
-  #:use-module (guix packages))
+  #:use-module (Manifolding-OS packages))
 
 (define-public elixir-db-connection
   (package

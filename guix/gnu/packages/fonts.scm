@@ -93,17 +93,17 @@
 
 (define-module (gnu packages fonts)
   #:use-module (ice-9 regex)
-  #:use-module (guix utils)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix packages)
-  #:use-module (guix download)
-  #:use-module (guix gexp)
-  #:use-module (guix git-download)
-  #:use-module (guix build-system font)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system meson)
-  #:use-module (guix build-system trivial)
-  #:use-module (guix build-system copy)
+  #:use-module (Manifolding-OS utils)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS build-system font)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system meson)
+  #:use-module (Manifolding-OS build-system trivial)
+  #:use-module (Manifolding-OS build-system copy)
   #:use-module (gnu packages)
   #:use-module (gnu packages c)
   #:use-module (gnu packages base)
@@ -1023,8 +1023,8 @@ letters to account for regional differences.")
     (arguments
      `(#:tests? #f                      ; no test target in tarball
        #:modules
-       ((guix build gnu-build-system)
-        (guix build utils)
+       ((Manifolding-OS build gnu-build-system)
+        (Manifolding-OS build utils)
         (ice-9 match))
        #:phases
        (modify-phases %standard-phases
@@ -1478,7 +1478,7 @@ OpenType variant of these fonts.")
        (modules
         '((srfi srfi-26)
           (ice-9 ftw)
-          (guix build utils)))
+          (Manifolding-OS build utils)))
        (snippet
         ;; Remove fonts we don't use to save space and build time.
         #~(begin
@@ -1584,7 +1584,7 @@ for terminal emulators that require consistent character spacing.")
         (base32 "0adash47a0pmvhhbqr9wzp3r287hzj50f28pswdxm30l0br6zgfa"))
        (modules '((srfi srfi-26)
                   (ice-9 ftw)
-                  (guix build utils)))
+                  (Manifolding-OS build utils)))
        (snippet
         ;; Remove fonts we don't use to save space and build time.
         #~(begin
@@ -1711,7 +1711,7 @@ for terminal emulators that require consistent character spacing.")
         (base32 "0adash47a0pmvhhbqr9wzp3r287hzj50f28pswdxm30l0br6zgfa"))
        (modules '((srfi srfi-26)
                   (ice-9 ftw)
-                  (guix build utils)))
+                  (Manifolding-OS build utils)))
        (snippet
         ;; Remove fonts we don't use to save space and build time.
         #~(begin
@@ -1846,7 +1846,7 @@ for terminal emulators that require consistent character spacing.")
         (base32 "0adash47a0pmvhhbqr9wzp3r287hzj50f28pswdxm30l0br6zgfa"))
        (modules '((srfi srfi-26)
                   (ice-9 ftw)
-                  (guix build utils)))
+                  (Manifolding-OS build utils)))
        (snippet
         ;; Remove fonts we don't use to save space and build time.
         #~(begin
@@ -2122,9 +2122,9 @@ heavier printing.")
     (arguments
      (list
       #:imported-modules `(,@%default-gnu-imported-modules
-                           (guix build font-build-system))
+                           (Manifolding-OS build font-build-system))
       #:modules `(,@%default-gnu-modules
-                  ((guix build font-build-system) #:prefix font:))
+                  ((Manifolding-OS build font-build-system) #:prefix font:))
       #:phases #~(modify-phases %standard-phases
                    (add-after 'unpack 'patch-source
                      (lambda _
@@ -2212,7 +2212,7 @@ for use at smaller text sizes")))
         (base32 "0bd5mf3j7f0wggh9ss3a6rji62qwcfak37q6zb8lq9pjcf3yqa7i"))
        (snippet
         '(begin
-           (use-modules (guix build utils))
+           (use-modules (Manifolding-OS build utils))
            (delete-file-recursively "font/precompiled")))))
     (build-system gnu-build-system)
     (outputs '("out"   ; TrueType/OpenType version
@@ -2311,8 +2311,8 @@ noncharacters are also represented.")
     (arguments
      (list
       #:modules
-      '((guix build font-build-system)
-        (guix build utils)
+      '((Manifolding-OS build font-build-system)
+        (Manifolding-OS build utils)
         (ice-9 ftw))
       #:phases
       #~(modify-phases %standard-phases
@@ -2960,8 +2960,8 @@ Terminal, and is now the default font in Visual Studio as well.")
      `(#:modules
        ((ice-9 match)
         (ice-9 regex)
-        (guix build utils)
-        (guix build font-build-system))
+        (Manifolding-OS build utils)
+        (Manifolding-OS build font-build-system))
        #:phases
        (modify-phases %standard-phases
          (add-after 'unpack 'chdir
@@ -3120,10 +3120,10 @@ vector graphics.")
         (base32 "00x5fipzqimglvshhqwycdhaqslbvn3rl06jnswhyxfvz16ymj7s"))))
     (build-system trivial-build-system)
     (arguments
-     `(#:modules ((guix build utils))
+     `(#:modules ((Manifolding-OS build utils))
        #:builder
        (begin
-         (use-modules (guix build utils))
+         (use-modules (Manifolding-OS build utils))
 
          (let* ((out      (assoc-ref %outputs "out"))
                 (font-dir (string-append out "/share/fonts/misc"))
@@ -3213,10 +3213,10 @@ typeface, by mimicking Comic Sans while fixing its most obvious shortcomings.")
 ;; their hash at the end.
 #|
 guix repl <<EOF
-(use-modules (guix base32)
-             (guix download)
-             (guix packages)
-             (guix store)
+(use-modules (Manifolding-OS base32)
+             (Manifolding-OS download)
+             (Manifolding-OS packages)
+             (Manifolding-OS store)
              (gcrypt hash)
              (ice-9 string-fun)
              (gnu packages fonts))
@@ -3673,10 +3673,10 @@ programming.  Iosevka is completely generated from its source code.")
       (build-system trivial-build-system)
       (native-inputs (list fontforge))
       (arguments
-       `(#:modules ((guix build utils))
+       `(#:modules ((Manifolding-OS build utils))
          #:builder
          (begin
-           (use-modules (guix build utils))
+           (use-modules (Manifolding-OS build utils))
            (let* ((source (assoc-ref %build-inputs "source"))
                   (out (assoc-ref %outputs "out"))
                   (dest (string-append out "/share/fonts/truetype"))
@@ -4045,8 +4045,8 @@ emphasis while still being readable.")
     (arguments
      (list
       #:modules `((ice-9 ftw)
-                  (guix build font-build-system)
-                  (guix build utils))
+                  (Manifolding-OS build font-build-system)
+                  (Manifolding-OS build utils))
       #:phases
       #~(modify-phases %standard-phases
           (add-after 'unpack 'chdir
@@ -4700,7 +4700,7 @@ characteristic so that they sit smoothly with the Tamil glyphs.")
        (base32 "1594lxdk6788bb3i3c2fh74z4pwpzcp2r1xl3cz8cz77nrcjkl8m"))))
     (build-system trivial-build-system)
     (arguments
-     (list #:modules '((guix build utils))
+     (list #:modules '((Manifolding-OS build utils))
            #:builder
            #~(let* ((orig #$(package-source this-package))
                     (dist (string-append orig "/dist/v" #$version))
@@ -4709,7 +4709,7 @@ characteristic so that they sit smoothly with the Tamil glyphs.")
                     (meslo-lg-dz (string-append "Meslo LG DZ v" #$version))
                     (unzip (string-append #$(this-package-native-input "unzip")
                                           "/bin/unzip")))
-               (use-modules (guix build utils) (ice-9 ftw))
+               (use-modules (Manifolding-OS build utils) (ice-9 ftw))
                (mkdir-p dest)
                (for-each (lambda (variant)
                            (chdir dist)
@@ -5447,11 +5447,11 @@ dialects in Hong Kong and Taiwan.")
     (build-system trivial-build-system)
     (arguments
      (list
-      #:modules '((guix build utils))
+      #:modules '((Manifolding-OS build utils))
       #:builder
       #~(let ((out #$output)
               (dest (string-append #$output "/share/fonts/truetype")))
-          (use-modules (guix build utils))
+          (use-modules (Manifolding-OS build utils))
           (mkdir-p dest)
           (copy-file #$(package-source this-package)
                      (string-append dest "/LXGWNeoZhiSong.ttf")))))
@@ -5477,11 +5477,11 @@ Mainland China.")
     (build-system trivial-build-system)
     (arguments
      (list
-      #:modules '((guix build utils))
+      #:modules '((Manifolding-OS build utils))
       #:builder
       #~(let ((out #$output)
               (dest (string-append #$output "/share/fonts/truetype")))
-          (use-modules (guix build utils))
+          (use-modules (Manifolding-OS build utils))
           (mkdir-p dest)
           (copy-file #$(package-source this-package)
                      (string-append dest "/LXGHeartSerif.ttf")))))

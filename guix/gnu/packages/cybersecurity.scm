@@ -24,13 +24,13 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages cybersecurity)
-  #:use-module (guix download)
-  #:use-module (guix gexp)
-  #:use-module (guix git-download)
-  #:use-module (guix packages)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix build-system cmake)
-  #:use-module (guix build-system pyproject)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS packages)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS build-system cmake)
+  #:use-module (Manifolding-OS build-system pyproject)
   #:use-module (gnu packages databases)
   #:use-module (gnu packages check)
   #:use-module (gnu packages cpp)
@@ -59,7 +59,7 @@
               (sha256
                (base32
                 "15ib0lal2sdjb4j2a4r3645w5axbd1a6j8w9f0pxr8v3ra9cjp5m"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet `(begin
                           (delete-file-recursively "external")
                           (substitute* "CMakeLists.txt"
@@ -72,12 +72,12 @@
     (arguments
      `(#:tests? #f                      ;no test-suite
        #:imported-modules
-       ((guix build copy-build-system)
+       ((Manifolding-OS build copy-build-system)
         ,@%cmake-build-system-modules)
        #:modules
-       (((guix build copy-build-system) #:prefix copy:)
-        (guix build cmake-build-system)
-        (guix build utils))
+       (((Manifolding-OS build copy-build-system) #:prefix copy:)
+        (Manifolding-OS build cmake-build-system)
+        (Manifolding-OS build utils))
        #:phases
        (modify-phases %standard-phases
          (add-after 'unpack 'fix-build

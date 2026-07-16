@@ -18,15 +18,15 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages sequoia)
-  #:use-module (guix build-system cargo)
-  #:use-module (guix build-system copy)
-  #:use-module (guix build-system trivial)
-  #:use-module (guix download)
-  #:use-module (guix git-download)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix packages)
-  #:use-module (guix gexp)
-  #:use-module (guix utils)
+  #:use-module (Manifolding-OS build-system cargo)
+  #:use-module (Manifolding-OS build-system copy)
+  #:use-module (Manifolding-OS build-system trivial)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS utils)
   #:use-module (gnu packages)
   #:use-module (gnu packages base)  ; glibc
   #:use-module (gnu packages compression)
@@ -57,9 +57,9 @@
      (list
        #:imported-modules (append %copy-build-system-modules
                                   %cargo-build-system-modules)
-       #:modules '((guix build cargo-build-system)
-                   ((guix build copy-build-system) #:prefix copy:)
-                   (guix build utils))
+       #:modules '((Manifolding-OS build cargo-build-system)
+                   ((Manifolding-OS build copy-build-system) #:prefix copy:)
+                   (Manifolding-OS build utils))
        #:install-source? #f
        #:features '(list "crypto-nettle")
        #:cargo-test-flags
@@ -137,11 +137,11 @@ This Guix package is built to use the nettle cryptographic library.")
         (base32 "01aph6n9lj7qcz1n8gr6q48an4ypn9d6xzxfprwpw80wv9ibc12w"))))
     (build-system cargo-build-system)
     (arguments
-     `(#:imported-modules ((guix build copy-build-system)
+     `(#:imported-modules ((Manifolding-OS build copy-build-system)
                            ,@%cargo-build-system-modules)
-       #:modules ((guix build cargo-build-system)
-                  ((guix build copy-build-system) #:prefix copy:)
-                  (guix build utils))
+       #:modules ((Manifolding-OS build cargo-build-system)
+                  ((Manifolding-OS build copy-build-system) #:prefix copy:)
+                  (Manifolding-OS build utils))
        #:install-source? #f
        #:features '("crypto-nettle"
                     "sequoia-keystore/gpg-agent"
@@ -207,11 +207,11 @@ gpg-agent, openpgp-card and softkeys keystore backends.")
     (native-inputs
      (list clang-13 pkg-config))
     (arguments
-     `(#:imported-modules ((guix build copy-build-system)
+     `(#:imported-modules ((Manifolding-OS build copy-build-system)
                            ,@%cargo-build-system-modules)
-       #:modules ((guix build cargo-build-system)
-                  ((guix build copy-build-system) #:prefix copy:)
-                  (guix build utils))
+       #:modules ((Manifolding-OS build cargo-build-system)
+                  ((Manifolding-OS build copy-build-system) #:prefix copy:)
+                  (Manifolding-OS build utils))
        #:install-source? #f
        #:phases
        (modify-phases %standard-phases
@@ -309,16 +309,16 @@ This Guix package is built to use the nettle cryptographic library.")
     (build-system trivial-build-system)
     (arguments
      (list
-      #:modules '((guix build utils)
-                  (guix build union)
-                  (guix build gnu-build-system)
-                  (guix build gremlin)
-                  (guix elf))
+      #:modules '((Manifolding-OS build utils)
+                  (Manifolding-OS build union)
+                  (Manifolding-OS build gnu-build-system)
+                  (Manifolding-OS build gremlin)
+                  (Manifolding-OS elf))
       #:builder
       #~(begin
-          (use-modules (guix build utils)
-                       (guix build union)
-                       (guix build gnu-build-system)
+          (use-modules (Manifolding-OS build utils)
+                       (Manifolding-OS build union)
+                       (Manifolding-OS build gnu-build-system)
                        (ice-9 match))
           (let ((make-dynamic-linker-cache
                  (assoc-ref %standard-phases 'make-dynamic-linker-cache))

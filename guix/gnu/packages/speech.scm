@@ -27,16 +27,16 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages speech)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix packages)
-  #:use-module (guix download)
-  #:use-module (guix gexp)
-  #:use-module (guix git-download)
-  #:use-module (guix utils)
-  #:use-module (guix build-system cmake)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system meson)
-  #:use-module (guix build-system pyproject)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS utils)
+  #:use-module (Manifolding-OS build-system cmake)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system meson)
+  #:use-module (Manifolding-OS build-system pyproject)
   #:use-module (gnu packages)
   #:use-module (gnu packages audio)
   #:use-module (gnu packages autotools)
@@ -153,7 +153,7 @@ building tools.")
               (sha256
                (base32
                 "0n86gwh9pw0jqqpdz7mxggllfr8k0r7pc67ayy7w5z6z79kig6mz"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                ;; remove prebuilt binaries
                '(begin
@@ -273,10 +273,10 @@ efficiency through the use of a compact vector representation of n-grams.")
                            "--with-voxin=no" "--with-ibmtts=no"
                            "--with-kali=no" "--with-baratinoo=no")
        #:imported-modules ,%pyproject-build-system-modules
-       #:modules ((guix build gnu-build-system)
-                  ((guix build pyproject-build-system)
+       #:modules ((Manifolding-OS build gnu-build-system)
+                  ((Manifolding-OS build pyproject-build-system)
                    #:prefix python:)
-                  (guix build utils))
+                  (Manifolding-OS build utils))
        #:phases
        (modify-phases %standard-phases
          (add-after 'unpack 'patch-bin-bash
@@ -287,8 +287,8 @@ efficiency through the use of a compact vector representation of n-grams.")
          (add-after 'install 'wrap-spd-conf
            (lambda* (#:key inputs outputs #:allow-other-keys)
              (wrap-program (search-input-file outputs "bin/spd-conf")
-               `("GUIX_PYTHONPATH" =
-                 (,(getenv "GUIX_PYTHONPATH")
+               `("MANIFOLDING_OS_PYTHONPATH" =
+                 (,(getenv "MANIFOLDING_OS_PYTHONPATH")
                   ,(python:site-packages inputs outputs)))))))))
     (native-inputs
      (list autoconf
@@ -391,11 +391,11 @@ be used by the sighted.")
                             "/bin/printf \"%s\"")
              "LINUXAUDIO=alsa")
        #:parallel-build? #f ; not supported
-       #:modules ((guix build gnu-build-system)
-                  (guix build utils)
-                  (guix build emacs-utils))
+       #:modules ((Manifolding-OS build gnu-build-system)
+                  (Manifolding-OS build utils)
+                  (Manifolding-OS build emacs-utils))
        #:imported-modules (,@%default-gnu-imported-modules
-                           (guix build emacs-utils))
+                           (Manifolding-OS build emacs-utils))
        #:phases
        (modify-phases %standard-phases
          (add-after 'unpack 'unpack-and-patch-speech-tools
@@ -620,7 +620,7 @@ control.")
               (sha256
                (base32
                 "1zxifssh57a251af9x4ahglcipvmkgc1pmc67l59s805za9yvq3p"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                ;; Do not use prebuilt vosk library
                '(begin

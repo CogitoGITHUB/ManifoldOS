@@ -19,13 +19,13 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages forth)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system trivial)
-  #:use-module (guix download)
-  #:use-module (guix git-download)
-  #:use-module (guix gexp)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix packages)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system trivial)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS packages)
   #:use-module (gnu packages assembly)
   #:use-module (gnu packages m4)
   #:use-module (gnu packages vim))
@@ -127,10 +127,10 @@ blends assembly and Forth.")
                              "17v1pp64s6n8q8w3kg48nd7zdcx2208y4svr5fpfms5lkyzg7z1m")))))
     (arguments
       (list
-        #:modules '((guix build utils))
+        #:modules '((Manifolding-OS build utils))
         #:builder
         #~(begin
-            (use-modules (guix build utils)
+            (use-modules (Manifolding-OS build utils)
                          (ice-9 textual-ports))
             (let* ((sforth.dmp #$(package-source this-package))
                    (system.fs  #$(this-package-native-input

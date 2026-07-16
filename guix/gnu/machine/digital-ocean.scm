@@ -27,15 +27,15 @@
   #:use-module (gnu services networking)
   #:use-module (gnu system)
   #:use-module (gnu system pam)
-  #:use-module (guix base32)
-  #:use-module (guix derivations)
-  #:use-module (guix i18n)
-  #:use-module ((guix diagnostics) #:select (formatted-message))
-  #:use-module (guix import json)
-  #:use-module (guix monads)
-  #:use-module (guix records)
-  #:use-module (guix ssh)
-  #:use-module (guix store)
+  #:use-module (Manifolding-OS base32)
+  #:use-module (Manifolding-OS derivations)
+  #:use-module (Manifolding-OS i18n)
+  #:use-module ((Manifolding-OS diagnostics) #:select (formatted-message))
+  #:use-module (Manifolding-OS import json)
+  #:use-module (Manifolding-OS monads)
+  #:use-module (Manifolding-OS records)
+  #:use-module (Manifolding-OS ssh)
+  #:use-module (Manifolding-OS store)
   #:use-module (ice-9 format)
   #:use-module (ice-9 iconv)
   #:use-module (ice-9 string-fun)
@@ -73,7 +73,7 @@
 (define %api-base "https://api.digitalocean.com")
 
 (define %digital-ocean-token
-  (make-parameter (getenv "GUIX_DIGITAL_OCEAN_TOKEN")))
+  (make-parameter (getenv "MANIFOLDING_OS_DIGITAL_OCEAN_TOKEN")))
 
 (define* (post-endpoint endpoint body)
   "Encode BODY as JSON and send it to the Digital Ocean API endpoint
@@ -255,8 +255,8 @@ tar --warning=no-timestamp -xf ~~/guix-binary-nightly.x86_64-linux.tar.xz
 mv var/guix /var/ && mv gnu /
 mkdir -p ~~root/.config/guix
 ln -sf /var/guix/profiles/per-user/root/current-guix ~~root/.config/guix/current
-export GUIX_PROFILE=\"`echo ~~root`/.config/guix/current\" ;
-source $GUIX_PROFILE/etc/profile
+export MANIFOLDING_OS_PROFILE=\"`echo ~~root`/.config/guix/current\" ;
+source $MANIFOLDING_OS_PROFILE/etc/profile
 groupadd --system guixbuild
 for i in `seq -w 1 10`; do
    useradd -g guixbuild -G guixbuild         \
@@ -277,7 +277,7 @@ done
 guix archive --authorize < ~~root/.config/guix/current/share/guix/ci.guix.gnu.org.pub
 # guix pull
 guix package -i glibc-utf8-locales
-export GUIX_LOCPATH=\"$HOME/.guix-profile/lib/locale\"
+export MANIFOLDING_OS_LOCPATH=\"$HOME/.guix-profile/lib/locale\"
 guix package -i openssl
 cat > /etc/bootstrap-config.scm << EOF
 (use-modules (gnu))
@@ -440,7 +440,7 @@ environment type of 'digital-ocean-environment-type'."
     (raise (condition
             (&message
              (message (G_ "No Digital Ocean access token was provided. This \
-may be fixed by setting the environment variable GUIX_DIGITAL_OCEAN_TOKEN to \
+may be fixed by setting the environment variable MANIFOLDING_OS_DIGITAL_OCEAN_TOKEN to \
 one procured from https://cloud.digitalocean.com/account/api/tokens.")))))))
 
 (define (maybe-raise-unsupported-configuration-error machine)

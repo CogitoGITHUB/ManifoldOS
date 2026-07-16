@@ -19,8 +19,8 @@
 
 (define-module (tests machine hetzner http)
   #:use-module (gnu machine hetzner http)
-  #:use-module (guix build utils)
-  #:use-module (guix tests)
+  #:use-module (Manifolding-OS build utils)
+  #:use-module (Manifolding-OS tests)
   #:use-module (srfi srfi-1)
   #:use-module (srfi srfi-34)
   #:use-module (srfi srfi-64)
@@ -29,7 +29,7 @@
 
 ;; Unit and integration tests the (gnu machine hetzner http) module.
 
-;; Integration tests require the GUIX_HETZNER_API_TOKEN environment variable.
+;; Integration tests require the MANIFOLDING_OS_HETZNER_API_TOKEN environment variable.
 ;; https://docs.hetzner.com/cloud/api/getting-started/generating-api-token
 
 ;; The integration tests sometimes fail due to the Hetzner API not being able

@@ -22,7 +22,7 @@
 (define-module (gnu build shepherd)
   #:use-module (gnu system file-systems)
   #:use-module (gnu build linux-container)
-  #:use-module (guix build utils)
+  #:use-module (Manifolding-OS build utils)
   #:use-module (srfi srfi-1)
   #:use-module (srfi srfi-26)
   #:use-module (ice-9 match)
@@ -131,7 +131,7 @@ namespaces of process PID beforehand.  If there is no support for containers,
 on Hurd systems for instance, fallback to direct forking."
   (define (strip-pid args)
     ;; TODO: Replace with 'strip-keyword-arguments' when that no longer pulls
-    ;; in (guix config).
+    ;; in (Manifolding-OS config).
     (let loop ((args args)
                (result '()))
       (match args

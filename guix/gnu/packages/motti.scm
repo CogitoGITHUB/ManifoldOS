@@ -18,10 +18,10 @@
 
 (define-module (gnu packages motti)
   #:use-module (gnu packages)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix licenses)
-  #:use-module (guix packages)
-  #:use-module (guix download))
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS licenses)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS download))
 
 (define-public motti
   (package

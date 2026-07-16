@@ -47,16 +47,16 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages gnome-xyz)
-  #:use-module (guix build-system trivial)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system copy)
-  #:use-module (guix build-system meson)
-  #:use-module (guix build-system pyproject)
-  #:use-module (guix gexp)
-  #:use-module (guix git-download)
-  #:use-module (guix packages)
-  #:use-module (guix utils)
-  #:use-module ((guix licenses) #:prefix license:)
+  #:use-module (Manifolding-OS build-system trivial)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system copy)
+  #:use-module (Manifolding-OS build-system meson)
+  #:use-module (Manifolding-OS build-system pyproject)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS utils)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
   #:use-module (gnu packages)
   #:use-module (gnu packages acl)
   #:use-module (gnu packages aidc)
@@ -303,7 +303,7 @@ and a few extra features.")
                     (url "https://github.com/vinceliuice/Qogir-icon-theme")
                     (commit (string-replace-substring version "." "-"))))
               (file-name (git-file-name name version))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet '(substitute* "install.sh"
                           (("gtk-update-icon-cache") "true")))
               (sha256
@@ -423,10 +423,10 @@ highlights, and gradients for some depth.")
     (native-inputs (list python-attrs python-clickgen))
     (arguments
      (list
-      #:modules '((guix build utils))
+      #:modules '((Manifolding-OS build utils))
       #:builder
       #~(begin
-          (use-modules (guix build utils))
+          (use-modules (Manifolding-OS build utils))
           (let ((themes-dir (string-append #$output "/share/icons")))
             (mkdir-p themes-dir)
             (let loop
@@ -520,11 +520,11 @@ provides the @command{g4music} command.")
     (build-system pyproject-build-system)
     (arguments
      (list
-      #:imported-modules `((guix build glib-or-gtk-build-system)
+      #:imported-modules `((Manifolding-OS build glib-or-gtk-build-system)
                            ,@%pyproject-build-system-modules)
-      #:modules '((guix build pyproject-build-system)
-                  ((guix build glib-or-gtk-build-system) #:prefix glib-or-gtk:)
-                  (guix build utils)
+      #:modules '((Manifolding-OS build pyproject-build-system)
+                  ((Manifolding-OS build glib-or-gtk-build-system) #:prefix glib-or-gtk:)
+                  (Manifolding-OS build utils)
                   (ice-9 match))
       #:phases
       #~(modify-phases %standard-phases
@@ -594,9 +594,9 @@ takes advantage of modern hardware using OpenGL.")
       #:glib-or-gtk? #t
       #:imported-modules (append %meson-build-system-modules
                                  %pyproject-build-system-modules)
-      #:modules '((guix build meson-build-system)
-                  ((guix build pyproject-build-system) #:prefix python:)
-                  (guix build utils))
+      #:modules '((Manifolding-OS build meson-build-system)
+                  ((Manifolding-OS build pyproject-build-system) #:prefix python:)
+                  (Manifolding-OS build utils))
       #:phases
       #~(modify-phases %standard-phases
           (add-after 'install 'rename-executable
@@ -611,8 +611,8 @@ takes advantage of modern hardware using OpenGL.")
             (lambda* (#:key inputs outputs #:allow-other-keys)
               (wrap-program (search-input-file outputs
                                                "bin/dev.tchx84.Portfolio")
-                `("GUIX_PYTHONPATH" =
-                  (,(getenv "GUIX_PYTHONPATH")
+                `("MANIFOLDING_OS_PYTHONPATH" =
+                  (,(getenv "MANIFOLDING_OS_PYTHONPATH")
                    ,(python:site-packages inputs outputs)))
                 `("GI_TYPELIB_PATH" =
                   (,(getenv "GI_TYPELIB_PATH")))))))))
@@ -711,7 +711,7 @@ GNOME Shell.")
               (sha256
                (base32
                 "11hc0nf0zp8b8dg7lmihdwxvzh1ji7jvpvg6xh2i0pwqiwzdayqa"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                ;; Remove pre-compiled settings schemas and translations from
                ;; source, as they are generated as part of build. Upstream
@@ -1521,7 +1521,7 @@ directly inside GNOME Shell.  It can manage stations and play streams.")
               (sha256
                (base32
                 "0ikiq2vmmsjr13788xhmbqid1im19gnp86xxqx1q047v6kikvjy4"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet '(begin
                           (delete-file "schemas/gschemas.compiled")
                           (for-each delete-file
@@ -1530,8 +1530,8 @@ directly inside GNOME Shell.  It can manage stations and play streams.")
     (native-inputs (list `(,glib "bin") gettext-minimal))
     (inputs (list libgtop))
     (arguments
-     (list #:modules '((guix build copy-build-system)
-                       (guix build utils)
+     (list #:modules '((Manifolding-OS build copy-build-system)
+                       (Manifolding-OS build utils)
                        (ice-9 string-fun))
            #:phases #~(modify-phases %standard-phases
                         (add-before 'install 'compile-schemas
@@ -1679,10 +1679,10 @@ Shimmer Project.  It supports GNOME, Unity, and Xfce.")
             "19dsa7bx37g76sm0l3x65kzq2sg4id3q6j649ny88a69kx2k1d5n"))))
     (build-system trivial-build-system)
     (arguments
-     '(#:modules ((guix build utils))
+     '(#:modules ((Manifolding-OS build utils))
        #:builder
        (begin
-         (use-modules (guix build utils))
+         (use-modules (Manifolding-OS build utils))
          (let* ((out (assoc-ref %outputs "out"))
                 (source (assoc-ref %build-inputs "source"))
                 (bash (assoc-ref %build-inputs "bash"))
@@ -1815,7 +1815,7 @@ dark elements.  It supports GNOME, Unity, Xfce, and Openbox.")
         (sha256
           (base32
            "1m1kml068pfnw0zl81khm8d0km5r56ynx29xddawh512a15n5h9b"))
-        (modules '((guix build utils)
+        (modules '((Manifolding-OS build utils)
                    (ice-9 regex)
                    (srfi srfi-26)))
         (snippet
@@ -1981,9 +1981,9 @@ that are completely black and completely white.")
      (list
       #:imported-modules (append %meson-build-system-modules
                                  %pyproject-build-system-modules)
-      #:modules '((guix build meson-build-system)
-                  ((guix build pyproject-build-system) #:prefix python:)
-                  (guix build utils))
+      #:modules '((Manifolding-OS build meson-build-system)
+                  ((Manifolding-OS build pyproject-build-system) #:prefix python:)
+                  (Manifolding-OS build utils))
       #:glib-or-gtk? #t
       #:phases
       #~(modify-phases %standard-phases
@@ -1997,8 +1997,8 @@ that are completely black and completely white.")
                 (for-each
                  (lambda (program)
                    (wrap-program (string-append bin program)
-                     `("GUIX_PYTHONPATH" =
-                       (,(getenv "GUIX_PYTHONPATH")
+                     `("MANIFOLDING_OS_PYTHONPATH" =
+                       (,(getenv "MANIFOLDING_OS_PYTHONPATH")
                         ,(python:site-packages inputs outputs)))
                      `("GI_TYPELIB_PATH" = (,(getenv "GI_TYPELIB_PATH")))))
                  (list "pmos-tweaks" "pmos-tweakd" "pk-tweaks-action")))))

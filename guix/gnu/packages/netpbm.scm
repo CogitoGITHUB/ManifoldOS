@@ -30,11 +30,11 @@
   #:use-module (gnu packages python)
   #:use-module (gnu packages xml)
   #:use-module (gnu packages xorg)
-  #:use-module (guix build-system gnu)
-  #:use-module ((guix licenses) #:select (gpl2))
-  #:use-module (guix packages)
-  #:use-module (guix svn-download)
-  #:use-module (guix utils))
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module ((Manifolding-OS licenses) #:select (gpl2))
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS svn-download)
+  #:use-module (Manifolding-OS utils))
 
 (define-public netpbm
   (package
@@ -58,7 +58,7 @@
             (patches (search-patches "netpbm-CVE-2017-2586.patch"
                                      "netpbm-CVE-2017-2587.patch"))
             (file-name (string-append name "-" version "-checkout"))
-            (modules '((guix build utils)))
+            (modules '((Manifolding-OS build utils)))
             (snippet
              '(begin
                 ;; Remove non-FSDG-compliant code.
@@ -116,8 +116,8 @@
        ("pkg-config" ,pkg-config)
        ("python" ,python-wrapper)))
    (arguments
-    `(#:modules ((guix build gnu-build-system)
-                 (guix build utils)
+    `(#:modules ((Manifolding-OS build gnu-build-system)
+                 (Manifolding-OS build utils)
                  (ice-9 match))
       #:phases
       (modify-phases %standard-phases

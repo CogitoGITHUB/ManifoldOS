@@ -165,24 +165,24 @@
   #:use-module (gnu packages xiph)
   #:use-module (gnu packages xml)
   #:use-module (gnu packages xorg)
-  #:use-module (guix build-system cmake)
-  #:use-module (guix build-system copy)
-  #:use-module (guix build-system go)
-  #:use-module (guix build-system glib-or-gtk)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system meson)
-  #:use-module (guix build-system perl)
-  #:use-module (guix build-system pyproject)
-  #:use-module (guix build-system rebar)
-  #:use-module (guix build-system qt)
-  #:use-module (guix build-system trivial)
-  #:use-module (guix download)
-  #:use-module (guix gexp)
-  #:use-module (guix git-download)
-  #:use-module (guix hg-download)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix packages)
-  #:use-module (guix utils))
+  #:use-module (Manifolding-OS build-system cmake)
+  #:use-module (Manifolding-OS build-system copy)
+  #:use-module (Manifolding-OS build-system go)
+  #:use-module (Manifolding-OS build-system glib-or-gtk)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system meson)
+  #:use-module (Manifolding-OS build-system perl)
+  #:use-module (Manifolding-OS build-system pyproject)
+  #:use-module (Manifolding-OS build-system rebar)
+  #:use-module (Manifolding-OS build-system qt)
+  #:use-module (Manifolding-OS build-system trivial)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS hg-download)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS utils))
 
 (define-public biboumi
   (package
@@ -490,7 +490,7 @@ powerful, standard and open protocol.")
                            version ".tar.gz"))
        (sha256
         (base32 "1x8rliydhbibmzwdbyr7pd7n87m2jmxnqkpvaalnf4154hj1hfwb"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         ;; Add missing #include that causes a build failure with glibc 2.35.
         #~(substitute* "tests/regression/client/client.c"
@@ -564,7 +564,7 @@ end-to-end encryption.")
               (file-name (git-file-name name version))
               (sha256
                (base32 "1xszd4cjrlwwsy19ri2ymqr676qpqqhxv3cw5zwch3lms68p51hy"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                ;; Delete generated sources.
                #~(for-each delete-file
@@ -586,7 +586,7 @@ by Dino to provide OMEMO support.")))
        (uri (git-reference
              (url "https://github.com/gkdr/axc")
              (commit (string-append "v" version))))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         `(begin
            ;; Empty directories meant to hold submodules that we provide as
@@ -870,8 +870,8 @@ used by Pidgin and Bitlbee, among others, to access
              (let* ((out (assoc-ref outputs "out"))
                     (bin (string-append out "/bin")))
                (wrap-program (string-append bin "/hexchat")
-                 `("GUIX_PYTHONPATH" ":" prefix
-                   (,(getenv "GUIX_PYTHONPATH"))))))))))
+                 `("MANIFOLDING_OS_PYTHONPATH" ":" prefix
+                   (,(getenv "MANIFOLDING_OS_PYTHONPATH"))))))))))
     (synopsis "Graphical IRC client")
     (description
      "HexChat lets you connect to multiple IRC networks at once.  The main
@@ -960,7 +960,7 @@ authentication.")
         (base32 "0mi3ir2vsir7k07cqlalhflw93gsxqni7kamibwn00pivsa9kz0g"))
        (patches
         (search-patches "pidgin-add-search-path.patch"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         '(begin
            ;; Remove stale generated file after applying patches.
@@ -1256,11 +1256,11 @@ of xmpppy.")
      (list
       #:imported-modules
       `(,@%pyproject-build-system-modules
-        (guix build glib-or-gtk-build-system))
+        (Manifolding-OS build glib-or-gtk-build-system))
       #:modules
-      '((guix build pyproject-build-system)
-        ((guix build glib-or-gtk-build-system) #:prefix glib-or-gtk:)
-        (guix build utils))
+      '((Manifolding-OS build pyproject-build-system)
+        ((Manifolding-OS build glib-or-gtk-build-system) #:prefix glib-or-gtk:)
+        (Manifolding-OS build utils))
       #:phases
       #~(modify-phases %standard-phases
           (add-after 'unpack 'generate-gdk-pixbuf-loaders-cache-file
@@ -1310,7 +1310,7 @@ of xmpppy.")
        (files (list "share/gajim/plugins")))
       ;; Gajim needs to use the propagated inputs of its plugins.
       (search-path-specification
-       (variable "GUIX_PYTHONPATH")
+       (variable "MANIFOLDING_OS_PYTHONPATH")
        (files
         (list
          (string-append
@@ -1394,10 +1394,10 @@ and OpenPGP) and available in 29 languages.")
         (base32 "0m1g5wajpc3kfz5jv8y3i9xy1nqhq15ripv49lgsq7j1f0a3w3wh"))))
     (build-system trivial-build-system)
     (arguments
-     `(#:modules ((guix build utils))
+     `(#:modules ((Manifolding-OS build utils))
        #:builder
        (begin
-         (use-modules (guix build utils))
+         (use-modules (Manifolding-OS build utils))
          (let* ((out (assoc-ref %outputs "out"))
                 (share (in-vicinity out "share/gajim/plugins/openpgp"))
                 (source (assoc-ref %build-inputs "source")))
@@ -1537,8 +1537,8 @@ default.")
                                       #$(this-package-input "coreutils")))))
                 (for-each (lambda (file)
                             (wrap-program file
-                              `("GUIX_LUA_PATH"  ";" prefix (,(getenv "GUIX_LUA_PATH")))
-                              `("GUIX_LUA_CPATH" ";" prefix (,(getenv "GUIX_LUA_CPATH")))
+                              `("MANIFOLDING_OS_LUA_PATH"  ";" prefix (,(getenv "MANIFOLDING_OS_LUA_PATH")))
+                              `("MANIFOLDING_OS_LUA_CPATH" ";" prefix (,(getenv "MANIFOLDING_OS_LUA_CPATH")))
                               `("PATH" ":" prefix ,path)))
                           (find-files bin ".*"))))))))
     (inputs
@@ -2549,7 +2549,7 @@ for the Matrix protocol.  It is built on to of @code{Boost.Asio}.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "098jqccwsfbqkdpnhbych2rd076385wb51fx9qyjfiddidxv2mas"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet '(delete-file-recursively "third_party"))
        ;; Release 0.12.1 has a major bug which prevents replies
        ;; from rendering: https://github.com/Nheko-Reborn/nheko/issues/1944
@@ -2678,7 +2678,7 @@ implementation.")
               (sha256
                (base32
                 "14h8lvj0kjvy1b5i84ha2w9rl3akxjwwvsp5j4dcxwfghrkzqgf2"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                '(begin
                   (substitute* "Makefile.in"
@@ -2794,7 +2794,7 @@ replacement.")
        (uri (git-reference
               (url "https://github.com/gkdr/lurch")
               (commit (string-append "v" version))))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         #~(begin
             ;; Submodules
@@ -2861,9 +2861,9 @@ asynchronicity.")
                 "07ap8qvzlm4wb7x8qvs4n1jhb50fgwsy41ck4ivsj427wy79726r"))))
    (arguments
     (list
-     #:modules '((guix build cmake-build-system)
-                 ((guix build gnu-build-system) #:prefix gnu:)
-                 (guix build utils))
+     #:modules '((Manifolding-OS build cmake-build-system)
+                 ((Manifolding-OS build gnu-build-system) #:prefix gnu:)
+                 (Manifolding-OS build utils))
      #:phases
      #~(modify-phases %standard-phases
          (add-after 'unpack 'change-directory
@@ -3041,7 +3041,7 @@ implementation of an MQTT version client class.")
          (url "https://github.com/psi-plus/psi-plus-snapshots")
          (commit version)))
        (file-name (git-file-name name version))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         #~(begin
             (delete-file-recursively "3rdparty")
@@ -3068,12 +3068,12 @@ implementation of an MQTT version client class.")
      `(#:tests? #f                      ; No target
        #:imported-modules
        (,@%qt-build-system-modules
-        (guix build glib-or-gtk-build-system))
+        (Manifolding-OS build glib-or-gtk-build-system))
        #:modules
-       ((guix build qt-build-system)
-        ((guix build glib-or-gtk-build-system)
+       ((Manifolding-OS build qt-build-system)
+        ((Manifolding-OS build glib-or-gtk-build-system)
          #:prefix glib-or-gtk:)
-        (guix build utils))
+        (Manifolding-OS build utils))
        #:configure-flags
        (list
         "-DBUILD_PSIMEDIA=ON"           ; For A/V support
@@ -3419,7 +3419,7 @@ share/zulip/integrations or in lib/<...>/site-packages/integrations:
              (url "https://github.com/42wim/matterbridge")
              (commit (string-append "v" version))))
        (file-name (git-file-name name version))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet '(for-each delete-file-recursively
                   ;; TODO: unbundle the rest as well
                   '("vendor/filippo.io"
@@ -3754,7 +3754,7 @@ terminal-based user interface built with tview, featuring:
                  (apply string-append all
                         (map (lambda (path)
                                (string-append "sys.path.append('" path "')\n"))
-                             (string-split (getenv "GUIX_PYTHONPATH") #\:)))))
+                             (string-split (getenv "MANIFOLDING_OS_PYTHONPATH") #\:)))))
               ;; Install script.
               (install-file "wee_slack.py"
                             (string-append #$output

@@ -26,16 +26,16 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages mate)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix build-system glib-or-gtk)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system pyproject)
-  #:use-module (guix build-system trivial)
-  #:use-module (guix download)
-  #:use-module (guix git-download)
-  #:use-module (guix gexp)
-  #:use-module (guix packages)
-  #:use-module (guix utils)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS build-system glib-or-gtk)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system pyproject)
+  #:use-module (Manifolding-OS build-system trivial)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS utils)
   #:use-module (gnu packages)
   #:use-module (gnu packages attr)
   #:use-module (gnu packages autotools)
@@ -1675,8 +1675,8 @@ can be used as backgrounds in the MATE Desktop environment.")
                 ;; For plugins (same as gedit).
                 `("GI_TYPELIB_PATH" ":" prefix
                   (,(getenv "GI_TYPELIB_PATH")))
-                `("GUIX_PYTHONPATH" ":" prefix
-                  (,(getenv "GUIX_PYTHONPATH")))
+                `("MANIFOLDING_OS_PYTHONPATH" ":" prefix
+                  (,(getenv "MANIFOLDING_OS_PYTHONPATH")))
                 ;; For language-specs.
                 `("XDG_DATA_DIRS" ":" prefix
                   (,(string-append #$(this-package-input "gtksourceview")
@@ -1814,15 +1814,15 @@ used to bring up authentication dialogs.")
      (list
       #:imported-modules (append %glib-or-gtk-build-system-modules
                                  %pyproject-build-system-modules)
-      #:modules '((guix build utils)
-                  (guix build glib-or-gtk-build-system)
-                  ((guix build pyproject-build-system) #:prefix python:))
+      #:modules '((Manifolding-OS build utils)
+                  (Manifolding-OS build glib-or-gtk-build-system)
+                  ((Manifolding-OS build pyproject-build-system) #:prefix python:))
       #:phases
       #~(modify-phases %standard-phases
           (add-after 'glib-or-gtk-wrap 'python-and-gi-wrap
             (lambda* (#:key inputs outputs #:allow-other-keys)
               (wrap-program (search-input-file outputs "bin/mozo")
-                `("GUIX_PYTHONPATH" = (,(getenv "GUIX_PYTHONPATH")
+                `("MANIFOLDING_OS_PYTHONPATH" = (,(getenv "MANIFOLDING_OS_PYTHONPATH")
                                        ,(python:site-packages inputs outputs)))
                 `("GI_TYPELIB_PATH" = (,(getenv "GI_TYPELIB_PATH")))))))))
     (native-inputs

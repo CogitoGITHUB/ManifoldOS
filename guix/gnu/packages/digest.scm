@@ -20,15 +20,15 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages digest)
-  #:use-module (guix gexp)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix packages)
-  #:use-module (guix download)
-  #:use-module (guix git-download)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system pyproject)
-  #:use-module (guix build-system trivial)
-  #:use-module (guix utils)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system pyproject)
+  #:use-module (Manifolding-OS build-system trivial)
+  #:use-module (Manifolding-OS utils)
   #:use-module (gnu packages check)
   #:use-module (gnu packages python-build)
   #:use-module (gnu packages python-xyz)
@@ -78,10 +78,10 @@ into much less than 10 kB, instead of storing the entire list of data.")
                (base32 "03ljs5iw9zrm3bydwggjvpwrcwmsd75h3dv1j4am4hw3h22cjdjc"))))
     (build-system trivial-build-system) ;; source-only package
     (arguments
-     `(#:modules ((guix build utils))
+     `(#:modules ((Manifolding-OS build utils))
        #:builder
        (begin
-         (use-modules (guix build utils))
+         (use-modules (Manifolding-OS build utils))
          (let* ((out (string-append (assoc-ref %outputs "out")))
                 (include (string-append out "/include"))
                 (doc (string-append out "/share/doc/" ,name "-" ,version))

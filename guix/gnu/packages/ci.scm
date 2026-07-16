@@ -26,14 +26,14 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages ci)
-  #:use-module ((guix licenses) #:prefix l:)
+  #:use-module ((Manifolding-OS licenses) #:prefix l:)
   #:use-module (gnu packages)
-  #:use-module (guix packages)
-  #:use-module (guix download)
-  #:use-module (guix git-download)
-  #:use-module (guix download)
-  #:use-module (guix gexp)
-  #:use-module ((guix search-paths) #:select ($SSL_CERT_DIR))
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module ((Manifolding-OS search-paths) #:select ($SSL_CERT_DIR))
   #:use-module (gnu packages autotools)
   #:use-module (gnu packages base)
   #:use-module (gnu packages bash)
@@ -65,10 +65,10 @@
   #:use-module (gnu packages version-control)
   #:use-module (gnu packages web)
   #:use-module (gnu packages xml)
-  #:use-module (guix build-system cmake)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system go)
-  #:use-module ((guix search-paths) #:select ($SSL_CERT_DIR)))
+  #:use-module (Manifolding-OS build-system cmake)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system go)
+  #:use-module ((Manifolding-OS search-paths) #:select ($SSL_CERT_DIR)))
 
 (define-public cuirass
   (package
@@ -86,8 +86,8 @@
          "1cf68ijhd83px7dybvyp4wm9r0h2fklc18vwddvygmb4qfpbjry1"))))
     (build-system gnu-build-system)
     (arguments
-     (list #:modules `((guix build utils)
-                       (guix build gnu-build-system)
+     (list #:modules `((Manifolding-OS build utils)
+                       (Manifolding-OS build gnu-build-system)
                        (ice-9 match)
                        (ice-9 rdelim)
                        (ice-9 popen)

@@ -25,12 +25,12 @@
   #:use-module (gnu packages haskell-crypto)
   #:use-module (gnu packages haskell-web)
   #:use-module ((gnu packages python) #:select (python))
-  #:use-module (guix download)
-  #:use-module (guix gexp)
-  #:use-module (guix git-download)
-  #:use-module (guix packages)
-  #:use-module (guix build-system haskell)
-  #:use-module ((guix licenses) #:prefix license:))
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS build-system haskell)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:))
 
 (define-public purescript
   (package

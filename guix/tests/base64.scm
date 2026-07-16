@@ -17,7 +17,7 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (test-base64)
-  #:use-module (guix base64)
+  #:use-module (Manifolding-OS base64)
   #:use-module (rnrs bytevectors)
   #:use-module (srfi srfi-64))
 

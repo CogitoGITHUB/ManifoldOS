@@ -29,12 +29,12 @@
   #:use-module (gnu packages sqlite)
   #:use-module (gnu packages python)
   #:use-module (gnu packages web) ; node-esbuild
-  #:use-module (guix build-system node)
-  #:use-module (guix gexp)
-  #:use-module (guix git-download)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix packages)
-  #:use-module (guix utils))
+  #:use-module (Manifolding-OS build-system node)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS utils))
 
 ;;;
 ;;; Please: Try to add new module packages in alphabetic order.
@@ -57,10 +57,10 @@
     (arguments
      '(#:tests? #f
        #:modules
-       ((guix build node-build-system)
+       ((Manifolding-OS build node-build-system)
         (srfi srfi-1)
         (ice-9 match)
-        (guix build utils))
+        (Manifolding-OS build utils))
        #:phases
        (modify-phases %standard-phases
          (add-after 'unpack 'change-directory
@@ -119,10 +119,10 @@ architecture supporting plugins.")
     (build-system node-build-system)
     (arguments
      `(#:modules
-       ((guix build node-build-system)
+       ((Manifolding-OS build node-build-system)
         (srfi srfi-1)
         (ice-9 match)
-        (guix build utils))
+        (Manifolding-OS build utils))
        #:phases
        (modify-phases %standard-phases
          (add-after 'patch-dependencies 'delete-dependencies
@@ -250,7 +250,7 @@ HTTP.Agent instances from a function.")
       (file-name (git-file-name name version))
       (sha256
         (base32 "1xfg4yd155zhi0v2a26kvg3jghcim5xgpwsn4lhikisshmrmf93m"))
-      (modules '((guix build utils)))
+      (modules '((Manifolding-OS build utils)))
       (snippet #~(begin
         (delete-file-recursively "dist")))))
     (build-system node-build-system)
@@ -933,8 +933,8 @@ Object Type (DOM) of htmlparser2.")
     (native-inputs (list esbuild))
     (arguments (list
       #:modules '(
-        (guix build node-build-system)
-        (guix build utils)
+        (Manifolding-OS build node-build-system)
+        (Manifolding-OS build utils)
         (ice-9 match)
         (json))
       #:tests? #f ; FIXME: Tests require 'deno'.
@@ -1202,7 +1202,7 @@ codes.")
         (commit "f8d4d427a31a52d4df82260ac1973d94ad73335b")))
       (file-name (git-file-name name version))
       (sha256 (base32 "1wc5mgihrgync0vj79gk7g367rssqhzmzxl41kdhhcya045bis85"))
-      (modules '((guix build utils)))
+      (modules '((Manifolding-OS build utils)))
       (snippet #~(begin
         (delete-file-recursively "lib")))))
     (build-system node-build-system)
@@ -1251,8 +1251,8 @@ It can handle big files (tested up to 100mb). XML Entities, HTML entities, and D
     (native-inputs (list esbuild))
     (arguments (list
       #:modules '(
-        (guix build node-build-system)
-        (guix build utils)
+        (Manifolding-OS build node-build-system)
+        (Manifolding-OS build utils)
         (ice-9 match))
       #:tests? #f ; FIXME: Tests require 'jest'.
       #:phases #~(modify-phases %standard-phases
@@ -1384,8 +1384,8 @@ suitable for use with the @code{fs} module functions.")
     (native-inputs (list esbuild))
     (arguments (list
       #:modules '(
-        (guix build node-build-system)
-        (guix build utils)
+        (Manifolding-OS build node-build-system)
+        (Manifolding-OS build utils)
         (ice-9 match))
       #:tests? #f ; FIXME: Tests require 'c8' and 'tap'.
       #:phases #~(modify-phases %standard-phases
@@ -1881,8 +1881,8 @@ Uses fs.stat.")
     (native-inputs (list esbuild))
     (arguments (list
       #:modules '(
-        (guix build node-build-system)
-        (guix build utils)
+        (Manifolding-OS build node-build-system)
+        (Manifolding-OS build utils)
         (ice-9 match))
       #:tests? #f ; FIXME: Tests require 'mocha'.
       #:phases #~(modify-phases %standard-phases
@@ -2053,8 +2053,8 @@ user-land JavaScript.")
     (native-inputs (list esbuild))
     (arguments (list
       #:modules '(
-        (guix build node-build-system)
-        (guix build utils)
+        (Manifolding-OS build node-build-system)
+        (Manifolding-OS build utils)
         (ice-9 match))
       #:tests? #f ; FIXME: Tests require 'tap'.
       #:phases #~(modify-phases %standard-phases
@@ -2202,8 +2202,8 @@ JavaScript.")
     (native-inputs (list esbuild))
     (arguments (list
       #:modules '(
-        (guix build node-build-system)
-        (guix build utils)
+        (Manifolding-OS build node-build-system)
+        (Manifolding-OS build utils)
         (ice-9 match))
       #:tests? #f ; FIXME: Tests require 'tap'.
       #:phases #~(modify-phases %standard-phases
@@ -2336,8 +2336,8 @@ This is not a through or through2 stream. It doesn't transform the data, it just
     (native-inputs (list esbuild))
     (arguments (list
       #:modules '(
-        (guix build node-build-system)
-        (guix build utils)
+        (Manifolding-OS build node-build-system)
+        (Manifolding-OS build utils)
         (ice-9 match))
       #:tests? #f ; FIXME: Tests require 'tap'.
       #:phases #~(modify-phases %standard-phases
@@ -2674,8 +2674,8 @@ particular cross-platform spellings of the PATH environment variable key.")
     (native-inputs (list esbuild))
     (arguments (list
       #:modules '(
-        (guix build node-build-system)
-        (guix build utils)
+        (Manifolding-OS build node-build-system)
+        (Manifolding-OS build utils)
         (ice-9 match))
       #:tests? #f ; FIXME: Tests require 'tap'.
       #:phases #~(modify-phases %standard-phases
@@ -3545,10 +3545,10 @@ it to make a new binding for a different platform or underling technology.")))
            node-serialport-parser-readline node-debug))
     (arguments
      `(#:modules
-       ((guix build node-build-system)
+       ((Manifolding-OS build node-build-system)
         (srfi srfi-1)
         (ice-9 match)
-        (guix build utils))
+        (Manifolding-OS build utils))
        #:phases
        (modify-phases %standard-phases
          (add-after 'unpack 'chdir
@@ -3772,15 +3772,15 @@ connection.")))
       (file-name (git-file-name name version))
       (sha256
         (base32 "0q8qaddi05387y8f58q0xlj7fjxf4mkymmir7wd9c5imqqs378md"))
-      (modules '((guix build utils)))
+      (modules '((Manifolding-OS build utils)))
       (snippet #~(begin
         (delete-file-recursively "dist")))))
     (build-system node-build-system)
     (native-inputs (list esbuild))
     (arguments (list
       #:modules '(
-        (guix build node-build-system)
-        (guix build utils)
+        (Manifolding-OS build node-build-system)
+        (Manifolding-OS build utils)
         (ice-9 match)
         (json))
       #:phases #~(modify-phases %standard-phases
@@ -3822,7 +3822,7 @@ connection.")))
       (file-name (git-file-name name version))
       (sha256
         (base32 "1r03whfzy5f76wz4cf51gllxndxv9mk75p4aip6bxffv5p7apax3"))
-      (modules '((guix build utils)))
+      (modules '((Manifolding-OS build utils)))
       (snippet #~(begin
         (delete-file "browser-source-map-support.js")))))
     (build-system node-build-system)
@@ -3862,9 +3862,9 @@ connection.")))
        (sha256
         (base32 "0sbbzzli282nxyfha10zx0k5m8hdp0sf3ipl59khjb7wm449j86h"))
        (snippet
-        (with-imported-modules '((guix build utils))
+        (with-imported-modules '((Manifolding-OS build utils))
           #~(begin
-              (use-modules (guix build utils))
+              (use-modules (Manifolding-OS build utils))
               ;; unbundle sqlite
               (for-each delete-file-recursively
                         (find-files "deps"
@@ -3875,10 +3875,10 @@ connection.")))
     (build-system node-build-system)
     (arguments
      `(#:modules
-       ((guix build node-build-system)
+       ((Manifolding-OS build node-build-system)
         (srfi srfi-1)
         (ice-9 match)
-        (guix build utils))
+        (Manifolding-OS build utils))
        #:tests? #f ; FIXME: tests depend on node-mocha
        #:phases
        (modify-phases %standard-phases
@@ -4040,7 +4040,7 @@ traces for Node.js.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "106r47h0xhrqwqzdzhd5b93saldj89av0qapl1x50gs3pnkdqh8r"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         '(begin
            ;; Remove prebuilt minified JavaScript files.

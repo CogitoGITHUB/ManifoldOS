@@ -22,9 +22,9 @@
   #:use-module (gnu home services)
   #:use-module (gnu packages admin)
   #:use-module (gnu services shepherd)
-  #:use-module (guix sets)
-  #:use-module (guix gexp)
-  #:use-module (guix records)
+  #:use-module (Manifolding-OS sets)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS records)
   #:use-module (srfi srfi-1)
   #:export (home-shepherd-service-type
 
@@ -119,7 +119,7 @@ as shepherd package."
   (let* ((shepherd (home-shepherd-configuration-shepherd config))
          (silent? (home-shepherd-configuration-silent? config)))
     (if (home-shepherd-configuration-auto-start? config)
-        (with-imported-modules '((guix build utils))
+        (with-imported-modules '((Manifolding-OS build utils))
           #~(unless (file-exists?
                      (string-append
                       (or (getenv "XDG_RUNTIME_DIR")
@@ -150,7 +150,7 @@ as shepherd package."
         ;; activation script. /run/user/<uid> may not have been created
         ;; yet. But do otherwise so if the runtime dir does not exist an error
         ;; is logged.
-        (unless (getenv "GUIX_SYSTEM_IS_RUNNING_HOME_ACTIVATE")
+        (unless (getenv "MANIFOLDING_OS_SYSTEM_IS_RUNNING_HOME_ACTIVATE")
           #$(launch-shepherd-gexp config))))
 
 (define (shepherd-xdg-configuration-files config)

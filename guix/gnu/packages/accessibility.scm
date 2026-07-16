@@ -24,16 +24,16 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages accessibility)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix gexp)
-  #:use-module (guix utils)
-  #:use-module (guix packages)
-  #:use-module (guix download)
-  #:use-module (guix git-download)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system glib-or-gtk)
-  #:use-module (guix build-system pyproject)
-  #:use-module (guix build-system meson)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS utils)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system glib-or-gtk)
+  #:use-module (Manifolding-OS build-system pyproject)
+  #:use-module (Manifolding-OS build-system meson)
   #:use-module (gnu packages)
   #:use-module (gnu packages autotools)
   #:use-module (gnu packages lisp)
@@ -163,9 +163,9 @@ terminals.")
          "INSTALL_WRITABLE_DIRECTORY=no-thanks")
       #:imported-modules (append %glib-or-gtk-build-system-modules
                                  %pyproject-build-system-modules)
-      #:modules '((guix build utils)
-                  (guix build glib-or-gtk-build-system)
-                  ((guix build pyproject-build-system) #:prefix python:))
+      #:modules '((Manifolding-OS build utils)
+                  (Manifolding-OS build glib-or-gtk-build-system)
+                  ((Manifolding-OS build pyproject-build-system) #:prefix python:))
       #:phases
       #~(modify-phases %standard-phases
           (add-after 'unpack 'fix-errors
@@ -357,7 +357,7 @@ CONFIG_SPEAKUP_SOFT=m
         (sha256
          (base32 "0cvdkfakw7cix07j0c4iy10fkbqn6n8l1gr5dd3iy4f2d9bkza43"))
         (snippet
-         #~(begin (use-modules (guix build utils))
+         #~(begin (use-modules (Manifolding-OS build utils))
                   (substitute* "Makefile"
                     (("-D__i386__") ""))))))
     (build-system gnu-build-system)

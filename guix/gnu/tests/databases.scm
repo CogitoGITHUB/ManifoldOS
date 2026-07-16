@@ -28,9 +28,9 @@
   #:use-module (gnu services databases)
   #:use-module (gnu services networking)
   #:use-module (gnu packages databases)
-  #:use-module (guix gexp)
-  #:use-module (guix packages)
-  #:use-module (guix store)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS store)
   #:use-module (srfi srfi-1)
   #:export (%test-memcached
             %test-postgresql
@@ -52,7 +52,7 @@
     (marionette-operating-system
      %memcached-os
      #:imported-modules '((gnu services herd)
-                          (guix combinators))))
+                          (Manifolding-OS combinators))))
 
   (define vm
     (virtual-machine
@@ -174,7 +174,7 @@
     (marionette-operating-system
      %postgresql-os
      #:imported-modules '((gnu services herd)
-                          (guix combinators))))
+                          (Manifolding-OS combinators))))
 
   (define vm
     (virtual-machine
@@ -335,7 +335,7 @@
     (marionette-operating-system
      %timescaledb-os
      #:imported-modules '((gnu services herd)
-                          (guix combinators))))
+                          (Manifolding-OS combinators))))
 
   (define vm
     (virtual-machine
@@ -381,7 +381,7 @@
           (test-assert "database creation"
             (marionette-eval
              '(begin
-                (use-modules (guix build utils))
+                (use-modules (Manifolding-OS build utils))
 
                 (current-output-port (open-file "/dev/console" "w0"))
                 (invoke "psql" "-tA" "-c" "CREATE DATABASE test"))
@@ -450,7 +450,7 @@ data double PRECISION NULL
     (marionette-operating-system
      %mysql-os
      #:imported-modules '((gnu services herd)
-                          (guix combinators))))
+                          (Manifolding-OS combinators))))
 
   (define vm
     (virtual-machine

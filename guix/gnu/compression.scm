@@ -17,8 +17,8 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu compression)
-  #:use-module (guix gexp)
-  #:use-module (guix ui)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS ui)
   #:use-module ((gnu packages compression) #:hide (zip))
   #:use-module (srfi srfi-1)
   #:use-module (srfi srfi-9)

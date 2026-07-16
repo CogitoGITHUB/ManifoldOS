@@ -18,11 +18,11 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages golang-graphics)
-  #:use-module (guix build-system go)
-  #:use-module (guix gexp)
-  #:use-module (guix git-download)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix packages)
+  #:use-module (Manifolding-OS build-system go)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS packages)
   #:use-module (gnu packages)
   #:use-module (gnu packages glib)
   #:use-module (gnu packages golang-build)
@@ -359,7 +359,7 @@ additional error is returned in the Go binding.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "04wnxv79b1xbca16kgz98zc929q60lwcgcc6q784lkz2a1clh2z2"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         #~(begin
             ;; Submodules with their own go.mod files and packaged separately:

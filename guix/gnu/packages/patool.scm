@@ -19,11 +19,11 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages patool)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix download)
-  #:use-module (guix packages)
-  #:use-module (guix build-system pyproject)
-  #:use-module (guix gexp)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS build-system pyproject)
+  #:use-module (Manifolding-OS gexp)
   #:use-module (gnu packages)
   #:use-module (gnu packages backup)
   #:use-module (gnu packages cdrom)
@@ -46,7 +46,7 @@
        (method url-fetch)
        (uri (pypi-uri "patool" version))
        (sha256 (base32 "00lq140w13zr4b37j8qxfjmrfhyrx6b4gjxj0ypmnyikpqhyxxs1"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet #~(substitute* "pyproject.toml"
                     (("requires +=.+setuptools-reproducible.+$") "")
                     (("build-backend +=.+setuptools_reproducible.+$")

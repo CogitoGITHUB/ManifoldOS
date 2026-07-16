@@ -82,18 +82,18 @@
   #:use-module (gnu packages xdisorg)
   #:use-module (gnu packages xorg)
   #:use-module (gnu packages texinfo)
-  #:use-module (guix build-system cargo)
-  #:use-module (guix build-system cmake)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system meson)
-  #:use-module (guix build-system pyproject)
-  #:use-module (guix build-system trivial)
-  #:use-module (guix download)
-  #:use-module (guix git-download)
-  #:use-module (guix gexp)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix packages)
-  #:use-module (guix utils))
+  #:use-module (Manifolding-OS build-system cargo)
+  #:use-module (Manifolding-OS build-system cmake)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system meson)
+  #:use-module (Manifolding-OS build-system pyproject)
+  #:use-module (Manifolding-OS build-system trivial)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS utils))
 
 (define-public dash
   (package
@@ -106,7 +106,7 @@
                            "dash-" version ".tar.gz"))
        (sha256
         (base32 "12pjm2j0q0q88nvqbcyqjwr8s1c29ilxyq2cdj8k42wbdv24liva"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         '(begin
            ;; The man page hails from BSD, where (d)ash is the default shell.
@@ -175,10 +175,10 @@ direct descendant of NetBSD's Almquist Shell (@command{ash}).")
       (append %cargo-build-system-modules
               %cmake-build-system-modules)
       #:modules
-      '(((guix build cargo-build-system) #:prefix cargo:)
-        (guix build cmake-build-system)
-        ((guix build gnu-build-system) #:prefix gnu:)
-        (guix build utils))
+      '(((Manifolding-OS build cargo-build-system) #:prefix cargo:)
+        (Manifolding-OS build cmake-build-system)
+        ((Manifolding-OS build gnu-build-system) #:prefix gnu:)
+        (Manifolding-OS build utils))
       #:phases
       #~(modify-phases %standard-phases
           (add-after 'unpack 'use-guix-vendored-dependencies
@@ -337,10 +337,10 @@ and syntax highlighting.")
         (base32 "0d16mdgjdwln41zk44qa5vcilmlia4w15r8z2rc3p49i5ankksg3"))))
     (build-system trivial-build-system)
     (arguments
-     '(#:modules ((guix build utils))
+     '(#:modules ((Manifolding-OS build utils))
        #:builder
        (begin
-         (use-modules (guix build utils))
+         (use-modules (Manifolding-OS build utils))
          (let* ((source (assoc-ref %build-inputs "source"))
                 (out (assoc-ref %outputs "out"))
                 (func-path (string-append out "/share/fish/functions")))
@@ -631,7 +631,7 @@ ksh, and tcsh.")
         (sha256
           (base32
            "1372kg9kp7z7mw0k1f5l93jqyyyc1mmr3hx7557ynm8n5y1ggvay"))
-        (modules '((guix build utils)))
+        (modules '((Manifolding-OS build utils)))
         (snippet
          #~(begin
              (substitute* "pyproject.toml"

@@ -34,15 +34,15 @@
   #:use-module (gnu packages man)
   #:use-module (gnu packages python)
   #:use-module (gnu packages)
-  #:use-module (guix build-system cmake)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system trivial)
-  #:use-module (guix download)
-  #:use-module (guix gexp)
-  #:use-module (guix git-download)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix packages)
-  #:use-module (guix utils)
+  #:use-module (Manifolding-OS build-system cmake)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system trivial)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS utils)
   #:use-module (srfi srfi-1))
 
 (define-public byacc
@@ -288,9 +288,9 @@ besides libc.")
     (arguments
      (list
       #:builder
-      (with-imported-modules '((guix build utils))
+      (with-imported-modules '((Manifolding-OS build utils))
         #~(begin
-            (use-modules (guix build utils))
+            (use-modules (Manifolding-OS build utils))
             (let ((bindir (string-append #$output "/bin"))
                   (oyacc (string-append #$(this-package-input "oyacc")
                                         "/bin/oyacc")))
@@ -319,9 +319,9 @@ symbolic link to the @command{oyacc} command from the same-named package.")))
     (arguments
      (list
       #:modules
-      '((guix build cmake-build-system)
-        ((guix build gnu-build-system) #:prefix gnu:)
-        (guix build utils))
+      '((Manifolding-OS build cmake-build-system)
+        ((Manifolding-OS build gnu-build-system) #:prefix gnu:)
+        (Manifolding-OS build utils))
       #:phases
       #~(modify-phases %standard-phases
           ;; INFO: This project does not use ctest.

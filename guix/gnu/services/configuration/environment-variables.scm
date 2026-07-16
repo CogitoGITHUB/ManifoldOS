@@ -19,8 +19,8 @@
 (define-module (gnu services configuration environment-variables)
   #:use-module (gnu services configuration)
   #:use-module (gnu services configuration utils)
-  #:use-module (guix diagnostics)
-  #:use-module (guix i18n)
+  #:use-module (Manifolding-OS diagnostics)
+  #:use-module (Manifolding-OS i18n)
   #:use-module (ice-9 match)
   #:use-module (srfi srfi-1)
   #:export (serialize-string-environment-variable

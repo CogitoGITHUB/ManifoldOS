@@ -28,12 +28,12 @@
 
 (define-module (gnu packages libffi)
   #:use-module (gnu packages)
-  #:use-module (guix licenses)
-  #:use-module (guix packages)
-  #:use-module (guix gexp)
-  #:use-module (guix download)
-  #:use-module (guix git-download)
-  #:use-module (guix utils)
+  #:use-module (Manifolding-OS licenses)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS utils)
   #:use-module (gnu packages check)
   #:use-module (gnu packages crypto)
   #:use-module (gnu packages pkg-config)
@@ -43,9 +43,9 @@
   #:use-module (gnu packages ruby-check)
   #:use-module (gnu packages ruby-xyz)
   #:use-module (gnu packages sphinx)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system pyproject)
-  #:use-module (guix build-system ruby))
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system pyproject)
+  #:use-module (Manifolding-OS build-system ruby))
 
 (define-public libffi
   (package

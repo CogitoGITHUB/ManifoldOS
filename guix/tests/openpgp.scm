@@ -17,7 +17,7 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (tests-openpgp)
-  #:use-module (guix openpgp)
+  #:use-module (Manifolding-OS openpgp)
   #:use-module (gcrypt base16)
   #:use-module (gcrypt hash)
   #:use-module (gcrypt pk-crypto)

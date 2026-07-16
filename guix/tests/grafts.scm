@@ -18,13 +18,13 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (test-grafts)
-  #:use-module (guix gexp)
-  #:use-module (guix monads)
-  #:use-module (guix derivations)
-  #:use-module (guix store)
-  #:use-module (guix utils)
-  #:use-module (guix grafts)
-  #:use-module (guix tests)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS monads)
+  #:use-module (Manifolding-OS derivations)
+  #:use-module (Manifolding-OS store)
+  #:use-module (Manifolding-OS utils)
+  #:use-module (Manifolding-OS grafts)
+  #:use-module (Manifolding-OS tests)
   #:use-module (gnu packages bootstrap)
   #:use-module (srfi srfi-1)
   #:use-module (srfi srfi-64)
@@ -162,9 +162,9 @@
                                      (replacement fake)))
                          (drv     (gexp->derivation
                                    "to-graft"
-                                   (with-imported-modules '((guix build utils))
+                                   (with-imported-modules '((Manifolding-OS build utils))
                                      #~(begin
-                                         (use-modules (guix build utils))
+                                         (use-modules (Manifolding-OS build utils))
                                          (mkdir-p (string-append #$output
                                                                  "/a/b/c/d"))
                                          (symlink #$%bash
@@ -355,11 +355,11 @@
 
 (test-assert "graft-derivation, renaming"         ;<http://bugs.gnu.org/23132>
   (let* ((build `(begin
-                   (use-modules (guix build utils))
+                   (use-modules (Manifolding-OS build utils))
                    (mkdir-p (string-append (assoc-ref %outputs "out") "/"
                                            (assoc-ref %build-inputs "in")))))
          (orig  (build-expression->derivation %store "thing-to-graft" build
-                                              #:modules '((guix build utils))
+                                              #:modules '((Manifolding-OS build utils))
                                               #:inputs `(("in" ,%bash))))
          (repl  (add-text-to-store %store "bash" "fake bash"))
          (grafted (graft-derivation %store orig
@@ -457,7 +457,7 @@
                                             "-SoMeTHiNG")))))))
     (call-with-output-string
       (lambda (output)
-        ((@@ (guix build graft) replace-store-references)
+        ((@@ (Manifolding-OS build graft) replace-store-references)
          (open-input-string content) output
          replacement
          "/gnu/store")))))
@@ -519,7 +519,7 @@
                                 (sample-map-entry #\7 #\8 "-SoMeTHiNG")))))
        (call-with-output-string
          (lambda (output)
-           ((@@ (guix build graft) replace-store-references)
+           ((@@ (Manifolding-OS build graft) replace-store-references)
             (open-input-string content) output
             replacement
             "/gnu/store")))))))
@@ -588,12 +588,12 @@
          (pcre2 (build-expression->derivation
                  %store "pcre2"
                  `(let ((out (assoc-ref %outputs "out")))
-                    (use-modules (guix build utils))
+                    (use-modules (Manifolding-OS build utils))
                     (mkdir-p (string-append out "/lib"))
                     (call-with-output-file
                      (string-append out "/lib/libpcre2.txt")
                      (lambda (port) (display "pcre2" port))))
-                 #:modules '((guix build utils))))
+                 #:modules '((Manifolding-OS build utils))))
          ;; Create multi-output glib that depends on pcre2 (like real glib).
          (glib (build-expression->derivation
                 %store "glib"
@@ -602,7 +602,7 @@
                        (doc (assoc-ref %outputs "doc"))
                        (debug (assoc-ref %outputs "debug"))
                        (pcre2 (assoc-ref %build-inputs "pcre2")))
-                   (use-modules (guix build utils))
+                   (use-modules (Manifolding-OS build utils))
                    (mkdir-p (string-append out "/lib"))
                    (mkdir-p (string-append bin "/bin"))
                    (mkdir doc)
@@ -625,7 +625,7 @@
                     (lambda (port)
                       (display (string-append bin "/bin/glib-compile-schemas")
                                port))))
-                #:modules '((guix build utils))
+                #:modules '((Manifolding-OS build utils))
                 #:inputs `(("pcre2" ,pcre2))
                 #:outputs '("out" "bin" "doc" "debug")))
          ;; Create patched glib (security fix) - also depends on pcre2.
@@ -636,7 +636,7 @@
                                (doc (assoc-ref %outputs "doc"))
                                (debug (assoc-ref %outputs "debug"))
                                (pcre2 (assoc-ref %build-inputs "pcre2")))
-                           (use-modules (guix build utils))
+                           (use-modules (Manifolding-OS build utils))
                            (mkdir-p (string-append out "/lib"))
                            (mkdir-p (string-append bin "/bin"))
                            (mkdir doc)
@@ -662,33 +662,33 @@
                               (display (string-append bin
                                         "/bin/glib-compile-schemas")
                                        port))))
-                        #:modules '((guix build utils))
+                        #:modules '((Manifolding-OS build utils))
                         #:inputs `(("pcre2" ,pcre2))
                         #:outputs '("out" "bin" "doc" "debug")))
          ;; gtk+ needs only glib:out.
          (gtk+ (build-expression->derivation
                 %store "gtk+"
                 `(let ((glib (assoc-ref %build-inputs "glib")))
-                   (use-modules (guix build utils))
+                   (use-modules (Manifolding-OS build utils))
                    (mkdir-p (string-append %output "/lib"))
                    (call-with-output-file
                     (string-append %output "/lib/libgtk-3.txt")
                     (lambda (port)
                       (display (string-append glib "/lib/libglib-2.0.txt")
                                port))))
-                #:modules '((guix build utils))
+                #:modules '((Manifolding-OS build utils))
                 #:inputs `(("glib" ,glib "out"))))
          ;; Patched pcre2 (for example security fix).
          (pcre2-patched (build-expression->derivation
                          %store "Pcre2"
                          `(let ((out (assoc-ref %outputs "out")))
-                            (use-modules (guix build utils))
+                            (use-modules (Manifolding-OS build utils))
                             (mkdir-p (string-append out "/lib"))
                             (call-with-output-file
                              (string-append out "/lib/libpcre2.txt")
                              (lambda (port)
                                (display "pcre2-patched" port))))
-                         #:modules '((guix build utils))))
+                         #:modules '((Manifolding-OS build utils))))
          ;; Define graft to fix pcre2 vulnerability (glib's dependency).
          (pcre2-graft (graft
                        (origin pcre2)

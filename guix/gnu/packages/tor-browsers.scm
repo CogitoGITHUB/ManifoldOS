@@ -39,7 +39,7 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages tor-browsers)
-  #:use-module ((guix licenses) #:prefix license:)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
   #:use-module (gnu packages assembly)
   #:use-module (gnu packages base)
   #:use-module (gnu packages bash)
@@ -77,17 +77,17 @@
   #:use-module (gnu packages xdisorg)
   #:use-module (gnu packages xorg)
   #:use-module (gnu packages)
-  #:use-module (guix build-system cargo)
-  #:use-module (guix build-system copy)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system mozilla)
-  #:use-module (guix download)
-  #:use-module (guix gexp)
-  #:use-module (guix git-download)
-  #:use-module (guix hg-download)
-  #:use-module (guix packages)
+  #:use-module (Manifolding-OS build-system cargo)
+  #:use-module (Manifolding-OS build-system copy)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system mozilla)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS hg-download)
+  #:use-module (Manifolding-OS packages)
   #:use-module (ice-9 regex)
-  #:use-module (guix utils))
+  #:use-module (Manifolding-OS utils))
 
 ;; See browser/locales/l10n-changesets.json for the commit.
 (define firefox-locales
@@ -359,8 +359,8 @@ Browser.")
                   (srfi srfi-26)
                   (rnrs bytevectors)
                   (rnrs io ports)
-                  (guix elf)
-                  (guix build gremlin)
+                  (Manifolding-OS elf)
+                  (Manifolding-OS build gremlin)
                   ,@%default-gnu-imported-modules)
       #:phases
       #~(modify-phases %standard-phases
@@ -420,7 +420,7 @@ Browser.")
                 (("ac_add_options --disable-zucchini") ""))))
           (add-after 'patch-source-shebangs 'patch-cargo-checksums
             (lambda _
-              (use-modules (guix build cargo-utils))
+              (use-modules (Manifolding-OS build cargo-utils))
               (let ((null-hash "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"))
                 (for-each (lambda (file)
                             (format #t "patching checksums in ~a~%" file)

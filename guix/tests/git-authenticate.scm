@@ -18,15 +18,15 @@
 
 (define-module (test-git-authenticate)
   #:use-module (git)
-  #:use-module (guix git)
-  #:use-module (guix git-authenticate)
-  #:use-module ((guix diagnostics)
+  #:use-module (Manifolding-OS git)
+  #:use-module (Manifolding-OS git-authenticate)
+  #:use-module ((Manifolding-OS diagnostics)
                 #:select (formatted-message? formatted-message-arguments))
-  #:use-module (guix openpgp)
-  #:use-module ((guix tests) #:select (random-text))
-  #:use-module (guix tests git)
-  #:use-module (guix tests gnupg)
-  #:use-module (guix build utils)
+  #:use-module (Manifolding-OS openpgp)
+  #:use-module ((Manifolding-OS tests) #:select (random-text))
+  #:use-module (Manifolding-OS tests git)
+  #:use-module (Manifolding-OS tests gnupg)
+  #:use-module (Manifolding-OS build utils)
   #:use-module (srfi srfi-1)
   #:use-module (srfi srfi-34)
   #:use-module (srfi srfi-35)
@@ -34,7 +34,7 @@
   #:use-module (rnrs bytevectors)
   #:use-module (rnrs io ports))
 
-;; Test the (guix git-authenticate) tools.
+;; Test the (Manifolding-OS git-authenticate) tools.
 
 (define (gpg+git-available?)
   (and (which (git-command))

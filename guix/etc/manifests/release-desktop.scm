@@ -18,11 +18,11 @@
 ;;; This file returns a manifest containing packages which are needed by the
 ;;; installer.
 
-(use-modules (guix packages)
+(use-modules (Manifolding-OS packages)
              (gnu packages)
              ((gnu services xorg) #:select (%default-xorg-modules))
-             (guix profiles)
-             (guix utils)
+             (Manifolding-OS profiles)
+             (Manifolding-OS utils)
              (srfi srfi-1))
 
 (define %desktop-packages

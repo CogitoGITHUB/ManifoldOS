@@ -24,14 +24,14 @@
   #:use-module (srfi srfi-1)
   #:use-module (srfi srfi-26)
   #:use-module (ice-9 match)
-  #:use-module ((guix licenses) #:select (bsd-2))
-  #:use-module (guix packages)
-  #:use-module (guix gexp)
-  #:use-module (guix download)
-  #:use-module (guix utils)
+  #:use-module ((Manifolding-OS licenses) #:select (bsd-2))
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS utils)
   #:use-module (gnu packages)
   #:use-module (gnu packages perl)
-  #:use-module (guix build-system gnu))
+  #:use-module (Manifolding-OS build-system gnu))
 
 (define-public jemalloc
   (package

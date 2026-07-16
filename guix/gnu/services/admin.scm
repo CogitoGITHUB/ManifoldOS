@@ -37,12 +37,12 @@
   #:use-module (gnu services shepherd)
   #:use-module (gnu system accounts)
   #:use-module ((gnu system shadow) #:select (account-service-type))
-  #:use-module ((guix store) #:select (%store-prefix))
-  #:use-module (guix deprecation)
-  #:use-module (guix gexp)
-  #:use-module (guix modules)
-  #:use-module (guix packages)
-  #:use-module (guix records)
+  #:use-module ((Manifolding-OS store) #:select (%store-prefix))
+  #:use-module (Manifolding-OS deprecation)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS modules)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS records)
   #:use-module (srfi srfi-1)
   #:use-module (ice-9 match)
   #:use-module (ice-9 vlist)
@@ -223,9 +223,9 @@ log-rotation} to list files subject to log rotation.")
 
 (define (log-cleanup-program directory expiry)
   (program-file "delete-old-logs"
-                (with-imported-modules '((guix build utils))
+                (with-imported-modules '((Manifolding-OS build utils))
                   #~(begin
-                      (use-modules (guix build utils))
+                      (use-modules (Manifolding-OS build utils))
 
                       (let* ((now  (car (gettimeofday)))
                              (logs (find-files #$directory
@@ -383,7 +383,7 @@ terms of CPU and input/output."))
 
 (define %package-database-file
   ;; System-wide package database used by 'guix locate'.
-  ;; See 'system-database-file' in (guix scripts locate).
+  ;; See 'system-database-file' in (Manifolding-OS scripts locate).
   "/var/cache/guix/locate/db.sqlite")
 
 (define %package-database-accounts
@@ -401,7 +401,7 @@ terms of CPU and input/output."))
   ;; Create the package database directory at activation time.  Make it
   ;; writable by 'guix-locate' and world-readable.
   #~(begin
-      (use-modules (guix build utils))
+      (use-modules (Manifolding-OS build utils))
       (let ((directory #$(dirname %package-database-file))
             (owner (getpwnam "guix-locate")))
         (mkdir-p/perms directory owner #o755))))
@@ -503,10 +503,10 @@ which lets you search for packages that provide a given file.")
         #~(list #$config-file)))
 
   (define code
-    (with-imported-modules (source-module-closure '((guix build utils)
+    (with-imported-modules (source-module-closure '((Manifolding-OS build utils)
                                                     (gnu services herd)))
       #~(begin
-          (use-modules (guix build utils)
+          (use-modules (Manifolding-OS build utils)
                        (gnu services herd)
                        (srfi srfi-34))
 
@@ -608,7 +608,7 @@ are booted from a system image flashed onto a larger medium.")
        (requirement '(user-processes))
        (one-shot? #t)
        (respawn? #f)
-       (modules '((guix build utils)
+       (modules '((Manifolding-OS build utils)
                   (gnu build file-systems)
                   (gnu system file-systems)
                   (ice-9 control)
@@ -617,11 +617,11 @@ are booted from a system image flashed onto a larger medium.")
                   (ice-9 rdelim)
                   (srfi srfi-34)))
        (start (with-imported-modules (source-module-closure
-                                      '((guix build utils)
+                                      '((Manifolding-OS build utils)
                                         (gnu build file-systems)
                                         (gnu system file-systems)))
                 #~(lambda _
-                    (use-modules (guix build utils)
+                    (use-modules (Manifolding-OS build utils)
                                  (gnu build file-systems)
                                  (gnu system file-systems)
                                  (ice-9 control)

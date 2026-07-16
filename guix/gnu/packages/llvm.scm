@@ -50,19 +50,19 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages llvm)
-  #:use-module (guix packages)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix download)
-  #:use-module (guix gexp)
-  #:use-module (guix git-download)
-  #:use-module (guix memoization)
-  #:use-module (guix search-paths)
-  #:use-module (guix utils)
-  #:use-module (guix build-system cmake)
-  #:use-module (guix build-system emacs)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system pyproject)
-  #:use-module (guix build-system trivial)
+  #:use-module (Manifolding-OS packages)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS memoization)
+  #:use-module (Manifolding-OS search-paths)
+  #:use-module (Manifolding-OS utils)
+  #:use-module (Manifolding-OS build-system cmake)
+  #:use-module (Manifolding-OS build-system emacs)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system pyproject)
+  #:use-module (Manifolding-OS build-system trivial)
   #:use-module (gnu packages)
   #:use-module (gnu packages autotools)
   #:use-module (gnu packages base)
@@ -209,7 +209,7 @@ as \"x86_64-linux\"."
        #:modules ((srfi srfi-1)
                   (ice-9 match)
                   ,@%cmake-build-system-modules)
-       #:phases (modify-phases (@ (guix build cmake-build-system) %standard-phases)
+       #:phases (modify-phases (@ (Manifolding-OS build cmake-build-system) %standard-phases)
                   ,@(if hash
                         '()
                         '((add-after 'unpack 'change-directory
@@ -549,11 +549,11 @@ code analysis tools.")
     (source #f)
     (build-system trivial-build-system)
     (arguments
-     '(#:modules ((guix build union))
+     '(#:modules ((Manifolding-OS build union))
        #:builder (begin
                    (use-modules (ice-9 match)
                                 (srfi srfi-26)
-                                (guix build union))
+                                (Manifolding-OS build union))
 
                    (let ((out (assoc-ref %outputs "out")))
 
@@ -578,7 +578,7 @@ code analysis tools.")
     (native-search-paths
      (append (package-native-search-paths clang)
              (list (search-path-specification     ;copied from glibc
-                    (variable "GUIX_LOCPATH")
+                    (variable "MANIFOLDING_OS_LOCPATH")
                     (files '("lib/locale"))))))
     (search-paths (package-search-paths clang))
 
@@ -696,9 +696,9 @@ output), and Binutils.")
            "-DLLVM_PARALLEL_LINK_JOBS=1") ;cater to smaller build machines
         ;; Don't use '-g' during the build, to save space.
         #:build-type "Release"
-        #:modules '((guix build cmake-build-system)
-                    ((guix build gnu-build-system) #:prefix gnu:)
-                    (guix build utils))
+        #:modules '((Manifolding-OS build cmake-build-system)
+                    ((Manifolding-OS build gnu-build-system) #:prefix gnu:)
+                    (Manifolding-OS build utils))
         #:phases
         #~(modify-phases %standard-phases
             (add-after 'unpack 'change-directory
@@ -746,9 +746,9 @@ of programming tools as well as libraries with equivalent functionality.")
     (source (llvm-monorepo version))
     (arguments
      (list
-      #:modules '((guix build cmake-build-system)
-                  ((guix build gnu-build-system) #:prefix gnu:)
-                  (guix build utils))
+      #:modules '((Manifolding-OS build cmake-build-system)
+                  ((Manifolding-OS build gnu-build-system) #:prefix gnu:)
+                  (Manifolding-OS build utils))
       #:tests? (not (or (%current-target-system)
                         (target-x86-32?)))
       #:configure-flags
@@ -851,9 +851,9 @@ of programming tools as well as libraries with equivalent functionality.")
       #~(list "-DLIBOMP_USE_HWLOC=ON"
               "-DOPENMP_TEST_C_COMPILER=clang"
               "-DOPENMP_TEST_CXX_COMPILER=clang++")
-      #:modules '((guix build cmake-build-system)
-                  ((guix build gnu-build-system) #:prefix gnu:)
-                  (guix build utils))
+      #:modules '((Manifolding-OS build cmake-build-system)
+                  ((Manifolding-OS build gnu-build-system) #:prefix gnu:)
+                  (Manifolding-OS build utils))
       #:phases
       #~(modify-phases %standard-phases
           (add-after 'unpack 'chdir-to-source-and-install-license
@@ -1091,8 +1091,8 @@ Library.")
     (source (llvm-monorepo version))
     (arguments
      (substitute-keyword-arguments arguments
-       ((#:modules modules '((guix build cmake-build-system)
-                             (guix build utils)))
+       ((#:modules modules '((Manifolding-OS build cmake-build-system)
+                             (Manifolding-OS build utils)))
         (if (%current-target-system)
             `((ice-9 regex)
               (srfi srfi-1)
@@ -1485,7 +1485,7 @@ This AMD fork includes AMD-specific additions."))))
               (lambda* (#:rest args)
                 (setenv "HOME" "/tmp")
                 (apply (assoc-ref
-                        (@ (guix build gnu-build-system) %standard-phases)
+                        (@ (Manifolding-OS build gnu-build-system) %standard-phases)
                         'check)
                        #:test-target "check-clang" args)))
             (replace 'add-tools-extra
@@ -1907,9 +1907,9 @@ which highly leverage existing libraries in the larger LLVM project.")
               ;; as RUNPATH and don't attempt to patch it.
               ;; See also: https://gitlab.kitware.com/cmake/cmake/-/issues/22963
               "-DCMAKE_BUILD_WITH_INSTALL_RPATH=TRUE")
-      #:modules '((guix build cmake-build-system)
-                  ((guix build gnu-build-system) #:prefix gnu:)
-                  (guix build utils))
+      #:modules '((Manifolding-OS build cmake-build-system)
+                  ((Manifolding-OS build gnu-build-system) #:prefix gnu:)
+                  (Manifolding-OS build utils))
       #:phases
       #~(modify-phases %standard-phases
           (add-after 'unpack 'enter-subdirectory
@@ -2232,12 +2232,12 @@ the host.")
      (substitute-keyword-arguments arguments
        ((#:modules modules)
         `(,@modules
-          (guix build utils)))
+          (Manifolding-OS build utils)))
        ((#:builder _)
         #~(begin
             (use-modules (ice-9 match)
-                         (guix build union)
-                         (guix build utils))
+                         (Manifolding-OS build union)
+                         (Manifolding-OS build utils))
 
             (define (unionize output inputs)
               (union-build output inputs
@@ -2417,8 +2417,8 @@ using @code{clang-rename}.")))
       (name "llvm-for-mesa")
       (arguments
        (substitute-keyword-arguments arguments
-         ((#:modules modules '((guix build cmake-build-system)
-                               (guix build utils)))
+         ((#:modules modules '((Manifolding-OS build cmake-build-system)
+                               (Manifolding-OS build utils)))
           `((ice-9 regex)
             (srfi srfi-1)
             (srfi srfi-26)

@@ -29,16 +29,16 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages gimp)
-  #:use-module (guix packages)
-  #:use-module (guix deprecation)
-  #:use-module (guix download)
-  #:use-module (guix gexp)
-  #:use-module (guix git-download)
-  #:use-module (guix utils)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system glib-or-gtk)
-  #:use-module (guix build-system meson)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS deprecation)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS utils)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system glib-or-gtk)
+  #:use-module (Manifolding-OS build-system meson)
   #:use-module (gnu packages)
   #:use-module (gnu packages algebra)
   #:use-module (gnu packages autotools)
@@ -284,8 +284,8 @@ buffers.")
     (arguments
      (list #:modules `((ice-9 popen)
                        (ice-9 rdelim)
-                       (guix build meson-build-system)
-                       (guix build utils))
+                       (Manifolding-OS build meson-build-system)
+                       (Manifolding-OS build utils))
            ;; Test tries to connect to the internet and fails.
            #:test-options #~(list "--no-suite=desktop")
            #:phases
@@ -314,8 +314,8 @@ buffers.")
                         `("GI_TYPELIB_PATH" prefix
                           (,(getenv "GI_TYPELIB_PATH")
                            ,(string-append #$output "/lib/girepository-1.0")))
-                        `("GUIX_PYTHONPATH" prefix
-                          (,(getenv "GUIX_PYTHONPATH")))
+                        `("MANIFOLDING_OS_PYTHONPATH" prefix
+                          (,(getenv "MANIFOLDING_OS_PYTHONPATH")))
                         `("GDK_PIXBUF_MODULE_FILE" =
                           (,(getenv "GDK_PIXBUF_MODULE_FILE")))
                         `("XDG_DATA_DIRS" prefix

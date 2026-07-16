@@ -16,7 +16,7 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages hugs)
-  #:use-module (guix deprecation)
+  #:use-module (Manifolding-OS deprecation)
   #:use-module (gnu packages haskell))
 
 ;; XXX: Deprecated on <2026-05-17>.

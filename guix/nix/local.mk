@@ -19,7 +19,7 @@
 # along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 #
-# Integration of the `guix-daemon' code taken from upstream Nix.
+# Integration of the `Manifolding-OS-daemon' code taken from upstream Nix.
 #
 
 BUILT_SOURCES += %D%/libstore/schema.sql.hh
@@ -85,47 +85,47 @@ libstore_a_CPPFLAGS =				\
   -I$(top_srcdir)/%D%/libstore			\
   -I$(top_builddir)/%D%/libstore		\
   -DNIX_STORE_DIR=\"$(storedir)\"		\
-  -DNIX_STATE_DIR=\"$(localstatedir)/guix\"	\
-  -DNIX_LOG_DIR=\"$(localstatedir)/log/guix\"	\
-  -DGUIX_CONFIGURATION_DIRECTORY=\"$(sysconfdir)/guix\"		\
+  -DNIX_STATE_DIR=\"$(localstatedir)/Manifolding-OS\"	\
+  -DNIX_LOG_DIR=\"$(localstatedir)/log/Manifolding-OS\"	\
+  -DGUIX_CONFIGURATION_DIRECTORY=\"$(sysconfdir)/Manifolding-OS\"		\
   -DNIX_BIN_DIR=\"$(bindir)\"			\
   -DDEFAULT_CHROOT_DIRS="\"\""
 
 libstore_a_CXXFLAGS = $(AM_CXXFLAGS)		\
   $(SQLITE3_CFLAGS)
 
-bin_PROGRAMS = guix-daemon
+bin_PROGRAMS = Manifolding-OS-daemon
 
-guix_daemon_SOURCES =				\
+Manifolding_OS_daemon_SOURCES =				\
   %D%/nix-daemon/nix-daemon.cc			\
-  %D%/nix-daemon/guix-daemon.cc
+  %D%/nix-daemon/Manifolding-OS-daemon.cc
 
-guix_daemon_CPPFLAGS =				\
+Manifolding_OS_daemon_CPPFLAGS =				\
   -DLOCALEDIR=\"$(localedir)\"			\
   $(libutil_a_CPPFLAGS)				\
   -I$(top_srcdir)/%D%/libstore
 
-guix_daemon_LDFLAGS = 				\
+Manifolding_OS_daemon_LDFLAGS = 				\
   $(LIBGCRYPT_LDFLAGS)
 
-guix_daemon_LDADD =				\
+Manifolding_OS_daemon_LDADD =				\
   libstore.a libutil.a -lz		\
   $(SQLITE3_LIBS) $(LIBGCRYPT_LIBS)
 
-guix_daemon_headers =				\
+Manifolding_OS_daemon_headers =				\
   %D%/nix-daemon/nix-daemon.hh
 
 if HAVE_LIBBZ2
 
-guix_daemon_LDADD += -lbz2
+Manifolding_OS_daemon_LDADD += -lbz2
 
 endif HAVE_LIBBZ2
 
 noinst_HEADERS =						\
   $(libutil_headers) $(libstore_headers)	\
-  $(guix_daemon_headers)
+  $(Manifolding_OS_daemon_headers)
 
-%D%/libstore/schema.sql.hh: guix/store/schema.sql
+%D%/libstore/schema.sql.hh: Manifolding-OS/store/schema.sql
 	$(AM_V_GEN)$(GUILE) --no-auto-compile -c		\
 	  "(use-modules (rnrs io ports))			\
 	   (call-with-output-file \"$@\"			\
@@ -138,10 +138,10 @@ noinst_HEADERS =						\
 systemdservicedir = $(libdir)/systemd/system
 nodist_systemdservice_DATA =			\
   etc/gnu-store.mount				\
-  etc/guix-daemon.service			\
-  etc/guix-publish.service			\
-  etc/guix-gc.service				\
-  etc/guix-gc.timer
+  etc/Manifolding-OS-daemon.service			\
+  etc/Manifolding-OS-publish.service			\
+  etc/Manifolding-OS-gc.service				\
+  etc/Manifolding-OS-gc.timer
 
 etc/%.mount: etc/%.mount.in	\
 			 $(top_builddir)/config.status
@@ -150,7 +150,7 @@ etc/%.mount: etc/%.mount.in	\
 	       "$<" > "$@.tmp";		\
 	mv "$@.tmp" "$@"
 
-etc/guix-%.service: etc/guix-%.service.in	\
+etc/Manifolding-OS-%.service: etc/Manifolding-OS-%.service.in	\
 			 $(top_builddir)/config.status
 	$(AM_V_GEN)$(MKDIR_P) "`dirname $@`";	\
 	$(SED) -e 's|@''localstatedir''@|$(localstatedir)|g' \
@@ -159,16 +159,16 @@ etc/guix-%.service: etc/guix-%.service.in	\
 	       < "$<" > "$@.tmp";		\
 	mv "$@.tmp" "$@"
 
-etc/guix-gc.timer: etc/guix-gc.timer.in	\
+etc/Manifolding-OS-gc.timer: etc/Manifolding-OS-gc.timer.in	\
 			 $(top_builddir)/config.status
 	$(AM_V_GEN)$(MKDIR_P) "`dirname $@`";	\
 	cp "$<" "$@"
 
 # The service script for sysvinit.
 sysvinitservicedir = $(sysconfdir)/init.d
-nodist_sysvinitservice_DATA = etc/init.d/guix-daemon
+nodist_sysvinitservice_DATA = etc/init.d/Manifolding-OS-daemon
 
-etc/init.d/guix-daemon: etc/init.d/guix-daemon.in	\
+etc/init.d/Manifolding-OS-daemon: etc/init.d/Manifolding-OS-daemon.in	\
 			 $(top_builddir)/config.status
 	$(AM_V_GEN)$(MKDIR_P) "`dirname $@`";	\
 	$(SED) -e 's|@''localstatedir''@|$(localstatedir)|' \
@@ -178,9 +178,9 @@ etc/init.d/guix-daemon: etc/init.d/guix-daemon.in	\
 
 # The service script for openrc.
 openrcservicedir = $(sysconfdir)/openrc
-nodist_openrcservice_DATA = etc/openrc/guix-daemon
+nodist_openrcservice_DATA = etc/openrc/Manifolding-OS-daemon
 
-etc/openrc/guix-daemon: etc/openrc/guix-daemon.in	\
+etc/openrc/Manifolding-OS-daemon: etc/openrc/Manifolding-OS-daemon.in	\
 			 $(top_builddir)/config.status
 	$(AM_V_GEN)$(MKDIR_P) "`dirname $@`";	\
 	$(SED) -e 's|@''localstatedir''@|$(localstatedir)|' <	\
@@ -189,9 +189,9 @@ etc/openrc/guix-daemon: etc/openrc/guix-daemon.in	\
 
 # The '.conf' jobs for Upstart.
 upstartjobdir = $(libdir)/upstart/system
-nodist_upstartjob_DATA = etc/guix-daemon.conf etc/guix-publish.conf
+nodist_upstartjob_DATA = etc/Manifolding-OS-daemon.conf etc/Manifolding-OS-publish.conf
 
-etc/guix-%.conf: etc/guix-%.conf.in	\
+etc/Manifolding-OS-%.conf: etc/Manifolding-OS-%.conf.in	\
 			 $(top_builddir)/config.status
 	$(AM_V_GEN)$(MKDIR_P) "`dirname $@`";	\
 	$(SED) -e 's|@''localstatedir''@|$(localstatedir)|' \
@@ -209,14 +209,14 @@ EXTRA_DIST +=					\
   %D%/AUTHORS					\
   %D%/COPYING					\
   etc/gnu-store.mount.in			\
-  etc/guix-daemon.service.in			\
-  etc/guix-daemon.conf.in			\
-  etc/guix-publish.service.in			\
-  etc/guix-publish.conf.in			\
-  etc/guix-gc.service.in			\
-  etc/guix-gc.timer.in				\
-  etc/init.d/guix-daemon.in			\
-  etc/openrc/guix-daemon.in
+  etc/Manifolding-OS-daemon.service.in			\
+  etc/Manifolding-OS-daemon.conf.in			\
+  etc/Manifolding-OS-publish.service.in			\
+  etc/Manifolding-OS-publish.conf.in			\
+  etc/Manifolding-OS-gc.service.in			\
+  etc/Manifolding-OS-gc.timer.in				\
+  etc/init.d/Manifolding-OS-daemon.in			\
+  etc/openrc/Manifolding-OS-daemon.in
 
 if CAN_RUN_TESTS
 
@@ -224,7 +224,7 @@ AM_TESTS_ENVIRONMENT +=				\
   top_builddir="$(abs_top_builddir)"
 
 TESTS +=					\
-  tests/guix-daemon.sh
+  tests/Manifolding-OS-daemon.sh
 
 endif CAN_RUN_TESTS
 

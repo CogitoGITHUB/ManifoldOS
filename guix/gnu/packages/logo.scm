@@ -19,10 +19,10 @@
 
 (define-module (gnu packages logo)
   #:use-module (gnu packages qt)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix git-download)
-  #:use-module (guix packages)
-  #:use-module (guix build-system qt))
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS build-system qt))
 
 (define-public qlogo
   (package

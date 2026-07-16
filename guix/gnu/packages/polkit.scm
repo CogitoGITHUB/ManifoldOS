@@ -30,17 +30,17 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages polkit)
-  #:use-module (guix download)
-  #:use-module (guix git-download)
-  #:use-module (guix gexp)
-  #:use-module (guix memoization)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix packages)
-  #:use-module (guix utils)
-  #:use-module (guix build utils)
-  #:use-module (guix build-system cmake)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system meson)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS memoization)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS utils)
+  #:use-module (Manifolding-OS build utils)
+  #:use-module (Manifolding-OS build-system cmake)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system meson)
   #:use-module (gnu packages)
   #:use-module (gnu packages cpp)
   #:use-module (gnu packages gettext)
@@ -111,7 +111,7 @@ able to request elevated privileges.")
               (sha256
                (base32
                 "1apz3bh7nbpmlp1cr00pb8z8wp0c7yb23ninb959jz3r38saxiwx"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                '(begin
                   ;; This is so that the default example rules files can be
@@ -138,8 +138,8 @@ able to request elevated privileges.")
     (build-system meson-build-system)
     (arguments
      (list
-      #:modules '((guix build meson-build-system)
-                  (guix build utils)
+      #:modules '((Manifolding-OS build meson-build-system)
+                  (Manifolding-OS build utils)
                   (ice-9 match))
       #:configure-flags
       #~(list "--sysconfdir=/etc"

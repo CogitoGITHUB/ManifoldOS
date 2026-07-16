@@ -27,24 +27,24 @@
   #:use-module (gnu system file-systems)
   #:use-module (gnu system uuid)
   #:use-module ((gnu services) #:select (sexp->system-provenance))
-  #:use-module (guix diagnostics)
-  #:use-module (guix memoization)
-  #:use-module (guix gexp)
-  #:use-module (guix i18n)
-  #:use-module (guix modules)
-  #:use-module (guix monads)
-  #:use-module (guix pki)
-  #:use-module (guix records)
-  #:use-module (guix remote)
-  #:use-module (guix scripts system reconfigure)
-  #:use-module (guix ssh)
-  #:use-module (guix store)
-  #:use-module (guix utils)
-  #:use-module ((guix self) #:select (make-config.scm))
-  #:use-module ((guix inferior)
+  #:use-module (Manifolding-OS diagnostics)
+  #:use-module (Manifolding-OS memoization)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS i18n)
+  #:use-module (Manifolding-OS modules)
+  #:use-module (Manifolding-OS monads)
+  #:use-module (Manifolding-OS pki)
+  #:use-module (Manifolding-OS records)
+  #:use-module (Manifolding-OS remote)
+  #:use-module (Manifolding-OS scripts system reconfigure)
+  #:use-module (Manifolding-OS ssh)
+  #:use-module (Manifolding-OS store)
+  #:use-module (Manifolding-OS utils)
+  #:use-module ((Manifolding-OS self) #:select (make-config.scm))
+  #:use-module ((Manifolding-OS inferior)
                 #:select (inferior-exception?
                           inferior-exception-arguments))
-  #:use-module ((guix platform) #:select (systems))
+  #:use-module ((Manifolding-OS platform) #:select (systems))
   #:use-module (gcrypt pk-crypto)
   #:use-module (ice-9 format)
   #:use-module (ice-9 match)
@@ -388,7 +388,7 @@ by MACHINE."
 ;;;
 
 (define not-config?
-  ;; Select (guix …) and (gnu …) modules, except (guix config).
+  ;; Select (Manifolding-OS …) and (gnu …) modules, except (Manifolding-OS config).
   (match-lambda
     (('guix 'config) #f)
     (('guix _ ...) #t)
@@ -403,13 +403,13 @@ of MACHINE's system profile, ordered from most recent to oldest."
 
   (define remote-exp
     (with-extensions (list guile-gcrypt)
-      (with-imported-modules `(((guix config) => ,(make-config.scm))
+      (with-imported-modules `(((Manifolding-OS config) => ,(make-config.scm))
                                ,@(source-module-closure
-                                  '((guix profiles))
+                                  '((Manifolding-OS profiles))
                                   #:select? not-config?))
         #~(begin
-            (use-modules (guix config)
-                         (guix profiles)
+            (use-modules (Manifolding-OS config)
+                         (Manifolding-OS profiles)
                          (ice-9 textual-ports))
 
             (define %system-profile
@@ -556,11 +556,11 @@ failed to install bootloader on '~a':~%~{~s ~}~%")
 an environment type of 'managed-host."
   (define remote-exp
     (with-extensions (list guile-gcrypt)
-      (with-imported-modules (source-module-closure '((guix config)
-                                                      (guix profiles)))
+      (with-imported-modules (source-module-closure '((Manifolding-OS config)
+                                                      (Manifolding-OS profiles)))
         #~(begin
-            (use-modules (guix config)
-                         (guix profiles))
+            (use-modules (Manifolding-OS config)
+                         (Manifolding-OS profiles))
 
             (define %system-profile
               (string-append %state-directory "/profiles/system"))

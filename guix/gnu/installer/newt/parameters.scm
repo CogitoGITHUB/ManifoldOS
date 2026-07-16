@@ -20,8 +20,8 @@
   #:use-module (gnu installer proxy)
   #:use-module (gnu installer steps)
   #:use-module (gnu installer newt page)
-  #:use-module (guix build syscalls)
-  #:use-module (guix i18n)
+  #:use-module (Manifolding-OS build syscalls)
+  #:use-module (Manifolding-OS i18n)
   #:use-module (ice-9 match)
   #:export (run-parameters-page))
 

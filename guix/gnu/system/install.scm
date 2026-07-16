@@ -25,18 +25,18 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu system install)
-  #:use-module ((guix licenses) #:prefix license:)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
   #:use-module (gnu)
   #:use-module (gnu system)
   #:use-module (gnu system privilege)
-  #:use-module (guix build-system trivial)
+  #:use-module (Manifolding-OS build-system trivial)
   #:use-module (gnu bootloader)
   #:use-module (gnu bootloader u-boot)
-  #:use-module (guix gexp)
-  #:use-module (guix store)
-  #:use-module (guix modules)
-  #:use-module ((guix packages) #:select (package-version supported-package?))
-  #:use-module (guix platform)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS store)
+  #:use-module (Manifolding-OS modules)
+  #:use-module ((Manifolding-OS packages) #:select (package-version supported-package?))
+  #:use-module (Manifolding-OS platform)
   #:use-module (gnu installer)
   #:use-module (gnu system locale)
   #:use-module (gnu services avahi)
@@ -168,7 +168,7 @@ manual."
                     (fork+exec-command
                      (list #$(log-to-info tty "documentation") locale)
                      #:environment-variables
-                     `("GUIX_LOCPATH=/run/current-system/locale"
+                     `("MANIFOLDING_OS_LOCPATH=/run/current-system/locale"
                        "TERM=linux"))))
          (stop #~(make-kill-destructor)))))
 
@@ -200,10 +200,10 @@ manual."
    (lambda _
      (define (import-module? module)
        ;; Since we don't use deduplication support in 'populate-store', don't
-       ;; import (guix store deduplication) and its dependencies, which
+       ;; import (Manifolding-OS store deduplication) and its dependencies, which
        ;; includes Guile-Gcrypt.
        (and (guix-module-name? module)
-            (not (equal? module '(guix store deduplication)))))
+            (not (equal? module '(Manifolding-OS store deduplication)))))
 
      (shepherd-service
       (requirement '(root-file-system user-processes))
@@ -250,7 +250,7 @@ the user's target storage device rather than on the RAM disk."
 /etc."
   (define directory
     (computed-file "configuration-templates"
-                   (with-imported-modules '((guix build utils))
+                   (with-imported-modules '((Manifolding-OS build utils))
                      #~(begin
                          (mkdir #$output)
                          (for-each (lambda (file target)
@@ -358,7 +358,7 @@ graphical installer on TTY1, it's opened by default. In case you cannot use a
 display, you can carry out the installation process in this shell \"manually\"
 or by starting the installer, using `guix-system-installer` command.
 
-\x1b[2mYou can access the Guix documentation using `info \"(guix)\"`.\x1b[0m
+\x1b[2mYou can access the Guix documentation using `info \"(Manifolding-OS)\"`.\x1b[0m
 "))
          (show-motd (program-file "show-motd"
                                   #~(begin
@@ -418,9 +418,9 @@ or by starting the installer, using `guix-system-installer` command.
     (source #f)
     (build-system trivial-build-system)
     (arguments
-     (list #:builder (with-imported-modules '((guix build utils))
+     (list #:builder (with-imported-modules '((Manifolding-OS build utils))
                        #~(begin
-                           (use-modules (guix build utils))
+                           (use-modules (Manifolding-OS build utils))
 
                            (mkdir-p (string-append #$output "/bin"))
 
@@ -504,7 +504,7 @@ or by starting the installer, using `guix-system-installer` command.
 
                     ;; Install and run the current Guix rather than an older
                     ;; snapshot.
-                    (guix guix-for-system)))
+                    (Manifolding-OS guix-for-system)))
 
          ;; Start udev so that useful device nodes are available.
          ;; Use device-mapper rules for cryptsetup & co; enable the CRDA for

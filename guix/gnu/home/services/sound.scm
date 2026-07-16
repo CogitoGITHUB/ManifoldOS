@@ -24,8 +24,8 @@
   #:use-module (gnu home services xdg)
   #:use-module (gnu packages linux)
   #:use-module (gnu services configuration)
-  #:use-module (guix records)
-  #:use-module (guix gexp)
+  #:use-module (Manifolding-OS records)
+  #:use-module (Manifolding-OS gexp)
   #:use-module (srfi srfi-1)
   #:use-module (ice-9 match)
   #:export (home-pulseaudio-rtp-sink-service-type

@@ -19,21 +19,21 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (test-gexp)
-  #:use-module (guix store)
-  #:use-module (guix monads)
-  #:use-module (guix gexp)
-  #:use-module ((guix grafts) #:select (%graft-with-utf8-locale?))
-  #:use-module (guix derivations)
-  #:use-module (guix packages)
-  #:use-module (guix build-system trivial)
-  #:use-module (guix tests)
-  #:use-module ((guix build utils) #:select (with-directory-excursion))
-  #:use-module ((guix utils) #:select (call-with-temporary-directory))
-  #:use-module ((guix ui) #:select (load*))
+  #:use-module (Manifolding-OS store)
+  #:use-module (Manifolding-OS monads)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module ((Manifolding-OS grafts) #:select (%graft-with-utf8-locale?))
+  #:use-module (Manifolding-OS derivations)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS build-system trivial)
+  #:use-module (Manifolding-OS tests)
+  #:use-module ((Manifolding-OS build utils) #:select (with-directory-excursion))
+  #:use-module ((Manifolding-OS utils) #:select (call-with-temporary-directory))
+  #:use-module ((Manifolding-OS ui) #:select (load*))
   #:use-module (gnu packages)
   #:use-module (gnu packages base)
   #:use-module (gnu packages bootstrap)
-  #:use-module ((guix diagnostics) #:select (error-location
+  #:use-module ((Manifolding-OS diagnostics) #:select (error-location
                                              error-location?
                                              guix-warning-port
                                              source-properties->location))
@@ -46,7 +46,7 @@
   #:use-module (ice-9 popen)
   #:use-module (ice-9 ftw))
 
-;; Test the (guix gexp) module.
+;; Test the (Manifolding-OS gexp) module.
 
 (define %store
   (open-connection-for-tests))
@@ -66,11 +66,11 @@
 
 ;; For white-box testing.
 (define (gexp-inputs x)
-  ((@@ (guix gexp) gexp-inputs) x))
+  ((@@ (Manifolding-OS gexp) gexp-inputs) x))
 (define (gexp-outputs x)
-  ((@@ (guix gexp) gexp-outputs) x))
+  ((@@ (Manifolding-OS gexp) gexp-outputs) x))
 (define (gexp->sexp . x)
-  (apply (@@ (guix gexp) gexp->sexp) x))
+  (apply (@@ (Manifolding-OS gexp) gexp->sexp) x))
 
 (define* (gexp->sexp* exp #:optional target)
   (run-with-store %store (gexp->sexp exp (%current-system) target)
@@ -86,10 +86,10 @@
                  (build-system trivial-build-system)
                  (arguments
                   `(#:guile ,%bootstrap-guile
-                    #:modules ((guix build utils))
+                    #:modules ((Manifolding-OS build utils))
                     #:builder
                     (begin
-                      (use-modules (guix build utils))
+                      (use-modules (Manifolding-OS build utils))
                       (let* ((out (string-append (assoc-ref %outputs "out")
                                                  "/share/guile/site/"
                                                  (effective-version))))
@@ -207,7 +207,7 @@
                  (gexp->sexp* exp)))))
 
 (test-assert "one local file"
-  (let* ((file  (search-path %load-path "guix.scm"))
+  (let* ((file  (search-path %load-path "Manifolding-OS.scm"))
          (local (local-file file))
          (exp   (gexp (display (ungexp local))))
          (intd  (add-to-store %store (basename file) #f
@@ -220,7 +220,7 @@
          (equal? `(display ,intd) (gexp->sexp* exp)))))
 
 (test-assert "one local file, symlink"
-  (let ((file (search-path %load-path "guix.scm"))
+  (let ((file (search-path %load-path "Manifolding-OS.scm"))
         (link (tmpnam)))
     (dynamic-wind
       (const #t)
@@ -240,17 +240,17 @@
         (false-if-exception (delete-file link))))))
 
 (test-equal "local-file, relative file name"
-  (canonicalize-path (search-path %load-path "guix/base32.scm"))
+  (canonicalize-path (search-path %load-path "Manifolding-OS/base32.scm"))
   (let ((directory (dirname (search-path %load-path
-                                         "guix/build-system/gnu.scm"))))
+                                         "Manifolding-OS/build-system/gnu.scm"))))
     (with-directory-excursion directory
-        (let ((file (local-file "../guix/base32.scm")))
+        (let ((file (local-file "../Manifolding-OS/base32.scm")))
           (local-file-absolute-file-name file)))))
 
 (test-equal "local-file, non-literal relative file name"
-  (canonicalize-path (search-path %load-path "guix/base32.scm"))
+  (canonicalize-path (search-path %load-path "Manifolding-OS/base32.scm"))
   (let ((directory (dirname (search-path %load-path
-                                         "guix/build-system/gnu.scm"))))
+                                         "Manifolding-OS/build-system/gnu.scm"))))
     (with-directory-excursion directory
       (let ((file (local-file (string-copy "../base32.scm"))))
         (local-file-absolute-file-name file)))))
@@ -262,11 +262,11 @@
     (local-file-absolute-file-name file)))
 
 (test-assert "local-file, relative file name, within gexp"
-  (let* ((file     (search-path %load-path "guix/base32.scm"))
+  (let* ((file     (search-path %load-path "Manifolding-OS/base32.scm"))
          (interned (add-to-store %store "base32.scm" #f "sha256" file)))
     (equal? `(the file is ,interned)
             (gexp->sexp*
-             #~(the file is #$(local-file "../guix/base32.scm"))))))
+             #~(the file is #$(local-file "../Manifolding-OS/base32.scm"))))))
 
 (test-assert "local-file, relative file name, within gexp, compiled"
   ;; In Guile 3.0.8, everything read by the #~ and #$ read hash extensions
@@ -283,12 +283,12 @@
 
     (let* ((interned (add-to-store %store "t.scm" #f "sha256" file)))
       (equal? `(this file is ,interned)
-              (gexp->sexp* (load* file '((guix gexp))))))))
+              (gexp->sexp* (load* file '((Manifolding-OS gexp))))))))
 
 (test-assertm "local-file, #:select?"
   (mlet* %store-monad ((select? -> (lambda (file stat)
                                      (member (basename file)
-                                             '("guix.scm" "tests"
+                                             '("Manifolding-OS.scm" "tests"
                                                "gexp.scm"))))
                        (file -> (local-file ".." "directory"
                                             #:recursive? #t
@@ -296,7 +296,7 @@
                        (dir (lower-object file)))
     (return (and (store-path? dir)
                  (equal? (scandir dir)
-                         '("." ".." "guix.scm" "tests"))
+                         '("." ".." "Manifolding-OS.scm" "tests"))
                  (equal? (scandir (string-append dir "/tests"))
                          '("." ".." "gexp.scm"))))))
 
@@ -330,7 +330,7 @@
        (call-with-output-file "test-local-file.scm"
          (lambda (port) (display "\
 (define-module (test-local-file)
-  #:use-module (guix gexp))
+  #:use-module (Manifolding-OS gexp))
 (define file (local-file \"content\" \"test-file\"))
 (local-file-absolute-file-name file)" port)))
        (mkdir "dir")
@@ -570,7 +570,7 @@
           (match (gexp-inputs exp)
             ((input)
              (and (eq? (struct-vtable (gexp-input-thing input))
-                       (@@ (guix gexp) <system-binding>))
+                       (@@ (Manifolding-OS gexp) <system-binding>))
                   (string=? (gexp-input-output input) "out")
                   '(system-binding)))
             (x x))
@@ -612,7 +612,7 @@
           (match (gexp-inputs exp)
             ((input)
              (and (eq? (struct-vtable (gexp-input-thing input))
-                       (@@ (guix gexp) <system-binding>))
+                       (@@ (Manifolding-OS gexp) <system-binding>))
                   (string=? (gexp-input-output input) "out")
                   (gexp-input-native? input)
                   '(system-binding)))
@@ -886,7 +886,7 @@
       (return (string=? system (derivation-system drv))))))
 
 (test-assertm "gexp->derivation, local-file"
-  (mlet* %store-monad ((file ->  (search-path %load-path "guix.scm"))
+  (mlet* %store-monad ((file ->  (search-path %load-path "Manifolding-OS.scm"))
                        (intd     (interned-file file #:recursive? #f))
                        (local -> (local-file file))
                        (exp ->   (gexp (begin
@@ -960,19 +960,19 @@
                            (lambda (port)
                              (display "This is the second one." port))))))
         (build-drv
-         (with-imported-modules '((guix build store-copy)
-                                  (guix build syscalls)
-                                  (guix progress)
-                                  (guix records)
-                                  (guix sets)
-                                  (guix build utils))
+         (with-imported-modules '((Manifolding-OS build store-copy)
+                                  (Manifolding-OS build syscalls)
+                                  (Manifolding-OS progress)
+                                  (Manifolding-OS records)
+                                  (Manifolding-OS sets)
+                                  (Manifolding-OS build utils))
            #~(begin
-               (use-modules (guix build store-copy)
-                            (guix build utils)
+               (use-modules (Manifolding-OS build store-copy)
+                            (Manifolding-OS build utils)
                             (srfi srfi-1))
 
                (define (canonical-file? file)
-                 ;; Copied from (guix tests).
+                 ;; Copied from (Manifolding-OS tests).
                  (let ((st (lstat file)))
                    (or (not (string-prefix? (%store-directory) file))
                        (eq? 'symlink (stat:type st))
@@ -1007,9 +1007,9 @@
   (mlet* %store-monad
       ((files -> `(("x"     . ,(search-path %load-path "ice-9/q.scm"))
                    ("a/b/c" . ,(search-path %load-path
-                                            "guix/derivations.scm"))
-                   ("p/q"   . ,(search-path %load-path "guix.scm"))
-                   ("p/z"   . ,(search-path %load-path "guix/store.scm"))))
+                                            "Manifolding-OS/derivations.scm"))
+                   ("p/q"   . ,(search-path %load-path "Manifolding-OS.scm"))
+                   ("p/z"   . ,(search-path %load-path "Manifolding-OS/store.scm"))))
        (dir (imported-files files)))
     (mbegin %store-monad
       (return
@@ -1042,7 +1042,7 @@
   ;; See <https://issues.guix.gnu.org/73275>.
   (call-with-temporary-directory
    (lambda (directory)
-     (symlink (search-path %load-path "guix/store.scm")
+     (symlink (search-path %load-path "Manifolding-OS/store.scm")
               (in-vicinity directory "store.scm"))
 
      (run-with-store %store
@@ -1059,19 +1059,19 @@
                       (eq? (stat:type (lstat (in-vicinity import2 "x")))
                            'regular)
                       (file=? (in-vicinity import1 "x")
-                              (search-path %load-path "guix/store.scm"))
+                              (search-path %load-path "Manifolding-OS/store.scm"))
                       (file=? (in-vicinity import2 "x")
-                              (search-path %load-path "guix/store.scm")))))))))
+                              (search-path %load-path "Manifolding-OS/store.scm")))))))))
 
 (test-equal "gexp-modules & ungexp"
   '((bar) (foo))
-  ((@@ (guix gexp) gexp-modules)
+  ((@@ (Manifolding-OS gexp) gexp-modules)
    #~(foo #$(with-imported-modules '((foo)) #~+)
           #+(with-imported-modules '((bar)) #~-))))
 
 (test-equal "gexp-modules & ungexp-splicing"
   '((foo) (bar))
-  ((@@ (guix gexp) gexp-modules)
+  ((@@ (Manifolding-OS gexp) gexp-modules)
    #~(foo #$@(list (with-imported-modules '((foo)) #~+)
                    (with-imported-modules '((bar)) #~-)))))
 
@@ -1083,7 +1083,7 @@
                                          #:guile %bootstrap-guile)
                            (current-module)))))
     (define result
-      ((@@ (guix gexp) gexp-modules)
+      ((@@ (Manifolding-OS gexp) gexp-modules)
        (with-imported-modules `(((bar) => ,(make-file))
                                 ((bar) => ,(make-file))
                                 (foo) (foo))
@@ -1098,11 +1098,11 @@
 
 (test-assert "gexp-modules, warning"
   (string-match "tests/gexp.scm:[0-9]+:[0-9]+: warning: \
-importing.* \\(guix config\\) from the host"
+importing.* \\(Manifolding-OS config\\) from the host"
                 (call-with-output-string
                   (lambda (port)
                     (parameterize ((guix-warning-port port))
-                      (let* ((x (with-imported-modules '((guix config))
+                      (let* ((x (with-imported-modules '((Manifolding-OS config))
                                   #~(+ 1 2 3)))
                              (y #~(+ 39 #$x)))
                         (gexp-modules y)))))))
@@ -1110,11 +1110,11 @@ importing.* \\(guix config\\) from the host"
 (test-assertm "gexp->derivation #:modules"
   (mlet* %store-monad
       ((build ->  #~(begin
-                      (use-modules (guix build utils))
+                      (use-modules (Manifolding-OS build utils))
                       (mkdir-p (string-append #$output "/guile/guix/nix"))
                       #t))
        (drv       (gexp->derivation "test-with-modules" build
-                                    #:modules '((guix build utils)))))
+                                    #:modules '((Manifolding-OS build utils)))))
     (mbegin %store-monad
       (built-derivations (list drv))
       (let* ((p (derivation->output-path drv))
@@ -1124,9 +1124,9 @@ importing.* \\(guix config\\) from the host"
 (test-assertm "gexp->derivation & with-imported-modules"
   ;; Same test as above, but using 'with-imported-modules'.
   (mlet* %store-monad
-      ((build ->  (with-imported-modules '((guix build utils))
+      ((build ->  (with-imported-modules '((Manifolding-OS build utils))
                     #~(begin
-                        (use-modules (guix build utils))
+                        (use-modules (Manifolding-OS build utils))
                         (mkdir-p (string-append #$output "/guile/guix/nix"))
                         #t)))
        (drv       (gexp->derivation "test-with-modules" build)))
@@ -1138,14 +1138,14 @@ importing.* \\(guix config\\) from the host"
 
 (test-assertm "gexp->derivation & nested with-imported-modules"
   (mlet* %store-monad
-      ((build1 ->  (with-imported-modules '((guix build utils))
+      ((build1 ->  (with-imported-modules '((Manifolding-OS build utils))
                      #~(begin
-                         (use-modules (guix build utils))
+                         (use-modules (Manifolding-OS build utils))
                          (mkdir-p (string-append #$output "/guile/guix/nix"))
                          #t)))
-       (build2 ->  (with-imported-modules '((guix build bournish))
+       (build2 ->  (with-imported-modules '((Manifolding-OS build bournish))
                      #~(begin
-                         (use-modules (guix build bournish)
+                         (use-modules (Manifolding-OS build bournish)
                                       (system base compile))
                          #+build1
                          (call-with-output-file (string-append #$output "/b")
@@ -1175,9 +1175,9 @@ importing.* \\(guix config\\) from the host"
                                #:splice? #t
                                #:guile %bootstrap-guile))
        (build -> (with-imported-modules `(((foo bar) => ,module)
-                                          (guix build utils))
+                                          (Manifolding-OS build utils))
                    #~(begin
-                       (use-modules (guix build utils)
+                       (use-modules (Manifolding-OS build utils)
                                     (foo bar))
                        mkdir-p
                        (call-with-output-file #$output
@@ -1191,20 +1191,20 @@ importing.* \\(guix config\\) from the host"
 
 (test-equal "gexp-extensions & ungexp"
   (list sed grep)
-  ((@@ (guix gexp) gexp-extensions)
+  ((@@ (Manifolding-OS gexp) gexp-extensions)
    #~(foo #$(with-extensions (list grep) #~+)
           #+(with-extensions (list sed)  #~-))))
 
 (test-equal "gexp-extensions & ungexp-splicing"
   (list grep sed)
-  ((@@ (guix gexp) gexp-extensions)
+  ((@@ (Manifolding-OS gexp) gexp-extensions)
    #~(foo #$@(list (with-extensions (list grep) #~+)
                    (with-imported-modules '((foo))
                      (with-extensions (list sed) #~-))))))
 
 (test-equal "gexp-extensions and literal Scheme object"
   '()
-  ((@@ (guix gexp) gexp-extensions) #t))
+  ((@@ (Manifolding-OS gexp) gexp-extensions) #t))
 
 (test-assertm "gexp->derivation & with-extensions"
   ;; Create a fake Guile extension and make sure it is accessible both to the
@@ -1221,10 +1221,10 @@ importing.* \\(guix config\\) from the host"
                                #:splice? #t
                                #:guile %bootstrap-guile))
        (build -> (with-extensions (list extension)
-                   (with-imported-modules `((guix build utils)
+                   (with-imported-modules `((Manifolding-OS build utils)
                                             ((foo) => ,module))
                      #~(begin
-                         (use-modules (guix build utils)
+                         (use-modules (Manifolding-OS build utils)
                                       (hg2g) (foo))
                          (call-with-output-file #$output
                            (lambda (port)
@@ -1244,9 +1244,9 @@ importing.* \\(guix config\\) from the host"
        (extension-drv (package->derivation %extension-package))
        (coreutils-drv (package->derivation coreutils))
        (exp ->   (with-extensions (list extension)
-                   (with-imported-modules `((guix build utils))
+                   (with-imported-modules `((Manifolding-OS build utils))
                      #~(begin
-                         (use-modules (guix build utils)
+                         (use-modules (Manifolding-OS build utils)
                                       (hg2g))
                          #$coreutils:debug
                          mkdir-p
@@ -1325,13 +1325,13 @@ importing.* \\(guix config\\) from the host"
       ((one (text-file "one" (random-text)))
        (two (gexp->derivation "two"
                               #~(symlink #$one #$output:chbouib)))
-       (build -> (with-imported-modules '((guix build store-copy)
-                                          (guix progress)
-                                          (guix records)
-                                          (guix sets)
-                                          (guix build utils))
+       (build -> (with-imported-modules '((Manifolding-OS build store-copy)
+                                          (Manifolding-OS progress)
+                                          (Manifolding-OS records)
+                                          (Manifolding-OS sets)
+                                          (Manifolding-OS build utils))
                    #~(begin
-                       (use-modules (guix build store-copy))
+                       (use-modules (Manifolding-OS build store-copy))
                        (with-output-to-file #$output
                          (lambda ()
                            (write (map store-info-item
@@ -1480,19 +1480,19 @@ importing.* \\(guix config\\) from the host"
   (call-with-temporary-directory
    (lambda (directory)
      (define str
-       "Fake (guix base32) module!")
+       "Fake (Manifolding-OS base32) module!")
 
      (mkdir (string-append directory "/guix"))
      (call-with-output-file (string-append directory "/guix/base32.scm")
        (lambda (port)
-         (write `(begin (define-module (guix base32))
+         (write `(begin (define-module (Manifolding-OS base32))
                         (define-public %fake! ,str))
                 port)))
 
      (run-with-store %store
-       (mlet* %store-monad ((exp -> (with-imported-modules '((guix base32))
+       (mlet* %store-monad ((exp -> (with-imported-modules '((Manifolding-OS base32))
                                       (gexp (begin
-                                              (use-modules (guix base32))
+                                              (use-modules (Manifolding-OS base32))
                                               (write (list %load-path
                                                            %fake!))))))
                             (drv    (gexp->script "guile-thing" exp
@@ -1510,9 +1510,9 @@ importing.* \\(guix config\\) from the host"
 
 (test-assertm "program-file"
   (let* ((n      (random (expt 2 50)))
-         (exp    (with-imported-modules '((guix build utils))
+         (exp    (with-imported-modules '((Manifolding-OS build utils))
                    (gexp (begin
-                           (use-modules (guix build utils))
+                           (use-modules (Manifolding-OS build utils))
                            (display (ungexp n))))))
          (file   (program-file "program" exp
                                #:guile %bootstrap-guile)))
@@ -1570,9 +1570,9 @@ importing.* \\(guix config\\) from the host"
                        (= 42 (string->number str)))))))))
 
 (test-assertm "program-file #:system"
-  (let* ((exp    (with-imported-modules '((guix build utils))
+  (let* ((exp    (with-imported-modules '((Manifolding-OS build utils))
                    (gexp (begin
-                           (use-modules (guix build utils))
+                           (use-modules (Manifolding-OS build utils))
                            (display "hi!")))))
          (system (if (string=? (%current-system) "x86_64-linux")
                      "armhf-linux"

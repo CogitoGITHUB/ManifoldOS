@@ -21,9 +21,9 @@
   #:use-module (gnu services)
   #:use-module (gnu services configuration)
   #:use-module (gnu services shepherd)
-  #:use-module (guix deprecation)
-  #:use-module (guix gexp)
-  #:use-module (guix records)
+  #:use-module (Manifolding-OS deprecation)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS records)
   #:use-module (ice-9 match)
   #:export (xandikos-configuration
             xandikos-configuration?

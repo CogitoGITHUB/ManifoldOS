@@ -31,11 +31,11 @@
   #:use-module (gnu system shadow)
   #:use-module (gnu packages docker)
   #:use-module (gnu packages linux)               ;singularity
-  #:use-module (guix deprecation)
-  #:use-module (guix diagnostics)
-  #:use-module (guix gexp)
-  #:use-module (guix i18n)
-  #:use-module (guix records)
+  #:use-module (Manifolding-OS deprecation)
+  #:use-module (Manifolding-OS diagnostics)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS i18n)
+  #:use-module (Manifolding-OS records)
   #:use-module (srfi srfi-1)
   #:use-module (ice-9 format)
   #:use-module (ice-9 match)
@@ -134,14 +134,14 @@ loop-back communications.")
 (define (%containerd-activation config)
   (let ((state-dir "/var/lib/containerd"))
     #~(begin
-        (use-modules (guix build utils))
+        (use-modules (Manifolding-OS build utils))
         (mkdir-p #$state-dir))))
 
 (define (%docker-activation config)
   (%containerd-activation config)
   (let ((state-dir "/var/lib/docker"))
     #~(begin
-        (use-modules (guix build utils))
+        (use-modules (Manifolding-OS build utils))
         (mkdir-p #$state-dir))))
 
 (define (containerd-shepherd-service config)
@@ -245,9 +245,9 @@ bundles in Docker containers.")
 ;;;
 
 (define %singularity-activation
-  (with-imported-modules '((guix build utils))
+  (with-imported-modules '((Manifolding-OS build utils))
     #~(begin
-        (use-modules (guix build utils))
+        (use-modules (Manifolding-OS build utils))
 
         (define %mount-directory
           "/var/singularity/mnt/")

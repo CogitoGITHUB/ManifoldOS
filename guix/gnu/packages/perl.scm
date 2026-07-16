@@ -62,17 +62,17 @@
 
 (define-module (gnu packages perl)
   #:use-module (srfi srfi-1)
-  #:use-module ((guix licenses) #:prefix license:)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
   #:use-module (gnu packages)
-  #:use-module (guix gexp)
-  #:use-module (guix packages)
-  #:use-module (guix download)
-  #:use-module (guix git-download)
-  #:use-module (guix utils)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system perl)
-  #:use-module (guix memoization)
-  #:use-module (guix search-paths)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS utils)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system perl)
+  #:use-module (Manifolding-OS memoization)
+  #:use-module (Manifolding-OS search-paths)
   #:use-module (gnu packages base)
   #:use-module (gnu packages bash)
   #:use-module (gnu packages check)
@@ -2987,7 +2987,7 @@ It returns to the previous working directory when the object is destroyed.")
        (sha256
         (base32
          "12kln8l5h406r1ss6zbazgcshmys9nvabkrhvk2zwrrgl1saq1kf"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         '(begin
            ;; Remove .git directory
@@ -10069,7 +10069,7 @@ of data.")
         (base32
          "1rwq2qb8f101ihq5gmdmr9vsnx7ybnln85489y4k761hks9p6j32"))
        (snippet
-        #~(begin (use-modules (guix build utils))
+        #~(begin (use-modules (Manifolding-OS build utils))
                  (delete-file "lib/Mozilla/CA/cacert.pem")
                  (substitute* "lib/Mozilla/CA.pm"
                    (("my \\$file.*") "my $file = $ENV{SSL_CERT_FILE};\n")
@@ -11122,7 +11122,7 @@ used for writing documentation for Perl and for Perl modules.")
                            version ".tar.gz"))
        (sha256
         (base32 "0imi2sjrjnkc0p8j2g5alw492f5zgi1ryhw1izdwbvl85gabigmd"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet '(begin
                    (delete-file "t/build.t"))))) ;requires internet access
     (build-system perl-build-system)
@@ -12730,7 +12730,7 @@ followed by at least one of a @code{catch} or @code{finally} block.")
               (sha256
                (base32
                 "1r6976bs86j7zp51m5vh42xlyah951jgdlkimv202413kjvqc2i5"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                '(begin
                   ;; The contents of /proc/cpuinfo can differ and confuse the

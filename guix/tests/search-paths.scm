@@ -17,12 +17,12 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (test-search-paths)
-  #:use-module (guix search-paths)
+  #:use-module (Manifolding-OS search-paths)
   #:use-module (ice-9 match)
   #:use-module (srfi srfi-64))
 
 (define %top-srcdir
-  (dirname (search-path %load-path "guix.scm")))
+  (dirname (search-path %load-path "Manifolding-OS.scm")))
 
 
 (test-begin "search-paths")

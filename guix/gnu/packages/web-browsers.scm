@@ -43,18 +43,18 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages web-browsers)
-  #:use-module (guix build-system cmake)
-  #:use-module (guix build-system glib-or-gtk)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system go)
-  #:use-module (guix build-system meson)
-  #:use-module (guix build-system pyproject)
-  #:use-module (guix download)
-  #:use-module (guix gexp)
-  #:use-module (guix git-download)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix packages)
-  #:use-module (guix utils)
+  #:use-module (Manifolding-OS build-system cmake)
+  #:use-module (Manifolding-OS build-system glib-or-gtk)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system go)
+  #:use-module (Manifolding-OS build-system meson)
+  #:use-module (Manifolding-OS build-system pyproject)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS utils)
   #:use-module (gnu packages)
   #:use-module (gnu packages autotools)
   #:use-module (gnu packages backup)
@@ -116,7 +116,7 @@
   #:use-module (gnu packages xdisorg)
   #:use-module (gnu packages xml)
   #:use-module (gnu packages xorg)
-  #:use-module ((guix search-paths) #:select ($SSL_CERT_DIR $SSL_CERT_FILE)))
+  #:use-module ((Manifolding-OS search-paths) #:select ($SSL_CERT_DIR $SSL_CERT_FILE)))
 
 (define-public midori
   (package
@@ -135,11 +135,11 @@
     (arguments
      `(#:imported-modules
        (,@%cmake-build-system-modules
-        (guix build glib-or-gtk-build-system))
+        (Manifolding-OS build glib-or-gtk-build-system))
        #:modules
-       ((guix build cmake-build-system)
-        ((guix build glib-or-gtk-build-system) #:prefix glib-or-gtk:)
-        (guix build utils))
+       ((Manifolding-OS build cmake-build-system)
+        ((Manifolding-OS build glib-or-gtk-build-system) #:prefix glib-or-gtk:)
+        (Manifolding-OS build utils))
        #:configure-flags
        ;; Relax gcc-14's strictness.
        '("-DCMAKE_C_FLAGS=-Wno-error=int-conversion")
@@ -444,7 +444,7 @@ systems intended primarily for local access.")
            "1mymq0dh6r0829x74j0jkw8hw46amqwbznlf1b4ra6w77h9yz3lj"))
          (modules '((srfi srfi-1)
                     (ice-9 ftw)
-                    (guix build utils)))
+                    (Manifolding-OS build utils)))
          (snippet
           '(let ((preserved-lib-files '("luis-l-gist")))
              (with-directory-excursion "lib"
@@ -461,11 +461,11 @@ systems intended primarily for local access.")
              (delete-file-recursively "src/fonts")))))
       (build-system gnu-build-system)
       (arguments
-       `(#:modules ((guix build gnu-build-system)
-                    (guix build qt-utils)
-                    (guix build utils))
+       `(#:modules ((Manifolding-OS build gnu-build-system)
+                    (Manifolding-OS build qt-utils)
+                    (Manifolding-OS build utils))
          #:imported-modules (,@%default-gnu-imported-modules
-                             (guix build qt-utils))
+                             (Manifolding-OS build qt-utils))
          #:make-flags
          (list (string-append "PREFIX=" %output))
          #:phases
@@ -624,11 +624,11 @@ interface.")
                                          ,(version-major+minor (package-version
                                                                 python))
                                          "/site-packages:"
-                                         (getenv "GUIX_PYTHONPATH"))))
+                                         (getenv "MANIFOLDING_OS_PYTHONPATH"))))
                (for-each
                 (lambda (file)
                   (wrap-program file
-                    `("GUIX_PYTHONPATH" ":" prefix (,path))))
+                    `("MANIFOLDING_OS_PYTHONPATH" ":" prefix (,path))))
                 (append
                  (find-files
                   (string-append out "/share/qutebrowser/scripts") "\\.py$")
@@ -690,7 +690,7 @@ driven and does not detract you from your daily work.")
                        "download/v" version "/lagrange-" version ".tar.gz"))
        (sha256
         (base32 "1kha8p9bfhfr7bs3ihpzji3jz9qgwizz1f580nylnlrz418x9wkr"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         '(begin
            ;; TODO: unbundle fonts.

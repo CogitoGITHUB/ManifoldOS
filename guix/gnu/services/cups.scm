@@ -31,10 +31,10 @@
   #:use-module (gnu packages admin)
   #:use-module (gnu packages cups)
   #:use-module (gnu packages tls)
-  #:use-module (guix packages)
-  #:use-module (guix records)
-  #:use-module (guix gexp)
-  #:use-module (guix modules)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS records)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS modules)
   #:use-module (ice-9 match)
   #:use-module ((srfi srfi-1) #:select (append-map find))
   #:export (cups-service-type
@@ -854,10 +854,10 @@ IPP specifications.")
 (define %cups-activation
   ;; Activation gexp.
   (with-imported-modules (source-module-closure '((gnu build activation)
-                                                  (guix build utils)))
+                                                  (Manifolding-OS build utils)))
     #~(begin
         (use-modules (gnu build activation)
-                     (guix build utils))
+                     (Manifolding-OS build utils))
         (define (build-subject parameters)
           (string-concatenate
            (map (lambda (pair)
@@ -917,9 +917,9 @@ IPP specifications.")
 (define (union-directory name packages paths)
   (computed-file
    name
-   (with-imported-modules '((guix build utils))
+   (with-imported-modules '((Manifolding-OS build utils))
      #~(begin
-         (use-modules (guix build utils)
+         (use-modules (Manifolding-OS build utils)
                       (srfi srfi-1))
          (mkdir #$output)
          (for-each

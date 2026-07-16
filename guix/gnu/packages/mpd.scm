@@ -30,18 +30,18 @@
 
 (define-module (gnu packages mpd)
   #:use-module (gnu packages)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix gexp)
-  #:use-module (guix packages)
-  #:use-module (guix download)
-  #:use-module (guix git-download)
-  #:use-module (guix utils)
-  #:use-module (guix build-system cargo)
-  #:use-module (guix build-system cmake)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system meson)
-  #:use-module (guix build-system pyproject)
-  #:use-module (guix build-system qt)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS utils)
+  #:use-module (Manifolding-OS build-system cargo)
+  #:use-module (Manifolding-OS build-system cmake)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system meson)
+  #:use-module (Manifolding-OS build-system pyproject)
+  #:use-module (Manifolding-OS build-system qt)
   #:use-module (gnu packages algebra)
   #:use-module (gnu packages audio)
   #:use-module (gnu packages autotools)
@@ -408,12 +408,12 @@ interface for the Music Player Daemon.")
      (list
       ;; Invalid command "test"
       #:tests? #false
-      #:modules '((guix build gnu-build-system)
-                  (guix build pyproject-build-system)
-                  ((guix build glib-or-gtk-build-system) #:prefix glib-or-gtk:)
-                  (guix build utils))
+      #:modules '((Manifolding-OS build gnu-build-system)
+                  (Manifolding-OS build pyproject-build-system)
+                  ((Manifolding-OS build glib-or-gtk-build-system) #:prefix glib-or-gtk:)
+                  (Manifolding-OS build utils))
       #:imported-modules `(,@%pyproject-build-system-modules
-                           (guix build glib-or-gtk-build-system))
+                           (Manifolding-OS build glib-or-gtk-build-system))
       #:phases
       #~(modify-phases %standard-phases
           (add-after 'install 'glib-or-gtk-wrap
@@ -508,9 +508,9 @@ other MPD frontends.")
       #~(modify-phases %standard-phases
           (add-after 'install 'wrap-program
             (lambda* (#:key inputs #:allow-other-keys)
-              (let ((python-path (getenv "GUIX_PYTHONPATH")))
+              (let ((python-path (getenv "MANIFOLDING_OS_PYTHONPATH")))
                 (wrap-program (string-append #$output "/bin/mpDris2")
-                  `("GUIX_PYTHONPATH" ":" prefix (,python-path)))))))))
+                  `("MANIFOLDING_OS_PYTHONPATH" ":" prefix (,python-path)))))))))
     (inputs
      (list bash-minimal
            python
@@ -584,7 +584,7 @@ provide album arts even with remote MPD servers and Internet radios.")
               (sha256
                (base32
                 "1hjq73w5lnh2gj51bnaqym0lds82zzlwjr2ndz2m8xrcv2w2q0lg"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                #~(begin
                    (with-directory-excursion "3rdparty"
@@ -645,7 +645,7 @@ with albumart.")
               (let ((prog (string-append (assoc-ref outputs "out")
                                          "/bin/mcg")))
                 (wrap-program prog
-                  `("GUIX_PYTHONPATH" = (,(getenv "GUIX_PYTHONPATH")))
+                  `("MANIFOLDING_OS_PYTHONPATH" = (,(getenv "MANIFOLDING_OS_PYTHONPATH")))
                   `("GI_TYPELIB_PATH" = (,(getenv "GI_TYPELIB_PATH"))))))))))
     (inputs (list avahi
                   bash-minimal
@@ -691,7 +691,7 @@ album-experience.")
             (lambda _
               (let ((prog (string-append #$output "/bin/mpdevil")))
                 (wrap-program prog
-                  `("GUIX_PYTHONPATH" = (,(getenv "GUIX_PYTHONPATH")))
+                  `("MANIFOLDING_OS_PYTHONPATH" = (,(getenv "MANIFOLDING_OS_PYTHONPATH")))
                   `("GI_TYPELIB_PATH" = (,(getenv "GI_TYPELIB_PATH"))))))))))
     (inputs (list bash-minimal
                   gtk+
@@ -766,8 +766,8 @@ Daemon (MPD).")
      (list
       #:install-source? #f
       #:modules
-      '((guix build cargo-build-system)
-        (guix build utils)
+      '((Manifolding-OS build cargo-build-system)
+        (Manifolding-OS build utils)
         (ice-9 match))
       #:phases
       #~(modify-phases %standard-phases

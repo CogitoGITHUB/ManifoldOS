@@ -17,11 +17,11 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (test-monads)
-  #:use-module (guix tests)
-  #:use-module (guix store)
-  #:use-module (guix monads)
-  #:use-module (guix derivations)
-  #:use-module (guix packages)
+  #:use-module (Manifolding-OS tests)
+  #:use-module (Manifolding-OS store)
+  #:use-module (Manifolding-OS monads)
+  #:use-module (Manifolding-OS derivations)
+  #:use-module (Manifolding-OS packages)
   #:use-module (gnu packages)
   #:use-module (gnu packages bootstrap)
   #:use-module ((gnu packages base) #:select (coreutils))
@@ -31,7 +31,7 @@
   #:use-module (srfi srfi-26)
   #:use-module (srfi srfi-64))
 
-;; Test the (guix monads) module.
+;; Test the (Manifolding-OS monads) module.
 
 (define %store
   (open-connection-for-tests))
@@ -181,7 +181,7 @@
 
 (test-assert "interned-file"
   (run-with-store %store
-    (mlet* %store-monad ((file -> (search-path %load-path "guix.scm"))
+    (mlet* %store-monad ((file -> (search-path %load-path "Manifolding-OS.scm"))
                          (a       (interned-file file))
                          (b       (interned-file file "b")))
       (return (equal? (call-with-input-file file get-string-all)

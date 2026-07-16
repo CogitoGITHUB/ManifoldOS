@@ -23,15 +23,15 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages plotutils)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module ((guix utils) #:select (target-x86-32?))
-  #:use-module (guix build-system cmake)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system ruby)
-  #:use-module (guix download)
-  #:use-module (guix gexp)
-  #:use-module (guix git-download)
-  #:use-module (guix packages)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module ((Manifolding-OS utils) #:select (target-x86-32?))
+  #:use-module (Manifolding-OS build-system cmake)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system ruby)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS packages)
   #:use-module (gnu packages)
   #:use-module (gnu packages algebra)
   #:use-module (gnu packages autotools)
@@ -79,7 +79,7 @@
                            version "/asymptote-" version ".src.tgz"))
        (sha256
         (base32 "06wgkff6ah0jp5icj0wliy0v0y1llxkd9263jfii7wiy8sbixv7a"))
-       (modules '((guix build utils)))))
+       (modules '((Manifolding-OS build utils)))))
     (build-system gnu-build-system)
     ;; Note: The 'asy' binary retains a reference to docdir for use with its
     ;; "help" command in interactive mode, so adding a "doc" output is not
@@ -136,12 +136,12 @@
            zlib))
     (arguments
      (list
-      #:modules '((guix build emacs-utils)
-                  (guix build gnu-build-system)
-                  (guix build utils)
+      #:modules '((Manifolding-OS build emacs-utils)
+                  (Manifolding-OS build gnu-build-system)
+                  (Manifolding-OS build utils)
                   (srfi srfi-26))
       #:imported-modules `(,@%default-gnu-imported-modules
-                           (guix build emacs-utils))
+                           (Manifolding-OS build emacs-utils))
       #:configure-flags
       #~(list (string-append "--with-latex=" #$output "/share/texmf-dist/tex/latex")
               (string-append "--with-context="
@@ -206,10 +206,10 @@
           (add-after 'install-Emacs-data 'wrap-python-script
             (lambda* (#:key inputs outputs #:allow-other-keys)
               ;; Make sure 'xasy' runs with the correct PYTHONPATH.
-              (let ((path (getenv "GUIX_PYTHONPATH")))
+              (let ((path (getenv "MANIFOLDING_OS_PYTHONPATH")))
                 (wrap-program
                     (string-append #$output "/share/asymptote/GUI/xasy.py")
-                  `("GUIX_PYTHONPATH" ":" prefix (,path)))))))))
+                  `("MANIFOLDING_OS_PYTHONPATH" ":" prefix (,path)))))))))
     (home-page "https://asymptote.sourceforge.io")
     (synopsis "Script-based vector graphics language")
     (description
@@ -267,12 +267,12 @@ using the Cairo drawing library.")
                 "1d0dq3is7j2grg806ql6y105zv3k0md5ndlpn1xgfshq6fi9yngr"))))
     (build-system gnu-build-system)
     (arguments
-     (list #:imported-modules `((guix build guile-build-system)
+     (list #:imported-modules `((Manifolding-OS build guile-build-system)
                                 ,@%default-gnu-imported-modules)
-           #:modules `(((guix build guile-build-system)
+           #:modules `(((Manifolding-OS build guile-build-system)
                         #:select (target-guile-effective-version))
-                       (guix build gnu-build-system)
-                       (guix build utils))
+                       (Manifolding-OS build gnu-build-system)
+                       (Manifolding-OS build utils))
            #:configure-flags #~(list "--with-gnu-filesystem-hierarchy")
            #:phases
            #~(modify-phases %standard-phases
@@ -319,7 +319,7 @@ went to university in the 1990s, this is the library for you.")
        (file-name (git-file-name name version))
        (snippet
         #~(begin
-            (use-modules (guix build utils))
+            (use-modules (Manifolding-OS build utils))
             (for-each delete-file-recursively
                       '("source/3rd_party/cimg"
                         "source/3rd_party/nodesoup"))))
@@ -379,7 +379,7 @@ backends.")
               (sha256
                (base32
                 "1c70cvfvgjh83hj1x21130wb9qfr2rc0x47cxy9kl805yjwy8a9z"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (patches (search-patches "ploticus-pointer-types.patch"))
               (snippet
                ;; Install binaries in the right place.
@@ -434,7 +434,7 @@ colors, styles, options and details.")
               (sha256
                (base32
                 "1arkyizn5wbgvbh53aziv3s6lmd3wm9lqzkhxb3hijlp1y124hjg"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                ;; Force the use of libXaw7 instead of libXaw.  When not doing
                ;; that, libplot.la ends up containing just "-lXaw" (without
@@ -502,7 +502,7 @@ programs for plotting scientific data.")
               (sha256
                (base32
                 "0ywccb6bs1389zjfmc9zwdvdsvlpm7vg957whh6b5a96yvcf8bdr"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet #~(begin (delete-file-recursively "www")
                                 (substitute* "CMakeLists.txt"
                                   (("add_subdirectory\\(www\\)") ""))))))

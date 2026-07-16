@@ -19,7 +19,7 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu installer record)
-  #:use-module (guix records)
+  #:use-module (Manifolding-OS records)
   #:use-module (srfi srfi-1)
   #:export (<installer>
             installer

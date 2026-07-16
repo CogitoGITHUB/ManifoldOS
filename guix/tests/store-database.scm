@@ -17,17 +17,17 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (test-store-database)
-  #:use-module (guix tests)
-  #:use-module (guix store)
-  #:use-module (guix store database)
-  #:use-module (guix build store-copy)
-  #:use-module ((guix build utils)
+  #:use-module (Manifolding-OS tests)
+  #:use-module (Manifolding-OS store)
+  #:use-module (Manifolding-OS store database)
+  #:use-module (Manifolding-OS build store-copy)
+  #:use-module ((Manifolding-OS build utils)
                 #:select (mkdir-p delete-file-recursively
                           call-with-temporary-output-file))
   #:use-module (srfi srfi-26)
   #:use-module (srfi srfi-64))
 
-;; Test the (guix store database) module.
+;; Test the (Manifolding-OS store database) module.
 
 (define %store
   (open-connection-for-tests))

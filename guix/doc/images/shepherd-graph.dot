@@ -3,7 +3,7 @@ digraph "Guix shepherd-service" {
   "user-processes" -> "user-file-systems" [color = cyan3];
   "user-processes" [label = "user-processes", shape = box, fontname = "dejavu sans"];
   "nscd" -> "user-processes" [color = magenta];
-  "guix-daemon" -> "user-processes" [color = blue];
+  "Manifolding-OS-daemon" -> "user-processes" [color = blue];
   "urandom-seed" -> "user-processes" [color = dimgrey];
   "syslogd" -> "user-processes" [color = darkgoldenrod];
   "term-tty6" -> "user-processes" [color = magenta];
@@ -14,7 +14,7 @@ digraph "Guix shepherd-service" {
   "term-tty1" -> "user-processes" [color = peachpuff4];
   "networking" -> "user-processes" [color = dimgrey];
   "nscd" [label = "nscd", shape = box, fontname = "dejavu sans"];
-  "guix-daemon" [label = "guix-daemon", shape = box, fontname = "dejavu sans"];
+  "Manifolding-OS-daemon" [label = "Manifolding-OS-daemon", shape = box, fontname = "dejavu sans"];
   "urandom-seed" [label = "urandom-seed", shape = box, fontname = "dejavu sans"];
   "syslogd" [label = "syslogd", shape = box, fontname = "dejavu sans"];
   "ssh-daemon" -> "syslogd" [color = darkgoldenrod];

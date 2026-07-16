@@ -35,8 +35,8 @@
   #:use-module (gnu services getmail)
   #:use-module (gnu services mail)
   #:use-module (gnu services networking)
-  #:use-module (guix gexp)
-  #:use-module (guix store)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS store)
   #:use-module (ice-9 ftw)
   #:export (%test-opensmtpd
             %test-exim

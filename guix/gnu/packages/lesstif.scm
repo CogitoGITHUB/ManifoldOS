@@ -16,7 +16,7 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages lesstif)
-  #:use-module (guix deprecation))
+  #:use-module (Manifolding-OS deprecation))
 
 ;; XXX: Deprecated on 2026-06-05.
 (define-deprecated/public-alias motif

@@ -68,12 +68,12 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages golang-web)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix packages)
-  #:use-module (guix build-system go)
-  #:use-module (guix gexp)
-  #:use-module (guix git-download)
-  #:use-module (guix utils)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS build-system go)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS utils)
   #:use-module (gnu packages)
   #:use-module (gnu packages crypto)
   #:use-module (gnu packages freedesktop)
@@ -120,7 +120,7 @@
        (file-name (git-file-name name version))
        (sha256
         (base32 "161bznz4srgvqr7q18z63chps52lvdfnldbf6cgm5sw1ly5vwjwi"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         #~(begin
             ;; Module name has not been changed upstream.
@@ -155,7 +155,7 @@ alternative fork of https://git.autistici.org/ale/lb.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "11lvz78pgldhyysglkxgvcgvhjgjqbfb466ykq95mhdpc3xi8nmy"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         #~(begin
             ;; From go.mod file: replace git.autistici.org/ale/lb =>
@@ -294,7 +294,7 @@ information and allow for dynamic registration/inventory.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "1iq3m2j6m9n1h9rkysaj97nnqx65fn7vz9jskl4qa4rwh002pv3d"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         #~(begin
             ;; It's the same project.
@@ -372,7 +372,7 @@ devices.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "00hp2c41zmh533ii43y20mrh1jsgqk8k49hw96rxz1kras7xy9vy"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         #~(begin
             ;; TODO: there are a lot of modules (about 205) in this package
@@ -479,7 +479,7 @@ Services.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "1c2i8jhc4rizmwz6716bwxwy04adjmm7k2cigki3m1f00rwblmki"))
-       (modules '((guix build utils)
+       (modules '((Manifolding-OS build utils)
                   (ice-9 ftw)
                   (srfi srfi-26)))
        (snippet #~(begin
@@ -546,7 +546,7 @@ automatic token management.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "109szg097fn42qpsmrmd29iwsdh2yrjh9krq8mjm02fnm7l18lc4"))
-       (modules '((guix build utils)
+       (modules '((Manifolding-OS build utils)
                   (ice-9 ftw)
                   (srfi srfi-26)))
        (snippet #~(begin
@@ -618,7 +618,7 @@ API service accounts for Go.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "0l3dc1i1qqj8mfvl7xcm8rgvsi49xaxlzlrx3p4vjhc23skx1688"))
-       (modules '((guix build utils)
+       (modules '((Manifolding-OS build utils)
                   (ice-9 ftw)
                   (srfi srfi-26)))
        (snippet #~(begin
@@ -665,7 +665,7 @@ Service (KMS) API.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "1qrhsn90v1myvyd46pjvg02pzwqzny1v3f75jdby03bbdcd7al9m"))
-       (modules '((guix build utils)
+       (modules '((Manifolding-OS build utils)
                   (ice-9 ftw)
                   (srfi srfi-26)))
        (snippet #~(begin
@@ -711,7 +711,7 @@ see: @url{https://cloud.google.com/iam, IAM specification} for more details.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "14khzbcymknsz4p40ibc8v1zsy33b33yn7fcvkfp4rkzw69wv356"))
-       (modules '((guix build utils)
+       (modules '((Manifolding-OS build utils)
                   (ice-9 ftw)
                   (srfi srfi-26)))
        (snippet
@@ -770,7 +770,7 @@ resources, see package cloud.google.com/go/logging/logadmin.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "1ykr9kj0sbb4w0h190lp9gcxppv18dp0d5ak2g93dky8hjyc2wfa"))
-       (modules '((guix build utils)
+       (modules '((Manifolding-OS build utils)
                   (ice-9 ftw)
                   (srfi srfi-26)))
        (snippet #~(begin
@@ -816,7 +816,7 @@ its service definition.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "13rdnpz6jz5242gfx6xv6q66rr7k2sbrf7s507wq09bxvd4g20p0"))
-       (modules '((guix build utils)
+       (modules '((Manifolding-OS build utils)
                   (ice-9 ftw)
                   (srfi srfi-26)))
        (snippet
@@ -862,7 +862,7 @@ its service definition.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "1pn77lf1d22sqpkia9zccdhdihlqc48lls6y9npc2wrp4lman2kv"))
-       (modules '((guix build utils)
+       (modules '((Manifolding-OS build utils)
                   (ice-9 ftw)
                   (srfi srfi-26)))
        (snippet #~(begin
@@ -907,7 +907,7 @@ its service definition.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "05jgalbqb9n1whlpdkj40rvyk8lg39q5w4l463ycsj2301pmr90h"))
-       (modules '((guix build utils)
+       (modules '((Manifolding-OS build utils)
                   (ice-9 ftw)
                   (srfi srfi-26)))
        (snippet
@@ -979,7 +979,7 @@ introduction to Cloud Spanner and additional help on using this API.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "0sjwrcjqja62mgv4bzl8z4jps9bf55l8zln5wy8qjvrs6ql117ny"))
-       (modules '((guix build utils)
+       (modules '((Manifolding-OS build utils)
                   (ice-9 ftw)
                   (srfi srfi-26)))
        (snippet #~(begin
@@ -1044,7 +1044,7 @@ buckets.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "14khzbcymknsz4p40ibc8v1zsy33b33yn7fcvkfp4rkzw69wv356"))
-       (modules '((guix build utils)
+       (modules '((Manifolding-OS build utils)
                   (ice-9 ftw)
                   (srfi srfi-26)))
        (snippet
@@ -1381,7 +1381,7 @@ unparser.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "0a6rzp57srhyf66jri62gfsj4ndpfxgb9ln15qdpfwv0xvcffz63"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         #~(begin
             ;; Submodules with their own go.mod files and packaged separately:
@@ -1724,7 +1724,7 @@ Definition Language.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "0dqcdva7z53lhfv6ldjixwp4a363sr2cv5qm8rz2w7n8ba60m37f"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         #~(begin
             ;; Submodules with their own go.mod files and packaged separately:
@@ -1947,7 +1947,7 @@ APIs of Alibaba Cloud @acronym{OSS, Object Storage Service}.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "1fs4f68b0r4nfxx5w04j57vf9vnkdzd8vi12fmivbqhn72sjp3fw"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         #~(begin
             ;; Module name has been changed upstream.
@@ -2384,7 +2384,7 @@ be useful for other network applications.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "0rw8251w6lkpbm6qhbdi37jbjknmlw1ampqicfyk32mfq3grn0ar"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         #~(begin
             ;; Module name has been changed upstream.
@@ -2606,7 +2606,7 @@ functions.")
         (base32 "1j68835z0dgzxwf3m4gfir50wi6r30yx3g78y63x55sdg2imbhsk"))
        ;; XXX: It contains a lot of sub packages defined with go.mod, consider
        ;; to pack them separately.
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         #~(begin
             ;; All of the submodules prefixed with
@@ -2655,7 +2655,7 @@ functions.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "1j68835z0dgzxwf3m4gfir50wi6r30yx3g78y63x55sdg2imbhsk"))
-       (modules '((guix build utils)
+       (modules '((Manifolding-OS build utils)
                   (ice-9 ftw)
                   (srfi srfi-26)))
        (snippet
@@ -2704,7 +2704,7 @@ utilities.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "04cv6g96hhmjl6snql6a909grq4yxyjk95a3dzk6mpihvg79q47p"))
-       (modules '((guix build utils)
+       (modules '((Manifolding-OS build utils)
                   (ice-9 ftw)
                   (srfi srfi-26)))
        (snippet
@@ -2761,7 +2761,7 @@ credentials sources.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "04cv6g96hhmjl6snql6a909grq4yxyjk95a3dzk6mpihvg79q47p"))
-       (modules '((guix build utils)
+       (modules '((Manifolding-OS build utils)
                   (ice-9 ftw)
                   (srfi srfi-26)))
        (snippet
@@ -2837,7 +2837,7 @@ S3 concurrently.  Helpful for when working with large objects.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "068yzhxxxdymr1avb1l1pm9m0p7mcd0zlw5an66mcqldgl7hfivg"))
-       (modules '((guix build utils)
+       (modules '((Manifolding-OS build utils)
                   (ice-9 ftw)
                   (srfi srfi-26)))
        (snippet
@@ -2884,7 +2884,7 @@ configuration sources in AWS.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "068yzhxxxdymr1avb1l1pm9m0p7mcd0zlw5an66mcqldgl7hfivg"))
-       (modules '((guix build utils)
+       (modules '((Manifolding-OS build utils)
                   (ice-9 ftw)
                   (srfi srfi-26)))
        (snippet
@@ -2927,7 +2927,7 @@ structured records.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "133768fizkn8hp0xrf90bh64y14gxzj45zfa1711igwafijwlvnl"))
-       (modules '((guix build utils)
+       (modules '((Manifolding-OS build utils)
                   (ice-9 ftw)
                   (srfi srfi-26)))
        (snippet
@@ -2971,7 +2971,7 @@ for Amazon CloudWatch Logs.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "1syzl2cd6m9hdjnn15163afz1wh85gva10l4k8j8w5i1jhk5sf40"))
-       (modules '((guix build utils)
+       (modules '((Manifolding-OS build utils)
                   (ice-9 ftw)
                   (srfi srfi-26)))
        (snippet
@@ -3099,7 +3099,7 @@ parameter types for AWS Secrets Manager.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "04cv6g96hhmjl6snql6a909grq4yxyjk95a3dzk6mpihvg79q47p"))
-       (modules '((guix build utils)
+       (modules '((Manifolding-OS build utils)
                   (ice-9 ftw)
                   (srfi srfi-26)))
        (snippet
@@ -3145,7 +3145,7 @@ Amazon Simple Queue Service.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "055i6c41zppxhf5kgxky7a8nc1wzsaxd6vbdyv0wqqbg8zbw5fjb"))
-       (modules '((guix build utils)
+       (modules '((Manifolding-OS build utils)
                   (ice-9 ftw)
                   (srfi srfi-26)))
        (snippet
@@ -3271,7 +3271,7 @@ Security Token Service.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "1agg4krriqxrb6wf20a6rcgvxkiyaxbba2bmilpps97k3bcwrdld"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         #~(begin
             ;; Submodules with their own go.mod files and packaged separately:
@@ -3365,7 +3365,7 @@ signing.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "15f2j863rb9cp4927sn48gsccnn6cm6cn8zjc8mycas4fw07lswr"))
-       (modules '((guix build utils)
+       (modules '((Manifolding-OS build utils)
                   (ice-9 ftw)
                   (srfi srfi-26)))
        (snippet
@@ -3532,7 +3532,7 @@ headers before the request is sent over the wire.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "1qbcm8mqg2qvikv129s832qqvpydipv71825s4dkyjmzar5g04vf"))
-       (modules '((guix build utils)
+       (modules '((Manifolding-OS build utils)
                   (ice-9 ftw)
                   (srfi srfi-26)))
        (snippet #~(begin
@@ -3575,7 +3575,7 @@ Azure SDK clients.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "18s9h2fcbcw39idfyjglm7vyyp04bgl0x0wj4vcd8q6a46b8rbh6"))
-       (modules '((guix build utils)
+       (modules '((Manifolding-OS build utils)
                   (ice-9 ftw)
                   (srfi srfi-26)))
        (snippet #~(begin
@@ -3625,7 +3625,7 @@ clients supporting token authentication.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "0q0cbmh4vn2x1bi7bax2q6wpqndcyw7649w8lzl384k3rbn1q8yn"))
-       (modules '((guix build utils)
+       (modules '((Manifolding-OS build utils)
                   (ice-9 ftw)
                   (srfi srfi-26)))
        (snippet #~(begin
@@ -3666,7 +3666,7 @@ clients supporting token authentication.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "0jxpzd6sg6fp2mim3sr7gg9y0lvlngf23mmij388ywz4zfvpcqhq"))
-       (modules '((guix build utils)
+       (modules '((Manifolding-OS build utils)
                   (ice-9 ftw)
                   (srfi srfi-26)))
        (snippet #~(begin
@@ -3716,7 +3716,7 @@ keys used to encrypt your data.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "16xb2gyl48xcc1xc58l8c8qhraxsmar7655348ggi4r2jzyc6sik"))
-       (modules '((guix build utils)
+       (modules '((Manifolding-OS build utils)
                   (ice-9 ftw)
                   (srfi srfi-26)))
        (snippet #~(begin
@@ -3761,7 +3761,7 @@ challenge authentication policy.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "08a8kx4n31pa4krrxs1hrcwygryh86nz98fyr9hvw67202zr3adw"))
-       (modules '((guix build utils)
+       (modules '((Manifolding-OS build utils)
                   (ice-9 ftw)
                   (srfi srfi-26)))
        (snippet #~(begin
@@ -3811,7 +3811,7 @@ to Azure Blob Storage}.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "08a8kx4n31pa4krrxs1hrcwygryh86nz98fyr9hvw67202zr3adw"))
-       (modules '((guix build utils)
+       (modules '((Manifolding-OS build utils)
                   (ice-9 ftw)
                   (srfi srfi-26)))
        (snippet #~(begin
@@ -4010,7 +4010,7 @@ lookups.  It implements looking up the following records:
        (file-name (git-file-name name version))
        (sha256
         (base32 "1lg6dqqsjfwygnn9yr9qs6d2r0x6i5cn087b76x0qk8ndva9f131"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         #~(begin
             ;; Submodules with their own go.mod files and packaged separately:
@@ -4119,7 +4119,7 @@ capable of querying the current time from a remote NTP server as specified in
        (file-name (git-file-name name version))
        (sha256
         (base32 "03v6x9775v6gcw3zr4cr2fvd234sagbj6nb0i3pyb44b1jwa0miw"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         #~(begin
            (delete-file-recursively "libsass_src")))))
@@ -4171,7 +4171,7 @@ capable of querying the current time from a remote NTP server as specified in
        (file-name (git-file-name name version))
        (sha256
         (base32 "0s7zab04slz07c7l4h2cqz62qnqah69r6p157vvbd7725a7wzkr0"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         #~(begin
             ;; github.com/blevesearch/go-metrics was forked from
@@ -4781,7 +4781,7 @@ run behind reverse proxy.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "0s2wir711h0k2h8xsypgpzshccnx8jkwjfni7n32l7wd8yng9ngs"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         #~(begin
             ;; Module name has been changed upstream, permanent redirect:
@@ -4950,7 +4950,7 @@ transient error handling.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "1rs1mn6ddylcv9kfjjvs9aghwz4r2i22f1ksfnv2q9jbmfzykk2x"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet #~(begin (delete-file-recursively "vendor")))))
     (build-system go-build-system)
     (arguments
@@ -5278,7 +5278,7 @@ conditions, metamorphic tests can identify bugs without requiring an oracle.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "15i1sri7ym9mhl5z6nlps7hhr874nprk1cdic0aq3v8g7fyqmh2w"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         #~(begin
             ;; Submodules with their own go.mod files and packaged separately:
@@ -5375,7 +5375,7 @@ it mimics the functionality and signatures of the standard `os` package.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "0pmcgi5jdcf0cx6z6qlppzqqwf6fhglfxd4sdr00wgbhvhfzchm3"))
-       (modules '((guix build utils)
+       (modules '((Manifolding-OS build utils)
                   (ice-9 ftw)
                   (srfi srfi-26)))
        (snippet
@@ -5418,7 +5418,7 @@ it mimics the functionality and signatures of the standard `os` package.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "09j4arw5x8qx2blck9g5m6a7bwmfsyjpcmfznilklyypaqn7ri5z"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         #~(begin
             ;; Submodules with their own go.mod files and packaged separately:
@@ -5454,7 +5454,7 @@ library to provide APIs for CNI plugin interactions.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "0h08xvph1z237qw5djhadk35n2w4ivvsgzl4dlm0pgy340qpvg8w"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         #~(begin
             ;; Submodules with their own go.mod files and packaged separately:
@@ -5693,7 +5693,7 @@ Any}.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "1x4apykvfwbx282hgrc9151rb1kx9w40kzfv78x548hrryqa7rn5"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         #~(begin
             ;; Submodules with their own go.mod files and packaged separately:
@@ -5734,7 +5734,7 @@ supported plugins.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "0l3jgbizq0yaxld07hsdbh6ix2w6i789101ddk0ldnsmr93jg6ni"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         #~(begin
             (delete-file-recursively "vendor")))))
@@ -6932,7 +6932,7 @@ protocol definition.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "153z0jdbyhbcadiipl5631vnsg74m0fx7h1dmak4mqfjgdahxdvk"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         #~(begin
             ;; Submodules with their own go.mod files and packaged separately:
@@ -6998,7 +6998,7 @@ implements the discovery service APIs defined in
        (file-name (git-file-name name version))
        (sha256
         (base32 "0ysssv13sykny7x8ajqlm0wyz7r0wplam94gnrjz4xw1jxvqvwpv"))
-       (modules '((guix build utils)
+       (modules '((Manifolding-OS build utils)
                   (ice-9 ftw)
                   (srfi srfi-26)))
        (snippet
@@ -7113,7 +7113,7 @@ against documents, as well as for calculating & applying
        (file-name (git-file-name name version))
        (sha256
         (base32 "15s9l0qnp0y0z0c59mnp90c4nm50hy12l3c41b22nvfh956zdss3"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         #~(begin
             ;; Submodules with their own go.mod files and packaged separately:
@@ -7839,7 +7839,7 @@ Signature headers are to be set (but not both).")
        (file-name (git-file-name name version))
        (sha256
         (base32 "0kbkplhzqv9ai28r4smhdsxxwh20d96srr3am37pwwnh48ivwch8"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         #~(begin
             ;; Submodules with their own go.mod files and packaged separately:
@@ -7972,7 +7972,7 @@ language.")
        (sha256
         (base32 "1i1sn6fzjv83y31b8lky0wh08xl8yj60y04jcidzcy5gmknavyfi"))
        (snippet
-        #~(begin (use-modules (guix build utils))
+        #~(begin (use-modules (Manifolding-OS build utils))
                  ;; Introduce cycle with go-github-com-go-openapi-loads.
                  (delete-file-recursively "analysis_test")))))
     (build-system go-build-system)
@@ -8276,7 +8276,7 @@ projects.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "0p1k008zh6s1v55fi83v8ihldsvknf0wmwmc6i2ks0vw5gbwmaam"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         #~(begin
             ;; Submodules with their own go.mod files and packaged separately:
@@ -8314,7 +8314,7 @@ the go-openapi and go-swagger projects.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "0rg5q7xif4gmhc99kkgvnz03d0d0z2vanyv8xa4myn6ykvacw458"))
-       (modules '((guix build utils)
+       (modules '((Manifolding-OS build utils)
                   (ice-9 ftw)
                   (srfi srfi-26)))
        (snippet
@@ -8386,7 +8386,7 @@ file system.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "0rg5q7xif4gmhc99kkgvnz03d0d0z2vanyv8xa4myn6ykvacw458"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         #~(begin
             ;; Submodules with their own go.mod files and packaged separately:
@@ -8789,7 +8789,7 @@ protocol as specified in @url{https://rfc-editor.org/rfc/rfc6455.html, RFC
        (file-name (git-file-name name version))
        (sha256
         (base32 "0kbb7d4xal1y65fnb152icqjkhrk19b4h3344xmzl3grc4rdxj1n"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet '(delete-file-recursively "benchmarks"))))
     (build-system go-build-system)
     (arguments
@@ -9201,7 +9201,7 @@ certificates.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "0gmbvpcbp6n9hx8dpggbxl7540b6vq3p0rm5a6lsjj2gw62p7zp5"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         #~(begin
             ;; Submodules with their own go.mod files and packed as separated
@@ -9289,7 +9289,7 @@ Protocol (DAP) specification.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "0bcybmr341hnp8k630pi4dcgia7561yzqc874l4c3nl4bc9rkh5j"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         #~(begin
             ;; Submodules with their own go.mod files and packaged separately:
@@ -9359,7 +9359,7 @@ GitHub API v3.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "11qzikm988zfzs6g70lbdjfhw7kdndagahg0q2bkn2ibq2c47xxp"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         #~(begin
             ;; Submodules with their own go.mod files and packaged separately:
@@ -9392,7 +9392,7 @@ GitHub API v3.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "1kivw55z2xckymg7xx6hkvmki5mwrphhcjlgrpfv35glnd5p5zmy"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         #~(begin
             ;; Submodules with their own go.mod files and packaged separately:
@@ -9764,7 +9764,7 @@ testing of the detection functions in real GCP environments.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "0a2641mgbc2fv8ramifawpxv9rx99wqknv0xqin3wfapsn2vn5i9"))
-       (modules '((guix build utils)
+       (modules '((Manifolding-OS build utils)
                   (ice-9 ftw)
                   (srfi srfi-26)))
        (snippet
@@ -9821,7 +9821,7 @@ send collected metrics to Google Cloud.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "0nizaaydcvvi718g5v4pgx8in6d546mmkrf7h3sxhz2yyyygvms3"))
-       (modules '((guix build utils)
+       (modules '((Manifolding-OS build utils)
                   (ice-9 ftw)
                   (srfi srfi-26)))
        (snippet
@@ -9877,7 +9877,7 @@ collected traces and spans to Google Cloud.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "0nizaaydcvvi718g5v4pgx8in6d546mmkrf7h3sxhz2yyyygvms3"))
-       (modules '((guix build utils)
+       (modules '((Manifolding-OS build utils)
                   (ice-9 ftw)
                   (srfi srfi-26)))
        (snippet
@@ -9926,7 +9926,7 @@ collected traces and spans to Google Cloud.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "0a2641mgbc2fv8ramifawpxv9rx99wqknv0xqin3wfapsn2vn5i9"))
-       (modules '((guix build utils)
+       (modules '((Manifolding-OS build utils)
                   (ice-9 ftw)
                   (srfi srfi-26)))
        (snippet
@@ -10164,7 +10164,7 @@ language.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "0h32npfjir3k0yciisr6ybziv1bshmzw6x3bfkh3i72y3i7nv610"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         #~(begin
             (delete-file-recursively "vendor")))))
@@ -10528,7 +10528,7 @@ build multiple microservices easily.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "0qbh34r44sfw9s05kdipmz49fcgvlpnns20d0lbwvw9g3qwa095r"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         #~(begin
             ;; Submodules with their own go.mod files and packaged separately:
@@ -10564,7 +10564,7 @@ build multiple microservices easily.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "0fr8z4dr9n1x6zgs2n7m2wd1j2wnnmig0xq099xcg5lvcxiqjv73"))
-       (modules '((guix build utils)
+       (modules '((Manifolding-OS build utils)
                   (ice-9 ftw)
                   (srfi srfi-26)))
        (snippet
@@ -10775,7 +10775,7 @@ It is part of HashiCorp's Secure division products stdlib.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "08wp7cx0br7wz0rwz92v0c6jgbv735l04438k74wgqrghsxgl31m"))
-       (modules '((guix build utils)
+       (modules '((Manifolding-OS build utils)
                   (ice-9 ftw)
                   (srfi srfi-26)))
        (snippet #~(begin
@@ -10848,7 +10848,7 @@ It is part of HashiCorp's Secure division products stdlib.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "1ajcffaqxrbqyg00b04a1ia7np0180x7z5q3bcxqxm0smqqag54z"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         #~(begin
             (delete-file-recursively "cmd/sockaddr/vendor")))))
@@ -11286,7 +11286,7 @@ the machine.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "1dgvaayihhly5ghphdabhv27z04ff8qzfvvbghmcn2da17w066hf"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet #~(begin
                     (for-each
                      (lambda (f)
@@ -11359,7 +11359,7 @@ connected @code{net.TCPConns}.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "04j5rmrfawjxcimiqpyjm9gm5phdndjxrmydf9f1ylij6m360nwl"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         #~(begin
             ;; Submodules with their own go.mod files and packed as separated
@@ -11783,7 +11783,7 @@ port mapping and discovering the external IP address of a firewall.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "14r0ph8w4yxx129kfvj0qbx4cyid65md93qmwlz2cly4iwjnr7w2"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         #~(begin
             ;; Module name has been changed upstream.
@@ -12807,7 +12807,7 @@ relativelyfresh.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "0ljbnw7fd9d5xggixrkx7fg9gs4jk23m6xkfy7s1rc7ljkh1n1qk"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         #~(begin
             ;; Submodules with their own go.mod files and packaged separately:
@@ -12877,7 +12877,7 @@ known as JOSE) technologies.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "1qvi2z45pc2y97paw55vyb5q2ngrwczvxlkp0ccgxvpd73fbwmx9"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         #~(begin
             ;; Submodules with their own go.mod files and packaged separately:
@@ -12922,7 +12922,7 @@ known as JOSE) technologies.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "0sw5ymrvky9z7rijs0rbc7p234f9i4blas2wrlsj4kr8k35c7qxw"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         #~(begin
             ;; Submodules with their own go.mod files and packaged separately:
@@ -12967,7 +12967,7 @@ known as JOSE) technologies.")
        (sha256
         (base32 "1n8pg1bnxb7ajpjs93ji8vibaqx5rs5wyv082klajdx80pz7mbks"))
        (snippet
-        #~(begin (use-modules (guix build utils))
+        #~(begin (use-modules (Manifolding-OS build utils))
                  (delete-file-recursively "vendor")))))
     (build-system go-build-system)
     (arguments
@@ -13227,7 +13227,7 @@ faster (and only does simple bandwidth metrics).")
        (file-name (git-file-name name version))
        (sha256
         (base32 "1c94sq43bl1kp04lllcfrfyiy5z3zcfz0s65sm1vgb2s40zrwpr7"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         #~(begin
             ;; Delete generated binary file.
@@ -13484,7 +13484,7 @@ Block Storage for container, cloud and virtualisation.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "08f8m6jnq76p1996wbf5kw8s1p9g3ix373rb4f46n9qg1qang4bl"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet '(delete-file-recursively "vendor"))))
     (build-system go-build-system)
     (arguments
@@ -13567,7 +13567,7 @@ sockets}.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "0jibsg0xhsn0h1jq4g9qd4nr58w43y8majlwfri9ffk2cbfrwqdr"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet '(delete-file-recursively "example"))))
     (build-system go-build-system)
     (arguments
@@ -13876,7 +13876,7 @@ https://github.com/matrix-org/gomatrix project.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "05hnh5359awm5x7qbaf8fvf772p2hc781alfqnp7ymr4rjfk3pql"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         #~(begin
             ;; Submodules with their own go.mod files and packaged separately:
@@ -14133,7 +14133,7 @@ types.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "1pxd0qn73jr9n64gkp2kd8q8x7xgssm3v8a68vkh88al55g8jkma"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         #~(begin
             ;; Cycles with go-github-com-jsimonetti-rtnetlink.
@@ -14458,7 +14458,7 @@ RFC 8737} (tls-alpn-01 challenge), @url{https://tools.ietf.org/html/rfc8823, RFC
        (file-name (git-file-name name version))
        (sha256
         (base32 "0wi99gx8d697gqcrz4m1d6lji7csg4s4lkm7fm2czsb8ix1in00j"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         #~(begin
             ;; Git contains Java, C#, Rust and TypeScript implementations,
@@ -14816,7 +14816,7 @@ control the daemon.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "1624z57hqqw1b473arfa5m936rsrhc8h3hs2jg4645b3dykfyawn"))
-       (modules '((guix build utils)
+       (modules '((Manifolding-OS build utils)
                   (ice-9 ftw)
                   (srfi srfi-26)))
        (snippet
@@ -14866,7 +14866,7 @@ control the daemon.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "14f6a0qs59q4ajcgj8i41pnx8vragzj62xiz4pl0ydxzx2327sh7"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         #~(begin
             (delete-file-recursively "vendor")))))
@@ -15363,7 +15363,7 @@ does not necessarily conform to a fixed structure.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "1wgb891qs4rgw1sfpwfnplp57g4w4sq3ci31h7121cx118hy1v17"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         #~(begin
             ;; Submodules with their own go.mod files and packaged separately:
@@ -15529,7 +15529,7 @@ Go.  @url{https://zipkin.io/, Zipkin} is a distributed tracing system.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "1d8mpawbk29s28pb269fkmgqgdv4ypwk3a26hmm2amgn4vsaaqj2"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         #~(begin
             ;; Submodules with their own go.mod files and packaged separately:
@@ -17188,7 +17188,7 @@ Golang crypto library.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "10j1harhjzkkmyjnxbx8wapz5zcfjnibqpx5d7j79gqf9mzbf9dk"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         #~(begin
             (delete-file-recursively "vendor")))))
@@ -17445,7 +17445,7 @@ implementation in the Go standard library}.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "0yj7l75my9nv24lv52g3mmj8bc4fhgrxkgrzvlmf79sgqlpjs51c"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         #~(begin
             ;; Submodules with their own go.mod files and packaged separately:
@@ -17603,7 +17603,7 @@ of the specification.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "0f69yfdvgwyqrj6l0zdbdb78fi6iwkqh4v6rr5ns4v63kxvnfs9s"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         #~(begin
             ;; Module name has not been changed after been forked upstream.
@@ -17758,7 +17758,7 @@ on a rolling Rabin Checksum.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "0qbzxk1aabn8k2smrkpz3h59mwr6s2zvg4faj6kjsp78hyi172xn"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         #~(begin
             ;; Submodule(s) with their own go.mod files and packed as
@@ -17909,7 +17909,7 @@ information or even the peer of a VETH interface.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "0fjklx6sik1pp4qpmzsvwfmavd1m9pcsyap1wvajhm2d8wx3vnh0"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         #~(begin
             ;; Submodules with their own go.mod files and packaged separately:
@@ -18383,7 +18383,7 @@ verification of signatures and attestations produced by Sigstore tools.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "0shnvcgz4g7v65biwraahjrbsmr13qmb903al50giak2694qhyyk"))
-       (modules '((guix build utils)
+       (modules '((Manifolding-OS build utils)
                   (ice-9 ftw)
                   (srfi srfi-26)))
        (snippet
@@ -18432,7 +18432,7 @@ verification of signatures and attestations produced by Sigstore tools.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "0shnvcgz4g7v65biwraahjrbsmr13qmb903al50giak2694qhyyk"))
-       (modules '((guix build utils)
+       (modules '((Manifolding-OS build utils)
                   (ice-9 ftw)
                   (srfi srfi-26)))
        (snippet
@@ -18483,7 +18483,7 @@ service.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "0shnvcgz4g7v65biwraahjrbsmr13qmb903al50giak2694qhyyk"))
-       (modules '((guix build utils)
+       (modules '((Manifolding-OS build utils)
                   (ice-9 ftw)
                   (srfi srfi-26)))
        (snippet
@@ -18531,7 +18531,7 @@ service.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "0shnvcgz4g7v65biwraahjrbsmr13qmb903al50giak2694qhyyk"))
-       (modules '((guix build utils)
+       (modules '((Manifolding-OS build utils)
                   (ice-9 ftw)
                   (srfi srfi-26)))
        (snippet
@@ -18776,7 +18776,7 @@ provided @code{http.FileSystem}.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "1cz66fswvy50868yr13s4pvrdn3lk9kh0wp3ynrb2g6l4y7z8rw5"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         #~(begin
             ;; Submodules with their own go.mod files and packaged separately:
@@ -18864,7 +18864,7 @@ It is part of the Sigstore project for software supply chain security.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "0whcwzdmvf8xhin55112dmwflk5ipcd14mxjlgj5lpw3a8fp38af"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         #~(begin
             ;; Submodules with their own go.mod files and packaged separately:
@@ -19002,7 +19002,7 @@ frameworks and also the the main Go net/http handler:.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "0krfdpgn3gfii1z9fi8ydfw0wwfqyvp6w3rji7w92m528zkjl93d"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         #~(begin
             ;; Module names have not been changed after repositories changed upstream.
@@ -19082,7 +19082,7 @@ needing to download the whole archive file.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "17zpa45xvmk3jl1qqx3lkqdyxs6hdczpv7hwg4s7x0895jx3zl5y"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         #~(begin
             ;; Submodules with their own go.mod files and packaged separately:
@@ -19857,7 +19857,7 @@ and binary encoder.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "15gpb9w2wq16z40042vkhqzs39yb6icpxd4l8cnwhdfzbj3rd1hm"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         #~(begin
             (for-each delete-file-recursively
@@ -20486,7 +20486,7 @@ extract data from those paths.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "1mny5gm5gr82hz4y6k5ljaa0khjw647ys278wq750fgrbzp6fs8h"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         #~(begin
             ;; Submodules with their own go.mod files and packaged separately:
@@ -20527,7 +20527,7 @@ encoding library for the MessagePack, CBOR, JSON and the Binc formats.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "1q02f9bmz7qrwd6j7kdlxsskwapcrpvngkiw28dwf86zikzfnwxa"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         #~(begin
             ;; Submodules with their own go.mod files and packaged separately:
@@ -21538,7 +21538,7 @@ URLs.  It supports various archive formats and provides progress tracking.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "1m7lnvkvn66r50gjhlfymhw3cslqa9q815y6vwad4gdwnj7bhfwl"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         #~(begin
             ;; Submodules with their own go.mod files and packaged separately:
@@ -21833,7 +21833,7 @@ Go.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "1xvzvd4ddmvhbscqkc1jsvky2hlvxb8vckcwlng145l7dnq1wl57"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         #~(begin
             (substitute* (find-files "." "\\.go$")
@@ -21992,7 +21992,7 @@ progress tracking and timeout support.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "0xyq7flcdvbmiss0snriylvabkwclhyb3977vl1xy9gxq94cwqq4"))
-       (modules '((guix build utils)
+       (modules '((Manifolding-OS build utils)
                   (ice-9 ftw)
                   (srfi srfi-26)))
        (snippet
@@ -22040,7 +22040,7 @@ interacting with the etcd v3 API.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "0xyq7flcdvbmiss0snriylvabkwclhyb3977vl1xy9gxq94cwqq4"))
-       (modules '((guix build utils)
+       (modules '((Manifolding-OS build utils)
                   (ice-9 ftw)
                   (srfi srfi-26)))
        (snippet
@@ -22229,7 +22229,7 @@ lists)
        (file-name (git-file-name name version))
        (sha256
         (base32 "155qcbl84bwy7m9k221w75yakfv71fbxpfn9g3d7nnq6cl30fbfw"))
-       (modules '((guix build utils)
+       (modules '((Manifolding-OS build utils)
                   (ice-9 ftw)
                   (srfi srfi-26)))
        (snippet
@@ -22268,7 +22268,7 @@ lists)
        (file-name (git-file-name name version))
        (sha256
         (base32 "0nh7g1zxr3drqcbhsnnkqaz2hn1rnawg8jalixng23c9hwfgqaly"))
-       (modules '((guix build utils)
+       (modules '((Manifolding-OS build utils)
                   (ice-9 ftw)
                   (srfi srfi-26)))
        (snippet
@@ -22317,7 +22317,7 @@ Compute Cloud, EC2} instances using @code{aws-sdk-go-v2}.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "0nh7g1zxr3drqcbhsnnkqaz2hn1rnawg8jalixng23c9hwfgqaly"))
-       (modules '((guix build utils)
+       (modules '((Manifolding-OS build utils)
                   (ice-9 ftw)
                   (srfi srfi-26)))
        (snippet
@@ -22362,7 +22362,7 @@ Container Service, ECS} instances.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "18k9pqwzlcjkiz8cy2hgl5jwal10ypj171hra4zsqizbqjivd4lc"))
-       (modules '((guix build utils)
+       (modules '((Manifolding-OS build utils)
                   (ice-9 ftw)
                   (srfi srfi-26)))
        (snippet
@@ -22494,7 +22494,7 @@ Handler) and routes @code{WithRouteTag}.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "15k2xps4qv37pw3ml6pj98kihl6a04bbr005px5hhckl23s40w2c"))
-       (modules '((guix build utils)
+       (modules '((Manifolding-OS build utils)
                   (ice-9 ftw)
                   (srfi srfi-26)))
        (snippet
@@ -22711,7 +22711,7 @@ display telemetry stats.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "1mxj3gv04lh0lss2fk4c5n23m55qm4zy1caa3fqxmnjhy0yjm6rf"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         #~(begin
             ;; Submodules with their own go.mod files and packed as separated
@@ -22806,7 +22806,7 @@ go.opentelemetry.io/otel/trace.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "0sb36qyq389fif9qp5iiqp6w41dfcwi95gb0bsbvznvijhd8c1cc"))
-       (modules '((guix build utils)
+       (modules '((Manifolding-OS build utils)
                   (ice-9 ftw)
                   (srfi srfi-26)))
        (snippet
@@ -22857,7 +22857,7 @@ protobuf payloads.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "0sb36qyq389fif9qp5iiqp6w41dfcwi95gb0bsbvznvijhd8c1cc"))
-       (modules '((guix build utils)
+       (modules '((Manifolding-OS build utils)
                   (ice-9 ftw)
                   (srfi srfi-26)))
        (snippet
@@ -22906,7 +22906,7 @@ protobuf payloads.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "1kvfbqc56p1h9rh9cvgn37ya6k10613r0f2rhjiwrrkgs2mszk30"))
-       (modules '((guix build utils)
+       (modules '((Manifolding-OS build utils)
                   (ice-9 ftw)
                   (srfi srfi-26)))
        (snippet
@@ -22961,7 +22961,7 @@ protobuf payloads.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "0583dw99k25k07pnq8hhhb45kwqhsx30lbk9yxsh4m50ji65wl8h"))
-       (modules '((guix build utils)
+       (modules '((Manifolding-OS build utils)
                   (ice-9 ftw)
                   (srfi srfi-26)))
        (snippet
@@ -23018,7 +23018,7 @@ By default the telemetry is sent to @@url{https://localhost:4317}.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "1kvfbqc56p1h9rh9cvgn37ya6k10613r0f2rhjiwrrkgs2mszk30"))
-       (modules '((guix build utils)
+       (modules '((Manifolding-OS build utils)
                   (ice-9 ftw)
                   (srfi srfi-26)))
        (snippet
@@ -23073,7 +23073,7 @@ protobuf payloads.  By default the telemetry is sent to
        (file-name (git-file-name name version))
        (sha256
         (base32 "0ag8103mf4j03lspi5rxk161iscbw1wkdk6ri9f746jia1w4qji8"))
-       (modules '((guix build utils)
+       (modules '((Manifolding-OS build utils)
                   (ice-9 ftw)
                   (srfi srfi-26)))
        (snippet
@@ -23129,7 +23129,7 @@ prometheus.Collector to provide a handler for these metrics.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "0583dw99k25k07pnq8hhhb45kwqhsx30lbk9yxsh4m50ji65wl8h"))
-       (modules '((guix build utils)
+       (modules '((Manifolding-OS build utils)
                   (ice-9 ftw)
                   (srfi srfi-26)))
        (snippet
@@ -23182,7 +23182,7 @@ for production use.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "1kvfbqc56p1h9rh9cvgn37ya6k10613r0f2rhjiwrrkgs2mszk30"))
-       (modules '((guix build utils)
+       (modules '((Manifolding-OS build utils)
                   (ice-9 ftw)
                   (srfi srfi-26)))
        (snippet
@@ -23229,7 +23229,7 @@ telemetry to be written to an output destination as JSON.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "1kvfbqc56p1h9rh9cvgn37ya6k10613r0f2rhjiwrrkgs2mszk30"))
-       (modules '((guix build utils)
+       (modules '((Manifolding-OS build utils)
                   (ice-9 ftw)
                   (srfi srfi-26)))
        (snippet
@@ -23277,7 +23277,7 @@ telemetry to be written to an output destination as JSON.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "0sb36qyq389fif9qp5iiqp6w41dfcwi95gb0bsbvznvijhd8c1cc"))
-       (modules '((guix build utils)
+       (modules '((Manifolding-OS build utils)
                   (ice-9 ftw)
                   (srfi srfi-26)))
        (snippet
@@ -23336,7 +23336,7 @@ OpenTelemetry API.")))
        (file-name (git-file-name name version))
        (sha256
         (base32 "16x0aw116dadi73vzh8bcwasy79sblvh6k1q7yfx8n841x48ry8r"))
-       (modules '((guix build utils)
+       (modules '((Manifolding-OS build utils)
                   (ice-9 ftw)
                   (srfi srfi-26)))
        (snippet
@@ -23380,7 +23380,7 @@ entirely.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "0sb36qyq389fif9qp5iiqp6w41dfcwi95gb0bsbvznvijhd8c1cc"))
-       (modules '((guix build utils)
+       (modules '((Manifolding-OS build utils)
                   (ice-9 ftw)
                   (srfi srfi-26)))
        (snippet
@@ -23430,7 +23430,7 @@ entirely.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "0sb36qyq389fif9qp5iiqp6w41dfcwi95gb0bsbvznvijhd8c1cc"))
-       (modules '((guix build utils)
+       (modules '((Manifolding-OS build utils)
                   (ice-9 ftw)
                   (srfi srfi-26)))
        (snippet
@@ -23478,7 +23478,7 @@ entirely.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "0sb36qyq389fif9qp5iiqp6w41dfcwi95gb0bsbvznvijhd8c1cc"))
-       (modules '((guix build utils)
+       (modules '((Manifolding-OS build utils)
                   (ice-9 ftw)
                   (srfi srfi-26)))
        (snippet
@@ -23699,7 +23699,7 @@ the standard @code{context} package to store request-scoped values.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "1gvw5mw57kcbcjc6mh22w2gnjlb1gz4m5dal6vs6sfqdmhw0zqiy"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         #~(begin
             ;; Submodules with their own go.mod files and packaged separately:
@@ -23762,7 +23762,7 @@ most complex network-level interference.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "01hgmz80292q6sd4p43ldvnq1fwkknq6hzsg671nxfhzz99v30dx"))
-       (modules '((guix build utils)
+       (modules '((Manifolding-OS build utils)
                   (ice-9 ftw)
                   (srfi srfi-26)))
        (snippet
@@ -23913,7 +23913,7 @@ an alternative fork of @url{https://github.com/mattbaird/jsonpatch}.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "1agvmw1sj2xy2p0ig2xdivn8i5pjnw93d2kq4hix7s5ysiswnpw4"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         #~(begin
             ;; Submodules with their own go.mod files and packaged separately:
@@ -23979,7 +23979,7 @@ an alternative fork of @url{https://github.com/mattbaird/jsonpatch}.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "0y0gc5x6bfs2iq27pq510zwspaccplds4sa5zs40vkhw90ikmvy5"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         #~(begin
             ;; Submodules with their own go.mod files and packaged separately:
@@ -24134,7 +24134,7 @@ interacting with Google's @code{gRPC} APIs.")
        (uri (git-reference
               (url "https://github.com/googleapis/go-genproto")
               (commit (go-version->git-ref version #:subdir "googleapis/api"))))
-       (modules '((guix build utils)
+       (modules '((Manifolding-OS build utils)
                   (ice-9 ftw)
                   (srfi srfi-26)))
        (snippet
@@ -24192,7 +24192,7 @@ interacting with Google's @code{gRPC} APIs.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "0yvcd9xiyarwmzgl70xqiaxxla3qiys1iysqajwmbrf8k4ghr26p"))
-       (modules '((guix build utils)
+       (modules '((Manifolding-OS build utils)
                   (ice-9 ftw)
                   (srfi srfi-26)))
        (snippet
@@ -24233,7 +24233,7 @@ Google Cloud Platform}.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "0bvwnhgg04zhzwb9pxsv3n0c96hci5mdnpdaxr4ggy2m28df2q6m"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         #~(begin
             ;; Submodules with their own go.mod files and packaged separately:
@@ -24304,7 +24304,7 @@ Google Cloud Platform}.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "0yn1ir5y0wc91q95ngr3dlz2cyhp0wlb9l30hkw2cr34r38hq19w"))
-       (modules '((guix build utils)
+       (modules '((Manifolding-OS build utils)
                   (ice-9 ftw)
                   (srfi srfi-26)))
        (snippet
@@ -24345,7 +24345,7 @@ generate Go code.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "1p7h51pm4r8gfxaimvkmkwk0ii4rvhs6p6shvs3qaig86wg1rxwb"))
-       (modules '((guix build utils)
+       (modules '((Manifolding-OS build utils)
                   (ice-9 ftw)
                   (srfi srfi-26)))
        (snippet
@@ -24635,7 +24635,7 @@ Management Services} API.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "1appaqgllddcl6kxkz3azix0xhlzy093vvxi6y3im1mkf5zblwl7"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         #~(begin
             (delete-file-recursively "test")))))
@@ -24700,7 +24700,7 @@ the code or routes.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "1appaqgllddcl6kxkz3azix0xhlzy093vvxi6y3im1mkf5zblwl7"))
-       (modules '((guix build utils)
+       (modules '((Manifolding-OS build utils)
                   (ice-9 ftw)
                   (srfi srfi-26)))
        (snippet
@@ -25208,7 +25208,7 @@ facilite deterministic testing
        (file-name (git-file-name name version))
        (sha256
         (base32 "14lqij58nj8m84mbad1nv30s2v33l2zbw3nvc903f7bl43rgwdl6"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         #~(begin
             ;; Submodules with their own go.mod files and packaged separately:
@@ -25374,7 +25374,7 @@ feature set and features are added on as the need arises.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "0294wyyilvf69dk5vza6zbw3imcvp7ph5nrp7d1hchxrysk3g07y"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         #~(begin
             ;; Submodules with their own go.mod files and packaged separately:

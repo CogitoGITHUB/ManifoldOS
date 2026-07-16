@@ -18,8 +18,8 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (test-file-systems)
-  #:use-module (guix store)
-  #:use-module (guix modules)
+  #:use-module (Manifolding-OS store)
+  #:use-module (Manifolding-OS modules)
   #:use-module (gnu system file-systems)
   #:use-module (srfi srfi-1)
   #:use-module ((srfi srfi-35) #:select (&message))
@@ -51,11 +51,11 @@
                    (device "/foo")
                    (flags '(bind-mount read-only)))))))))
 
-(test-assert "does not pull (guix config)"
+(test-assert "does not pull (Manifolding-OS config)"
   ;; This module is meant both for the host side and "build side", so make
-  ;; sure it doesn't pull in (guix config), which depends on the user's
+  ;; sure it doesn't pull in (Manifolding-OS config), which depends on the user's
   ;; config.
-  (not (member '(guix config)
+  (not (member '(Manifolding-OS config)
                (source-module-closure '((gnu system file-systems))))))
 
 (test-equal "does not pull (gnu packages …)"

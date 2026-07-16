@@ -18,11 +18,11 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu system pam)
-  #:use-module (guix records)
-  #:use-module (guix derivations)
-  #:use-module (guix diagnostics)
-  #:use-module (guix gexp)
-  #:use-module (guix i18n)
+  #:use-module (Manifolding-OS records)
+  #:use-module (Manifolding-OS derivations)
+  #:use-module (Manifolding-OS diagnostics)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS i18n)
   #:use-module (gnu services)
   #:use-module (gnu services shepherd)
   #:use-module (gnu system setuid)
@@ -31,7 +31,7 @@
   #:use-module (srfi srfi-9)
   #:use-module (srfi srfi-11)
   #:use-module (srfi srfi-26)
-  #:use-module ((guix utils) #:select (%current-system))
+  #:use-module ((Manifolding-OS utils) #:select (%current-system))
   #:use-module (gnu packages linux)
   #:export (pam-service
             pam-service?

@@ -60,20 +60,20 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages compression)
-  #:use-module (guix gexp)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix utils)
-  #:use-module (guix packages)
-  #:use-module (guix download)
-  #:use-module (guix git-download)
-  #:use-module (guix build-system ant)
-  #:use-module (guix build-system cmake)
-  #:use-module (guix build-system copy)
-  #:use-module (guix build-system glib-or-gtk)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system go)
-  #:use-module (guix build-system meson)
-  #:use-module (guix build-system trivial)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS utils)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS build-system ant)
+  #:use-module (Manifolding-OS build-system cmake)
+  #:use-module (Manifolding-OS build-system copy)
+  #:use-module (Manifolding-OS build-system glib-or-gtk)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system go)
+  #:use-module (Manifolding-OS build-system meson)
+  #:use-module (Manifolding-OS build-system trivial)
   #:use-module (gnu packages)
   #:use-module (gnu packages algebra)
   #:use-module (gnu packages assembly)
@@ -289,7 +289,7 @@ adding and extracting files to/from a tar archive.")
         (base32 "1gipc7lvxxj8wnzbx4mrw4c78x78qf9j6k4j4pnfsanvin219vmi"))
        (snippet
         #~(begin
-            (use-modules (guix build utils))
+            (use-modules (Manifolding-OS build utils))
             (delete-file-recursively "deps/xxhash")))))
     (build-system cmake-build-system)
     (arguments
@@ -361,8 +361,8 @@ file; as a result, it is often used in conjunction with \"tar\", resulting in
                 "0s92986cv0p692icqlw1j42y9nld8zd83qwhzbqd61p1dqbh6nmb"))))
     (build-system gnu-build-system)
     (arguments
-     (list #:modules '((guix build gnu-build-system)
-                       (guix build utils)
+     (list #:modules '((Manifolding-OS build gnu-build-system)
+                       (Manifolding-OS build utils)
                        (ice-9 ftw)
                        (srfi srfi-1))
            #:phases
@@ -604,7 +604,7 @@ formats, including zstd, xz, gzip, and bgzf.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "1jbnx381jq3myr3p96caf7dwl9k886rf4z2bfq4w1iid8wqjxsj8"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         #~(begin
             ;; unbundle libsais
@@ -678,7 +678,7 @@ Like its ancestor, BZip3 excels at compressing text or code.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "1jg2mcymk0i77g4gwnp45bzbp6174ax9p7ca369f5fg5r1crjl2i"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         #~(begin
             ;; unbundle libsais
@@ -967,7 +967,7 @@ decompressors when faced with corrupted input.")
       (sha256
        (base32
         "16isapn8f39lnffc3dp4dan05b7x6mnc76v6q5nn8ysxvvvwy19b"))
-      (modules '((guix build utils)))
+      (modules '((Manifolding-OS build utils)))
       (snippet
        '(begin
           ;; Adjust for newer libc versions.
@@ -1324,7 +1324,7 @@ This package allows you to create and extract such file systems.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "12ipqmjp10574sz64ls8qbgzkxz5dcbzk0l2fxyh2yrrhnjp34mi"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         '(begin
            ;; Delete bundled third-party libraries.
@@ -1455,7 +1455,7 @@ tarballs.")
               (sha256
                (base32
                 "1iis7a19n26dax3gsnrw9kb0vwq46rbpicnlyf7p2k2y2nqnsm5m"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                '(begin
                   ;; Delete bundled libmspack.
@@ -1655,7 +1655,7 @@ for most inputs, but the resulting compressed files are anywhere from 20% to
        (sha256
         (base32 "0qwzn9pz1m6f8q20cqgmfqp1qx6s7959xnyikpr60n1v8c1mj98q"))
        (file-name (git-file-name name version))
-       (modules '((guix build utils)
+       (modules '((Manifolding-OS build utils)
                   (ice-9 regex)))
        (snippet #~(begin
                     (for-each
@@ -1736,7 +1736,7 @@ of archive formats and features self-extracting archives.")
                 (sha256
                  (base32
                   "00y19pqjsdj5zcrx4p9j56pl73vayfwnb7y2hvp423nx0cwv5b4r"))
-                (modules '((guix build utils)))
+                (modules '((Manifolding-OS build utils)))
                 (snippet
                  ;; Remove pre-compiled object.
                  '(begin
@@ -1807,7 +1807,7 @@ can decompress the data.")
        (sha256
         (base32
          "066l94yyladlfzri877nh2dhkvspagjn3m5bmv725fmhkr9c4pp8"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         ;; Delete irrelevant pre-compiled binaries.
         '(begin
@@ -2317,9 +2317,9 @@ timestamps in the file header with a fixed time (1 January 2008).
     (build-system cmake-build-system)
     (arguments
      (list
-      #:modules '((guix build cmake-build-system)
-                  ((guix build gnu-build-system) #:prefix gnu:)
-                  (guix build utils))
+      #:modules '((Manifolding-OS build cmake-build-system)
+                  ((Manifolding-OS build gnu-build-system) #:prefix gnu:)
+                  (Manifolding-OS build utils))
       #:phases
       #~(modify-phases %standard-phases
           ;; Avoid the integration test, which requires a system bus.
@@ -2866,10 +2866,10 @@ at run time, and must be installed separately.")
          ("p7zip" ,p7zip)
          ("unzip" ,unzip)))
       (arguments
-       `(#:modules ((guix build utils))
+       `(#:modules ((Manifolding-OS build utils))
          #:builder
          (begin
-           (use-modules (guix build utils))
+           (use-modules (Manifolding-OS build utils))
            (let* ((name "makeself_safeextract")
                   (source (string-append (assoc-ref %build-inputs "source")
                                          "/" name ".py"))
@@ -2997,7 +2997,7 @@ chunks.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "0gy9a7wp7x71x5l3rprx8wpb3c5cn7wqc77gdiffq35hr34q88p9"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         ;; In a rare victory, we may delete all bundled libs to no ill effect.
         '(delete-file-recursively "internal-complibs"))))

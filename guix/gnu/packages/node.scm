@@ -46,15 +46,15 @@
   #:use-module (gnu packages tls)
   #:use-module (gnu packages web)
   #:use-module (gnu packages)
-  #:use-module ((guix build utils) #:select (alist-replace))
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system node)
-  #:use-module (guix derivations)
-  #:use-module (guix download)
-  #:use-module (guix git-download)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix packages)
-  #:use-module (guix utils)
+  #:use-module ((Manifolding-OS build utils) #:select (alist-replace))
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system node)
+  #:use-module (Manifolding-OS derivations)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS utils)
   #:use-module (ice-9 match)
   #:use-module (srfi srfi-1)
   #:use-module (srfi srfi-26))
@@ -72,7 +72,7 @@
               (sha256
                (base32
                 "032801kg24j04xmf09m0vxzlcz86sv21s24lv9l4cfv08k1c4byp"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                '(begin
                   ;; Fix process.versions.XXXX assumption of always having
@@ -108,8 +108,8 @@
        ;; add-ons from NPM that are not distributed with the source.
        #:test-target "test-ci-js"
        #:modules
-       ((guix build gnu-build-system)
-        (guix build utils)
+       ((Manifolding-OS build gnu-build-system)
+        (Manifolding-OS build utils)
         (srfi srfi-1)
         (ice-9 match))
        #:phases
@@ -260,7 +260,7 @@
          (add-after 'patch-shebangs 'patch-nested-shebangs
            (lambda* (#:key inputs outputs #:allow-other-keys)
              ;; Based on the implementation of patch-shebangs
-             ;; from (guix build gnu-build-system).
+             ;; from (Manifolding-OS build gnu-build-system).
              (let ((path (append-map (match-lambda
                                        ((_ . dir)
                                         (list (string-append dir "/bin")
@@ -488,7 +488,7 @@ Node.js and web browsers.")
        (sha256
         (base32
          "0r82iiwqsb73k2fxw7842rjjiixllxpyc6yl9cq4ma6ybkf6xmzm"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         '(begin
            ;; Fix imports for esbuild.
@@ -555,7 +555,7 @@ Node.js and web browsers.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "1rm9g4ifyip30svm5cgnf0gx7d45jgh4mpf2hkd092xhngmfvicc"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         '(begin
            ;; Fix imports for esbuild.
@@ -619,7 +619,7 @@ Node.js and web browsers.")
        (sha256
         (base32
          "09hqjcynkz5iv7aydzdwgs42r7y2zylplv0ff7w0vkdsgb08j22a"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         '(begin
            ;; Fix imports for esbuild.
@@ -687,7 +687,7 @@ parser definition into a C output.")
               (sha256
                (base32
                 "0yb46qksyw0h14r1qp84xkk8zijfi661991288isivba61hijp2z"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                '(begin
                   ;; Fix imports for esbuild.
@@ -755,7 +755,7 @@ source files.")
               (sha256
                (base32
                 "1dvy8y51qad7gx5fhlzbfrmav5c9rlasckgxd7n3k1qxnikq0d68"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                '(begin
                   ;; openssl.cnf is required for build.

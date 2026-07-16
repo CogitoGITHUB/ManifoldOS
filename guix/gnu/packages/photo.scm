@@ -33,18 +33,18 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages photo)
-  #:use-module (guix build-system cmake)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system meson)
-  #:use-module (guix build-system perl)
-  #:use-module (guix build-system pyproject)
-  #:use-module (guix build-system qt)
-  #:use-module (guix gexp)
-  #:use-module (guix download)
-  #:use-module (guix git-download)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix packages)
-  #:use-module (guix utils)
+  #:use-module (Manifolding-OS build-system cmake)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system meson)
+  #:use-module (Manifolding-OS build-system perl)
+  #:use-module (Manifolding-OS build-system pyproject)
+  #:use-module (Manifolding-OS build-system qt)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS utils)
   #:use-module (gnu packages)
   #:use-module (gnu packages algebra)
   #:use-module (gnu packages autotools)
@@ -240,9 +240,9 @@ include:
      (list
       #:imported-modules (append %qt-build-system-modules
                                  %pyproject-build-system-modules)
-      #:modules '((guix build pyproject-build-system)
-                  ((guix build qt-build-system) #:prefix qt:)
-                  (guix build utils))
+      #:modules '((Manifolding-OS build pyproject-build-system)
+                  ((Manifolding-OS build qt-build-system) #:prefix qt:)
+                  (Manifolding-OS build utils))
       #:test-flags
       #~(list
          ;; XXX: KeyError: Preference key 'Extension' is invalid.
@@ -289,8 +289,8 @@ include:
                   (,(getenv "GI_TYPELIB_PATH")))
                 `("GST_PLUGIN_SYSTEM_PATH" prefix
                   (,(getenv "GST_PLUGIN_SYSTEM_PATH")))
-                `("GUIX_PYTHONPATH" prefix
-                  (,(getenv "GUIX_PYTHONPATH"))))))
+                `("MANIFOLDING_OS_PYTHONPATH" prefix
+                  (,(getenv "MANIFOLDING_OS_PYTHONPATH"))))))
           (add-after 'wrap-more 'wrap-qt
             (lambda args
               (apply (assoc-ref qt:%standard-phases 'qt-wrap)
@@ -661,7 +661,7 @@ overlapping images, as well as some command line tools.")
                ;; TODO: Remove when updating.
                ;; Fixed upstream with a98e00eed893f62dd8349fc2894abca3aff4b33a.
                (search-patches "enblend-enfuse-reproducible.patch"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                ;; TODO: Remove when updating.
                ;; Fixed upstream with 81e25afe71146aaaf5058c604034f35d57e3be9d.
@@ -783,9 +783,9 @@ scene to produce an image that looks much like a tone-mapped image.")
      (list
       #:imported-modules `(,@%cmake-build-system-modules
                            ,@%pyproject-build-system-modules)
-      #:modules '((guix build cmake-build-system)
-                  ((guix build pyproject-build-system) #:prefix py:)
-                  (guix build utils))
+      #:modules '((Manifolding-OS build cmake-build-system)
+                  ((Manifolding-OS build pyproject-build-system) #:prefix py:)
+                  (Manifolding-OS build utils))
       #:configure-flags
       (if (any (cute string-prefix? <> (or (%current-system)
                                            (%current-target-system)))
@@ -806,8 +806,8 @@ scene to produce an image that looks much like a tone-mapped image.")
             (lambda* (#:key inputs outputs #:allow-other-keys)
               (for-each (lambda (program)
                           (wrap-program (search-input-file outputs program)
-                            `("GUIX_PYTHONPATH" ":" prefix
-                              (,(getenv "GUIX_PYTHONPATH")
+                            `("MANIFOLDING_OS_PYTHONPATH" ":" prefix
+                              (,(getenv "MANIFOLDING_OS_PYTHONPATH")
                                ,(py:site-packages inputs outputs)))))
                         (list "bin/lensfun-update-data"
                               "bin/lensfun-add-adapter")))))))
@@ -958,7 +958,7 @@ and enhance them.")
          (file-name (git-file-name name version))
          (sha256
           (base32 "0f2m8qlmfaw9afs3b2bpk3s40wmgqzaf36szcz10c38dm3lhnhqh"))
-         (modules '((guix build utils)))
+         (modules '((Manifolding-OS build utils)))
          (snippet '(for-each delete-file-recursively
                              '("src/external/LibRaw"
                                "src/external/OpenCL"
@@ -1115,10 +1115,10 @@ such as Batch image processing.")
             ;; Make GTK find files needed by plugins.
             (lambda* (#:key inputs #:allow-other-keys)
               (let ((gi-typelib-path (getenv "GI_TYPELIB_PATH"))
-                    (python-path     (getenv "GUIX_PYTHONPATH")))
+                    (python-path     (getenv "MANIFOLDING_OS_PYTHONPATH")))
                 (wrap-program (string-append #$output "/bin/entangle")
                   `("GI_TYPELIB_PATH" ":" prefix (,gi-typelib-path))
-                  `("GUIX_PYTHONPATH" ":" prefix (,python-path)))))))))
+                  `("MANIFOLDING_OS_PYTHONPATH" ":" prefix (,python-path)))))))))
     (native-inputs
      (list cmake-minimal
            gettext-minimal

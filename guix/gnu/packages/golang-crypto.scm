@@ -49,12 +49,12 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages golang-crypto)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix build-system go)
-  #:use-module (guix gexp)
-  #:use-module (guix git-download)
-  #:use-module (guix packages)
-  #:use-module (guix utils)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS build-system go)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS utils)
   #:use-module (gnu packages)
   #:use-module (gnu packages gnupg)
   #:use-module (gnu packages golang)
@@ -97,7 +97,7 @@
        (file-name (git-file-name name version))
        (sha256
         (base32 "00bk05ca94lm3b029ycwj0krmg2gfjv1c3pc7dvq9gmwwzr564v5"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         #~(begin
             ;; Sub folders containing different projects with their own
@@ -146,7 +146,7 @@ can be ignored.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "1h4k15bdbx5dx1397xvhx2h7b5akvbzksh80j3p46mqq6kgymks2"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         #~(begin
             ;; Age source bundles manpages already. Seems OK not to rebuild
@@ -466,7 +466,7 @@ with its management port enabled.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "1lya21w06ramq37af5hdiafbrv5k1csjm7k7m00v0bfxg3ni01bs"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         #~(begin
             ;; Examples are all broken.
@@ -651,7 +651,7 @@ described at @url{https://xxhash.com/}.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "1fhpn8iwb0p44sqi1hflgxpvy83krpi8gd0dd66m7756wszy3g6r"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet '(delete-file-recursively "xxhashbench"))))
     (arguments
      (list
@@ -708,7 +708,7 @@ described at @url{https://xxhash.com/}.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "1pfxg0iqai760arvbkznwkb6w2w7gginqpzr49s419dp73kr99hj"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         #~(begin
             ;; Submodule(s) with their own go.mod files and packed as
@@ -751,7 +751,7 @@ Cryptography (ECC).")
        (sha256
         (base32 "0mlmm68x0y4m6dzris6ggkhzfxpd99df4syj3zc6350q3fxi0kv9"))
        (snippet
-        #~(begin (use-modules (guix build utils))
+        #~(begin (use-modules (Manifolding-OS build utils))
                  (delete-file-recursively "vendor")))))
     (build-system go-build-system)
     (arguments
@@ -804,7 +804,7 @@ The package include Go source library and @code{redoctober} command.")
        (sha256
         (base32 "1f394m92xspc03sfwijbbn86ywm4q31aw86hd4d87ckrnbxp3mrc"))
        (snippet
-        #~(begin (use-modules (guix build utils))
+        #~(begin (use-modules (Manifolding-OS build utils))
                  (delete-file-recursively "bench")))))
     (build-system go-build-system)
     (arguments
@@ -869,7 +869,7 @@ signing.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "0vmq8fkqz0vcm1023lmrka8siasg5kj59k21101kk4n632zzwwn4"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         #~(begin
             ;; Submodules with their own go.mod files and packaged separately:
@@ -909,7 +909,7 @@ support encrypted container images.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "0xlyiravmpryz4piaczjwg09q599nfxr3vlgnbv55x3jvy71j0yg"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         #~(begin
             ;; tlsdemo contains demo executables (separate main packages) which
@@ -1093,7 +1093,7 @@ for speed on short messages.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "1mjzlyz2a3516g46kv421nacjd7p4g9l8ih4i7xijvsi480s5pja"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         #~(begin
             ;; Submodules with their own go.mod files and packed as separated
@@ -1131,7 +1131,7 @@ and AVX acceleration and zero allocations.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "069v37xz9wxyjj79ag462kafhzdjq7jahp20kilx4435h8vhxxyg"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         #~(begin
             ;; Submodules with their own go.mod files and packed as separated
@@ -1554,7 +1554,7 @@ for values.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "1n1r7jkb48y06jw2dhkaqs33j6qgwf9fvbisd1zsr6v2k7wgfvf3"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         #~(begin
             (for-each
@@ -3911,7 +3911,7 @@ PKCS#5 (v2.0) algorithms.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "117p973ccgalaqg7byj0qcd1xapysplql9np1sr9jkca500khcgf"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         #~(begin
             ;; Submodules with their own go.mod files and packaged separately:
@@ -4000,7 +4000,7 @@ Congruential Generator} (PCG) algorithm.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "1fx1id14jk3lrrr5pnmdhbnfdg5r047g2nc4hgq9b61z5adbn17m"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         #~(begin
             ;; Submodules with their own go.mod files and packaged separately:

@@ -88,7 +88,7 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages mail)
-  #:use-module ((guix licenses) #:prefix license:)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
   #:use-module (gnu packages admin)
   #:use-module (gnu packages aspell)
   #:use-module (gnu packages autotools)
@@ -209,25 +209,25 @@
   #:use-module (gnu packages xml)
   #:use-module (gnu packages xorg)
   #:use-module (gnu packages)
-  #:use-module (guix build-system cargo)
-  #:use-module (guix build-system cmake)
-  #:use-module (guix build-system emacs)
-  #:use-module (guix build-system glib-or-gtk)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system go)
-  #:use-module (guix build-system guile)
-  #:use-module (guix build-system meson)
-  #:use-module (guix build-system perl)
-  #:use-module (guix build-system pyproject)
-  #:use-module (guix build-system qt)
-  #:use-module (guix build-system trivial)
-  #:use-module (guix deprecation)
-  #:use-module (guix download)
-  #:use-module (guix gexp)
-  #:use-module (guix git-download)
-  #:use-module (guix packages)
-  #:use-module (guix svn-download)
-  #:use-module (guix utils)
+  #:use-module (Manifolding-OS build-system cargo)
+  #:use-module (Manifolding-OS build-system cmake)
+  #:use-module (Manifolding-OS build-system emacs)
+  #:use-module (Manifolding-OS build-system glib-or-gtk)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system go)
+  #:use-module (Manifolding-OS build-system guile)
+  #:use-module (Manifolding-OS build-system meson)
+  #:use-module (Manifolding-OS build-system perl)
+  #:use-module (Manifolding-OS build-system pyproject)
+  #:use-module (Manifolding-OS build-system qt)
+  #:use-module (Manifolding-OS build-system trivial)
+  #:use-module (Manifolding-OS deprecation)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS svn-download)
+  #:use-module (Manifolding-OS utils)
   #:use-module (ice-9 match)
   #:use-module (srfi srfi-1))
 
@@ -777,8 +777,8 @@ to run without any changes.")
                (add-after 'install 'wrap-fetchmailconf
                  (lambda _
                    (wrap-program (string-append #$output "/bin/fetchmailconf")
-                    `("GUIX_PYTHONPATH" ":"
-                      prefix (,(getenv "GUIX_PYTHONPATH")))))))))
+                    `("MANIFOLDING_OS_PYTHONPATH" ":"
+                      prefix (,(getenv "MANIFOLDING_OS_PYTHONPATH")))))))))
     (inputs
      (list openssl
            ;; Needed for fetchmailconf
@@ -865,7 +865,7 @@ operating systems.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "1sg6ifabci7xyp3zds1w906vx6jsmyjlfr6bqld7m7hj07by9ndd"))
-       (modules '((guix build utils)
+       (modules '((Manifolding-OS build utils)
                   (ice-9 ftw)
                   (srfi srfi-26)))
        (snippet
@@ -1299,10 +1299,10 @@ repository and Maildir/IMAP as LOCAL repository.")
     (arguments
      (let ((icon-dir  #~(string-append #$output "/share/mew")))
        (list
-        #:modules '((guix build gnu-build-system)
-                    (guix build utils)
-                    ((guix build emacs-build-system) #:prefix emacs:)
-                    (guix build emacs-utils))
+        #:modules '((Manifolding-OS build gnu-build-system)
+                    (Manifolding-OS build utils)
+                    ((Manifolding-OS build emacs-build-system) #:prefix emacs:)
+                    (Manifolding-OS build emacs-utils))
         #:imported-modules %emacs-build-system-modules
         #:tests? #f
         #:configure-flags
@@ -1363,14 +1363,14 @@ security functionality including PGP, S/MIME, SSH, and SSL.")
      (list glib gmime guile-3.0-latest xapian readline python))
     (arguments
      (list
-      #:modules '((guix build meson-build-system)
-                  (guix build emacs-utils)
-                  ((guix build guile-build-system)
+      #:modules '((Manifolding-OS build meson-build-system)
+                  (Manifolding-OS build emacs-utils)
+                  ((Manifolding-OS build guile-build-system)
                    #:select (target-guile-effective-version))
-                  (guix build utils))
+                  (Manifolding-OS build utils))
       #:imported-modules `(,@%meson-build-system-modules
-                           (guix build guile-build-system)
-                           (guix build emacs-utils))
+                           (Manifolding-OS build guile-build-system)
+                           (Manifolding-OS build emacs-utils))
       #:configure-flags
       #~(list (format #f "-Dguile-extension-dir=~a/lib" #$output)
               "-Dreadline=enabled"
@@ -1508,7 +1508,7 @@ Notmuch.")
             (add-after 'install 'wrap-binary
               (lambda _
                 (wrap-program (string-append #$output "/bin/notifymuch")
-                  `("GUIX_PYTHONPATH" ":" prefix (,(getenv "GUIX_PYTHONPATH")))
+                  `("MANIFOLDING_OS_PYTHONPATH" ":" prefix (,(getenv "MANIFOLDING_OS_PYTHONPATH")))
                   `("GI_TYPELIB_PATH" ":" prefix
                     (,(getenv "GI_TYPELIB_PATH")
                      ,(string-append #$output "/lib/girepository-1.0")))))))))
@@ -1550,9 +1550,9 @@ invoking @command{notifymuch} from the post-new hook.")
     (arguments
      (list
       #:imported-modules %pyproject-build-system-modules
-      #:modules '((guix build gnu-build-system)
-                  ((guix build pyproject-build-system) #:prefix py:)
-                  (guix build utils))
+      #:modules '((Manifolding-OS build gnu-build-system)
+                  ((Manifolding-OS build pyproject-build-system) #:prefix py:)
+                  (Manifolding-OS build utils))
       #:make-flags
       #~(list "V=1"                      ; verbose test output
               "NOTMUCH_TEST_TIMEOUT=1h") ; don't fail on slow machines
@@ -2255,7 +2255,7 @@ It supports mbox/Maildir and its own dbox/mdbox formats.")
                "dovecot-" dovecot-version "-pigeonhole-" version ".tar.gz"))
          (sha256
           (base32 "14j6bj9dc0c2f6pi251jyhfiwyg7n9gi2c840vg261v29cldnxq3"))
-         (modules '((guix build utils)))
+         (modules '((Manifolding-OS build utils)))
          (snippet
           '(begin
              ;; RFC licencing is ad-hoc and rarely free.  Remove them all.
@@ -3040,10 +3040,10 @@ existing mail server.  With Postfix, the proxies can operate as either
                 "0bvkky3c90738h3skd2f1b2yy5xzhl25cbh9w2dy97rs86ssjidg"))))
     (build-system trivial-build-system)
     (arguments
-     '(#:modules ((guix build utils))
+     '(#:modules ((Manifolding-OS build utils))
        #:builder
        (begin
-         (use-modules (guix build utils))
+         (use-modules (Manifolding-OS build utils))
          (let* ((source (assoc-ref %build-inputs "source"))
                 (out (assoc-ref %outputs "out"))
                 (bin (string-append out "/bin"))
@@ -3100,8 +3100,8 @@ converts them to maildir format directories.")
               "PREFIX="
               (string-append "DESTDIR=" #$output))
       #:modules '((ice-9 ftw)
-                  (guix build utils)
-                  (guix build gnu-build-system))
+                  (Manifolding-OS build utils)
+                  (Manifolding-OS build gnu-build-system))
       #:phases
       #~(modify-phases %standard-phases
           (delete 'configure)
@@ -3932,7 +3932,7 @@ are supported).  @code{bit} is a CGI/SSI program that generates web pages
 on the fly.  Both programs are written in C and are very fast.")
     (license license:expat)))
 
-(define computed-origin-method (@@ (guix packages) computed-origin-method))
+(define computed-origin-method (@@ (Manifolding-OS packages) computed-origin-method))
 
 (define-public stalwart
   (package
@@ -3955,9 +3955,9 @@ on the fly.  Both programs are written in C and are very fast.")
          (sha256 #f)
          (uri
           (delay
-            (with-imported-modules '((guix build utils))
+            (with-imported-modules '((Manifolding-OS build utils))
               #~(begin
-                  (use-modules (guix build utils))
+                  (use-modules (Manifolding-OS build utils))
                   (set-path-environment-variable
                    "PATH" '("bin")
                    (list #+python-minimal))
@@ -4109,7 +4109,7 @@ operators and scripters.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "1padh9kgn9blzjf0016i2f15c615fk17m8vg8kx301jhmc2r973h"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         '(begin
            ;; Remove pre-built binaries scattered across the source repository.
@@ -4414,11 +4414,11 @@ It is a replacement for the @command{urlview} program.")
     (build-system gnu-build-system)
     (arguments
      (list
-      #:modules '((guix build gnu-build-system)
-                  ((guix build guile-build-system)
+      #:modules '((Manifolding-OS build gnu-build-system)
+                  ((Manifolding-OS build guile-build-system)
                    #:select (target-guile-effective-version))
-                  (guix build utils))
-      #:imported-modules `((guix build guile-build-system)
+                  (Manifolding-OS build utils))
+      #:imported-modules `((Manifolding-OS build guile-build-system)
                            ,@%default-gnu-imported-modules)
 
       #:configure-flags '(list "--localstatedir=/var")
@@ -4515,7 +4515,7 @@ related tools to process winmail.dat files.")
           (base32 "0p89ac9g4y3l9wyp62zq2lcdsdvpnc0ah8inbydknc8v2x2a7jwb"))
          (snippet
           #~(begin
-              (use-modules (guix build utils))
+              (use-modules (Manifolding-OS build utils))
               ;; Don't try to redefine loff_t.
               (substitute* "utils.c"
                 (("typedef off_t loff_t;")
@@ -4591,8 +4591,8 @@ extension.")
              (file-name (git-file-name name version))))
     (build-system perl-build-system)
     (arguments
-     `(#:modules ((guix build perl-build-system)
-                  (guix build utils)
+     `(#:modules ((Manifolding-OS build perl-build-system)
+                  (Manifolding-OS build utils)
                   (ice-9 match))
        #:phases
        (modify-phases %standard-phases
@@ -5063,13 +5063,13 @@ ex-like commands on it.")
          "0awcjc5j2mclkkpbjyijj9mv8xjz3haljvaj0fyc4fm4xir68qpv"))))
     (build-system gnu-build-system)
     (arguments
-     `(#:modules ((guix build gnu-build-system)
-                  ((guix build emacs-build-system) #:prefix emacs:)
-                  (guix build utils)
+     `(#:modules ((Manifolding-OS build gnu-build-system)
+                  ((Manifolding-OS build emacs-build-system) #:prefix emacs:)
+                  (Manifolding-OS build utils)
                   (ice-9 string-fun))
        #:imported-modules (,@%default-gnu-imported-modules
-                           (guix build emacs-build-system)
-                           (guix build emacs-utils))
+                           (Manifolding-OS build emacs-build-system)
+                           (Manifolding-OS build emacs-utils))
        #:make-flags (list (string-append "prefix=" %output)
                           "LDFLAGS=")   ; disable static linking
        ;; Test suite is not fully automated. It requires a human to read the

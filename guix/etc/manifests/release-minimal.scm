@@ -22,11 +22,11 @@
 ;;; This file returns a manifest containing packages which are needed by the
 ;;; installer.
 
-(use-modules (guix packages)
+(use-modules (Manifolding-OS packages)
              (gnu packages)
              ((gnu system) #:select (%base-packages %base-firmware))
-             (guix profiles)
-             (guix utils)
+             (Manifolding-OS profiles)
+             (Manifolding-OS utils)
              (srfi srfi-1))
 
 (define* (package->manifest-entry* package system

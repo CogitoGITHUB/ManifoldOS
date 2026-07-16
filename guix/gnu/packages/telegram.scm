@@ -79,17 +79,17 @@
   #:use-module (gnu packages xdisorg)
   #:use-module (gnu packages xiph)
   #:use-module (gnu packages xorg)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix packages)
-  #:use-module (guix gexp)
-  #:use-module (guix git-download)
-  #:use-module (guix build-system cmake)
-  #:use-module (guix build-system copy)
-  #:use-module (guix build-system glib-or-gtk)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system meson)
-  #:use-module (guix build-system qt)
-  #:use-module (guix utils))
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS build-system cmake)
+  #:use-module (Manifolding-OS build-system copy)
+  #:use-module (Manifolding-OS build-system glib-or-gtk)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system meson)
+  #:use-module (Manifolding-OS build-system qt)
+  #:use-module (Manifolding-OS utils))
 
 (define %telegram-version "6.3.6")
 
@@ -300,7 +300,7 @@
            (git-file-name name version))
           (sha256
            (base32 "1zv79jvzw82gh1vn5g8p2i914lsanfbi4i6w9x04vqyi52ng4cl7"))
-          (modules '((guix build utils)
+          (modules '((Manifolding-OS build utils)
                      (ice-9 ftw)
                      (srfi srfi-1)))
           (snippet
@@ -390,7 +390,7 @@ Telegram project, for its use in telegram desktop client.")
            (git-file-name name version))
           (sha256
            (base32 "14gwg3sn6xdx9ymnx5r0vfm4pk8dwk92s10a1wdvfbjpyrxll64i"))
-          (modules '((guix build utils)))
+          (modules '((Manifolding-OS build utils)))
           (snippet
            #~(begin
                (substitute* "meson.build"
@@ -511,7 +511,7 @@ support for high performance Telegram Bot creation.")
          ;; Make it compatible with GCC 11.
          "telegram-desktop-qguiapp.patch"
          "telegram-desktop-hashmap-incomplete-value.patch"))
-       (modules '((guix build utils)
+       (modules '((Manifolding-OS build utils)
                   (ice-9 ftw)
                   (srfi srfi-1)))
        (snippet
@@ -530,12 +530,12 @@ support for high performance Telegram Bot creation.")
            #:tests? #f                      ; No target
            #:imported-modules
            `(,@%qt-build-system-modules
-             (guix build glib-or-gtk-build-system))
+             (Manifolding-OS build glib-or-gtk-build-system))
            #:modules
-           '((guix build qt-build-system)
-             ((guix build glib-or-gtk-build-system)
+           '((Manifolding-OS build qt-build-system)
+             ((Manifolding-OS build glib-or-gtk-build-system)
               #:prefix glib-or-gtk:)
-             (guix build utils)
+             (Manifolding-OS build utils)
              (ice-9 match))
            #:configure-flags
            #~(list
@@ -692,13 +692,13 @@ Telegram instant messenger.")
       (arguments
        `(#:tests? #f                    ; No target
          #:imported-modules
-         ((guix build copy-build-system)
+         ((Manifolding-OS build copy-build-system)
           ,@%cmake-build-system-modules)
          #:modules
-         (((guix build copy-build-system)
+         (((Manifolding-OS build copy-build-system)
            #:prefix copy:)
-          (guix build cmake-build-system)
-          (guix build utils))
+          (Manifolding-OS build cmake-build-system)
+          (Manifolding-OS build utils))
          #:phases
          (modify-phases %standard-phases
            (replace 'install
@@ -739,13 +739,13 @@ formerly a part of telegram-cli, but now being maintained separately.")
        (list
         #:tests? #f                    ; No target
          #:imported-modules
-         `((guix build copy-build-system)
+         `((Manifolding-OS build copy-build-system)
            ,@%default-gnu-imported-modules)
          #:modules
-         '(((guix build copy-build-system)
+         '(((Manifolding-OS build copy-build-system)
             #:prefix copy:)
-           (guix build gnu-build-system)
-           (guix build utils))
+           (Manifolding-OS build gnu-build-system)
+           (Manifolding-OS build utils))
          #:configure-flags
          '(list
            ;; Use gcrypt instead of openssl.
@@ -812,13 +812,13 @@ formerly a part of telegram-cli, but now being maintained separately.")
        (list
         #:tests? #f                     ; No target
         #:imported-modules
-        `((guix build copy-build-system)
+        `((Manifolding-OS build copy-build-system)
           ,@%default-gnu-imported-modules)
         #:modules
-        '(((guix build copy-build-system)
+        '(((Manifolding-OS build copy-build-system)
            #:prefix copy:)
-          (guix build gnu-build-system)
-          (guix build utils))
+          (Manifolding-OS build gnu-build-system)
+          (Manifolding-OS build utils))
         #:configure-flags
         '(list
           ;; Use gcrypt instead of openssl.

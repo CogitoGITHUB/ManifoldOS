@@ -45,14 +45,14 @@
   #:use-module (gnu packages sqlite)
   #:use-module (gnu packages xiph)
   #:use-module (gnu packages xorg)
-  #:use-module (guix packages)
-  #:use-module (guix gexp)
-  #:use-module (guix git-download)
-  #:use-module (guix utils)
-  #:use-module (guix build-system cmake)
-  #:use-module (guix build-system copy)
-  #:use-module (guix build-system luanti)
-  #:use-module ((guix licenses) #:prefix license:))
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS utils)
+  #:use-module (Manifolding-OS build-system cmake)
+  #:use-module (Manifolding-OS build-system copy)
+  #:use-module (Manifolding-OS build-system luanti)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:))
 
 (define-public luanti
   (package
@@ -67,7 +67,7 @@
        (file-name (git-file-name name version))
        (sha256
         (base32 "1prlrixnkky4bb8d6ibni6qaa590hl6f0mn4hsjvj7fcs25qrmh6"))
-       (modules '((guix build utils)
+       (modules '((Manifolding-OS build utils)
                   (srfi srfi-26)
                   (ice-9 ftw)))
        ;; Delete bundled libraries.
@@ -342,7 +342,7 @@ name = sound_api_core")))))))
        (file-name (git-file-name name version))
        (snippet
         '(begin
-           (use-modules (guix build utils))
+           (use-modules (Manifolding-OS build utils))
            (substitute* "mod.conf"
              (("optional_depends =")
               "depends = sound_api_core

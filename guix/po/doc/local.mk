@@ -20,30 +20,30 @@
 # along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 DOC_PO_FILES =					\
-  %D%/guix-manual.de.po			\
-  %D%/guix-manual.es.po			\
-  %D%/guix-manual.fr.po			\
-  %D%/guix-manual.it.po			\
-  %D%/guix-manual.pt_BR.po			\
-  %D%/guix-manual.ru.po			\
-  %D%/guix-manual.zh_CN.po
+  %D%/Manifolding-OS-manual.de.po			\
+  %D%/Manifolding-OS-manual.es.po			\
+  %D%/Manifolding-OS-manual.fr.po			\
+  %D%/Manifolding-OS-manual.it.po			\
+  %D%/Manifolding-OS-manual.pt_BR.po			\
+  %D%/Manifolding-OS-manual.ru.po			\
+  %D%/Manifolding-OS-manual.zh_CN.po
 
 DOC_COOKBOOK_PO_FILES =			\
-  %D%/guix-cookbook.de.po			\
-  %D%/guix-cookbook.es.po			\
-  %D%/guix-cookbook.fr.po			\
-  %D%/guix-cookbook.it.po			\
-  %D%/guix-cookbook.ko.po			\
-  %D%/guix-cookbook.pt_BR.po			\
-  %D%/guix-cookbook.ru.po			\
-  %D%/guix-cookbook.sk.po			\
-  %D%/guix-cookbook.sv.po			\
-  %D%/guix-cookbook.zh_CN.po
+  %D%/Manifolding-OS-cookbook.de.po			\
+  %D%/Manifolding-OS-cookbook.es.po			\
+  %D%/Manifolding-OS-cookbook.fr.po			\
+  %D%/Manifolding-OS-cookbook.it.po			\
+  %D%/Manifolding-OS-cookbook.ko.po			\
+  %D%/Manifolding-OS-cookbook.pt_BR.po			\
+  %D%/Manifolding-OS-cookbook.ru.po			\
+  %D%/Manifolding-OS-cookbook.sk.po			\
+  %D%/Manifolding-OS-cookbook.sv.po			\
+  %D%/Manifolding-OS-cookbook.zh_CN.po
 
 EXTRA_DIST = \
   %D%/po4a.cfg \
-  %D%/guix-manual.pot \
-  %D%/guix-cookbook.pot \
+  %D%/Manifolding-OS-manual.pot \
+  %D%/Manifolding-OS-cookbook.pot \
   $(DOC_PO_FILES) \
   $(DOC_COOKBOOK_PO_FILES)
 
@@ -60,12 +60,12 @@ EXTRA_DIST = \
 	sed -ri -e "s,^(.POT-Creation-Date: )[^\]*,\1$$date," "$@-t"
 	mv "$@-t" "$@"
 
-%D%/guix-manual.pot: %D%/guix.pot %D%/contributing.pot
+%D%/Manifolding-OS-manual.pot: %D%/guix.pot %D%/contributing.pot
 	msgcat $^ > "$@-t"
 	date="$$(git log --pretty=format:%ci -n 1 -- $< 2>/dev/null	\
 		|| echo $(SOURCE_DATE_EPOCH))"				\
 	sed -ri "s,^(.POT-Creation-Date: )[^\]*,\1$$date," "$@-t"
 	mv "$@-t" "$@"
 
-doc-pot-update: %D%/guix-manual.pot %D%/guix-cookbook.pot
+doc-pot-update: %D%/Manifolding-OS-manual.pot %D%/Manifolding-OS-cookbook.pot
 .PHONY: doc-pot-update

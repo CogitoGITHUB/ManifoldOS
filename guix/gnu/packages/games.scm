@@ -246,25 +246,25 @@
   #:use-module (gnu packages xml)
   #:use-module (gnu packages xorg)
   #:use-module (gnu packages)
-  #:use-module (guix build-system cmake)
-  #:use-module (guix build-system copy)
-  #:use-module (guix build-system glib-or-gtk)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system go)
-  #:use-module (guix build-system haskell)
-  #:use-module (guix build-system meson)
-  #:use-module (guix build-system perl)
-  #:use-module (guix build-system pyproject)
-  #:use-module (guix build-system qt)
-  #:use-module (guix build-system scons)
-  #:use-module (guix build-system trivial)
-  #:use-module (guix download)
-  #:use-module (guix gexp)
-  #:use-module (guix git-download)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix packages)
-  #:use-module (guix svn-download)
-  #:use-module (guix utils)
+  #:use-module (Manifolding-OS build-system cmake)
+  #:use-module (Manifolding-OS build-system copy)
+  #:use-module (Manifolding-OS build-system glib-or-gtk)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system go)
+  #:use-module (Manifolding-OS build-system haskell)
+  #:use-module (Manifolding-OS build-system meson)
+  #:use-module (Manifolding-OS build-system perl)
+  #:use-module (Manifolding-OS build-system pyproject)
+  #:use-module (Manifolding-OS build-system qt)
+  #:use-module (Manifolding-OS build-system scons)
+  #:use-module (Manifolding-OS build-system trivial)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS svn-download)
+  #:use-module (Manifolding-OS utils)
   #:use-module (ice-9 match)
   #:use-module ((srfi srfi-1) #:hide (zip))
   #:use-module (srfi srfi-26))
@@ -382,7 +382,7 @@ the style of similar games for the Commodore+4.")
          (file-name (git-file-name name version))
          (sha256
           (base32 "1vbg17lzbm0xl9yy9qymd1vgpz6f7fbr2hffl2ap0nm4zg0mnafm"))
-         (modules '((guix build utils)))
+         (modules '((Manifolding-OS build utils)))
          (snippet
           '(begin
              ;; Necessary for building with gcc >=4.7.
@@ -1416,7 +1416,7 @@ want what you have.")
          (sha256
           (base32
            "1bjn39lvk6clr6w98qki3lidkvaxsky3235izkdsbvysz4j6664p"))
-         (modules '((guix build utils)))
+         (modules '((Manifolding-OS build utils)))
          (snippet
           ;; Strip image URLs as they point towards non-free web services
           '(substitute* "libcockatrice_settings/libcockatrice/settings/download_settings.cpp"
@@ -1635,16 +1635,16 @@ practise.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "19jq5cj6rc8d5ghd9321a2f3v0b7z928990d7dj6ynyhkpcj769p"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet #~(delete-file-recursively "Screenshots")))) ;Save 1.4MiB.
     (build-system qt-build-system)
     (arguments
      (list
       #:qtbase qtbase
       #:tests? #f                       ;no tests
-      #:modules '((guix build qt-build-system)
-                  ((guix build gnu-build-system) #:prefix gnu:)
-                  (guix build utils))
+      #:modules '((Manifolding-OS build qt-build-system)
+                  ((Manifolding-OS build gnu-build-system) #:prefix gnu:)
+                  (Manifolding-OS build utils))
       #:phases
       #~(modify-phases %standard-phases
           (replace 'configure
@@ -1728,7 +1728,7 @@ should be placed in @file{~/.local/share/falltergeist}.")
           (base32 "00b693ys5zvzjbjzzj3dqfzm5xw64gwjf9m8qv6bkmf0klbhmayk"))
          (patches
           (search-patches "foobillard++-pkg-config.patch"))
-         (modules '((guix build utils)))
+         (modules '((Manifolding-OS build utils)))
          (snippet
           '(begin
              ;; Unfortunately, the game includes background music with
@@ -2089,7 +2089,7 @@ Joy-Con controllers.")
        (sha256
         (base32 "0w7kmgz9ya0ck9cxhsyralarg7y6ydx4plmh33r4mkxkamlr7493"))
        ;; Remove unused bundled libraries.
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         '(begin
            (with-directory-excursion "ext"
@@ -2123,7 +2123,7 @@ does not include game data.")
        (sha256
         (base32 "0d1k5279imc17mk3lxn8amc4ljgcj4v6x6lj2w3bph1z0a7a4bim"))
        ;; Remove unused bundled libraries.
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         '(begin
            (with-directory-excursion "ext"
@@ -2407,7 +2407,7 @@ well as Simple Simon boards.")
               (sha256
                (base32
                 "18vp2ygvn0s0jz8rm585jqf6hjqkam1ximq81k0r9hpmfj7wb88f"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                ;; Fix a missing include for std::map.
                #~(substitute* "src/shared/impl/lua_func_wrapper.cpp"
@@ -2462,7 +2462,7 @@ destroying an ancient book using a special wand.")
          (sha256
           (base32
            "021awll73bgjk61r6y6cbqn0dpmki9jp627km7yhx5px15panslq"))
-         (modules '((guix build utils)))
+         (modules '((Manifolding-OS build utils)))
          (snippet '(delete-file-recursively "vendor"))))
       (build-system copy-build-system)
       (arguments
@@ -2712,7 +2712,7 @@ scriptable with Guile.")
               (sha256
                (base32
                 "0a9bsl2nbnb138lq0h14jfc5xvz7hpb2bcsj4mjn6g1hcsl4ik0y"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               ;; Fix "warning: ISO C90 does not support ‘__func__’ predefined
               ;; identifier [-Wpedantic]"
               (snippet '(begin
@@ -2958,9 +2958,9 @@ role, and your gender.")
      (substitute-keyword-arguments arguments
        ((#:imported-modules imported-modules %default-gnu-imported-modules)
         `(,@%qt-build-system-modules ,@imported-modules))
-       ((#:modules modules '((guix build utils)
-                             (guix build gnu-build-system)))
-        `(((guix build qt-build-system) #:prefix qt:)
+       ((#:modules modules '((Manifolding-OS build utils)
+                             (Manifolding-OS build gnu-build-system)))
+        `(((Manifolding-OS build qt-build-system) #:prefix qt:)
           ,@modules))
        ((#:make-flags flags)
         #~(cons* "WANT_WIN_QT6=1"
@@ -3316,12 +3316,12 @@ documentation.")
                 (call-with-output-file bin
                   (lambda (p)
                     (format p "#!~a
-export GUIX_PYTHONPATH=~a/LIB:~a
+export MANIFOLDING_OS_PYTHONPATH=~a/LIB:~a
 exec -a ~s ~s \"$@\"
 "
                             (which "bash")
                             share
-                            (getenv "GUIX_PYTHONPATH")
+                            (getenv "MANIFOLDING_OS_PYTHONPATH")
                             (which "python3")
                             (string-append lib "/main.py"))))
                 (chmod bin #o555)))))))
@@ -3353,7 +3353,7 @@ can be explored and changed freely.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "1dxysa79cz5mflr2953fyk838h1jwvi1ngn8wlpms0ag35yv21s8"))
-       (modules '((guix build utils)
+       (modules '((Manifolding-OS build utils)
                   (ice-9 ftw)
                   (srfi srfi-1)))
        ;; Remove non-free (non-commercial) font.
@@ -3390,11 +3390,11 @@ can be explored and changed freely.")
                     (lambda (p)
                       (format p
                               "#!~a~@
-                              export GUIX_PYTHONPATH=~a:~a~@
+                              export MANIFOLDING_OS_PYTHONPATH=~a:~a~@
                               exec -a \"~a\" ~a \"$@\"~%"
                               (search-input-file inputs "/bin/bash")
                               data
-                              (getenv "GUIX_PYTHONPATH")
+                              (getenv "MANIFOLDING_OS_PYTHONPATH")
                               (search-input-file inputs "/bin/python3")
                               (string-append data "/run_game.py"))))
                   (chmod executable #o555))
@@ -3463,7 +3463,7 @@ and defeat them with your bubbles!")
        (sha256
         (base32 "1s1mbj2qpaxdrx0pfhdyk3v1vh7f2dp33w2i5ifpgphkchdx61jg"))
        (file-name (git-file-name name version))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (patches (search-patches "serious-sam-classic-engine-patch-paths.patch"))))
     (build-system cmake-build-system)
     (arguments
@@ -3516,7 +3516,7 @@ To run, you must put your official game data, @code{Levels} and @code{Help} in
        (sha256
         (base32 "1av3ll3pfdsadm10dz3srxfw9ld1xbg8i5xrgv7qynqsd0x8jxby"))
        (file-name (git-file-name name version))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (patches (search-patches
                  "serious-sam-classic-engine-patch-paths.patch"))))
     (inputs (modify-inputs inputs
@@ -3741,7 +3741,7 @@ Superfluous Returnz.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "029mcnx2r86gc7chzd0avga4x7gm1yxl2wi3wqxmzhlh51q0p44x"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         #~(begin
             (for-each delete-file (find-files "." "\\.jar$"))
@@ -4060,7 +4060,7 @@ that beneath its ruins lay buried an ancient evil.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "0hgzdvlh0j42w4q9kch9xvhnbvcrypac01xhpksw35gj9my887cp"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         '(begin
            (for-each delete-file-recursively
@@ -4512,7 +4512,7 @@ and its numerous D-Mods.")
     (build-system trivial-build-system)
     (arguments
      '(#:builder (begin
-                   (use-modules (guix build utils))
+                   (use-modules (Manifolding-OS build utils))
 
                    (let* ((output     (assoc-ref %outputs "out"))
                           (bin        (string-append output "/bin"))
@@ -4527,7 +4527,7 @@ exec ~a/bin/freedink -refdir ~a/share/dink\n"
                                  (assoc-ref %build-inputs "data"))
                          (chmod port #o777)))
                      #t))
-       #:modules ((guix build utils))))
+       #:modules ((Manifolding-OS build utils))))
     (inputs `(("engine" ,freedink-engine)
               ("data" ,freedink-data)
               ("bash" ,bash)))
@@ -4616,7 +4616,7 @@ Portable Game Notation.")
               (sha256
                (base32
                 "04rlh706p5drdvm1kvrgs3jaz9krxg4vi5fpipi4973vb42ymz89"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                ;; We do not provide `ncurses.h' within an `ncursesw'
                ;; sub-directory, so patch the source accordingly.  See
@@ -4691,7 +4691,7 @@ graphics chips.")
                 "0gagjh2l3a3m8hsixxhhhan3m5xl7735ka8m4g79jl4qsgp7pyzg"))
               (patches (search-patches "irrlicht-use-system-libs.patch"
                                        "irrlicht-link-against-needed-libs.patch"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                '(begin
                   (for-each delete-file-recursively
@@ -4866,7 +4866,7 @@ for common mesh file formats, and collision detection.")
                       (url "https://github.com/thelaui/M.A.R.S.")
                       (commit commit)))
                 (file-name (git-file-name name version))
-                (modules '((guix build utils)))
+                (modules '((Manifolding-OS build utils)))
                 (snippet
                  #~(begin
                      (delete-file-recursively "ext_libs_for_windows")))
@@ -4914,7 +4914,7 @@ match, cannon keep, and grave-itation pit.")
        (file-name (git-file-name name version))
        (snippet
         #~(begin
-            (use-modules (guix build utils))
+            (use-modules (Manifolding-OS build utils))
             (substitute* '("game/mods.cpp" "utils/files.c")
               (("\"[^\"]*/physfssdl3.h\"") "\"physfssdl3.h\""))
             (substitute* "CMakeLists.txt"
@@ -5398,7 +5398,7 @@ This package expects the game(s) to be placed in subdirectories of
         (base32
          "0q2dsv9vxblnv04d73qlvbbnkrxgywplz6qsqmfbamn7lj57kypx"))
        (file-name (git-file-name "supertuxkart" %supertuxkart-version))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         ;; Delete bundled library sources
         '(begin
@@ -5548,7 +5548,7 @@ also available.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "05aj09rm50xb6910zx6imarj8k728x9bpvpa7ydwgb4sj1nypil8"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         '(begin
           (with-directory-excursion "thirdparty"
@@ -5766,7 +5766,7 @@ trade and diplomacy.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "065wrk88rnpjd0jayc4gw45ynviky7s6ncg9ixw31i3nk8vh639f"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         #~(begin
             (with-directory-excursion "thirdparty"
@@ -5807,7 +5807,7 @@ system for UZDoom and other Doom-related projects.")
          (file-name (git-file-name name version))
          (sha256
           (base32 "0nl76c3j728vwz4n91f4jhla4z9wpx0g93bq4987ix82fxm51b5r"))
-         (modules '((guix build utils)))
+         (modules '((Manifolding-OS build utils)))
          (snippet
           #~(begin
               (for-each delete-file-recursively
@@ -5824,7 +5824,7 @@ system for UZDoom and other Doom-related projects.")
               (substitute* "src/gameconfigfile.cpp"
                 (("DefaultSearchPaths\\.Push.+/usr/share.+;" line)
                  (string-append
-                  "DefaultSearchPaths.Push(\"$GUIX_UZDOOM_PREFIX/share\""
+                  "DefaultSearchPaths.Push(\"$MANIFOLDING_OS_UZDOOM_PREFIX/share\""
                   " + GameDirs[i]); " line)))
               ;; Embed correct version.
               (substitute* "tools/updaterevision/gitinfo.h.in"
@@ -5843,7 +5843,7 @@ system for UZDoom and other Doom-related projects.")
                  (add-after 'install 'wrap-uzdoom
                    (lambda _
                      (wrap-program (string-append #$output "/bin/uzdoom")
-                       `("GUIX_UZDOOM_PREFIX" = (,#$output))))))))
+                       `("MANIFOLDING_OS_UZDOOM_PREFIX" = (,#$output))))))))
       (inputs (list (module-ref
                      (resolve-interface '(gnu packages debug)) 'cppdap)
                     asmjit
@@ -6494,7 +6494,7 @@ have a steep learning curve.")))
               (sha256
                (base32
                 "1yyq05kfmvgx5aa68kg1l5a4lpsky7hzxxcdvv2xbgf0jljdcl3k"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                #~(begin
                    (substitute* "configure"
@@ -6580,7 +6580,7 @@ that follows two aliens who come to Earth in search of a stolen artifact.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "0pxlk3a8akl0ghcbqqq5xw8chmxss7kwbvi52ixfqri68n46srxh"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         #~(begin
             (with-directory-excursion "src/thirdparty"
@@ -6907,7 +6907,7 @@ http://lavachat.symlynx.com/unix/")
          (file-name (git-file-name name version))
          (sha256
           (base32 "0sz0mqhwx8r9n4mk3qrxw420nlsm3y0n48gd0lazgd64lfqjh3ab"))
-         (modules '((guix build utils)))
+         (modules '((Manifolding-OS build utils)))
          (snippet
           ;; Remove proprietary libraries and other pre-compiled binaries.
           '(begin
@@ -7011,10 +7011,10 @@ Red Eclipse provides fast paced and accessible gameplay.")
                (base32
                 "1hjcpy5439qs3v2zykis7hsi0i17zjs62gks3zd8mnfw9ni4i2h3"))))
     (build-system trivial-build-system) ; no Makefile.PL
-    (arguments `(#:modules ((guix build utils))
+    (arguments `(#:modules ((Manifolding-OS build utils))
                  #:builder
                  (begin
-                   (use-modules (guix build utils))
+                   (use-modules (Manifolding-OS build utils))
                    (use-modules (srfi srfi-1))
 
                    (let* ((tarball (assoc-ref %build-inputs "tarball"))
@@ -7074,7 +7074,7 @@ capture it and get out alive?")
                                "lierolibre-remove-arch-warning.patch"
                                "lierolibre-newer-libconfig.patch"
                                "lierolibre-is-free-software.patch"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                '(begin
                   ;; Delete pre-compiled files.
@@ -7128,7 +7128,7 @@ fullscreen, use F5 or Alt+Enter.")
                (base32
                 "1fmg0vw8c2spyxy4k64nwky80jsw9mc3vnlch49q6cagjsg9y8dj"))
               ;; Remove non-free images.
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet '(begin
                           (for-each delete-file
                                     '("data/loc_training_camp.png"
@@ -7178,7 +7178,7 @@ in-window at 640x480 resolution or fullscreen.")
               (uri (string-append "mirror://sourceforge/warzone2100/releases/"
                                   version "/warzone2100_src.tar.xz"))
               (patches (search-patches "warzone2100-unbundle-libs.patch"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet #~(for-each delete-file-recursively
                            (cons* "lib/netplay/3rdparty/miniupnp"
                                   "lib/sound/3rdparty/opusfile"
@@ -7258,7 +7258,7 @@ tactics.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "0ab9s1imqdq1krfwlba1ipx3pwnvy91aqqzr15ssfzixy4wj5mww"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         #~(delete-file-recursively "src/third_party/minizip"))))
     (build-system cmake-build-system)
@@ -7405,7 +7405,7 @@ safety of the Chromium vessel.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "0jdhk6xs4895gifxlkaxk7625wvw2yl1yc6ciay137dk78amhp86"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         #~(begin
             (substitute* "requirements.txt"
@@ -7463,7 +7463,7 @@ that sets it apart from other monster fighting RPGs.")
                            "/tuxpaint-" version ".tar.gz"))
        (sha256
         (base32 "1bfhidnspv7jm90z98jxmhwvlfac9hh2ijdjmbyr8zp73gwqmhf1"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet '(begin
                    ;; Remove win32 directory which contains binary dll's and the
                    ;; deprecated visualc directory.
@@ -7628,7 +7628,7 @@ with the \"Stamp\" tool within Tux Paint.")
             (sha256
              (base32
               "198xqcxyav8kj62i0vi5h6rn8mwjvqhny79lb27daklrp6cmpz1j"))
-            (modules '((guix build utils)))
+            (modules '((Manifolding-OS build utils)))
             (snippet
              ;; Unbundle libraries
              #~(begin
@@ -7827,9 +7827,9 @@ sounds.")
     (arguments
      (list
       #:tests? #f ;no test suite
-      #:modules '((guix build qt-build-system)
-                  ((guix build gnu-build-system) #:prefix gnu:)
-                  (guix build utils))
+      #:modules '((Manifolding-OS build qt-build-system)
+                  ((Manifolding-OS build gnu-build-system) #:prefix gnu:)
+                  (Manifolding-OS build utils))
       #:phases
       #~(modify-phases %standard-phases
           (replace 'configure
@@ -7932,10 +7932,10 @@ NVIDIA Shield.")
                 "0jwzbwkgp1l5ia6c7s760gmdirbsncp6nfqp7vqdqsfb63la9gl2"))))
     (build-system trivial-build-system)
     (arguments
-     `(#:modules ((guix build utils))
+     `(#:modules ((Manifolding-OS build utils))
        #:builder
        (begin
-         (use-modules (guix build utils))
+         (use-modules (Manifolding-OS build utils))
          (let* ((out    (assoc-ref %outputs "out"))
                 (script (string-append out "/bin/" ,name))
                 (data   (string-append out "/share/" ,name))
@@ -8253,9 +8253,9 @@ screensaver.")))
      (list cppunit pkg-config))
     (arguments
      (list
-      #:modules '((guix build cmake-build-system)
-                  ((guix build gnu-build-system) #:prefix gnu:)
-                  (guix build utils))
+      #:modules '((Manifolding-OS build cmake-build-system)
+                  ((Manifolding-OS build gnu-build-system) #:prefix gnu:)
+                  (Manifolding-OS build utils))
       #:configure-flags
       #~(list "-DCMAKE_CXX_FLAGS=-fcommon"
               "-DCMAKE_C_FLAGS=-fcommon"
@@ -8299,7 +8299,7 @@ Magic, Egypt, Indians, Norsemen, Persian or Romans.")
                 (sha256
                  (base32
                   "0980ad8xg0bzm6507bq9sbgw03i7jj33g0f955g0q8jvpb22r65v"))
-                (modules '((guix build utils)))
+                (modules '((Manifolding-OS build utils)))
                 ;; The audio files in the "music" directory are licensed under
                 ;; CC-BY-NC, so we delete them.
                 (snippet
@@ -8388,7 +8388,7 @@ over 100 user-created campaigns.")
               (sha256
                (base32
                 "0ihjdsxbn8z3cz0gpcprafiipcqaiskgdnh1rhmw4qff8dszalbn"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                '(begin
                   (for-each delete-file (find-files "." "\\.dll$"))
@@ -8487,7 +8487,7 @@ small robot living in the nano world, repair its maker.")
               (sha256
                (base32
                 "1l19ksmimg6b8zzjy0skyhh7z11ql7n5gvilkv7ay5x2b9ndbqwz"))
-              (modules '((guix build utils)
+              (modules '((Manifolding-OS build utils)
                          (ice-9 ftw)
                          (ice-9 regex)
                          (srfi srfi-1)
@@ -8502,9 +8502,9 @@ small robot living in the nano world, repair its maker.")
     (build-system cmake-build-system)
     (arguments
      (list
-      #:modules '((guix build cmake-build-system)
-                  ((guix build gnu-build-system) #:prefix gnu:)
-                  (guix build utils))
+      #:modules '((Manifolding-OS build cmake-build-system)
+                  ((Manifolding-OS build gnu-build-system) #:prefix gnu:)
+                  (Manifolding-OS build utils))
        #:phases
        #~(modify-phases %standard-phases
            (add-after 'unpack 'patch-paths
@@ -8874,10 +8874,10 @@ fight against their plot and save his fellow rabbits from slavery.")
     (build-system trivial-build-system)
     (native-inputs (list tar unzip xz))
     (arguments
-     `(#:modules ((guix build utils))
+     `(#:modules ((Manifolding-OS build utils))
        #:builder
        (begin
-         (use-modules (guix build utils))
+         (use-modules (Manifolding-OS build utils))
          (let ((out (assoc-ref %outputs "out"))
                (source (assoc-ref %build-inputs "source"))
                (tar (search-input-file %build-inputs "/bin/tar"))
@@ -9182,7 +9182,7 @@ Crowther & Woods, its original authors, in 1995.  It has been known as
                            version ".tar.bz2"))
        (sha256
         (base32 "0338lirc4jbmq29449bw8c6src8b91yn9x14w2nxr31zh00fm7cq"))
-       (modules '((guix build utils)))))
+       (modules '((Manifolding-OS build utils)))))
     (build-system gnu-build-system)
     (native-inputs
      (list unzip))
@@ -9303,7 +9303,7 @@ abilities and powers.")
        (sha256
         (base32
          "1bx7i67b01yfy9lyak4x4xrdb3zb0mr8kwx6h8cl2dpv8lspg5jb"))
-       (modules '((guix build utils)
+       (modules '((Manifolding-OS build utils)
                   (ice-9 ftw)
                   (ice-9 regex)
                   (srfi srfi-26)))
@@ -9671,7 +9671,7 @@ elements to achieve a simple goal in the most complex way possible.")
        (sha256
         (base32 "0f2gdjykavsz944j4ahpjbj6k8v4sh09d1y82c4y46wayl78cp97"))
        (snippet
-        #~(begin (use-modules (guix build utils))
+        #~(begin (use-modules (Manifolding-OS build utils))
                  (substitute* "meson.build"
                    (("'aarch64', 'x86_64'")
                     (string-append "'aarch64', 'loongarch64', 'mips64', 'ppc64', "
@@ -9831,8 +9831,8 @@ Github or Gitlab.")
     (arguments
      (list
       #:tests? #f                       ;no test
-      #:modules '((guix build cmake-build-system)
-                  (guix build utils)
+      #:modules '((Manifolding-OS build cmake-build-system)
+                  (Manifolding-OS build utils)
                   (srfi srfi-1)
                   (ice-9 match)
                   (ice-9 regex))
@@ -9906,7 +9906,7 @@ You can save humanity and get programming skills!")
              "odamex-src-" version ".tar.xz"))
        (sha256
         (base32 "1vy6d0md5ws5319bjjbaqnca68vslgk22k9lh4yd9n85hzlwacpi"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         '(begin
            ;; XXX: Unbundle more, they are not replaced by the ones provided
@@ -10021,7 +10021,7 @@ original.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "0ki7wqjhqhjxci04aksh9m8m35gi2db89475v79rjzdgk00b3mqv"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet '(begin
                    (with-directory-excursion "third-party"
                      (delete-file-recursively "miniz")
@@ -10091,10 +10091,10 @@ UMAPINFO, DEHEXTRA, and DSDHacked specifictions.")
     (build-system trivial-build-system)
     (native-inputs (list unzip))
     (arguments
-     (list #:modules '((guix build utils))
+     (list #:modules '((Manifolding-OS build utils))
            #:builder
            #~(begin
-               (use-modules (guix build utils))
+               (use-modules (Manifolding-OS build utils))
                (let* ((out (assoc-ref %outputs "out"))
                       (xonotic (string-append out "/share/xonotic"))
                       (source (assoc-ref %build-inputs "source"))
@@ -10131,8 +10131,8 @@ UMAPINFO, DEHEXTRA, and DSDHacked specifictions.")
      (list #:configure-flags
            #~(list (string-append "--prefix=" #$output)
                    "--disable-rijndael")
-           #:modules '((guix build gnu-build-system)
-                       (guix build utils)
+           #:modules '((Manifolding-OS build gnu-build-system)
+                       (Manifolding-OS build utils)
                        (srfi srfi-26))
            #:phases
            #~(modify-phases %standard-phases
@@ -10774,7 +10774,7 @@ via the in-game download manager.")
           (base32
            "00fxwlfvsmsyll1wp5dp05dxwi81w8l8rb7ms735zqjimm1zdlg3"))
          (patches (search-patches "stepmania-ffmpeg-compat.patch"))
-         (modules '((guix build utils)
+         (modules '((Manifolding-OS build utils)
                     (ice-9 ftw)))
          (snippet
           '(begin
@@ -11234,7 +11234,7 @@ a fortress beyond the forbidden swamp.")
        (sha256
         (base32
          "0imkqjp8lww5p0cnqf4k4mb2v682mnsas63qmiz17rspakr7fxik"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         #~(begin
             (delete-file-recursively "thirdparty")
@@ -11264,9 +11264,9 @@ a fortress beyond the forbidden swamp.")
      (list
       #:configure-flags
       #~(list "-DAudio_TK=OpenAL")
-      #:modules '((guix build cmake-build-system)
-                  ((guix build gnu-build-system) #:prefix gnu:)
-                  (guix build utils))
+      #:modules '((Manifolding-OS build cmake-build-system)
+                  ((Manifolding-OS build gnu-build-system) #:prefix gnu:)
+                  (Manifolding-OS build utils))
       #:phases
       #~(modify-phases %standard-phases
           (add-after 'unpack 'prepare-gmock
@@ -11597,7 +11597,7 @@ levels to unlock.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "0j4p0w8dimmkmas9wpb6xv3nl55m2l9yfjr7sg7cl0k3jda34gxs"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         '(begin
            ;; There are some bundled libraries.
@@ -11649,7 +11649,7 @@ and also provides the base for the FlightGear Flight Simulator.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "0ynf8jh66sryn1f93ygp38zq5aw1zkyrprkl5hixrg68mvr0yxms"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         '(begin
            ;; There are some bundled libraries.
@@ -12042,7 +12042,7 @@ across many levels and collect all the coaches to win.")
        (sha256
         (base32 "12fhwa3cs6lvdbdhina310qk2g7zcphldsh7ibsbxn8d1m731xlk"))
        (file-name (git-file-name name version))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         '(begin
            ;; There are some bundled fonts.
@@ -12104,7 +12104,7 @@ remake of that series or any other game.")
               (sha256
                (base32
                 "0xsa7r6r5sprgy0pkdm1xj1jwyy6d3qak2ynviy8xplicl99q09f"))
-              (modules '((guix build utils)
+              (modules '((Manifolding-OS build utils)
                          (ice-9 ftw)))
               (snippet
                #~(begin
@@ -12292,9 +12292,9 @@ can be downloaded from @url{https://zero.sjeng.org/best-network}.")
     (arguments
      (list
       #:tests? #f
-      #:modules '((guix build qt-build-system)
-                  ((guix build gnu-build-system) #:prefix gnu:)
-                  (guix build utils))
+      #:modules '((Manifolding-OS build qt-build-system)
+                  ((Manifolding-OS build gnu-build-system) #:prefix gnu:)
+                  (Manifolding-OS build utils))
       #:phases
       #~(modify-phases %standard-phases
           (replace 'configure
@@ -12356,7 +12356,7 @@ Xjump game, using SDL instead of Xlib.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "08yi6sgz349s7wa07dyrlbhpkmi25arz0c849qgpsj65vr8n7n8c"))
-       (modules '((guix build utils)
+       (modules '((Manifolding-OS build utils)
                   (ice-9 ftw)
                   (srfi srfi-1)))
        ;; XXX: Remove some bundled libraries.  Guix provides Chipmunk, but
@@ -12491,9 +12491,9 @@ and chess engines.")
     (arguments
      (list
       #:tests? #f
-      #:modules '((guix build qt-build-system)
-                  ((guix build gnu-build-system) #:prefix gnu:)
-                  (guix build utils))
+      #:modules '((Manifolding-OS build qt-build-system)
+                  ((Manifolding-OS build gnu-build-system) #:prefix gnu:)
+                  (Manifolding-OS build utils))
       #:phases
       #~(modify-phases %standard-phases
           (add-after 'unpack 'fix-paths
@@ -12627,7 +12627,7 @@ ChessX.")
        (sha256
         (base32 "0p5rdrqiip6n5wdxjvlsg7qnwdwrpl9g3j1mx7q0i9a8zmkj2ryv"))
        (file-name (git-file-name name version))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet #~(begin
                     ;; Avoid relying on '/dev/stderr', which doesn't work at the
                     ;; top-level of a Guix build, because it refers to a pipe
@@ -12799,7 +12799,7 @@ kingdom.")
           (base32
            "0bwh67df3lyf33bv710y25l3frjdd34j9b7gsjadwxviz6r1vpj5"))
          (file-name (git-file-name name version))
-         (modules '((guix build utils)))
+         (modules '((Manifolding-OS build utils)))
          (snippet
           '(begin
              ;; Octocat seems to be non-free.  Oddly, Debian doesn't strip it.
@@ -12910,7 +12910,7 @@ game.")  ;thanks to Debian for description
        (file-name (git-file-name name version))
        (sha256
         (base32 "1hwnywqq5c05j1qym5q82r9inyps3p1fsjd7c819575vvqcdwqx8"))
-       (modules '((guix build utils) (ice-9 ftw) (srfi srfi-1)))
+       (modules '((Manifolding-OS build utils) (ice-9 ftw) (srfi srfi-1)))
        (snippet
         #~(begin
             ;; XXX: We must use the ancient bundled websocketpp because the new
@@ -13666,7 +13666,7 @@ and unsafe rides.  Which path will you take?")
                (base32
                 "009fbxdv4qkc15y4lisi6d4phv3dk9mypl2hhzfhyjh0i04d2wwa"))
               (patches (search-patches "ultrastar-deluxe-no-freesans.patch"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                #~(begin
                    ;; Remove Windows binaries.
@@ -13774,11 +13774,11 @@ Jongg tiles from the playing field by taking one matching pair at a time.")
     (build-system pyproject-build-system)
     (arguments
      (list
-      #:imported-modules `((guix build glib-or-gtk-build-system)
+      #:imported-modules `((Manifolding-OS build glib-or-gtk-build-system)
                            ,@%pyproject-build-system-modules)
-      #:modules '((guix build pyproject-build-system)
-                  ((guix build glib-or-gtk-build-system) #:prefix glib-or-gtk:)
-                  (guix build utils))
+      #:modules '((Manifolding-OS build pyproject-build-system)
+                  ((Manifolding-OS build glib-or-gtk-build-system) #:prefix glib-or-gtk:)
+                  (Manifolding-OS build utils))
       #:phases #~(modify-phases %standard-phases
                    (delete 'sanity-check)
                    (add-after 'unpack 'generate-gdk-pixbuf-loaders-cache-file

@@ -23,7 +23,7 @@
   ;; For the 'home-shepherd-service-type' mapping.
   #:use-module (gnu home services shepherd)
   #:use-module (gnu services upnp)
-  #:use-module (guix records)
+  #:use-module (Manifolding-OS records)
   #:export (home-readymedia-service-type)
   #:re-export (readymedia-configuration
                readymedia-configuration?

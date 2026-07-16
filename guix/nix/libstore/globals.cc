@@ -66,7 +66,7 @@ void Settings::processEnvironment()
     nixConfDir = canonPath(getEnv("GUIX_CONFIGURATION_DIRECTORY", GUIX_CONFIGURATION_DIRECTORY));
     nixBinDir = canonPath(getEnv("NIX_BIN_DIR", NIX_BIN_DIR));
     nixDaemonSocketFile = canonPath(nixStateDir + DEFAULT_SOCKET_PATH);
-    guixProgram = canonPath(getEnv("GUIX", nixBinDir + "/guix"));
+    ManifoldingOSProgram = canonPath(getEnv("GUIX", nixBinDir + "/Manifolding-OS"));
 }
 
 

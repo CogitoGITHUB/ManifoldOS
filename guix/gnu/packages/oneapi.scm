@@ -28,12 +28,12 @@
   #:use-module (gnu packages python)
   #:use-module (gnu packages python-build)
   #:use-module (gnu packages swig)
-  #:use-module (guix build-system cmake)
-  #:use-module (guix gexp)
-  #:use-module (guix git-download)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix packages)
-  #:use-module (guix utils))
+  #:use-module (Manifolding-OS build-system cmake)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS utils))
 
 (define-public level-zero
   (package
@@ -86,7 +86,7 @@
        (file-name (git-file-name name version))
        (sha256
         (base32 "1imwsaj4sfsr4m6szhn272f7yikg0ixif4savbzyjdn1haz7pvpx"))
-       (modules '((guix build utils)
+       (modules '((Manifolding-OS build utils)
                   (ice-9 rdelim)))
        ;; Copyright date used by code generation script
        (snippet

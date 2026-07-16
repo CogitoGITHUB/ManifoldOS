@@ -44,21 +44,21 @@
   #:autoload (ice-9 pretty-print) (pretty-print)
   #:autoload (ice-9 textual-ports) (get-string-all)
   #:use-module (gnu packages)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix packages)
-  #:use-module (guix download)
-  #:use-module (guix git-download)
-  #:use-module (guix hg-download)
-  #:use-module (guix gexp)
-  #:use-module (guix store)
-  #:use-module (guix modules)
-  #:use-module (guix monads)
-  #:use-module (guix utils)
-  #:use-module (guix build-system cargo)
-  #:use-module (guix build-system copy)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system trivial)
-  #:use-module (guix build-system mozilla)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS hg-download)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS store)
+  #:use-module (Manifolding-OS modules)
+  #:use-module (Manifolding-OS monads)
+  #:use-module (Manifolding-OS utils)
+  #:use-module (Manifolding-OS build-system cargo)
+  #:use-module (Manifolding-OS build-system copy)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system trivial)
+  #:use-module (Manifolding-OS build-system mozilla)
   #:use-module (gnu packages admin)
   #:use-module (gnu packages audio)
   #:use-module (gnu packages autotools)
@@ -123,7 +123,7 @@
     (arguments
      (list
       #:imported-modules %cargo-utils-modules ;for `generate-all-checksums'
-      #:modules `((guix build cargo-utils)
+      #:modules `((Manifolding-OS build cargo-utils)
                   ,@%default-gnu-modules)
       #:test-target "check-jstests"
       #:configure-flags
@@ -455,7 +455,7 @@ fractional-second-digits-append-item.js")
     (inputs
      (list icu4c-73 readline zlib))))
 
-(define computed-origin-method (@@ (guix packages) computed-origin-method))
+(define computed-origin-method (@@ (Manifolding-OS packages) computed-origin-method))
 
 (define mozilla-compare-locales
   (origin
@@ -654,9 +654,9 @@ in the case of Firefox, it is browser/locales/all-locales."
       (sha256 #f)
       (uri
        (delay
-        (with-imported-modules '((guix build utils))
+        (with-imported-modules '((Manifolding-OS build utils))
           #~(begin
-              (use-modules (guix build utils))
+              (use-modules (Manifolding-OS build utils))
               (let ((firefox-dir
                      (string-append "firefox-" #$%icecat-base-version))
                     (icecat-dir
@@ -933,8 +933,8 @@ preferences/advanced-scripts.dtd"
                   (srfi srfi-26)
                   (rnrs bytevectors)
                   (rnrs io ports)
-                  (guix elf)
-                  (guix build gremlin)
+                  (Manifolding-OS elf)
+                  (Manifolding-OS build gremlin)
                   ,@%default-gnu-modules)
       #:phases
       #~(modify-phases %standard-phases
@@ -1035,7 +1035,7 @@ preferences/advanced-scripts.dtd"
                 (close-output-port port))))
           (add-after 'patch-source-shebangs 'patch-cargo-checksums
             (lambda _
-              (use-modules (guix build cargo-utils))
+              (use-modules (Manifolding-OS build cargo-utils))
               (let ((null-hash "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"))
                 (for-each (lambda (file)
                             (format #t "patching checksums in ~a~%" file)
@@ -1099,7 +1099,7 @@ preferences/advanced-scripts.dtd"
                 (setenv "MOZ_APP_REMOTINGNAME" "Icecat")
 
                 ;; XXX TODO: Fix this to work on systems other than x86_64-linux.
-                (setenv "GUIX_PYTHONPATH"
+                (setenv "MANIFOLDING_OS_PYTHONPATH"
                         (string-append (getcwd)
                                        "/obj-x86_64-pc-linux-gnu/_virtualenvs/build"))
 
@@ -1294,9 +1294,9 @@ testing.")
       (sha256 #f)
       (uri
        (delay
-        (with-imported-modules '((guix build utils))
+        (with-imported-modules '((Manifolding-OS build utils))
           #~(begin
-              (use-modules (guix build utils))
+              (use-modules (Manifolding-OS build utils))
               (let ((firefox-dir
                      (string-append "firefox-" #$%icecat-140.10.2-base-version))
                     (icecat-dir
@@ -1529,9 +1529,9 @@ preferences/advanced-scripts.dtd"
       (sha256 #f)
       (uri
        (delay
-         (with-imported-modules (source-module-closure '((guix build utils)))
+         (with-imported-modules (source-module-closure '((Manifolding-OS build utils)))
            #~(begin
-               (use-modules (guix build utils)
+               (use-modules (Manifolding-OS build utils)
                             (sxml simple))
 
                (set-path-environment-variable
@@ -1666,7 +1666,7 @@ preferences/advanced-scripts.dtd"
      (list
       #:tests? #f                             ;no check target
       #:imported-modules %cargo-utils-modules ;for `generate-all-checksums'
-      #:modules `((guix build utils)          ;find-files
+      #:modules `((Manifolding-OS build utils)          ;find-files
                   (sxml simple)
                   (ice-9 regex)
                   ,@%default-gnu-modules)
@@ -1679,7 +1679,7 @@ preferences/advanced-scripts.dtd"
                  "sys.exit(0)"))))
           (add-after 'patch-source-shebangs 'patch-cargo-checksums
             (lambda _
-              (use-modules (guix build cargo-utils))
+              (use-modules (Manifolding-OS build cargo-utils))
               (let ((null-hash "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934\
 ca495991b7852b855"))
                 (for-each (lambda (file)
@@ -1767,7 +1767,7 @@ ca495991b7852b855"))
 
                 (setenv "MOZ_NOSPAM" "1")
                 (setenv "MACH_BUILD_PYTHON_NATIVE_PACKAGE_SOURCE" "system")
-                (setenv "GUIX_PYTHONPATH"
+                (setenv "MANIFOLDING_OS_PYTHONPATH"
                         (string-append (getcwd)
                                        "/obj-x86_64-pc-linux-gnu/_virtualenvs/build"))
 
@@ -1977,8 +1977,8 @@ their corresponding VERSION, SOURCE and LOCALES variables."
       (build-system gnu-build-system)
       (arguments
        (list
-        #:modules '((guix build gnu-build-system)
-                    (guix build utils)
+        #:modules '((Manifolding-OS build gnu-build-system)
+                    (Manifolding-OS build utils)
                     (ice-9 format)
                     (ice-9 ftw)
                     (srfi srfi-1)
@@ -2108,10 +2108,10 @@ associated with their name."))
       (arguments
        (list
         #:imported-modules `(,@%copy-build-system-modules
-                             (guix build union))
-        #:modules '((guix build copy-build-system)
-                    (guix build union)
-                    (guix build utils))
+                             (Manifolding-OS build union))
+        #:modules '((Manifolding-OS build copy-build-system)
+                    (Manifolding-OS build union)
+                    (Manifolding-OS build utils))
         #:phases
         #~(modify-phases %standard-phases
             (replace 'install
@@ -2165,10 +2165,10 @@ associated with their name."))
     (build-system trivial-build-system)
     (arguments
      (list
-      #:modules '((guix build utils))
+      #:modules '((Manifolding-OS build utils))
       #:builder
       #~(begin
-          (use-modules (guix build utils))
+          (use-modules (Manifolding-OS build utils))
           (let* ((exe (string-append #$output "/bin/icedove")))
             (mkdir-p (dirname exe))
             (call-with-output-file exe
@@ -2204,10 +2204,10 @@ associated with their name."))
     (inputs
      (list nss python))
     (arguments
-     `(#:modules ((guix build utils))
+     `(#:modules ((Manifolding-OS build utils))
        #:builder
        (begin
-         (use-modules (guix build utils))
+         (use-modules (Manifolding-OS build utils))
          (setenv "PATH"
                  (string-append
                   (assoc-ref %build-inputs "python") "/bin"))

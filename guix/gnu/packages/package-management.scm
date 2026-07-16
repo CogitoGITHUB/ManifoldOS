@@ -142,27 +142,27 @@
   #:use-module (gnu packages xml)
   #:use-module (gnu packages xorg)
   #:use-module (gnu packages version-control)
-  #:use-module (guix build-system cmake)
-  #:use-module (guix build-system copy)
-  #:use-module (guix build-system glib-or-gtk)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system go)
-  #:use-module (guix build-system guile)
-  #:use-module (guix build-system meson)
-  #:use-module (guix build-system pyproject)
-  #:use-module (guix build-system ruby)
-  #:use-module (guix build-system trivial)
-  #:use-module (guix download)
-  #:use-module (guix gexp)
-  #:use-module (guix git-download)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix packages)
-  #:use-module (guix utils)
+  #:use-module (Manifolding-OS build-system cmake)
+  #:use-module (Manifolding-OS build-system copy)
+  #:use-module (Manifolding-OS build-system glib-or-gtk)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system go)
+  #:use-module (Manifolding-OS build-system guile)
+  #:use-module (Manifolding-OS build-system meson)
+  #:use-module (Manifolding-OS build-system pyproject)
+  #:use-module (Manifolding-OS build-system ruby)
+  #:use-module (Manifolding-OS build-system trivial)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS utils)
   #:use-module (gnu packages readline)
   #:use-module (gnu packages admin)
   #:use-module (gnu packages selinux)
   #:use-module (gnu packages elf)
-  #:use-module ((guix search-paths) #:select ($SSL_CERT_DIR $SSL_CERT_FILE $GUIX_EXTENSIONS_PATH))
+  #:use-module ((Manifolding-OS search-paths) #:select ($SSL_CERT_DIR $SSL_CERT_FILE $MANIFOLDING_OS_EXTENSIONS_PATH))
   #:use-module (ice-9 match)
   #:use-module (srfi srfi-1))
 
@@ -238,8 +238,8 @@
            "ac_cv_guix_test_root=/tmp/guix-tests")
         #:parallel-tests? #f          ;work around <http://bugs.gnu.org/21097>
 
-        #:modules `((guix build gnu-build-system)
-                    (guix build utils)
+        #:modules `((Manifolding-OS build gnu-build-system)
+                    (Manifolding-OS build utils)
                     (srfi srfi-1)
                     (ice-9 match)
                     (ice-9 popen)
@@ -322,7 +322,7 @@ $(prefix)/etc/openrc\n")))
             #$@(if (%current-target-system)
                    #~((add-before 'build 'use-host-compressors
                         (lambda* (#:key inputs #:allow-other-keys)
-                          (substitute* "guix/config.scm"
+                          (substitute* "Manifolding-OS/config.scm"
                             (("[^\"]*/(bin/(bzip2|gzip|xz))" _ bin)
                              (search-input-file inputs bin))))))
                    #~())
@@ -345,7 +345,7 @@ $(prefix)/etc/openrc\n")))
 
                   (define code
                     `(begin
-                       (use-modules (guix))
+                       (use-modules (Manifolding-OS))
                        (with-store store
                          (let* ((item (add-to-store store ,(or name base)
                                                     ,recursive?
@@ -451,8 +451,8 @@ $(prefix)/etc/openrc\n")))
                               (append ',gopath %load-compiled-path)))
                       "\n"
                       (object->string
-                       `(let ((path (getenv "GUIX_LOCPATH")))
-                          (setenv "GUIX_LOCPATH"
+                       `(let ((path (getenv "MANIFOLDING_OS_LOCPATH")))
+                          (setenv "MANIFOLDING_OS_LOCPATH"
                                   (if path
                                       (string-append path ":" ,locpath)
                                       ,locpath))))
@@ -545,9 +545,9 @@ $(prefix)/etc/openrc\n")))
                      guile-zstd)))
       (native-search-paths
        (list (search-path-specification
-               (variable "GUIX_EXTENSIONS_PATH")
+               (variable "MANIFOLDING_OS_EXTENSIONS_PATH")
                (files '("share/guix/extensions")))
-             ;; (guix git) and (guix build download) honor this variable whose
+             ;; (Manifolding-OS git) and (Manifolding-OS build download) honor this variable whose
              ;; name comes from OpenSSL.
              $SSL_CERT_DIR))
       (home-page "https://www.gnu.org/software/guix/")
@@ -562,7 +562,7 @@ the Nix package manager.")
 
 (define-public guix-daemon
   ;; This package is for internal consumption: it allows us to quickly build
-  ;; the 'guix-daemon' program and use that in (guix self), used by 'guix
+  ;; the 'guix-daemon' program and use that in (Manifolding-OS self), used by 'guix
   ;; pull'.
   (package
     (inherit guix)
@@ -640,7 +640,7 @@ the Nix package manager.")
     (native-inputs
      (list imagemagick))
     (arguments
-     `(#:modules ((guix build utils)
+     `(#:modules ((Manifolding-OS build utils)
                   (gnu build svg))
 
        ;; There's no point in cross-compiling: a native build gives the same
@@ -650,7 +650,7 @@ the Nix package manager.")
        #:builder
        ,(with-extensions (list guile-rsvg guile-cairo)
           #~(begin
-              (use-modules (guix build utils)
+              (use-modules (Manifolding-OS build utils)
                            (gnu build svg))
               (let* ((logo (string-append #$source "/logo/Guix.svg"))
                      (logo-white
@@ -783,14 +783,14 @@ high-performance computing} clusters.")
                    (set! %load-compiled-path
                          (append (list ,@load-compiled-path)
                                  %load-compiled-path))))
-              (substitute* "guix/extensions/toys.scm"
+              (substitute* "Manifolding-OS/extensions/toys.scm"
                 ((";;@load-paths@")
                  (with-output-to-string (lambda () (write search-paths-header)))))))
           (add-after 'set-load-paths-in-entry-point 'register-guix-extension
             (lambda* (#:key outputs #:allow-other-keys)
               (let ((ext-path (string-append #$output "/share/guix/extensions")))
                 (mkdir-p ext-path)
-                (copy-recursively "guix/extensions" ext-path))))
+                (copy-recursively "Manifolding-OS/extensions" ext-path))))
           (add-after 'register-guix-extension 'clean-up
             (lambda* _
               (delete-file "channels.scm")
@@ -801,7 +801,7 @@ high-performance computing} clusters.")
            guile-readline
            guile-sqlite3
            guix))
-    (native-search-paths (list $GUIX_EXTENSIONS_PATH))
+    (native-search-paths (list $MANIFOLDING_OS_EXTENSIONS_PATH))
     (home-page "https://toys.whereis.social/")
     (synopsis "Search engine for Guix channels")
     (description "Toys is a search engine for collecting and displaying Guix
@@ -867,7 +867,7 @@ interface for interacting with the application.")
     ;; This is very important since we want the extension to be available
     ;; without having to add a vanilla guix to the current profile.
     (native-search-paths
-     (list $GUIX_EXTENSIONS_PATH))
+     (list $MANIFOLDING_OS_EXTENSIONS_PATH))
     (home-page "https://codeberg.org/Baleine/guix-xsearch")
     (synopsis "Extension for Guix to provide faster search using Xapian")
     (description
@@ -1867,7 +1867,7 @@ foundation for the Mamba package manager.")
               (lambda _
                 (setenv "PYTHONPATH"
                         (string-append (getcwd) "/test/lib:"
-                                       (getenv "GUIX_PYTHONPATH"))))))))
+                                       (getenv "MANIFOLDING_OS_PYTHONPATH"))))))))
       (native-inputs (list python-pytest python-setuptools))
       (home-page "https://gyp.gsrc.io/")
       (synopsis "GYP is a Meta-Build system")
@@ -2189,10 +2189,10 @@ environments.")
       (build-system gnu-build-system)
       (arguments
        (list
-        #:modules `(((guix build guile-build-system)
+        #:modules `(((Manifolding-OS build guile-build-system)
                      #:select (target-guile-effective-version))
                     ,@%default-gnu-modules)
-        #:imported-modules `((guix build guile-build-system)
+        #:imported-modules `((Manifolding-OS build guile-build-system)
                              ,@%default-gnu-imported-modules)
         #:phases
         #~(modify-phases %standard-phases
@@ -2233,7 +2233,7 @@ environments.")
                             ,@(or (and=> (assoc-ref inputs "sqitch")
                                          list)
                                   '())))
-                         `("GUIX_LOCPATH" ":" prefix
+                         `("MANIFOLDING_OS_LOCPATH" ":" prefix
                            (,(string-append (assoc-ref inputs "glibc-utf8-locales")
                                             "/lib/locale")))
                          `("GUILE_LOAD_PATH" ":" prefix
@@ -2365,15 +2365,15 @@ This package just includes the agent component.")))
                   (ice-9 match)
                   (ice-9 popen)
                   (ice-9 rdelim)
-                  (guix build utils)
-                  (guix build gnu-build-system))
+                  (Manifolding-OS build utils)
+                  (Manifolding-OS build gnu-build-system))
 
        #:phases
        (modify-phases %standard-phases
          (add-after 'install 'sed-kernel-json
            (lambda* (#:key inputs outputs #:allow-other-keys)
              (let* ((out   (assoc-ref outputs "out"))
-                    (guix  (assoc-ref inputs  "guix"))
+                    (Manifolding-OS  (assoc-ref inputs  "guix"))
                     (guile (assoc-ref inputs  "guile"))
                     (json  (assoc-ref inputs  "guile-json"))
                     (git   (assoc-ref inputs  "guile-git"))
@@ -2444,10 +2444,10 @@ in an isolated environment, in separate namespaces.")
       (build-system gnu-build-system)
       (arguments
        (list
-        #:modules `(((guix build guile-build-system)
+        #:modules `(((Manifolding-OS build guile-build-system)
                      #:select (target-guile-effective-version))
                     ,@%default-gnu-modules)
-        #:imported-modules `((guix build guile-build-system)
+        #:imported-modules `((Manifolding-OS build guile-build-system)
                              ,@%default-gnu-imported-modules)
         #:phases
         #~(modify-phases %standard-phases

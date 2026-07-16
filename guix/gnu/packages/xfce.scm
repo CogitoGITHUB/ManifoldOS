@@ -82,17 +82,17 @@
   #:use-module (gnu packages xml)
   #:use-module (gnu packages xdisorg)
   #:use-module (gnu packages xorg)
-  #:use-module (guix build-system cmake)
-  #:use-module (guix build-system glib-or-gtk)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system meson)
-  #:use-module (guix build-system trivial)
-  #:use-module (guix download)
-  #:use-module (guix git-download)
-  #:use-module (guix gexp)
-  #:use-module ((guix licenses) #:hide (freetype))
-  #:use-module (guix packages)
-  #:use-module (guix utils))
+  #:use-module (Manifolding-OS build-system cmake)
+  #:use-module (Manifolding-OS build-system glib-or-gtk)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system meson)
+  #:use-module (Manifolding-OS build-system trivial)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module ((Manifolding-OS licenses) #:hide (freetype))
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS utils))
 
 (define %xfce-stable-version "^4[.][0-9]*[02468][.]")
 
@@ -239,8 +239,8 @@ to share commonly used Xfce widgets among the Xfce applications.")
                      (lambda* (#:key outputs #:allow-other-keys)
                        (let ((out (assoc-ref outputs "out")))
                          (wrap-program (string-append out "/bin/catfish")
-                           `("GUIX_PYTHONPATH" =
-                             (,(getenv "GUIX_PYTHONPATH")))
+                           `("MANIFOLDING_OS_PYTHONPATH" =
+                             (,(getenv "MANIFOLDING_OS_PYTHONPATH")))
                            `("GI_TYPELIB_PATH" =
                              (,(getenv "GI_TYPELIB_PATH"))))))))
       #:tests? #f))
@@ -726,7 +726,7 @@ your system in categories, so you can quickly find and launch them.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "049q3qvxq8rffgnwn7n0bhkcc72mbj4cj9hlj1n4m9kdc8wmzglq"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         '(begin
            (substitute* "libxfsm/xfsm-shutdown-common.h"
@@ -1128,7 +1128,7 @@ window manager.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "0lnf7g1ag4kbygm1avm191mgs4xx1bz2b1zbvgmvym8h3r21zsrc"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         #~(begin
             (copy-file #$(file-append %artwork-repository "/logo/Guix.svg")

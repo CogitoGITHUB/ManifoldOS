@@ -33,14 +33,14 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages aspell)
-  #:use-module (guix packages)
-  #:use-module (guix download)
-  #:use-module (guix gexp)
-  #:use-module (guix git-download)
-  #:use-module (guix build-system cmake)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix licenses)
-  #:use-module (guix utils)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS build-system cmake)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS licenses)
+  #:use-module (Manifolding-OS utils)
   #:use-module (gnu packages)
   #:use-module (gnu packages base)
   #:use-module (gnu packages bison)
@@ -466,8 +466,8 @@ European languages.")
       (arguments
        (substitute-keyword-arguments arguments
          ((#:modules _ ''())
-          '((guix build cmake-build-system)
-            (guix build utils)
+          '((Manifolding-OS build cmake-build-system)
+            (Manifolding-OS build utils)
             (srfi srfi-26)))
          ((#:phases phases '%standard-phases)
           #~(modify-phases #$phases

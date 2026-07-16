@@ -19,12 +19,12 @@
 ;; This manifest "ungrafts" all the currently grafted packages and returns
 ;; said packages and all their dependents.
 
-(use-modules (guix diagnostics)
-             (guix i18n)
-             (guix packages)
-             (guix profiles)
-             (guix store)
-             ((guix scripts build) #:select (dependents))
+(use-modules (Manifolding-OS diagnostics)
+             (Manifolding-OS i18n)
+             (Manifolding-OS packages)
+             (Manifolding-OS profiles)
+             (Manifolding-OS store)
+             ((Manifolding-OS scripts build) #:select (dependents))
              ((gnu packages) #:select (all-packages))
              (srfi srfi-1))
 

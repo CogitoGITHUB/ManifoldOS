@@ -18,13 +18,13 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu system images hurd)
-  #:use-module (guix gexp)
+  #:use-module (Manifolding-OS gexp)
   #:use-module (gnu bootloader)
   #:use-module (gnu bootloader grub)
   #:use-module (gnu image)
   #:use-module (gnu packages hurd)
   #:use-module (gnu packages ssh)
-  #:use-module (guix platforms x86)
+  #:use-module (Manifolding-OS platforms x86)
   #:use-module (gnu services)
   #:use-module (gnu services ssh)
   #:use-module (gnu system)

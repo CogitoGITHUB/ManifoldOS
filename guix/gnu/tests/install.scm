@@ -56,12 +56,12 @@
   #:use-module (gnu services networking)
   #:use-module (gnu services shepherd)
   #:use-module (gnu services xorg)
-  #:use-module (guix store)
-  #:use-module (guix monads)
-  #:use-module (guix packages)
-  #:use-module (guix grafts)
-  #:use-module (guix gexp)
-  #:use-module (guix utils)
+  #:use-module (Manifolding-OS store)
+  #:use-module (Manifolding-OS monads)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS grafts)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS utils)
   #:use-module (srfi srfi-1)
   #:export (%test-installed-os
             %test-installed-extlinux-os
@@ -123,8 +123,8 @@
     (services (cons (service marionette-service-type
                              (marionette-configuration
                               (imported-modules '((gnu services herd)
-                                                  (guix build utils)
-                                                  (guix combinators)))))
+                                                  (Manifolding-OS build utils)
+                                                  (Manifolding-OS combinators)))))
                     %base-services))))
 
 (define (operating-system-add-packages os packages)
@@ -155,7 +155,7 @@
     (services (cons (service marionette-service-type
                              (marionette-configuration
                               (imported-modules '((gnu services herd)
-                                                  (guix combinators)))))
+                                                  (Manifolding-OS combinators)))))
                     %base-services))))
 
 
@@ -169,7 +169,7 @@
 set -e -x
 guix --version
 
-export GUIX_BUILD_OPTIONS=--no-grafts
+export MANIFOLDING_OS_BUILD_OPTIONS=--no-grafts
 guix build isc-dhcp
 parted --script /dev/vdb mklabel gpt \\
   mkpart primary ext2 1M 3M \\
@@ -195,7 +195,7 @@ reboot\n")
 set -e -x
 guix --version
 
-export GUIX_BUILD_OPTIONS=--no-grafts
+export MANIFOLDING_OS_BUILD_OPTIONS=--no-grafts
 guix build isc-dhcp
 parted --script /dev/vdb mklabel gpt \\
   mkpart primary ext2 1M 2G \\
@@ -235,7 +235,7 @@ reboot\n")
                              (kernel-arguments '("console=ttyS0")))
                            #:imported-modules '((gnu services herd)
                                                 (gnu installer tests)
-                                                (guix combinators))))
+                                                (Manifolding-OS combinators))))
                       (uefi-support? #f)
                       (installation-image-type 'mbr-raw)
                       (install-size 'guess)
@@ -275,10 +275,10 @@ MEMORY."
                                 ;; Don't provide substitutes; too big.
                                 (substitutable? #f)))))
     (define install
-      (with-imported-modules '((guix build utils)
+      (with-imported-modules '((Manifolding-OS build utils)
                                (gnu build marionette))
         #~(begin
-            (use-modules (guix build utils)
+            (use-modules (Manifolding-OS build utils)
                          (gnu build marionette)
                          (srfi srfi-1))
 
@@ -359,9 +359,9 @@ MEMORY."
     (mlet %store-monad ((images-dir (gexp->derivation "installation"
                                       install
                                       #:substitutable? #f))) ;too big
-      (return (with-imported-modules '((guix build utils))
+      (return (with-imported-modules '((Manifolding-OS build utils))
                 #~(begin
-                    (use-modules (guix build utils))
+                    (use-modules (Manifolding-OS build utils))
                     (find-files #$images-dir)))))))
 
 (define* (qemu-command* images #:key (uefi-support? #f) (memory-size 256))
@@ -456,8 +456,8 @@ per %test-installed-os, this test is expensive in terms of CPU and storage.")
     (services (cons (service marionette-service-type
                              (marionette-configuration
                               (imported-modules '((gnu services herd)
-                                                  (guix build utils)
-                                                  (guix combinators)))))
+                                                  (Manifolding-OS build utils)
+                                                  (Manifolding-OS combinators)))))
                     %base-services))))
 
 (define %simple-installation-script-for-/dev/vda
@@ -467,7 +467,7 @@ per %test-installed-os, this test is expensive in terms of CPU and storage.")
 set -e -x
 guix --version
 
-export GUIX_BUILD_OPTIONS=--no-grafts
+export MANIFOLDING_OS_BUILD_OPTIONS=--no-grafts
 guix build isc-dhcp
 parted --script /dev/vda mklabel gpt \\
   mkpart primary ext2 1M 3M \\
@@ -537,7 +537,7 @@ reboot\n")
     (services (cons (service marionette-service-type
                              (marionette-configuration
                               (imported-modules '((gnu services herd)
-                                                  (guix combinators)))))
+                                                  (Manifolding-OS combinators)))))
                     %base-services))))
 
 (define %test-separate-home-os
@@ -586,7 +586,7 @@ partition.  In particular, home directories must be correctly created (see
     (services (cons (service marionette-service-type
                              (marionette-configuration
                               (imported-modules '((gnu services herd)
-                                                  (guix combinators)))))
+                                                  (Manifolding-OS combinators)))))
                     %base-services))))
 
 (define %separate-store-installation-script
@@ -596,7 +596,7 @@ partition.  In particular, home directories must be correctly created (see
 set -e -x
 guix --version
 
-export GUIX_BUILD_OPTIONS=--no-grafts
+export MANIFOLDING_OS_BUILD_OPTIONS=--no-grafts
 guix build isc-dhcp
 parted --script /dev/vdb mklabel gpt \\
   mkpart primary ext2 1M 3M \\
@@ -668,7 +668,7 @@ where /gnu lives on a separate partition.")
     (services (cons (service marionette-service-type
                              (marionette-configuration
                               (imported-modules '((gnu services herd)
-                                                  (guix combinators)))))
+                                                  (Manifolding-OS combinators)))))
                     %base-services))))
 
 (define %raid-root-installation-script
@@ -680,7 +680,7 @@ where /gnu lives on a separate partition.")
 set -e -x
 guix --version
 
-export GUIX_BUILD_OPTIONS=--no-grafts
+export MANIFOLDING_OS_BUILD_OPTIONS=--no-grafts
 parted --script /dev/vdb mklabel gpt \\
   mkpart primary ext2 1M 3M \\
   mkpart primary ext2 3M 2G \\
@@ -755,7 +755,7 @@ by 'mdadm'.")
     (services (cons (service marionette-service-type
                              (marionette-configuration
                               (imported-modules '((gnu services herd)
-                                                  (guix combinators)))))
+                                                  (Manifolding-OS combinators)))))
                     %base-services))))
 
 (define %luks-passphrase
@@ -769,7 +769,7 @@ by 'mdadm'.")
 set -e -x
 guix --version
 
-export GUIX_BUILD_OPTIONS=--no-grafts
+export MANIFOLDING_OS_BUILD_OPTIONS=--no-grafts
 ls -l /run/current-system/gc-roots
 parted --script /dev/vdb mklabel gpt \\
   mkpart primary ext2 1M 3M \\
@@ -875,7 +875,7 @@ build (current-guix) and then store a couple of full system images.")
     (services (cons (service marionette-service-type
                              (marionette-configuration
                               (imported-modules '((gnu services herd)
-                                                  (guix combinators)))))
+                                                  (Manifolding-OS combinators)))))
                     %base-services))))
 
 (define %test-encrypted-root-extra-options-os
@@ -933,7 +933,7 @@ build (current-guix) and then store a couple of full system images.")
     (services (cons (service marionette-service-type
                              (marionette-configuration
                               (imported-modules '((gnu services herd)
-                                                  (guix combinators)))))
+                                                  (Manifolding-OS combinators)))))
                     %base-services))))
 
 (define %lvm-separate-home-installation-script
@@ -942,7 +942,7 @@ build (current-guix) and then store a couple of full system images.")
 set -e -x
 guix --version
 
-export GUIX_BUILD_OPTIONS=--no-grafts
+export MANIFOLDING_OS_BUILD_OPTIONS=--no-grafts
 parted --script /dev/vdb mklabel gpt \\
   mkpart primary ext2 1M 3M \\
   mkpart primary ext2 3M 2G \\
@@ -1020,7 +1020,7 @@ reboot\n")
     (services (cons (service marionette-service-type
                              (marionette-configuration
                               (imported-modules '((gnu services herd)
-                                                  (guix combinators)))))
+                                                  (Manifolding-OS combinators)))))
                     %base-services))))
 
 (define %encrypted-home-installation-script
@@ -1029,7 +1029,7 @@ reboot\n")
 set -e -x
 guix --version
 
-export GUIX_BUILD_OPTIONS=--no-grafts
+export MANIFOLDING_OS_BUILD_OPTIONS=--no-grafts
 parted --script /dev/vdb mklabel gpt \\
   mkpart primary ext2 1M 3M \\
   mkpart primary ext2 3M 2G \\
@@ -1146,7 +1146,7 @@ launched as a shepherd service."
     (services (cons (service marionette-service-type
                              (marionette-configuration
                               (imported-modules '((gnu services herd)
-                                                  (guix combinators)))))
+                                                  (Manifolding-OS combinators)))))
                     %base-services))))
 
 (define %test-encrypted-home-os-key-file
@@ -1208,7 +1208,7 @@ unlock done using a key file")
     (services (cons (service marionette-service-type
                              (marionette-configuration
                               (imported-modules '((gnu services herd)
-                                                  (guix combinators)))))
+                                                  (Manifolding-OS combinators)))))
                     %base-services))))
 
 (define %encrypted-root-not-boot-installation-script
@@ -1219,7 +1219,7 @@ unlock done using a key file")
 set -e -x
 guix --version
 
-export GUIX_BUILD_OPTIONS=--no-grafts
+export MANIFOLDING_OS_BUILD_OPTIONS=--no-grafts
 ls -l /run/current-system/gc-roots
 parted --script /dev/vdb mklabel gpt \\
   mkpart primary ext2 1M 3M \\
@@ -1301,7 +1301,7 @@ store a couple of full system images.")
     (services (cons (service marionette-service-type
                              (marionette-configuration
                               (imported-modules '((gnu services herd)
-                                                  (guix combinators)))))
+                                                  (Manifolding-OS combinators)))))
                     %base-services))))
 
 (define %btrfs-root-installation-script
@@ -1311,7 +1311,7 @@ store a couple of full system images.")
 set -e -x
 guix --version
 
-export GUIX_BUILD_OPTIONS=--no-grafts
+export MANIFOLDING_OS_BUILD_OPTIONS=--no-grafts
 ls -l /run/current-system/gc-roots
 parted --script /dev/vdb mklabel gpt \\
   mkpart primary ext2 1M 3M \\
@@ -1372,7 +1372,7 @@ build (current-guix) and then store a couple of full system images.")
     (services (cons (service marionette-service-type
                              (marionette-configuration
                               (imported-modules '((gnu services herd)
-                                                  (guix combinators)))))
+                                                  (Manifolding-OS combinators)))))
                     %base-services))))
 
 (define %btrfs-raid-root-installation-script
@@ -1381,7 +1381,7 @@ build (current-guix) and then store a couple of full system images.")
 set -e -x
 guix --version
 
-export GUIX_BUILD_OPTIONS=--no-grafts
+export MANIFOLDING_OS_BUILD_OPTIONS=--no-grafts
 parted --script /dev/vdb mklabel gpt \\
   mkpart primary ext2 1M 3M \\
   mkpart primary ext2 3M 2G \\
@@ -1449,7 +1449,7 @@ RAID-0 (stripe) root partition.")
     (services (cons (service marionette-service-type
                              (marionette-configuration
                               (imported-modules '((gnu services herd)
-                                                  (guix combinators)))))
+                                                  (Manifolding-OS combinators)))))
                     %base-services))))
 
 (define %btrfs-root-on-subvolume-installation-script
@@ -1459,7 +1459,7 @@ RAID-0 (stripe) root partition.")
 set -e -x
 guix --version
 
-export GUIX_BUILD_OPTIONS=--no-grafts
+export MANIFOLDING_OS_BUILD_OPTIONS=--no-grafts
 ls -l /run/current-system/gc-roots
 parted --script /dev/vdb mklabel gpt \\
   mkpart primary ext2 1M 3M \\
@@ -1536,7 +1536,7 @@ build (current-guix) and then store a couple of full system images.")
     (services (cons (service marionette-service-type
                              (marionette-configuration
                               (imported-modules '((gnu services herd)
-                                                  (guix combinators)))))
+                                                  (Manifolding-OS combinators)))))
                     %base-services))))
 
 (define %btrfs-raid10-root-installation-script
@@ -1546,7 +1546,7 @@ build (current-guix) and then store a couple of full system images.")
 set -e -x
 guix --version
 
-export GUIX_BUILD_OPTIONS=--no-grafts
+export MANIFOLDING_OS_BUILD_OPTIONS=--no-grafts
 ls -l /run/current-system/gc-roots
 for d in vdb vdc vdd vde; do
     parted --script /dev/$d mklabel gpt \\
@@ -1644,7 +1644,7 @@ a couple of full system images.")
     (services (cons (service marionette-service-type
                              (marionette-configuration
                               (imported-modules '((gnu services herd)
-                                                  (guix combinators)))))
+                                                  (Manifolding-OS combinators)))))
                     %base-services))))
 
 (define %jfs-root-installation-script
@@ -1654,7 +1654,7 @@ a couple of full system images.")
 set -e -x
 guix --version
 
-export GUIX_BUILD_OPTIONS=--no-grafts
+export MANIFOLDING_OS_BUILD_OPTIONS=--no-grafts
 ls -l /run/current-system/gc-roots
 parted --script /dev/vdb mklabel gpt \\
   mkpart primary ext2 1M 3M \\
@@ -1717,7 +1717,7 @@ build (current-guix) and then store a couple of full system images.")
     (services (cons (service marionette-service-type
                              (marionette-configuration
                               (imported-modules '((gnu services herd)
-                                                  (guix combinators)))))
+                                                  (Manifolding-OS combinators)))))
                     %base-services))))
 
 (define %f2fs-root-installation-script
@@ -1727,7 +1727,7 @@ build (current-guix) and then store a couple of full system images.")
 set -e -x
 guix --version
 
-export GUIX_BUILD_OPTIONS=--no-grafts
+export MANIFOLDING_OS_BUILD_OPTIONS=--no-grafts
 ls -l /run/current-system/gc-roots
 parted --script /dev/vdb mklabel gpt \\
   mkpart primary ext2 1M 3M \\
@@ -1790,7 +1790,7 @@ build (current-guix) and then store a couple of full system images.")
     (services (cons (service marionette-service-type
                              (marionette-configuration
                               (imported-modules '((gnu services herd)
-                                                  (guix combinators)))))
+                                                  (Manifolding-OS combinators)))))
                     %base-services))))
 
 (define %xfs-root-installation-script
@@ -1800,7 +1800,7 @@ build (current-guix) and then store a couple of full system images.")
 set -e -x
 guix --version
 
-export GUIX_BUILD_OPTIONS=--no-grafts
+export MANIFOLDING_OS_BUILD_OPTIONS=--no-grafts
 ls -l /run/current-system/gc-roots
 parted --script /dev/vdb mklabel gpt \\
   mkpart primary ext2 1M 3M \\
@@ -1858,7 +1858,7 @@ build (current-guix) and then store a couple of full system images.")
       (setvbuf (current-error-port) 'none)
 
       (marionette-eval* '(use-modules (gnu installer tests)
-                                      (guix build utils))
+                                      (Manifolding-OS build utils))
                         #$marionette)
 
       ;; Arrange so that 'converse' prints debugging output to the console.
@@ -2009,7 +2009,7 @@ build (current-guix) and then store a couple of full system images.")
      (kernel-arguments '("console=ttyS0")))
    #:imported-modules '((gnu services herd)
                         (gnu installer tests)
-                        (guix combinators))))
+                        (Manifolding-OS combinators))))
 
 (define* (installation-target-os-for-gui-tests
           #:key
@@ -2082,8 +2082,8 @@ build (current-guix) and then store a couple of full system images.")
             (service marionette-service-type
                      (marionette-configuration
                       (imported-modules '((gnu services herd)
-                                          (guix build utils)
-                                          (guix combinators))))))
+                                          (Manifolding-OS build utils)
+                                          (Manifolding-OS combinators))))))
       %desktop-services))))
 
 (define* (guided-installation-test name

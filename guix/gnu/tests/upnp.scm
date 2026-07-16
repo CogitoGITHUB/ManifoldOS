@@ -22,7 +22,7 @@
   #:use-module (gnu services upnp)
   #:use-module (gnu system vm)
   #:use-module (gnu tests)
-  #:use-module (guix gexp)
+  #:use-module (Manifolding-OS gexp)
   #:export (%test-readymedia))
 
 (define %readymedia-default-port 8200)

@@ -22,10 +22,10 @@
   #:use-module (gnu machine ssh)
   #:use-module (gnu machine)
   #:use-module (gnu system)
-  #:use-module (guix build utils)
-  #:use-module (guix records)
-  #:use-module (guix ssh)
-  #:use-module (guix tests)
+  #:use-module (Manifolding-OS build utils)
+  #:use-module (Manifolding-OS records)
+  #:use-module (Manifolding-OS ssh)
+  #:use-module (Manifolding-OS tests)
   #:use-module (srfi srfi-1)
   #:use-module (srfi srfi-34)
   #:use-module (srfi srfi-64)
@@ -34,7 +34,7 @@
 
 ;;; Unit and integration tests for the (gnu machine hetzner) module.
 
-;; Integration tests require the GUIX_HETZNER_API_TOKEN environment variable.
+;; Integration tests require the MANIFOLDING_OS_HETZNER_API_TOKEN environment variable.
 ;; https://docs.hetzner.com/cloud/api/getting-started/generating-api-token
 
 ;; The integration tests sometimes fail due to the Hetzner API not being able
@@ -246,7 +246,7 @@
             ((gnu machine hetzner) hetzner-machine-ssh-run-script
              (lambda (ssh-session name content)
                #t))
-            ((guix ssh) open-ssh-session
+            ((Manifolding-OS ssh) open-ssh-session
              (lambda* (host . options)
                (make-session #:host host)))
             ((gnu machine hetzner http) hetzner-api-server-reboot

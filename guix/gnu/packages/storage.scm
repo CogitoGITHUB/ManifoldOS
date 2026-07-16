@@ -25,7 +25,7 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages storage)
-  #:use-module ((guix licenses) #:prefix license:)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
   #:use-module (gnu packages admin)
   #:use-module (gnu packages assembly)
   #:use-module (gnu packages authentication)
@@ -78,15 +78,15 @@
   #:use-module (gnu packages web)
   #:use-module (gnu packages xml)
   #:use-module (gnu packages)
-  #:use-module (guix build-system cargo)
-  #:use-module (guix build-system cmake)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system pyproject)
-  #:use-module (guix download)
-  #:use-module (guix gexp)
-  #:use-module (guix git-download)
-  #:use-module (guix packages)
-  #:use-module (guix utils))
+  #:use-module (Manifolding-OS build-system cargo)
+  #:use-module (Manifolding-OS build-system cmake)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system pyproject)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS utils))
 
 (define-public ceph
   (package
@@ -105,7 +105,7 @@
               (sha256
                (base32
                 "13rv8kz0rjnldxs4ldpxhckqn7pf95rr8wlvg9s6nwcvl31iq9cv"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                ;; Delete bundled libraries where feasible.
                '(for-each delete-file-recursively
@@ -247,7 +247,7 @@
                                   ":")))
                 (for-each (lambda (s)
                             (wrap-program (string-append #$output "/" s)
-                              `("GUIX_PYTHONPATH" prefix (,PYTHONPATH))))
+                              `("MANIFOLDING_OS_PYTHONPATH" prefix (,PYTHONPATH))))
                           scripts)))))))
     (native-inputs
      (list catch2
@@ -406,9 +406,9 @@ clients.  The key features are:
       (append %default-gnu-imported-modules
               %pyproject-build-system-modules)
       #:validate-runpath? #f
-      #:modules '((guix build gnu-build-system)
-                  (guix build utils)
-                  ((guix build pyproject-build-system) #:prefix py:)
+      #:modules '((Manifolding-OS build gnu-build-system)
+                  (Manifolding-OS build utils)
+                  ((Manifolding-OS build pyproject-build-system) #:prefix py:)
                   (ice-9 rdelim)
                   (ice-9 popen))
       #:configure-flags
@@ -519,7 +519,7 @@ clients.  The key features are:
                      (PYTHONPATH (string-join (map sitedir (cons #$output dependencies)) ":")))
                 (for-each (lambda (executable)
                             (wrap-program (string-append #$output "/" executable)
-                              `("GUIX_PYTHONPATH" ":" prefix (,PYTHONPATH))))
+                              `("MANIFOLDING_OS_PYTHONPATH" ":" prefix (,PYTHONPATH))))
                           scripts)))))))
     (native-inputs
      (list autoconf
@@ -597,7 +597,7 @@ Python dependency, and @command{spdk-sma} requires @code{grpcio} and
        (sha256
         (base32 "12zigcvnv662lk31gh30hg37ljnclkgmrfxaivivyp50a5lxr88a"))
        (snippet
-        #~(begin (use-modules (guix build utils))
+        #~(begin (use-modules (Manifolding-OS build utils))
                  (delete-file-recursively "doc")))))
     (build-system cargo-build-system)
     (arguments
@@ -617,8 +617,8 @@ Python dependency, and @command{spdk-sma} requires @code{grpcio} and
                         "telemetry-otlp")
       #:install-source? #f
       #:modules
-      '((guix build cargo-build-system)
-        (guix build utils)
+      '((Manifolding-OS build cargo-build-system)
+        (Manifolding-OS build utils)
         (ice-9 match))
       #:phases
       #~(modify-phases %standard-phases

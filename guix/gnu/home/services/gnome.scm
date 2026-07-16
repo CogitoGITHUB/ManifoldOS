@@ -18,8 +18,8 @@
 
 
 (define-module (gnu home services gnome)
-  #:use-module (guix gexp)
-  #:use-module (guix packages)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS packages)
   #:use-module (gnu packages admin)
   #:use-module (gnu packages gnome)
   #:use-module (gnu system accounts)

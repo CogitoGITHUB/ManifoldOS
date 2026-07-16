@@ -19,13 +19,13 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages libftdi)
-  #:use-module (guix build utils)
-  #:use-module (guix build-system cmake)
-  #:use-module (guix download)
-  #:use-module (guix gexp)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix packages)
-  #:use-module (guix utils)
+  #:use-module (Manifolding-OS build utils)
+  #:use-module (Manifolding-OS build-system cmake)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS utils)
   #:use-module (gnu packages)
   #:use-module (gnu packages boost)
   #:use-module (gnu packages documentation)
@@ -114,6 +114,6 @@ in the @code{operating-system} configuration file with this package, as in:
 @end lisp
 Additionally, the @samp{plugdev} group should be registered in the
 @code{supplementary-groups} field of your @code{user-account}
-declaration. Refer to @samp{info \"(guix) Base Services\"} for examples.")
+declaration. Refer to @samp{info \"(Manifolding-OS) Base Services\"} for examples.")
     (license (list license:gpl2         ; ftdi_eeprom, C++ bindings
                    license:lgpl2.1))))  ; main library

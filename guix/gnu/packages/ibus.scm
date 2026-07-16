@@ -33,18 +33,18 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages ibus)
-  #:use-module (guix licenses)
-  #:use-module (guix packages)
-  #:use-module (guix gexp)
-  #:use-module (guix deprecation)
-  #:use-module (guix download)
-  #:use-module (guix git-download)
-  #:use-module (guix build-system cmake)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system glib-or-gtk)
-  #:use-module (guix build-system meson)
-  #:use-module (guix build-system pyproject)
-  #:use-module (guix utils)
+  #:use-module (Manifolding-OS licenses)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS deprecation)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS build-system cmake)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system glib-or-gtk)
+  #:use-module (Manifolding-OS build-system meson)
+  #:use-module (Manifolding-OS build-system pyproject)
+  #:use-module (Manifolding-OS utils)
   #:use-module (gnu packages)
   #:use-module (gnu packages anthy)
   #:use-module (gnu packages autotools)
@@ -251,14 +251,14 @@ may also simplify input method development.")
             (replace 'wrap-with-additional-paths
               (lambda* (#:key outputs #:allow-other-keys)
                 ;; Make sure 'ibus-setup' and 'ibus-daemon' runs with the
-                ;; correct GUIX_PYTHONPATH and GI_TYPELIB_PATH.  Wrap
+                ;; correct MANIFOLDING_OS_PYTHONPATH and GI_TYPELIB_PATH.  Wrap
                 ;; 'ibus-daemon' is needed because engines spawned by
                 ;; the daemon need access to those libraries.
                 (for-each
                   (lambda (prog)
                     (wrap-program prog
-                      `("GUIX_PYTHONPATH" ":" prefix
-                        (,(getenv "GUIX_PYTHONPATH")))
+                      `("MANIFOLDING_OS_PYTHONPATH" ":" prefix
+                        (,(getenv "MANIFOLDING_OS_PYTHONPATH")))
                       `("GI_TYPELIB_PATH" ":" prefix
                         (,(getenv "GI_TYPELIB_PATH")
                          ,(string-append #$output "/lib/girepository-1.0")))))
@@ -272,7 +272,7 @@ may also simplify input method development.")
                        python-pygobject-3.50)))
     (native-search-paths
      (cons (search-path-specification
-            (variable "GUIX_GTK3_IM_MODULE_FILE")
+            (variable "MANIFOLDING_OS_GTK3_IM_MODULE_FILE")
             (file-type 'regular)
             (separator #f)
             (files '("lib/gtk-3.0/3.0.0/immodules-gtk3.cache")))
@@ -303,8 +303,8 @@ may also simplify input method development.")
               ;; Make sure 'ibus-setup-libpinyin' runs with the correct
               ;; PYTHONPATH and GI_TYPELIB_PATH.
               (wrap-program (string-append #$output "/libexec/ibus-setup-libpinyin")
-                `("GUIX_PYTHONPATH" ":" prefix
-                  (,(getenv "GUIX_PYTHONPATH")
+                `("MANIFOLDING_OS_PYTHONPATH" ":" prefix
+                  (,(getenv "MANIFOLDING_OS_PYTHONPATH")
                    ,(string-append #$(this-package-input "ibus")
                                    "/lib/girepository-1.0")
                    ,(string-append #$output
@@ -471,8 +471,8 @@ Chinese input method for Zhuyin (BoPoMoFo) users.")
               (for-each
                (lambda (prog)
                  (wrap-program (string-append #$output "/libexec/" prog)
-                   `("GUIX_PYTHONPATH" ":" prefix
-                     (,(getenv "GUIX_PYTHONPATH")))
+                   `("MANIFOLDING_OS_PYTHONPATH" ":" prefix
+                     (,(getenv "MANIFOLDING_OS_PYTHONPATH")))
                    `("GI_TYPELIB_PATH" ":" prefix
                      (,(getenv "GI_TYPELIB_PATH")
                       ,(string-append #$output "/lib/girepository-1.0")))))
@@ -971,7 +971,7 @@ hanja dictionary and small hangul character classification.")
             (lambda* (#:key inputs #:allow-other-keys)
               (wrap-program (string-append #$output
                                            "/libexec/ibus-setup-hangul")
-                `("GUIX_PYTHONPATH" ":" prefix (,(getenv "GUIX_PYTHONPATH")))
+                `("MANIFOLDING_OS_PYTHONPATH" ":" prefix (,(getenv "MANIFOLDING_OS_PYTHONPATH")))
                 `("LD_LIBRARY_PATH" ":" prefix
                   (,(dirname (search-input-file inputs "lib/libhangul.so"))))
                 `("GI_TYPELIB_PATH" ":" prefix
@@ -1121,13 +1121,13 @@ IBus-Table on IBus framework:
            (lambda* (#:key outputs #:allow-other-keys)
              (let* ((out (assoc-ref outputs "out"))
                     (ibus-stt-dir (string-append out "/share/ibus-stt")))
-               (setenv "GUIX_PYTHONPATH"
+               (setenv "MANIFOLDING_OS_PYTHONPATH"
                        (string-append ibus-stt-dir ":"
-                                      (getenv "GUIX_PYTHONPATH"))))))
+                                      (getenv "MANIFOLDING_OS_PYTHONPATH"))))))
          (add-after 'install 'wrap-with-additional-paths
            (lambda* (#:key inputs outputs #:allow-other-keys)
              ;; Make sure 'ibus-{setup,engine}-stt' find the gst-vosk plugin
-             ;; and run with the correct GUIX_PYTHONPATH and GI_TYPELIB_PATH.
+             ;; and run with the correct MANIFOLDING_OS_PYTHONPATH and GI_TYPELIB_PATH.
              (let ((out (assoc-ref outputs "out")))
                (for-each (lambda (prog)
                            (wrap-program prog
@@ -1135,8 +1135,8 @@ IBus-Table on IBus framework:
                                (,(string-append (assoc-ref inputs "gst-vosk")
                                                 "/lib/gstreamer-1.0")
                                 ,(getenv "GST_PLUGIN_SYSTEM_PATH")))
-                             `("GUIX_PYTHONPATH" =
-                               (,(getenv "GUIX_PYTHONPATH")))
+                             `("MANIFOLDING_OS_PYTHONPATH" =
+                               (,(getenv "MANIFOLDING_OS_PYTHONPATH")))
                              `("GI_TYPELIB_PATH" =
                                (,(getenv "GI_TYPELIB_PATH")))))
                          (list (string-append out "/libexec/ibus-engine-stt")

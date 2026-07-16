@@ -17,7 +17,7 @@
 
 (define-module (gnu packages nvi)
   #:use-module (gnu packages text-editors)
-  #:use-module (guix deprecation))
+  #:use-module (Manifolding-OS deprecation))
 
 (define-deprecated/public-alias nvi
   (@ (gnu packages text-editors) nvi))

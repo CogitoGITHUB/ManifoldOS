@@ -55,17 +55,17 @@
                                 virtualized-operating-system)
   #:autoload   (gnu system locale) (locale-definition)
   #:use-module (gnu system)
-  #:use-module (guix derivations)
-  #:use-module (guix gexp)
-  #:use-module (guix modules)
-  #:use-module (guix monads)
-  #:use-module (guix packages)
-  #:use-module (guix records)
-  #:use-module (guix store)
-  #:use-module (guix ui)
-  #:use-module (guix utils)
-  #:autoload   (guix self) (make-config.scm)
-  #:autoload   (guix platform) (platform-system)
+  #:use-module (Manifolding-OS derivations)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS modules)
+  #:use-module (Manifolding-OS monads)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS records)
+  #:use-module (Manifolding-OS store)
+  #:use-module (Manifolding-OS ui)
+  #:use-module (Manifolding-OS utils)
+  #:autoload   (Manifolding-OS self) (make-config.scm)
+  #:autoload   (Manifolding-OS platform) (platform-system)
 
   #:use-module ((srfi srfi-1) #:hide (partition))
   #:use-module (srfi srfi-9)
@@ -497,7 +497,7 @@ avoid potential infinite waits blocking libvirt."))
   (let ((package (libvirt-configuration-libvirt config))
         (sock-dir (libvirt-configuration-unix-sock-dir config)))
     #~(begin
-        (use-modules (guix build utils))
+        (use-modules (Manifolding-OS build utils))
         (mkdir-p #$sock-dir)
         (mkdir-p "/etc/libvirt/qemu/networks")
         ;; special-files-service-type could be used but it creates a file union
@@ -548,9 +548,9 @@ to reload its configuration.")))))))
     `(("qemu/firmware"
        ,(computed-file
          "etc-qemu-firmware"
-         (with-imported-modules '((guix build union))
+         (with-imported-modules '((Manifolding-OS build union))
            #~(begin
-               (use-modules (guix build union) (srfi srfi-26))
+               (use-modules (Manifolding-OS build union) (srfi srfi-26))
                (union-build #$output
                             (map (cut string-append <> "/share/qemu/firmware")
                                  (list #$@firmwares))))))))))
@@ -1173,10 +1173,10 @@ over TCP.  Reboot upon failure."
     (provision '(secret-service-client))
     (requirement '(loopback networking))
     (modules '((gnu build secret-service)
-               (guix build utils)
+               (Manifolding-OS build utils)
                ((shepherd system) #:select (reboot))))
     (start (with-imported-modules '((gnu build secret-service)
-                                    (guix build utils))
+                                    (Manifolding-OS build utils))
              #~(lambda ()
                  ;; Since shepherd's output port goes to /dev/log, write this
                  ;; message to stderr so it's visible on the Mach console.
@@ -1497,12 +1497,12 @@ that will be listening to receive secret keys on ADDRESS."
          (provision (list (virtual-build-machine-name config)))
          (requirement '(user-processes))
          (modules `((gnu build secret-service)
-                    (guix build utils)
+                    (Manifolding-OS build utils)
                     ,@%default-modules))
          (start
           (with-imported-modules (source-module-closure
                                   '((gnu build secret-service)
-                                    (guix build utils)))
+                                    (Manifolding-OS build utils)))
             #~(lambda arguments
                 (let* ((pid  (fork+exec-command (append #$command arguments)
                                                 #:user #$user
@@ -1549,24 +1549,24 @@ that will be listening to receive secret keys on ADDRESS."
 an argument) on the host."
   (define not-config?
     (match-lambda
-      ('(guix config) #f)
+      ('(Manifolding-OS config) #f)
       (('guix _ ...) #t)
       (('gnu _ ...) #t)
       (_ #f)))
 
   (define run
     (with-extensions (list guile-gcrypt)
-      (with-imported-modules `(((guix config) => ,(make-config.scm))
+      (with-imported-modules `(((Manifolding-OS config) => ,(make-config.scm))
                                ,@(source-module-closure
-                                  '((guix pki)
-                                    (guix build utils))
+                                  '((Manifolding-OS pki)
+                                    (Manifolding-OS build utils))
                                   #:select? not-config?))
         #~(begin
             (use-modules (ice-9 match)
                          (ice-9 textual-ports)
                          (gcrypt pk-crypto)
-                         (guix pki)
-                         (guix build utils))
+                         (Manifolding-OS pki)
+                         (Manifolding-OS build utils))
 
             (match (command-line)
               ((_ guest-config-directory)
@@ -1591,9 +1591,9 @@ an argument) on the host."
 (define (initialize-build-vm-substitutes)
   "Initialize the Hurd VM's key pair and ACL and store it on the host."
   (define run
-    (with-imported-modules '((guix build utils))
+    (with-imported-modules '((Manifolding-OS build utils))
       #~(begin
-          (use-modules (guix build utils)
+          (use-modules (Manifolding-OS build utils)
                        (ice-9 match))
 
           (define host-key
@@ -1604,7 +1604,7 @@ an argument) on the host."
 
           (match (command-line)
             ((_ guest-config-directory)
-             (setenv "GUIX_CONFIGURATION_DIRECTORY"
+             (setenv "MANIFOLDING_OS_CONFIGURATION_DIRECTORY"
                      guest-config-directory)
              (invoke #+(file-append guix "/bin/guix") "archive"
                      "--generate-key")
@@ -1629,9 +1629,9 @@ an argument) on the host."
                               #:key
                               offloading-ssh-key
                               (offloading? #t))
-  (with-imported-modules '((guix build utils))
+  (with-imported-modules '((Manifolding-OS build utils))
     #~(begin
-        (use-modules (guix build utils))
+        (use-modules (Manifolding-OS build utils))
 
         (define secret-directory
           #$secret-directory)
@@ -1950,7 +1950,7 @@ is added to the OS specified in CONFIG."
       (start
        (with-imported-modules
            (source-module-closure '((gnu build secret-service)
-                                    (guix build utils)))
+                                    (Manifolding-OS build utils)))
          #~(lambda ()
              (let* ((pid  (fork+exec-command #$vm-command
                                              #:user "childhurd"
@@ -1980,7 +1980,7 @@ is added to the OS specified in CONFIG."
                    (kill (- pid) SIGTERM)
                    (apply throw key args)))))))
       (modules `((gnu build secret-service)
-                 (guix build utils)
+                 (Manifolding-OS build utils)
                  ,@%default-modules))
       (stop  #~(make-kill-destructor))))))
 

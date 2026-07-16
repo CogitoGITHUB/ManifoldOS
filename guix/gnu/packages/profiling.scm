@@ -24,14 +24,14 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages profiling)
-  #:use-module (guix packages)
-  #:use-module (guix gexp)
-  #:use-module (guix git-download)
-  #:use-module ((guix licenses) #:prefix license:) ; avoid zlib, expat clashes
-  #:use-module (guix download)
-  #:use-module (guix utils)
-  #:use-module (guix build-system cmake)
-  #:use-module (guix build-system gnu)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:) ; avoid zlib, expat clashes
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS utils)
+  #:use-module (Manifolding-OS build-system cmake)
+  #:use-module (Manifolding-OS build-system gnu)
   #:use-module (gnu packages)
   #:use-module (gnu packages autotools)
   #:use-module (gnu packages base)      ;for "which"
@@ -75,7 +75,7 @@
                            version ".tar.gz"))
        (sha256
         (base32 "0zr83v51lp4ijgk997dz9fpph48prlsbml26dvb223avqr8fvmrw"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         '(begin
            ;; Remove bundled software.
@@ -364,7 +364,7 @@ applications.  CubeGUI is the graphical explorer of the CUBE project.")))
         (base32
          "1w50bckvs1nn68amzrkyrh769dhmlhk7w00kr8ac5h9ryk349p8c"))
        (file-name (git-file-name "tracy" version))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         '(begin
            ;; XXX: Sadly, the ImGui loaders appear to have been customized by
@@ -448,7 +448,7 @@ sampling profiler for games and other applications.")
         ;; Remove bundled dependencies that can be replaced by inputs
         (snippet
           #~(begin
-              (use-modules (guix build utils))
+              (use-modules (Manifolding-OS build utils))
               (delete-file-recursively "vendor/cubew/")
               (delete-file-recursively "vendor/otf2/")))))
     (build-system gnu-build-system)
@@ -510,7 +510,7 @@ trace data.")
               (sha256
                (base32
                 "1g2r90348pl173r3wp9k5546sdgan3pdw0002bqicaw028j3gq96"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                #~(for-each (lambda (name)
                              (unless (string-suffix? "trigger.pzc.h" name)

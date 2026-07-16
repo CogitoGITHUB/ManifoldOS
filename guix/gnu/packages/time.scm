@@ -65,16 +65,16 @@
   #:use-module (gnu packages terminals)
   #:use-module (gnu packages textutils)
   #:use-module (gnu packages)
-  #:use-module (guix build-system cargo)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system go)
-  #:use-module (guix build-system pyproject)
-  #:use-module (guix download)
-  #:use-module (guix gexp)
-  #:use-module (guix utils)
-  #:use-module (guix git-download)
-  #:use-module (guix licenses)
-  #:use-module (guix packages))
+  #:use-module (Manifolding-OS build-system cargo)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system go)
+  #:use-module (Manifolding-OS build-system pyproject)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS utils)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS licenses)
+  #:use-module (Manifolding-OS packages))
 
 (define-public termdown
   (package
@@ -239,7 +239,7 @@ applications, and several support tools.")
        (uri (pypi-uri "tzdata" version))
        (sha256
         (base32 "156nh5d0fagghgyz54ymbd4cnr6z05w8iiin2syjinwcx04lk294"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet #~(delete-file-recursively "src/tzdata/zoneinfo"))))
     (build-system pyproject-build-system)
     (arguments
@@ -333,10 +333,10 @@ saving time.  Almost all of the Olson timezones are supported.")
      (list
       #:imported-modules `(,@%cargo-build-system-modules
                            ,@%pyproject-build-system-modules)
-      #:modules '(((guix build cargo-build-system)
+      #:modules '(((Manifolding-OS build cargo-build-system)
                    #:prefix cargo:)
-                  (guix build pyproject-build-system)
-                  (guix build utils))
+                  (Manifolding-OS build pyproject-build-system)
+                  (Manifolding-OS build utils))
       #:phases
       #~(modify-phases %standard-phases
           (add-after 'unpack 'prepare-cargo-build-system

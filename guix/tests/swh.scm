@@ -17,15 +17,15 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (test-swh)
-  #:use-module (guix swh)
-  #:use-module (guix base32)
-  #:use-module (guix tests http)
+  #:use-module (Manifolding-OS swh)
+  #:use-module (Manifolding-OS base32)
+  #:use-module (Manifolding-OS tests http)
   #:use-module (web response)
   #:use-module (srfi srfi-19)
   #:use-module (srfi srfi-64)
   #:use-module (ice-9 match))
 
-;; Test the JSON mapping machinery used in (guix swh).
+;; Test the JSON mapping machinery used in (Manifolding-OS swh).
 
 (define %origin
   "{ \"origin_visits_url\": \"/visits/42\",
@@ -208,7 +208,7 @@
             (lookup-origin "http://example.org/guix.git"))
           (lambda (key url method response)
             ;; Ensure the reset time was recorded.
-            (@@ (guix swh) %general-rate-limit-reset-time)))))))
+            (@@ (Manifolding-OS swh) %general-rate-limit-reset-time)))))))
 
 (test-assert "%allow-request? and request-rate-limit-reached?"
   ;; Here we test two things: that the rate limit set above is in effect and

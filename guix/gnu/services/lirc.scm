@@ -21,9 +21,9 @@
   #:use-module (gnu services)
   #:use-module (gnu services shepherd)
   #:use-module (gnu packages lirc)
-  #:use-module (guix deprecation)
-  #:use-module (guix gexp)
-  #:use-module (guix records)
+  #:use-module (Manifolding-OS deprecation)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS records)
   #:use-module (ice-9 match)
   #:export (lirc-configuration
             lirc-configuation?
@@ -52,7 +52,7 @@
 
 (define %lirc-activation
   #~(begin
-      (use-modules (guix build utils))
+      (use-modules (Manifolding-OS build utils))
       (mkdir-p "/var/run/lirc")))
 
 (define lirc-shepherd-service

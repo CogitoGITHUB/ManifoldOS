@@ -96,25 +96,25 @@
   #:use-module (ice-9 regex)
   #:use-module (ice-9 match)
   #:use-module (gnu packages)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix packages)
-  #:use-module (guix download)
-  #:use-module (guix git-download)
-  #:use-module (guix gexp)
-  #:use-module (guix utils)
-  #:use-module ((guix build utils) #:select (alist-replace))
-  #:use-module (guix build-system ant)
-  #:use-module (guix build-system cmake)
-  #:use-module (guix build-system copy)
-  #:use-module (guix build-system dune)
-  #:use-module (guix build-system glib-or-gtk)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system meson)
-  #:use-module (guix build-system ocaml)
-  #:use-module (guix build-system perl)
-  #:use-module (guix build-system pyproject)
-  #:use-module (guix build-system qt)
-  #:use-module (guix build-system ruby)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS utils)
+  #:use-module ((Manifolding-OS build utils) #:select (alist-replace))
+  #:use-module (Manifolding-OS build-system ant)
+  #:use-module (Manifolding-OS build-system cmake)
+  #:use-module (Manifolding-OS build-system copy)
+  #:use-module (Manifolding-OS build-system dune)
+  #:use-module (Manifolding-OS build-system glib-or-gtk)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system meson)
+  #:use-module (Manifolding-OS build-system ocaml)
+  #:use-module (Manifolding-OS build-system perl)
+  #:use-module (Manifolding-OS build-system pyproject)
+  #:use-module (Manifolding-OS build-system qt)
+  #:use-module (Manifolding-OS build-system ruby)
   #:use-module (gnu packages algebra)
   #:use-module (gnu packages astronomy)
   #:use-module (gnu packages audio)
@@ -418,7 +418,7 @@ matrices.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "1876bx0cpxb6di5r08wxwjrxl50zhh5f8d740xgjsfmw9s7kk4j5"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         ;; Make sure we don't use the bundled software.
         #~(begin
@@ -600,9 +600,9 @@ triangulations.")
                      (let* ((out (assoc-ref outputs "out"))
                             (bin (string-append out "/bin")))
                        (wrap-program (string-append bin "/units_cur")
-                         `("GUIX_PYTHONPATH" ":" prefix
+                         `("MANIFOLDING_OS_PYTHONPATH" ":" prefix
                            ,(search-path-as-string->list
-                             (getenv "GUIX_PYTHONPATH"))))))))))
+                             (getenv "MANIFOLDING_OS_PYTHONPATH"))))))))))
    (synopsis "Conversion between thousands of scales")
    (description
     "GNU Units converts numeric quantities between units of measure.  It
@@ -816,7 +816,7 @@ unsatisfiability of the formula.")
        (sha256
         (base32
          "03kaqbjbi6viz0n33dk5jlf6ayxqlsq4804n7kwkndiga9s4hd42"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        ;; Don't distribute html documentation with bundled jquery.
        (snippet
         '(begin
@@ -1996,7 +1996,7 @@ extremely large and complex data collections.")
        (sha256
         (base32
          "1f7yv0xra465c3qy8c79fzddib653wzj5dsakb0bs02nwp3xm54q"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         '(for-each
           delete-file
@@ -2171,11 +2171,11 @@ extremely large and complex data collections.")
       #~(list "-DHDF5_BUILD_JAVA=ON"
               "-DHDF5_BUILD_TOOLS=OFF")
       #:modules
-      '((guix build cmake-build-system)
-        ((guix build ant-build-system) #:prefix ant:)
-        (guix build utils))
+      '((Manifolding-OS build cmake-build-system)
+        ((Manifolding-OS build ant-build-system) #:prefix ant:)
+        (Manifolding-OS build utils))
       #:imported-modules
-      `((guix build ant-build-system)
+      `((Manifolding-OS build ant-build-system)
         ,@%cmake-build-system-modules)
       #:phases
       #~(modify-phases %standard-phases
@@ -2405,7 +2405,7 @@ mapping. HighFive does not require additional libraries.")
                 "0pz51c0hfh2mg8xli0wj7hf92s3b7yf5r4114g8z8722lcm5gwiy"))
               (snippet
                #~(begin
-                   (use-modules (guix build utils))
+                   (use-modules (Manifolding-OS build utils))
                    (delete-file-recursively "itex-binaries")))))
     (build-system gnu-build-system)
     (native-inputs
@@ -2502,7 +2502,7 @@ similar to MATLAB, GNU Octave or SciPy.")
        (sha256
         (base32
          "0j3c3amzvsd8bd52dqgqa8gkgl7n36qf0yahyl4kz5mrpnxvl4fg"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         ;; Make sure this variable is defined only once.  Failing to do so
         ;; would break builds of 'netcdf-parallel-openmpi' with a
@@ -2990,7 +2990,7 @@ the result of costly computer simulations.")
               (sha256
                (base32
                 "0wk9vr6zc62gw71v7gnra5wxqlcljcgbhm5lasx236v791b986ns"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                ;; Make sure we don't use the bundled software.
                '(delete-file-recursively "ThirdParty"))))
@@ -3018,7 +3018,7 @@ executable.")
               (sha256
                (base32
                 "0ap1f0lxppa6pnbc4bg7ih7a96avwaki482nig8w5fr3vg9wvkzr"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                ;; Make sure we don't use the bundled software.
                '(begin
@@ -3123,7 +3123,7 @@ Simplex pivot rules completely in Python.")
          (sha256
           (base32
             "16gzwa64w90vifaflmii515rsrqclf2y7nziq621m4ad9cjgcixj"))
-         (modules '((guix build utils)))
+         (modules '((Manifolding-OS build utils)))
          ;; delete generated sources
          (snippet '(for-each delete-file
                              '("gecode/kernel/var-imp.hpp"
@@ -3135,8 +3135,8 @@ Simplex pivot rules completely in Python.")
         #:configure-flags #~(list (string-append "GLDFLAGS=-Wl,-rpath="
                                                  #$output "/lib")
                                   "--enable-examples=no")
-        #:modules '((guix build gnu-build-system)
-                    (guix build utils)
+        #:modules '((Manifolding-OS build gnu-build-system)
+                    (Manifolding-OS build utils)
                     (ice-9 rdelim)
                     (ice-9 popen))
         #:phases
@@ -3232,7 +3232,7 @@ fixed point (16.16) format.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "0zrn4hnkf8k95dc3s3acydl1bqkr8a0axw56g7n562lx7zj7sd62"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         ;; Remove code related to the parallel version as non-free;
         ;; from parallel/Main.cc:
@@ -3396,9 +3396,9 @@ matrices of small size.")
      (list
       #:install-plan #~`(("scasp" "bin/")
                          ("prolog" "lib/swipl/library"))
-      #:modules `((guix build copy-build-system)
-                  ((guix build gnu-build-system) #:prefix gnu:)
-                  (guix build utils)
+      #:modules `((Manifolding-OS build copy-build-system)
+                  ((Manifolding-OS build gnu-build-system) #:prefix gnu:)
+                  (Manifolding-OS build utils)
                   (ice-9 regex))
       #:phases
       #~(modify-phases %standard-phases
@@ -3486,8 +3486,8 @@ can solve two kinds of problems:
     (arguments
      '(#:modules ((ice-9 popen)
                   (ice-9 rdelim)
-                  (guix build utils)
-                  (guix build cmake-build-system))
+                  (Manifolding-OS build utils)
+                  (Manifolding-OS build cmake-build-system))
 
        #:phases (modify-phases %standard-phases
                   (delete 'configure)
@@ -3635,9 +3635,9 @@ script files.")
     (arguments
      (substitute-keyword-arguments arguments
        ((#:modules modules %default-gnu-modules)
-        `((guix build qt-utils) ,@modules))
+        `((Manifolding-OS build qt-utils) ,@modules))
        ((#:imported-modules imported-modules %default-gnu-imported-modules)
-        `((guix build qt-utils) ,@imported-modules))
+        `((Manifolding-OS build qt-utils) ,@imported-modules))
        ((#:phases phases)
         `(modify-phases ,phases
            (add-before 'configure 'patch-qscintilla-library-name
@@ -3683,7 +3683,7 @@ script files.")
          (base32 "1wmrbr5yar3iz1c80h6diyqigd8hv05j7wral2kkrbvhzpwjd7k6"))
         (snippet
          #~(begin
-            (use-modules (guix build utils))
+            (use-modules (Manifolding-OS build utils))
             ;; Remove files specific to non-free operating systems.
             (delete-file-recursively "samples/ios")
             (delete-file-recursively "samples/mfc")
@@ -3826,7 +3826,7 @@ supports the propositional fragment of PDDL2.2.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "1z5fl1im7mss5w8c8ngbhj5wbx0b8knmwg5hfdg036yb0x5pdc4j"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         '(delete-file-recursively "contrib/metis"))))
     (build-system cmake-build-system)
@@ -3838,9 +3838,9 @@ supports the propositional fragment of PDDL2.2.")
               "-DENABLE_BUILD_DYNAMIC:BOOL=ON")
       #:imported-modules (append %cmake-build-system-modules
                                  %pyproject-build-system-modules)
-      #:modules '(((guix build pyproject-build-system) #:select (site-packages))
-                  (guix build cmake-build-system)
-                  (guix build utils))
+      #:modules '(((Manifolding-OS build pyproject-build-system) #:select (site-packages))
+                  (Manifolding-OS build cmake-build-system)
+                  (Manifolding-OS build utils))
       #:phases
         #~(modify-phases %standard-phases
             (add-after 'unpack 'patch-paths
@@ -5104,7 +5104,7 @@ book.")
               (sha256
                (base32
                 "03iliizyadd0wvx6a63rg22lb6p4m6krhlpfm2hfzwj66y3a76j6"))
-              (modules '((guix build utils)
+              (modules '((Manifolding-OS build utils)
                          (ice-9 ftw)
                          (srfi srfi-1)))
               (snippet
@@ -5160,8 +5160,8 @@ book.")
     (arguments
      (list
        #:tests? #f ; no ‘check’ target
-       #:modules '((guix build cmake-build-system)
-                   (guix build utils)
+       #:modules '((Manifolding-OS build cmake-build-system)
+                   (Manifolding-OS build utils)
                    (srfi srfi-1))
        #:phases
        #~(modify-phases %standard-phases
@@ -5424,7 +5424,7 @@ easy-to-write markup language for mathematics.")
                            "superlu-" version ".tar.gz"))
        (sha256
         (base32 "0xvib7nk2rlbsiv1iwkwl9kxppkalkciv628bsyiiv0pv754n48q"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         ;; Replace the non-free implementation of MC64 with a stub adapted
         ;; from Debian
@@ -5492,7 +5492,7 @@ also provides threshold-based ILU factorization preconditioners.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "0fa29yr72p4yq5ln4rgfsawmi5935n4qcr5niz6864bjladz4lql"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         ;; Replace the non-free implementation of MC64 with a stub
         '(begin
@@ -5584,7 +5584,7 @@ implemented in ANSI C, and MPI for communications.")
        (sha256
         (base32 "0r46bmnz9xjlgcb3vvlx3sg2qh4gfgga89vs4vlbzz3s4lj48g46"))
        (patches (search-patches "scotch-cmake-remove-metis.patch"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         #~(substitute* "src/libscotchmetis/library_parmetis.h"
             (("typedef DUMMYINT SCOTCH_Num" all)
@@ -6288,8 +6288,8 @@ applications to toric geometry.")
      (list
       #:configure-flags #~'("--enable-cblas")
       #:modules
-      '((guix build gnu-build-system)
-        (guix build utils)
+      '((Manifolding-OS build gnu-build-system)
+        (Manifolding-OS build utils)
         (srfi srfi-1))
       #:test-target "test"
       #:phases
@@ -6533,7 +6533,7 @@ structures in the problem data.")
     (sha256
      (base32
       "1ndwx2cp5zxrikq4xdrzjrxk1b5ps7lyi6qw34m8jpfpa0ba01ln"))
-    (modules '((guix build utils)))
+    (modules '((Manifolding-OS build utils)))
     (snippet
      #~(begin
          ;; Empty except for a .gitignore.
@@ -7430,7 +7430,7 @@ factorization.")
         (base32
          "1zwri246yr39p9ymjp18dzv36ch0dn107sf0jghj7capigasfxq2"))
        (patches (search-patches "suitesparse-mongoose-cmake.patch"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         ;; Remove bundled metis source
         '(begin
@@ -7581,7 +7581,7 @@ specifications.")
       (sha256
        (base32
         "12pj1idjz31r7c2mb5w03vy1cmvycvbkx9z29s40qdmkp1i7q6i0"))
-      (modules '((guix build utils)))
+      (modules '((Manifolding-OS build utils)))
       (snippet
        '(begin
           (substitute* (list "lp_solve/ccc" "lpsolve55/ccc")
@@ -7656,7 +7656,7 @@ revised simplex and the branch-and-bound methods.")
                            "download/v" version "/dealii-" version ".tar.gz"))
        (sha256
         (base32 "0hyyly71ljnb7fsl2yan7wf3zxhkly7i8gczpv7gsm6vhgprc80g"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         ;; Remove bundled boost, Kokkos, muparser, TBB and UMFPACK.
         #~(delete-file-recursively "bundled"))))
@@ -8282,7 +8282,7 @@ functions.")
                   (url "https://github.com/ultimate-pa/smtinterpol")
                   (commit version)))
             (file-name (git-file-name name version))
-            (modules '((guix build utils)))
+            (modules '((Manifolding-OS build utils)))
             (snippet #~(begin
                          (delete-file-recursively "jacoco")
                          (delete-file-recursively "libs")
@@ -8489,9 +8489,9 @@ arrays, uninterpreted functions and their combinations.")
      (list
       #:imported-modules (append %cmake-build-system-modules
                                  %pyproject-build-system-modules)
-      #:modules '((guix build cmake-build-system)
-                  (guix build utils)
-                  ((guix build pyproject-build-system) #:prefix py:))
+      #:modules '((Manifolding-OS build cmake-build-system)
+                  (Manifolding-OS build utils)
+                  ((Manifolding-OS build pyproject-build-system) #:prefix py:))
       #:configure-flags
       #~(list "-DZ3_BUILD_PYTHON_BINDINGS=ON"
               "-DZ3_LINK_TIME_OPTIMIZATION=ON"
@@ -10081,9 +10081,9 @@ also included.")
     (arguments
      (list #:test-target "test"
            #:configure-flags #~(list "-shared")
-           #:modules `(((guix build copy-build-system) #:prefix copy:)
-                       (guix build gnu-build-system)
-                       (guix build utils)
+           #:modules `(((Manifolding-OS build copy-build-system) #:prefix copy:)
+                       (Manifolding-OS build gnu-build-system)
+                       (Manifolding-OS build utils)
                        (ice-9 regex))
            #:imported-modules %copy-build-system-modules
            #:phases
@@ -10170,9 +10170,9 @@ clause learning.")
       (build-system gnu-build-system)
       (arguments
        (list #:test-target "test"
-             #:modules `(((guix build copy-build-system) #:prefix copy:)
-                         (guix build gnu-build-system)
-                         (guix build utils)
+             #:modules `(((Manifolding-OS build copy-build-system) #:prefix copy:)
+                         (Manifolding-OS build gnu-build-system)
+                         (Manifolding-OS build utils)
                          (ice-9 regex))
              #:imported-modules %copy-build-system-modules
              #:phases
@@ -10302,7 +10302,7 @@ community detection algorithm.")
       (sha256
        (base32
         "1c85gfqvy90yhh9jwmiiz2bz4i86prgpfyx1gbzl42hn2ixkcjgm"))
-      (modules '((guix build utils)))
+      (modules '((Manifolding-OS build utils)))
       (snippet
        #~(begin
            (substitute* "src/backbone.cpp"
@@ -10462,7 +10462,7 @@ multi-purpose calculator.")
                (add-after 'install 'qt-wrap
                  (lambda args
                    (apply (assoc-ref
-                           (@ (guix build qt-build-system) %standard-phases)
+                           (@ (Manifolding-OS build qt-build-system) %standard-phases)
                            'qt-wrap)
                           #:qtbase #$(this-package-input "qtbase") args))))))
     (native-inputs (list pkg-config qttools))
@@ -10654,9 +10654,9 @@ projects up to the certification of critical software.")
     (arguments
      (list
       #:configure-flags #~(list "-DBUILD_DOC=ON")
-      #:modules '((guix build cmake-build-system)
-                  ((guix build gnu-build-system) #:prefix gnu:)
-                  (guix build utils))
+      #:modules '((Manifolding-OS build cmake-build-system)
+                  ((Manifolding-OS build gnu-build-system) #:prefix gnu:)
+                  (Manifolding-OS build utils))
       #:phases
       #~(modify-phases %standard-phases
           (add-after 'build 'build-doc
@@ -10733,9 +10733,9 @@ when an application performs repeated divisions by the same divisor.")
         (append %cmake-build-system-modules
                 %pyproject-build-system-modules)
         #:modules
-        `(((guix build pyproject-build-system) #:select (site-packages))
-          (guix build cmake-build-system)
-          (guix build utils))
+        `(((Manifolding-OS build pyproject-build-system) #:select (site-packages))
+          (Manifolding-OS build cmake-build-system)
+          (Manifolding-OS build utils))
         #:phases
           #~(modify-phases %standard-phases
               (add-after 'install 'move-python-files
@@ -10929,7 +10929,7 @@ and constraint programming.")
          "1db23hla27lfrf1qvk3p4465qqizxb1a6qkjh4k6rzdxgvxdbxng"))
        (patches (search-patches "scilab-better-compiler-detection.patch"
                                 "scilab-tbx_build_help.patch"))
-       (modules '((guix build utils)
+       (modules '((Manifolding-OS build utils)
                   (ice-9 ftw)))
        (snippet
         #~(begin

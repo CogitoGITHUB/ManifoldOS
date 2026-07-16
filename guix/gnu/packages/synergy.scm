@@ -20,13 +20,13 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages synergy)
-  #:use-module (guix gexp)
-  #:use-module (guix packages)
-  #:use-module ((guix licenses) #:select (gpl2 expat))
-  #:use-module (guix git-download)
-  #:use-module (guix build-system cmake)
-  #:use-module (guix build-system meson)
-  #:use-module (guix build-system qt)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS packages)
+  #:use-module ((Manifolding-OS licenses) #:select (gpl2 expat))
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS build-system cmake)
+  #:use-module (Manifolding-OS build-system meson)
+  #:use-module (Manifolding-OS build-system qt)
   #:use-module (gnu packages)
   #:use-module (gnu packages curl)
   #:use-module (gnu packages compression)
@@ -55,7 +55,7 @@
       (sha256
        (base32
         "0dn0h3mdqy0mbg4yyhsh4rhvvsssqlknnln3naplc97my10lk2a0"))
-      (modules '((guix build utils)))
+      (modules '((Manifolding-OS build utils)))
       (snippet
        ;; Remove unnecessary bundled source and binaries
        '(begin

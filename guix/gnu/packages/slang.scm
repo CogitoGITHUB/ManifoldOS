@@ -21,12 +21,12 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages slang)
-  #:use-module (guix packages)
-  #:use-module (guix download)
-  #:use-module (guix gexp)
-  #:use-module (guix utils)
-  #:use-module (guix build-system gnu)
-  #:use-module ((guix licenses) #:prefix license:)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS utils)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
   #:use-module (gnu packages readline)
   #:use-module (gnu packages ncurses)
   #:use-module (gnu packages popt)
@@ -47,7 +47,7 @@
               (sha256
                (base32
                 "062siwy785q699y3plnsbhy0xlaxdm485sh82b37668kmra5057r"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                #~(begin
                    (substitute* "src/Makefile.in"
@@ -98,7 +98,7 @@ slsh, which is part of the S-Lang distribution.")
                            version ".tar.gz"))
        (sha256
         (base32 "00wrdligdipj9fx3yhn3ndlr1kr21yzj5p2hr22q7yi6z2wawmcl"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         #~(begin
             (substitute* "src/Makefile.in"

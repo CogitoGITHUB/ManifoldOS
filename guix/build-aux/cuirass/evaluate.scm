@@ -21,13 +21,13 @@
 ;;; This program replicates the behavior of Cuirass's 'evaluate' process.
 ;;; It displays the evaluated jobs on the standard output.
 
-(use-modules (guix derivations)
-             (guix git-download)
-             (guix inferior)
-             (guix packages)
-             (guix store)
-             (guix ui)
-             ((guix ui) #:select (build-notifier))
+(use-modules (Manifolding-OS derivations)
+             (Manifolding-OS git-download)
+             (Manifolding-OS inferior)
+             (Manifolding-OS packages)
+             (Manifolding-OS store)
+             (Manifolding-OS ui)
+             ((Manifolding-OS ui) #:select (build-notifier))
              (ice-9 match)
              (ice-9 pretty-print)
              (ice-9 threads))
@@ -44,7 +44,7 @@
      (with-store store
        (with-build-handler (build-notifier #:use-substitutes? #f)
 
-         (let ((source (add-to-store store "guix-source" #t
+         (let ((source (add-to-store store "Manifolding-OS-source" #t
                                      "sha256" %top-srcdir
                                      #:select? (git-predicate %top-srcdir))))
            (define derivation

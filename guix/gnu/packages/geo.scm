@@ -47,23 +47,23 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages geo)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix build-system ant)
-  #:use-module (guix build-system cmake)
-  #:use-module (guix build-system glib-or-gtk)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system go)
-  #:use-module (guix build-system meson)
-  #:use-module (guix build-system pyproject)
-  #:use-module (guix build-system qt)
-  #:use-module (guix build-system r)
-  #:use-module (guix build-system zig)
-  #:use-module (guix download)
-  #:use-module (guix gexp)
-  #:use-module (guix git-download)
-  #:use-module (guix packages)
-  #:use-module (guix svn-download)
-  #:use-module (guix utils)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS build-system ant)
+  #:use-module (Manifolding-OS build-system cmake)
+  #:use-module (Manifolding-OS build-system glib-or-gtk)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system go)
+  #:use-module (Manifolding-OS build-system meson)
+  #:use-module (Manifolding-OS build-system pyproject)
+  #:use-module (Manifolding-OS build-system qt)
+  #:use-module (Manifolding-OS build-system r)
+  #:use-module (Manifolding-OS build-system zig)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS svn-download)
+  #:use-module (Manifolding-OS utils)
   #:use-module (gnu packages)
   #:use-module (gnu packages algebra)
   #:use-module (gnu packages astronomy)
@@ -331,7 +331,7 @@ subdivisions.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "02gry51hn8x2bl80y1ipcyrg0ghcif4vjch26qil215wdzz1yrzv"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        ;; Remove bundled H3 lib.
        (snippet #~(begin (delete-file-recursively "src/h3lib")))))
     (build-system pyproject-build-system)
@@ -507,7 +507,7 @@ and driving.")
                          "libgeotiff-fix-tests-on-i386.patch"))
        (sha256
         (base32 "1mjmgv48x51ppax5dnb6lq7z600czxll53bx6jbzqwd4m93i7aq5"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         '(begin
            ;; Remove .csv files, distributed from EPSG under a restricted
@@ -1734,7 +1734,7 @@ vector data.")
               (sha256
                (base32
                 "1ml9l1c4psb1nc760nvs4vbibwf288d4anxip9sisrwl4q6nj579"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                `(begin
                   ;; TODO: frmts contains a lot more bundled code.
@@ -1759,9 +1759,9 @@ vector data.")
       #:tests? #f
       #:imported-modules (append %cmake-build-system-modules
                                  %pyproject-build-system-modules)
-      #:modules '((guix build cmake-build-system)
-                  ((guix build pyproject-build-system) #:prefix py:)
-                  (guix build utils))
+      #:modules '((Manifolding-OS build cmake-build-system)
+                  ((Manifolding-OS build pyproject-build-system) #:prefix py:)
+                  (Manifolding-OS build utils))
       #:configure-flags
       #~(list "-DGDAL_USE_INTERNAL_LIBS=WHEN_NO_EXTERNAL"
               "-DGDAL_USE_JPEG12_INTERNAL=OFF"
@@ -2119,7 +2119,7 @@ Unidata/UCAR UDUNITS-2 library, and the cftime calendar functionality.")
                (base32
                 "1f5l7b372dfyibawhcnlz700z11a0dxqd7kr731nwfmhwz2v3438"))
               (snippet
-               #~(begin (use-modules (guix build utils))
+               #~(begin (use-modules (Manifolding-OS build utils))
                         (delete-file-recursively "vendor")))))
     (build-system go-build-system)
     (arguments
@@ -2191,7 +2191,7 @@ delivered to any client.")
        (sha256
         (base32 "1za04n0d73gqff4qmgxbn6rz2sqwnqcpyxvzjhsgfdysbx48nph6"))
        (snippet
-        #~(begin (use-modules (guix build utils))
+        #~(begin (use-modules (Manifolding-OS build utils))
                  (delete-file-recursively "vendor")))))
     (build-system go-build-system)
     (arguments
@@ -2393,7 +2393,7 @@ based on the Osmium library.")
               (sha256
                (base32
                 "1plaayi3mfwpsz48abjqnw4ymvqrwzlwhb44dwfpaz02qqqhvcg6"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                ;; Remove bundled libraries.
                '(delete-file-recursively "contrib"))))
@@ -2543,7 +2543,7 @@ map display.  Downloads map data from a number of websites, including
                 "0xzsm8pr0zjk3f8j880fg5n82jyxn8xf1330qmmq1fqv7rsrg9ia"))
               (patches (search-patches "xygrib-fix-finding-data.patch"
                                        "xygrib-newer-proj.patch"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                '(begin
                   (delete-file-recursively "data/fonts")
@@ -3004,7 +3004,7 @@ to the OSM opening hours specification.")
                (base32
                 "0kpshdj8kf9ag7h1qqrh9jqc6c9iv8v369mk60a8g7cbzf0xpblw"))
               (file-name (string-append name "-" version "-checkout"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
             (snippet
              '(begin
                 (for-each delete-file (find-files "." ".*.jar$"))
@@ -3586,9 +3586,9 @@ orienteering sport.")
       (arguments
        (list
         #:tests? #f                    ; No tests
-        #:modules `((guix build gnu-build-system)
-                    ((guix build pyproject-build-system) #:prefix python:)
-                    (guix build utils))
+        #:modules `((Manifolding-OS build gnu-build-system)
+                    ((Manifolding-OS build pyproject-build-system) #:prefix python:)
+                    (Manifolding-OS build utils))
         #:imported-modules %pyproject-build-system-modules
         #:configure-flags
         #~(list "--with-blas"
@@ -3705,7 +3705,7 @@ visualization.")
                            "/saga-" version ".tar.gz"))
        (sha256
         (base32 "008izjs6gvj09abxf16ssl1xy0ay3ljq4jswbggp6wiiq459minv"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         '(substitute* "saga-gis/src/tools/docs/docs_pdf/doc_pdf.cpp"
            (("^#include <hpdf\\.h>\n" all)
@@ -3763,11 +3763,11 @@ growing set of geoscientific methods.")
      (list
       #:imported-modules (append %cmake-build-system-modules
                                  %pyproject-build-system-modules
-                                 '((guix build qt-utils)))
-      #:modules '((guix build cmake-build-system)
-                  ((guix build pyproject-build-system) #:prefix py:)
-                  (guix build qt-utils)
-                  (guix build utils))
+                                 '((Manifolding-OS build qt-utils)))
+      #:modules '((Manifolding-OS build cmake-build-system)
+                  ((Manifolding-OS build pyproject-build-system) #:prefix py:)
+                  (Manifolding-OS build qt-utils)
+                  (Manifolding-OS build utils))
       #:configure-flags
       #~(list "-DWITH_QTWEBKIT=NO")
       #:phases
@@ -4105,7 +4105,7 @@ architecture.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "10djwjwb1pvznr0fjwnxdm5d961f3yngispb4zj9hyzdgq1xh217"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         '(begin
            ;; Delete pre-compiled libraries.

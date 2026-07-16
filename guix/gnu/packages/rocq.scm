@@ -35,11 +35,11 @@
   #:use-module (gnu packages gtk)
   #:use-module (gnu packages multiprecision)
   #:use-module (gnu packages ocaml)
-  #:use-module (guix build-system dune)
-  #:use-module (guix gexp)
-  #:use-module (guix git-download)
-  #:use-module (guix licenses)
-  #:use-module (guix packages))
+  #:use-module (Manifolding-OS build-system dune)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS licenses)
+  #:use-module (Manifolding-OS packages))
 
 (define (rocq-arguments opam-package-name)
   ;; Dune parallel build is not reproducible (in rocq and camlp-streams,

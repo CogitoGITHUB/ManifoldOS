@@ -21,14 +21,14 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages browser-extensions)
-  #:use-module (guix gexp)
-  #:use-module (guix packages)
-  #:use-module (guix download)
-  #:use-module (guix git-download)
-  #:use-module (guix build-system copy)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system qt)
-  #:use-module ((guix licenses) #:prefix license:)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS build-system copy)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system qt)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
   #:use-module (gnu build chromium-extension)
   #:use-module (gnu build icecat-extension)
   #:use-module (gnu packages check)
@@ -82,7 +82,7 @@ match website theme.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "0xxs6s7nrl4y4qiw2cpkqh170mbv78n0ixd874a72jjvczw2vpg7"))
-       (modules '((guix build utils) (ice-9 match) (ice-9 ftw)))
+       (modules '((Manifolding-OS build utils) (ice-9 match) (ice-9 ftw)))
        (snippet
         #~(begin
             (for-each delete-file
@@ -449,7 +449,7 @@ selected.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "02kryhzy4zizly8pj0bldcfh1hn93ls83033n98i6zaylhf3sn5f"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        ;; Delete bundled copy of the corresponding browser extension.
        (snippet '(delete-file-recursively "src/mac/js"))))
     (build-system qt-build-system)

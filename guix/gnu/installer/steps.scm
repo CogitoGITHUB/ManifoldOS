@@ -19,11 +19,11 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu installer steps)
-  #:use-module (guix records)
-  #:use-module (guix build utils)
-  #:use-module (guix i18n)
-  #:use-module (guix read-print)
-  #:use-module (guix utils)
+  #:use-module (Manifolding-OS records)
+  #:use-module (Manifolding-OS build utils)
+  #:use-module (Manifolding-OS i18n)
+  #:use-module (Manifolding-OS read-print)
+  #:use-module (Manifolding-OS utils)
   #:use-module (gnu installer utils)
   #:use-module (ice-9 match)
   #:use-module (srfi srfi-1)

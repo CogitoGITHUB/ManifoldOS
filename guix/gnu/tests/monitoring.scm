@@ -30,7 +30,7 @@
   #:use-module (gnu system vm)
   #:use-module (gnu system)
   #:use-module (gnu tests)
-  #:use-module (guix gexp)
+  #:use-module (Manifolding-OS gexp)
   #:export (%test-prometheus-node-exporter
             %test-zabbix))
 

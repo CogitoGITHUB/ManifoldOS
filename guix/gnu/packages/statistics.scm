@@ -45,21 +45,21 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages statistics)
-  #:use-module (guix gexp)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix packages)
-  #:use-module (guix download)
-  #:use-module (guix hg-download)
-  #:use-module (guix git-download)
-  #:use-module (guix utils)
-  #:use-module (guix build-system ant)
-  #:use-module (guix build-system cmake)
-  #:use-module (guix build-system emacs)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system r)
-  #:use-module (guix build-system pyproject)
-  #:use-module (guix build-system trivial)
-  #:use-module (guix build-system ruby)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS hg-download)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS utils)
+  #:use-module (Manifolding-OS build-system ant)
+  #:use-module (Manifolding-OS build-system cmake)
+  #:use-module (Manifolding-OS build-system emacs)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system r)
+  #:use-module (Manifolding-OS build-system pyproject)
+  #:use-module (Manifolding-OS build-system trivial)
+  #:use-module (Manifolding-OS build-system ruby)
   #:use-module (gnu packages)
   #:use-module (gnu packages algebra)
   #:use-module (gnu packages autotools)
@@ -926,7 +926,7 @@ Keizer et al. (2013) <doi:10.1038/psp.2013.24>, and Jonsson et al.
        (uri (pypi-uri "vega_datasets" version))
        (sha256
         (base32 "1h1zv607mars2j73v8fdwihjh479blqxyw29nhmc73lf40s9iglx"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (patches
         (search-patches "python-vega-datasets-remove-la-riots-code.patch"))))
     (build-system pyproject-build-system)
@@ -1363,7 +1363,7 @@ test and add statistical annotations on plots generated with seaborn.")
        (uri (pypi-uri "statsmodels" version))
        (sha256
         (base32 "1pvd3k3jr9akfl7zk90s7a2wmmikf8smmd9mz3fwxlngric0w9ny"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         '(for-each delete-file (find-files "." "\\.c$")))))
     (build-system pyproject-build-system)
@@ -1905,7 +1905,7 @@ clone for R, though its design is more aligned to Julia.")
        (sha256
         (base32 "0v56b47qidpyxvyk0q487qxhj9si0jkm852frl832iraks02l5h5"))
        (file-name (git-file-name name version))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         #~(begin
             ;; Stop ESS from trying to bundle an external julia-mode.el.
@@ -1936,12 +1936,12 @@ clone for R, though its design is more aligned to Julia.")
      (let ((base-directory (string-append "/share/emacs/site-lisp/"
                                           "ess-" version)))
        (list
-        #:modules '((guix build gnu-build-system)
-                    (guix build utils)
-                    (guix build emacs-utils))
+        #:modules '((Manifolding-OS build gnu-build-system)
+                    (Manifolding-OS build utils)
+                    (Manifolding-OS build emacs-utils))
         #:imported-modules `(,@%default-gnu-imported-modules
-                             (guix build emacs-build-system)
-                             (guix build emacs-utils))
+                             (Manifolding-OS build emacs-build-system)
+                             (Manifolding-OS build emacs-utils))
         #:make-flags
         #~(list (string-append "PREFIX=" #$output)
                 (string-append "ETCDIR=" #$output #$base-directory "/etc")
@@ -2182,7 +2182,7 @@ popular stats packages like SAS, Stata and SPSS.")
               (sha256
                (base32
                 "1a8k2dvm1v0g6hcrbnzy0f7d63hdmpmldfdkl8wr32nbl05xnifa"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet `(begin
                           (substitute* "enumerable-statistics.gemspec"
                             ;; benchmark-driver gem is used for

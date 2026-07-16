@@ -17,12 +17,12 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (test-inferior)
-  #:use-module (guix tests)
-  #:use-module (guix inferior)
-  #:use-module (guix packages)
-  #:use-module (guix store)
-  #:use-module (guix profiles)
-  #:use-module (guix derivations)
+  #:use-module (Manifolding-OS tests)
+  #:use-module (Manifolding-OS inferior)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS store)
+  #:use-module (Manifolding-OS profiles)
+  #:use-module (Manifolding-OS derivations)
   #:use-module (gnu packages)
   #:use-module (gnu packages bootstrap)
   #:use-module (gnu packages guile)
@@ -34,7 +34,7 @@
   #:use-module (ice-9 rdelim))
 
 (define %top-srcdir
-  (dirname (search-path %load-path "guix.scm")))
+  (dirname (search-path %load-path "Manifolding-OS.scm")))
 
 (define %top-builddir
   (dirname (search-path %load-compiled-path "guix.go")))
@@ -86,7 +86,7 @@
                (and (eq? inferior (inferior-exception-inferior c))
                     (match (inferior-exception-stack c)
                       (((_ (files lines columns)) ..1)
-                       (member "guix/repl.scm" files)))
+                       (member "Manifolding-OS/repl.scm" files)))
                     (inferior-exception-arguments c))))
       (inferior-eval '(throw 'a 'b 'c 'd) inferior)
       'badness)))

@@ -82,27 +82,27 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages music)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix build-system ant)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS build-system ant)
   #:use-module (gnu packages base)
-  #:use-module (guix build-system cmake)
-  #:use-module (guix build-system emacs)
+  #:use-module (Manifolding-OS build-system cmake)
+  #:use-module (Manifolding-OS build-system emacs)
   #:use-module (gnu packages gawk)
-  #:use-module (guix build-system glib-or-gtk)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system go)
-  #:use-module (guix build-system meson)
-  #:use-module (guix build-system perl)
-  #:use-module (guix build-system pyproject)
-  #:use-module (guix build-system qt)
-  #:use-module (guix build-system scons)
-  #:use-module (guix build-system trivial)
-  #:use-module (guix build-system waf)
-  #:use-module (guix download)
-  #:use-module (guix gexp)
-  #:use-module (guix git-download)
-  #:use-module (guix packages)
-  #:use-module (guix utils)
+  #:use-module (Manifolding-OS build-system glib-or-gtk)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system go)
+  #:use-module (Manifolding-OS build-system meson)
+  #:use-module (Manifolding-OS build-system perl)
+  #:use-module (Manifolding-OS build-system pyproject)
+  #:use-module (Manifolding-OS build-system qt)
+  #:use-module (Manifolding-OS build-system scons)
+  #:use-module (Manifolding-OS build-system trivial)
+  #:use-module (Manifolding-OS build-system waf)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS utils)
   #:use-module (gnu packages)
   #:use-module (gnu packages admin)
   #:use-module (gnu packages algebra)
@@ -645,7 +645,7 @@ scan your media library periodically, for example from a cron job.")
                 (sha256
                  (base32
                   "06sl9ywrpkmwdr3v75q0x6j111xgb4w2d1fcykmfwp26i77hvh1g"))
-                (modules '((guix build utils)
+                (modules '((Manifolding-OS build utils)
                            (ice-9 regex)))
                 (snippet
                  '(begin
@@ -685,9 +685,9 @@ scan your media library periodically, for example from a cron job.")
            ;; download.
            "-DHAVE_SPOTIFY_DOWNLOADER=FALSE"
            (string-append "-DFORCE_GIT_REVISION=" #$commit))
-        #:modules '((guix build cmake-build-system)
-                    ((guix build gnu-build-system) #:prefix gnu:)
-                    (guix build utils))
+        #:modules '((Manifolding-OS build cmake-build-system)
+                    ((Manifolding-OS build gnu-build-system) #:prefix gnu:)
+                    (Manifolding-OS build utils))
         #:phases
         #~(modify-phases %standard-phases
             (replace 'check
@@ -832,9 +832,9 @@ Winamp/XMMS skins.")
     (arguments
      (list
       #:qtbase qtbase
-      #:modules '((guix build qt-build-system)
-                  ((guix build gnu-build-system) #:prefix gnu:)
-                  (guix build utils))
+      #:modules '((Manifolding-OS build qt-build-system)
+                  ((Manifolding-OS build gnu-build-system) #:prefix gnu:)
+                  (Manifolding-OS build utils))
       #:phases
       #~(modify-phases %standard-phases
           (add-before 'check 'pre-check
@@ -1601,8 +1601,8 @@ listeners answer questions about music quickly and simply.")
     (arguments
      (list #:tests? #f ;no tests
            #:modules
-           '((guix build cmake-build-system)
-             (guix build utils)
+           '((Manifolding-OS build cmake-build-system)
+             (Manifolding-OS build utils)
              (srfi srfi-26))
            #:phases
            #~(modify-phases %standard-phases
@@ -2053,10 +2053,10 @@ for path in [path for path in sys.path if 'site-packages' in path]: site.addsite
           (add-after 'install 'wrap-program
             (lambda* (#:key outputs #:allow-other-keys)
               ;; Make sure 'solfege' runs with the correct PYTHONPATH.
-              (let ((python-path (getenv "GUIX_PYTHONPATH"))
+              (let ((python-path (getenv "MANIFOLDING_OS_PYTHONPATH"))
                     (typelib-path (getenv "GI_TYPELIB_PATH")))
                 (wrap-program (search-input-file outputs "bin/solfege")
-                  `("GUIX_PYTHONPATH" ":" prefix (,python-path))
+                  `("MANIFOLDING_OS_PYTHONPATH" ":" prefix (,python-path))
                   `("GI_TYPELIB_PATH" ":" prefix (,typelib-path)))))))))
     (inputs
      (list bash-minimal
@@ -2201,7 +2201,7 @@ users to select LV2 plugins and run them with jalv.")
               (sha256
                 (base32
                  "0b25iicgn8c42487fdw32ycfrll1pm2zjgy5djvgw6mfcaa4gizh"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               ;; https://github.com/petri-foo/Petri-Foo/pull/43
               (snippet '(begin
                           (substitute* "gui/gui.c"
@@ -2244,7 +2244,7 @@ a JACK session.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "0xamfakn6a4vykm66xhp4fdlfkcnxv91gvdaizx8npijlfpx320v"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         ;; Delete libraries that we already have or don't need.
         ;; TODO: try to unbundle more (see lib/).
@@ -2790,7 +2790,7 @@ stations based on random, top, trending, genre.")
                                         #:build-target "build")
                                        (begin
                                          ;; Generate default build.xml.
-                                         ((@@ (guix build ant-build-system)
+                                         ((@@ (Manifolding-OS build ant-build-system)
                                               default-build.xml)
                                           (string-append (string-downcase dir) ".jar")
                                           (string-append (assoc-ref outputs "out")
@@ -4007,7 +4007,7 @@ event-based scripts for scrobbling, notifications, etc.")
          (file-name (git-file-name name version))
          (sha256
           (base32 "1v86nrcn700lyyplvmhq633zkwx0w3cg07ysgg3j6nj2vn017s34"))
-         (modules '((guix build utils)))
+         (modules '((Manifolding-OS build utils)))
          (snippet '(delete-file-recursively "src/3rdparty/"))))
       (build-system qt-build-system)
       (arguments
@@ -4429,7 +4429,7 @@ using the beets FetchArt plugin.")
               (sha256
                (base32
                 "138mgvxly769jfk5l7yjydfqa6lwsn87p2gmyqcxr3yhfvvp4lnz"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               ;; Remove non-FSDG compliant sample songs.
               (snippet
                '(begin
@@ -4473,7 +4473,7 @@ modes available for improved Amiga ProTracker 2/3 compatibility.")
               (sha256
                (base32
                 "11yy5zrdfvnwzwdwmc3s3lx1ymwiyp1si5mmv4h9qxipd9j96ijp"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                ;; Remove use of __DATE__ and __TIME__ for reproducibility.
                #~(substitute* "schism/version.c"
@@ -4633,12 +4633,12 @@ standard MIDI file with the csvmidi program.")
            (lambda _
              (for-each (lambda (file)
                          (wrap-program file
-                           `("GUIX_PYTHONPATH" ":" prefix
+                           `("MANIFOLDING_OS_PYTHONPATH" ":" prefix
                              (,(string-append #$output "/lib/python"
                                               #$(version-major+minor
                                                  (package-version python))
                                               "/site-packages")
-                              ,(getenv "GUIX_PYTHONPATH")))))
+                              ,(getenv "MANIFOLDING_OS_PYTHONPATH")))))
                        (find-files (string-append #$output "/bin"))))))))
     (inputs
      (list alsa-lib
@@ -5196,7 +5196,7 @@ and more.  Full API documentation and examples are included.")
        (sha256
         (base32
          "11xgf461cnmq0jkgdgx5bddi87ammpik4whg1m4fcvd3i0d5i601"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        ;; Include carla headers from the system.
        (snippet
         '(substitute* "plugins/carlabase/carla.h"
@@ -5305,7 +5305,7 @@ can receive input from a MIDI keyboard.")
          (file-name (git-file-name name version))
          (sha256
           (base32 "1mpp449rvn9f10bcxhpmxfinvj3jdv4s6qjhlp0sj9l783pv3h69"))
-         (modules '((guix build utils)))
+         (modules '((Manifolding-OS build utils)))
          (snippet
           '(begin
              ;; Delete the bundled 3rd party libraries.
@@ -5425,7 +5425,7 @@ can receive input from a MIDI keyboard.")
               (sha256
                (base32
                 "0hy0pf6gcw4hjhsvb1x60m1v0wqm28j7cc91g1vcna2f42kk8gyh"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                '(with-directory-excursion "src"
                   ;; Delete bundled libraries.
@@ -5496,8 +5496,8 @@ can receive input from a MIDI keyboard.")
                (add-after 'install 'wrap-program
                  (lambda* (#:key inputs #:allow-other-keys)
                    (wrap-program (string-append #$output "/bin/stargate")
-                     `("GUIX_PYTHONPATH" ":" prefix
-                       (,(getenv "GUIX_PYTHONPATH")))
+                     `("MANIFOLDING_OS_PYTHONPATH" ":" prefix
+                       (,(getenv "MANIFOLDING_OS_PYTHONPATH")))
                      `("PATH" ":" prefix
                        (,(getenv "PATH")))
                      `("QT_PLUGIN_PATH" ":" prefix
@@ -6180,9 +6180,9 @@ for the DSSI Soft Synth Interface.  A brief list of features:
         (base32 "0c6mq9wd0jy03k69df0ba3dywi75gjy0wvq5wa7l2dkkw29v9nvj"))))
     (arguments
      (list
-      #:modules '((guix build cmake-build-system)
-                  ((guix build gnu-build-system) #:prefix gnu:)
-                  (guix build utils))
+      #:modules '((Manifolding-OS build cmake-build-system)
+                  ((Manifolding-OS build gnu-build-system) #:prefix gnu:)
+                  (Manifolding-OS build utils))
       #:phases
       #~(modify-phases %standard-phases
           (replace 'check (assoc-ref gnu:%standard-phases 'check)))))
@@ -6349,9 +6349,9 @@ at @code{musicbrainz.org}.")
            ;; Authorities to trust".
            perl-mozilla-ca))
     (arguments
-     `(#:modules ((guix build utils))
+     `(#:modules ((Manifolding-OS build utils))
        #:builder (begin
-                   (use-modules (guix build utils)
+                   (use-modules (Manifolding-OS build utils)
                                 (ice-9 match)
                                 (srfi srfi-26))
                    (let* ((source (assoc-ref %build-inputs "source"))
@@ -6956,7 +6956,7 @@ ones.")
                 (sha256
                  (base32
                   "1rrnqwask2qg05ynisk6bpj118cl7c3w53rqrfg5x3sx847rjjgc"))
-                (modules '((guix build utils)))
+                (modules '((Manifolding-OS build utils)))
                 (snippet
                  '(begin
                     ;; Delete third party libraries, libraries without
@@ -7735,7 +7735,7 @@ It is provided as an LV2 plugin and as a standalone Jack application.")
                      (substitute* (string-append bin "a2j")
                        (("a2j_control") (string-append bin "a2j_control")))
                      (wrap-program (string-append bin "a2j_control")
-                       `("PYTHONPATH" prefix (,(getenv "GUIX_PYTHONPATH"))))))))))
+                       `("PYTHONPATH" prefix (,(getenv "MANIFOLDING_OS_PYTHONPATH"))))))))))
     (build-system meson-build-system)
     (inputs
      (list alsa-lib
@@ -7767,9 +7767,9 @@ midi devices to JACK midi devices.")
               (file-name (git-file-name name version))))
     (arguments
      (list
-       #:modules '((guix build cmake-build-system)
-                   ((guix build gnu-build-system) #:prefix gnu:)
-                   (guix build utils))
+       #:modules '((Manifolding-OS build cmake-build-system)
+                   ((Manifolding-OS build gnu-build-system) #:prefix gnu:)
+                   (Manifolding-OS build utils))
        #:phases
        #~(modify-phases %standard-phases
            ;; This package does not use the perl-build-system, so we have to
@@ -7876,16 +7876,16 @@ streaming audio server.")
 
        ;; Disable and remove bundled packages.
        (patches (search-patches "quodlibet-disable-bundled-packages.patch"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet '(delete-file-recursively "quodlibet/packages"))))
     (build-system pyproject-build-system)
     (arguments
      (list
       #:imported-modules `(,@%pyproject-build-system-modules
                            ,@%glib-or-gtk-build-system-modules)
-      #:modules '((guix build pyproject-build-system)
-                  ((guix build glib-or-gtk-build-system) #:prefix glib-or-gtk:)
-                  (guix build utils))
+      #:modules '((Manifolding-OS build pyproject-build-system)
+                  ((Manifolding-OS build glib-or-gtk-build-system) #:prefix glib-or-gtk:)
+                  (Manifolding-OS build utils))
       ;; tests: 4020 passed, 57 skipped, 3 deselected, 106 warnings
       #:test-flags
       ;; The majority of ignored tests require access to plugin or running
@@ -8035,8 +8035,8 @@ supports streaming audio and feeds (such as podcasts).")
                   (,(getenv "GI_TYPELIB_PATH")))
                 `("GST_PLUGIN_SYSTEM_PATH" ":" suffix
                   (,(getenv "GST_PLUGIN_SYSTEM_PATH")))
-                `("GUIX_PYTHONPATH" ":" prefix
-                  (,(getenv "GUIX_PYTHONPATH")))))))))
+                `("MANIFOLDING_OS_PYTHONPATH" ":" prefix
+                  (,(getenv "MANIFOLDING_OS_PYTHONPATH")))))))))
     (inputs (list adwaita-icon-theme
                   bash-minimal
                   gstreamer
@@ -8148,9 +8148,9 @@ Renoise, VCV Rack, or SuperCollider.")
     (build-system qt-build-system)
     (arguments
      (list #:tests? #f ;no tests
-           #:modules '((guix build qt-build-system)
-                       ((guix build gnu-build-system) #:prefix gnu:)
-                       (guix build utils))
+           #:modules '((Manifolding-OS build qt-build-system)
+                       ((Manifolding-OS build gnu-build-system) #:prefix gnu:)
+                       (Manifolding-OS build utils))
            #:phases #~(modify-phases %standard-phases
                         (replace 'configure
                           (lambda _

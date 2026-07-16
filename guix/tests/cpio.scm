@@ -17,9 +17,9 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (test-cpio)
-  #:use-module (guix cpio)
-  #:use-module (guix tests)
-  #:use-module ((guix build utils)
+  #:use-module (Manifolding-OS cpio)
+  #:use-module (Manifolding-OS tests)
+  #:use-module ((Manifolding-OS build utils)
                 #:select (which call-with-temporary-output-file))
   #:use-module (ice-9 match)
   #:use-module (ice-9 popen)
@@ -32,7 +32,7 @@
   (which "cpio"))
 
 (define %test-file
-  (search-path %load-path "guix.scm"))
+  (search-path %load-path "Manifolding-OS.scm"))
 
 
 (test-begin "cpio")
@@ -60,12 +60,12 @@
 
      (let ((files (cons* "/"
                          (canonicalize-path
-                          (dirname (search-path %load-path "guix.scm")))
+                          (dirname (search-path %load-path "Manifolding-OS.scm")))
                          link
                          (map (compose canonicalize-path
                                        (cut search-path %load-path <>))
-                              '("guix.scm" "guix/build/syscalls.scm"
-                                "guix/packages.scm")))))
+                              '("Manifolding-OS.scm" "Manifolding-OS/build/syscalls.scm"
+                                "Manifolding-OS/packages.scm")))))
        (call-with-temporary-output-file
         (lambda (ref-file _)
           (let ((pipe (open-pipe* OPEN_WRITE %cpio-program "-o" "-O" ref-file

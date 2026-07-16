@@ -22,13 +22,13 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages maven)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix packages)
-  #:use-module (guix download)
-  #:use-module (guix git-download)
-  #:use-module (guix utils)
-  #:use-module (guix build-system ant)
-  #:use-module (guix gexp)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS utils)
+  #:use-module (Manifolding-OS build-system ant)
+  #:use-module (Manifolding-OS gexp)
   #:use-module (gnu packages)
   #:use-module (gnu packages base)
   #:use-module (gnu packages compression)
@@ -1140,7 +1140,7 @@ gets and puts artifacts through HTTP(S) using Apache HttpClient-4.x.")))
                                   "maven-3/" version "/source/"
                                   "apache-maven-" version "-src.tar.gz"))
               (sha256 (base32 "0s8ds2bqkdi2yrcwbd3mkszh6l4hf56j9jz47hkpd7i3zh1hmr4n"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                '(begin
                   (for-each delete-file (find-files "." "\\.jar$"))
@@ -2597,7 +2597,7 @@ reporting or the build process.")))
               (sha256
                (base32
                 "06jdwxx9w24shhv3kca80rlrikynn7kdqcrwg59lv2b7adpllwnh"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                '(begin
                   (for-each delete-file (find-files "." "\\.jar$"))
@@ -2640,9 +2640,9 @@ reporting or the build process.")))
        #:source-dir "maven-model/src/main/java"
        #:test-dir "maven-model/src/test"
        #:modules
-       ((guix build ant-build-system)
-        (guix build java-utils)
-        (guix build utils))
+       ((Manifolding-OS build ant-build-system)
+        (Manifolding-OS build java-utils)
+        (Manifolding-OS build utils))
        #:phases
        (modify-phases %standard-phases
          (add-after 'configure 'use-newer-model
@@ -4024,9 +4024,9 @@ starting from JUnit 4.")))
        #:jar-name "java-surefire-junit4.jar"
        #:source-dir "surefire-providers/surefire-junit4/src/main/java"
        #:test-dir "surefire-providers/surefire-junit4/src/test"
-       #:modules ((guix build ant-build-system)
-                  (guix build utils)
-                  (guix build java-utils)
+       #:modules ((Manifolding-OS build ant-build-system)
+                  (Manifolding-OS build utils)
+                  (Manifolding-OS build java-utils)
                   (sxml simple))
        #:phases
        (modify-phases %standard-phases

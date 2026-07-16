@@ -17,14 +17,14 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages nwg-shell)
-  #:use-module (guix build-system copy)
-  #:use-module (guix build-system go)
-  #:use-module (guix build-system meson)
-  #:use-module (guix build-system pyproject)
-  #:use-module (guix gexp)
-  #:use-module (guix git-download)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix packages)
+  #:use-module (Manifolding-OS build-system copy)
+  #:use-module (Manifolding-OS build-system go)
+  #:use-module (Manifolding-OS build-system meson)
+  #:use-module (Manifolding-OS build-system pyproject)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS packages)
   #:use-module (gnu packages)
   #:use-module (gnu packages admin)
   #:use-module (gnu packages base)
@@ -99,7 +99,7 @@ nwg-shell project.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "0di77z7sblphk755x96wrl1khfms57g7kvaqril87nxfwh9595aw"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        ;; Replace systemd commands with elogind commands.
        (snippet
         '(substitute* '("nwg_hello/main.py"
@@ -111,8 +111,8 @@ nwg-shell project.")
     (arguments
      (list
       #:tests? #f ;no tests exist in source
-      #:modules '((guix build pyproject-build-system)
-                  (guix build utils)
+      #:modules '((Manifolding-OS build pyproject-build-system)
+                  (Manifolding-OS build utils)
                   (srfi srfi-26))                     ;for cute
       #:phases
       #~(modify-phases %standard-phases
@@ -224,7 +224,7 @@ applications for Sway and other wlroots-based Wayland compositors.")
          ;; TODO: Remove this patch in the next update.
          "nwg-bar-0.1.6-fix-silent-errors.patch"
          "nwg-bar-0.1.6-fallback-paths.patch"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        ;; Replace systemd commands with elogind commands.
        (snippet
         '(substitute* "config/bar.json"
@@ -372,7 +372,7 @@ This application is a part of the nwg-shell project.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "19z29v3iym9z0cpw2bhgvc2l5v0x6jgihvrri8ib78ghfgs7rwyx"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        ;; Replace systemd commands with elogind commands.
        (snippet
         '(substitute* "main.go"
@@ -932,7 +932,7 @@ This application is a part of the nwg-shell project.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "1iy528zvk26k48dd8rd1qr69y52nvvhvfv4zfvf821n26r33dwad"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        ;; Replace systemd commands with elogind commands.
        (snippet
         '(substitute* '("nwg_panel/config.py"
@@ -944,8 +944,8 @@ This application is a part of the nwg-shell project.")
     (arguments
      (list
       #:tests? #f ;no tests exist in source
-      #:modules '((guix build pyproject-build-system)
-                  (guix build utils)
+      #:modules '((Manifolding-OS build pyproject-build-system)
+                  (Manifolding-OS build utils)
                   (srfi srfi-26))                     ;for cute
       #:phases
       #~(modify-phases %standard-phases
@@ -1261,7 +1261,7 @@ This application is a part of the nwg-shell project.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "0sfh4sbpjf7bf5r2n96jwafzmwwc8yfhlfn5lsms5fq2f3srxyk2"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        ;; Replace systemd commands with elogind commands.
        (snippet
         '(with-directory-excursion "nwg_shell_config"
@@ -1289,8 +1289,8 @@ This application is a part of the nwg-shell project.")
     (arguments
      (list
       #:tests? #f ;no tests exist in source
-      #:modules '((guix build pyproject-build-system)
-                  (guix build utils)
+      #:modules '((Manifolding-OS build pyproject-build-system)
+                  (Manifolding-OS build utils)
                   (srfi srfi-26))                     ;for cute
       #:phases
       #~(modify-phases %standard-phases
@@ -1412,7 +1412,7 @@ This application is a part of the nwg-shell project.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "1qb4k1w3ycp0n8gwfnk2nmxn8gxa6aab1hg3527x514yck3w1zcp"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         '(with-directory-excursion "nwg_shell"
            ;; The skeleton files in /gnu/store directory are read-only, so make

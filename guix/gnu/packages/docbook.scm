@@ -47,17 +47,17 @@
   #:use-module (gnu packages web-browsers)
   #:use-module (gnu packages xfig)
   #:use-module (gnu packages xml)
-  #:use-module (guix gexp)
-  #:use-module (guix search-paths)
-  #:use-module (guix utils)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix packages)
-  #:use-module (guix download)
-  #:use-module (guix git-download)
-  #:use-module (guix build-system ant)
-  #:use-module (guix build-system copy)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system pyproject)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS search-paths)
+  #:use-module (Manifolding-OS utils)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS build-system ant)
+  #:use-module (Manifolding-OS build-system copy)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system pyproject)
   #:use-module (srfi srfi-26))
 
 ;; The fetch-plan, install-plan and phases for docbook-xml tend to vary
@@ -74,8 +74,8 @@ downloading from @var{source}, where @var{version} is a string and
     (build-system copy-build-system)
     (arguments
      (list
-      #:modules '((guix build copy-build-system)
-                  (guix build utils)
+      #:modules '((Manifolding-OS build copy-build-system)
+                  (Manifolding-OS build utils)
                   (srfi srfi-26))
       #:phases
       #~(modify-phases %standard-phases
@@ -120,7 +120,7 @@ by no means limited to these applications.)  This package provides XML DTDs.")
                    (sha256
                     (base32
                      "0zqy9prj9wam9dn7v3mgr7ld1axqxdhgrmv06dviwg00ahv43wxk"))
-                   (modules '((guix build utils)))
+                   (modules '((Manifolding-OS build utils)))
                    (snippet
                     ;; The .zip release mistakenly uses '5.1CR4' instead of
                     ;; '5.1' as intended by <https://docbook.org/xml/5.1/catalog.xml>.
@@ -302,8 +302,8 @@ downloading from @var{source}, where @var{version} is a string and
     (arguments
      (let ((target (format #f "xml/docbook/mathml/~a/" version)))
        (list
-        #:modules '((guix build copy-build-system)
-                    (guix build utils)
+        #:modules '((Manifolding-OS build copy-build-system)
+                    (Manifolding-OS build utils)
                     (sxml simple)
                     (srfi srfi-1))
         #:phases
@@ -365,7 +365,7 @@ V4.1.2 that adds support for MathML in equation markup.")
                       (url "https://github.com/docbook/xslt10-stylesheets")
                       (commit commit)))
                 (file-name (git-file-name name version))
-                (modules '((guix build utils)))
+                (modules '((Manifolding-OS build utils)))
                 (snippet
                  #~(begin
                      ;; Multiple .jar files are bundled with the sources.
@@ -382,8 +382,8 @@ V4.1.2 that adds support for MathML in equation markup.")
       (arguments
        (list
         #:make-flags #~(list "XSLTENGINE=xsltproc")
-        #:modules '((guix build gnu-build-system)
-                    (guix build utils)
+        #:modules '((Manifolding-OS build gnu-build-system)
+                    (Manifolding-OS build utils)
                     (sxml simple))
         #:phases
         #~(let ((dest-path (format #f "~a/xml/xsl/~a-~a"
@@ -541,8 +541,8 @@ V4.1.2 that adds support for MathML in equation markup.")
       #:tests? #f
       #:jar-name "docbook-xsltng.jar"
       #:source-dir "src/main/java"
-      #:modules '((guix build ant-build-system)
-                  (guix build utils)
+      #:modules '((Manifolding-OS build ant-build-system)
+                  (Manifolding-OS build utils)
                   (ice-9 match))
       #:phases
       #~(modify-phases %standard-phases
@@ -678,8 +678,8 @@ public final class BuildConfig {
                            (string-append bin "/docbook"))
                 ;; Wrap docbook script in python environment.
                 (wrap-program (string-append bin "/docbook")
-                  `("GUIX_PYTHONPATH" ":" prefix
-                    (,(getenv "GUIX_PYTHONPATH"))))))))))
+                  `("MANIFOLDING_OS_PYTHONPATH" ":" prefix
+                    (,(getenv "MANIFOLDING_OS_PYTHONPATH"))))))))))
     (inputs
      (list bash-minimal
            java-metadata-extractor
@@ -768,8 +768,8 @@ is also supported.")
     (build-system copy-build-system)
     (arguments
      (list
-      #:modules '((guix build copy-build-system)
-                  (guix build utils)
+      #:modules '((Manifolding-OS build copy-build-system)
+                  (Manifolding-OS build utils)
                   (srfi srfi-26))
       #:install-plan
       #~`(("./" "sgml/dtd/docbook"
@@ -896,11 +896,11 @@ the in DocBook SGML DTDs.")
                 ;; dblatex executes helper programs at runtime.
                 (wrap-program (string-append #$output "/bin/dblatex")
                   `("PATH" ":" prefix ,path)
-                  `("GUIX_TEXMF" prefix (,(getenv "GUIX_TEXMF")))))))
+                  `("MANIFOLDING_OS_TEXMF" prefix (,(getenv "MANIFOLDING_OS_TEXMF")))))))
           (add-after 'check 'check-wrap
             (lambda* (#:key tests? #:allow-other-keys)
               (when tests?
-                (unsetenv "GUIX_TEXMF")
+                (unsetenv "MANIFOLDING_OS_TEXMF")
                 (invoke/quiet (string-append #$output "/bin/dblatex")
                               "--quiet" "tests/mathml/mmltest2.xml")))))))
     (native-inputs (list docbook-mathml-1.0 python-setuptools))
@@ -1017,7 +1017,7 @@ DB2LaTeX.")
                                "docbook-utils-respect-refentry-for-name.patch"
                                "docbook-utils-use-date-element.patch"
                                "docbook-utils-source-date-epoch.patch"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                #~(begin
                    ;; Patch build system.
@@ -1109,7 +1109,7 @@ Detect the differences in markup between two SGML files.
                                "docbook2x-preprocessor-declaration.patch"
                                "docbook2x-static-datadir-evaluation.patch"
                                "docbook2x-entity-lt.patch"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                ;; Fix a failing test (maybe it worked with old texinfo?)
                #~(begin
@@ -1123,8 +1123,8 @@ Detect the differences in markup between two SGML files.
     (arguments
      (list
       #:make-flags ''("AM_MAKEINFOHTMLFLAGS=\"--no-split\"")
-      #:modules '((guix build gnu-build-system)
-                  (guix build utils)
+      #:modules '((Manifolding-OS build gnu-build-system)
+                  (Manifolding-OS build utils)
                   (srfi srfi-26))
       #:phases
       #~(modify-phases %standard-phases

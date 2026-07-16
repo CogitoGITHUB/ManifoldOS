@@ -18,13 +18,13 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages heads)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system trivial)
-  #:use-module (guix packages)
-  #:use-module (guix download)
-  #:use-module (guix git-download)
-  #:use-module (guix utils)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system trivial)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS utils)
   #:use-module (gnu packages)
   #:use-module (gnu packages admin)
   #:use-module (gnu packages algebra)
@@ -46,7 +46,7 @@
   #:use-module (gnu packages perl)
   #:use-module (gnu packages version-control)
   #:use-module (gnu packages virtualization)
-  #:use-module ((guix build utils) #:select (alist-replace))
+  #:use-module ((Manifolding-OS build utils) #:select (alist-replace))
   #:use-module (srfi srfi-1))
 
 ;; This package provides a "dev.cpio" file usable as a base for booting Heads.
@@ -57,12 +57,12 @@
     (source #f)
     (build-system trivial-build-system)
     (arguments
-     `(#:modules ((guix build utils)
-                  (guix build syscalls)
-                  (guix cpio))
+     `(#:modules ((Manifolding-OS build utils)
+                  (Manifolding-OS build syscalls)
+                  (Manifolding-OS cpio))
        #:builder (begin
-                   (use-modules (guix build utils)
-                                (guix cpio)
+                   (use-modules (Manifolding-OS build utils)
+                                (Manifolding-OS cpio)
                                 (srfi srfi-26))
                    (mkdir-p "dev") ; input directory.
                    (let* ((out (assoc-ref %outputs "out"))

@@ -37,14 +37,14 @@
   #:use-module (gnu system shadow)
   #:autoload   (gnu build linux-container) (%namespaces)
   #:use-module ((gnu system file-systems) #:select (file-system-mapping))
-  #:use-module (guix diagnostics)
-  #:use-module (guix gexp)
-  #:use-module (guix i18n)
-  #:use-module (guix modules)
-  #:use-module (guix records)
-  #:use-module (guix packages)
-  #:use-module (guix deprecation)
-  #:use-module (guix least-authority)
+  #:use-module (Manifolding-OS diagnostics)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS i18n)
+  #:use-module (Manifolding-OS modules)
+  #:use-module (Manifolding-OS records)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS deprecation)
+  #:use-module (Manifolding-OS least-authority)
   #:use-module (srfi srfi-1)
   #:use-module (srfi srfi-26)
   #:use-module (srfi srfi-35)
@@ -879,7 +879,7 @@ See also @url{https://prosody.im/doc/modules/mod_muc}."
                              #$(serialize-prosody-configuration config))))
          (config-file (mixed-text-file "prosody.cfg.lua" config-str)))
     #~(begin
-        (use-modules (guix build utils))
+        (use-modules (Manifolding-OS build utils))
         (define %user (getpw "prosody"))
 
         (mkdir-p #$config-dir)
@@ -1028,7 +1028,7 @@ string, you could instantiate a prosody service like this:
                        (file-append bitlbee "/sbin/bitlbee")
                        #:name "bitlbee"
                        #:preserved-environment-variables
-                       '("PURPLE_PLUGIN_PATH" "GUIX_LOCPATH" "LC_ALL")
+                       '("PURPLE_PLUGIN_PATH" "MANIFOLDING_OS_LOCPATH" "LC_ALL")
                        #:mappings (list (file-system-mapping
                                          (source "/var/lib/bitlbee")
                                          (target source)
@@ -1065,7 +1065,7 @@ string, you could instantiate a prosody service like this:
                         #:environment-variables
                         (list (string-append "PURPLE_PLUGIN_PATH="
                                              #$plugins "/lib/purple-2")
-                              "GUIX_LOCPATH=/run/current-system/locale")))
+                              "MANIFOLDING_OS_LOCPATH=/run/current-system/locale")))
               (stop  #~(make-inetd-destructor))))))))
 
 (define %bitlbee-accounts
@@ -1082,7 +1082,7 @@ string, you could instantiate a prosody service like this:
 (define %bitlbee-activation
   ;; Activation gexp for BitlBee.
   #~(begin
-      (use-modules (guix build utils))
+      (use-modules (Manifolding-OS build utils))
 
       ;; This directory is used to store OTR data.
       (mkdir-p "/var/lib/bitlbee")
@@ -1601,9 +1601,9 @@ values."
                                        config ngircd-configuration-fields))))
     (computed-file
      "ngircd.conf"
-     (with-imported-modules '((guix build utils))
+     (with-imported-modules '((Manifolding-OS build utils))
        #~(begin
-           (use-modules (guix build utils))
+           (use-modules (Manifolding-OS build utils))
            ;; Ensure stdin is not connected to a TTY source to avoid ngircd
            ;; configtest blocking with a confirmation prompt.
            (parameterize ((current-input-port (%make-void-port "r")))
@@ -1705,7 +1705,7 @@ wrapper for the 'ngircd' command."
                     (ngircd-configuration-global config)))
          (user _ (ngircd-user+group config)))
     #~(begin
-        (use-modules (guix build utils)
+        (use-modules (Manifolding-OS build utils)
                      (ice-9 match))
         (define pw (match #$user
                      ((? number?) (getpwuid #$user))
@@ -2137,7 +2137,7 @@ the IRC bouncer.")))
 
 (define %quassel-activation
   #~(begin
-      (use-modules (guix build utils))
+      (use-modules (Manifolding-OS build utils))
       (mkdir-p "/var/lib/quassel")
       (mkdir-p "/var/log/quassel")
       (let ((cert "/var/lib/quassel/quasselCert.pem"))
@@ -2302,9 +2302,9 @@ multiple machines simultaneously.")))
              (stop #~(make-kill-destructor)))))))
 
 (define snuik-activation
-  (with-imported-modules '((guix build utils))
+  (with-imported-modules '((Manifolding-OS build utils))
     #~(begin
-        (use-modules (guix build utils))
+        (use-modules (Manifolding-OS build utils))
         (let* ((user (getpw "snuik"))
                (directory "/var/run/snuik"))
           (mkdir-p directory)

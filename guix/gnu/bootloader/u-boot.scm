@@ -29,7 +29,7 @@
   #:use-module (gnu bootloader extlinux)
   #:use-module (gnu bootloader)
   #:use-module (gnu packages bootloaders)
-  #:use-module (guix gexp)
+  #:use-module (Manifolding-OS gexp)
   #:use-module (ice-9 match)
   #:export (u-boot-bootloader
             u-boot-a20-olinuxino-lime-bootloader

@@ -17,11 +17,11 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (test-print)
-  #:use-module (guix import print)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix download)
-  #:use-module (guix packages)
-  #:use-module ((guix licenses) #:prefix license:)
+  #:use-module (Manifolding-OS import print)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS packages)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
   #:use-module ((gnu packages) #:select (search-patches))
   #:use-module (srfi srfi-64))
 
@@ -43,7 +43,7 @@
               (sha256
                (base32
                 "070pwb7brdcn1mfvplkd56vjc7lbz4iznzkqvfsakvgbv68k71ah"))))
-    (build-system (@ (guix build-system gnu) gnu-build-system))
+    (build-system (@ (Manifolding-OS build-system gnu) gnu-build-system))
     (home-page "http://gnu.org")
     (synopsis "Dummy")
     (description "This is a dummy package.")
@@ -60,7 +60,7 @@
               (sha256
                (base32
                 "070pwb7brdcn1mfvplkd56vjc7lbz4iznzkqvfsakvgbv68k71ah"))))
-    (build-system (@ (guix build-system gnu) gnu-build-system))
+    (build-system (@ (Manifolding-OS build-system gnu) gnu-build-system))
 
     ;; Note: For this test, pick variables that do not have aliases; otherwise
     ;; 'package->code' might pick one of the other variable names in a
@@ -88,7 +88,7 @@
                 "070pwb7brdcn1mfvplkd56vjc7lbz4iznzkqvfsakvgbv68k71ah"))
               (patches (search-patches "guile-linux-syscalls.patch"
                                        "guile-relocatable.patch"))))
-    (build-system (@ (guix build-system gnu) gnu-build-system))
+    (build-system (@ (Manifolding-OS build-system gnu) gnu-build-system))
     (inputs
      `(("o" ,(origin
                (method url-fetch)
@@ -119,7 +119,7 @@
                        (sha256
                         (base32
                          "0000000000000000000000000000000000000000000000000000")))))))
-    (build-system (@ (guix build-system gnu) gnu-build-system))
+    (build-system (@ (Manifolding-OS build-system gnu) gnu-build-system))
     (home-page "http://gnu.org")
     (synopsis "Dummy")
     (description "This is a dummy package.")
@@ -136,7 +136,7 @@
               (sha256
                (base32
                 "070pwb7brdcn1mfvplkd56vjc7lbz4iznzkqvfsakvgbv68k71ah"))))
-    (build-system (@ (guix build-system gnu) gnu-build-system))
+    (build-system (@ (Manifolding-OS build-system gnu) gnu-build-system))
     (arguments
      `(#:disallowed-references (,(@ (gnu packages base) coreutils))))
     (home-page "http://gnu.org")
@@ -157,7 +157,7 @@
                 "070pwb7brdcn1mfvplkd56vjc7lbz4iznzkqvfsakvgbv68k71ah"))))
     (properties
      `((hidden? . #t) (upstream-name "test-upstream")))
-    (build-system (@ (guix build-system gnu) gnu-build-system))
+    (build-system (@ (Manifolding-OS build-system gnu) gnu-build-system))
     (home-page "http://gnu.org")
     (synopsis "Dummy")
     (description "This is a dummy package.")

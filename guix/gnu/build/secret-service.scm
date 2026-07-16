@@ -23,7 +23,7 @@
                                     choice-operation
                                     wrap-operation)
   #:autoload   (fibers timers) (sleep-operation)
-  #:use-module (guix build utils)
+  #:use-module (Manifolding-OS build utils)
   #:use-module (srfi srfi-26)
   #:use-module (rnrs bytevectors)
   #:use-module (ice-9 binary-ports)

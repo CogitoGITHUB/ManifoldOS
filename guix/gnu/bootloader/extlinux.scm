@@ -21,8 +21,8 @@
 (define-module (gnu bootloader extlinux)
   #:use-module (gnu bootloader)
   #:use-module (gnu packages bootloaders)
-  #:use-module (guix gexp)
-  #:use-module (guix utils)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS utils)
   #:export (extlinux-bootloader
             extlinux-bootloader-gpt))
 

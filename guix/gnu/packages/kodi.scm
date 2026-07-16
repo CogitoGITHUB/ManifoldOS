@@ -26,15 +26,15 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages kodi)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix utils)
-  #:use-module (guix packages)
-  #:use-module (guix download)
-  #:use-module (guix gexp)
-  #:use-module (guix git-download)
-  #:use-module (guix build-system cmake)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system trivial)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS utils)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS build-system cmake)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system trivial)
   #:use-module (gnu packages)
   #:use-module (gnu packages algebra)
   #:use-module (gnu packages audio)
@@ -275,10 +275,10 @@ secondary errors.")
               (sha256
                (base32
                 "0acwg8d4ixv0a09ybaixd3na9z6w6hw82wnxw9cj8344l4103b6z"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                '(begin
-                  (use-modules (guix build utils))
+                  (use-modules (Manifolding-OS build utils))
                   (for-each delete-file-recursively
                             '("project/BuildDependencies/"
                               ;; Purge these sources:
@@ -293,8 +293,8 @@ secondary errors.")
     (build-system cmake-build-system)
     (arguments
      '(#:modules ((srfi srfi-1)
-                  (guix build cmake-build-system)
-                  (guix build utils))
+                  (Manifolding-OS build cmake-build-system)
+                  (Manifolding-OS build utils))
        #:configure-flags
        (list "-DCORE_PLATFORM_NAME=x11"
              "-DAPP_RENDER_SYSTEM=gl"
@@ -539,10 +539,10 @@ plug-in system.")
        (list bash-minimal curl python-yewtube))
       (arguments
        (list
-        #:modules '((guix build utils))
+        #:modules '((Manifolding-OS build utils))
         #:builder
         #~(begin
-          (use-modules (guix build utils))
+          (use-modules (Manifolding-OS build utils))
           (copy-recursively (assoc-ref %build-inputs "source") ".")
           (substitute* "kodi-cli"
             (("/bin/bash")

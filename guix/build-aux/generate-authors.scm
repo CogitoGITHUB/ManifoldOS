@@ -25,11 +25,11 @@
  (ice-9 rdelim)
  (ice-9 match)
  (srfi srfi-1)
- (guix config)
- (guix utils)
- (guix build utils))
+ (Manifolding-OS config)
+ (Manifolding-OS utils)
+ (Manifolding-OS build utils))
 
-(define %guix-dir
+(define %Manifolding-OS-dir
   (make-parameter #f))
 
 (define-syntax-rule (append-maybe init-lst (test add-lst) ...)
@@ -50,7 +50,7 @@
 (define (git-output . args)
   "Execute git command with ARGS and return its output without trailing
 newspace."
-  (with-directory-excursion (%guix-dir)
+  (with-directory-excursion (%Manifolding-OS-dir)
     (apply command-output "git" args)))
 
 (define* (contributors-string #:optional (range "HEAD"))
@@ -78,7 +78,7 @@ to the smallest one."
   "Generate authors FILE."
   (define previous-release-tag
     (find (lambda (tag)
-            (version>? %guix-version
+            (version>? %Manifolding-OS-version
                        (substring tag 1))) ; remove leading 'v'
           (version-tags)))
 
@@ -88,14 +88,14 @@ to the smallest one."
   (with-output-to-file file
     (lambda ()
       (display "\
-GNU Guix consists of Scheme code that implements the deployment model
+Manifolding-OS consists of Scheme code that implements the deployment model
 of the Nix package management tool.  In fact, it currently talks to a
 build daemon whose code comes from Nix (see the manual for details.)
 
 Nix was initially written by Eelco Dolstra; other people have been
 contributing to it.  See `nix/AUTHORS' for details.\n\n")
-      (format #t "Contributors to GNU Guix ~a:\n\n"
-              %guix-version)
+      (format #t "Contributors to Manifolding-OS ~a:\n\n"
+              %Manifolding-OS-version)
       (display (contributors-string release-range))
       (newline) (newline)
       (display "Overall contributors:\n\n")
@@ -106,12 +106,12 @@ contributing to it.  See `nix/AUTHORS' for details.\n\n")
   (match (command-line)
     ((me _ ...)
      (format #t "Usage: guile ~a DIRECTORY AUTHORS
-Generate AUTHORS file for DIRECTORY with the Guix git repository.\n"
+Generate AUTHORS file for DIRECTORY with the Manifolding-OS git repository.\n"
              me))))
 
 (match (command-line)
-  ((_ guix-dir authors-file)
-   (parameterize ((%guix-dir guix-dir))
+  ((_ Manifolding-OS-dir authors-file)
+   (parameterize ((%Manifolding-OS-dir Manifolding-OS-dir))
      (generate-authors-file authors-file)))
   (_
    (show-help)

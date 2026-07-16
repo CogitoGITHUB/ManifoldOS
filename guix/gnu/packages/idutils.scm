@@ -19,6 +19,6 @@
 
 (define-module (gnu packages idutils)
   #:use-module (gnu packages code)
-  #:use-module (guix deprecation))
+  #:use-module (Manifolding-OS deprecation))
 
 (define-deprecated/public-alias idutils (@ (gnu packages code) idutils))

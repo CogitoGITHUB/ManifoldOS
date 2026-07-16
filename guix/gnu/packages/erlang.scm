@@ -29,15 +29,15 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages erlang)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix gexp)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system emacs)
-  #:use-module (guix build-system rebar)
-  #:use-module (guix download)
-  #:use-module (guix git-download)
-  #:use-module (guix packages)
-  #:use-module (guix utils)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system emacs)
+  #:use-module (Manifolding-OS build-system rebar)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS utils)
   #:use-module (gnu packages)
   #:use-module (gnu packages fontutils)
   #:use-module (gnu packages gl)
@@ -93,8 +93,8 @@
              "--enable-wx"
              (string-append "--with-ssl=" (assoc-ref %build-inputs "openssl")))
        #:modules ((srfi srfi-19)        ; make-time, et cetera.
-                  (guix build utils)
-                  (guix build gnu-build-system))
+                  (Manifolding-OS build utils)
+                  (Manifolding-OS build gnu-build-system))
        #:phases
        (modify-phases %standard-phases
          (delete 'bootstrap)
@@ -908,8 +908,8 @@ for Rebar3.")
      (list
       #:modules '((ice-9 ftw)
                   (srfi srfi-26)
-                  (guix build gnu-build-system)
-                  (guix build utils))
+                  (Manifolding-OS build gnu-build-system)
+                  (Manifolding-OS build utils))
       #:make-flags #~(list (string-append "PREFIX=" #$output) "CC=gcc")
       #:phases
       #~(modify-phases %standard-phases

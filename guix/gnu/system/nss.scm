@@ -18,7 +18,7 @@
 
 (define-module (gnu system nss)
   #:use-module (rnrs enums)
-  #:use-module (guix records)
+  #:use-module (Manifolding-OS records)
   #:use-module (srfi srfi-9)
   #:use-module (ice-9 match)
   #:export (name-service-switch?

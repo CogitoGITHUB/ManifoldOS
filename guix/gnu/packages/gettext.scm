@@ -30,15 +30,15 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages gettext)
-  #:use-module ((guix licenses) #:select (gpl2+ gpl3+ bsd-3))
+  #:use-module ((Manifolding-OS licenses) #:select (gpl2+ gpl3+ bsd-3))
   #:use-module (gnu packages)
-  #:use-module (guix packages)
-  #:use-module (guix gexp)
-  #:use-module (guix git-download)
-  #:use-module (guix download)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system perl)
-  #:use-module (guix build-system pyproject)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system perl)
+  #:use-module (Manifolding-OS build-system pyproject)
   #:use-module (gnu packages bash)
   #:use-module (gnu packages check)
   #:use-module (gnu packages docbook)
@@ -52,7 +52,7 @@
   #:use-module (gnu packages python-build)
   #:use-module (gnu packages python-xyz)
   #:use-module (gnu packages sphinx)
-  #:use-module (guix utils))
+  #:use-module (Manifolding-OS utils))
 
 (define-public gettext-minimal
   (package

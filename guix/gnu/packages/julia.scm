@@ -25,13 +25,13 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages julia)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix packages)
-  #:use-module (guix download)
-  #:use-module (guix utils)
-  #:use-module (guix git-download)
-  #:use-module (guix build-system gnu)
-  #:use-module ((guix search-paths) #:select ($SSL_CERT_FILE))
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS utils)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module ((Manifolding-OS search-paths) #:select ($SSL_CERT_FILE))
   #:use-module (gnu packages)
   #:use-module (gnu packages algebra)
   #:use-module (gnu packages base)
@@ -157,8 +157,8 @@ libraries.  It is also a bit like @code{ldd} and @code{otool -L}.")
     (arguments
      `(#:test-target "test"
        #:modules ((ice-9 match)
-                  (guix build gnu-build-system)
-                  (guix build utils))
+                  (Manifolding-OS build gnu-build-system)
+                  (Manifolding-OS build utils))
 
        ;; The test suite takes many times longer than building and
        ;; can easily fail on smaller machines when they run out of memory.
@@ -169,7 +169,7 @@ libraries.  It is also a bit like @code{ldd} and @code{otool -L}.")
        ;; See https://github.com/JuliaLang/julia/issues/17831
        #:strip-binaries? #f
 
-       ;; The DSOs use $ORIGIN to refer to each other, but (guix build
+       ;; The DSOs use $ORIGIN to refer to each other, but (Manifolding-OS build
        ;; gremlin) doesn't support it yet, so skip this phase.
        #:validate-runpath? #f
 

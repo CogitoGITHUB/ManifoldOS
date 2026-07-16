@@ -18,11 +18,11 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages rednotebook)
-  #:use-module (guix gexp)
-  #:use-module (guix packages)
-  #:use-module (guix git-download)
-  #:use-module (guix build-system pyproject)
-  #:use-module ((guix licenses) #:prefix license:)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS build-system pyproject)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
   #:use-module (gnu packages bash)
   #:use-module (gnu packages check)
   #:use-module (gnu packages gettext)
@@ -50,13 +50,13 @@
     (arguments
      (list
       #:imported-modules
-      `((guix build glib-or-gtk-build-system)
+      `((Manifolding-OS build glib-or-gtk-build-system)
         ,@%pyproject-build-system-modules)
       #:modules
       `((ice-9 match)
-        (guix build pyproject-build-system)
-        ((guix build glib-or-gtk-build-system) #:prefix glib-or-gtk:)
-        (guix build utils))
+        (Manifolding-OS build pyproject-build-system)
+        ((Manifolding-OS build glib-or-gtk-build-system) #:prefix glib-or-gtk:)
+        (Manifolding-OS build utils))
       #:phases
       #~(modify-phases %standard-phases
           (add-before 'sanity-check 'configure-tests

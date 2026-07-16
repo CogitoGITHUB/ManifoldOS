@@ -28,10 +28,10 @@
   #:use-module (gnu packages nettle)
   #:use-module (gnu packages kerberos)
   #:use-module (gnu packages tls)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix packages)
-  #:use-module (guix download)
-  #:use-module (guix build-system gnu))
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS build-system gnu))
 
 (define-public libntlm
   (package

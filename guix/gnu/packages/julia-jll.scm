@@ -21,11 +21,11 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages julia-jll)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix packages)
-  #:use-module (guix git-download)
-  #:use-module (guix utils)
-  #:use-module (guix build-system julia)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS utils)
+  #:use-module (Manifolding-OS build-system julia)
   #:use-module (gnu packages)
   #:use-module (gnu packages astronomy)
   #:use-module (gnu packages audio)

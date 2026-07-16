@@ -285,8 +285,8 @@ instrumented for further testing."
        `(marionette-operating-system ,exp
                                      #:imported-modules
                                      '((gnu services herd)
-                                       (guix build utils)
-                                       (guix combinators))))
+                                       (Manifolding-OS build utils)
+                                       (Manifolding-OS combinators))))
       (_
        exp)))
 

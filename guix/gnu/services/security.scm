@@ -22,10 +22,10 @@
   #:use-module (gnu services)
   #:use-module (gnu services configuration)
   #:use-module (gnu services shepherd)
-  #:use-module (guix gexp)
-  #:use-module (guix packages)
-  #:use-module (guix records)
-  #:use-module (guix ui)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS records)
+  #:use-module (Manifolding-OS ui)
   #:use-module (ice-9 format)
   #:use-module (ice-9 match)
   #:use-module (srfi srfi-1)
@@ -330,18 +330,18 @@ provided as a list of file-like objects."))
      "fail2ban-configuration"
      (list (computed-file
             "etc-fail2ban"
-            (with-imported-modules '((guix build utils))
+            (with-imported-modules '((Manifolding-OS build utils))
               #~(begin
-                  (use-modules (guix build utils))
+                  (use-modules (Manifolding-OS build utils))
                   (let ((etc (string-append #$output "/etc")))
                     (mkdir-p etc)
                     (symlink #$(file-append fail2ban "/etc/fail2ban")
                              (string-append etc "/fail2ban"))))))
            (computed-file
             "etc-fail2ban-jail.local"
-            (with-imported-modules '((guix build utils))
+            (with-imported-modules '((Manifolding-OS build utils))
               #~(begin
-                  (use-modules (guix build utils))
+                  (use-modules (Manifolding-OS build utils))
                   (define etc/fail2ban (string-append #$output
                                                       "/etc/fail2ban"))
                   (mkdir-p etc/fail2ban)

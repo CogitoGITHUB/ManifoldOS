@@ -94,23 +94,23 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages xdisorg)
-  #:use-module (guix build-system cmake)
-  #:use-module (guix build-system copy)
-  #:use-module (guix build-system glib-or-gtk)
-  #:use-module (guix build-system go)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system meson)
-  #:use-module (guix build-system pyproject)
-  #:use-module (guix build-system qt)
-  #:use-module (guix build-system scons)
-  #:use-module (guix deprecation)
-  #:use-module (guix download)
-  #:use-module (guix gexp)
-  #:use-module (guix git-download)
-  #:use-module (guix hg-download)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix packages)
-  #:use-module (guix utils)
+  #:use-module (Manifolding-OS build-system cmake)
+  #:use-module (Manifolding-OS build-system copy)
+  #:use-module (Manifolding-OS build-system glib-or-gtk)
+  #:use-module (Manifolding-OS build-system go)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system meson)
+  #:use-module (Manifolding-OS build-system pyproject)
+  #:use-module (Manifolding-OS build-system qt)
+  #:use-module (Manifolding-OS build-system scons)
+  #:use-module (Manifolding-OS deprecation)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS hg-download)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS utils)
   #:use-module (gnu packages admin)
   #:use-module (gnu packages algebra)
   #:use-module (gnu packages autotools)
@@ -346,7 +346,7 @@ window) or a native DRM session.  It is agnostic of the rendering API (Vulkan
               (sha256
                (base32
                 "00mfhaqjxx4m3y0ml44infpbp500prs031vhawwjp0dvk0vbxjz4"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                #~(begin
                    ;; Do not record a timestamp and file name in gzipped man
@@ -1849,12 +1849,12 @@ driver for the X.Org X Server version 1.7 and later (X11R7.5 or later).")
           (add-after 'split-outputs 'wrap
             (lambda* (#:key inputs outputs #:allow-other-keys)
               (let* ((gtk (assoc-ref outputs "gtk"))
-                     (site-packages (@ (guix build pyproject-build-system)
+                     (site-packages (@ (Manifolding-OS build pyproject-build-system)
                                        site-packages))
                      (site (site-packages inputs outputs)))
                 (wrap-program (string-append gtk "/bin/redshift-gtk")
-                  `("GUIX_PYTHONPATH" ":" prefix
-                    (,(string-append site ":" (getenv "GUIX_PYTHONPATH"))))
+                  `("MANIFOLDING_OS_PYTHONPATH" ":" prefix
+                    (,(string-append site ":" (getenv "MANIFOLDING_OS_PYTHONPATH"))))
                   `("GI_TYPELIB_PATH" ":" prefix
                     (,(getenv "GI_TYPELIB_PATH"))))))))))
     (outputs '("out" "gtk"))
@@ -2016,7 +2016,7 @@ to an arbitrary balanced color.")
               ;; Gammastep GUI needs Typelib files from GTK and access to
               ;; Python libraries.
               (wrap-program (string-append #$output "/bin/gammastep-indicator")
-                `("PYTHONPATH" ":" prefix (,(getenv "GUIX_PYTHONPATH")))
+                `("PYTHONPATH" ":" prefix (,(getenv "MANIFOLDING_OS_PYTHONPATH")))
                 `("GI_TYPELIB_PATH" ":" prefix
                   (,(getenv "GI_TYPELIB_PATH")))))))))
     (native-inputs
@@ -2059,7 +2059,7 @@ less if you are working in front of the screen at night.")
                        version ".tar.gz"))
        (sha256
         (base32 "0hvn67qs0rns6qi9phhs601vzbryx2kyvginfcybrfz32y17kxjg"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         ;; 'configure.ac' checks for $ac_unrecognized_opts and exits if it's
         ;; non-empty.  Since the default 'configure' phases passes options
@@ -2612,7 +2612,7 @@ with minimalistic tiling window managers such as herbstluftwm and bspwm.")
               (sha256
                (base32
                 "118cj1ybw86pgw0l5whn9vbg5n5b0ijcpx295mwahzi004vz671h"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                ;; Drop bundled m4.
                '(begin
@@ -3452,12 +3452,12 @@ can optionally use some appearance settings from XSettings, tint2 and GTK.")
     (arguments
      (list
       #:tests? #f                       ;no test suite
-      #:modules `(((guix build guile-build-system)
+      #:modules `(((Manifolding-OS build guile-build-system)
                    #:select (target-guile-effective-version))
                   ,@%default-gnu-imported-modules
                   (srfi srfi-26))
       #:phases
-      (with-imported-modules `((guix build guile-build-system)
+      (with-imported-modules `((Manifolding-OS build guile-build-system)
                                ,@%default-gnu-imported-modules)
         #~(modify-phases %standard-phases
             (add-after 'install 'wrap
@@ -4533,7 +4533,7 @@ on the screen and which then writes out the necessary C code for it.")
          (file-name (git-file-name name version))
          (sha256
           (base32 "01favi5v4qbpj6v6k6iab7wxhjy4vjnqwcykhhv2rgcqw5dx4w4a"))
-         (modules '((guix build utils)))
+         (modules '((Manifolding-OS build utils)))
          (snippet '(begin
                      (substitute* "configure.ac"
                        (("m4_esyscmd_s\\([^\n\\(\\)\\[\\]]*\\)")
@@ -4575,7 +4575,7 @@ other than GNOME and KDE.  It does the following tasks:
          (sha256
           (base32
            "1rkwjs3rjrzw6gkcm4q91d0axhdhnrwfp4f503dji2jvs8wqa33m"))
-         (modules '((guix build utils)))
+         (modules '((Manifolding-OS build utils)))
          (snippet
           '(begin
              (substitute* "Makefile"

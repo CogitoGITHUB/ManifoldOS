@@ -17,13 +17,13 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages emacs-build)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix gexp)
-  #:use-module (guix download)
-  #:use-module (guix git-download)
-  #:use-module (guix packages)
-  #:use-module (guix build-system copy)
-  #:use-module (guix build-system emacs)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS build-system copy)
+  #:use-module (Manifolding-OS build-system emacs)
   #:use-module (gnu packages)
   #:use-module (gnu packages base)
   #:use-module (gnu packages bash)
@@ -558,8 +558,8 @@ Lisp.")
     (arguments
      (list
       #:modules
-      #~((guix build copy-build-system)
-         (guix build utils)
+      #~((Manifolding-OS build copy-build-system)
+         (Manifolding-OS build utils)
          (srfi srfi-1)
          (srfi srfi-26)
          (ice-9 ftw))
@@ -614,7 +614,7 @@ Lisp.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "1xqwfxkxgpcm3k2m2shwkwrm4asl59ik8867c3k1iwfj8xzfp089"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet #~(begin
                     (delete-file-recursively "images")))))
     (build-system emacs-build-system)
@@ -624,9 +624,9 @@ Lisp.")
        (list
         #:tests? #f
         #:modules
-        '((guix build emacs-build-system)
-          (guix build utils)
-          (guix build emacs-utils)
+        '((Manifolding-OS build emacs-build-system)
+          (Manifolding-OS build utils)
+          (Manifolding-OS build emacs-utils)
           (srfi srfi-26))
         #:phases
         #~(modify-phases %standard-phases

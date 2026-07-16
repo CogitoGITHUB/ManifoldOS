@@ -17,15 +17,15 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (test-nar)
-  #:use-module (guix tests)
-  #:use-module (guix nar)
-  #:use-module (guix serialization)
-  #:use-module (guix store)
+  #:use-module (Manifolding-OS tests)
+  #:use-module (Manifolding-OS nar)
+  #:use-module (Manifolding-OS serialization)
+  #:use-module (Manifolding-OS store)
   #:use-module ((gcrypt hash)
                 #:select (open-sha256-port open-sha256-input-port))
-  #:use-module ((guix packages)
+  #:use-module ((Manifolding-OS packages)
                 #:select (base32))
-  #:use-module ((guix build utils)
+  #:use-module ((Manifolding-OS build utils)
                 #:select (find-files))
   #:use-module (rnrs bytevectors)
   #:use-module (rnrs io ports)
@@ -41,7 +41,7 @@
   #:use-module ((ice-9 control) #:select (let/ec))
   #:use-module (ice-9 match))
 
-;; Test the (guix nar) module.
+;; Test the (Manifolding-OS nar) module.
 
 
 ;;;
@@ -159,8 +159,8 @@
 (test-begin "nar")
 
 (test-assert "write-file-tree + restore-file"
-  (let* ((file1  (search-path %load-path "guix.scm"))
-         (file2  (search-path %load-path "guix/base32.scm"))
+  (let* ((file1  (search-path %load-path "Manifolding-OS.scm"))
+         (file2  (search-path %load-path "Manifolding-OS/base32.scm"))
          (file3  "#!/bin/something")
          (output (string-append %test-dir "/output")))
     (dynamic-wind
@@ -373,7 +373,7 @@
                    "R"))))
 
 (test-assert "write-file supports non-file output ports"
-  (let ((input  (string-append (dirname (search-path %load-path "guix.scm"))
+  (let ((input  (string-append (dirname (search-path %load-path "Manifolding-OS.scm"))
                                "/guix"))
         (output (%make-void-port "w")))
     (write-file input output)
@@ -411,7 +411,7 @@
       #f)))
 
 (test-assert "write-file + restore-file"
-  (let* ((input  (string-append (dirname (search-path %load-path "guix.scm"))
+  (let* ((input  (string-append (dirname (search-path %load-path "Manifolding-OS.scm"))
                                 "/guix"))
          (output %test-dir)
          (nar    (string-append output ".nar")))
@@ -499,7 +499,7 @@
 
 (test-eq "restore-file with non-UTF8 locale"     ;<https://bugs.gnu.org/33603>
   'encoding-error
-  (let* ((file   (search-path %load-path "guix.scm"))
+  (let* ((file   (search-path %load-path "Manifolding-OS.scm"))
          (output (string-append %test-dir "/output"))
          (locale (setlocale LC_ALL "C")))
     (dynamic-wind

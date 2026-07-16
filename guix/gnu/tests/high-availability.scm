@@ -27,8 +27,8 @@
   #:use-module (gnu services)
   #:use-module (gnu services high-availability)
   #:use-module (gnu services networking)
-  #:use-module (guix gexp)
-  #:use-module (guix store)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS store)
   #:export (%test-rabbitmq))
 
 (define %rabbitmq-config-file
@@ -51,7 +51,7 @@ distribution.listener.interface = 127.0.0.1
     (marionette-operating-system
       %rabbitmq-os
       #:imported-modules '((gnu services herd)
-                           (guix combinators))))
+                           (Manifolding-OS combinators))))
 
   (define forwarded-port 15672)
 
@@ -101,7 +101,7 @@ distribution.listener.interface = 127.0.0.1
           (test-assert "RabbitMQ await startup command is successful"
             (marionette-eval
              '(begin
-                (use-modules (guix build utils))
+                (use-modules (Manifolding-OS build utils))
 
                 (current-output-port (open-file "/dev/console" "w0"))
                 (invoke #$(file-append rabbitmq "/sbin/rabbitmqctl")
@@ -113,7 +113,7 @@ distribution.listener.interface = 127.0.0.1
           (test-assert "RabbitMQ status command is successful"
             (marionette-eval
              '(begin
-                (use-modules (guix build utils))
+                (use-modules (Manifolding-OS build utils))
 
                 (current-output-port (open-file "/dev/console" "w0"))
                 (invoke #$(file-append rabbitmq "/sbin/rabbitmqctl")

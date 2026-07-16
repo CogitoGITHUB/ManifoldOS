@@ -19,11 +19,11 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (test-gnu-maintenance)
-  #:use-module (guix gnu-maintenance)
-  #:use-module (guix tests)
-  #:use-module (guix tests http)
-  #:use-module (guix upstream)
-  #:use-module (guix utils)
+  #:use-module (Manifolding-OS gnu-maintenance)
+  #:use-module (Manifolding-OS tests)
+  #:use-module (Manifolding-OS tests http)
+  #:use-module (Manifolding-OS upstream)
+  #:use-module (Manifolding-OS utils)
   #:use-module (srfi srfi-1)
   #:use-module (srfi srfi-64)
   #:use-module ((web client) #:select (current-http-proxy))
@@ -57,7 +57,7 @@
                 ("valgrind" "valgrind-3.20.0.RC1.tar.bz2")))))
 
 (test-assert "tarball->version"
-  (let ((tarball->version (@@ (guix gnu-maintenance) tarball->version)))
+  (let ((tarball->version (@@ (Manifolding-OS gnu-maintenance) tarball->version)))
     (every (match-lambda
              ((file version)
               (equal? (tarball->version file) version)))
@@ -278,7 +278,7 @@ submodules/qtbase-everywhere-src-6.3.2.tar.xz" "6.3.2" #:to-version "6.5.2"))
 
 (test-equal "rewrite-url, without to-version"
   "http://dist.libuv.example.org/dist/v1.46.0/libuv-v1.46.0.tar.gz"
-  (mock ((guix http-client) http-fetch/cached
+  (mock ((Manifolding-OS http-client) http-fetch/cached
          (mock-http-fetch/cached libuv-html-data))
         (rewrite-url
          "http://dist.libuv.example.org/dist/v1.45.0/libuv-v1.45.0.tar.gz"
@@ -286,7 +286,7 @@ submodules/qtbase-everywhere-src-6.3.2.tar.xz" "6.3.2" #:to-version "6.5.2"))
 
 (test-equal "rewrite-url, partial to-version"
   "http://dist.libuv.example.org/dist/v1.44.2/libuv-v1.44.2.tar.gz"
-  (mock ((guix http-client) http-fetch/cached
+  (mock ((Manifolding-OS http-client) http-fetch/cached
          (mock-http-fetch/cached libuv-html-data))
         (rewrite-url
          "http://dist.libuv.example.org/dist/v1.45.0/libuv-v1.45.0.tar.gz"

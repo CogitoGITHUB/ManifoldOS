@@ -17,7 +17,7 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu system keyboard)
-  #:use-module (guix gexp)
+  #:use-module (Manifolding-OS gexp)
   #:use-module ((gnu packages xorg)
                 #:select (xkeyboard-config console-setup))
   #:use-module (srfi srfi-9 gnu)
@@ -62,9 +62,9 @@ options."
   "Return a Linux console keymap file for LAYOUT, a <keyboard-layout> record.
 Layout information is taken from the XKEYBOARD-CONFIG package."
   (define build
-    (with-imported-modules '((guix build utils))
+    (with-imported-modules '((Manifolding-OS build utils))
       #~(begin
-          (use-modules (guix build utils)
+          (use-modules (Manifolding-OS build utils)
                        (ice-9 popen)
                        (ice-9 match))
 

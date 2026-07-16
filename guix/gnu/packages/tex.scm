@@ -48,22 +48,22 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages tex)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix gexp)
-  #:use-module (guix packages)
-  #:use-module (guix download)
-  #:use-module (guix build-system copy)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system perl)
-  #:use-module (guix build-system pyproject)
-  #:use-module (guix build-system qt)
-  #:use-module (guix build-system trivial)
-  #:use-module (guix build-system texlive)
-  #:use-module (guix utils)
-  #:use-module (guix deprecation)
-  #:use-module (guix gexp)
-  #:use-module (guix git-download)
-  #:use-module (guix svn-download)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS build-system copy)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system perl)
+  #:use-module (Manifolding-OS build-system pyproject)
+  #:use-module (Manifolding-OS build-system qt)
+  #:use-module (Manifolding-OS build-system trivial)
+  #:use-module (Manifolding-OS build-system texlive)
+  #:use-module (Manifolding-OS utils)
+  #:use-module (Manifolding-OS deprecation)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS svn-download)
   #:use-module (gnu packages)
   #:use-module (gnu packages algebra)
   #:use-module (gnu packages aspell)
@@ -130,7 +130,7 @@
 ;;; to build TEXLIVE-LIBKPATHSEA and TEXLIVE-LIBPTEXENC.
 ;;;
 ;;; Both TEXLIVE-SOURCE and TEXLIVE-LIBKPATHSEA---which takes care of creating
-;;; a search path for GUIX_TEXMF environment variable---are used to compile
+;;; a search path for MANIFOLDING_OS_TEXMF environment variable---are used to compile
 ;;; TEXLIVE-BIN.  In turn, TEXLIVE-BIN propagates TEXLIVE-SCRIPTS, which
 ;;; contains core scripts and related files, including "texlive.tldb"
 ;;; database.  TEXLIVE-BIN is a mandatory native input in the `texlive' build
@@ -301,7 +301,7 @@ should not be installed in a profile.")
     (source
      (origin
        (inherit (package-source texlive-source))
-       (modules '((guix build utils)
+       (modules '((Manifolding-OS build utils)
                   (ice-9 ftw)))
        (snippet
         #~(let ((delete-other-directories
@@ -331,7 +331,7 @@ should not be installed in a profile.")
       #~(modify-phases %standard-phases
           (add-after 'unpack 'customize-texmf.cnf
             ;; The default "texmf.cnf" file is provided by this package.
-            ;; Every variable of interest is set relatively to the GUIX_TEXMF
+            ;; Every variable of interest is set relatively to the MANIFOLDING_OS_TEXMF
             ;; environment variable defined via a search path below.
             ;;
             ;; This phase must happen before the `configure' phase, because
@@ -339,8 +339,8 @@ should not be installed in a profile.")
             ;; generate "paths.h" file.
             (lambda _
               (substitute* "texk/kpathsea/texmf.cnf"
-                (("^TEXMFROOT = .*") "TEXMFROOT = {$GUIX_TEXMF}/..\n")
-                (("^TEXMFDIST = .*") "TEXMFDIST = {$GUIX_TEXMF}\n")
+                (("^TEXMFROOT = .*") "TEXMFROOT = {$MANIFOLDING_OS_TEXMF}/..\n")
+                (("^TEXMFDIST = .*") "TEXMFDIST = {$MANIFOLDING_OS_TEXMF}\n")
                 ;; Use XDG recommendations for local variables.  Also ignore
                 ;; system-wide cache, which is not writable; use local one
                 ;; instead, i.e., "$XDG_CACHE_HOME/texliveYYYY/texmf-var/".
@@ -391,7 +391,7 @@ should not be installed in a profile.")
                           '("share/info" "share/man"))))))))
     (native-search-paths
      (list (search-path-specification
-            (variable "GUIX_TEXMF")
+            (variable "MANIFOLDING_OS_TEXMF")
             (files '("share/texmf-dist")))))
     (home-page "https://www.tug.org/texlive/")
     (synopsis "Path searching library")
@@ -407,7 +407,7 @@ of user-specified directories similar to how shells look up executables.")
     (source
      (origin
        (inherit (package-source texlive-source))
-       (modules '((guix build utils)
+       (modules '((Manifolding-OS build utils)
                   (ice-9 ftw)))
        (snippet
         #~(let ((delete-other-directories
@@ -549,11 +549,11 @@ of user-specified directories similar to how shells look up executables.")
     (arguments
      (list
       #:imported-modules `(,@%copy-build-system-modules
-                           (guix build texlive-build-system)
-                           (guix build union))
-      #:modules '((guix build copy-build-system)
-                  ((guix build texlive-build-system) #:prefix tex:)
-                  (guix build utils))
+                           (Manifolding-OS build texlive-build-system)
+                           (Manifolding-OS build union))
+      #:modules '((Manifolding-OS build copy-build-system)
+                  ((Manifolding-OS build texlive-build-system) #:prefix tex:)
+                  (Manifolding-OS build utils))
       #:install-plan
       #~'(("texmf-dist/dvips/"   "share/texmf-dist/dvips")
           ("texmf-dist/fonts/"   "share/texmf-dist/fonts")
@@ -789,7 +789,7 @@ and should be preferred to it whenever a package would otherwise depend on
     (source
      (origin
        (inherit (package-source texlive-source))
-       (modules '((guix build utils)
+       (modules '((Manifolding-OS build utils)
                   (ice-9 ftw)))
        (snippet
         #~(let ((delete-other-directories
@@ -1313,10 +1313,10 @@ documentation in the TeX format."
         (arguments
          (list
           #:imported-modules `(,@%copy-build-system-modules
-                               (guix build union))
-          #:modules '((guix build copy-build-system)
-                      (guix build union)
-                      (guix build utils)
+                               (Manifolding-OS build union))
+          #:modules '((Manifolding-OS build copy-build-system)
+                      (Manifolding-OS build union)
+                      (Manifolding-OS build utils)
                       (ice-9 match)
                       (ice-9 popen)
                       (ice-9 textual-ports)
@@ -1399,7 +1399,7 @@ documentation in the TeX format."
         (inputs (map (lambda (package)
                        (list (package-name package) package))
                      (append default-packages packages)))
-        ;; Propagate libkpathsea in order to populate GUIX_TEXMF when
+        ;; Propagate libkpathsea in order to populate MANIFOLDING_OS_TEXMF when
         ;; building the package using this one as an input.
         (propagated-inputs (list texlive-libkpathsea))
         (home-page (package-home-page texlive-bin))
@@ -2205,7 +2205,7 @@ ligatures, but also offers additional control over them.")
     (source
      (origin
        (inherit (package-source texlive-source))
-       (modules '((guix build utils)
+       (modules '((Manifolding-OS build utils)
                   (ice-9 ftw)))
        (snippet
         #~(let ((delete-other-directories
@@ -5168,7 +5168,7 @@ other parts.")
     (source
      (origin
        (inherit (package-source texlive-source))
-       (modules '((guix build utils)
+       (modules '((Manifolding-OS build utils)
                   (ice-9 ftw)))
        (snippet
         #~(let ((delete-other-directories
@@ -5251,7 +5251,7 @@ the pdf code inserted in the output file.  The processing involves a run of
     (source
      (origin
        (inherit (package-source texlive-source))
-       (modules '((guix build utils)
+       (modules '((Manifolding-OS build utils)
                   (ice-9 ftw)))
        (snippet
         #~(let ((delete-other-directories
@@ -6613,10 +6613,10 @@ as a standalone command line tool.")
      (list
       #:tests? #true
       #:imported-modules `(,@%texlive-build-system-modules
-                           (guix build perl-build-system))
-      #:modules '((guix build texlive-build-system)
-                  ((guix build perl-build-system) #:prefix perl:)
-                  (guix build utils))
+                           (Manifolding-OS build perl-build-system))
+      #:modules '((Manifolding-OS build texlive-build-system)
+                  ((Manifolding-OS build perl-build-system) #:prefix perl:)
+                  (Manifolding-OS build utils))
       #:phases
       #~(modify-phases %standard-phases
           (add-after 'unpack 'unpack-biber-ms-source
@@ -12216,7 +12216,7 @@ supported.")
     (source
      (origin
        (inherit (package-source texlive-source))
-       (modules '((guix build utils)
+       (modules '((Manifolding-OS build utils)
                   (ice-9 ftw)))
        (snippet
         #~(let ((delete-other-directories
@@ -20790,7 +20790,7 @@ create a PDF of your score.")
     (source
      (origin
        (inherit (package-source texlive-source))
-       (modules '((guix build utils)
+       (modules '((Manifolding-OS build utils)
                   (ice-9 ftw)))
        (snippet
         #~(let ((delete-other-directories
@@ -28102,7 +28102,7 @@ those who prefer its language.")
     (source
      (origin
        (inherit (package-source texlive-source))
-       (modules '((guix build utils)
+       (modules '((Manifolding-OS build utils)
                   (ice-9 ftw)))
        (snippet
         #~(let ((delete-other-directories
@@ -30490,7 +30490,7 @@ source file.  This should be used before using @code{\\TransformNotes}.")
     (source
      (origin
        (inherit (package-source texlive-source))
-       (modules '((guix build utils)
+       (modules '((Manifolding-OS build utils)
                   (ice-9 ftw)))
        (snippet
         #~(let ((delete-other-directories
@@ -34202,7 +34202,7 @@ a score.")
     (source
      (origin
        (inherit (package-source texlive-source))
-       (modules '((guix build utils)
+       (modules '((Manifolding-OS build utils)
                   (ice-9 ftw)))
        (snippet
         #~(let ((delete-other-directories
@@ -35971,8 +35971,8 @@ users having difficulty with the incompatibility of that latest version.")
       #:modules '((ice-9 match)
                   (ice-9 regex)
                   (srfi srfi-1)
-                  (guix build texlive-build-system)
-                  (guix build utils))
+                  (Manifolding-OS build texlive-build-system)
+                  (Manifolding-OS build utils))
       #:build-targets #~(list "revtex4-1.dtx")
       #:phases
       #~(modify-phases %standard-phases
@@ -43487,7 +43487,7 @@ fonts, in both Metafont and Type 1 formats.")
     (source
      (origin
        (inherit (package-source texlive-source))
-       (modules '((guix build utils)
+       (modules '((Manifolding-OS build utils)
                   (ice-9 ftw)))
        (snippet
         #~(let ((delete-other-directories
@@ -43651,7 +43651,7 @@ the end of a line.")
     (source
      (origin
        (inherit (package-source texlive-source))
-       (modules '((guix build utils)
+       (modules '((Manifolding-OS build utils)
                   (ice-9 ftw)))
        (snippet
         #~(let ((delete-other-directories
@@ -44938,7 +44938,7 @@ order are controlled by an external configuration file.")
     (source
      (origin
        (inherit (package-source texlive-source))
-       (modules '((guix build utils)
+       (modules '((Manifolding-OS build utils)
                   (ice-9 ftw)))
        (snippet
         #~(let ((delete-other-directories
@@ -45198,7 +45198,7 @@ Filters are also provided for checking the LaTeX parts of CWEB documents.")
     (source
      (origin
        (inherit (package-source texlive-source))
-       (modules '((guix build utils)
+       (modules '((Manifolding-OS build utils)
                   (ice-9 ftw)))
        (snippet
         #~(let ((delete-other-directories
@@ -45738,7 +45738,7 @@ Kubowicz's OpenDetex as its successor.")
     (source
      (origin
        (inherit (package-source texlive-source))
-       (modules '((guix build utils)
+       (modules '((Manifolding-OS build utils)
                   (ice-9 ftw)))
        (snippet
         #~(let ((delete-other-directories
@@ -45907,7 +45907,7 @@ which is readily readable by humans.  The DTL bundle contains an assembler
     (source
      (origin
        (inherit (package-source texlive-source))
-       (modules '((guix build utils)
+       (modules '((Manifolding-OS build utils)
                   (ice-9 ftw)))
        (snippet
         #~(let ((delete-other-directories
@@ -46033,7 +46033,7 @@ the document.")
     (source
      (origin
        (inherit (package-source texlive-source))
-       (modules '((guix build utils)
+       (modules '((Manifolding-OS build utils)
                   (ice-9 ftw)))
        (snippet
         #~(let ((delete-other-directories
@@ -46187,7 +46187,7 @@ exclusions.")
     (source
      (origin
        (inherit (package-source texlive-source))
-       (modules '((guix build utils)
+       (modules '((Manifolding-OS build utils)
                   (ice-9 ftw)))
        (snippet
         #~(let ((delete-other-directories
@@ -46294,7 +46294,7 @@ file.  It also supports XeTeX XDV format.")
     (source
      (origin
        (inherit (package-source texlive-source))
-       (modules '((guix build utils)
+       (modules '((Manifolding-OS build utils)
                   (ice-9 ftw)))
        (snippet
         #~(let ((delete-other-directories
@@ -46370,7 +46370,7 @@ transforms between a DVI file and a text file.")
     (source
      (origin
        (inherit (package-source texlive-source))
-       (modules '((guix build utils)
+       (modules '((Manifolding-OS build utils)
                   (ice-9 ftw)))
        (snippet
         #~(let ((delete-other-directories
@@ -46449,7 +46449,7 @@ not read the postamble, so it can be started before TeX finishes.")
     (source
      (origin
        (inherit (package-source texlive-source))
-       (modules '((guix build utils)
+       (modules '((Manifolding-OS build utils)
                   (ice-9 ftw)))
        (snippet
         #~(let ((delete-other-directories
@@ -46531,7 +46531,7 @@ and @samp{y} location.")
     (source
      (origin
        (inherit (package-source texlive-source))
-       (modules '((guix build utils)
+       (modules '((Manifolding-OS build utils)
                   (ice-9 ftw)))
        (snippet
         #~(let ((delete-other-directories
@@ -46636,7 +46636,7 @@ support SVG fonts are enabled to render the graphics properly.")
     (source
      (origin
        (inherit (package-source texlive-source))
-       (modules '((guix build utils)
+       (modules '((Manifolding-OS build utils)
                   (ice-9 ftw)))
        (snippet
         #~(let ((delete-other-directories
@@ -49579,7 +49579,7 @@ distributed as package @code{pTeX-manual}.")
     (source
      (origin
        (inherit (package-source texlive-source))
-       (modules '((guix build utils)
+       (modules '((Manifolding-OS build utils)
                   (ice-9 ftw)))
        (snippet
         #~(let ((delete-other-directories
@@ -51444,7 +51444,7 @@ a Type 1 font.
     (source
      (origin
        (inherit (package-source texlive-source))
-       (modules '((guix build utils)
+       (modules '((Manifolding-OS build utils)
                   (ice-9 ftw)))
        (snippet
         #~(let ((delete-other-directories
@@ -52289,7 +52289,7 @@ does pdfTeX.")
     (source
      (origin
        (inherit (package-source texlive-source))
-       (modules '((guix build utils)
+       (modules '((Manifolding-OS build utils)
                   (ice-9 ftw)))
        (snippet
         #~(let ((delete-other-directories
@@ -52375,7 +52375,7 @@ PostScript.")
     (source
      (origin
        (inherit (package-source texlive-source))
-       (modules '((guix build utils)
+       (modules '((Manifolding-OS build utils)
                   (ice-9 ftw)))
        (snippet
         #~(let ((delete-other-directories
@@ -52486,7 +52486,7 @@ generated code can be included in any LaTeX document.")
     (source
      (origin
        (inherit (package-source texlive-source))
-       (modules '((guix build utils)
+       (modules '((Manifolding-OS build utils)
                   (ice-9 ftw)))
        (snippet
         #~(let ((delete-other-directories
@@ -53835,7 +53835,7 @@ SeeTeX project.
     (source
      (origin
        (inherit (package-source texlive-source))
-       (modules '((guix build utils)
+       (modules '((Manifolding-OS build utils)
                   (ice-9 ftw)))
        (snippet
         #~(let ((delete-other-directories
@@ -56967,9 +56967,9 @@ stamps you must point to a valid PDF of Deutsche Post's Ausdruck
     (arguments
      (list
       #:tests? #true
-      #:modules '((guix build texlive-build-system)
-                  ((guix build gnu-build-system) #:prefix gnu:)
-                  (guix build utils)
+      #:modules '((Manifolding-OS build texlive-build-system)
+                  ((Manifolding-OS build gnu-build-system) #:prefix gnu:)
+                  (Manifolding-OS build utils)
                   (srfi srfi-1))
       #:phases
       #~(modify-phases %standard-phases
@@ -57072,7 +57072,7 @@ produce bounding box values for Rawppm or Rawpbm format files.")
     (source
      (origin
        (inherit (package-source texlive-source))
-       (modules '((guix build utils)
+       (modules '((Manifolding-OS build utils)
                   (ice-9 ftw)))
        (snippet
         #~(let ((delete-other-directories
@@ -57159,7 +57159,7 @@ documents generated that use Type 1 fonts.")
     (source
      (origin
        (inherit (package-source texlive-source))
-       (modules '((guix build utils)
+       (modules '((Manifolding-OS build utils)
                   (ice-9 ftw)))
        (snippet
         #~(let ((delete-other-directories
@@ -57258,7 +57258,7 @@ printing.  Utilities include @command{psbook}, @command{psselect},
     (source
      (origin
        (inherit (package-source texlive-source))
-       (modules '((guix build utils)
+       (modules '((Manifolding-OS build utils)
                   (ice-9 ftw)))
        (snippet
         #~(let ((delete-other-directories
@@ -58528,7 +58528,7 @@ and -editable format;
     (source
      (origin
        (inherit (package-source texlive-source))
-       (modules '((guix build utils)
+       (modules '((Manifolding-OS build utils)
                   (ice-9 ftw)))
        (snippet
         #~(let ((delete-other-directories
@@ -58914,7 +58914,7 @@ such as @code{gellmu}.")
     (source
      (origin
        (inherit (package-source texlive-source))
-       (modules '((guix build utils)
+       (modules '((Manifolding-OS build utils)
                   (ice-9 ftw)))
        (snippet
         #~(let ((delete-other-directories
@@ -61880,7 +61880,7 @@ is planned.")
     (source
      (origin
        (inherit (package-source texlive-source))
-       (modules '((guix build utils)
+       (modules '((Manifolding-OS build utils)
                   (ice-9 ftw)))
        (snippet
         #~(let ((delete-other-directories
@@ -62039,7 +62039,7 @@ emulates the macro, using TikZ.")
     (source
      (origin
        (inherit (package-source texlive-source))
-       (modules '((guix build utils)
+       (modules '((Manifolding-OS build utils)
                   (ice-9 ftw)))
        (snippet
         #~(let ((delete-other-directories
@@ -62215,7 +62215,7 @@ Zhuyin) for Chinese Han scripts (Hanzi ideographs).
     (source
      (origin
        (inherit (package-source texlive-source))
-       (modules '((guix build utils)
+       (modules '((Manifolding-OS build utils)
                   (ice-9 ftw)))
        (snippet
         #~(let ((delete-other-directories
@@ -62670,7 +62670,7 @@ command line or from within a (shell) script.  The programs work with
     (source
      (origin
        (inherit (package-source texlive-source))
-       (modules '((guix build utils)
+       (modules '((Manifolding-OS build utils)
                   (ice-9 ftw)))
        (snippet
         #~(let ((delete-other-directories
@@ -64307,7 +64307,7 @@ dealing with Type 1 fonts, direct.")
     (source
      (origin
        (inherit (package-source texlive-source))
-       (modules '((guix build utils)
+       (modules '((Manifolding-OS build utils)
                   (ice-9 ftw)))
        (snippet
         #~(let ((delete-other-directories
@@ -64510,7 +64510,7 @@ MusiXTeX processing.")
     (source
      (origin
        (inherit (package-source texlive-source))
-       (modules '((guix build utils)
+       (modules '((Manifolding-OS build utils)
                   (ice-9 ftw)))
        (snippet
         #~(let ((delete-other-directories
@@ -73238,7 +73238,7 @@ always (re)defines a command.  There is also @code{\\makeenvironment} and
     (source
      (origin
        (inherit (package-source texlive-source))
-       (modules '((guix build utils)
+       (modules '((Manifolding-OS build utils)
                   (ice-9 ftw)))
        (snippet
         #~(let ((delete-other-directories
@@ -73447,9 +73447,9 @@ with traditional TeX as well as with Unicode aware variants.")
             (lambda _
               ;; Extend the current TEXMF environment variable to make
               ;; Polyglossia own libraries visible.
-              (setenv "GUIX_TEXMF"
+              (setenv "MANIFOLDING_OS_TEXMF"
                       (string-append (getcwd) ":"
-                                     (getenv "GUIX_TEXMF"))))))))
+                                     (getenv "MANIFOLDING_OS_TEXMF"))))))))
     (native-inputs
      (list (texlive-local-tree
             (list texlive-amiri
@@ -74338,8 +74338,8 @@ also takes care of the involved internal macros.")
     (build-system texlive-build-system)
     (arguments
      (list
-      #:modules '((guix build texlive-build-system)
-                  (guix build utils)
+      #:modules '((Manifolding-OS build texlive-build-system)
+                  (Manifolding-OS build utils)
                   (ice-9 match))
       #:phases
       #~(modify-phases %standard-phases
@@ -77601,10 +77601,10 @@ documents as well as DVI output.")
      (list
       #:tests? #true
       #:imported-modules `(,@%texlive-build-system-modules
-                           (guix build perl-build-system))
-      #:modules '((guix build texlive-build-system)
-                  ((guix build perl-build-system) #:prefix perl:)
-                  (guix build utils))
+                           (Manifolding-OS build perl-build-system))
+      #:modules '((Manifolding-OS build texlive-build-system)
+                  ((Manifolding-OS build perl-build-system) #:prefix perl:)
+                  (Manifolding-OS build utils))
       #:phases
       #~(modify-phases %standard-phases
           (add-after 'unpack 'unpack-biber-source
@@ -77887,7 +77887,7 @@ and Karl Berry.")
               (sha256
                (base32
                 "1vfq30big55038bcymh83xh9dqp9wn0gnw0f6644xcw6zdj8igir"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                '(begin
                   (delete-file-recursively "3rdparty")))))
@@ -79669,8 +79669,8 @@ a counter to be reset when another is incremented) and
     (build-system texlive-build-system)
     (arguments
      (list
-      #:modules '((guix build texlive-build-system)
-                  (guix build utils)
+      #:modules '((Manifolding-OS build texlive-build-system)
+                  (Manifolding-OS build utils)
                   (srfi srfi-1))
       #:phases
       #~(modify-phases %standard-phases
@@ -79682,7 +79682,7 @@ a counter to be reset when another is incremented) and
                 (("(local distribution_url *= *).*" _ lead)
                  (string-append lead "\"https://guix.gnu.org\"\n"))
                 (("(local distribution_path *= *).*" _ lead)
-                 (string-append lead "os.getenv(\"GUIX_TEXMF\")\n"))
+                 (string-append lead "os.getenv(\"MANIFOLDING_OS_TEXMF\")\n"))
                 ;; Set user_cache to "~/.cache/texliveYYYY" instead of
                 ;; "~/.texliveYYYY".
                 (("(local user_cache *= *\"home:)\\.(.*)" _ lead trail)
@@ -84476,7 +84476,7 @@ configuration of its own fixed names, using @file{.mld} files.")
                 (sha256
                  (base32
                   "13cx97zp9vya6hmir73nnlq2dq4s5wdwjqrc2945wrc0hb4z8k92"))
-                (modules '((guix build utils)))
+                (modules '((Manifolding-OS build utils)))
                 (snippet
                  ;; Remove scripts/ directory containing Python scripts and
                  ;; wheels.  Install these via propagated-inputs instead.
@@ -94226,7 +94226,7 @@ in terms of the collating order of the text being processed.")
     (source
      (origin
        (inherit (package-source texlive-source))
-       (modules '((guix build utils)
+       (modules '((Manifolding-OS build utils)
                   (ice-9 ftw)))
        (snippet
         #~(let ((delete-other-directories
@@ -97882,7 +97882,7 @@ that it will build with web2c out of the box.")
     (source
      (origin
        (inherit (package-source texlive-source))
-       (modules '((guix build utils)
+       (modules '((Manifolding-OS build utils)
                   (ice-9 ftw)))
        (snippet
         #~(let ((delete-other-directories
@@ -97970,7 +97970,7 @@ that it will build with web2c out of the box.")
     (source
      (origin
        (inherit (package-source texlive-source))
-       (modules '((guix build utils)
+       (modules '((Manifolding-OS build utils)
                   (ice-9 ftw)))
        (snippet
         #~(let ((delete-other-directories

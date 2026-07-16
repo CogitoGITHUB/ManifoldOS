@@ -16,13 +16,13 @@
 ;;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages rocm-libs)
-  #:use-module (guix build-system cmake)
-  #:use-module (guix build-system pyproject)
-  #:use-module (guix gexp)
-  #:use-module (guix git-download)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix packages)
-  #:use-module (guix utils)
+  #:use-module (Manifolding-OS build-system cmake)
+  #:use-module (Manifolding-OS build-system pyproject)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS utils)
   #:use-module (gnu packages)
   #:use-module (gnu packages algebra)
   #:use-module (gnu packages base)
@@ -75,9 +75,9 @@
                               (location #f))
   (computed-file
    (string-append name "-" %rocm-version)
-   (with-imported-modules '((guix build utils))
+   (with-imported-modules '((Manifolding-OS build utils))
      #~(begin
-         (use-modules (guix build utils))
+         (use-modules (Manifolding-OS build utils))
          (copy-recursively
           (string-append #$rocm-libraries-monorepo
                          #$(if location

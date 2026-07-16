@@ -19,7 +19,7 @@
         rebase = true
 
 [sendemail]
-        to = guix-patches@gnu.org
+        to = Manifolding-OS-patches@gnu.org
         headerCmd = etc/teams.scm cc-members-header-cmd
         thread = no
 
@@ -27,6 +27,6 @@
         attestation-check-dkim = off
         attestation-policy = off
         shazam-am-flags = --signoff --3way
-        linkmask = https://yhetil.org/guix/%s
-        linktrailermask = https://yhetil.org/guix/%s
-        midmask = https://yhetil.org/guix/%s
+        linkmask = https://yhetil.org/Manifolding-OS/%s
+        linktrailermask = https://yhetil.org/Manifolding-OS/%s
+        midmask = https://yhetil.org/Manifolding-OS/%s

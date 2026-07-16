@@ -23,13 +23,13 @@
 (define-module (gnu packages skarnet)
   #:use-module (gnu packages)
   #:use-module (gnu packages bash)
-  #:use-module (guix gexp)
-  #:use-module (guix licenses)
-  #:use-module (guix packages)
-  #:use-module (guix download)
-  #:use-module ((guix build utils)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS licenses)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS download)
+  #:use-module ((Manifolding-OS build utils)
                 #:select (search-input-file search-input-directory))
-  #:use-module (guix build-system gnu))
+  #:use-module (Manifolding-OS build-system gnu))
 
 (define-public skalibs
   (package

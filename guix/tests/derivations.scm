@@ -20,23 +20,23 @@
 (unsetenv "http_proxy")
 
 (define-module (test-derivations)
-  #:use-module (guix derivations)
-  #:use-module (guix gexp)
-  #:use-module (guix store)
-  #:use-module (guix utils)
+  #:use-module (Manifolding-OS derivations)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS store)
+  #:use-module (Manifolding-OS utils)
   #:use-module ((gcrypt hash) #:prefix gcrypt:)
-  #:use-module (guix base32)
-  #:use-module ((guix git) #:select (with-repository))
-  #:use-module (guix config)
-  #:use-module (guix tests)
-  #:use-module (guix tests git)
-  #:use-module (guix tests http)
-  #:use-module ((guix packages) #:select (package-derivation base32))
-  #:use-module ((guix build utils)
+  #:use-module (Manifolding-OS base32)
+  #:use-module ((Manifolding-OS git) #:select (with-repository))
+  #:use-module (Manifolding-OS config)
+  #:use-module (Manifolding-OS tests)
+  #:use-module (Manifolding-OS tests git)
+  #:use-module (Manifolding-OS tests http)
+  #:use-module ((Manifolding-OS packages) #:select (package-derivation base32))
+  #:use-module ((Manifolding-OS build utils)
                 #:select (executable-file? strip-store-file-name which))
   #:use-module ((gnu build linux-container)
                 #:select (unprivileged-user-namespace-supported?))
-  #:use-module ((guix hash) #:select (file-hash*))
+  #:use-module ((Manifolding-OS hash) #:select (file-hash*))
   #:use-module ((git oid) #:select (oid->string))
   #:use-module ((git reference) #:select (reference-name->oid))
   #:use-module (gnu packages bootstrap)
@@ -941,19 +941,19 @@
       (build-derivations %store (list drv))
       #f)))
 
-;; Here we should get the value of $GUIX_STATE_DIRECTORY that the daemon sees,
+;; Here we should get the value of $MANIFOLDING_OS_STATE_DIRECTORY that the daemon sees,
 ;; which is a unique value for each test process; this value is the same as
 ;; the one we see in the process executing this file since it is set by
 ;; 'test-env'.
 (test-equal "derivation #:leaked-env-vars"
-  (getenv "GUIX_STATE_DIRECTORY")
-  (let* ((value (getenv "GUIX_STATE_DIRECTORY"))
+  (getenv "MANIFOLDING_OS_STATE_DIRECTORY")
+  (let* ((value (getenv "MANIFOLDING_OS_STATE_DIRECTORY"))
          (drv   (derivation %store "leaked-env-vars" %bash
-                            '("-c" "echo -n $GUIX_STATE_DIRECTORY > $out")
+                            '("-c" "echo -n $MANIFOLDING_OS_STATE_DIRECTORY > $out")
                             #:hash (gcrypt:sha256 (string->utf8 value))
                             #:hash-algo 'sha256
                             #:sources (list %bash)
-                            #:leaked-env-vars '("GUIX_STATE_DIRECTORY"))))
+                            #:leaked-env-vars '("MANIFOLDING_OS_STATE_DIRECTORY"))))
     (and (build-derivations %store (list drv))
          (call-with-input-file (derivation->output-path drv)
            get-string-all))))
@@ -1018,12 +1018,12 @@
 (test-skip (if (%guile-for-build) 0 8))
 
 (test-equal "build-expression->derivation and invalid module name"
-  '(file-search-error "guix/module/that/does/not/exist.scm")
+  '(file-search-error "Manifolding-OS/module/that/does/not/exist.scm")
   (guard (c ((file-search-error? c)
              (list 'file-search-error
                    (file-search-error-file-name c))))
     (build-expression->derivation %store "foo" #t
-                                  #:modules '((guix module that
+                                  #:modules '((Manifolding-OS module that
                                                     does not exist)))))
 
 (test-equal "build-expression->derivation and builder encoding"
@@ -1346,7 +1346,7 @@
         (set! query paths)
         '())
 
-      (mock ((guix store) substitutable-path-info
+      (mock ((Manifolding-OS store) substitutable-path-info
              record-substitutable-path-query)
 
             (let ((pred (substitution-oracle store (list drv))))
@@ -1410,14 +1410,14 @@
 
 (test-assert "build-expression->derivation with modules"
   (let* ((builder  `(begin
-                      (use-modules (guix build utils))
+                      (use-modules (Manifolding-OS build utils))
                       (let ((out (assoc-ref %outputs "out")))
                         (mkdir-p (string-append out "/guile/guix/nix"))
                         #t)))
          (drv      (build-expression->derivation %store "test-with-modules"
                                                  builder
                                                  #:modules
-                                                 '((guix build utils)))))
+                                                 '((Manifolding-OS build utils)))))
     (and (build-derivations %store (list drv))
          (let* ((p (derivation->output-path drv))
                 (s (stat (string-append p "/guile/guix/nix"))))
@@ -1617,9 +1617,9 @@
          (bash-input-drv (derivation-input-derivation bash-input))
          (drv-with-modules (run-with-store %store
                              (gexp->derivation "derivation-with-modules"
-                                               (with-imported-modules '((guix build utils))
+                                               (with-imported-modules '((Manifolding-OS build utils))
                                                  #~(begin
-                                                     (use-modules (guix build utils))
+                                                     (use-modules (Manifolding-OS build utils))
                                                      (mkdir-p (string-append #$output
                                                                              "/bin")))))))
          (bash-mapped-1 (map-derivation %store bash-drv

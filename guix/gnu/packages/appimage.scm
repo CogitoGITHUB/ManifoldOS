@@ -17,7 +17,7 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages appimage)
-  #:use-module ((guix licenses) #:prefix license:)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
   #:use-module (gnu packages base)
   #:use-module (gnu packages c)
   #:use-module (gnu packages compression)
@@ -25,11 +25,11 @@
   #:use-module (gnu packages linux)
   #:use-module (gnu packages pkg-config)
   #:use-module (gnu packages)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix gexp)
-  #:use-module (guix git-download)
-  #:use-module (guix packages)
-  #:use-module (guix utils))
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS utils))
 
 (define-public appimage-type2-runtime
   (let ((revision "1")
@@ -61,8 +61,8 @@
                  " -static"
                  " -Wno-int-conversion"))
         #:modules
-        `((guix build gnu-build-system)
-          (guix build utils)
+        `((Manifolding-OS build gnu-build-system)
+          (Manifolding-OS build utils)
           (ice-9 binary-ports))
         #:phases
         #~(modify-phases %standard-phases

@@ -17,13 +17,13 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages maven-parent-pom)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix packages)
-  #:use-module (guix download)
-  #:use-module (guix gexp)
-  #:use-module (guix git-download)
-  #:use-module (guix utils)
-  #:use-module (guix build-system ant)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS utils)
+  #:use-module (Manifolding-OS build-system ant)
   #:use-module (gnu packages java))
 
 (define (make-apache-parent-pom version hash)
@@ -490,7 +490,7 @@ other projects as their parent pom.")
            ,@(if replacements
                  `((add-before 'install 'fix-pom
                     (lambda _
-                      (use-modules (guix build maven pom))
+                      (use-modules (Manifolding-OS build maven pom))
                       (fix-pom-dependencies "pom.xml" '() #:local-packages (quote ,(force replacements))))))
                  '())
            (replace 'install

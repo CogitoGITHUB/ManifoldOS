@@ -17,7 +17,7 @@
 
 (define-module (gnu packages gkrellm)
   #:use-module (gnu packages monitoring)
-  #:use-module (guix deprecation))
+  #:use-module (Manifolding-OS deprecation))
 
 (define-deprecated/public-alias gkrellm
-  (@ (guix packages monitoring) gkrellm))
+  (@ (Manifolding-OS packages monitoring) gkrellm))

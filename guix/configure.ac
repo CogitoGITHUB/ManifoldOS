@@ -31,7 +31,7 @@ AM_INIT_AUTOMAKE([1.14 gnu tar-ustar silent-rules subdir-objects \
 # Enable silent rules by default.
 AM_SILENT_RULES([yes])
 
-AC_CONFIG_SRCDIR([guix.scm])
+AC_CONFIG_SRCDIR([Manifolding-OS.scm])
 AC_CONFIG_MACRO_DIR([m4])
 
 dnl For the C++ code.  This must be used early.
@@ -321,11 +321,11 @@ case "$storedir" in
 esac
 
 AC_CONFIG_FILES([Makefile
-                 po/guix/Makefile.in
+                 po/Manifolding-OS/Makefile.in
                  po/packages/Makefile.in
-                 etc/guix-daemon.cil
-                 etc/apparmor.d/tunables/guix
-                 guix/config.scm])
+                 etc/Manifolding-OS-daemon.cil
+                 etc/apparmor.d/tunables/Manifolding-OS
+                 Manifolding-OS/config.scm])
 
 AC_CONFIG_FILES([etc/committer.scm], [chmod +x etc/committer.scm])
 AC_CONFIG_FILES([test-env:build-aux/test-env.in], [chmod +x test-env])

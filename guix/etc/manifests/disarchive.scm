@@ -20,8 +20,8 @@
 ;;; metadata for all the tarballs packages refer to.
 
 (use-modules (srfi srfi-1) (ice-9 match)
-             (guix packages) (guix gexp) (guix profiles)
-             (guix base16)
+             (Manifolding-OS packages) (Manifolding-OS gexp) (Manifolding-OS profiles)
+             (Manifolding-OS base16)
              (gnu packages))
 
 (include "source.scm")
@@ -54,9 +54,9 @@ an empty directory if ORIGIN could not be disassembled."
     (specification->package "disarchive"))
 
   (define build
-    (with-imported-modules '((guix build utils))
+    (with-imported-modules '((Manifolding-OS build utils))
       #~(begin
-          (use-modules (guix build utils)
+          (use-modules (Manifolding-OS build utils)
                        (srfi srfi-34))
 
           (define tarball

@@ -22,15 +22,15 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages racket)
-  #:use-module (guix packages)
-  #:use-module (guix download)
-  #:use-module (guix git-download)
-  #:use-module (guix utils)
-  #:use-module (guix gexp)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix diagnostics)
-  #:use-module (guix i18n)
-  #:use-module ((guix search-paths) #:select ($SSL_CERT_DIR $SSL_CERT_FILE))
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS utils)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS diagnostics)
+  #:use-module (Manifolding-OS i18n)
+  #:use-module ((Manifolding-OS search-paths) #:select ($SSL_CERT_DIR $SSL_CERT_FILE))
   #:use-module (srfi srfi-1)
   #:use-module (srfi srfi-26)
   #:use-module (srfi srfi-34)
@@ -52,7 +52,7 @@
   #:use-module (gnu packages sqlite)
   #:use-module (gnu packages tls)
   #:use-module (gnu packages xorg)
-  #:use-module ((guix licenses) #:prefix license:))
+  #:use-module ((Manifolding-OS licenses) #:prefix license:))
 
 ;; COMMENTARY:
 ;;
@@ -217,13 +217,13 @@
     (patches (search-patches "racket-chez-scheme-bin-sh.patch"
                              "racket-launcher-config-dir.patch"
                              "racket-rktio-bin-sh.patch"))
-    (modules '((guix build utils)))
+    (modules '((Manifolding-OS build utils)))
     (snippet
      #~(begin
-         (use-modules (guix build utils))
+         (use-modules (Manifolding-OS build utils))
          ;; Unbundle Chez submodules and boot files.
          (with-directory-excursion "racket/src/ChezScheme"
-           ;; TODO: consider putting this in a (guix ...) or (guix build ...)
+           ;; TODO: consider putting this in a (Manifolding-OS ...) or (Manifolding-OS build ...)
            ;; module so it can be shared with the upstream Chez Scheme origin
            ;; without cyclic issues.
            (for-each (lambda (dir)
@@ -334,8 +334,8 @@ One of the early layers implements macros.")
        #:out-of-source? #t
        #:modules '((ice-9 match)
                    (ice-9 regex)
-                   (guix build gnu-build-system)
-                   (guix build utils))
+                   (Manifolding-OS build gnu-build-system)
+                   (Manifolding-OS build utils))
        #:strip-directories #~'("opt/racket-vm/bin"
                                "opt/racket-vm/lib")
        #:phases
@@ -516,9 +516,9 @@ Examples:
 - (\"racket-lib\" \"pkgs/racket-lib\")"
   (computed-file
    (string-append "racket-pkg-" name "-sources")
-   (with-imported-modules `((guix build utils))
+   (with-imported-modules `((Manifolding-OS build utils))
      #~(begin
-         (use-modules (guix build utils))
+         (use-modules (Manifolding-OS build utils))
          (mkdir-p (string-append #$output "/share/racket/pkgs"))
          (chdir (string-append #$output "/share/racket/pkgs"))
          #$@(map (match-lambda
@@ -580,11 +580,11 @@ used to build the name of the resulting store item."
                   #$(file-append (this-package-input "sqlite") "/lib"))))
       #:make-flags #~`("racket-lib")
       #:tests? #f ;; packaged separately
-      #:modules '((guix build gnu-build-system)
-                  (guix build utils)
-                  (guix build union)
+      #:modules '((Manifolding-OS build gnu-build-system)
+                  (Manifolding-OS build utils)
+                  (Manifolding-OS build union)
                   (ice-9 match))
-      #:imported-modules `((guix build union)
+      #:imported-modules `((Manifolding-OS build union)
                            ,@%default-gnu-imported-modules)
       #:phases
       #~(modify-phases %standard-phases

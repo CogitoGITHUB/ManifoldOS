@@ -22,12 +22,12 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages rails)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix gexp)
-  #:use-module (guix download)
-  #:use-module (guix git-download)
-  #:use-module (guix packages)
-  #:use-module (guix utils)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS utils)
   #:use-module (gnu packages)
   #:use-module (gnu packages base)
   #:use-module (gnu packages databases)
@@ -37,7 +37,7 @@
   #:use-module (gnu packages ruby-xyz)
   #:use-module (gnu packages sqlite)
   #:use-module (gnu packages version-control)
-  #:use-module (guix build-system ruby)
+  #:use-module (Manifolding-OS build-system ruby)
   #:use-module ((srfi srfi-1) #:select (alist-delete)))
 
 (define %ruby-rails-version "7.2.2.1")

@@ -30,16 +30,16 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages lxqt)
-  #:use-module (guix download)
-  #:use-module (guix git-download)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix gexp)
-  #:use-module (guix packages)
-  #:use-module (guix utils)
-  #:use-module (guix build-system cmake)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system qt)
-  #:use-module (guix build-system trivial)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS utils)
+  #:use-module (Manifolding-OS build-system cmake)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system qt)
+  #:use-module (Manifolding-OS build-system trivial)
   #:use-module (gnu packages)
   #:use-module (gnu packages admin)
   #:use-module (gnu packages bash)
@@ -118,8 +118,8 @@ to statistics about the system on which it's run.")
      (list
       #:tests? #f                       ; no tests
       #:modules `((ice-9 regex)
-                  (guix build cmake-build-system)
-                  (guix build utils))
+                  (Manifolding-OS build cmake-build-system)
+                  (Manifolding-OS build utils))
       ;; In phases and configure-flags: Set LXQT_TRANSLATIONS_DIR,
       ;; LXQT_DATA_DIR, etc. to relative paths, so that packages using
       ;; LXQtConfigVars.cmake from lxqt-build-tools will install translations

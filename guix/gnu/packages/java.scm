@@ -42,20 +42,20 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages java)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix packages)
-  #:use-module (guix download)
-  #:use-module (guix hg-download)
-  #:use-module (guix git-download)
-  #:use-module (guix svn-download)
-  #:use-module ((guix build utils) #:select (alist-replace))
-  #:use-module (guix utils)
-  #:use-module (guix gexp)
-  #:use-module (guix build-system ant)
-  #:use-module (guix build-system cmake)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system maven)
-  #:use-module (guix build-system pyproject)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS hg-download)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS svn-download)
+  #:use-module ((Manifolding-OS build utils) #:select (alist-replace))
+  #:use-module (Manifolding-OS utils)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS build-system ant)
+  #:use-module (Manifolding-OS build-system cmake)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system maven)
+  #:use-module (Manifolding-OS build-system pyproject)
   #:use-module (gnu packages)
   #:use-module (gnu packages attr)
   #:use-module (gnu packages autotools)
@@ -142,7 +142,7 @@
                 (sha256
                  (base32
                   "1w331rdqx1dcx2xb0fmjmrkdc71xqn20fxsgw8by4xhiblh88khh"))
-                (modules '((guix build utils)))
+                (modules '((Manifolding-OS build utils)))
                 (snippet
                  '(substitute* "Makefile.in"
                     ;; do not leak information about the build host
@@ -166,8 +166,8 @@
         ;; libraries found under e.g. 'lib/amd64' on x86_64, and the build
         ;; system blissfully ignores LDFLAGS; disable it.
         #:validate-runpath? #f
-        #:modules '((guix build utils)
-                    (guix build gnu-build-system)
+        #:modules '((Manifolding-OS build utils)
+                    (Manifolding-OS build gnu-build-system)
                     (ice-9 match)
                     (ice-9 popen)
                     (srfi srfi-19)
@@ -711,7 +711,7 @@ IcedTea build harness.")
                 (sha256
                  (base32
                   "1cmms7cb2sav3ywc36ynqmybzx73sl279rm6j8i5nqrmp98ixmpf"))
-                (modules '((guix build utils)))
+                (modules '((Manifolding-OS build utils)))
                 (snippet
                  '(substitute* '("configure"
                                  "acinclude.m4")
@@ -724,14 +724,14 @@ IcedTea build harness.")
       (arguments
        (substitute-keyword-arguments (package-arguments icedtea-7)
          ((#:imported-modules modules %default-gnu-imported-modules)
-          (cons '(guix build ant-build-system) modules))
+          (cons '(Manifolding-OS build ant-build-system) modules))
          ((#:disallowed-references refs '())
           (cons (gexp-input
                  (this-package-native-input "jdk")
                  "jdk")
                 refs))
          ((#:modules modules %default-gnu-modules)
-          (append '(((guix build ant-build-system) #:prefix ant:)
+          (append '(((Manifolding-OS build ant-build-system) #:prefix ant:)
                     (ice-9 match)
                     (ice-9 popen)
                     (srfi srfi-1)
@@ -887,7 +887,7 @@ new Date();"))))
               (uri (hg-reference (url "https://hg.openjdk.org/jdk/jdk")
                                  (changeset "jdk-9+181")))
               (file-name (hg-file-name name version))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet '(for-each delete-file
                                   (find-files "." ".*.(bin|exe|jar)$")))
               (sha256
@@ -908,7 +908,7 @@ new Date();"))))
     (arguments
      (list
       #:imported-modules
-      (cons '(guix build ant-build-system)
+      (cons '(Manifolding-OS build ant-build-system)
             %default-gnu-imported-modules)
       #:modules
       (append '((ice-9 match)
@@ -1215,7 +1215,7 @@ new Date();"))))
               (uri (hg-reference (url "https://hg.openjdk.org/jdk/jdk")
                                  (changeset "jdk-10+46")))
               (file-name (hg-file-name name version))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet `(begin
                           (for-each delete-file
                                     (find-files "." ".*.(bin|exe|jar)$"))))
@@ -1317,7 +1317,7 @@ new Date();"))))
               (sha256
                (base32
                 "18ca4syp9xlrqjgyjkb1sp9835riy6aym5xs81r8byrz6jlb2473"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                '(for-each delete-file (find-files "." "\\.(bin|exe|jar)$")))
               (patches
@@ -1334,8 +1334,8 @@ new Date();"))))
      (list
       ;; Prevent a java.util.ConcurrentModificationException.
       #:parallel-build? #f
-      #:modules `((guix build gnu-build-system)
-                  (guix build utils)
+      #:modules `((Manifolding-OS build gnu-build-system)
+                  (Manifolding-OS build utils)
                   (ice-9 match)
                   (ice-9 popen)
                   (srfi srfi-1)
@@ -1640,7 +1640,7 @@ new Date();"))))
       (sha256
        (base32
         "0pi2gwib3j2imi4l623iaywrmvfh9rqzh82lj2gxqbrmg55swvjf"))
-      (modules '((guix build utils)))
+      (modules '((Manifolding-OS build utils)))
       (snippet
        '(for-each delete-file (find-files "." "\\.(bin|exe|jar)$")))
       (patches (search-patches "openjdk-10-setsignalhandler.patch"))))
@@ -2081,7 +2081,7 @@ OpenJDK.")
               (sha256
                (base32
                 "0p34pqknp2rbk5wk6zw8m6jfn7rkk7fyv3yvk9zhfxhhxrf0lfgh"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                '(begin
                   (for-each delete-file
@@ -2091,8 +2091,8 @@ OpenJDK.")
     (arguments
      (list
       #:modules '((srfi srfi-1)
-                  (guix build gnu-build-system)
-                  (guix build utils))
+                  (Manifolding-OS build gnu-build-system)
+                  (Manifolding-OS build utils))
       #:tests? #f                       ;no "check" target
       #:phases
       #~(modify-phases %standard-phases
@@ -2183,7 +2183,7 @@ build process and its dependencies, whereas Make uses Makefile format.")
                            version "-src.tar.gz"))
        (sha256
         (base32 "0m0vcazy1634nra8mcs3hvvf49avnbxf8f5y1icn5syi8hgy6pws"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         '(begin
            (for-each delete-file
@@ -2253,8 +2253,8 @@ build process and its dependencies, whereas Make uses Makefile format.")
     (arguments
      (substitute-keyword-arguments
          `(#:modules ((srfi srfi-1)
-                      (guix build gnu-build-system)
-                      (guix build utils))
+                      (Manifolding-OS build gnu-build-system)
+                      (Manifolding-OS build utils))
            #:tests? #f                  ; no "check" target
            #:phases
            (modify-phases %standard-phases
@@ -2519,7 +2519,7 @@ only faster.")
                                 (string-join (string-split version #\.) "u")
                                 "-ga"))))
               (file-name (string-append name "-" version "-checkout"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                '(begin
                   ;; Delete included gradle jar
@@ -2751,7 +2751,7 @@ OpenJFX distribution.")))
               (sha256
                (base32
                 "07ysav7j8r1c6h8qxrgqk6lwdp74ly0ad1935lragxml0qqc3ka0"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               ;; delete bundled jars
               (snippet '(begin (delete-file-recursively "lib") #t))))
     (build-system ant-build-system)
@@ -2828,7 +2828,7 @@ debugging, etc.")
        (file-name (git-file-name "javacc" version))
        (sha256
         (base32 "18kkak3gda93gr25jrgy6q00g0jr8i24ri2wk4kybz1v234fxx9i"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        ;; Delete bundled jars.
        (snippet '(begin (for-each delete-file-recursively
                                   '("bootstrap" "lib"))))))
@@ -2916,7 +2916,7 @@ debugging, etc.")
                 (sha256
                  (base32
                   "1i5adyf7nzclb0wydgwa1az04qliid8035vpahaandmkmigbnxiy"))
-                (modules '((guix build utils)))
+                (modules '((Manifolding-OS build utils)))
                 (snippet
                  '(begin
                     ;; Delete included gradle jar
@@ -3074,9 +3074,9 @@ libraries from the SIS division at ETH Zurich like jHDF5.")
       (arguments
        `(#:make-flags '("-file" "build/build.xml")
          #:tests? #f ; there are no tests
-         #:modules ((guix build ant-build-system)
-                    (guix build utils)
-                    (guix build java-utils)
+         #:modules ((Manifolding-OS build ant-build-system)
+                    (Manifolding-OS build utils)
+                    (Manifolding-OS build java-utils)
                     (sxml simple)
                     (sxml transform)
                     (sxml xpath))
@@ -3149,7 +3149,7 @@ libraries from the SIS division at ETH Zurich like jHDF5.")
              (sha256
               (base32
                "056cam4k8pll7ass31sy6gwn8g8719njc41yf4l02b0342nilkyf"))
-             (modules '((guix build utils)))
+             (modules '((Manifolding-OS build utils)))
              ;; Delete bundled pre-built jars.
              (snippet
               '(begin (delete-file-recursively "lib/") #t))))))
@@ -3176,7 +3176,7 @@ libraries from the SIS division at ETH Zurich like jHDF5.")
                 (sha256
                  (base32
                   "13i17s2hn0q9drdqvp8csy7770p3hdbh9rp30ihln2ldkfawdmz0"))
-                (modules '((guix build utils)))
+                (modules '((Manifolding-OS build utils)))
                 (snippet
                  '(begin
                     ;; Delete included gradle jar
@@ -3426,7 +3426,7 @@ specification.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "0rcphd1596ps87q31qmksnh1nc4m1x1rrkn9amk3ggwy9l2pavsy"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         ;; Remove @MustBeInvokedByOverriders annotations; not present
         ;; in java-jetbrains-annotations 19.0.0.
@@ -3443,9 +3443,9 @@ specification.")
       #:jdk openjdk17
       #:tests? #f
       ;; ant-build-system does not export a default-modules constant.
-      #:modules '((guix build ant-build-system)
-                  (guix build java-utils)
-                  (guix build utils)
+      #:modules '((Manifolding-OS build ant-build-system)
+                  (Manifolding-OS build java-utils)
+                  (Manifolding-OS build utils)
                   (sxml simple))
       #:phases
       #~(modify-phases %standard-phases
@@ -3524,7 +3524,7 @@ lightweight SVG parser and renderer using the Java2D API.")
        ;;   sxml->xml's check-name rejects symbols with more than
        ;;   one colon ("Invalid QName").
        ;;
-       ;; - fix-maven-xml from (guix build maven pom) strips those
+       ;; - fix-maven-xml from (Manifolding-OS build maven pom) strips those
        ;;   namespace prefixes before sxml->xml, but it is not
        ;;   exported.
        ;;
@@ -3762,7 +3762,7 @@ documentation tools.")
               (sha256
                (base32
                 "1v8irhni9cndcw1l1wxqgry013s2kpj0qqn57lj2ji28xjq8ndjl"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                '(begin
                   ;; Delete bundled thirds-party jar archives.
@@ -3865,7 +3865,7 @@ testing frameworks, mocking libraries and UI validation rules.")
               (sha256
                (base32
                 "16fxxkrd31ahqvcaby30jgh3z1i0zxh51m24hxgz0z2agxj6bc63"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                '(begin
                   ;; Delete bundled thirds-party jar archives.
@@ -3874,9 +3874,9 @@ testing frameworks, mocking libraries and UI validation rules.")
     (build-system ant-build-system)
     (arguments
      `(#:tests? #f ; Tests require junit
-       #:modules ((guix build ant-build-system)
-                  (guix build java-utils)
-                  (guix build utils)
+       #:modules ((Manifolding-OS build ant-build-system)
+                  (Manifolding-OS build java-utils)
+                  (Manifolding-OS build utils)
                   (srfi srfi-1))
        #:make-flags (list (string-append "-Dversion=" ,version))
        #:test-target "unit-test"
@@ -4010,7 +4010,7 @@ testing frameworks, mocking libraries and UI validation rules.")
               (sha256
                (base32
                 "1j8avi91px1z8rjc89cfikwrvfifdmmsarwiyrcnr59ynvpz0v8h"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                '(begin
                   ;; Delete bundled jar archives.
@@ -4800,7 +4800,7 @@ and decryption.")
               (sha256
                (base32
                 "0vmvgq5hfxs90yyxgssfpwq78l7vwx1ljwpkk594mrdr8sm668b5"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                `(begin
                   (for-each delete-file (find-files "." ".*.jar$"))
@@ -4968,9 +4968,9 @@ implementation to use in a project.")))
        #:jdk ,icedtea-8
        #:tests? #f; depends on compiler-test -> maven-core -> ... -> this package.
        #:test-dir "plexus-compilers/plexus-compiler-javac/src/test"
-       #:modules ((guix build ant-build-system)
-                  (guix build utils)
-                  (guix build java-utils)
+       #:modules ((Manifolding-OS build ant-build-system)
+                  (Manifolding-OS build utils)
+                  (Manifolding-OS build java-utils)
                   (sxml simple))
        #:phases
        (modify-phases %standard-phases
@@ -5582,7 +5582,7 @@ including java-asm.")
               (sha256
                (base32
                 "0xbyf2sl8j6mrvfpg2da0vjdp906rac62l66gkk82x5cn3vc30h4"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet `(for-each delete-file (find-files "." "\\.jar$")))))
     (arguments
      `(#:build-target "jar"
@@ -6667,7 +6667,7 @@ in the @code{java.lang} package.  The following classes are included:
               (sha256
                (base32
                 "1sbamr8jl32p1jgf59nw0b2w9qivyg145954hm6ly54cfgsqrdas"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                '(begin
                   (for-each delete-file
@@ -6677,9 +6677,9 @@ in the @code{java.lang} package.  The following classes are included:
     (arguments
      `(#:build-target "jar"
        #:tests? #f; No test file
-       #:modules ((guix build ant-build-system)
-                  (guix build utils)
-                  (guix build java-utils)
+       #:modules ((Manifolding-OS build ant-build-system)
+                  (Manifolding-OS build utils)
+                  (Manifolding-OS build java-utils)
                   (sxml simple))
        #:phases
        (modify-phases %standard-phases
@@ -7419,9 +7419,9 @@ programs.")
       #:jdk openjdk17
       #:tests? #f
       #:modules
-      '((guix build utils)
-        (guix build ant-build-system)
-        (guix build java-utils))
+      '((Manifolding-OS build utils)
+        (Manifolding-OS build ant-build-system)
+        (Manifolding-OS build java-utils))
       #:phases
       #~(modify-phases %standard-phases
           (replace 'build
@@ -7706,7 +7706,7 @@ components.")
                 (uri (git-reference
                       (url "https://github.com/osgi/osgi")
                       (commit tag)))
-                (modules '((guix build utils)))
+                (modules '((Manifolding-OS build utils)))
                 (snippet
                  '(begin
                     (for-each delete-file
@@ -7785,7 +7785,7 @@ the OSGi Core module.")
                 (uri (git-reference
                       (url "https://github.com/osgi/osgi")
                       (commit tag)))
-                (modules '((guix build utils)))
+                (modules '((Manifolding-OS build utils)))
                 (snippet
                  '(begin
                     (for-each delete-file
@@ -8956,7 +8956,7 @@ more efficient storage-wise than an uncompressed bitmap (as implemented in the
               (sha256
                (base32
                 "15n42zq3k1iyn752nwdcbs44hxns2rmxhglwjfr4np7lxx56apjl"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               ;; Delete bundled jars.
               (snippet
                '(begin
@@ -9154,7 +9154,7 @@ framework.")
               (sha256
                (base32
                 "1ffvcwdw73id0dk6pj2mlxjvbg0662qacx4ylayqcxgg381fnfl5"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                '(begin
                   (delete-file "antlr.jar")
@@ -9170,11 +9170,11 @@ framework.")
     (build-system gnu-build-system)
     (arguments
      `(#:tests? #f ; no test target
-       #:imported-modules ((guix build ant-build-system)
+       #:imported-modules ((Manifolding-OS build ant-build-system)
                            ,@%default-gnu-imported-modules)
-       #:modules (((guix build ant-build-system) #:prefix ant:)
-                  (guix build gnu-build-system)
-                  (guix build utils))
+       #:modules (((Manifolding-OS build ant-build-system) #:prefix ant:)
+                  (Manifolding-OS build gnu-build-system)
+                  (Manifolding-OS build utils))
        #:phases
        (modify-phases %standard-phases
          (add-after 'install 'strip-jar-timestamps
@@ -9220,8 +9220,8 @@ tree walking, and translation.")
     (arguments
      `(#:jar-name (string-append ,name "-" ,version ".jar")
        #:test-dir "test"
-       #:modules ((guix build ant-build-system)
-                  (guix build utils)
+       #:modules ((Manifolding-OS build ant-build-system)
+                  (Manifolding-OS build utils)
                   (srfi srfi-1))
        #:phases
        (modify-phases %standard-phases
@@ -9283,8 +9283,8 @@ StringTemplate also powers ANTLR.")
      `(#:jar-name (string-append ,name "-" ,version ".jar")
        #:tests? #f ; FIXME: tests fail for unknown reasons
        #:test-dir "test"
-       #:modules ((guix build ant-build-system)
-                  (guix build utils)
+       #:modules ((Manifolding-OS build ant-build-system)
+                  (Manifolding-OS build utils)
                   (srfi srfi-1))
        #:phases
        (modify-phases %standard-phases
@@ -9463,8 +9463,8 @@ tree walking, and translation.")
                                    "tool/src/main/antlr3")
                                  ":")
        #:tests? #f  ; FIXME: tests seem to require maven plugin
-       #:modules ((guix build ant-build-system)
-                  (guix build utils)
+       #:modules ((Manifolding-OS build ant-build-system)
+                  (Manifolding-OS build utils)
                   (srfi srfi-1))
        #:phases
        (modify-phases %standard-phases
@@ -10231,7 +10231,7 @@ in compiling bundles.")
                 (uri (git-reference
                       (url "https://github.com/osgi/osgi")
                       (commit tag)))
-                (modules '((guix build utils)))
+                (modules '((Manifolding-OS build utils)))
                 (snippet
                  '(begin
                     (for-each delete-file
@@ -10330,7 +10330,7 @@ and classes for use in compiling bundles.")
                     (url "https://github.com/apache/felix-dev")
                     (commit (string-append "org.apache.felix.resolver-"
                                            version))))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                '(begin
                   (for-each delete-file
@@ -10369,7 +10369,7 @@ specification, providing dependency resolution for OSGi bundles.")
                     (url "https://github.com/apache/felix-dev")
                     (commit (string-append "org.apache.felix.framework-"
                                            version))))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                '(begin
                   (for-each delete-file
@@ -10468,7 +10468,7 @@ Framework and Service platform.")
                     (url "https://github.com/apache/felix-dev")
                     (commit (string-append "org.apache.felix.main-"
                                            version))))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                '(begin
                   (for-each delete-file
@@ -11874,9 +11874,9 @@ the subsequent value resolution at any given level.")
        #:jdk ,icedtea-8
        #:make-flags
        (list "-Ddist.dir=dist")
-       #:modules ((guix build ant-build-system)
-                  (guix build java-utils)
-                  (guix build utils)
+       #:modules ((Manifolding-OS build ant-build-system)
+                  (Manifolding-OS build java-utils)
+                  (Manifolding-OS build utils)
                   (srfi srfi-1)
                   (ice-9 match))
        #:phases
@@ -11992,7 +11992,7 @@ the dependency is said to be unsatisfied, and the application is broken.")
                      (url "https://github.com/google/guice")
                      (commit version)))
               (file-name (git-file-name name version))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                `(begin
                   (for-each delete-file (find-files "." ".*.jar")) #t))
@@ -12139,7 +12139,7 @@ readability and make maintenance of tests easier.")
               (sha256
                (base32
                 "0h3zlcyqiaq01fspm69h7vki67raw305w89p4ha8vlhpzw02qifm"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                '(begin
                   (delete-file "javassist.jar")))))
@@ -12204,7 +12204,7 @@ annotations.")
               (sha256
                (base32
                 "1a6y46yz2ba4mnlfv4bpd5pmzhgxrzk3s10xp05jz377nbp2izwg"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                '(begin
                   ;; Delete bundled third-party jar archives.
@@ -12614,7 +12614,7 @@ algorithms and xxHash hashing algorithm.")
               (sha256
                (base32
                 "1449q7fyh03s1q0bqljcrhgacwcyqmg2bbvb3z084avgapwsainz"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                '(begin
                   (for-each delete-file
@@ -12700,7 +12700,7 @@ transitional release that still uses the @code{javax.activation} namespace.")
               (sha256
                (base32
                 "1adxic0pgb7gv2yflw72np7zilj6rrhgjcj3xvnmidwp2pc887k1"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                '(begin
                   (for-each delete-file
@@ -13792,7 +13792,7 @@ public Bundle getBundle()"))
         (base32 "1l0h2a6brzh4qrkjjxpiijjspapd1s7wr9pqzzwgh6qisjgb176w"))
        (patches
         (search-patches "java-simplevalidation-1.14.1.patch"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         '(begin
            (for-each delete-file (find-files "." "\\.jar$"))
@@ -13803,9 +13803,9 @@ public Bundle getBundle()"))
       #:jdk openjdk17
       #:tests? #f
       #:modules
-      '((guix build utils)
-        (guix build ant-build-system)
-        (guix build java-utils)
+      '((Manifolding-OS build utils)
+        (Manifolding-OS build ant-build-system)
+        (Manifolding-OS build java-utils)
         (srfi srfi-13))
       #:phases
       #~(modify-phases %standard-phases
@@ -14146,7 +14146,7 @@ console output.")
               (sha256
                (base32
                 "1s6fva06990798b5fyxqzr30zwyj1byq5wrm54j2larcydaryggf"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                 ;; contains pre-compiled libraries
                 '(delete-file-recursively
@@ -14894,7 +14894,7 @@ authentication, HTTP state management, and HTTP connection management.")
               (sha256
                (base32
                 "1cnq1iaghbp4cslpnvwbp83i5v234x87irssqynhwpfgw7caf1s3"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                '(begin
                   (for-each delete-file
@@ -14943,7 +14943,7 @@ inside a Zip archive.")
               (sha256
                (base32
                 "0rpmnsskiwmsy8r0sckz5n5dbvh3vkxx8hpm177c754r8xy3qksc"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                `(begin
                   (delete-file (string-append "jakarta-oro-" ,version ".jar"))
@@ -14979,7 +14979,7 @@ from ORO, Inc.")
               (sha256
                (base32
                 "0zrpzkib6b905i018a9pqlzkqinphywr6y4jwv6mwp63jjqvqkd9"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                 `(begin
                    (for-each delete-file (find-files "." ".*.jar"))
@@ -15045,7 +15045,7 @@ Java method invocation.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "0blf6ka69c3zywa74fjh8gykhzn3vgbvlxzy3v9znncb2a97v6bb"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         `(begin
            (for-each delete-file (find-files "." ".*.jar"))
@@ -15140,9 +15140,9 @@ simplify native access.")))
     (arguments
      `(#:build-target "jar"
        #:tests? #f
-       #:modules ((guix build ant-build-system)
-                  (guix build utils)
-                  (guix build java-utils)
+       #:modules ((Manifolding-OS build ant-build-system)
+                  (Manifolding-OS build utils)
+                  (Manifolding-OS build java-utils)
                   (sxml simple))
        #:phases
        (modify-phases %standard-phases
@@ -15491,7 +15491,7 @@ OSGi Service Registry is a goal of this project.")
               (sha256
                (base32
                 "0lm5h0dmh41ffcwd32qnk3a87d360am36yq7168ikkyqa8jxkx28"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                '(begin
                   (for-each delete-file (find-files "." ".*.jar"))
@@ -15595,7 +15595,7 @@ adds Plexus support to the Sisu-Inject container.")
               (sha256
                (base32
                 "04hfdl59sgh20qkxzgnibvs8f9hy6n7znxwpk611y5d89977y62r"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                '(begin
                   (for-each delete-file
@@ -15649,7 +15649,7 @@ static code analysis or code manipulation.")))
               (sha256
                (base32
                 "055jbfpg3l5qw7pw2snkdag0gjkb4vcxfg9110cqqyc40k2nd17z"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                '(delete-file-recursively "logback-access/lib"))))
     (build-system ant-build-system)
@@ -15818,9 +15818,9 @@ network protocols, and core version control algorithms.")
      `(#:tests? #f                      ; sources jar has no tests
        #:jar-name "jgit.jar"
        #:jdk ,openjdk17
-       #:modules ((guix build ant-build-system)
-                  (guix build utils)
-                  (guix build java-utils)
+       #:modules ((Manifolding-OS build ant-build-system)
+                  (Manifolding-OS build utils)
+                  (Manifolding-OS build java-utils)
                   (srfi srfi-1))
        #:phases
        (modify-phases %standard-phases
@@ -16433,7 +16433,7 @@ IPTC, XMP, ICC and more formats.")
               (sha256
                (base32
                 "1zv3kjdkf6iqf02x6ln76254y634j2ji448y706a65lsbfjmmicf"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                '(begin
                   (for-each delete-file (find-files "." ".*.jar"))
@@ -16535,7 +16535,7 @@ in Java, usable from Groovy, Kotlin, Scala, etc.")
               (sha256
                (base32
                 "078xwaivl2qqjc07r0vk6kzpqlcb1bcar80p8r5qigh34hpr86d3"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                '(for-each delete-file
                           (find-files "." "\\.class$")))))
@@ -16605,7 +16605,7 @@ can be interpreted by IDEs and static analysis tools to improve code analysis.")
               (sha256
                (base32
                 "1a4jk12ffa31fa0y8vda0739vpfj1206p0nha842b7bixbvwamv9"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                '(begin
                   (for-each delete-file
@@ -16707,7 +16707,7 @@ can be interpreted by IDEs and static analysis tools to improve code analysis.")
                   "1hhx8gmn81k8qrkx4p7ppinmygxga9fqffd626wkvhjgg2ky8lhs"))
                 (patches
                  (search-patches "tla2tools-build-xml.patch"))
-                (modules '((guix build utils)))
+                (modules '((Manifolding-OS build utils)))
                 (snippet
                  '(begin
                     ;; Remove packaged libraries (see 'replace-libs below)
@@ -16717,8 +16717,8 @@ can be interpreted by IDEs and static analysis tools to improve code analysis.")
        (let* ((tlatools "tlatools/org.lamport.tlatools/")
               (build-xml (string-append tlatools "customBuild.xml")))
          `(#:jdk ,openjdk11
-           #:modules ((guix build ant-build-system)
-                      (guix build utils)
+           #:modules ((Manifolding-OS build ant-build-system)
+                      (Manifolding-OS build utils)
                       (ice-9 match)
                       (srfi srfi-26))
            #:make-flags '("-f" ,build-xml)

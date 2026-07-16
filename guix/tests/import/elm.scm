@@ -17,11 +17,11 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (test-elm)
-  #:use-module (guix build-system elm)
-  #:use-module (guix import elm)
-  #:use-module (guix base32)
-  #:use-module (guix hash)
-  #:use-module (guix utils)
+  #:use-module (Manifolding-OS build-system elm)
+  #:use-module (Manifolding-OS import elm)
+  #:use-module (Manifolding-OS base32)
+  #:use-module (Manifolding-OS hash)
+  #:use-module (Manifolding-OS utils)
   #:autoload   (gcrypt hash) (hash-algorithm sha256)
   #:use-module (json)
   #:use-module (ice-9 match)
@@ -161,7 +161,7 @@ It provides **basic functionality** like addition and subtraction as well as
   "{
     \"type\": \"package\",
     \"name\": \"elm-guix/demo\",
-    \"summary\": \"A test for `(guix import elm)`\",
+    \"summary\": \"A test for `(Manifolding-OS import elm)`\",
     \"license\": \"GPL-3.0-or-later\",
     \"version\": \"3.0.0\",
     \"exposed-modules\": [
@@ -188,7 +188,7 @@ package definition."
                #:algorithm (hash-algorithm sha256)
                #:recursive? #t)))
 
-(test-group "(guix import elm)"
+(test-group "(Manifolding-OS import elm)"
   (call-with-temporary-directory
    (lambda (dir)
      ;; Initialize our fake git checkouts.
@@ -253,9 +253,9 @@ package definition."
                 (inputs (list elm-json))
                 (home-page
                  "https://package.elm-lang.org/packages/elm-guix/demo/3.0.0")
-                (synopsis "A test for `(guix import elm)`")
+                (synopsis "A test for `(Manifolding-OS import elm)`")
                 (description
-                 "This package provides a test for `(guix import elm)`.")
+                 "This package provides a test for `(Manifolding-OS import elm)`.")
                 (properties '((upstream-name . "elm-guix/demo")))
                 (license license:gpl3+)))
             (equal? (directory-sha256 elm-guix-demo-dir)

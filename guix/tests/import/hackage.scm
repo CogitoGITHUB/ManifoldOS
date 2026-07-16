@@ -20,9 +20,9 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (test-hackage)
-  #:use-module (guix import cabal)
-  #:use-module (guix import hackage)
-  #:use-module (guix tests)
+  #:use-module (Manifolding-OS import cabal)
+  #:use-module (Manifolding-OS import hackage)
+  #:use-module (Manifolding-OS tests)
   #:use-module (srfi srfi-64)
   #:use-module (ice-9 match))
 
@@ -427,7 +427,7 @@ library
     Build-depends: ghc-a
   elif os(second)
     Build-depends: ghc-b
-  elif os(guix)
+  elif os(Manifolding-OS)
     Build-depends: ghc-c
   elif os(third)
     Build-depends: ghc-d
@@ -449,7 +449,7 @@ library
   }
   elif os(second)
     Build-depends: ghc-b
-  elif os(guix) { Build-depends: ghc-c }
+  elif os(Manifolding-OS) { Build-depends: ghc-c }
   elif os(third) {
     Build-depends: ghc-d }
   elif os(fourth)

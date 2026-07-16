@@ -23,16 +23,16 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages kde-pim)
-  #:use-module (guix build-system cargo)
-  #:use-module (guix build-system cmake)
-  #:use-module (guix build-system qt)
-  #:use-module (guix gexp)
-  #:use-module (guix download)
-  #:use-module (guix gexp)
-  #:use-module (guix git-download)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix packages)
-  #:use-module (guix utils)
+  #:use-module (Manifolding-OS build-system cargo)
+  #:use-module (Manifolding-OS build-system cmake)
+  #:use-module (Manifolding-OS build-system qt)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS utils)
   #:use-module (gnu packages)
   #:use-module (gnu packages aidc)
   #:use-module (gnu packages base)
@@ -251,7 +251,7 @@ test"
            #:modules `((ice-9 textual-ports)
                        ,@%qt-build-system-modules)
            #:phases
-           #~(modify-phases (@ (guix build qt-build-system) %standard-phases)
+           #~(modify-phases (@ (Manifolding-OS build qt-build-system) %standard-phases)
                (replace 'check
                  (lambda* (#:key tests? (test-exclude "") #:allow-other-keys)
                    (when tests?
@@ -1005,9 +1005,9 @@ verifiedserverdialogtest" ;SEGFAULT
            `(,@%qt-build-system-modules
              ,@%cargo-build-system-modules)
            #:modules
-           '(((guix build cargo-build-system) #:prefix cargo:)
-             (guix build qt-build-system)
-             (guix build utils))
+           '(((Manifolding-OS build cargo-build-system) #:prefix cargo:)
+             (Manifolding-OS build qt-build-system)
+             (Manifolding-OS build utils))
            #:phases
            #~(modify-phases %standard-phases
                (add-before 'configure 'change-directory-to-adblock

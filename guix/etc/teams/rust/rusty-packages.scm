@@ -21,9 +21,9 @@
 ;;; packages which can be checked to see if a rust update has gone smoothly.  It
 ;;; is used to assist continuous integration of the rust-team branch.
 
-(use-modules (guix packages)
-             (guix profiles)
-             (guix build-system)
+(use-modules (Manifolding-OS packages)
+             (Manifolding-OS profiles)
+             (Manifolding-OS build-system)
              (srfi srfi-1))
 
 (manifest

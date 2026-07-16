@@ -23,11 +23,11 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages abiword)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix packages)
-  #:use-module (guix build-system glib-or-gtk)
-  #:use-module (guix gexp)
-  #:use-module (guix git-download)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS build-system glib-or-gtk)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS git-download)
   #:use-module (gnu packages)
   #:use-module (gnu packages aspell)
   #:use-module (gnu packages bash)

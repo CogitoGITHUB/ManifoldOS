@@ -21,20 +21,20 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu installer)
-  #:use-module (guix build utils)
-  #:use-module (guix derivations)
-  #:use-module (guix discovery)
-  #:use-module (guix gexp)
-  #:use-module (guix modules)
-  #:use-module (guix monads)
-  #:use-module (guix packages)
-  #:use-module (guix store)
-  #:use-module (guix utils)
-  #:use-module (guix ui)
-  #:use-module ((guix self) #:select (make-config.scm))
-  #:use-module (guix describe)
-  #:use-module (guix packages)
-  #:use-module (guix git-download)
+  #:use-module (Manifolding-OS build utils)
+  #:use-module (Manifolding-OS derivations)
+  #:use-module (Manifolding-OS discovery)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS modules)
+  #:use-module (Manifolding-OS monads)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS store)
+  #:use-module (Manifolding-OS utils)
+  #:use-module (Manifolding-OS ui)
+  #:use-module ((Manifolding-OS self) #:select (make-config.scm))
+  #:use-module (Manifolding-OS describe)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS git-download)
   #:use-module (gnu installer utils)
   #:use-module (gnu packages admin)
   #:use-module (gnu packages base)
@@ -77,7 +77,7 @@
     (_ #f)))
 
 (define not-config?
-  ;; Select (guix …) and (gnu …) modules, except (guix config).
+  ;; Select (Manifolding-OS …) and (gnu …) modules, except (Manifolding-OS config).
   (match-lambda
     (('guix 'config) #f)
     (('guix _ ...) #t)
@@ -102,7 +102,7 @@ version of this file."
       (with-imported-modules `(,@(source-module-closure
                                   '((gnu installer locale))
                                   #:select? not-config?)
-                               ((guix config) => ,(make-config.scm)))
+                               ((Manifolding-OS config) => ,(make-config.scm)))
         #~(begin
             (use-modules (gnu installer locale))
 
@@ -412,9 +412,9 @@ purposes."
       (with-imported-modules `(,@(source-module-closure
                                   `(,@modules
                                     (gnu services herd)
-                                    (guix build utils))
+                                    (Manifolding-OS build utils))
                                   #:select? module-to-import?)
-                               ((guix config) => ,(make-config.scm)))
+                               ((Manifolding-OS config) => ,(make-config.scm)))
         #~(begin
             (use-modules (gnu installer record)
                          (gnu installer keymap)
@@ -433,9 +433,9 @@ purposes."
                          ((gnu installer newt keymap)
                           #:select (keyboard-layout->configuration))
                          (gnu services herd)
-                         (guix i18n)
-                         (guix build utils)
-                         (guix utils)
+                         (Manifolding-OS i18n)
+                         (Manifolding-OS build utils)
+                         (Manifolding-OS utils)
                          ((system repl debug)
                           #:select (terminal-width))
                          (ice-9 match)
@@ -449,7 +449,7 @@ purposes."
                   (format port %core-dump))))
 
             ;; Initialize gettext support so that installers can use
-            ;; (guix i18n) module.
+            ;; (Manifolding-OS i18n) module.
             #$init-gettext
 
             ;; Add some binaries used by the installers to PATH.
@@ -577,9 +577,9 @@ purposes."
                     ((gnu installer newt keymap)
                      #:select (keyboard-layout->configuration))
                     (gnu services herd)
-                    (guix i18n)
-                    (guix build utils)
-                    (guix utils)
+                    (Manifolding-OS i18n)
+                    (Manifolding-OS build utils)
+                    (Manifolding-OS utils)
                     ((system repl debug)
                      #:select (terminal-width))
                     (ice-9 match)

@@ -18,12 +18,12 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (test-cache)
-  #:use-module (guix cache)
+  #:use-module (Manifolding-OS cache)
   #:use-module (srfi srfi-1)
   #:use-module (srfi srfi-19)
   #:use-module (srfi srfi-64)
-  #:use-module ((guix build syscalls) #:select (lock-file))
-  #:use-module ((guix utils) #:select (call-with-temporary-directory))
+  #:use-module ((Manifolding-OS build syscalls) #:select (lock-file))
+  #:use-module ((Manifolding-OS utils) #:select (call-with-temporary-directory))
   #:use-module ((rnrs io ports) #:select (get-string-all))
   #:use-module (ice-9 match))
 

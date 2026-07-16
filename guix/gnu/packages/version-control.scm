@@ -87,25 +87,25 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages version-control)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix utils)
-  #:use-module (guix packages)
-  #:use-module (guix deprecation)
-  #:use-module (guix gexp)
-  #:use-module (guix download)
-  #:use-module (guix fossil-download)
-  #:use-module (guix git-download)
-  #:use-module (guix hg-download)
-  #:use-module (guix build-system cargo)
-  #:use-module (guix build-system cmake)
-  #:use-module (guix build-system copy)
-  #:use-module (guix build-system emacs)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system go)
-  #:use-module (guix build-system perl)
-  #:use-module (guix build-system pyproject)
-  #:use-module (guix build-system qt)
-  #:use-module (guix build-system trivial)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS utils)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS deprecation)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS fossil-download)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS hg-download)
+  #:use-module (Manifolding-OS build-system cargo)
+  #:use-module (Manifolding-OS build-system cmake)
+  #:use-module (Manifolding-OS build-system copy)
+  #:use-module (Manifolding-OS build-system emacs)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system go)
+  #:use-module (Manifolding-OS build-system perl)
+  #:use-module (Manifolding-OS build-system pyproject)
+  #:use-module (Manifolding-OS build-system qt)
+  #:use-module (Manifolding-OS build-system trivial)
   #:use-module (gnu packages apr)
   #:use-module (gnu packages autotools)
   #:use-module (gnu packages documentation)
@@ -207,9 +207,9 @@
     (arguments
      (list
       #:modules
-      '(((guix build cargo-build-system) #:prefix cargo:)
-        (guix build pyproject-build-system)
-        (guix build utils))
+      '(((Manifolding-OS build cargo-build-system) #:prefix cargo:)
+        (Manifolding-OS build pyproject-build-system)
+        (Manifolding-OS build utils))
       #:imported-modules
       `(,@%cargo-build-system-modules
         ,@%pyproject-build-system-modules)
@@ -349,7 +349,7 @@ Python 3.3 and later, rather than on Python 2.")
                   (srfi srfi-26)
                   (ice-9 format)
                   (ice-9 textual-ports)
-                  ((guix build gnu-build-system) #:prefix gnu:)
+                  ((Manifolding-OS build gnu-build-system) #:prefix gnu:)
                   ,@%default-gnu-modules)
       ;; Make sure the full bash does not end up in the final closure.
       #:disallowed-references (list (this-package-native-input "bash")
@@ -973,9 +973,9 @@ to GitHub contributions calendar.")
        #:install-source? #f
        #:imported-modules (append %copy-build-system-modules
                                   %cargo-build-system-modules)
-       #:modules '((guix build cargo-build-system)
-                   ((guix build copy-build-system) #:prefix copy:)
-                   (guix build utils))
+       #:modules '((Manifolding-OS build cargo-build-system)
+                   ((Manifolding-OS build copy-build-system) #:prefix copy:)
+                   (Manifolding-OS build utils))
        #:phases
        #~(modify-phases %standard-phases
            (add-after 'install 'install-extras
@@ -1337,8 +1337,8 @@ and simplicity over flexibility.")
       (build-system cmake-build-system)
       (arguments
        (list
-        #:modules '((guix build cmake-build-system)
-                    (guix build utils)
+        #:modules '((Manifolding-OS build cmake-build-system)
+                    (Manifolding-OS build utils)
                     (srfi srfi-26))
         #:tests? #f                     ;no test suite
         #:phases
@@ -1380,7 +1380,7 @@ other git-like projects such as @code{libgit2}.")
               (patches
                (search-patches "libgit2-proxy-reconnection.patch"
                                "libgit2-path-max.patch"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                #~(begin
                    (for-each delete-file-recursively
@@ -1493,7 +1493,7 @@ write native speed custom Git applications in any language with bindings.")
                 "1x0l3dbl7y2jgw8h6wk56f8czkddjwh128jdf2y5a14rrf4icpdd"))
               (patches
                (search-patches "libgit2-uninitialized-proxy-settings.patch"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                '(begin
                   (for-each delete-file-recursively
@@ -1524,7 +1524,7 @@ write native speed custom Git applications in any language with bindings.")
                 "0i95jwrwx4svh5l4dpa5r4a99f813hlm7nzzkbqzmnw4pkyxhlvx"))
               ;; We need to use the bundled xdiff until an option is given
               ;; to use the one from git.
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                '(begin
                   (for-each delete-file-recursively
@@ -1555,7 +1555,7 @@ write native speed custom Git applications in any language with bindings.")
               (sha256
                (base32
                 "1v8sndvknsknf0i967qidmz73q9jx928iq7fqqgx3rbwn2g1gn6s"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                '(begin
                   (delete-file-recursively "deps")))))))
@@ -1573,7 +1573,7 @@ write native speed custom Git applications in any language with bindings.")
               (sha256
                (base32
                 "0v9jdaxmqrzbs9v5vhh2xf5xv9h29q8qqn8vmns279ljx1zav5yd"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                '(begin
                   (delete-file-recursively "deps")))))))
@@ -1761,9 +1761,9 @@ to lock down your entire repository.")
                "1m1wlbqpqyhh2z0ka3gjs5yabd32nnkzw5hak6czcqrhhkfsqbmv"))))
    (build-system trivial-build-system)
    (arguments
-    `(#:modules ((guix build utils))
+    `(#:modules ((Manifolding-OS build utils))
       #:builder (begin
-                  (use-modules (guix build utils))
+                  (use-modules (Manifolding-OS build utils))
                   (let* ((source (assoc-ref %build-inputs "source"))
                          (output (assoc-ref %outputs "out"))
                          (bindir (string-append output "/bin")))
@@ -1931,8 +1931,8 @@ supports AGit-Flow and lifts the requirement to use a manifest file.")
               ;; go-openapi/spec schema files
               "jsonschema-draft-04\\.json" "schema\\.json")
       #:modules
-      '((guix build go-build-system)
-        (guix build utils)
+      '((Manifolding-OS build go-build-system)
+        (Manifolding-OS build utils)
         (ice-9 match))
       #:phases
       #~(modify-phases %standard-phases
@@ -2085,7 +2085,7 @@ Enterprise Cloud, and GitHub Enterprise Server 2.20+.")
                (lambda (file)
                  (wrap-program (string-append (assoc-ref outputs "out")
                                               "/lib/cgit/filters/" file)
-                   `("GUIX_PYTHONPATH" ":" prefix (,(getenv "GUIX_PYTHONPATH")))))
+                   `("MANIFOLDING_OS_PYTHONPATH" ":" prefix (,(getenv "MANIFOLDING_OS_PYTHONPATH")))))
                '("syntax-highlighting.py"
                  "html-converters/md2html")))))))
     (native-inputs
@@ -2718,9 +2718,9 @@ with one command.")
                   "1dcq0y16yznbv4k9h8gg90kv1gkn8r8dbvl4m2rpfd7q5nqhn617"))))
       (build-system trivial-build-system)
       (arguments
-       `(#:modules ((guix build utils))
+       `(#:modules ((Manifolding-OS build utils))
          #:builder (begin
-                     (use-modules (guix build utils))
+                     (use-modules (Manifolding-OS build utils))
                      (let* ((source (assoc-ref %build-inputs "source"))
                             (output (assoc-ref %outputs "out"))
                             (bindir (string-append output "/bin"))
@@ -2874,7 +2874,7 @@ control to Git repositories.")
           (base32 "1yhqn54hx7p7sc3vc85vsx7315bxs313bv3i9lzx8q0zpzc0x7xh"))))
       (build-system gnu-build-system)
       (arguments
-       `(#:imported-modules ((guix build guile-build-system)
+       `(#:imported-modules ((Manifolding-OS build guile-build-system)
                              ,@%default-gnu-imported-modules)
          #:make-flags (list "GUILE_AUTO_COMPILE=0")
          #:phases
@@ -2886,7 +2886,7 @@ control to Git repositories.")
                (invoke "autoreconf" "-vfi")))
            (add-after 'install 'wrap-program
              (lambda* (#:key inputs outputs #:allow-other-keys)
-               (use-modules (guix build guile-build-system))
+               (use-modules (Manifolding-OS build guile-build-system))
                ;; Wrap the 'gitile' command to refer to the right modules.
                (let* ((out    (assoc-ref outputs "out"))
                       (commonmark (assoc-ref inputs "guile-commonmark"))
@@ -2944,7 +2944,7 @@ visualize your public Git repositories on a web interface.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "03whpgpbw24g3y6s8rn6888id9gyfpg9vnj4ng6xr4jg9nfa7xjr"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet '(substitute* "setup.cfg"
                    (("virtualenv>=20.10.0") ;our virtualenv (20.3.1) is fine
                     "virtualenv>=20.0.8")))))
@@ -3031,9 +3031,9 @@ execution of any hook written in any language before every commit.")
     (arguments
      (list
       #:imported-modules %pyproject-build-system-modules
-      #:modules '((guix build gnu-build-system)
-                  ((guix build pyproject-build-system) #:prefix py:)
-                  (guix build utils))
+      #:modules '((Manifolding-OS build gnu-build-system)
+                  ((Manifolding-OS build pyproject-build-system) #:prefix py:)
+                  (Manifolding-OS build utils))
       #:make-flags #~(list (string-append "PREFIX=" #$output))
       #:phases
         #~(modify-phases %standard-phases
@@ -3054,7 +3054,7 @@ execution of any hook written in any language before every commit.")
                      "b\"install\", b\"--no-build-isolation\", b\".\"")
                     ;; XXX: Log the actual PYTHONPATH.
                     (("\"PYTHONPATH\"")
-                     "\"GUIX_PYTHONPATH\"")))))
+                     "\"MANIFOLDING_OS_PYTHONPATH\"")))))
             (add-before 'configure-check 'add-install-to-pythonpath
               (assoc-ref py:%standard-phases 'add-install-to-pythonpath))
             (add-after 'install 'wrap
@@ -3200,9 +3200,9 @@ history.  It implements the changeset evolution concept for Mercurial.")
        (list
         #:imported-modules (append %pyproject-build-system-modules
                                    %copy-build-system-modules)
-        #:modules `((guix build pyproject-build-system)
-                    (guix build copy-build-system)
-                    (guix build utils))
+        #:modules `((Manifolding-OS build pyproject-build-system)
+                    (Manifolding-OS build copy-build-system)
+                    (Manifolding-OS build utils))
         #:install-plan
         #~`(("commitsigs.py"
              ,(string-append "lib/python"
@@ -3720,7 +3720,7 @@ modification time.")
              (check-in version)))
        (sha256
         (base32 "16zrha8vb4dwfmyq86iaz2xz4k91dh018bk94xkxgqbyrr33nm7y"))
-       (modules '((guix build utils)
+       (modules '((Manifolding-OS build utils)
                   (ice-9 ftw)
                   (srfi srfi-26)))
        (snippet
@@ -3782,7 +3782,7 @@ intended for new ways to access and manipulate fossil repositories.")
          (file-name (fossil-file-name name version))
          (sha256
           (base32 "00n3qrd34nccxdwwbvs9zikhz6wps6qgbvk4mfww46mshvg7mxdn"))
-         (modules '((guix build utils)))
+         (modules '((Manifolding-OS build utils)))
          (snippet #~(begin
                       (delete-file-recursively "lib")
                       (substitute* (find-files "." "\\.c$")
@@ -3993,10 +3993,10 @@ Features include:
          "03m95620fp891ki6rsqw5nkydwx84nag5nhyvzfi3q64fpnpmb07"))))
     (build-system trivial-build-system)
     (arguments
-     `(#:modules ((guix build utils))
+     `(#:modules ((Manifolding-OS build utils))
        #:builder
        (begin
-         (use-modules (guix build utils))
+         (use-modules (Manifolding-OS build utils))
          (let ((bash (search-input-file %build-inputs "/bin/bash"))
                (rclone (search-input-file %build-inputs "/bin/rclone")))
            (copy-file (string-append (assoc-ref %build-inputs "source")
@@ -4304,8 +4304,8 @@ directory full of HOWTOs.")
              (lambda* (#:key outputs #:allow-other-keys)
                (wrap-program (string-append (assoc-ref outputs "out")
                                             "/bin/git-when-merged")
-                 `("GUIX_PYTHONPATH" ":" prefix
-                   (,(getenv "GUIX_PYTHONPATH")))))))))
+                 `("MANIFOLDING_OS_PYTHONPATH" ":" prefix
+                   (,(getenv "MANIFOLDING_OS_PYTHONPATH")))))))))
       (inputs (list bash-minimal git python-wrapper))
       (home-page "https://github.com/mhagger/git-when-merged")
       (synopsis "Determine when a commit was merged into a Git branch")
@@ -4345,8 +4345,8 @@ how information about the merge is displayed.")
            (lambda* (#:key outputs #:allow-other-keys)
              (wrap-program (string-append (assoc-ref outputs "out")
                                           "/bin/git-imerge")
-               `("GUIX_PYTHONPATH" ":" prefix
-                 (,(getenv "GUIX_PYTHONPATH")))))))))
+               `("MANIFOLDING_OS_PYTHONPATH" ":" prefix
+                 (,(getenv "MANIFOLDING_OS_PYTHONPATH")))))))))
     (inputs (list bash-minimal git python-wrapper))
     (home-page "https://github.com/mhagger/git-imerge")
     (synopsis "Incremental merge for Git")
@@ -4538,7 +4538,7 @@ guessing the URL pattern from the @code{origin} remote.")
               (sha256
                (base32
                 "01mfzj1i6p4s8191cgd5850hds1zls88hkf9rb6qx1vqjv585aj0"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                '(begin
                   ;; In tar 1.32, '--preserve' is ambiguous and leads to an
@@ -4841,9 +4841,9 @@ TkDiff is included for browsing and merging your changes.")
     (arguments
      (list
       #:modules
-      '(((guix build gnu-build-system) #:prefix gnu:)
-        (guix build pyproject-build-system)
-        (guix build utils)
+      '(((Manifolding-OS build gnu-build-system) #:prefix gnu:)
+        (Manifolding-OS build pyproject-build-system)
+        (Manifolding-OS build utils)
         (srfi srfi-26))
       #:phases
       #~(modify-phases %standard-phases
@@ -5097,7 +5097,7 @@ This package provides a cleaner interface to access this information.")
           (replace 'build
             (lambda* (#:key import-path #:allow-other-keys)
               (with-directory-excursion (string-append "src/" import-path)
-                ;; The flags are copied from (guix build go-build-system).
+                ;; The flags are copied from (Manifolding-OS build go-build-system).
                 (setenv "CGO_LDFLAGS" "-s -w")
                 (invoke "make" "all" "GOFLAGS=-v -x"))))
           (replace 'install

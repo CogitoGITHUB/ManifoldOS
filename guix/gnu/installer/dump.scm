@@ -18,7 +18,7 @@
 
 (define-module (gnu installer dump)
   #:use-module (gnu installer utils)
-  #:use-module (guix build utils)
+  #:use-module (Manifolding-OS build utils)
   #:use-module (srfi srfi-11)
   #:use-module (ice-9 iconv)
   #:use-module (ice-9 match)

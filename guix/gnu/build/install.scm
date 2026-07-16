@@ -20,9 +20,9 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu build install)
-  #:use-module (guix build syscalls)
-  #:use-module (guix build utils)
-  #:use-module (guix build store-copy)
+  #:use-module (Manifolding-OS build syscalls)
+  #:use-module (Manifolding-OS build utils)
+  #:use-module (Manifolding-OS build store-copy)
   #:use-module (srfi srfi-26)
   #:use-module (ice-9 match)
   #:export (install-boot-config

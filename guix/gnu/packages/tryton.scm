@@ -22,7 +22,7 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages tryton)
-  #:use-module ((guix licenses) #:prefix license:)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
   #:use-module (gnu packages)
   #:use-module (gnu packages base)
   #:use-module (gnu packages bash)
@@ -43,20 +43,20 @@
   #:use-module (gnu packages python-xyz)
   #:use-module (gnu packages time)
   #:use-module (gnu packages xml)
-  #:use-module (guix gexp)
-  #:use-module (guix packages)
-  #:use-module (guix download)
-  #:use-module (guix utils)
-  #:use-module (guix build-system pyproject))
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS utils)
+  #:use-module (Manifolding-OS build-system pyproject))
 
 (define (guix-trytonpath-search-path version)
-  "Generate a GUIX_TRYTOND_MODULES_PATH search path specification, using
+  "Generate a MANIFOLDING_OS_TRYTOND_MODULES_PATH search path specification, using
 VERSION.
 
 Do not use PYTHHONPATH not avoid interfering with any different Python package
 installed in the same environments.  Collecting only paths actually containing
 /tryton/modules reduces the number of paths."
-  (search-path-specification (variable "GUIX_TRYTOND_MODULES_PATH")
+  (search-path-specification (variable "MANIFOLDING_OS_TRYTOND_MODULES_PATH")
                              (files (list (string-append
                                            "lib/python"
                                            (version-major+minor version)
@@ -206,8 +206,8 @@ If present, pass EXTRA-TEST-ARGUMENTS to pytest as well."
             ;; Fake this directory as a tryton.module.… sub-module.
             (mkdir-p "/tmp/dummy/trytond/modules")
             (symlink (getcwd) (string-append "/tmp/dummy/trytond/modules/" #$module))
-            (setenv "GUIX_TRYTOND_MODULES_PATH"
-                    (string-append (getenv "GUIX_TRYTOND_MODULES_PATH")
+            (setenv "MANIFOLDING_OS_TRYTOND_MODULES_PATH"
+                    (string-append (getenv "MANIFOLDING_OS_TRYTOND_MODULES_PATH")
                                    ":/tmp/dummy/trytond/modules"))
             ;; Create pytest.ini in sub-dir to make that dir pytest's
             ;; "rootdir" and avoid that the module's files get scanned (which

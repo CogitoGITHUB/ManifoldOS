@@ -18,7 +18,7 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu tests security)
-  #:use-module (guix gexp)
+  #:use-module (Manifolding-OS gexp)
   #:use-module (gnu packages admin)
   #:use-module (gnu packages linux)
   #:use-module (gnu services)
@@ -53,7 +53,7 @@
 
     (define test
       (with-imported-modules '((gnu build marionette)
-                               (guix build utils))
+                               (Manifolding-OS build utils))
         #~(begin
             (use-modules (srfi srfi-64)
                          (gnu build marionette))
@@ -264,7 +264,7 @@
 
   (define test
     (with-imported-modules '((gnu build marionette)
-                             (guix build utils))
+                             (Manifolding-OS build utils))
       #~(begin
           (use-modules (srfi srfi-64)
                        (gnu build marionette))

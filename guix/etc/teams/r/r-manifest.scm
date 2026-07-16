@@ -16,10 +16,10 @@
 ;;; You should have received a copy of the GNU General Public License
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
-(use-modules (guix packages)
-             (guix profiles)
-             (guix gexp)
-             (guix build-system)
+(use-modules (Manifolding-OS packages)
+             (Manifolding-OS profiles)
+             (Manifolding-OS gexp)
+             (Manifolding-OS build-system)
              (ice-9 match)
              (srfi srfi-1)
              (srfi srfi-26))
@@ -29,7 +29,7 @@
       (any
        (match-lambda
          (('guix 'build 'r-build-system) #t)
-         ('((guix build r-build-system) . _) #t)
+         ('((Manifolding-OS build r-build-system) . _) #t)
          (_ #f))
        (cond
         ((gexp? modules) (gexp->approximate-sexp modules))

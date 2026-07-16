@@ -18,10 +18,10 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu image)
-  #:use-module (guix platform)
-  #:use-module (guix records)
-  #:use-module (guix diagnostics)
-  #:use-module (guix i18n)
+  #:use-module (Manifolding-OS platform)
+  #:use-module (Manifolding-OS records)
+  #:use-module (Manifolding-OS diagnostics)
+  #:use-module (Manifolding-OS i18n)
   #:use-module (srfi srfi-1)
   #:use-module (srfi srfi-34)
   #:use-module (srfi srfi-35)

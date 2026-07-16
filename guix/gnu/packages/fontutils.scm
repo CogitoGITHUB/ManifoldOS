@@ -84,19 +84,19 @@
   #:use-module (gnu packages xorg)
   #:use-module (gnu packages tex)
   #:use-module (gnu packages textutils)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix gexp)
-  #:use-module (guix packages)
-  #:use-module (guix download)
-  #:use-module (guix svn-download)
-  #:use-module (guix git-download)
-  #:use-module (guix build-system copy)
-  #:use-module (guix build-system cmake)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system go)
-  #:use-module (guix build-system meson)
-  #:use-module (guix build-system pyproject)
-  #:use-module (guix utils)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS svn-download)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS build-system copy)
+  #:use-module (Manifolding-OS build-system cmake)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system go)
+  #:use-module (Manifolding-OS build-system meson)
+  #:use-module (Manifolding-OS build-system pyproject)
+  #:use-module (Manifolding-OS utils)
   #:use-module (srfi srfi-1))
 
 (define-public freetype
@@ -192,7 +192,7 @@ them as it goes.")
        (uri (pypi-uri "afdko" version))
        (sha256
         (base32 "0c6ribidsmcd9rihy32gknfrr3iw8dy2jlmq6lk05pc33s3ix8z1"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         #~(begin
             (with-directory-excursion "c/makeotf/lib/hotconv"
@@ -527,7 +527,7 @@ Angus Johnson}.")
      (origin
        (method url-fetch)
        (uri (pypi-uri "cffsubr" version))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet '(delete-file-recursively "external")) ;unbundle ADFKO
        (sha256
         (base32 "1yrfjn3mdi48pg78yzlmskdz9i4nf2wg7h8ivnn9yrw1vc5iaibp"))))
@@ -1070,7 +1070,7 @@ Font Object} fonts.")
      (origin
        (method url-fetch)
        (uri (pypi-uri "skia-pathops" version ".zip"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet '(delete-file-recursively "src/cpp")) ;140+ MiB of stuff
        (sha256
         (base32 "1vlwl1w6sn8c78fsh1w549n3lk9v3v9hcp866vrsdr4byb7g2ani"))))
@@ -1325,7 +1325,7 @@ TTF (TrueType/OpenType Font) files.")
               (sha256
                (base32
                 "1l718n4k4widx49xz7qrj4mybzb8q67kp2jw7f47604ips4654mf"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                #~(begin
                    ;; Include <unistd.h> for the 'getopt' declaration.

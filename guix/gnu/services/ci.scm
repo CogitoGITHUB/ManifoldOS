@@ -20,9 +20,9 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu services ci)
-  #:use-module (guix gexp)
-  #:use-module (guix records)
-  #:autoload   (guix modules) (source-module-closure)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS records)
+  #:autoload   (Manifolding-OS modules) (source-module-closure)
   #:use-module (gnu packages admin)
   #:use-module (gnu packages ci)
   #:use-module (gnu services)

@@ -27,9 +27,9 @@
   #:use-module (gnu services dbus)
   #:use-module (gnu services networking)
   #:use-module (gnu services shepherd)
-  #:use-module (guix gexp)
-  #:use-module (guix store)
-  #:use-module (guix monads)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS store)
+  #:use-module (Manifolding-OS monads)
   #:export (%test-nss-mdns))
 
 ;;;
@@ -69,7 +69,7 @@
      %avahi-os
      #:requirements '(nscd)
      #:imported-modules '((gnu services herd)
-                          (guix combinators))))
+                          (Manifolding-OS combinators))))
 
   (define mdns-host-name
     (string-append (operating-system-host-name os)

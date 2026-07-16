@@ -26,8 +26,8 @@
   #:use-module (gnu services networking)
   #:use-module (gnu packages base)
   #:use-module (gnu packages openldap)
-  #:use-module (guix gexp)
-  #:use-module (guix store)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS store)
   #:export (%test-ldap))
 
 (define %ldap-os
@@ -55,7 +55,7 @@
     (marionette-operating-system
      %ldap-os
      #:imported-modules '((gnu services herd)
-                          (guix combinators))))
+                          (Manifolding-OS combinators))))
 
   (define vm
     (virtual-machine

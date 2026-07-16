@@ -35,20 +35,20 @@
   #:use-module (gnu system linux-initrd)
   #:use-module (gnu system pam)
   #:use-module (gnu system)
-  #:use-module (guix base32)
-  #:use-module (guix colors)
-  #:use-module (guix deprecation)
-  #:use-module (guix derivations)
-  #:use-module (guix diagnostics)
-  #:use-module (guix gexp)
-  #:use-module (guix i18n)
-  #:use-module (guix import json)
-  #:use-module (guix monads)
-  #:use-module (guix packages)
-  #:use-module (guix pki)
-  #:use-module (guix records)
-  #:use-module (guix ssh)
-  #:use-module (guix store)
+  #:use-module (Manifolding-OS base32)
+  #:use-module (Manifolding-OS colors)
+  #:use-module (Manifolding-OS deprecation)
+  #:use-module (Manifolding-OS derivations)
+  #:use-module (Manifolding-OS diagnostics)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS i18n)
+  #:use-module (Manifolding-OS import json)
+  #:use-module (Manifolding-OS monads)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS pki)
+  #:use-module (Manifolding-OS records)
+  #:use-module (Manifolding-OS ssh)
+  #:use-module (Manifolding-OS store)
   #:use-module (ice-9 format)
   #:use-module (ice-9 iconv)
   #:use-module (ice-9 match)
@@ -363,7 +363,7 @@ object, in the expected format for the Hetzner API."
       (raise-exception
        (formatted-message
         (G_ "Hetzner Cloud access token was not provided. \
-This may be fixed by setting the environment variable GUIX_HETZNER_API_TOKEN \
+This may be fixed by setting the environment variable MANIFOLDING_OS_HETZNER_API_TOKEN \
 to one procured from \
 https://docs.hetzner.com/cloud/api/getting-started/generating-api-token"))))))
 
@@ -687,7 +687,7 @@ yes '' | /tmp/guix-install.sh
 set -o pipefail
 
 cat > /tmp/guix/deploy/hetzner-os.scm << EOF
-(use-modules (gnu) (guix utils))
+(use-modules (gnu) (Manifolding-OS utils))
 (use-package-modules ssh)
 (use-service-modules base networking ssh)
 (use-system-modules linux-initrd)

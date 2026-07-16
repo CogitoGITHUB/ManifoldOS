@@ -26,17 +26,17 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages protobuf)
-  #:use-module (guix gexp)
-  #:use-module (guix packages)
-  #:use-module (guix download)
-  #:use-module (guix git-download)
-  #:use-module (guix build-system cmake)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system pyproject)
-  #:use-module (guix build-system emacs)
-  #:use-module (guix build-system ruby)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix utils)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS build-system cmake)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system pyproject)
+  #:use-module (Manifolding-OS build-system emacs)
+  #:use-module (Manifolding-OS build-system ruby)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS utils)
   #:use-module (gnu packages)
   #:use-module (gnu packages build-tools)
   #:use-module (gnu packages compression)
@@ -107,7 +107,7 @@ data in motion, or as a file format for data at rest.")
        (uri (git-reference
               (url "https://github.com/protocolbuffers/protobuf/")
               (commit (string-append "v" version))))
-       (modules '((guix build utils)
+       (modules '((Manifolding-OS build utils)
                   (ice-9 ftw)
                   (srfi srfi-26)))
        (snippet
@@ -197,7 +197,7 @@ internal RPC protocols and file formats.")
                     "protobuf/releases/download/v"
                     (string-join (drop (string-split version #\.) 1) ".")
                     "/protobuf-cpp-" version ".tar.gz"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet '(delete-file-recursively "third_party"))
               (sha256
                (base32
@@ -306,7 +306,7 @@ internal RPC protocols and file formats.")
                     "https://github.com/protocolbuffers/"
                     "protobuf/releases/download/v" version
                     "/protobuf-cpp-" version ".tar.gz"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet '(delete-file-recursively "third_party"))
               (sha256
                (base32
@@ -709,7 +709,7 @@ source files.")
                 (("Bundler\\.setup.*") ""))))
           (add-after 'unpack 'relax-version-requirements
             (lambda _
-              (substitute* ((@@ (guix build ruby-build-system) first-gemspec))
+              (substitute* ((@@ (Manifolding-OS build ruby-build-system) first-gemspec))
                 (("'rake',.*")
                  "'rake'\n")
                 (("\"rubocop\",.*")
@@ -730,7 +730,7 @@ source files.")
                  (string-append "        pending\n" all)))))
           (add-after 'replace-git-ls-files 'replace-more-git-ls-files
             (lambda _
-              (substitute* ((@@ (guix build ruby-build-system) first-gemspec))
+              (substitute* ((@@ (Manifolding-OS build ruby-build-system) first-gemspec))
                 (("`git ls-files -- \\{test,spec,features\\}/*`")
                  "`find test spec features -type f | sort`")
                 (("`git ls-files -- bin/*`")

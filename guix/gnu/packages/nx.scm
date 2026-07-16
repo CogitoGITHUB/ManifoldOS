@@ -16,12 +16,12 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages nx)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix download)
-  #:use-module (guix gexp)
-  #:use-module (guix git-download)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix packages)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS packages)
   #:use-module (gnu packages)
   #:use-module (gnu packages autotools)
   #:use-module (gnu packages base)
@@ -99,8 +99,8 @@
                    (add-after 'install 'wrap-nxdialog
                      (lambda* (#:key inputs #:allow-other-keys)
                        (wrap-program (string-append #$output "/bin/nxdialog")
-                         `("GUIX_PYTHONPATH" =
-                           (,(getenv "GUIX_PYTHONPATH")))
+                         `("MANIFOLDING_OS_PYTHONPATH" =
+                           (,(getenv "MANIFOLDING_OS_PYTHONPATH")))
                          ;; Ensure GObject Introspection typelibs are found.
                          `("GI_TYPELIB_PATH" ":" =
                            (,(getenv "GI_TYPELIB_PATH")))))))))

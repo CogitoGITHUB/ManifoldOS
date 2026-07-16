@@ -25,12 +25,12 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages kde-games)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix packages)
-  #:use-module (guix download)
-  #:use-module (guix build-system qt)
-  #:use-module (guix build-system trivial)
-  #:use-module (guix gexp)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS build-system qt)
+  #:use-module (Manifolding-OS build-system trivial)
+  #:use-module (Manifolding-OS gexp)
   #:use-module (gnu packages audio)
   #:use-module (gnu packages bash)
   #:use-module (gnu packages compression)
@@ -441,8 +441,8 @@ This package is part of the KDE games module.")
               (let ((out (assoc-ref outputs "out")))
                 (for-each (lambda (program)
                             (wrap-program program
-                              `("GUIX_PYTHONPATH" ":" prefix
-                                (,(getenv "GUIX_PYTHONPATH")))))
+                              `("MANIFOLDING_OS_PYTHONPATH" ":" prefix
+                                (,(getenv "MANIFOLDING_OS_PYTHONPATH")))))
                           (list (string-append out "/bin/kajongg")
                                 (string-append out "/bin/kajonggserver")))))))))
     (native-inputs

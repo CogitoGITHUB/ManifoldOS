@@ -44,17 +44,17 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages lua)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix packages)
-  #:use-module (guix download)
-  #:use-module (guix git-download)
-  #:use-module (guix gexp)
-  #:use-module (guix hg-download)
-  #:use-module (guix utils)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system cmake)
-  #:use-module (guix build-system meson)
-  #:use-module (guix build-system trivial)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS hg-download)
+  #:use-module (Manifolding-OS utils)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system cmake)
+  #:use-module (Manifolding-OS build-system meson)
+  #:use-module (Manifolding-OS build-system trivial)
   #:use-module (gnu packages)
   #:use-module (gnu packages autotools)
   #:use-module (gnu packages base)
@@ -95,11 +95,11 @@
 
 (define (lua-search-paths version)
   (list (search-path-specification
-          (variable "GUIX_LUA_PATH")
+          (variable "MANIFOLDING_OS_LUA_PATH")
           (separator ";")
           (files (list (string-append "share/lua/" version))))
         (search-path-specification
-          (variable "GUIX_LUA_CPATH")
+          (variable "MANIFOLDING_OS_LUA_CPATH")
           (separator ";")
           (files (list (string-append "lib/lua/" version))))))
 
@@ -120,8 +120,8 @@
     (build-system gnu-build-system)
     (inputs (list readline))
     (arguments
-     `(#:modules ((guix build gnu-build-system)
-                  (guix build utils)
+     `(#:modules ((Manifolding-OS build gnu-build-system)
+                  (Manifolding-OS build utils)
                   (srfi srfi-1))
        #:test-target "test"
        #:make-flags
@@ -274,12 +274,12 @@ for configuration, scripting, and rapid prototyping.")
                                                  (assoc-ref %outputs "out")))))
       (native-search-paths
        (list (search-path-specification
-               (variable "GUIX_LUA_PATH")
+               (variable "MANIFOLDING_OS_LUA_PATH")
                (separator ";")
                (files (list "share/lua/5.1"
                             "share/luajit-2.1")))
              (search-path-specification
-               (variable "GUIX_LUA_CPATH")
+               (variable "MANIFOLDING_OS_LUA_CPATH")
                (separator ";")
                (files (list "lib/lua/5.1")))))
       (home-page "https://www.luajit.org/")
@@ -507,9 +507,9 @@ with the appropriate luaX.X- prefix for this package."
                 (apply invoke "make" "install-unix" make-flags)))
             (add-after 'install-unix 'check
               (lambda _
-                (setenv "GUIX_LUA_CPATH"
+                (setenv "MANIFOLDING_OS_LUA_CPATH"
                         (string-append #$output "/lib/lua/" #$(this-lua-version)))
-                (setenv "GUIX_LUA_PATH"
+                (setenv "MANIFOLDING_OS_LUA_PATH"
                         (string-append #$output "/share/lua/" #$(this-lua-version)))
                 (with-directory-excursion "test"
                   (make-thread invoke "lua" "testsrvr.lua")
@@ -942,8 +942,8 @@ between the peers.")
     (build-system gnu-build-system)
     (arguments
      (list
-      #:modules '((guix build gnu-build-system)
-                  (guix build utils)
+      #:modules '((Manifolding-OS build gnu-build-system)
+                  (Manifolding-OS build utils)
                   (ice-9 string-fun))
       #:make-flags
       #~(let ((lua-api-version #$(this-lua-version)))
@@ -1047,10 +1047,10 @@ to be non-intrusive, composable, and embeddable within existing applications.")
     (propagated-inputs
      (list lua-filesystem))
     (arguments
-     `(#:modules ((guix build utils))
+     `(#:modules ((Manifolding-OS build utils))
        #:builder
        (begin
-         (use-modules (guix build utils))
+         (use-modules (Manifolding-OS build utils))
          (let* ((source (assoc-ref %build-inputs "source"))
                 (lua-version ,(version-major+minor (package-version lua)))
                 (destination (string-append (assoc-ref %outputs "out")
@@ -1347,7 +1347,7 @@ on numbers.")
              (commit version)))
        (file-name (git-file-name name version))
        (sha256 (base32 "0kivx4yyj2zhj23d93h5rr0ab7gkazd3z7r7aqv1bgmigcw47pj2"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet #~(begin
                     (delete-file-recursively "clib")
                     (delete-file-recursively "doc/api")
@@ -1422,7 +1422,7 @@ for syntax highlighting or a linting tool.")
                   (install-file "bin/djot" (string-append #$output "/bin"))
                   (chmod out-bin #o755)
                   (wrap-program out-bin
-                    `("GUIX_LUA_PATH" ";" = (,out-lua))))
+                    `("MANIFOLDING_OS_LUA_PATH" ";" = (,out-lua))))
                 (install-file "doc/djot.1"
                               (string-append #$output "/share/man/man1"))))))))
     (native-inputs (list pandoc))
@@ -1527,13 +1527,13 @@ and readline's custom completion.")
             (add-after 'install 'set-lua-path
               (lambda* (#:key inputs #:allow-other-keys)
                 (let ((input-dirs (map cdr (alist-delete "source" inputs))))
-                  (setenv "GUIX_LUA_CPATH"
+                  (setenv "MANIFOLDING_OS_LUA_CPATH"
                           (string-join
                            (map (lambda (prefix)
                                   (string-append prefix lua-cpath))
                                 input-dirs)
                            ";"))
-                  (setenv "GUIX_LUA_PATH"
+                  (setenv "MANIFOLDING_OS_LUA_PATH"
                           (string-join
                            (map (lambda (prefix)
                                   (string-append prefix lua-path))
@@ -1668,10 +1668,10 @@ spirit of the Lua C API and thus degrade performance.")
                 "1c58hykwpg5zqbyhrcb703pzwbkih409v3bh2gady6z2kj9q32dw"))))
     (build-system trivial-build-system)
     (arguments
-     `(#:modules ((guix build utils))
+     `(#:modules ((Manifolding-OS build utils))
        #:builder
        (begin
-         (use-modules (guix build utils))
+         (use-modules (Manifolding-OS build utils))
          (let* ((luajit-major+minor ,(version-major+minor (package-version lua)))
                 (package-lua-resty (lambda (input output)
                                      (mkdir-p (string-append output "/lib/lua"))
@@ -1705,10 +1705,10 @@ spirit of the Lua C API and thus degrade performance.")
                 "1bsc54v1rvxmkwg7a2c01p192lvw5g576f589is8fy1m1c6v4ap8"))))
     (build-system trivial-build-system)
     (arguments
-     `(#:modules ((guix build utils))
+     `(#:modules ((Manifolding-OS build utils))
        #:builder
        (begin
-         (use-modules (guix build utils))
+         (use-modules (Manifolding-OS build utils))
          (let* ((luajit-major+minor ,(version-major+minor (package-version lua)))
                 (package-lua-resty (lambda (input output)
                                      (mkdir-p (string-append output "/lib/lua/" luajit-major+minor))
@@ -1748,7 +1748,7 @@ spirit of the Lua C API and thus degrade performance.")
          (delete 'configure)
          (add-after 'install 'install-lua
            (lambda* (#:key inputs outputs #:allow-other-keys)
-             (use-modules (guix build utils))
+             (use-modules (Manifolding-OS build utils))
              (let* ((luajit-major+minor ,(version-major+minor (package-version lua)))
                     (package-lua-resty (lambda (input output)
                                          (mkdir-p (string-append output "/lib/lua/" luajit-major+minor))
@@ -1780,10 +1780,10 @@ signals to Linux processes.")
                 "03yjj3w6znvj6843prg84m0lkrn49l901f9hj9bgy3cj9s0awl6y"))))
     (build-system trivial-build-system)
     (arguments
-     `(#:modules ((guix build utils))
+     `(#:modules ((Manifolding-OS build utils))
        #:builder
        (begin
-         (use-modules (guix build utils))
+         (use-modules (Manifolding-OS build utils))
          (let* ((luajit-major+minor ,(version-major+minor (package-version lua)))
                 (package-lua-resty (lambda (input output)
                                      (mkdir-p (string-append output "/lib/lua/" luajit-major+minor))
@@ -1812,10 +1812,10 @@ signals to Linux processes.")
                 "1s6g04ip4hr97r2pd8ry3alq063604s9a3l0hn9nsidh81ps4dp7"))))
     (build-system trivial-build-system)
     (arguments
-     `(#:modules ((guix build utils))
+     `(#:modules ((Manifolding-OS build utils))
        #:builder
        (begin
-         (use-modules (guix build utils))
+         (use-modules (Manifolding-OS build utils))
          (let* ((luajit-major+minor ,(version-major+minor (package-version lua)))
                 (package-lua-resty (lambda (input output)
                                      (mkdir-p (string-append output "/lib/lua/" luajit-major+minor))
@@ -1958,10 +1958,10 @@ multiple local rocks trees.")
     (build-system trivial-build-system)
     (arguments
      (list
-      #:modules '((guix build utils))
+      #:modules '((Manifolding-OS build utils))
       #:builder
       #~(begin
-          (use-modules (guix build utils))
+          (use-modules (Manifolding-OS build utils))
           (let* ((luajit-major+minor
                   #$(version-major+minor (package-version lua)))
                  (lua-dir
@@ -2009,10 +2009,10 @@ multiple local rocks trees.")
                         (add-after 'install 'wrap
                          (lambda _
                            (wrap-program (string-append #$output "/bin/fennel")
-                             `("GUIX_LUA_CPATH" ";" suffix
-                               (,(getenv "GUIX_LUA_CPATH")))
-                             `("GUIX_LUA_PATH" ";" suffix
-                               (,(getenv "GUIX_LUA_PATH"))))))
+                             `("MANIFOLDING_OS_LUA_CPATH" ";" suffix
+                               (,(getenv "MANIFOLDING_OS_LUA_CPATH")))
+                             `("MANIFOLDING_OS_LUA_PATH" ";" suffix
+                               (,(getenv "MANIFOLDING_OS_LUA_PATH"))))))
                         (add-after 'wrap 'check
                           (assoc-ref %standard-phases
                                      'check)))))
@@ -2071,7 +2071,7 @@ This compiler does the opposite of what the Fennel compiler does.")
               (sha256
                (base32
                 "06gzw7f20yw4192kymr4karxw3ia3apjnjqpm6vxph87c67d1fa3"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                #~(begin
                    ;; Use input fennel instead of bundled fennel.
@@ -2081,8 +2081,8 @@ This compiler does the opposite of what the Fennel compiler does.")
                      (("./fennel") "fennel"))))))
     (build-system gnu-build-system)
     (arguments
-     `(#:modules ((guix build gnu-build-system)
-                  (guix build utils)
+     `(#:modules ((Manifolding-OS build gnu-build-system)
+                  (Manifolding-OS build utils)
                   (ice-9 match))
        #:test-target "test"
        #:phases
@@ -2106,7 +2106,7 @@ This compiler does the opposite of what the Fennel compiler does.")
          (lambda* (#:key outputs #:allow-other-keys)
           (let* ((fnlfmt (assoc-ref outputs "out")))
            (wrap-program (string-append fnlfmt "/bin/fnlfmt")
-             `("GUIX_LUA_PATH" ";" suffix (,(getenv "GUIX_LUA_PATH"))))
+             `("MANIFOLDING_OS_LUA_PATH" ";" suffix (,(getenv "MANIFOLDING_OS_LUA_PATH"))))
            #t))))))
     (inputs (list bash-minimal))
     (native-inputs (list lua fennel))
@@ -2151,7 +2151,7 @@ way, following established lisp conventions.")
           (add-after 'install 'wrap
             (lambda _
               (wrap-program (string-append #$output "/bin/fennel-ls")
-                `("GUIX_LUA_PATH" ";" prefix (,(getenv "GUIX_LUA_PATH"))))))))))
+                `("MANIFOLDING_OS_LUA_PATH" ";" prefix (,(getenv "MANIFOLDING_OS_LUA_PATH"))))))))))
     (inputs (list bash-minimal lua fennel pandoc dkjson))
     (synopsis "Language server for Fennel")
     (description
@@ -2178,10 +2178,10 @@ way, following established lisp conventions.")
     (build-system trivial-build-system)
     (arguments
       (list
-       #:modules '((guix build utils))
+       #:modules '((Manifolding-OS build utils))
        #:builder
        #~(begin
-            (use-modules (guix build utils))
+            (use-modules (Manifolding-OS build utils))
             (let* ((lua (string-append #$(this-package-native-input "lua") "/bin/lua"))
                    (lua-version #$(this-lua-version))
                    (lua-dir (string-append #$output "/share/lua/" lua-version)))

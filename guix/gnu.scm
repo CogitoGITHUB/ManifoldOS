@@ -19,12 +19,12 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu)
-  #:use-module (guix i18n)
-  #:use-module (guix diagnostics)
+  #:use-module (Manifolding-OS i18n)
+  #:use-module (Manifolding-OS diagnostics)
   #:use-module (srfi srfi-34)
   #:use-module (srfi srfi-35)
   #:use-module (ice-9 match)
-  #:use-module (guix packages)
+  #:use-module (Manifolding-OS packages)
   #:use-module (gnu packages)
   #:use-module (gnu services)
   #:export (use-package-modules
@@ -54,7 +54,7 @@
         (gnu services base)
         (gnu packages)
         (gnu packages base)
-        (guix gexp)))                             ; so gexps can be used
+        (Manifolding-OS gexp)))                             ; so gexps can be used
 
     (for-each (let ((i (module-public-interface (current-module))))
                 (lambda (m)
@@ -97,7 +97,7 @@
      (condition
       (&fix-hint
        (hint (G_ "\
-You may use @command{guix package --show=foo | grep location} to search
+You may use @command{Manifolding-OS package --show=foo | grep location} to search
 for the location of package @code{foo}.
 If you get the line @code{location: gnu/packages/bar.scm:174:2},
 add @code{bar} to the @code{use-package-modules} form.")))))
@@ -120,7 +120,7 @@ Try adding @code{(use-package-modules ~a)}.")
      (condition
       (&fix-hint
        (hint (format #f (G_ "\
-You may use @command{guix system search ~a} to search for a service
+You may use @command{Manifolding-OS system search ~a} to search for a service
 matching @code{~a}.
 If you get the line @code{location: gnu/services/foo.scm:188:2},
 add @code{foo} to the @code{use-service-modules} form.")

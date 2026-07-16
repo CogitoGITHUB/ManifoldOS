@@ -65,21 +65,21 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages password-utils)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix build-system cargo)
-  #:use-module (guix build-system cmake)
-  #:use-module (guix build-system copy)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system go)
-  #:use-module (guix build-system hare)
-  #:use-module (guix build-system pyproject)
-  #:use-module (guix build-system qt)
-  #:use-module (guix build-system trivial)
-  #:use-module (guix download)
-  #:use-module (guix gexp)
-  #:use-module (guix git-download)
-  #:use-module (guix packages)
-  #:use-module (guix utils)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS build-system cargo)
+  #:use-module (Manifolding-OS build-system cmake)
+  #:use-module (Manifolding-OS build-system copy)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system go)
+  #:use-module (Manifolding-OS build-system hare)
+  #:use-module (Manifolding-OS build-system pyproject)
+  #:use-module (Manifolding-OS build-system qt)
+  #:use-module (Manifolding-OS build-system trivial)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS utils)
   #:use-module (gnu packages)
   #:use-module (gnu packages admin)
   #:use-module (gnu packages aidc)
@@ -577,10 +577,10 @@ Counterpane's Passwordsafe.")
     (build-system cmake-build-system)
     (arguments
      (list
-      #:modules `(((guix build glib-or-gtk-build-system) #:prefix glib-or-gtk:)
-                  (guix build cmake-build-system)
-                  (guix build utils))
-      #:imported-modules `((guix build glib-or-gtk-build-system)
+      #:modules `(((Manifolding-OS build glib-or-gtk-build-system) #:prefix glib-or-gtk:)
+                  (Manifolding-OS build cmake-build-system)
+                  (Manifolding-OS build utils))
+      #:imported-modules `((Manifolding-OS build glib-or-gtk-build-system)
                            ,@%cmake-build-system-modules)
       #:tests? #f                        ; No tests
       #:phases
@@ -628,8 +628,8 @@ client, supporting @acronym{TOTP, Time-based one time passwords} and
     (build-system gnu-build-system)
     (arguments
      (list
-      #:modules '((guix build gnu-build-system)
-                  (guix build utils)
+      #:modules '((Manifolding-OS build gnu-build-system)
+                  (Manifolding-OS build utils)
                   (ice-9 popen)
                   (ice-9 rdelim))
       #:phases
@@ -686,9 +686,9 @@ applications, there is xclip integration." )
                     "-X github.com/getsops/sops/v3/version.Version="
                     #$(package-version this-package)))
            #:modules
-           '(((guix build gnu-build-system) #:prefix gnu:)
-             (guix build go-build-system)
-             (guix build utils))
+           '(((Manifolding-OS build gnu-build-system) #:prefix gnu:)
+             (Manifolding-OS build go-build-system)
+             (Manifolding-OS build utils))
            #:phases
            #~(modify-phases %standard-phases
                (replace 'install-license-files
@@ -1164,8 +1164,8 @@ through the pass command.")
     (build-system copy-build-system)
     (arguments
      (list
-      #:modules '((guix build copy-build-system)
-                  (guix build utils)
+      #:modules '((Manifolding-OS build copy-build-system)
+                  (Manifolding-OS build utils)
                   (srfi srfi-26))
       #:phases
       #~(modify-phases %standard-phases
@@ -1316,9 +1316,9 @@ automatically generating new passwords or manually setting your own.")
     (build-system qt-build-system)
     (arguments
      (list
-      #:modules '((guix build qt-build-system)
-                  ((guix build gnu-build-system) #:prefix gnu:)
-                  (guix build utils))
+      #:modules '((Manifolding-OS build qt-build-system)
+                  ((Manifolding-OS build gnu-build-system) #:prefix gnu:)
+                  (Manifolding-OS build utils))
       #:phases
       #~(modify-phases %standard-phases
           (replace 'configure
@@ -1659,7 +1659,7 @@ winner of the 2015 Password Hashing Competition.")
          (file-name (git-file-name name version))
          (sha256
           (base32 "1cr6vpb1mc48b60mjbnzalp58vx07sh7hg9r65j0cppk0n4gc0aj"))
-         (modules '((guix build utils)))
+         (modules '((Manifolding-OS build utils)))
          (snippet
           ;; don't install platform dependencies
           #~(substitute* "setup.py" ((".*install_requires.*") "")))))
@@ -1953,7 +1953,7 @@ your online accounts makes it necessary.")
               (sha256
                (base32
                 "15lbzjfb6n3d06090g1dyf3llc20mnmrn1yc9ys30xbldlracilm"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               ;; Delete bundled libraries.
               (snippet
                ;; TODO: Unbundle LZMA-SDK as well

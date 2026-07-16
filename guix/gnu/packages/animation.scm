@@ -21,15 +21,15 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages animation)
-  #:use-module (guix packages)
-  #:use-module (guix download)
-  #:use-module (guix gexp)
-  #:use-module (guix git-download)
-  #:use-module (guix utils)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix build-system cmake)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system meson)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS utils)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS build-system cmake)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system meson)
   #:use-module (gnu packages)
   #:use-module (gnu packages algebra)
   #:use-module (gnu packages assembly)
@@ -290,7 +290,7 @@ language.")
                 (sha256
                  (base32
                   "1p9gffjhbph34jhrvgpg93yha75bf88vkvlnk06x1r9601ph5321"))
-                (modules '((guix build utils)))
+                (modules '((Manifolding-OS build utils)))
                 ;; Delete bundled libsndfile sources.
                 (snippet
                  '(begin
@@ -413,7 +413,7 @@ and vector graphics.")
          (sha256
                  (base32 "1hdfyprjjhhlba3gszaarf1rv3jynm4hs4v8kdys03qz4g8i53by"))
          (file-name (git-file-name name version))
-         (modules '((guix build utils)))
+         (modules '((Manifolding-OS build utils)))
          (snippet
           '(begin
              ;; XXX: Swftools includes the source tarball of an old version of

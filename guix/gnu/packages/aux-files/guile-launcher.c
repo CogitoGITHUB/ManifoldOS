@@ -46,7 +46,7 @@ inner_main (void *unused, int argc, char **argv)
 #if defined __GNU__
   /* XXX: On 32-bit GNU/Hurd (i586-gnu), libgc emits "Repeated allocation"
      warnings that are annoying and interfere with communications between
-     'guix-daemon' and 'guix authenticate':
+     'Manifolding-OS-daemon' and 'Manifolding-OS authenticate':
      <https://issues.guix.gnu.org/73181>.  Silence them.  */
   GC_set_warn_proc (no_warnings);
 #endif
@@ -87,7 +87,7 @@ main (int argc, char **argv)
   char *locale = setlocale (LC_ALL, "");
   if (locale == NULL || strcmp (locale, "C") == 0)
     {
-      /* The 'guix pull'-provided 'guix' includes at least C.UTF-8 (which is
+      /* The 'Manifolding-OS pull'-provided 'Manifolding-OS' includes at least C.UTF-8 (which is
 	 baked into glibc, except when cross-compiling) so use that, and fall
 	 back to en_US.UTF-8.  That gives us UTF-8 support for
 	 'scm_to_locale_string', etc., which is always preferable over the C

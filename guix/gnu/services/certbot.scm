@@ -31,9 +31,9 @@
   #:use-module (gnu services web)
   #:use-module (gnu system shadow)
   #:use-module (gnu packages tls)
-  #:use-module (guix i18n)
-  #:use-module (guix records)
-  #:use-module (guix gexp)
+  #:use-module (Manifolding-OS i18n)
+  #:use-module (Manifolding-OS records)
+  #:use-module (Manifolding-OS gexp)
   #:use-module (srfi srfi-1)
   #:use-module (ice-9 format)
   #:use-module (ice-9 match)
@@ -103,10 +103,10 @@ deploy."
   (program-file
    (string-append name "-deploy-hook")
    (with-imported-modules '((gnu services herd)
-                            (guix build utils))
+                            (Manifolding-OS build utils))
      #~(begin
          (use-modules (gnu services herd)
-                      (guix build utils))
+                      (Manifolding-OS build utils))
          (mkdir-p #$(string-append "/etc/certs/" name))
          (chmod #$(string-append "/etc/certs/" name) #o755)
 
@@ -323,9 +323,9 @@ certificates.")
     (match config
       (($ <certbot-configuration> package webroot certificates email
                                   server rsa-key-size default-location)
-       (with-imported-modules '((guix build utils))
+       (with-imported-modules '((Manifolding-OS build utils))
          #~(begin
-             (use-modules (guix build utils))
+             (use-modules (Manifolding-OS build utils))
              (mkdir-p #$webroot)
              (mkdir-p #$certbot-directory)
              (mkdir-p #$certbot-cert-directory)

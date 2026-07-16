@@ -26,13 +26,13 @@
   #:use-module (gnu system)
   #:use-module (gnu system vm)
   #:use-module (gnu tests)
-  #:use-module (guix derivations)
-  #:use-module (guix gexp)
-  #:use-module (guix modules)
-  #:use-module (guix packages)
-  #:use-module (guix monads)
-  #:use-module (guix store)
-  #:use-module (guix utils)
+  #:use-module (Manifolding-OS derivations)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS modules)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS monads)
+  #:use-module (Manifolding-OS store)
+  #:use-module (Manifolding-OS utils)
   #:export (%test-loadable-kernel-modules-0
             %test-loadable-kernel-modules-1
             %test-loadable-kernel-modules-2
@@ -75,7 +75,7 @@ that MODULES are actually loaded."
   (define os
     (marionette-operating-system
      base-os
-     #:imported-modules '((guix combinators))))
+     #:imported-modules '((Manifolding-OS combinators))))
 
   (define vm (virtual-machine os))
 

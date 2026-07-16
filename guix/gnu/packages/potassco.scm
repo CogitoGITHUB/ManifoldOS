@@ -21,17 +21,17 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages potassco)
-  #:use-module ((guix licenses) #:prefix license:)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
   #:use-module (gnu packages)
-  #:use-module (guix gexp)
-  #:use-module (guix packages)
-  #:use-module (guix download)
-  #:use-module (guix git-download)
-  #:use-module (guix gexp)
-  #:use-module (guix utils)
-  #:use-module (guix build-system cmake)
-  #:use-module (guix build-system emacs)
-  #:use-module (guix build-system pyproject)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS utils)
+  #:use-module (Manifolding-OS build-system cmake)
+  #:use-module (Manifolding-OS build-system emacs)
+  #:use-module (Manifolding-OS build-system pyproject)
   #:use-module (gnu packages algebra)
   #:use-module (gnu packages bison)
   #:use-module (gnu packages check)
@@ -60,7 +60,7 @@
                       (url "https://github.com/potassco/libpotassco")
                       (commit commit)))
                 (file-name (git-file-name name version))
-                (modules '((guix build utils)))
+                (modules '((Manifolding-OS build utils)))
                 (snippet
                  #~(begin
                      (delete-file "tests/catch.hpp")
@@ -157,7 +157,7 @@ satisfiability checking (SAT).")
                     (url "https://github.com/potassco/clingo")
                     (commit (string-append "v" version))))
               (file-name (git-file-name name version))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                #~(begin
                    (delete-file-recursively "clasp")
@@ -251,7 +251,7 @@ over difference logic.")
                     (url "https://github.com/potassco/clingo-lpx")
                     (commit (string-append "v" version))))
               (file-name (git-file-name name version))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                #~(begin
                    (delete-file-recursively "third_party")))
@@ -287,7 +287,7 @@ and goals over linear (in)equations.")
                     (url "https://github.com/potassco/clingcon")
                     (commit (string-append "v" version))))
               (file-name (git-file-name name version))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                #~(begin
                    (delete-file-recursively "third_party")))
@@ -440,9 +440,9 @@ Lua code.")))
         (append %cmake-build-system-modules
                 %pyproject-build-system-modules))
        ((#:modules _ '())
-        '((guix build cmake-build-system)
-          ((guix build pyproject-build-system) #:prefix python:)
-          (guix build utils)))
+        '((Manifolding-OS build cmake-build-system)
+          ((Manifolding-OS build pyproject-build-system) #:prefix python:)
+          (Manifolding-OS build utils)))
        ((#:phases phases #~%standard-phases)
         #~(modify-phases #$phases
             (add-after 'unpack 'generate-sources
@@ -483,9 +483,9 @@ Python code.")))
       #:tests? #f
       #:imported-modules (append %cmake-build-system-modules
                                  %pyproject-build-system-modules)
-      #:modules '((guix build cmake-build-system)
-                  ((guix build pyproject-build-system) #:prefix python:)
-                  (guix build utils))
+      #:modules '((Manifolding-OS build cmake-build-system)
+                  ((Manifolding-OS build pyproject-build-system) #:prefix python:)
+                  (Manifolding-OS build utils))
       #:phases
       #~(modify-phases %standard-phases
           (add-after 'install 'install-distinfo
@@ -522,9 +522,9 @@ directly from the python command line.")))
                              "/lib/cmake/modules"))
       #:imported-modules (append %cmake-build-system-modules
                                  %pyproject-build-system-modules)
-      #:modules '((guix build cmake-build-system)
-                  ((guix build pyproject-build-system) #:prefix python:)
-                  (guix build utils))
+      #:modules '((Manifolding-OS build cmake-build-system)
+                  ((Manifolding-OS build pyproject-build-system) #:prefix python:)
+                  (Manifolding-OS build utils))
       (substitute-keyword-arguments arguments
         ((#:phases phases)
          #~(modify-phases #$phases
@@ -765,7 +765,7 @@ as logic programs.")
             (sha256
              (base32
               "0242nz07ddjkr1c6b8vxaiy3fnpxw1d060ha0a8vdyxg0k50xi10"))
-            (modules '((guix build utils)))
+            (modules '((Manifolding-OS build utils)))
             (snippet
              #~(begin
                  (substitute* "setup.cfg"

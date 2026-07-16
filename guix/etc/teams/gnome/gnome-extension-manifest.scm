@@ -16,8 +16,8 @@
 ;;; You should have received a copy of the GNU General Public License
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
-(use-modules (guix packages)
-             (guix profiles)
+(use-modules (Manifolding-OS packages)
+             (Manifolding-OS profiles)
              (gnu packages))
 
 (manifest

@@ -22,22 +22,22 @@
 ;; Tests for guix/import/go.scm
 
 (define-module (tests-import-go)
-  #:use-module (guix base32)
-  #:use-module (guix build-system go)
-  #:use-module (guix import go)
-  #:use-module (guix import utils)
-  #:use-module ((guix utils) #:select (call-with-temporary-directory))
-  #:use-module (guix tests)
+  #:use-module (Manifolding-OS base32)
+  #:use-module (Manifolding-OS build-system go)
+  #:use-module (Manifolding-OS import go)
+  #:use-module (Manifolding-OS import utils)
+  #:use-module ((Manifolding-OS utils) #:select (call-with-temporary-directory))
+  #:use-module (Manifolding-OS tests)
   #:use-module (ice-9 match)
   #:use-module (srfi srfi-19)
   #:use-module (srfi srfi-64)
   #:use-module (web response))
 
 (define go.mod-requirements
-  (@@ (guix import go) go.mod-requirements))
+  (@@ (Manifolding-OS import go) go.mod-requirements))
 
 (define parse-go.mod
-  (@@ (guix import go) parse-go.mod))
+  (@@ (Manifolding-OS import go) parse-go.mod))
 
 (define fixture-go-mod-simple
   "module my/thing
@@ -209,11 +209,11 @@ require github.com/kr/pretty v0.2.1
 (test-assert "go-pseudo-version? semantic version with rc"
   (go-pseudo-version? "v1.4.0-rc.4.0.20200313231945-b860323f09d0"))
 
-;;; Unit tests for (guix import go)
+;;; Unit tests for (Manifolding-OS import go)
 
 (test-equal "go-path-escape"
   "github.com/!azure/!avere"
-  ((@@ (guix import go) go-path-escape) "github.com/Azure/Avere"))
+  ((@@ (Manifolding-OS import go) go-path-escape) "github.com/Azure/Avere"))
 
 
 ;; We define a function for all similar tests with different go.mod files
@@ -350,7 +350,7 @@ require github.com/kr/pretty v0.2.1
       (comment "pinned to release-branch.go1.13")))
   (parse-go.mod fixture-go-mod-complete))
 
-;;; End-to-end tests for (guix import go)
+;;; End-to-end tests for (Manifolding-OS import go)
 (define (mock-http-fetch testcase)
   (lambda (url . rest)
     (let ((body (assoc-ref testcase url)))
@@ -406,9 +406,9 @@ package.")
    (lambda (checkout)
      (mock ((web client) http-get
             (mock-http-get fixtures-go-check-test))
-         (mock ((guix http-client) http-fetch
+         (mock ((Manifolding-OS http-client) http-fetch
                 (mock-http-fetch fixtures-go-check-test))
-             (mock ((guix import utils) git->origin
+             (mock ((Manifolding-OS import utils) git->origin
                     ;; Mock an empty directory by replacing hash.
                     (lambda* (url proc #:key ref #:rest args)
                       (git-origin url (peek-body proc) "\

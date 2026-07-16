@@ -18,11 +18,11 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages inferno)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix gexp)
-  #:use-module (guix git-download)
-  #:use-module (guix packages)
-  #:use-module ((guix licenses)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS packages)
+  #:use-module ((Manifolding-OS licenses)
                 #:prefix license:)
   #:use-module (gnu packages)
   #:use-module (gnu packages plan9)
@@ -49,7 +49,7 @@
          (sha256
           (base32 "0g3fzb991hbwa7r3vsnybw7m1v13nins5ajmygnvz4vmx5rzl405"))
          (patches (search-patches "inferno-fix-crash.patch"))
-         (modules '((guix build utils)))
+         (modules '((Manifolding-OS build utils)))
          ;; Remove bundled non-free and potentially non-free fonts.
          (snippet '(delete-file-recursively "fonts"))))
       (build-system gnu-build-system)

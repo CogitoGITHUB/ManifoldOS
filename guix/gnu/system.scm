@@ -33,21 +33,21 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu system)
-  #:use-module (guix inferior)
-  #:use-module (guix store)
-  #:use-module (guix memoization)
-  #:use-module (guix monads)
-  #:use-module (guix gexp)
-  #:use-module (guix records)
-  #:use-module (guix packages)
-  #:use-module (guix deprecation)
-  #:use-module (guix derivations)
-  #:use-module (guix profiles)
-  #:use-module ((guix utils) #:select (substitute-keyword-arguments
+  #:use-module (Manifolding-OS inferior)
+  #:use-module (Manifolding-OS store)
+  #:use-module (Manifolding-OS memoization)
+  #:use-module (Manifolding-OS monads)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS records)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS deprecation)
+  #:use-module (Manifolding-OS derivations)
+  #:use-module (Manifolding-OS profiles)
+  #:use-module ((Manifolding-OS utils) #:select (substitute-keyword-arguments
                                        version>?))
-  #:use-module (guix i18n)
-  #:use-module (guix diagnostics)
-  #:use-module (guix ui)
+  #:use-module (Manifolding-OS i18n)
+  #:use-module (Manifolding-OS diagnostics)
+  #:use-module (Manifolding-OS ui)
   #:use-module (gnu packages admin)
   #:use-module (gnu packages base)
   #:use-module (gnu packages bash)
@@ -711,7 +711,7 @@ from the initrd."
              location)
             (G_ "List elements of the field 'swap-devices' should \
 now use the <swap-space> record, as the old method is deprecated. \
-See \"(guix) operating-system Reference\" for more details.~%")))
+See \"(Manifolding-OS) operating-system Reference\" for more details.~%")))
          x) value))
 
 (define (swap-services os)
@@ -1011,9 +1011,9 @@ This is the GNU system.  Welcome.\n")
   "Return a copy of FILE, a sudoers file, after checking that it is
 syntactically correct."
   (computed-file "sudoers"
-                 (with-imported-modules '((guix build utils))
+                 (with-imported-modules '((Manifolding-OS build utils))
                    #~(begin
-                       (use-modules (guix build utils))
+                       (use-modules (Manifolding-OS build utils))
 
                        (invoke #+(file-append sudo "/sbin/visudo")
                                "--check" "--file" #$file)
@@ -1075,7 +1075,7 @@ export XCURSOR_PATH=$HOME/.icons:$HOME/.guix-profile/share/icons:/run/current-sy
 unset PATH
 
 # Load the system profile's settings.
-GUIX_PROFILE=/run/current-system/profile ; \\
+MANIFOLDING_OS_PROFILE=/run/current-system/profile ; \\
 . /run/current-system/profile/etc/profile
 
 # Since 'lshd' does not use pam_env, /etc/environment must be explicitly
@@ -1098,7 +1098,7 @@ do
   if [ -f \"$profile/etc/profile\" ]
   then
     # Load the user profile's settings.
-    GUIX_PROFILE=\"$profile\" ; \\
+    MANIFOLDING_OS_PROFILE=\"$profile\" ; \\
     . \"$profile/etc/profile\"
   else
     # At least define this one so that basic things just work
@@ -1108,7 +1108,7 @@ do
 done
 
 # Clean up after ourselves.
-unset GUIX_PROFILE
+unset MANIFOLDING_OS_PROFILE
 
 # Prepend privileged programs.
 export PATH=/run/privileged/bin:$PATH

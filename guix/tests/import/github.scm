@@ -20,23 +20,23 @@
   #:use-module (json)
   #:use-module (srfi srfi-35)
   #:use-module (srfi srfi-64)
-  #:use-module (guix git-download)
-  #:use-module (guix http-client)
-  #:use-module (guix import github)
-  #:use-module (guix packages)
-  #:use-module (guix tests)
-  #:use-module (guix upstream)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS http-client)
+  #:use-module (Manifolding-OS import github)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS tests)
+  #:use-module (Manifolding-OS upstream)
   #:use-module (web uri)
   #:use-module (ice-9 match))
 
 (test-begin "github")
 
 (define (call-with-releases thunk tags releases)
-  (mock ((guix build download) open-connection-for-uri
+  (mock ((Manifolding-OS build download) open-connection-for-uri
          (lambda _
            ;; Return a fake socket.
            (%make-void-port "w+0")))
-        (mock ((guix http-client) http-fetch
+        (mock ((Manifolding-OS http-client) http-fetch
                (lambda* (uri #:key headers #:allow-other-keys)
                  (let ((uri (if (string? uri)
                                 (string->uri uri)

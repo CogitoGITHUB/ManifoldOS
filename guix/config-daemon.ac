@@ -20,9 +20,9 @@ if test "x$guix_build_daemon" = "xyes"; then
 
   dnl Look for zlib, a required dependency.
   AC_CHECK_LIB([z], [gzdopen], [true],
-    [AC_MSG_ERROR([Guix requires zlib.  See http://www.zlib.net/.])])
+    [AC_MSG_ERROR([Manifolding-OS requires zlib.  See http://www.zlib.net/.])])
   AC_CHECK_HEADERS([zlib.h], [true],
-    [AC_MSG_ERROR([Guix requires zlib.  See http://www.zlib.net/.])])
+    [AC_MSG_ERROR([Manifolding-OS requires zlib.  See http://www.zlib.net/.])])
 
   dnl Look for libbz2, an optional dependency.
   AC_CHECK_LIB([bz2], [BZ2_bzWriteOpen], [HAVE_LIBBZ2=yes], [HAVE_LIBBZ2=no])
@@ -35,7 +35,7 @@ if test "x$guix_build_daemon" = "xyes"; then
   PKG_CHECK_MODULES([SQLITE3], [sqlite3 >= 3.6.19])
 
   AC_DEFINE_UNQUOTED([SYSTEM], ["$guix_system"],
-    [Guix host system type--i.e., platform and OS kernel tuple.])
+    [Manifolding-OS host system type--i.e., platform and OS kernel tuple.])
 
   case "$LIBGCRYPT_PREFIX" in
     no)
@@ -117,9 +117,9 @@ if test "x$guix_build_daemon" = "xyes"; then
   AC_SUBST([GUIX_SUBSTITUTE_URLS])
 
   AC_DEFINE_UNQUOTED([GUIX_SUBSTITUTE_URLS], ["$GUIX_SUBSTITUTE_URLS"],
-    [Default list of substitute URLs used by 'guix-daemon'.])
+    [Default list of substitute URLs used by 'Manifolding-OS-daemon'.])
 
-  dnl Check for Guile-SSH, which is required by 'guix offload'.
+  dnl Check for Guile-SSH, which is required by 'Manifolding-OS offload'.
   GUIX_CHECK_GUILE_SSH
 
   case "x$guix_cv_have_recent_guile_ssh" in

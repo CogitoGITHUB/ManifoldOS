@@ -18,7 +18,7 @@
 
 (define-module (gnu packages adns)
   #:use-module (gnu packages dns)
-  #:use-module (guix deprecation))
+  #:use-module (Manifolding-OS deprecation))
 
 (define-deprecated/public-alias adns
   (@ (gnu packages dns) adns))

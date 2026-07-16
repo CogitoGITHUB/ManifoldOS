@@ -21,8 +21,8 @@
   #:use-module (gnu packages virtualization)
   #:use-module (gnu services)
   #:use-module (gnu services shepherd)
-  #:use-module (guix gexp)
-  #:use-module (guix records)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS records)
   #:use-module (srfi srfi-1)
   #:use-module (ice-9 match)
   #:export (ganeti-noded-configuration
@@ -782,9 +782,9 @@ than 21 days from @file{/var/lib/ganeti/queue/archive}.")))
                           (default '())))
 
 (define (ganeti-activation config)
-  (with-imported-modules '((guix build utils))
+  (with-imported-modules '((Manifolding-OS build utils))
     #~(begin
-        (use-modules (guix build utils))
+        (use-modules (Manifolding-OS build utils))
         (for-each mkdir-p
                   '("/var/log/ganeti"
                     "/var/log/ganeti/kvm"
@@ -915,10 +915,10 @@ trap - EXIT
     ((? list?)
      (let ((names (map car hooks))
            (files (map cdr hooks)))
-       (with-imported-modules '((guix build utils))
+       (with-imported-modules '((Manifolding-OS build utils))
          (computed-file "debootstrap-hooks"
                         #~(begin
-                            (use-modules (guix build utils)
+                            (use-modules (Manifolding-OS build utils)
                                          (ice-9 match))
                             (mkdir-p #$output)
                             (with-directory-excursion #$output
@@ -995,15 +995,15 @@ in /etc/ganeti/instance-$os for OS."
         (extension (ganeti-os-extension os))
         (variants  (ganeti-os-variants os)))
     (define builder
-      (with-imported-modules '((guix build utils))
+      (with-imported-modules '((Manifolding-OS build utils))
         (if (file-like? variants)
             #~(begin
-                (use-modules (guix build utils))
+                (use-modules (Manifolding-OS build utils))
                 (mkdir-p #$output)
                 (symlink #$variants
                          (string-append #$output "/variants")))
             #~(begin
-                (use-modules (guix build utils)
+                (use-modules (Manifolding-OS build utils)
                              (ice-9 format)
                              (ice-9 match)
                              (srfi srfi-1))

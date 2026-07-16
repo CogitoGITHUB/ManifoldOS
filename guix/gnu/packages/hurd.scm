@@ -25,14 +25,14 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages hurd)
-  #:use-module ((guix licenses) #:hide (zlib))
-  #:use-module (guix download)
-  #:use-module (guix packages)
+  #:use-module ((Manifolding-OS licenses) #:hide (zlib))
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS packages)
   #:use-module (gnu packages)
-  #:use-module (guix gexp)
-  #:use-module (guix utils)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system trivial)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS utils)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system trivial)
   #:use-module (gnu packages autotools)
   #:use-module (gnu packages compression)
   #:use-module (gnu packages cross-base)
@@ -51,7 +51,7 @@
   #:use-module (gnu packages texinfo)
   #:use-module (gnu packages onc-rpc)
   #:use-module (gnu packages xorg) ;libpciaccess
-  #:use-module (guix git-download)
+  #:use-module (Manifolding-OS git-download)
   #:use-module (ice-9 match))
 
 (define (hurd-source-url version)
@@ -246,12 +246,12 @@ Library, Parted and netdde for GNU/Hurd.")
     (source #f)
     (build-system trivial-build-system)
     (arguments
-     '(#:modules ((guix build union))
+     '(#:modules ((Manifolding-OS build union))
        #:builder (begin
                    (use-modules (srfi srfi-1)
                                 (srfi srfi-26)
                                 (ice-9 match)
-                                (guix build union))
+                                (Manifolding-OS build union))
                    (let ((inputs (filter
                                   (compose (cute member <> '("gnumach-headers"
                                                              "hurd-headers"
@@ -355,8 +355,8 @@ Hurd-minimal package which are needed for both glibc and GCC.")
         #:tests? #f ;no tests
         #:modules '((srfi srfi-26)
                     (ice-9 rdelim)
-                    (guix build utils)
-                    (guix build gnu-build-system))
+                    (Manifolding-OS build utils)
+                    (Manifolding-OS build gnu-build-system))
         #:make-flags #~`(,(string-append "CC=" #$(cc-for-target))
                          ,(string-append "PREFIX=" #$output))
         ;; As we are using the Debian package as upstream, we follow their
@@ -885,8 +885,8 @@ in userland processes thanks to the DDE layer.")
         #:tests? #f
         #:modules '((srfi srfi-26)
                     (ice-9 rdelim)
-                    (guix build utils)
-                    (guix build gnu-build-system))
+                    (Manifolding-OS build utils)
+                    (Manifolding-OS build gnu-build-system))
         ;; As we are using the Debian package as upstream, we follow their
         ;; build:
         ;;   * apply patches in debian/patches taken from the
@@ -1092,6 +1092,6 @@ servers.")
              isc
              lgpl2.0+
              public-domain
-             (@ (guix licenses) zlib)
+             (@ (Manifolding-OS licenses) zlib)
              (non-copyleft "file://src/lib/libc/hash/hashhl.c"
                            "See debian/copyright in the distribution."))))))

@@ -26,11 +26,11 @@
   #:use-module (gnu packages pkg-config)
   #:use-module (gnu packages readline)
   #:use-module (gnu packages ruby-xyz)
-  #:use-module (guix build-system meson)
-  #:use-module (guix download)
-  #:use-module (guix gexp)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix packages))
+  #:use-module (Manifolding-OS build-system meson)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS packages))
 
 (define-public nickle
   (package

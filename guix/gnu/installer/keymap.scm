@@ -18,7 +18,7 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu installer keymap)
-  #:use-module (guix records)
+  #:use-module (Manifolding-OS records)
   #:use-module (sxml match)
   #:use-module (sxml simple)
   #:use-module (ice-9 binary-ports)

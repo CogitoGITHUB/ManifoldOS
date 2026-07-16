@@ -18,11 +18,11 @@
 
 (define-module (build-self)
   #:use-module (gnu)
-  #:use-module (guix)
-  #:use-module (guix ui)
-  #:use-module (guix config)
-  #:use-module (guix modules)
-  #:use-module ((guix self) #:select (make-config.scm))
+  #:use-module (Manifolding-OS)
+  #:use-module (Manifolding-OS ui)
+  #:use-module (Manifolding-OS config)
+  #:use-module (Manifolding-OS modules)
+  #:use-module ((Manifolding-OS self) #:select (make-config.scm))
   #:use-module (srfi srfi-1)
   #:use-module (srfi srfi-19)
   #:use-module (srfi srfi-34)
@@ -41,7 +41,7 @@
 ;;; This file uses modules provided by the already-installed Guix.  Those
 ;;; modules may be arbitrarily old compared to the version we want to
 ;;; build.  Because of that, it must rely on the smallest set of features
-;;; that are likely to be provided by the (guix) and (gnu) modules, and by
+;;; that are likely to be provided by the (Manifolding-OS) and (gnu) modules, and by
 ;;; Guile itself, forever and ever.
 ;;;
 ;;; Code:
@@ -62,16 +62,16 @@ person's version identifier."
                         #:optional (guile-version (effective-version))
                         #:key (pull-version 0)
                         built-in-builders)
-  "Return a program that computes the derivation to build Guix from SOURCE.
+  "Return a program that computes the derivation to build Manifolding-OS from SOURCE.
 If BUILT-IN-BUILDERS is provided, it should be a list of
 strings and this will be used instead of the builtin builders provided by the
 build daemon, from within the generated build program."
   (define select?
-    ;; Select every module but (guix config) and non-Guix modules.
+    ;; Select every module but (Manifolding-OS config) and non-Guix modules.
     (match-lambda
-      (('guix 'config) #f)
-      (('guix 'build 'download) #f)             ;autoloaded by (guix download)
-      (('guix _ ...)   #t)
+      (('Manifolding-OS 'config) #f)
+      (('Manifolding-OS 'build 'download) #f)             ;autoloaded by (Manifolding-OS download)
+      (('Manifolding-OS _ ...)   #t)
       (('gnu _ ...)    #t)
       (_               #f)))
 
@@ -84,7 +84,7 @@ build daemon, from within the generated build program."
   (define fake-git
     (scheme-file "git.scm" #~(define-module (git))))
 
-  (with-imported-modules `(((guix config)
+  (with-imported-modules `(((Manifolding-OS config)
                             => ,(make-config.scm))
 
                            ;; To avoid relying on 'with-extensions', which was
@@ -93,18 +93,18 @@ build daemon, from within the generated build program."
                            ;; adjust %LOAD-PATH later on.
                            ((gcrypt hash) => ,fake-gcrypt-hash)
 
-                           ;; (guix git-download) depends on (git) but only
+                           ;; (Manifolding-OS git-download) depends on (git) but only
                            ;; for peripheral functionality.  Provide a dummy
                            ;; (git) to placate it.
                            ((git) => ,fake-git)
 
-                           ,@(source-module-closure `((guix store)
-                                                      (guix self)
-                                                      (guix derivations)
+                           ,@(source-module-closure `((Manifolding-OS store)
+                                                      (Manifolding-OS self)
+                                                      (Manifolding-OS derivations)
                                                       (gnu packages bootstrap))
                                                     (list source)
                                                     #:select? select?))
-    (gexp->script "compute-guix-derivation"
+    (gexp->script "compute-Manifolding-OS-derivation"
                   #~(begin
                       (use-modules (ice-9 match))
 
@@ -113,7 +113,7 @@ build daemon, from within the generated build program."
 
                       (eval-when (expand load eval)
                         ;; (gnu packages …) modules are going to be looked up
-                        ;; under SOURCE.  (guix config) is looked up in FRONT.
+                        ;; under SOURCE.  (Manifolding-OS config) is looked up in FRONT.
                         (match (command-line)
                           ((_ source _ ...)
                            (match %load-path
@@ -138,9 +138,9 @@ build daemon, from within the generated build program."
                         ;; when loading the package modules.
                         (read-disable 'positions))
 
-                      (use-modules (guix store)
-                                   (guix self)
-                                   (guix derivations)
+                      (use-modules (Manifolding-OS store)
+                                   (Manifolding-OS self)
+                                   (Manifolding-OS derivations)
                                    (srfi srfi-1))
 
                       (match (command-line)
@@ -183,7 +183,7 @@ build daemon, from within the generated build program."
                                              (%make-void-port "w"))
                                             (current-build-output-port sock))
                                (run-with-store store
-                              (guix-derivation source version
+                              (Manifolding-OS-derivation source version
                                                #$guile-version
                                                #:pull-version
                                                   #$pull-version)
@@ -263,7 +263,7 @@ files."
     (mbegin %store-monad
       ;; Before 'with-build-handler' was implemented and used, we had to
       ;; explicitly call 'show-what-to-build*'.
-      (munless (module-defined? (resolve-module '(guix store))
+      (munless (module-defined? (resolve-module '(Manifolding-OS store))
                                 'with-build-handler)
         (show-what-to-build* (list build)))
       (built-derivations (list build))
@@ -274,7 +274,7 @@ files."
       ;; stdin will actually be /dev/null.
       (let* ((sock   (socket AF_UNIX SOCK_STREAM 0))
              (node   (let ((file (string-append (or (getenv "TMPDIR") "/tmp")
-                                                "/guix-build-output-"
+                                                 "/Manifolding-OS-build-output-"
                                                 (number->string (getpid)))))
                        (bind sock AF_UNIX file)
                        (listen sock 1)
@@ -297,7 +297,7 @@ files."
                                            (logior major minor))
                                           "none")
                                       node))))))
-        (format (current-error-port) "Computing Guix derivation for '~a'...  "
+        (format (current-error-port) "Computing Manifolding-OS derivation for '~a'...  "
                 system)
 
         ;; Wait for a connection on SOCK and proxy build output so it can be
@@ -328,12 +328,12 @@ files."
              (raise (condition
                      (&message
                       (message (format #f "You found a bug: the program '~a'
-failed to compute the derivation for Guix (version: ~s; system: ~s;
+failed to compute the derivation for Manifolding-OS (version: ~s; system: ~s;
 host version: ~s; pull-version: ~s).
 Please report the COMPLETE output above to <~a>.~%"
                                        (derivation->output-path build)
-                                       version system %guix-version pull-version
-                                       %guix-bug-report-address))))))))))))
+                                       version system %Manifolding-OS-version pull-version
+                                       %Manifolding-OS-bug-report-address))))))))))))
 
 ;; This file is loaded by 'guix pull'; return it the build procedure.
 build

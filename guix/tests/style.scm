@@ -18,18 +18,18 @@
 
 (define-module (tests-style)
   #:use-module ((gcrypt hash) #:select (port-sha256))
-  #:use-module (guix packages)
-  #:use-module (guix read-print)
-  #:use-module (guix scripts style)
-  #:use-module ((guix utils)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS read-print)
+  #:use-module (Manifolding-OS scripts style)
+  #:use-module ((Manifolding-OS utils)
                 #:select (guile-version>?
                           call-with-temporary-directory))
-  #:use-module ((guix build utils) #:select (substitute*))
-  #:use-module (guix gexp)                        ;for the reader extension
-  #:use-module (guix diagnostics)
-  #:use-module (guix git)
-  #:use-module (guix tests)
-  #:use-module (guix tests git)
+  #:use-module ((Manifolding-OS build utils) #:select (substitute*))
+  #:use-module (Manifolding-OS gexp)                        ;for the reader extension
+  #:use-module (Manifolding-OS diagnostics)
+  #:use-module (Manifolding-OS git)
+  #:use-module (Manifolding-OS tests)
+  #:use-module (Manifolding-OS tests git)
   #:use-module (gnu packages)
   #:use-module (gnu packages acl)
   #:use-module (gnu packages multiprecision)
@@ -55,10 +55,10 @@
            (pretty-print
             `(begin
                (define-module (,(string->symbol module-name))
-                 #:use-module (guix)
-                 #:use-module (guix git-download) ; for -S git-source
+                 #:use-module (Manifolding-OS)
+                 #:use-module (Manifolding-OS git-download) ; for -S git-source
                  #:use-module ((gnu packages) #:select (search-patches))
-                 #:use-module (guix licenses)
+                 #:use-module (Manifolding-OS licenses)
                  #:use-module (gnu packages acl)
                  #:use-module (gnu packages base)
                  #:use-module (gnu packages multiprecision)
@@ -583,7 +583,7 @@
             `((add "README" "Initial commit")
               (commit "First commit")
               (tag "1.0" "Initial release"))
-          (mock ((guix import utils) git-repository-url? (const #t))
+          (mock ((Manifolding-OS import utils) git-repository-url? (const #t))
                 (substitute* file
                   (("@substitute-me@")
                    (string-append "file://" repository)))
@@ -633,7 +633,7 @@
             `((add "README" "Initial commit")
               (commit "First commit")
               (tag "1.0" "Initial release"))
-          (mock ((guix import utils) git-repository-url? (const #t))
+          (mock ((Manifolding-OS import utils) git-repository-url? (const #t))
                 (mock ((gnu packages) specification->package+output
                        (lambda (spec)
                          (car

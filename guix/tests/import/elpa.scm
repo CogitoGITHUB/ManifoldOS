@@ -20,11 +20,11 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (test-elpa)
-  #:use-module (guix import elpa)
-  #:use-module (guix upstream)
-  #:use-module ((guix download) #:select (url-fetch))
-  #:use-module (guix tests)
-  #:use-module (guix tests http)
+  #:use-module (Manifolding-OS import elpa)
+  #:use-module (Manifolding-OS upstream)
+  #:use-module ((Manifolding-OS download) #:select (url-fetch))
+  #:use-module (Manifolding-OS tests)
+  #:use-module (Manifolding-OS tests http)
   #:use-module (srfi srfi-1)
   #:use-module (srfi srfi-64)
   #:use-module (ice-9 match)

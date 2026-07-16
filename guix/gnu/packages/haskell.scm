@@ -67,14 +67,14 @@
   #:use-module (gnu packages perl)
   #:use-module (gnu packages python)
   #:use-module (gnu packages version-control)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system haskell)
-  #:use-module (guix download)
-  #:use-module (guix git-download)
-  #:use-module (guix gexp)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix packages)
-  #:use-module (guix utils)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system haskell)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS utils)
   #:use-module (ice-9 match)
   #:use-module (ice-9 regex))
 
@@ -269,8 +269,8 @@ is itself quite fast.")
       #:strip-binaries? #f
       #:parallel-build? #f
       #:implicit-inputs? #f
-      #:modules '((guix build gnu-build-system)
-                  (guix build utils)
+      #:modules '((Manifolding-OS build gnu-build-system)
+                  (Manifolding-OS build utils)
                   (srfi srfi-1)
                   (ice-9 match))
       #:phases
@@ -470,8 +470,8 @@ interactive environment for the functional language Haskell.")
       #:tests? #false ;no check target
       #:implicit-inputs? #false
       #:parallel-build? #false ;not supported
-      #:modules '((guix build gnu-build-system)
-                  (guix build utils)
+      #:modules '((Manifolding-OS build gnu-build-system)
+                  (Manifolding-OS build utils)
                   (srfi srfi-26)
                   (srfi srfi-1))
       #:phases
@@ -580,8 +580,8 @@ interactive environment for the functional language Haskell.")
      (list
       #:system "i686-linux"
       #:tests? #false ;no check target
-      #:modules '((guix build gnu-build-system)
-                  (guix build utils)
+      #:modules '((Manifolding-OS build gnu-build-system)
+                  (Manifolding-OS build utils)
                   (srfi srfi-26)
                   (srfi srfi-1))
       #:phases
@@ -663,7 +663,7 @@ interactive environment for the functional language Haskell.")
        (sha256
         (base32
          "0kakv05kqi92qbfgmhr57rvag10yvp338kjwzqczhkrgax98wsnn"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         '(delete-file-recursively "libffi"))))
     (build-system gnu-build-system)
@@ -673,8 +673,8 @@ interactive environment for the functional language Haskell.")
       #:system "i686-linux"
       #:tests? #false ;no check target
       #:parallel-build? #false ;fails when building libraries/*
-      #:modules '((guix build gnu-build-system)
-                  (guix build utils)
+      #:modules '((Manifolding-OS build gnu-build-system)
+                  (Manifolding-OS build utils)
                   (srfi srfi-26)
                   (srfi srfi-1))
       #:configure-flags
@@ -759,7 +759,7 @@ interactive environment for the functional language Haskell.")
         (base32
          "1vfhdvf9nls4pn1vy48ndy2s81klp1my6ch9dkg2373csvcpi6qs"))
        (snippet
-        #~(begin (use-modules (guix build utils))
+        #~(begin (use-modules (Manifolding-OS build utils))
                  (delete-file-recursively "utils/ghc-pwd/dist-boot")
                  (delete-file-recursively "libffi")))))
     (arguments
@@ -947,8 +947,8 @@ interactive environment for the functional language Haskell.")
        ;; then complains that they don't match.
        #:build #f
 
-       #:modules '((guix build gnu-build-system)
-                   (guix build utils)
+       #:modules '((Manifolding-OS build gnu-build-system)
+                   (Manifolding-OS build utils)
                    (srfi srfi-26)
                    (srfi srfi-1))
        #:configure-flags
@@ -1116,8 +1116,8 @@ interactive environment for the functional language Haskell.")
        ;; auto-detects slightly different triplets for --host and --target and
        ;; then complains that they don't match.
        #:build #f
-       #:modules '((guix build gnu-build-system)
-                   (guix build utils)
+       #:modules '((Manifolding-OS build gnu-build-system)
+                   (Manifolding-OS build utils)
                    (srfi srfi-1))
 
        #:configure-flags
@@ -1210,7 +1210,7 @@ interactive environment for the functional language Haskell.")
               version "/" name "-" version "-testsuite.tar.xz"))
         (sha256
          (base32 "0s8lf9sxj7n89pjagi58b3fahnp34qvmwhnn0j1fbg6955vbrfj6"))
-        (modules '((guix build utils)))
+        (modules '((Manifolding-OS build utils)))
         (snippet
          ;; collections.Iterable was moved to collections.abc in Python 3.10.
          '(substitute* "testsuite/driver/testlib.py"
@@ -1286,7 +1286,7 @@ interactive environment for the functional language Haskell.")
                  (sha256
                   (base32
                    "0pw9r91g2np3i806g2f4f8z4jfdd7mx226cmdizk4swa7av1qf91"))
-                 (modules '((guix build utils)))
+                 (modules '((Manifolding-OS build utils)))
                  (snippet
                   ;; collections.Iterable was moved to collections.abc in Python 3.10.
                   '(substitute* "testsuite/driver/testlib.py"
@@ -1382,7 +1382,7 @@ interactive environment for the functional language Haskell.")
              (sha256
               (base32
                "0c55pj2820q26rikhpf636sn4mjgqsxjrl94vsywrh79dxp3k14z"))
-             (modules '((guix build utils)))
+             (modules '((Manifolding-OS build utils)))
              (snippet
               ;; collections.Iterable was moved to collections.abc in Python 3.10.
               '(substitute* "testsuite/driver/testlib.py"
@@ -1436,7 +1436,7 @@ interactive environment for the functional language Haskell.")
                  (sha256
                   (base32
                    "1zl25gg6bpx5601k8h3cqnns1xfc0nqgwnh8jvn2s65ra3f2g1nz"))
-                 (modules '((guix build utils)))
+                 (modules '((Manifolding-OS build utils)))
                  (snippet
                   ;; collections.Iterable was moved to collections.abc in Python 3.10.
                   '(substitute* "testsuite/driver/testlib.py"
@@ -1513,7 +1513,7 @@ interactive environment for the functional language Haskell.")
 (define-public binary-ghc-8.10.7
   (package
     ;; Named like this to be able to install it in profile without
-    ;; ghc-package-cache-file (guix profiles) trying to install ghc...
+    ;; ghc-package-cache-file (Manifolding-OS profiles) trying to install ghc...
     (name "binary-ghc")
     (version "8.10.7")
     (source ghc-bootstrap-aarch64-8.10.7)
@@ -1672,7 +1672,7 @@ SRC_HC_OPTS += -optc-mno-outline-atomics
                 "1m5fzhr4gjn9ni8gxx7ag3fkbw1rspjzgv39mnfb0nkm5mw70v3s"))
               (patches (search-patches "ghc-9.2-grep-warnings.patch"
                                        "ghc-testsuite-recomp015-execstack.patch"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                ;; collections.Iterable was moved to collections.abc in Python 3.10.
                '(substitute* "testsuite/driver/testlib.py"

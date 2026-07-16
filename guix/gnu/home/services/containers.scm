@@ -22,8 +22,8 @@
   #:use-module (gnu services)
   #:use-module (gnu services configuration)
   #:use-module (gnu services containers)
-  #:use-module (guix gexp)
-  #:use-module (guix packages)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS packages)
   #:use-module (srfi srfi-1)
   #:export (home-oci-service-type))
 

@@ -24,13 +24,13 @@
   #:use-module (gnu system)
   #:use-module (gnu system vm)
   #:use-module (gnu tests)
-  #:use-module (guix derivations)
-  #:use-module (guix gexp)
-  #:use-module (guix modules)
-  #:use-module (guix packages)
-  #:use-module (guix monads)
-  #:use-module (guix store)
-  #:use-module (guix utils)
+  #:use-module (Manifolding-OS derivations)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS modules)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS monads)
+  #:use-module (Manifolding-OS store)
+  #:use-module (Manifolding-OS utils)
   #:export (%test-tuned))
 
 (define %tuned-os
@@ -48,7 +48,7 @@
       (list))
      #:imported-modules '((gnu build dbus-service)
                           (gnu services herd)
-                          (guix combinators))))
+                          (Manifolding-OS combinators))))
 
   (define vm
     (virtual-machine

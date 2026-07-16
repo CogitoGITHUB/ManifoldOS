@@ -18,7 +18,7 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu system accounts)
-  #:use-module (guix records)
+  #:use-module (Manifolding-OS records)
   #:use-module (ice-9 match)
   #:export (user-account
             user-account?

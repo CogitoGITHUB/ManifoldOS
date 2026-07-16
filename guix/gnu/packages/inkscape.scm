@@ -26,13 +26,13 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages inkscape)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix packages)
-  #:use-module (guix download)
-  #:use-module (guix gexp)
-  #:use-module (guix utils)
-  #:use-module (guix deprecation)
-  #:use-module (guix build-system cmake)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS utils)
+  #:use-module (Manifolding-OS deprecation)
+  #:use-module (Manifolding-OS build-system cmake)
   #:use-module (gnu packages)
   #:use-module (gnu packages algebra)
   #:use-module (gnu packages bash)
@@ -77,7 +77,7 @@
                             "inkscape-" version ".tar.xz"))
         (sha256
          (base32 "0sq81smxwypgnp7r3wgza8w25dsz9qa8ga79sc85xzj3qi6q9lfv"))
-        (modules '((guix build utils)
+        (modules '((Manifolding-OS build utils)
                    (ice-9 format)))
         (patches (search-patches "inkscape-libxml2.patch"))
         (snippet
@@ -165,10 +165,10 @@ endif()~%~%"
        #:disallowed-references (list (this-package-native-input "imagemagick"))
 
        #:imported-modules `(,@%cmake-build-system-modules
-                            (guix build glib-or-gtk-build-system))
-       #:modules '((guix build cmake-build-system)
-                   ((guix build glib-or-gtk-build-system) #:prefix glib-or-gtk:)
-                   (guix build utils))
+                            (Manifolding-OS build glib-or-gtk-build-system))
+       #:modules '((Manifolding-OS build cmake-build-system)
+                   ((Manifolding-OS build glib-or-gtk-build-system) #:prefix glib-or-gtk:)
+                   (Manifolding-OS build utils))
        ;; Disable imagemagick support in the stable variant, to reduce the
        ;; number of dependents of the 'imagemagick' package.
        #:configure-flags
@@ -275,8 +275,8 @@ endif()~%~%"
                (wrap-program (string-append #$output "/bin/inkscape")
                  `("PATH" prefix
                    (,(dirname (search-input-file inputs "bin/python"))))
-                 `("GUIX_PYTHONPATH" prefix
-                   (,(getenv "GUIX_PYTHONPATH")))
+                 `("MANIFOLDING_OS_PYTHONPATH" prefix
+                   (,(getenv "MANIFOLDING_OS_PYTHONPATH")))
                  ;; Wrapping GDK_PIXBUF_MODULE_FILE allows Inkscape to load
                  ;; its own icons in pure environments.
                  `("GDK_PIXBUF_MODULE_FILE" =
@@ -362,7 +362,7 @@ as the native format.")
     (arguments
      (substitute-keyword-arguments (package-arguments inkscape/pinned)
        ((#:modules modules)
-        (append '(((guix build gnu-build-system) #:prefix gnu:)) modules))
+        (append '(((Manifolding-OS build gnu-build-system) #:prefix gnu:)) modules))
        ((#:configure-flags flags ''())
         ;; Enable ImageMagick support.
         #~(delete "-DWITH_IMAGE_MAGICK=OFF" #$flags))
@@ -392,8 +392,8 @@ as the native format.")
               ;; Ensure Python is available at runtime.
               (lambda _
                 (wrap-program (string-append #$output "/bin/inkscape")
-                  `("GUIX_PYTHONPATH" prefix
-                    (,(getenv "GUIX_PYTHONPATH")))
+                  `("MANIFOLDING_OS_PYTHONPATH" prefix
+                    (,(getenv "MANIFOLDING_OS_PYTHONPATH")))
                   ;; Wrapping GDK_PIXBUF_MODULE_FILE allows Inkscape to load
                   ;; its own icons in pure environments.
                   `("GDK_PIXBUF_MODULE_FILE" =

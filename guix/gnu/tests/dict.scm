@@ -26,10 +26,10 @@
   #:use-module (gnu services dict)
   #:use-module (gnu services networking)
   #:use-module (gnu packages wordnet)
-  #:use-module (guix gexp)
-  #:use-module (guix store)
-  #:use-module (guix packages)
-  #:use-module (guix modules)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS store)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS modules)
   #:export (%test-dicod))
 
 (define %dicod-os

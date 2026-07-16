@@ -39,8 +39,8 @@
   #:use-module (gnu system shadow)
   #:use-module (gnu system vm)
   #:use-module (gnu tests)
-  #:use-module (guix gexp)
-  #:use-module (guix modules)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS modules)
   #:export (%test-xvnc))
 
 (define %xvnc-os
@@ -110,7 +110,7 @@
   (define test
     (with-imported-modules (source-module-closure
                             '((gnu build marionette)
-                              (guix build utils)))
+                              (Manifolding-OS build utils)))
       #~(begin
           (use-modules (gnu build marionette)
                        (srfi srfi-26)
@@ -143,7 +143,7 @@
               ;; check it here.
               (marionette-eval
                '(begin
-                  (use-modules (guix build utils))
+                  (use-modules (Manifolding-OS build utils))
                   ;; Check that DCONF_PROFILE is set...
                   (invoke "/bin/sh" "-lc" "\
 pgrep gdm | head -n1 | xargs -I{} grep -Fq DCONF_PROFILE /proc/{}/environ")

@@ -22,9 +22,9 @@
 ;;;
 ;;; Code:
 
-(use-modules (gnu) (guix)
-             (guix build utils)
-             ((guix ui) #:select (fill-paragraph))
+(use-modules (gnu) (Manifolding-OS)
+             (Manifolding-OS build utils)
+             ((Manifolding-OS ui) #:select (fill-paragraph))
              (srfi srfi-1)
              (srfi srfi-11)
              (ice-9 match)
@@ -158,7 +158,7 @@ paragraph."
 (define (main . args)
   (match args
     ((news-file data-directory)
-     ;; Don't browse things listed in the user's $GUIX_PACKAGE_PATH and
+     ;; Don't browse things listed in the user's $MANIFOLDING_OS_PACKAGE_PATH and
      ;; in external channels.
      (parameterize ((%package-module-path
                      %default-package-module-path))

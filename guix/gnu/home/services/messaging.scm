@@ -27,8 +27,8 @@
   #:use-module (gnu services shepherd)
   #:use-module (gnu services messaging)
   #:use-module ((gnu system shadow) #:select (account-service-type))
-  #:use-module (guix records)
-  #:use-module (guix gexp)
+  #:use-module (Manifolding-OS records)
+  #:use-module (Manifolding-OS gexp)
   #:export (home-snuik-service-type
             home-znc-configuration
             home-znc-service-type))

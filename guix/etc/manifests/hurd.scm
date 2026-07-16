@@ -25,8 +25,8 @@
 
 (use-modules (gnu)
              (gnu system hurd)
-             (guix packages)
-             (guix utils)
+             (Manifolding-OS packages)
+             (Manifolding-OS utils)
              (ice-9 match)
              (srfi srfi-1))
 

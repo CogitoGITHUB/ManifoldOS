@@ -59,14 +59,14 @@
   #:use-module (gnu packages tls)
   #:use-module (gnu packages web)
   #:use-module (gnu packages)
-  #:use-module ((guix licenses) #:select (openldap2.8 lgpl2.1+ gpl3+ psfl expat))
-  #:use-module (guix packages)
-  #:use-module (guix gexp)
-  #:use-module (guix utils)
-  #:use-module (guix download)
-  #:use-module (guix git-download)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system pyproject))
+  #:use-module ((Manifolding-OS licenses) #:select (openldap2.8 lgpl2.1+ gpl3+ psfl expat))
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS utils)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system pyproject))
 
 (define-public openldap
   (package
@@ -244,7 +244,7 @@ servers from Python programs.")
                (base32
                 "1sdvfbjfg0091f47562gw3gdc2vgvvhyhdi21lrpwnw9lqc8xdxk"))
               (patches (search-patches "389-ds-base-legacy-version.patch"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                ;; Put '#define f_type' after '#include <sys/statvfs.h>' to
                ;; avoid name conflict.
@@ -256,9 +256,9 @@ servers from Python programs.")
     (arguments
      (list
       #:modules '((srfi srfi-1)
-                  (guix build gnu-build-system)
-                  ((guix build pyproject-build-system) #:prefix py:)
-                  (guix build utils))
+                  (Manifolding-OS build gnu-build-system)
+                  ((Manifolding-OS build pyproject-build-system) #:prefix py:)
+                  (Manifolding-OS build utils))
       #:imported-modules (append %default-gnu-imported-modules
                                  %pyproject-build-system-modules)
       #:disallowed-references (list (this-package-native-input "httpd"))
@@ -343,10 +343,10 @@ servers from Python programs.")
               (apply invoke "make" "lib389-install" make-flags)))
           (add-after 'install-python-tools 'wrap-python-tools
             (lambda* (#:key outputs #:allow-other-keys)
-              (let ((pythonpath (getenv "GUIX_PYTHONPATH")))
+              (let ((pythonpath (getenv "MANIFOLDING_OS_PYTHONPATH")))
                 (for-each (lambda (file)
                             (wrap-program (string-append #$output file)
-                              `("GUIX_PYTHONPATH" ":" prefix (,pythonpath))))
+                              `("MANIFOLDING_OS_PYTHONPATH" ":" prefix (,pythonpath))))
                           '("/sbin/dsconf"
                             "/sbin/dscreate"
                             "/sbin/dsctl"

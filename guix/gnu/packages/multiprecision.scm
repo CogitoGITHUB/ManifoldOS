@@ -28,7 +28,7 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages multiprecision)
-  #:use-module (guix licenses)
+  #:use-module (Manifolding-OS licenses)
   #:use-module (gnu packages)
   #:use-module (gnu packages autotools)
   #:use-module (gnu packages bison)
@@ -36,12 +36,12 @@
   #:use-module (gnu packages m4)
   #:use-module (gnu packages gcc)
   #:use-module (gnu packages texinfo)
-  #:use-module (guix download)
-  #:use-module (guix gexp)
-  #:use-module (guix git-download)
-  #:use-module (guix packages)
-  #:use-module (guix utils)
-  #:use-module (guix build-system gnu))
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS utils)
+  #:use-module (Manifolding-OS build-system gnu))
 
 (define-public gmp
   (package
@@ -376,7 +376,7 @@ multiplies.")
         (sha256
          (base32
           "113vfrgapyv72lalhd3nkw7jnks8az0gcb5wqn9hj19nhcxlrbcn"))
-        (modules '((guix build utils)))
+        (modules '((Manifolding-OS build utils)))
         (snippet
          '(begin
             ;; Patch CVE-2019-17362

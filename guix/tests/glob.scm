@@ -18,7 +18,7 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (test-glob)
-  #:use-module (guix glob)
+  #:use-module (Manifolding-OS glob)
   #:use-module (srfi srfi-64))
 
 

@@ -36,14 +36,14 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages kde-graphics)
-  #:use-module (guix build-system cmake)
-  #:use-module (guix build-system qt)
-  #:use-module (guix download)
-  #:use-module (guix gexp)
-  #:use-module (guix git-download)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix utils)
-  #:use-module (guix packages)
+  #:use-module (Manifolding-OS build-system cmake)
+  #:use-module (Manifolding-OS build-system qt)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS utils)
+  #:use-module (Manifolding-OS packages)
   #:use-module (gnu packages)
   #:use-module (gnu packages algebra)
   #:use-module (gnu packages astronomy)
@@ -585,9 +585,9 @@ painting, image manipulating and icon editing.")
                   (add-after 'install 'wrap-bin
                     (lambda* (#:key outputs #:allow-other-keys)
                       (let* ((out (assoc-ref outputs "out"))
-                             (python-path (getenv "GUIX_PYTHONPATH")))
+                             (python-path (getenv "MANIFOLDING_OS_PYTHONPATH")))
                         (wrap-program (string-append out "/bin/krita")
-                          `("GUIX_PYTHONPATH" ":" prefix (,python-path)))))))))
+                          `("MANIFOLDING_OS_PYTHONPATH" ":" prefix (,python-path)))))))))
     (native-inputs
      (list curl
            eigen

@@ -41,7 +41,7 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages base)
-  #:use-module ((guix licenses)
+  #:use-module ((Manifolding-OS licenses)
                 #:select (gpl3+ lgpl2.0+ lgpl3+ public-domain))
   #:use-module (gnu packages)
   #:use-module (gnu packages acl)
@@ -64,15 +64,15 @@
   #:use-module (gnu packages pkg-config)
   #:use-module (gnu packages python)
   #:use-module (gnu packages gettext)
-  #:use-module (guix i18n)
-  #:use-module (guix utils)
-  #:use-module (guix gexp)
-  #:use-module (guix packages)
-  #:use-module (guix download)
-  #:use-module (guix git-download)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system trivial)
-  #:use-module (guix search-paths)
+  #:use-module (Manifolding-OS i18n)
+  #:use-module (Manifolding-OS utils)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system trivial)
+  #:use-module (Manifolding-OS search-paths)
   #:use-module (ice-9 format)
   #:use-module (ice-9 match)
   #:use-module (ice-9 optargs)
@@ -857,9 +857,9 @@ can be provided via the LINKER argument."
     (arguments
      (let ((target (target (%current-system))))
        `(#:guile ,guile-for-build
-         #:modules ((guix build utils))
+         #:modules ((Manifolding-OS build utils))
          #:builder (begin
-                     (use-modules (guix build utils)
+                     (use-modules (Manifolding-OS build utils)
                                   (system base compile))
 
                      (let* ((out (assoc-ref %outputs "out"))
@@ -968,8 +968,8 @@ the store.")
       #:modules ((ice-9 ftw)
                  (srfi srfi-1)
                  (srfi srfi-26)
-                 (guix build utils)
-                 (guix build gnu-build-system))
+                 (Manifolding-OS build utils)
+                 (Manifolding-OS build gnu-build-system))
 
       ;; Strip binaries but preserve the symbol table needed by Valgrind:
       ;; <https://lists.gnu.org/archive/html/help-guix/2022-03/msg00036.html>.
@@ -1200,11 +1200,11 @@ the store.")
 
    (native-search-paths
     ;; Search path for packages that provide locale data.  This is useful
-    ;; primarily in build environments.  Use 'GUIX_LOCPATH' rather than
+    ;; primarily in build environments.  Use 'MANIFOLDING_OS_LOCPATH' rather than
     ;; 'LOCPATH' to avoid interference with the host system's libc on foreign
     ;; distros.
     (list (search-path-specification
-           (variable "GUIX_LOCPATH")
+           (variable "MANIFOLDING_OS_LOCPATH")
            (files '("lib/locale")))
           $TZDIR))
 
@@ -1379,8 +1379,8 @@ to the @code{share/locale} sub-directory of this package.")
      (let ((args `(#:tests? #f #:strip-binaries? #f
                    ,@(package-arguments glibc))))
        (substitute-keyword-arguments args
-         ((#:modules modules '((guix build utils)
-                               (guix build gnu-build-system)))
+         ((#:modules modules '((Manifolding-OS build utils)
+                               (Manifolding-OS build gnu-build-system)))
           `((srfi srfi-11)
             (gnu build locale)
             ,@modules))
@@ -1452,10 +1452,10 @@ to the @code{share/locale} sub-directory of this package.")
     (source #f)
     (build-system trivial-build-system)
     (arguments
-     (list #:modules '((guix build utils))
+     (list #:modules '((Manifolding-OS build utils))
            #:builder
            #~(begin
-               (use-modules (guix build utils))
+               (use-modules (Manifolding-OS build utils))
 
                (let* ((libc      (dirname
                                   (search-input-file %build-inputs
@@ -1666,8 +1666,8 @@ command.")
 
                      "AWK=awk"
                      "CC=gcc"))
-           #:modules '((guix build utils)
-                       (guix build gnu-build-system)
+           #:modules '((Manifolding-OS build utils)
+                       (Manifolding-OS build gnu-build-system)
                        (srfi srfi-1))
            #:phases
            #~(modify-phases %standard-phases
@@ -1745,7 +1745,7 @@ and daylight-saving rules.")
               (sha256
                (base32
                 "1s35d4kk7abfqrcicjzy5s9gpip6dzyhn157a7qq5sxlz7sga21v"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                ;; Work around "declared gets" error on glibc systems (fixed by
                ;; Gnulib commit 66712c23388e93e5c518ebc8515140fa0c807348.)

@@ -17,11 +17,11 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu home services sway)
-  #:use-module (guix modules)
-  #:use-module (guix gexp)
+  #:use-module (Manifolding-OS modules)
+  #:use-module (Manifolding-OS gexp)
   #:use-module (srfi srfi-1)
   #:use-module (ice-9 match)
-  #:use-module (guix packages)
+  #:use-module (Manifolding-OS packages)
   #:use-module (gnu system keyboard)
   #:use-module (gnu services configuration)
   #:use-module (gnu home services)
@@ -388,18 +388,18 @@
   (program-file
    "sway-menu.scm"
    (with-imported-modules
-       (source-module-closure '((guix build utils)))
+       (source-module-closure '((Manifolding-OS build utils)))
      #~(begin
          (use-modules (ice-9 ftw)
                       (ice-9 popen)
                       (ice-9 receive)
                       (ice-9 rdelim)
-                      (guix build utils)
+                      (Manifolding-OS build utils)
                       (srfi srfi-1))
 
          (define (directory->files dir)
            (define (executable-file? f)
-             ;; Cf. `(@ (guix build utils) executable-file?)' for an
+             ;; Cf. `(@ (Manifolding-OS build utils) executable-file?)' for an
              ;; explanation of `(zero? ...)'.
              (and=> (and (not (eq? (string-ref f 0) #\.))
                          (stat f))

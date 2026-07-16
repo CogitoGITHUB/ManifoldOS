@@ -21,17 +21,17 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (test-pack)
-  #:use-module (guix scripts pack)
-  #:use-module (guix store)
-  #:use-module (guix derivations)
-  #:use-module (guix profiles)
-  #:use-module (guix packages)
-  #:use-module (guix monads)
-  #:use-module (guix tests)
-  #:use-module (guix gexp)
-  #:use-module (guix modules)
-  #:use-module (guix utils)
-  #:use-module ((guix build utils) #:select (%store-directory))
+  #:use-module (Manifolding-OS scripts pack)
+  #:use-module (Manifolding-OS store)
+  #:use-module (Manifolding-OS derivations)
+  #:use-module (Manifolding-OS profiles)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS monads)
+  #:use-module (Manifolding-OS tests)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS modules)
+  #:use-module (Manifolding-OS utils)
+  #:use-module ((Manifolding-OS build utils) #:select (%store-directory))
   #:use-module (gnu packages)
   #:use-module ((gnu packages base) #:select (libc-utf8-locales-for-target
                                               hello glibc))
@@ -53,7 +53,7 @@
 
 (define %gzip-compressor
   ;; Compressor that uses the bootstrap 'gzip'.
-  ((@ (guix scripts pack) compressor) "gzip"
+  ((@ (Manifolding-OS scripts pack) compressor) "gzip"
    ".gz"
    #~(list #+(file-append %bootstrap-coreutils&co "/bin/gzip") "-6n")))
 
@@ -91,9 +91,9 @@
                                           #:archiver %tar-bootstrap))
          (check   (gexp->derivation
                    "check-tarball"
-                   (with-imported-modules '((guix build utils))
+                   (with-imported-modules '((Manifolding-OS build utils))
                      #~(begin
-                         (use-modules (guix build utils)
+                         (use-modules (Manifolding-OS build utils)
                                       (srfi srfi-1))
 
                          (define store
@@ -166,9 +166,9 @@
                    "check-tarball"
                    (with-extensions (list guile-sqlite3 guile-gcrypt)
                      (with-imported-modules (source-module-closure
-                                             '((guix store database)))
+                                             '((Manifolding-OS store database)))
                        #~(begin
-                           (use-modules (guix store database)
+                           (use-modules (Manifolding-OS store database)
                                         (rnrs io ports)
                                         (srfi srfi-1))
 
@@ -186,11 +186,11 @@
 
                            (sql-schema
                             #$(local-file (search-path %load-path
-                                                       "guix/store/schema.sql")))
+                                                       "Manifolding-OS/store/schema.sql")))
                            (with-database "var/guix/db/db.sqlite" db
                              ;; Make sure non-ASCII file names are properly
                              ;; handled.
-                             (setenv "GUIX_LOCPATH"
+                             (setenv "MANIFOLDING_OS_LOCPATH"
                                      #+(file-append
                                         (libc-utf8-locales-for-target)
                                         "/lib/locale"))
@@ -217,9 +217,9 @@
                                 #:localstatedir? #t))
          (check   (gexp->derivation
                    "check-tarball"
-                   (with-imported-modules '((guix build utils))
+                   (with-imported-modules '((Manifolding-OS build utils))
                      #~(begin
-                         (use-modules (guix build utils)
+                         (use-modules (Manifolding-OS build utils)
                                       (ice-9 match))
 
                          (define bin
@@ -258,9 +258,9 @@
                                 #:max-layers 100))
          (check (gexp->derivation
                  "check-tarball"
-                 (with-imported-modules '((guix build utils))
+                 (with-imported-modules '((Manifolding-OS build utils))
                    #~(begin
-                       (use-modules (guix build utils)
+                       (use-modules (Manifolding-OS build utils)
                                     (ice-9 match))
 
                        (define bin
@@ -305,9 +305,9 @@
                                   #:localstatedir? #t))
          (check   (gexp->derivation
                    "check-tarball"
-                   (with-imported-modules '((guix build utils))
+                   (with-imported-modules '((Manifolding-OS build utils))
                      #~(begin
-                         (use-modules (guix build utils)
+                         (use-modules (Manifolding-OS build utils)
                                       (ice-9 match))
 
                          (define bin
@@ -350,10 +350,10 @@
                                            '(#:relocatable? #t)))
          (check   (gexp->derivation
                    "check-appimage"
-                   (with-imported-modules '((guix build utils))
+                   (with-imported-modules '((Manifolding-OS build utils))
                      #~(begin
                          (use-modules (ice-9 popen)
-                                      (guix build utils))
+                                      (Manifolding-OS build utils))
                          (let ((pipe (open-pipe* OPEN_READ
                                                  #$image "--appimage-extract-and-run")))
                            (call-with-output-file #$output
@@ -428,9 +428,9 @@
          (check
           (gexp->derivation
            "check-deb-pack"
-           (with-imported-modules '((guix build utils))
+           (with-imported-modules '((Manifolding-OS build utils))
              #~(begin
-                 (use-modules (guix build utils)
+                 (use-modules (Manifolding-OS build utils)
                               (ice-9 match)
                               (ice-9 popen)
                               (ice-9 rdelim)
@@ -510,9 +510,9 @@
           (gexp->derivation
            "check-rpm-pack"
            (with-imported-modules (source-module-closure
-                                   '((guix build utils)))
+                                   '((Manifolding-OS build utils)))
              #~(begin
-                 (use-modules (guix build utils))
+                 (use-modules (Manifolding-OS build utils))
 
                  (define fakeroot #+(file-append fakeroot "/bin/fakeroot"))
                  (define rpm #+(file-append rpm "/bin/rpm"))

@@ -21,11 +21,11 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu build linux-modules)
-  #:use-module (guix elf)
-  #:use-module (guix glob)
-  #:use-module (guix build syscalls)
-  #:use-module ((guix build utils) #:select (find-files invoke))
-  #:use-module (guix build union)
+  #:use-module (Manifolding-OS elf)
+  #:use-module (Manifolding-OS glob)
+  #:use-module (Manifolding-OS build syscalls)
+  #:use-module ((Manifolding-OS build utils) #:select (find-files invoke))
+  #:use-module (Manifolding-OS build union)
   #:autoload   (zlib) (call-with-gzip-input-port)
   #:autoload   (zstd) (call-with-zstd-input-port)
   #:use-module (rnrs io ports)
@@ -401,7 +401,7 @@ needed."
 ;;; Device modules.
 ;;;
 
-;; Copied from (guix utils).  FIXME: Factorize.
+;; Copied from (Manifolding-OS utils).  FIXME: Factorize.
 (define (readlink* file)
   "Call 'readlink' until the result is not a symlink."
   (define %max-symlink-depth 50)

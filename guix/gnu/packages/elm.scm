@@ -25,12 +25,12 @@
   #:use-module (gnu packages haskell-crypto)
   #:use-module (gnu packages haskell-xyz)
   #:use-module (gnu packages haskell-web)
-  #:use-module (guix build-system haskell)
-  #:use-module (guix build-system elm)
-  #:use-module (guix gexp)
-  #:use-module (guix git-download)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix packages))
+  #:use-module (Manifolding-OS build-system haskell)
+  #:use-module (Manifolding-OS build-system elm)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS packages))
 
 ;; The `elm` build usually calls out to itself via Template Haskell to compile
 ;; the `elm reactor` web app (which depends on additional Elm packages) and
@@ -62,7 +62,7 @@
     (arguments
      (list
       #:configure-flags
-      #~(list (string-append "--ghc-option=-DGUIX_REACTOR_STATIC_REL_ROOT="
+      #~(list (string-append "--ghc-option=-DMANIFOLDING_OS_REACTOR_STATIC_REL_ROOT="
                              "\"../" #$%reactor-root-base
                              #$(package-version this-package)
                              "\""))
@@ -146,7 +146,7 @@ the @command{elm reactor} development command.")
                      (reactor-dir (string-append out-dir
                                                  "/"
                                                  #$%reactor-root-base
-                                                 (getenv "GUIX_ELM_VERSION")))
+                                                 (getenv "MANIFOLDING_OS_ELM_VERSION")))
                      (reactor-subdir (string-append reactor-dir "/_elm")))
                 ;; We can't use a symlink here because Haskell's
                 ;; `getExecutablePath` follows all symlinks.

@@ -49,27 +49,27 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages bioinformatics)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix packages)
-  #:use-module (guix gexp)
-  #:use-module (guix utils)
-  #:use-module (guix download)
-  #:use-module (guix git-download)
-  #:use-module (guix hg-download)
-  #:use-module (guix build-system ant)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system cargo)
-  #:use-module (guix build-system cmake)
-  #:use-module (guix build-system go)
-  #:use-module (guix build-system haskell)
-  #:use-module (guix build-system meson)
-  #:use-module (guix build-system perl)
-  #:use-module (guix build-system pyproject)
-  #:use-module (guix build-system qt)
-  #:use-module (guix build-system r)
-  #:use-module (guix build-system ruby)
-  #:use-module (guix build-system trivial)
-  #:use-module (guix deprecation)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS utils)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS hg-download)
+  #:use-module (Manifolding-OS build-system ant)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system cargo)
+  #:use-module (Manifolding-OS build-system cmake)
+  #:use-module (Manifolding-OS build-system go)
+  #:use-module (Manifolding-OS build-system haskell)
+  #:use-module (Manifolding-OS build-system meson)
+  #:use-module (Manifolding-OS build-system perl)
+  #:use-module (Manifolding-OS build-system pyproject)
+  #:use-module (Manifolding-OS build-system qt)
+  #:use-module (Manifolding-OS build-system r)
+  #:use-module (Manifolding-OS build-system ruby)
+  #:use-module (Manifolding-OS build-system trivial)
+  #:use-module (Manifolding-OS deprecation)
   #:use-module (gnu packages)
   #:use-module (gnu packages admin)
   #:use-module (gnu packages assembly)
@@ -188,7 +188,7 @@
   #:use-module (gnu packages wget)
   #:use-module (gnu packages xml)
   #:use-module (gnu packages xorg)
-  #:use-module (guix platform)
+  #:use-module (Manifolding-OS platform)
   #:use-module (srfi srfi-1)
   #:use-module (srfi srfi-26)
   #:use-module (ice-9 match))
@@ -349,7 +349,7 @@ single executable called @code{bam}.")
               (sha256
                (base32
                 "10p2ligd9pqn8wq6szw2s4zqknlm7hmb4057fpdnhlsmsg0lr2jj"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet '(begin
                           ;; Delete bundled htslib.
                           (delete-file-recursively "htslib-1.21")))))
@@ -539,7 +539,7 @@ BED, GFF/GTF, VCF.")
               (sha256
                (base32
                 "02ksssfnvmpskld0a2016smfz5nrzm3d90v8974f3cpzywckvp8v"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               ;; This package bundles a modified copy of htslib, so we cannot
               ;; unbundle it.
               (snippet
@@ -599,7 +599,7 @@ whole-genome bisulfite sequencing (WGBS) reads from directional protocol.")
               (sha256
                (base32
                 "18iphn4zxgs8iclk3kcahnb08581a6l01fhrrcql1z20fdh478np"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               ;; This package bundles a modified copy of htslib, so we cannot
               ;; unbundle it.
               (snippet
@@ -609,8 +609,8 @@ whole-genome bisulfite sequencing (WGBS) reads from directional protocol.")
     (build-system gnu-build-system)
     (arguments
      (list
-      #:modules '((guix build gnu-build-system)
-                  (guix build utils)
+      #:modules '((Manifolding-OS build gnu-build-system)
+                  (Manifolding-OS build utils)
                   (srfi srfi-26)
                   (ice-9 match))
       #:phases
@@ -921,7 +921,7 @@ suite native in R.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "0yqgcajq83g25mznwcngaw7pi6vcqxqdnynpgb95yci57k3wrp6j"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         '(delete-file-recursively "r/src/vendor/highway"))))
     (properties `((upstream-name . "BPCells")))
@@ -1194,14 +1194,14 @@ with DNA methylation micro-array data.")
       (arguments
        (list
         #:modules
-        '((guix build r-build-system)
-          (guix build minify-build-system)
-          (guix build utils)
+        '((Manifolding-OS build r-build-system)
+          (Manifolding-OS build minify-build-system)
+          (Manifolding-OS build utils)
           (ice-9 match))
         #:imported-modules
-        `(,@%r-build-system-modules (guix build minify-build-system))
+        `(,@%r-build-system-modules (Manifolding-OS build minify-build-system))
         #:phases
-        '(modify-phases (@ (guix build r-build-system) %standard-phases)
+        '(modify-phases (@ (Manifolding-OS build r-build-system) %standard-phases)
            (add-after 'unpack 'process-javascript
              (lambda* (#:key inputs #:allow-other-keys)
                (with-directory-excursion "docs/deps/"
@@ -1449,9 +1449,9 @@ within this package are the 3000 bone marrow cells used for vignettes.")
       (append %cargo-build-system-modules
               %r-build-system-modules)
       #:modules
-      '((guix build cargo-build-system)
-        ((guix build r-build-system) #:prefix r:)
-        (guix build utils))
+      '((Manifolding-OS build cargo-build-system)
+        ((Manifolding-OS build r-build-system) #:prefix r:)
+        (Manifolding-OS build utils))
       #:cargo-build-flags
       '(list "--target-dir=./target" "--release")
       #:phases
@@ -1474,11 +1474,11 @@ within this package are the 3000 bone marrow cells used for vignettes.")
                     (lambda _ (chdir "../..")))
                   (delete 'install)
                   (delete 'check))
-                (modify-phases (@ (guix build r-build-system) %standard-phases)
+                (modify-phases (@ (Manifolding-OS build r-build-system) %standard-phases)
                   (delete 'unpack)
                   (replace 'patch-tests
                     (lambda* (#:key inputs outputs tests? #:allow-other-keys)
-                      ((assoc-ref (@ (guix build r-build-system) %standard-phases)
+                      ((assoc-ref (@ (Manifolding-OS build r-build-system) %standard-phases)
                                   'patch-tests)
                        #:skipped-tests
                        ;; These files contain tests that require Internet access.
@@ -1488,7 +1488,7 @@ within this package are the 3000 bone marrow cells used for vignettes.")
                          ("test-zarrs-store-cache.R" "HttpStore get_store_identifier returns URL")))))
                   (replace 'check
                     (lambda* (#:key inputs outputs tests? #:allow-other-keys)
-                      ((assoc-ref (@ (guix build r-build-system) %standard-phases)
+                      ((assoc-ref (@ (Manifolding-OS build r-build-system) %standard-phases)
                                   'check)
                        #:test-target "tests"
                        #:test-types #false
@@ -2216,7 +2216,7 @@ Format (GFF) with Biopython integration.")
        (uri (pypi-uri "bed_reader" version))
        (sha256
         (base32 "1c8ibwvz3b069w7ffh9aasz16lfkmx4z0249c2v909a21mrkkd6n"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        ;; Bundled unused javascript & co.
        (snippet #~(delete-file-recursively "_static"))
        (patches
@@ -2239,9 +2239,9 @@ Format (GFF) with Biopython integration.")
       (append %cargo-build-system-modules
               %pyproject-build-system-modules)
       #:modules
-      '((guix build cargo-build-system)
-        ((guix build pyproject-build-system) #:prefix py:)
-        (guix build utils)
+      '((Manifolding-OS build cargo-build-system)
+        ((Manifolding-OS build pyproject-build-system) #:prefix py:)
+        (Manifolding-OS build utils)
         (ice-9 match)
         (ice-9 rdelim))
       #:phases
@@ -2370,7 +2370,7 @@ efficiently.")
                 (sha256
                  (base32
                   "02blai158xyyqcg0ljzkmfa6ci05m4awrl4njvp9nwfp717xq8n0"))
-                (modules '((guix build utils)))
+                (modules '((Manifolding-OS build utils)))
                 (snippet
                  '(substitute* '("requirements.txt"
                                  "setup.py")
@@ -2437,7 +2437,7 @@ to explore and analyze bulk RNA-seq data.")
               (sha256
                (base32
                 "0z5dcm9i74c5iaqq92y25khg7i2smrfj8jb1g26iwzwf1cqxghmn"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                '(begin
                   ;; We remove the dependency on statannotations because it
@@ -2701,7 +2701,7 @@ specifying the usage of each program for each cell in the data.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "19jv2502644qjv278yjllqqakwhghmfbaa4h08rayak5mp130i70"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         ;; Delete bundled library
         '(delete-file-recursively "htslib"))))
@@ -3536,7 +3536,7 @@ genomics data.")
               (sha256
                (base32
                 "0nji449mzwgp1f87iknl5fmnjdkrhkfkapxvafxdw01s0jg8zcj6"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               ;; Remove bundled binaries
               (snippet
                '(delete-file-recursively "phenograph/louvain"))))
@@ -3643,7 +3643,7 @@ phylogenetic markers, and can also scale to very large phylogenies comprising
         ;; Force the Cythonization of C++ files to guard against compilation
         ;; problems.
         #~(begin
-            (use-modules (guix build utils))
+            (use-modules (Manifolding-OS build utils))
             (use-modules (srfi srfi-26))
             (let ((cython-sources (map (cut string-drop-right <> 4)
                                        (find-files "." "\\.pyx$")))
@@ -3737,12 +3737,12 @@ Python.")
                   (("bs4") "beautifulsoup4"))))
             (add-after 'unpack 'avoid-internet-while-building
               (lambda _
-                (setenv "GUIX_BUILD" "yes")
+                (setenv "MANIFOLDING_OS_BUILD" "yes")
                 (substitute* "pybio/__init__.py"
                   (("^pybio.core.genomes.init\\(\\)" m)
                    (string-append m
                                   "\
- if not os.getenv('GUIX_BUILD') else None"))))))))
+ if not os.getenv('MANIFOLDING_OS_BUILD') else None"))))))))
       (propagated-inputs
        (list python-beautifulsoup4 python-numpy
              python-psutil python-pysam python-requests))
@@ -3863,7 +3863,7 @@ familiar to anyone with experience of scikit-learn or scipy.")
       (file-name (git-file-name name version))
       (sha256
        (base32 "0hznpj15kx2sla16wlmcqz21n2vi2qb1493v30vz75hnm1m4iwm1"))
-      (modules '((guix build utils)
+      (modules '((Manifolding-OS build utils)
                  (ice-9 ftw)))
       (snippet
        #~(begin
@@ -5373,7 +5373,7 @@ package provides command line tools using the Bio++ library.")
               (sha256
                (base32
                 "0ix1bqgaywi3ggis4qvaipb0mk3llhgf52vmc97f744risl5f82h"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                '(begin
                   ;; Remove bundled bzip2, zlib and pcre.
@@ -5542,7 +5542,7 @@ confidence to have in an alignment.")
               (sha256
                (base32
                 "0rm0gw2s18dqwzzpl3c2x1z05ni2v0xz5dmfk3d33j6g4cgrlrdd"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                `(begin
                   ;; Remove bundled boost, pigz, zlib, and .git directory
@@ -5622,7 +5622,7 @@ errors at the end of reads.")
                 "020dwg059zmgqcfnxgg67qmn8rf207mwrybly39ncch1riva58z5"))
               (snippet
                #~(begin
-                   (use-modules (guix build utils))
+                   (use-modules (Manifolding-OS build utils))
                    (substitute* "Makefile"
                      ;; replace BUILD_HOST and BUILD_TIME for deterministic build
                      (("-DBUILD_HOST=.*") "-DBUILD_HOST=\"\\\"guix\\\"\"")
@@ -5688,7 +5688,7 @@ gapped, local, and paired-end alignment modes.")
               (sha256
                (base32
                 "0q87nhgj9wrnbazcpvqp4594hmyh1isi3s9b2wlghvl4afm1fdg2"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                '(substitute* "Makefile"
                   ;; replace BUILD_HOST and BUILD_TIME for deterministic build
@@ -6069,7 +6069,7 @@ subgroups.")
               (sha256
                (base32
                 "1kb70fp9mnjl4czhwiahb192lwkq1j357b774ddg533ibj3h7gcz"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet '(begin
                           ;; FIXME: Unbundle samtools and bcftools.
                           (delete-file-recursively "htslib")))))
@@ -6302,7 +6302,7 @@ databases.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "0508rgnfjk5ar5d1mjbjyrnarv4kw9ksq0m3jw2bmgabmb5v6ikk"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet '(begin
                    ;; Delete pre-compiled files.
                    (delete-file "clipper/src/peaks.so")))))
@@ -6403,7 +6403,7 @@ gene predictor designed to work with assembled, aligned RNA-seq transcripts.")
        (uri (pypi-uri "crossmap" version))
        (sha256
         (base32 "0v8z75di5ghrv1aiain67qx9n5lslwq9ikfq44zjp5papwdksyf5"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet '(begin
                    ;; Delete compiled Python files.
                    (for-each delete-file
@@ -6552,8 +6552,8 @@ annotations of the genome.")
                            "/site-packages")))
                 (substitute* "tests/test_command.py"
                   (("env=\\{\"LC_CTYPE\": \"C\"\\},")
-                   (string-append "env={\"LC_CTYPE\": \"C\", \"GUIX_PYTHONPATH\": \""
-                                  (getenv "GUIX_PYTHONPATH") ":" site
+                   (string-append "env={\"LC_CTYPE\": \"C\", \"MANIFOLDING_OS_PYTHONPATH\": \""
+                                  (getenv "MANIFOLDING_OS_PYTHONPATH") ":" site
                                   "\"},")))))))))
     (inputs
      (list python-dnaio python-xopen))
@@ -6808,7 +6808,7 @@ gkm-SVM.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "031hd0b39g35b38w4jg9zv8widshcf26fiyrwg4yda1nk1sd1bsn"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
          ;; Delete bundled libBigWig sources
          '(delete-file-recursively "libBigWig"))))
@@ -7173,11 +7173,11 @@ CWL descriptions.")
      (list #:make-flags
            #~(list (string-append "prefix=" #$output)
                    (string-append "NODE=" (search-input-file %build-inputs "bin/node")))
-           #:modules `(((guix build guile-build-system)
+           #:modules `(((Manifolding-OS build guile-build-system)
                         #:select (target-guile-effective-version))
                        ,@%default-gnu-imported-modules)
            #:phases
-           (with-imported-modules `((guix build guile-build-system)
+           (with-imported-modules `((Manifolding-OS build guile-build-system)
                                     ,@%default-gnu-imported-modules)
              #~(modify-phases %standard-phases
                  (replace 'patch-source-shebangs
@@ -7330,7 +7330,7 @@ genome- and pangenome-scale queries using a laptop.")
               (file-name (git-file-name name version))
               (sha256
                (base32 "1ri7m7iv3wakm7zdwqdzm5m71y0swad9n78dzrzr9gs3j7j5yxjs"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                '(delete-file-recursively "src/htslib"))))
     (build-system gnu-build-system)
@@ -7448,8 +7448,8 @@ bases are detected.")
      (list
       #:test-target "test"
       #:modules
-      '((guix build gnu-build-system)
-        (guix build utils)
+      '((Manifolding-OS build gnu-build-system)
+        (Manifolding-OS build utils)
         (ice-9 match)
         (srfi srfi-1))
       #:make-flags
@@ -7484,7 +7484,7 @@ bases are detected.")
                 (wrap-program (string-append share "Trinity")
                   `("R_LIBS_SITE" ":" = (,(getenv "R_LIBS_SITE")))
                   `("PERL5LIB"    ":" = (,(getenv "PERL5LIB")))
-                  `("PYTHONPATH"  ":" = (,(getenv "GUIX_PYTHONPATH")))
+                  `("PYTHONPATH"  ":" = (,(getenv "MANIFOLDING_OS_PYTHONPATH")))
                   `("PATH"        ":" =
                     ,(cons (string-append share "/trinity-plugins/BIN")
                            (filter-map (match-lambda
@@ -7617,7 +7617,7 @@ bases are detected.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "170k4rrchg7f2jyn3v4y4fxxq1d49n1vnvhx5xcnnr6jql8q3h08"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet '(begin
                    ;; Remove bundled samtools
                    (delete-file-recursively "samtools-0.1.19")))))
@@ -7775,7 +7775,7 @@ and utility programs for sequence analysis.")
               (sha256
                (base32
                 "093zp7klv81ph0y8mm8d78a9hnpfxbv2kdym70gzdf3vz176rw33"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                '(begin (delete-file "Mozilla-CA.tar.gz")
                        (substitute* "rchive.go"
@@ -8543,7 +8543,7 @@ comment or quality sections.")
               (sha256
                (base32
                 "1dm8pf1fbdmv2yiz5aybcvk3050m5350gq8xlr4j6swzm3wwhydn"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                #~(begin
                    (delete-file-recursively "contrib")))))
@@ -8668,8 +8668,8 @@ particular, reads spanning multiple exons.")
     (arguments
      `(#:tests? #f                      ; no check target
        #:make-flags (list "CC=gcc" "CXX=g++" "allall")
-       #:modules ((guix build gnu-build-system)
-                  (guix build utils)
+       #:modules ((Manifolding-OS build gnu-build-system)
+                  (Manifolding-OS build utils)
                   (srfi srfi-26))
        #:phases
        (modify-phases %standard-phases
@@ -8915,7 +8915,7 @@ All with sensible, yet controllable defaults.")
               (sha256
                (base32
                 "1b178ixcabanm834ydjl3jiakpyxdmki32hqfv2abrzn3rcwa28i"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                ;; Delete pre-built binaries
                '(begin
@@ -9119,7 +9119,7 @@ geographic distributions.")
               (sha256
                (base32
                 "1ll7mf4r3by92w2nhlmpa591xd1f46xlkwh59mq6fvbb5pdwzvx6"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                '(begin
                   ;; Delete pre-built binaries.
@@ -9207,9 +9207,9 @@ VCF.")
        #:tests? #f
        #:jdk ,icedtea-8
        #:main-class "picard.cmdline.PicardCommandLine"
-       #:modules ((guix build ant-build-system)
-                  (guix build utils)
-                  (guix build java-utils)
+       #:modules ((Manifolding-OS build ant-build-system)
+                  (Manifolding-OS build utils)
+                  (Manifolding-OS build java-utils)
                   (sxml simple)
                   (sxml transform)
                   (sxml xpath))
@@ -9293,7 +9293,7 @@ VCF.")
               (sha256
                (base32
                 "0lkpvin2fz3hhly4l02kk56fqy8lmlgyzr9kmvljk6ry6l1hw973"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                '(begin
                   ;; Delete pre-built binaries.
@@ -9556,7 +9556,7 @@ name/ID compression and quality score compression derived from fqzcomp.")
                 "08qq1yn6lqqnww532s11nr6gz0gfpn58rn3gy90kd5pl6pki1dc4"))
               (snippet
                #~(begin
-                   (use-modules (guix build utils))
+                   (use-modules (Manifolding-OS build utils))
                    (delete-file-recursively "htscodecs")))))
     (build-system gnu-build-system)
     ;; Let htslib translate "gs://" and "s3://" to regular https links with
@@ -9972,8 +9972,8 @@ sequences).")
     (build-system pyproject-build-system)
     (arguments
      (list
-      #:modules '((guix build pyproject-build-system)
-                  (guix build utils)
+      #:modules '((Manifolding-OS build pyproject-build-system)
+                  (Manifolding-OS build utils)
                   (srfi srfi-1)
                   (ice-9 match))
       #:phases
@@ -10063,7 +10063,7 @@ technology.  Its features include:
               (sha256
                (base32
                 "00x4pvxwp3isf0qign1qmxwxc9rwzn5b3igjw9hyn3vx17bsx92q"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                ;; Delete bundled kseq.
                ;; TODO: Also delete bundled murmurhash and open bloom filter.
@@ -10461,7 +10461,7 @@ predicts the locations of structural units in the sequences.")
               (sha256
                (base32
                 "0p8iaxq193fh67hw3cydvdah1vz1c3f18227gj1mhkww0ms7g6xa"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                '(begin
                   ;; Remove pre-built scripts and source tarballs.
@@ -10712,7 +10712,7 @@ phylogenies.")
        (sha256
         (base32 "1yl4i7z20n2p84j1lmk15aiak3yqc6fiw0q5a4pndw7pxfiq3rzp"))
        (file-name (git-file-name name version))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         '(begin
            ;; remove bundled copy of boost and samtools
@@ -10899,7 +10899,7 @@ to the user's query of interest.")
        (sha256
         (base32
          "10wby07w33rfypy4kf73v9wwnbyh0lrazbsmrgrvcl88w8c3nszs"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        ;; Delete bundled htslib.
        (snippet '(delete-file-recursively "htslib-1.19"))))
     (build-system gnu-build-system)
@@ -10951,8 +10951,8 @@ viewer.")
            ((#:modules _ #f)
             '((ice-9 ftw)
               (ice-9 regex)
-              (guix build gnu-build-system)
-              (guix build utils)))
+              (Manifolding-OS build gnu-build-system)
+              (Manifolding-OS build utils)))
            ((#:phases phases)
             `(modify-phases ,phases
                (replace 'install
@@ -11027,7 +11027,7 @@ seamless support for BCF and VCF files.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "1jyzbkz8d39kjicrk3ihcx7yvq5wsynvnlcw922bqqsw8nwnn12c"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         '(begin
            (delete-file-recursively "3rdparty/eigen")
@@ -11216,8 +11216,8 @@ simultaneously.")
     (name "java-ngs")
     (arguments
      `(,@(substitute-keyword-arguments
-             `(#:modules ((guix build gnu-build-system)
-                          (guix build utils)
+             `(#:modules ((Manifolding-OS build gnu-build-system)
+                          (Manifolding-OS build utils)
                           (srfi srfi-1)
                           (srfi srfi-26))
                          ,@(package-arguments ngs-sdk))
@@ -11483,8 +11483,8 @@ subsequent visualization, annotation and storage of results.")
                   "0d476lmj312xk77kr9fzrv7z1bv96yfyx0w7y62ycmnfbx32ll74"))))
       (build-system gnu-build-system)
       (arguments
-       `(#:modules ((guix build gnu-build-system)
-                    (guix build utils)
+       `(#:modules ((Manifolding-OS build gnu-build-system)
+                    (Manifolding-OS build utils)
                     (srfi srfi-26))
          #:tests? #f ;no "check" target
          #:phases
@@ -11529,7 +11529,7 @@ structures, classes for genomic regions, mapped sequencing reads, etc.")
                                   "/preseq_v" version ".tar.bz2"))
               (sha256
                (base32 "149x9xmk1wy1gff85325yfzqc0qk4sgp1w6gbyj9cnji4x1dszbl"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               ;; Remove bundled samtools.
               (snippet '(delete-file-recursively "samtools"))))
     (build-system gnu-build-system)
@@ -11858,10 +11858,10 @@ bioinformatics file formats, sequence alignment, and more.")
     (outputs '("out" "doc"))
     (build-system trivial-build-system)
     (arguments
-     `(#:modules ((guix build utils))
+     `(#:modules ((Manifolding-OS build utils))
        #:builder
        ,#~(begin
-            (use-modules (guix build utils))
+            (use-modules (Manifolding-OS build utils))
             (let ((tar #$(this-package-native-input "tar"))
                   (xz  #$(this-package-native-input "xz"))
                   (out #$output)
@@ -11892,10 +11892,10 @@ bioinformatics file formats, sequence alignment, and more.")
     (outputs '("out" "doc"))
     (build-system trivial-build-system)
     (arguments
-     `(#:modules ((guix build utils))
+     `(#:modules ((Manifolding-OS build utils))
        #:builder
        ,#~(begin
-            (use-modules (guix build utils))
+            (use-modules (Manifolding-OS build utils))
             (let ((tar  #$(this-package-native-input "tar"))
                   (bzip #$(this-package-native-input "bzip2"))
                   (out #$output)
@@ -12129,7 +12129,7 @@ application of SortMeRNA is filtering rRNA from metatranscriptomic data.")
               (sha256
                (base32
                 "0zc5biymja9zml9yizcj1h68fq9c6sxfcav8a0lbgvgsm44rvans"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                '(begin
                   (substitute* "source/Makefile"
@@ -12217,7 +12217,7 @@ sequences.")
               (sha256
                (base32
                 "1hgiqw5qhs0pc1xazzihcfd92na02xyq2kb469z04y1v51kpvvjq"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                '(begin
                   (substitute* "source/Makefile"
@@ -12318,7 +12318,7 @@ against local background noises.")
                 "1mrqcvnhxbidyhf521naywb5ci579160ydqnl5kb4hqjqvm01mn2"))
               ;; This package bundles an annoying amount of third party source
               ;; code.
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                '(delete-file-recursively "htslib"))))
     (build-system gnu-build-system)
@@ -14056,7 +14056,7 @@ analyze genomic data resulting from various experiments.")
           (base32
            "1fw5si47d6agnz5fibmp2b1sv08pbpwv1j71w57xbav9044i032q"))
          ;; Delete bundled dependency.
-         (modules '((guix build utils)))
+         (modules '((Manifolding-OS build utils)))
          (snippet
           '(delete-file-recursively "other_deps"))))
       (build-system r-build-system)
@@ -14603,10 +14603,10 @@ data.  It also generates basic statistics for your sequences.")
                            ,(version-major+minor
                              (package-version python))
                            "/site-packages"))
-                    (pythonpath (getenv "GUIX_PYTHONPATH"))
+                    (pythonpath (getenv "MANIFOLDING_OS_PYTHONPATH"))
                     (script (string-append out "/bin/shorah")))
                (chmod script #o555)
-               (wrap-program script `("GUIX_PYTHONPATH" ":" prefix (,site ,pythonpath))))))
+               (wrap-program script `("MANIFOLDING_OS_PYTHONPATH" ":" prefix (,site ,pythonpath))))))
          (add-after 'wrap-programs 'check
            (lambda* (#:key tests? #:allow-other-keys)
              (when tests?
@@ -15738,11 +15738,11 @@ sort, markdup, and depth.")
       (arguments
        (list
         #:modules
-        '((guix build r-build-system)
-          (guix build minify-build-system)
-          (guix build utils))
+        '((Manifolding-OS build r-build-system)
+          (Manifolding-OS build minify-build-system)
+          (Manifolding-OS build utils))
         #:imported-modules
-        `(,@%r-build-system-modules (guix build minify-build-system))
+        `(,@%r-build-system-modules (Manifolding-OS build minify-build-system))
         #:phases
         '(modify-phases %standard-phases
            (add-after 'unpack 'process-javascript
@@ -16121,7 +16121,7 @@ models.  TADbit is complemented by TADkit for visualizing 3D models.")
        (sha256
         (base32
          "0n1wbyjpzii2b9qhyp9r1q76j623cggpg3y8fmw78ld3z4y7ivha"))
-       (modules '((guix build utils)
+       (modules '((Manifolding-OS build utils)
                   (srfi srfi-26)
                   (ice-9 ftw)))
        (snippet
@@ -16272,7 +16272,7 @@ sequences.")
                 (sha256
                  (base32
                   "1nk33k0yajg2id4g59bc4szr58r2q6pdq42vgcw054m8ip9wv26h"))
-                (modules '((guix build utils)))
+                (modules '((Manifolding-OS build utils)))
                 ;; Remove bundled Java library archives.
                 (snippet
                  '(for-each delete-file (find-files "lib" ".*")))))
@@ -16335,10 +16335,10 @@ Browser.")
     (arguments
      (list
       #:tests? #f                       ; there are no tests
-      #:modules '((guix build utils)
+      #:modules '((Manifolding-OS build utils)
                   (ice-9 popen)
                   (srfi srfi-26)
-                  (guix build perl-build-system))
+                  (Manifolding-OS build perl-build-system))
       #:phases
       #~(modify-phases %standard-phases
           (add-after 'unpack 'replace-plotly.js
@@ -16451,7 +16451,7 @@ straight away.  Its main features are:
               (sha256
                (base32
                 "13zf6h9fiqghwhch2h06x1zdr6s42plsnqahflp5g7myr3han3s6"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               ;; Remove Windows binaries
               (snippet
                '(begin
@@ -16604,7 +16604,7 @@ dependency like SeqAn.")
               (sha256
                (base32
                 "1amcc5hqvsl42hg4x19bi9vy47cl874s0lw1fmi0hwsdk9i8c03v"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               ;; Delete bundled headers for eigen3.
               (snippet
                '(delete-file-recursively "include/eigen3/"))))
@@ -16710,7 +16710,7 @@ dependency like SeqAn.")
                     (sha256
                      (base32
                       "1hv79l5i576ykv5a1srj2p0q36yvyl5966m0fcy2lbi169ipjakf"))
-                    (modules '((guix build utils)))
+                    (modules '((Manifolding-OS build utils)))
                     ;; These files are expected to be excluded.
                     (snippet
                      '(begin (delete-file-recursively "include/spdlog")
@@ -16785,7 +16785,7 @@ The following file formats are supported:
               (sha256
                (base32
                 "0vii7nlx0ddn62qniwx4abfj6ajwl3w6mizavpa0mkhpxnm06rqw"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                ;; Delete bundled headers for eigen3.
                '(delete-file-recursively "include/eigen3/"))))
@@ -17262,7 +17262,7 @@ MyGene.Info services.")
                 (sha256
                  (base32
                   "0vxavc1yrf84yrnf20dq26hi0lglidk8d382xrxsy4qmlbjd276z"))
-                (modules '((guix build utils)))
+                (modules '((Manifolding-OS build utils)))
                 (snippet
                  '(begin
                     ;; Delete bundled jars and pre-built classes
@@ -17276,9 +17276,9 @@ MyGene.Info services.")
       (arguments
        `(#:tests? #f ; there are none
          #:jdk ,icedtea-8
-         #:modules ((guix build ant-build-system)
-                    (guix build utils)
-                    (guix build java-utils)
+         #:modules ((Manifolding-OS build ant-build-system)
+                    (Manifolding-OS build utils)
+                    (Manifolding-OS build java-utils)
                     (sxml simple)
                     (sxml transform))
          #:phases
@@ -17338,9 +17338,9 @@ reading, writing, and exporting phylogenetic trees.")
     (arguments
      `(#:tests? #f ; there are none
        #:jdk ,icedtea-8
-       #:modules ((guix build ant-build-system)
-                  (guix build utils)
-                  (guix build java-utils)
+       #:modules ((Manifolding-OS build ant-build-system)
+                  (Manifolding-OS build utils)
+                  (Manifolding-OS build java-utils)
                   (sxml simple)
                   (sxml transform))
        #:phases
@@ -17652,7 +17652,7 @@ contains
         (base32
          "0yrffckxqk5l8b5xb6z4laq157zd9mdypr2p4b4vq2bhjzi1sj0s"))
        ;; Delete bundled libraries
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         '(begin
            (for-each delete-file (find-files "jar/lib" "\\.jar$"))
@@ -17670,9 +17670,9 @@ contains
                                "/share/java/"))
        #:modules ((ice-9 match)
                   (srfi srfi-1)
-                  (guix build utils)
-                  (guix build java-utils)
-                  (guix build ant-build-system))
+                  (Manifolding-OS build utils)
+                  (Manifolding-OS build java-utils)
+                  (Manifolding-OS build ant-build-system))
        #:phases
        (modify-phases %standard-phases
          ;; FIXME: fails with "java.io.FileNotFoundException:
@@ -17809,7 +17809,7 @@ once.  This package provides tools to perform Drop-seq analyses.")
                (invoke "autoreconf" "-vif")))
            (add-before 'configure 'set-PYTHONPATH
              (lambda _
-               (setenv "PYTHONPATH" (getenv "GUIX_PYTHONPATH"))))
+               (setenv "PYTHONPATH" (getenv "MANIFOLDING_OS_PYTHONPATH"))))
            (add-before 'check 'set-timezone
              ;; The readr package is picky about timezones.
              (lambda* (#:key inputs #:allow-other-keys)
@@ -17889,7 +17889,7 @@ expression report comparing samples in an easily configurable manner.")
        (modify-phases %standard-phases
          (add-before 'configure 'set-PYTHONPATH
            (lambda _
-             (setenv "PYTHONPATH" (getenv "GUIX_PYTHONPATH"))))
+             (setenv "PYTHONPATH" (getenv "MANIFOLDING_OS_PYTHONPATH"))))
          (add-before 'check 'pre-check
            (lambda _
              ;; Needed for tests
@@ -17985,7 +17985,7 @@ in an easily configurable manner.")
              (lambda _ (delete-file "GNUmakefile")))
            (add-before 'configure 'set-PYTHONPATH
              (lambda _
-               (setenv "PYTHONPATH" (getenv "GUIX_PYTHONPATH"))))
+               (setenv "PYTHONPATH" (getenv "MANIFOLDING_OS_PYTHONPATH"))))
            (add-before 'check 'set-timezone
              ;; The readr package is picky about timezones.
              (lambda* (#:key inputs #:allow-other-keys)
@@ -18073,7 +18073,7 @@ methylation and segmentation.")
              ;; Needed because of loompy
              (setenv "NUMBA_CACHE_DIR" "/tmp")
              ;; Needed to capture environment
-             (setenv "PYTHONPATH" (getenv "GUIX_PYTHONPATH")))))))
+             (setenv "PYTHONPATH" (getenv "MANIFOLDING_OS_PYTHONPATH")))))))
     (native-inputs
      (list python-setuptools))
     (inputs
@@ -18163,7 +18163,7 @@ based methods.")
                          '("kraken-db" "krona-db" "vep-db")))))
          (add-before 'configure 'set-PYTHONPATH
            (lambda _
-             (setenv "PYTHONPATH" (getenv "GUIX_PYTHONPATH")))))))
+             (setenv "PYTHONPATH" (getenv "MANIFOLDING_OS_PYTHONPATH")))))))
     (native-inputs
      (let ((bimsb-origin
             (lambda (name hash)
@@ -18363,8 +18363,8 @@ version does count multisplits.")
     (build-system gnu-build-system)
     (arguments
      `(#:tests? #f                      ; there are none
-       #:modules ((guix build utils)
-                  (guix build gnu-build-system)
+       #:modules ((Manifolding-OS build utils)
+                  (Manifolding-OS build gnu-build-system)
                   (srfi srfi-26))
        #:make-flags
        (list (string-append "CC=" ,(cc-for-target))
@@ -18516,9 +18516,9 @@ Thus the per-base error rate is similar to the raw input reads.")
     (build-system qt-build-system)
     (arguments
      (list
-      #:modules '((guix build qt-build-system)
-                  ((guix build gnu-build-system) #:prefix gnu:)
-                  (guix build utils))
+      #:modules '((Manifolding-OS build qt-build-system)
+                  ((Manifolding-OS build gnu-build-system) #:prefix gnu:)
+                  (Manifolding-OS build utils))
       ;; TODO: Once <https://issues.guix.gnu.org/47475> is fixed,
       ;; consider uncommenting the following:
       ;;
@@ -20887,10 +20887,10 @@ phase + query phase).")
                   (install-file "scripts/read_info_histograms.sh" scripts))))
             (add-after 'install 'wrap-program
               (lambda _
-                (let ((path (getenv "GUIX_PYTHONPATH")))
+                (let ((path (getenv "MANIFOLDING_OS_PYTHONPATH")))
                   (wrap-program (string-append #$output
                                                "/share/filtlong/scripts/histogram.py")
-                    `("GUIX_PYTHONPATH" ":" prefix (,path))))))
+                    `("MANIFOLDING_OS_PYTHONPATH" ":" prefix (,path))))))
             (add-before 'check 'patch-tests
               (lambda _
                 (substitute* "scripts/read_info_histograms.sh"
@@ -20924,7 +20924,7 @@ choosing which reads pass the filter.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "1ha9v5ia0qrwgav0956cfc7n64wjm9a9w3rvkg21g37a994yixg5"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         ;; TODO: unbundle slow5lib
         '(begin (for-each delete-file-recursively
@@ -20958,12 +20958,12 @@ choosing which reads pass the filter.")
                           (find-files "scripts" ".*")))))
           (add-after 'install 'wrap-programs
             (lambda* (#:key inputs #:allow-other-keys)
-              (let ((pythonpath (getenv "GUIX_PYTHONPATH"))
+              (let ((pythonpath (getenv "MANIFOLDING_OS_PYTHONPATH"))
                     (perl5lib (getenv "PERL5LIB"))
                     (scripts (string-append #$output "/share/nanopolish/scripts"))
                     (guile (search-input-file inputs "bin/guile")))
                 (for-each (lambda (file)
-                            (wrap-program file `("GUIX_PYTHONPATH" ":" prefix (,pythonpath))))
+                            (wrap-program file `("MANIFOLDING_OS_PYTHONPATH" ":" prefix (,pythonpath))))
                           (find-files scripts "\\.py"))
                 (for-each (lambda (file)
                             (wrap-script file #:guile guile
@@ -21094,9 +21094,9 @@ is a Cython wrapper for FIt-SNE.")
       #~(list (string-append "-Dmpijar="
                              #$(this-package-input "java-openmpi")
                              "/lib/mpi.jar"))
-      #:modules '((guix build ant-build-system)
-                  (guix build utils)
-                  (guix build java-utils))
+      #:modules '((Manifolding-OS build ant-build-system)
+                  (Manifolding-OS build utils)
+                  (Manifolding-OS build java-utils))
       #:phases
       #~(modify-phases %standard-phases
           (add-after 'build 'build-jni-library
@@ -21159,7 +21159,7 @@ to an artifact/contaminant file.")
                (base32
                 "0h3njwy66p6bx14r3ar1byb0ccaxmxka4c65rn4iybyiqa4d8kc8"))
               ;; Delete bundled libraries
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                '(begin
                   (delete-file "Manual.pdf")
@@ -22032,7 +22032,7 @@ mutations from scRNA-Seq data.")
              (file-name (git-file-name name version))
              (sha256
               (base32 "00aqs147yn8zcvxims5njwxqsbnlbjv7lnmiwqy80bfdcbhljkqf"))
-             (modules '((guix build utils)))
+             (modules '((Manifolding-OS build utils)))
              (snippet
               '(delete-file-recursively "htslib"))))
    (build-system gnu-build-system)
@@ -22528,9 +22528,9 @@ dependencies of @code{VoltRon} package.")
               (call-with-output-file (string-append #$output "/site-library/VoltRon/guix-refs.R")
                 (lambda (port)
                   (format port "\
-Sys.setenv(GUIX_PYTHONPATH=\"~a\");
+Sys.setenv(MANIFOLDING_OS_PYTHONPATH=\"~a\");
 guix_python <- \"~a\";"
-                          (getenv "GUIX_PYTHONPATH")
+                          (getenv "MANIFOLDING_OS_PYTHONPATH")
                           (search-input-file inputs "/bin/python3")))))))))
     (inputs
      (list opencv
@@ -23227,8 +23227,8 @@ large-scale data-analysis.")
     (build-system perl-build-system)
     (arguments
      (list
-      #:modules '((guix build perl-build-system)
-                  (guix build utils)
+      #:modules '((Manifolding-OS build perl-build-system)
+                  (Manifolding-OS build utils)
                   (srfi srfi-26))
       #:phases
       #~(modify-phases %standard-phases
@@ -23285,7 +23285,7 @@ large-scale data-analysis.")
                                  (string-append ":" #$output
                                                 "/lib/perl5/site_perl"))
                             pl)
-                  (for-each (cut wrap <> "GUIX_PYTHONPATH") py))))))))
+                  (for-each (cut wrap <> "MANIFOLDING_OS_PYTHONPATH") py))))))))
     (inputs
      (list gd
            perl-gd
@@ -23331,8 +23331,8 @@ scripts for manipulating 3C/4C/5C/Hi-C data.")
            "0nznmiln2q6bzd3xp8d5cw56higa5w3g9rmg66956bkfky53chvw"))))
       (build-system gnu-build-system)
       (arguments
-       `(#:modules ((guix build gnu-build-system)
-                    (guix build utils)
+       `(#:modules ((Manifolding-OS build gnu-build-system)
+                    (Manifolding-OS build utils)
                     (ice-9 match))
          #:phases
          (modify-phases %standard-phases
@@ -23806,7 +23806,7 @@ sequences")
        (uri (pypi-uri "bwapy" version))
        (sha256
         (base32 "090qwx3vl729zn3a7sksbviyg04kc71gpbm3nd8dalqp673x1npw"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         '(for-each delete-file (find-files "." "\\.o$")))))
     (build-system pyproject-build-system)
@@ -24032,9 +24032,9 @@ both types of files.")
     (build-system cmake-build-system)
     (arguments
      (list
-      #:modules '((guix build cmake-build-system)
-                  ((guix build gnu-build-system) #:prefix gnu:)
-                  (guix build utils))
+      #:modules '((Manifolding-OS build cmake-build-system)
+                  ((Manifolding-OS build gnu-build-system) #:prefix gnu:)
+                  (Manifolding-OS build utils))
       #:phases
       #~(modify-phases %standard-phases
           (add-after 'unpack 'fix-headers
@@ -24496,10 +24496,10 @@ single-cell data named @url{https://github.com/PMBio/cardelino, cardelino}.")
     (build-system gnu-build-system)
     (arguments
      `(#:make-flags '("GUILE_AUTO_COMPILE=0") ; to prevent guild warnings
-       #:modules (((guix build guile-build-system)
+       #:modules (((Manifolding-OS build guile-build-system)
                    #:select (target-guile-effective-version))
                   ,@%default-gnu-modules)
-       #:imported-modules ((guix build guile-build-system)
+       #:imported-modules ((Manifolding-OS build guile-build-system)
                            ,@%default-gnu-imported-modules)
        #:phases
        (modify-phases %standard-phases
@@ -24555,7 +24555,7 @@ language.")
        (sha256
         (base32
          "1bcmzg0ii6nkda2xm5jdddbwkgsag7k38j20af0c9chr2mbxwx4d"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         '(delete-file-recursively "lib/simde"))))
     (build-system cmake-build-system)
@@ -24594,7 +24594,7 @@ based on the pairwise alignment of hidden Markov models (HMMs).")
          "0v9giqrqxl9kkcrs6zrfj1y07j6p9r8d82kkwigvndlg1708457w"))
        (snippet
         #~(begin
-            (use-modules (guix build utils))
+            (use-modules (Manifolding-OS build utils))
             ;; Unbundle atomic-queue.
             (delete-file-recursively "src/common/atomic_queue")
             (substitute* "src/align/include/computeAlignments.hpp"
@@ -24974,9 +24974,9 @@ CSIv1, CSIv2 and FAI files.")
       (append %cargo-build-system-modules
               %pyproject-build-system-modules)
       #:modules
-      '((guix build cargo-build-system)
-        ((guix build pyproject-build-system) #:prefix py:)
-        (guix build utils))
+      '((Manifolding-OS build cargo-build-system)
+        ((Manifolding-OS build pyproject-build-system) #:prefix py:)
+        (Manifolding-OS build utils))
       #:phases
       #~(modify-phases %standard-phases
           (add-after 'install 'prepare-python-module

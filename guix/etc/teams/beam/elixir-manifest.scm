@@ -28,10 +28,10 @@
 ;;;
 ;;;  ./pre-inst-env guix refresh -u -m etc/teams/beam/elixir-manifest.scm
 
-(use-modules (guix packages)
-             (guix profiles)
-             (guix gexp)
-             (guix build-system)
+(use-modules (Manifolding-OS packages)
+             (Manifolding-OS profiles)
+             (Manifolding-OS gexp)
+             (Manifolding-OS build-system)
              (ice-9 match)
              (srfi srfi-1)
              (srfi srfi-26))
@@ -41,7 +41,7 @@
       (any
        (match-lambda
          (('guix 'build 'mix-build-system) #t)
-         ('((guix build mix-build-system) . _) #t)
+         ('((Manifolding-OS build mix-build-system) . _) #t)
          (_ #f))
        (cond
         ((gexp? modules) (gexp->approximate-sexp modules))

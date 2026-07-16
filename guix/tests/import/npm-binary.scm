@@ -19,9 +19,9 @@
 (define-module (test-npm-binary)
   #:use-module ((gcrypt hash)
                 #:select ((sha256 . gcrypt-sha256)))
-  #:use-module (guix import npm-binary)
-  #:use-module (guix base32)
-  #:use-module (guix tests)
+  #:use-module (Manifolding-OS import npm-binary)
+  #:use-module (Manifolding-OS base32)
+  #:use-module (Manifolding-OS tests)
   #:use-module (srfi srfi-64)
   #:use-module (ice-9 iconv)
   #:use-module (ice-9 match)
@@ -120,7 +120,7 @@ different @var{license}."
 
 (unless have-guile-semver? (test-skip 1))
 (test-assert "npm-binary->guix-package base case"
-  (mock ((guix http-client) http-fetch
+  (mock ((Manifolding-OS http-client) http-fetch
          (lambda* (url #:rest _)
            (match url
              ("https://registry.npmjs.org/foo"
@@ -141,7 +141,7 @@ different @var{license}."
              (pk 'fail x #f))))))
 
 (test-assert "npm-binary->guix-package with multiple licenses"
-  (mock ((guix http-client) http-fetch
+  (mock ((Manifolding-OS http-client) http-fetch
          (lambda* (url #:rest _)
            (match url
              ("https://registry.npmjs.org/foo"

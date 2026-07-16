@@ -50,14 +50,14 @@
   #:use-module (gnu packages time)
   #:use-module (gnu packages tls)
   #:use-module (gnu packages web)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system waf)
-  #:use-module (guix download)
-  #:use-module (guix gexp)
-  #:use-module (guix git-download)
-  #:use-module ((guix licenses) #:prefix l:)
-  #:use-module (guix packages)
-  #:use-module (guix utils)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system waf)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module ((Manifolding-OS licenses) #:prefix l:)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS utils)
   #:use-module (srfi srfi-1))
 
 (define-public chrony
@@ -78,8 +78,8 @@
      (list
       #:modules
       '((srfi srfi-26)
-        (guix build utils)
-        (guix build gnu-build-system))
+        (Manifolding-OS build utils)
+        (Manifolding-OS build gnu-build-system))
       #:configure-flags
       #~(list "--enable-scfilter"
               "--with-ntp-era=0"
@@ -159,7 +159,7 @@ time-stamping or reference clock, sub-microsecond accuracy is possible.")
         (base32 "1rb8yksqxjcsjvww9kwnw1242qzszwixh916jj254a8szgrwb16g"))
        (patches (search-patches
                  "ntp-fix-dereferencing-the-wrong-variable.patch"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet '(begin
                    ;; Remove the bundled copy of libevent, but we must keep
                    ;; sntp/libevent/build-aux since configure.ac contains
@@ -335,8 +335,8 @@ by NTP.  The same NTP daemon is also used to provide NTP service to other hosts.
     (build-system gnu-build-system)
     (arguments
      `(#:modules ((srfi srfi-1)
-                  (guix build utils)
-                  (guix build gnu-build-system))
+                  (Manifolding-OS build utils)
+                  (Manifolding-OS build gnu-build-system))
        #:configure-flags
        (let* ((libressl (assoc-ref %build-inputs "libressl"))
               (libressl-version ,(package-version

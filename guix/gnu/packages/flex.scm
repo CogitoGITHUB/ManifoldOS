@@ -18,7 +18,7 @@
 
 (define-module (gnu packages flex)
   #:use-module (gnu packages compiler-tools)
-  #:use-module (guix deprecation))
+  #:use-module (Manifolding-OS deprecation))
 
 ;; XXX: Deprecated on 2026-05-28.
 (define-deprecated/public-alias flex

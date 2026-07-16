@@ -22,8 +22,8 @@
   #:use-module (gnu services)
   #:use-module (gnu services configuration)
   #:use-module (gnu system pam)
-  #:use-module (guix gexp)
-  #:use-module (guix records)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS records)
   #:use-module (ice-9 match)
   #:use-module (srfi srfi-1)
   #:export (pam-mount-configuration

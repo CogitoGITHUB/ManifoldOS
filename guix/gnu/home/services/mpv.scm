@@ -20,9 +20,9 @@
   #:use-module ((gnu services configuration) #:select (%unset-value
                                                        maybe-value-set?))
   #:use-module (gnu home services)
-  #:autoload   (guix diagnostics) (formatted-message)
-  #:autoload   (guix i18n) (G_)
-  #:use-module (guix gexp)
+  #:autoload   (Manifolding-OS diagnostics) (formatted-message)
+  #:autoload   (Manifolding-OS i18n) (G_)
+  #:use-module (Manifolding-OS gexp)
   #:use-module (ice-9 match)
   #:use-module (ice-9 regex)
   #:use-module (srfi srfi-1)

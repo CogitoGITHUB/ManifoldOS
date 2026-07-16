@@ -25,7 +25,7 @@
   #:use-module (gnu services xorg)
   #:use-module (gnu system)
   #:use-module (gnu system vm)
-  #:use-module (guix gexp)
+  #:use-module (Manifolding-OS gexp)
   #:use-module (ice-9 format)
   #:export (%test-gdm-x11
             %test-gdm-wayland))

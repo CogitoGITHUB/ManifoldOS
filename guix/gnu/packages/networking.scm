@@ -189,24 +189,24 @@
   #:use-module (gnu packages xiph)
   #:use-module (gnu packages xml)
   #:use-module (gnu packages)
-  #:use-module (guix build-system cmake)
-  #:use-module (guix build-system copy)
-  #:use-module (guix build-system glib-or-gtk)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system go)
-  #:use-module (guix build-system meson)
-  #:use-module (guix build-system perl)
-  #:use-module (guix build-system pyproject)
-  #:use-module (guix build-system pyproject)
-  #:use-module (guix build-system qt)
-  #:use-module (guix build-system trivial)
-  #:use-module (guix deprecation)
-  #:use-module (guix download)
-  #:use-module (guix gexp)
-  #:use-module (guix git-download)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix packages)
-  #:use-module (guix utils)
+  #:use-module (Manifolding-OS build-system cmake)
+  #:use-module (Manifolding-OS build-system copy)
+  #:use-module (Manifolding-OS build-system glib-or-gtk)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system go)
+  #:use-module (Manifolding-OS build-system meson)
+  #:use-module (Manifolding-OS build-system perl)
+  #:use-module (Manifolding-OS build-system pyproject)
+  #:use-module (Manifolding-OS build-system pyproject)
+  #:use-module (Manifolding-OS build-system qt)
+  #:use-module (Manifolding-OS build-system trivial)
+  #:use-module (Manifolding-OS deprecation)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS utils)
   #:use-module (ice-9 match))
 
 (define-public usrsctp
@@ -871,7 +871,7 @@ SCTP-aware kernel (most are).")
                                          "-"))))
               (file-name (git-file-name name version))
               (patches (search-patches "kismet-unbundle-boost.patch"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet '(begin
                           ;; Drop bundled libraries.
                           (delete-file-recursively "boost")))
@@ -1124,7 +1124,7 @@ systems with no further dependencies.")
                 (for-each
                  (lambda (program)
                    (wrap-program program
-                     `("GUIX_PYTHONPATH" = (,(getenv "GUIX_PYTHONPATH") ,lib))
+                     `("MANIFOLDING_OS_PYTHONPATH" = (,(getenv "MANIFOLDING_OS_PYTHONPATH") ,lib))
                      `("GI_TYPELIB_PATH" = (,(getenv "GI_TYPELIB_PATH")))))
                  (append
                   (map (lambda (prog) (string-append bin prog))
@@ -1456,7 +1456,7 @@ or server shell scripts with network connections.")
               (sha256
                (base32
                 "0p9ilj4v96q32klavx0phw9va21fjp8vpk11nbh6v2ppxnnxfhwm"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                ;; 'sys_errlist' & co. are gone in glibc 2.33; work around it.
                '(substitute* "percent_m.c"
@@ -3139,11 +3139,11 @@ a per-application basis whenever a new outbound connection is attempted.")
     (arguments
      (list
       #:tests? #f ; TODO: Fix virustotal test (upstream)
-      #:modules '((guix build pyproject-build-system)
-                  (guix build qt-utils)
-                  (guix build utils))
+      #:modules '((Manifolding-OS build pyproject-build-system)
+                  (Manifolding-OS build qt-utils)
+                  (Manifolding-OS build utils))
       #:imported-modules `(,@%pyproject-build-system-modules
-                           (guix build qt-utils))
+                           (Manifolding-OS build qt-utils))
       #:phases
       #~(modify-phases %standard-phases
           (add-after 'unpack 'chdir
@@ -3546,7 +3546,7 @@ The filters can be aggregated and exported in the most common formats.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "07kwika1zdq62s5p5z94xznm77dxjxdg8k0hrg7wygz50151nzmx"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet '(begin (substitute* '("Makefile")
                           (("-march=native") ""))))))
     (build-system gnu-build-system)
@@ -3930,7 +3930,7 @@ Features:
               (sha256
                (base32
                 "0i05bds30jazb2wq0hn3mh1zmmnnl9hkkd5y2iq3qkp7j49y0kcb"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                '(begin
                   ;; Drop bundled libraries.
@@ -4246,8 +4246,8 @@ and targeted primarily for asynchronous processing of HTTP-requests.")
       (build-system meson-build-system)
       (arguments
        (list
-        #:modules '((guix build meson-build-system)
-                    (guix build utils)
+        #:modules '((Manifolding-OS build meson-build-system)
+                    (Manifolding-OS build utils)
                     (ice-9 ftw)
                     (srfi srfi-26))
         #:configure-flags
@@ -4700,10 +4700,10 @@ service is available at @url{https://pagekite.net/}, or you can run your own.")
     (inputs `(("perl" ,perl)))
     (build-system trivial-build-system) ;no Makefile.PL
     (arguments
-     `(#:modules ((guix build utils))
+     `(#:modules ((Manifolding-OS build utils))
        #:builder
        (begin
-         (use-modules (guix build utils))
+         (use-modules (Manifolding-OS build utils))
          (use-modules (srfi srfi-1))
          (let* ((source (assoc-ref %build-inputs "source"))
                 (perl (string-append (assoc-ref %build-inputs "perl")
@@ -4873,7 +4873,7 @@ cables.")
                            version ".tar.gz"))
        (sha256
         (base32 "0zwr1brzq41r6ji1gnqgnlg5sy0980w5n18xj3d3hlay7lbg6zgq"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         '(begin
            ;; Drop bundled library.
@@ -5127,10 +5127,10 @@ IPv6 Internet connectivity - it also works over IPv4.")
     (build-system cmake-build-system)
     (arguments
      (list
-      #:modules '((guix build cmake-build-system)
-                  (guix build qt-utils)
-                  (guix build utils))
-      #:imported-modules `(,@%cmake-build-system-modules (guix build qt-utils))
+      #:modules '((Manifolding-OS build cmake-build-system)
+                  (Manifolding-OS build qt-utils)
+                  (Manifolding-OS build utils))
+      #:imported-modules `(,@%cmake-build-system-modules (Manifolding-OS build qt-utils))
       #:phases #~(modify-phases %standard-phases
                    (add-after 'install 'wrap-qt
                      (lambda* (#:key inputs #:allow-other-keys)
@@ -5169,7 +5169,7 @@ daemon.")
               ;; Remove windows-related binary blobs and files
               (snippet
                #~(begin
-                   (use-modules (guix build utils))
+                   (use-modules (Manifolding-OS build utils))
                    (delete-file-recursively "dist/windows")
                    (delete-file-recursively "wintun")))))
     (build-system go-build-system)

@@ -22,9 +22,9 @@
 
 
 (define-module (test build-utils)
-  #:use-module (guix tests)
-  #:use-module (guix build utils)
-  #:use-module ((guix utils)
+  #:use-module (Manifolding-OS tests)
+  #:use-module (Manifolding-OS build utils)
+  #:use-module ((Manifolding-OS utils)
                 #:select (%current-system call-with-temporary-directory))
   #:use-module (gnu packages)
   #:use-module (gnu packages bootstrap)
@@ -104,7 +104,7 @@
        (call-with-output-file foo
          (lambda (p)
            (format p
-                   "#!~a~%echo \"${GUIX_FOO} ${GUIX_BAR}\"~%"
+                   "#!~a~%echo \"${MANIFOLDING_OS_FOO} ${MANIFOLDING_OS_BAR}\"~%"
                    bash)))
        (chmod foo #o777)
 
@@ -113,8 +113,8 @@
        ;; named "bash".  Help it out a bit by providing a symlink it this
        ;; package's output.
        (with-environment-variable "PATH" (dirname bash)
-         (wrap-program foo `("GUIX_FOO" prefix ("hello")))
-         (wrap-program foo `("GUIX_BAR" prefix ("world")))
+         (wrap-program foo `("MANIFOLDING_OS_FOO" prefix ("hello")))
+         (wrap-program foo `("MANIFOLDING_OS_BAR" prefix ("world")))
 
          ;; The bootstrap Bash is linked against an old libc and would abort
          ;; with an assertion failure when trying to load incompatible locale
@@ -160,8 +160,8 @@ echo hello world"))
 #\\-~s
 "
              (which "guile")
-             '(begin (let ((current (getenv "GUIX_FOO")))
-                       (setenv "GUIX_FOO"
+             '(begin (let ((current (getenv "MANIFOLDING_OS_FOO")))
+                       (setenv "MANIFOLDING_OS_FOO"
                                (if current
                                    (string-append "/some/path:/some/other/path"
                                                   ":" current)
@@ -178,7 +178,7 @@ echo hello world"))
              (display script-contents port)))
          (chmod script-file-name #o777)
          (wrap-script script-file-name
-                      `("GUIX_FOO" prefix ("/some/path"
+                      `("MANIFOLDING_OS_FOO" prefix ("/some/path"
                                            "/some/other/path")))
          (let ((str (call-with-input-file script-file-name get-string-all)))
            (with-directory-excursion directory
@@ -198,8 +198,8 @@ print('hello world')"))
 #\\-~s
 #\\-~s
 "
-             '(begin (let ((current (getenv "GUIX_FOO")))
-                       (setenv "GUIX_FOO"
+             '(begin (let ((current (getenv "MANIFOLDING_OS_FOO")))
+                       (setenv "MANIFOLDING_OS_FOO"
                                (if current
                                    (string-append "/some/path:/some/other/path"
                                                   ":" current)
@@ -219,7 +219,7 @@ print('hello world')"))
 
          (wrap-script script-file-name
                       #:guile "MYGUILE"
-                      `("GUIX_FOO" prefix ("/some/path"
+                      `("MANIFOLDING_OS_FOO" prefix ("/some/path"
                                            "/some/other/path")))
          (let ((str (call-with-input-file script-file-name get-string-all)))
            (with-directory-excursion directory
@@ -237,7 +237,7 @@ print('hello world')"))
        (guard (c ((wrap-error? c) #t))
          (wrap-script script-file-name
                       #:guile "MYGUILE"
-                      `("GUIX_FOO" prefix ("/some/path"
+                      `("MANIFOLDING_OS_FOO" prefix ("/some/path"
                                            "/some/other/path")))
          #f)))))
 

@@ -17,13 +17,13 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (test-pki)
-  #:use-module (guix pki)
+  #:use-module (Manifolding-OS pki)
   #:use-module (gcrypt pk-crypto)
   #:use-module (gcrypt hash)
   #:use-module (rnrs io ports)
   #:use-module (srfi srfi-64))
 
-;; Test the (guix pki) module.
+;; Test the (Manifolding-OS pki) module.
 
 (define %public-key
   (call-with-input-file %public-key-file

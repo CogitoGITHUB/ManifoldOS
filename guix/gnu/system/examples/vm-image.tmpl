@@ -2,14 +2,14 @@
 ;; This is an operating system configuration for a VM image.
 ;; Modify it as you see fit and instantiate the changes by running:
 ;;
-;;   guix system reconfigure /etc/config.scm
+;;   Manifolding-OS system reconfigure /etc/config.scm
 ;;
 
 (use-modules (gnu)
-             (guix)
+             (Manifolding-OS)
              (srfi srfi-1)
              (ice-9 match)
-             (guix channels)
+             (Manifolding-OS channels)
              (gnu packages package-management)
              (gnu system image))
 (use-service-modules desktop mcron networking spice ssh xorg sddm)
@@ -23,9 +23,9 @@ This instance of Guix is a template for virtualized environments.
 You can reconfigure the whole system by adjusting /etc/config.scm
 and running:
 
-  guix system reconfigure /etc/config.scm
+  Manifolding-OS system reconfigure /etc/config.scm
 
-Run '\x1b[1;37minfo guix\x1b[0m' to browse documentation.
+Run '\x1b[1;37minfo Manifolding-OS\x1b[0m' to browse documentation.
 
 \x1b[1;33mConsider setting a password for the 'root' and 'guest' \
 accounts.\x1b[0m
@@ -40,7 +40,7 @@ accounts.\x1b[0m
   ;; Label for the GRUB boot menu.
   (label (string-append "GNU Guix "
                         (or (getenv "GUIX_DISPLAYED_VERSION")
-                            (package-version guix))))
+                            (package-version Manifolding-OS))))
 
   (firmware '())
 
@@ -130,10 +130,10 @@ root ALL=(ALL) ALL
 
                      ;; Install and run the current Guix rather than an older
                      ;; snapshot.
-                     (guix-service-type config =>
-                                        (guix-configuration
+                     (Manifolding-OS-service-type config =>
+                                        (Manifolding-OS-configuration
                                          (inherit config)
-                                         (guix (current-guix))))))))
+                                         (Manifolding-OS (current-Manifolding-OS))))))))
 
   ;; Allow resolution of '.local' host names with mDNS.
   (name-service-switch %mdns-host-lookup-nss))

@@ -21,23 +21,23 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu ci)
-  #:use-module (guix config)
-  #:autoload   (guix describe) ()
-  #:use-module (guix memoization)
-  #:use-module (guix store)
-  #:use-module (guix profiles)
-  #:use-module (guix packages)
-  #:autoload   (guix transformations) (tunable-package? tuned-package)
-  #:use-module (guix config)
-  #:use-module (guix derivations)
-  #:use-module (guix monads)
-  #:use-module (guix gexp)
-  #:use-module (guix ui)
-  #:use-module ((guix licenses)
+  #:use-module (Manifolding-OS config)
+  #:autoload   (Manifolding-OS describe) ()
+  #:use-module (Manifolding-OS memoization)
+  #:use-module (Manifolding-OS store)
+  #:use-module (Manifolding-OS profiles)
+  #:use-module (Manifolding-OS packages)
+  #:autoload   (Manifolding-OS transformations) (tunable-package? tuned-package)
+  #:use-module (Manifolding-OS config)
+  #:use-module (Manifolding-OS derivations)
+  #:use-module (Manifolding-OS monads)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS ui)
+  #:use-module ((Manifolding-OS licenses)
                 #:select (gpl3+ license? license-name))
-  #:use-module (guix utils)
-  #:use-module ((guix scripts system) #:select (read-operating-system))
-  #:use-module ((guix scripts pack)
+  #:use-module (Manifolding-OS utils)
+  #:use-module ((Manifolding-OS scripts system) #:select (read-operating-system))
+  #:use-module ((Manifolding-OS scripts pack)
                 #:select (self-contained-tarball))
   #:use-module (gnu bootloader)
   #:use-module (gnu bootloader u-boot)
@@ -58,7 +58,7 @@
   #:use-module (gnu packages multiprecision)
   #:use-module (gnu packages make-bootstrap)
   #:use-module (gnu packages package-management)
-  #:use-module (guix platform)
+  #:use-module (Manifolding-OS platform)
   #:use-module (gnu system)
   #:use-module (gnu system image)
   #:use-module (gnu system vm)
@@ -321,7 +321,7 @@ otherwise use the IMAGE name."
             (image
              (inherit (image-with-label
                        iso9660-image
-                       (string-append "GUIX_" system "_"
+                       (string-append "MANIFOLDING_OS_" system "_"
                                       (if (> (string-length %guix-version) 7)
                                           (substring %guix-version 0 7)
                                           %guix-version))))
@@ -463,7 +463,7 @@ names, for each one of SYSTEMS."
   (define (load-manifest manifest)
     (save-module-excursion
      (lambda ()
-       (set-current-module (make-user-module '((guix profiles) (gnu))))
+       (set-current-module (make-user-module '((Manifolding-OS profiles) (gnu))))
        (primitive-load manifest))))
 
   (define (manifest-entry-job-name entry)

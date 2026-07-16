@@ -34,10 +34,10 @@
   #:use-module (gnu services)
   #:use-module (gnu system pam)
   #:use-module (gnu system shadow)
-  #:use-module (guix diagnostics)
-  #:use-module (guix gexp)
-  #:use-module (guix i18n)
-  #:use-module (guix records)
+  #:use-module (Manifolding-OS diagnostics)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS i18n)
+  #:use-module (Manifolding-OS records)
   #:use-module (ice-9 format)
   #:use-module (ice-9 match)
   #:use-module (srfi srfi-1)
@@ -510,9 +510,9 @@ and all the serialized greeter configurations from CONFIG."
 (define %lightdm-activation
   ;; Ensure /var/lib/lightdm is owned by the "lightdm" user.  Adapted from the
   ;; %gdm-activation.
-  (with-imported-modules '((guix build utils))
+  (with-imported-modules '((Manifolding-OS build utils))
     #~(begin
-        (use-modules (guix build utils))
+        (use-modules (Manifolding-OS build utils))
 
         (define (ensure-ownership directory)
           (let* ((lightdm (getpwnam "lightdm"))

@@ -19,10 +19,10 @@
 
 (define-module (test-texlive)
   #:use-module (gnu packages tex)
-  #:use-module (guix import texlive)
-  #:use-module (guix tests)
-  #:use-module (guix tests http)
-  #:use-module (guix build utils)
+  #:use-module (Manifolding-OS import texlive)
+  #:use-module (Manifolding-OS tests)
+  #:use-module (Manifolding-OS tests http)
+  #:use-module (Manifolding-OS build utils)
   #:use-module (srfi srfi-1)
   #:use-module (srfi srfi-64)
   #:use-module (srfi srfi-26)
@@ -362,7 +362,7 @@ completely compatible with Plain TeX.")
 
 (test-assert "texlive->guix-package, no docfiles"
   ;; Replace network resources with sample data.
-  (mock ((guix build svn) svn-fetch
+  (mock ((Manifolding-OS build svn) svn-fetch
          (lambda* (url revision directory
                        #:key (svn-command "svn")
                        (user-name #f)
@@ -401,7 +401,7 @@ completely compatible with Plain TeX.")
 
 (test-assert "texlive->guix-package"
   ;; Replace network resources with sample data.
-  (mock ((guix build svn) svn-fetch
+  (mock ((Manifolding-OS build svn) svn-fetch
          (lambda* (url revision directory
                        #:key (svn-command "svn")
                        (user-name #f)
@@ -453,7 +453,7 @@ completely compatible with Plain TeX.")
 
 (test-assert "texlive->guix-package, with METAFONT files"
   ;; Replace network resources with sample data.
-  (mock ((guix build svn) svn-fetch
+  (mock ((Manifolding-OS build svn) svn-fetch
          (lambda* (url revision directory
                        #:key (svn-command "svn")
                        (user-name #f)
@@ -487,7 +487,7 @@ completely compatible with Plain TeX.")
 
 (test-assert "texlive->guix-package, with catalogue entry, no inputs"
   ;; Replace network resources with sample data.
-  (mock ((guix build svn) svn-fetch
+  (mock ((Manifolding-OS build svn) svn-fetch
          (lambda* (url revision directory
                        #:key (svn-command "svn")
                        (user-name #f)
@@ -529,7 +529,7 @@ completely compatible with Plain TeX.")
 
 (test-assert "texlive->guix-package, multiple licenses"
   ;; Replace network resources with sample data.
-  (mock ((guix build svn) svn-fetch
+  (mock ((Manifolding-OS build svn) svn-fetch
          (lambda* (url revision directory
                        #:key (svn-command "svn")
                        (user-name #f)
@@ -571,7 +571,7 @@ completely compatible with Plain TeX.")
 
 (test-assert "texlive->guix-package, meta-package"
   ;; Replace network resources with sample data.
-  (mock ((guix build svn) svn-fetch
+  (mock ((Manifolding-OS build svn) svn-fetch
          (lambda* (url revision directory
                        #:key (svn-command "svn")
                        (user-name #f)
@@ -607,7 +607,7 @@ completely compatible with Plain TeX.")
 
 (test-assert "texlive->guix-package, with TeX format"
   ;; Replace network resources with sample data.
-  (mock ((guix build svn) svn-fetch
+  (mock ((Manifolding-OS build svn) svn-fetch
          (lambda* (url revision directory
                        #:key (svn-command "svn")
                        (user-name #f)
@@ -649,7 +649,7 @@ completely compatible with Plain TeX.")
 
 (test-assert "texlive->guix-package, execute but no TeX format"
   ;; Replace network resources with sample data.
-  (mock ((guix build svn) svn-fetch
+  (mock ((Manifolding-OS build svn) svn-fetch
          (lambda* (url revision directory
                        #:key (svn-command "svn")
                        (user-name #f)
@@ -681,7 +681,7 @@ completely compatible with Plain TeX.")
 
 (test-assert "texlive->guix-package, translate dependencies"
   ;; Replace network resources with sample data.
-  (mock ((guix build svn) svn-fetch
+  (mock ((Manifolding-OS build svn) svn-fetch
          (lambda* (url revision directory
                        #:key (svn-command "svn")
                        (user-name #f)
@@ -716,7 +716,7 @@ completely compatible with Plain TeX.")
 
 (test-assert "texlive->guix-package, lonely `hyphen-base' dependency and ARCH"
   ;; Replace network resources with sample data.
-  (mock ((guix build svn) svn-fetch
+  (mock ((Manifolding-OS build svn) svn-fetch
          (lambda* (url revision directory
                        #:key (svn-command "svn")
                        (user-name #f)
@@ -751,7 +751,7 @@ completely compatible with Plain TeX.")
 
 (test-assert "texlive->guix-package, single script, no extension"
   ;; Replace network resources with sample data.
-  (mock ((guix build svn) svn-fetch
+  (mock ((Manifolding-OS build svn) svn-fetch
          (lambda* (url revision directory
                        #:key (svn-command "svn")
                        (user-name #f)
@@ -785,7 +785,7 @@ completely compatible with Plain TeX.")
 
 (test-assert "texlive->guix-package, multiple scripts, with extensions"
   ;; Replace network resources with sample data.
-  (mock ((guix build svn) svn-fetch
+  (mock ((Manifolding-OS build svn) svn-fetch
          (lambda* (url revision directory
                        #:key (svn-command "svn")
                        (user-name #f)
@@ -820,7 +820,7 @@ completely compatible with Plain TeX.")
 
 (test-assert "texlive->guix-package, script with associated input"
   ;; Replace network resources with sample data.
-  (mock ((guix build svn) svn-fetch
+  (mock ((Manifolding-OS build svn) svn-fetch
          (lambda* (url revision directory
                        #:key (svn-command "svn")
                        (user-name #f)
@@ -856,7 +856,7 @@ completely compatible with Plain TeX.")
 
 (test-assert "texlive->guix-package, propagated binaries, no script"
   ;; Replace network resources with sample data.
-  (mock ((guix build svn) svn-fetch
+  (mock ((Manifolding-OS build svn) svn-fetch
          (lambda* (url revision directory
                        #:key (svn-command "svn")
                        (user-name #f)
@@ -890,7 +890,7 @@ completely compatible with Plain TeX.")
 
 (test-assert "texlive->guix-package, propagated binaries and scripts"
   ;; Replace network resources with sample data.
-  (mock ((guix build svn) svn-fetch
+  (mock ((Manifolding-OS build svn) svn-fetch
          (lambda* (url revision directory
                        #:key (svn-command "svn")
                        (user-name #f)
@@ -925,7 +925,7 @@ completely compatible with Plain TeX.")
 
 (test-assert "texlive->guix-package, with skipped propagated binaries"
   ;; Replace network resources with sample data.
-  (mock ((guix build svn) svn-fetch
+  (mock ((Manifolding-OS build svn) svn-fetch
          (lambda* (url revision directory
                        #:key (svn-command "svn")
                        (user-name #f)
@@ -957,7 +957,7 @@ completely compatible with Plain TeX.")
 
 (test-assert "texlive->guix-package, with upstream-name property"
   ;; Replace network resources with sample data.
-  (mock ((guix build svn) svn-fetch
+  (mock ((Manifolding-OS build svn) svn-fetch
          (lambda* (url revision directory
                        #:key (svn-command "svn")
                        (user-name #f)

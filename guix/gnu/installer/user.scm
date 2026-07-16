@@ -18,8 +18,8 @@
 
 (define-module (gnu installer user)
   #:use-module (gnu installer utils)
-  #:use-module (guix records)
-  #:use-module (guix read-print)
+  #:use-module (Manifolding-OS records)
+  #:use-module (Manifolding-OS read-print)
   #:use-module (srfi srfi-1)
   #:use-module (srfi srfi-9)
   #:use-module (srfi srfi-9 gnu)

@@ -205,7 +205,7 @@ static void earlyIOSetupAction(SpawnContext & ctx)
 static void dropAmbientCapabilitiesAction(SpawnContext & ctx)
 {
   /* Drop ambient capabilities such as CAP_CHOWN that might have been granted
-     when starting guix-daemon.  */
+     when starting Manifolding-OS-daemon.  */
     if(ctx.dropAmbientCapabilities)
 #if HAVE_SYS_PRCTL_H
         prctl(PR_CAP_AMBIENT, PR_CAP_AMBIENT_CLEAR_ALL, 0, 0, 0);

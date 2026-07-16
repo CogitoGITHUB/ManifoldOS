@@ -25,14 +25,14 @@
 ;;; defined, causing an unbound variable error.
 
 (define-module (gnu packages codex)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix gexp)
-  #:use-module (guix packages)
-  #:use-module (guix download)
-  #:use-module (guix git-download)
-  #:use-module (guix search-paths)
-  #:use-module (guix utils)
-  #:use-module (guix build-system cargo)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS search-paths)
+  #:use-module (Manifolding-OS utils)
+  #:use-module (Manifolding-OS build-system cargo)
   #:use-module (srfi srfi-1)
   #:use-module (gnu packages)
   #:use-module (gnu packages bash)
@@ -71,7 +71,7 @@
        (file-name (git-file-name name version))
        (sha256
         (base32 "0icwnvss0zswsp0vz2cffzr4xq46zfv634cl9phn40kjhsl2ny18"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet '(begin
                    ;; Bundled bubblewrap source tree; includes a
                    ;; compiled BPF blob (demos/flatpak.bpf).

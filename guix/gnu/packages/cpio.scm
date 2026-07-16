@@ -19,12 +19,12 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages cpio)
-  #:use-module (guix licenses)
+  #:use-module (Manifolding-OS licenses)
   #:use-module (gnu packages)
   #:use-module (gnu packages autotools)
-  #:use-module (guix packages)
-  #:use-module (guix download)
-  #:use-module (guix build-system gnu))
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS build-system gnu))
 
 (define-public cpio
   (package
@@ -37,7 +37,7 @@
              (sha256
               (base32
                "1nvmj2mc3nagpig75sgzvkqgzg1p01wgnlw54v4ix6ijgjwi0xlk"))
-             (modules '((guix build utils)))
+             (modules '((Manifolding-OS build utils)))
              (snippet
               '(begin
                  ;; Remove superfluous declaration that trips GCC 10.

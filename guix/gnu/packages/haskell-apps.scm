@@ -37,12 +37,12 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages haskell-apps)
-  #:use-module (guix download)
-  #:use-module (guix gexp)
-  #:use-module (guix git-download)
-  #:use-module (guix packages)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix build-system haskell)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS packages)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS build-system haskell)
   #:use-module (gnu packages)
   #:use-module (gnu packages bash)
   #:use-module (gnu packages curl)
@@ -201,7 +201,7 @@ unlit literate code files; and an option to turn off macro-expansion.")
        (sha256
         (base32
          "0ar4markr71l9hzrbgcz4q37cf2rf3936i6qi8p827p36v96qg6n"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        ;; Remove time-dependent code for reproducibility.
        (snippet
         '(begin
@@ -851,7 +851,7 @@ Wayland, and Linux console environments alike.")
         #~(substitute* "nixfmt.cabal"
             (("(megaparsec|filepath)  *[0-9<>=^&|. ]*" _ package)
              package)))
-       (modules '((guix build utils)))))
+       (modules '((Manifolding-OS build utils)))))
     (build-system haskell-build-system)
     (inputs (list ghc-megaparsec
                   ghc-parser-combinators

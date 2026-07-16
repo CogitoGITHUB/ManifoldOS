@@ -26,10 +26,10 @@
   #:use-module (gnu services)
   #:use-module (gnu system file-systems)
   #:use-module (gnu system shadow)
-  #:use-module (guix gexp)
-  #:use-module (guix least-authority)
-  #:use-module (guix modules)
-  #:use-module (guix records)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS least-authority)
+  #:use-module (Manifolding-OS modules)
+  #:use-module (Manifolding-OS records)
   #:use-module (ice-9 match)
   #:export (%readymedia-default-cache-directory
             %readymedia-default-log-file

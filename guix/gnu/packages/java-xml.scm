@@ -32,14 +32,14 @@
   #:use-module (gnu packages compression)
   #:use-module (gnu packages gtk)
   #:use-module (gnu packages java)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix gexp)
-  #:use-module (guix packages)
-  #:use-module (guix bzr-download)
-  #:use-module (guix download)
-  #:use-module (guix git-download)
-  #:use-module (guix build-system ant)
-  #:use-module (guix utils)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS bzr-download)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS build-system ant)
+  #:use-module (Manifolding-OS utils)
   #:use-module ((srfi srfi-1) #:select (alist-delete)))
 
 (define-public java-jericho-html
@@ -56,7 +56,7 @@
               (sha256
                (base32
                 "1zsf4i33jn05pma4y1658d6avhw7x4c12ggs96szhc06b7bxs8j0"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet '(begin
                           (format #t "~%~a~%" "Removing sourced jar files.")
                           (for-each (lambda (jarf)
@@ -175,7 +175,7 @@ the Xerces-J XML parser and Xalan-J XSLT processor and specifies these APIs:
                            "xml-commons-resolver-" version ".tar.gz"))
        (sha256
         (base32 "1zhy4anc3fg9f8y348bj88vmab15aavrg6nf419ifb25asyygnsm"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         '(begin
            (for-each delete-file (find-files "." ".*\\.(jar|zip)"))
@@ -267,7 +267,7 @@ with XPath too.")
               (sha256
                (base32
                 "1jh6y03g5zzdhsb5jm6ms1xnamr460qmn96y3w6aw0ikfwqlg0bq"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                '(begin
                   (for-each delete-file
@@ -340,7 +340,7 @@ validator.")
               (sha256
                (base32
                 "1b99zrhyij5qwyhilyjdl1ykxvhk902vsvflh6gx4fir8hfvdl5p"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                 '(begin ;; Delete bundled jar archives.
                    (for-each delete-file (find-files "." ".*\\.jar"))
@@ -374,7 +374,7 @@ advantage of JIT JVMs.")
               (sha256
                (base32
                 "1kw9nhyqb7bzhn2zjbwlpi5vp5rzj89amzi3hadw2acyh2dmd0md"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                 '(begin ;; Delete bundled jar archives.
                    (for-each delete-file (find-files "." ".*\\.jar"))
@@ -412,7 +412,7 @@ package is in maintenance mode.")
               (sha256
                (base32
                 "15bdqxfncnakskna4m9gsh4f9iczxy83qxn2anqiqd15z406a5ih"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                `(begin
                   (delete-file-recursively "lib")
@@ -462,7 +462,7 @@ moment and resumed when application is ready to consume more input.")
               (sha256
                (base32
                 "0q907srj9v4hwicpcrn4slyld5npf2jv7hzchsgrg29q2xmbwkdl"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                 '(begin ;; Delete bundled jar archives.
                    (for-each delete-file (find-files "." ".*\\.jar"))

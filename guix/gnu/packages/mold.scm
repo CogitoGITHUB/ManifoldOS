@@ -19,12 +19,12 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages mold)
-  #:use-module (guix gexp)
-  #:use-module (guix packages)
-  #:use-module (guix utils)
-  #:use-module (guix git-download)
-  #:use-module (guix build-system cmake)
-  #:use-module (guix build-system trivial)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS utils)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS build-system cmake)
+  #:use-module (Manifolding-OS build-system trivial)
   #:use-module (gnu packages base)
   #:use-module (gnu packages c)
   #:use-module (gnu packages crypto)
@@ -32,7 +32,7 @@
   #:use-module (gnu packages oneapi)
   #:use-module (gnu packages tls)
   #:use-module (gnu packages compression)
-  #:use-module ((guix licenses) #:prefix license:))
+  #:use-module ((Manifolding-OS licenses) #:prefix license:))
 
 (define-public mold
   (package
@@ -47,7 +47,7 @@
        (file-name (git-file-name name version))
        (sha256
         (base32 "1r4mvgwh652klhns1q45qy5axi54jx904ss0s428y98a9qk4brrp"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         #~(begin
             (for-each

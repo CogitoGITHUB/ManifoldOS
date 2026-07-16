@@ -19,12 +19,12 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages stb)
-  #:use-module (guix gexp)
-  #:use-module (guix packages)
-  #:use-module (guix git-download)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system trivial)
-  #:use-module ((guix licenses) #:select (expat public-domain)))
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system trivial)
+  #:use-module ((Manifolding-OS licenses) #:select (expat public-domain)))
 
 (define-public stb
   ;; stb is a collection of libraries developed within the same repository.
@@ -103,10 +103,10 @@ the C programming language.")
     (build-system trivial-build-system)
     (arguments
      (list
-      #:modules '((guix build utils))
+      #:modules '((Manifolding-OS build utils))
       #:builder
       #~(begin
-          (use-modules (guix build utils))
+          (use-modules (Manifolding-OS build utils))
           (let ((headers-dir #$(file-append (this-package-input "stb")
                                             (if deprecated? "/deprecated" "")))
                 (lib (string-join (string-split #$name #\-) "_"))

@@ -28,8 +28,8 @@
   #:use-module (gnu services)
   #:use-module (gnu services rsync)
   #:use-module (gnu services networking)
-  #:use-module (guix gexp)
-  #:use-module (guix store)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS store)
   #:export (%test-rsync))
 
 (define* (run-rsync-test rsync-os #:optional (rsync-port 873))
@@ -39,7 +39,7 @@ PORT."
     (marionette-operating-system
      rsync-os
      #:imported-modules '((gnu services herd)
-                          (guix combinators))))
+                          (Manifolding-OS combinators))))
 
   (define vm
     (virtual-machine

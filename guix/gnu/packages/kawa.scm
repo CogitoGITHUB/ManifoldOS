@@ -17,7 +17,7 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages kawa)
-  #:use-module (guix deprecation))
+  #:use-module (Manifolding-OS deprecation))
 
 ;; Deprecated at 2026-05-31
 (define-deprecated/public-alias kawa

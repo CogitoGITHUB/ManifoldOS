@@ -22,9 +22,9 @@
   #:use-module (gnu services base)
   #:use-module (gnu services configuration)
   #:use-module (gnu services shepherd)
-  #:use-module (guix gexp)
-  #:use-module (guix packages)
-  #:use-module (guix records)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS records)
   #:use-module (json)
   #:export (opensnitch-configuration
             opensnitch-configuration?
@@ -198,9 +198,9 @@
   "Return the activation gexp for CONFIG."
   (match-record config <opensnitch-configuration>
     (rules-path)
-    (with-imported-modules '((guix build utils))
+    (with-imported-modules '((Manifolding-OS build utils))
       #~(begin
-          (use-modules (guix build utils))
+          (use-modules (Manifolding-OS build utils))
           (mkdir-p #$rules-path)))))
 
 (define (opensnitch-shepherd-service config)

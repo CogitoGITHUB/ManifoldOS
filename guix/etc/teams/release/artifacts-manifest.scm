@@ -32,20 +32,20 @@
              (gnu system image)
              (gnu system install)
              (gnu system)
-             (guix build-system gnu)
-             (guix build-system trivial)
-             (guix gexp)
-             (guix git)
-             (guix grafts)
-             (guix memoization)
-             (guix monads)
-             (guix packages)
-             (guix profiles)
-             (guix records)
-             (guix scripts pack)
-             (guix store)
-             (guix ui)
-             (guix utils)
+             (Manifolding-OS build-system gnu)
+             (Manifolding-OS build-system trivial)
+             (Manifolding-OS gexp)
+             (Manifolding-OS git)
+             (Manifolding-OS grafts)
+             (Manifolding-OS memoization)
+             (Manifolding-OS monads)
+             (Manifolding-OS packages)
+             (Manifolding-OS profiles)
+             (Manifolding-OS records)
+             (Manifolding-OS scripts pack)
+             (Manifolding-OS store)
+             (Manifolding-OS ui)
+             (Manifolding-OS utils)
              (ice-9 format)
              (ice-9 match)
              (srfi srfi-9)
@@ -56,7 +56,7 @@
 ;; package-management). Otherwise, the package is updated to current commit and
 ;; might not be substitutable, leading to longer build times.
 (define %use-snapshot-package?
-  (string=? (or (getenv "GUIX_USE_SNAPSHOT_PACKAGE") "no") "yes"))
+  (string=? (or (getenv "MANIFOLDING_OS_USE_SNAPSHOT_PACKAGE") "no") "yes"))
 
 (define (%guix-version)
   ;; NOTE: while package-version guix is not correct in general,
@@ -76,7 +76,7 @@
 ;; https://gitlab.inria.fr/numpex-pc5/wp3/guix-images/-/blob/17bf4585abc2d637faa5d339436e778b7c9fb1ce/modules/guix-hpc/packs.scm
 
 ;; XXX: The <monadic> hack below will hopefully become unnecessary once the
-;; (guix scripts pack) interface switches to declarative style--i.e.,
+;; (Manifolding-OS scripts pack) interface switches to declarative style--i.e.,
 ;; file-like objects.
 
 (define-record-type <monadic>
@@ -112,9 +112,9 @@ etc-service-type can't be used here. CONFIG is a pair of strings, (FROM . TO).
 The config will be copied from FROM to TO."
   (match config
     ((from . to)
-     (with-imported-modules '((guix build utils))
+     (with-imported-modules '((Manifolding-OS build utils))
        #~(begin
-           (use-modules (guix build utils))
+           (use-modules (Manifolding-OS build utils))
            (when (not (file-exists? #$to))
              (copy-file #$from #$to)
              (make-file-writable #$to)))))
@@ -236,7 +236,7 @@ provenance."
               #:localstatedir? #t))))))
 
 ;; Like guix system image -t iso9660 \
-;; --label="GUIX_$${system}_$(VERSION)" gnu/system/install.scm
+;; --label="MANIFOLDING_OS_$${system}_$(VERSION)" gnu/system/install.scm
 (define* (iso-for-system system)
   (let* ((name (string-append
                 "guix-system-install-" (%guix-version) "." system ".iso"))
@@ -244,7 +244,7 @@ provenance."
                    #:grub-displayed-version (%guix-version)
                    #:efi-only? (string=? system "aarch64-linux")))
          (base-image (os->image base-os #:type iso-image-type))
-         (label (string-append "GUIX_" system "_"
+         (label (string-append "MANIFOLDING_OS_" system "_"
                                (if (> (string-length (%guix-version)) 7)
                                    (string-take (%guix-version) 7)
                                    (%guix-version)))))
@@ -286,7 +286,7 @@ provenance."
                (name (string->symbol name))))))))
 
 (define* (guix-source-tarball)
-  (let ((guix (package
+  (let ((Manifolding-OS (package
                 (inherit guix)
                 (native-inputs
                  (modify-inputs (package-native-inputs guix)
@@ -371,10 +371,10 @@ and symlinks them by their manifest-entry-name."
   (let ((entries (manifest-entries manifest)))
     (computed-file
      "artifacts-union"
-     (with-imported-modules '((guix build union)
-                              (guix build utils))
+     (with-imported-modules '((Manifolding-OS build union)
+                              (Manifolding-OS build utils))
        #~(begin
-           (use-modules (guix build utils))
+           (use-modules (Manifolding-OS build utils))
 
            (mkdir-p #$output)
 

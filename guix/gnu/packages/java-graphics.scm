@@ -18,15 +18,15 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages java-graphics)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix packages)
-  #:use-module (guix download)
-  #:use-module (guix gexp)
-  #:use-module (guix git-download)
-  #:use-module (guix modules)
-  #:use-module (guix utils)
-  #:use-module (guix build-system ant)
-  #:use-module (guix build utils)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS modules)
+  #:use-module (Manifolding-OS utils)
+  #:use-module (Manifolding-OS build-system ant)
+  #:use-module (Manifolding-OS build utils)
   #:use-module (gnu packages)
   #:use-module (gnu packages bash)
   #:use-module (gnu packages batik)
@@ -49,7 +49,7 @@
               (sha256
                (base32
                 "1y3g17wp1wvb05m56pp25avww2njpgh0gk0jsbsf25scj7hyyj26"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet '(begin
                           (format #t "~%~a~%"
                                   "Finding and removing embedded jars.")
@@ -163,7 +163,7 @@ ascii art drawings that contain characters that resemble lines like @samp{|}
               (sha256
                (base32
                 "017n1w6hds4wrz597jk7v8r6pz0kz5j9xwd240nq7s8hc58d4c2q"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                ;; Remove pre-built native libraries.
                '(for-each delete-file
@@ -173,9 +173,9 @@ ascii art drawings that contain characters that resemble lines like @samp{|}
      (list
       #:jdk openjdk17
       #:tests? #false                   ;XXX requires junit5
-      #:modules '((guix build ant-build-system)
-                  (guix build java-utils)
-                  (guix build utils)
+      #:modules '((Manifolding-OS build ant-build-system)
+                  (Manifolding-OS build java-utils)
+                  (Manifolding-OS build utils)
                   (sxml simple))
       #:phases
       #~(modify-phases %standard-phases

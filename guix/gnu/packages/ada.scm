@@ -19,10 +19,10 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages ada)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix packages)
-  #:use-module (guix git-download)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS git-download)
   #:use-module (gnu packages)
   #:use-module (gnu packages base)
   #:use-module (ice-9 match))
@@ -69,8 +69,8 @@
                (string-append "BINDIR=" out "/bin")
                (string-append "LIBDIR=" out "/lib")
                (string-append "MANDIR=" out "/share/man")))
-       #:modules ((guix build gnu-build-system)
-                  (guix build utils)
+       #:modules ((Manifolding-OS build gnu-build-system)
+                  (Manifolding-OS build utils)
                   (srfi srfi-26))
        #:phases
        (modify-phases %standard-phases

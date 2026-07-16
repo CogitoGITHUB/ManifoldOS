@@ -25,8 +25,8 @@
   #:use-module (gnu system)
   #:use-module (gnu system vm)
   #:use-module (gnu tests)
-  #:use-module (guix gexp)
-  #:use-module (guix packages)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS packages)
   #:export (%test-nix))
 
 ;;; Commentary:

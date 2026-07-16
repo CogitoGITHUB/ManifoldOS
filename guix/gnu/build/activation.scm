@@ -33,8 +33,8 @@
   #:use-module (gnu system privilege)
   #:use-module (gnu build accounts)
   #:use-module (gnu build linux-boot)
-  #:use-module (guix build utils)
-  #:use-module ((guix build syscalls) #:select (with-file-lock))
+  #:use-module (Manifolding-OS build utils)
+  #:use-module ((Manifolding-OS build syscalls) #:select (with-file-lock))
   #:use-module (ice-9 ftw)
   #:use-module (ice-9 match)
   #:use-module (ice-9 vlist)
@@ -486,10 +486,10 @@ improvement."
                                    (command-line))))
 
 (define* (activate-current-system
-          #:optional (system (or (getenv "GUIX_NEW_SYSTEM")
+          #:optional (system (or (getenv "MANIFOLDING_OS_NEW_SYSTEM")
                                  (boot-time-system))))
   "Atomically make SYSTEM the current system."
-  ;; The 'GUIX_NEW_SYSTEM' environment variable is used as a way for 'guix
+  ;; The 'MANIFOLDING_OS_NEW_SYSTEM' environment variable is used as a way for 'guix
   ;; system reconfigure' to pass the file name of the new system.
 
   (format #t "making '~a' the current system...~%" system)

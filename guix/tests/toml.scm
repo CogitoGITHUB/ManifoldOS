@@ -17,14 +17,14 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (test-toml)
-  #:use-module (guix build toml)
-  #:use-module (guix tests)
+  #:use-module (Manifolding-OS build toml)
+  #:use-module (Manifolding-OS tests)
   #:use-module (srfi srfi-19) ; For datetime.
   #:use-module (srfi srfi-64)
   #:use-module (ice-9 match))
 
 ;; Work around <https://codeberg.org/guix/guix/issues/5339>.
-(module-set! (resolve-module '(guix build toml))
+(module-set! (resolve-module '(Manifolding-OS build toml))
              'raise (@ (srfi srfi-34) raise))
 
 (test-begin "toml")

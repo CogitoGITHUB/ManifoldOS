@@ -18,13 +18,13 @@
 
 
 (define-module (test-scripts)
-  #:use-module (guix scripts)
-  #:use-module (guix tests)
-  #:use-module ((guix scripts build)
+  #:use-module (Manifolding-OS scripts)
+  #:use-module (Manifolding-OS tests)
+  #:use-module ((Manifolding-OS scripts build)
                 #:select (%standard-build-options))
   #:use-module (srfi srfi-64))
 
-;; Test the (guix scripts) module.
+;; Test the (Manifolding-OS scripts) module.
 
 
 (test-begin "scripts")
@@ -35,7 +35,7 @@
     (substitutes? . #f) (keep-failed? . #t)
     (max-jobs . 77) (cores . 42))
 
-  (with-environment-variable "GUIX_BUILD_OPTIONS" "-c 42 -M 77"
+  (with-environment-variable "MANIFOLDING_OS_BUILD_OPTIONS" "-c 42 -M 77"
     (parse-command-line '("--keep-failed" "--no-substitutes"
                           "--cores=10" "foo" "bar")
                         %standard-build-options
@@ -45,7 +45,7 @@
   '((argument . "foo")
     (substitutes? . #f))                          ;takes precedence
 
-  (with-environment-variable "GUIX_BUILD_OPTIONS" "--no-substitutes"
+  (with-environment-variable "MANIFOLDING_OS_BUILD_OPTIONS" "--no-substitutes"
     (parse-command-line '("foo")
                         %standard-build-options
                         (list '((substitutes? . #t))))))

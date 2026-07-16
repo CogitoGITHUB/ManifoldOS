@@ -36,11 +36,11 @@
   #:use-module (gnu packages haskell-crypto)
   #:use-module (gnu packages haskell-web)
   #:use-module (gnu packages haskell-xyz)
-  #:use-module (guix build-system haskell)
-  #:use-module (guix download)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix packages)
-  #:use-module (guix utils))
+  #:use-module (Manifolding-OS build-system haskell)
+  #:use-module (Manifolding-OS download)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS utils))
 
 (define-public ghc-tasty-ant-xml
   (package

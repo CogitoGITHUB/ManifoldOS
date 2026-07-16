@@ -21,7 +21,7 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages pypy)
-  #:use-module ((guix licenses) #:prefix license:)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
   #:use-module (gnu packages base)
   #:use-module (gnu packages nss)
   #:use-module (gnu packages compression)
@@ -36,13 +36,13 @@
   #:use-module (gnu packages tcl)
   #:use-module (gnu packages tls)
   #:use-module (gnu packages xml)
-  #:use-module (guix gexp)
-  #:use-module (guix packages)
-  #:use-module (guix download)
-  #:use-module (guix utils)
-  #:use-module (guix build-system gnu)
-  #:use-module ((guix build-system python) #:select (package-with-python2))
-  #:use-module (guix build-system pyproject))
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS utils)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module ((Manifolding-OS build-system python) #:select (package-with-python2))
+  #:use-module (Manifolding-OS build-system pyproject))
 
 (define-public python2-pycparser
   (let ((base (package
@@ -138,7 +138,7 @@ can serve as a front-end for C compilers or analysis tools.")
     (arguments
      (list
       #:modules '((ice-9 ftw) (ice-9 match)
-                  (guix build utils) (guix build gnu-build-system))
+                  (Manifolding-OS build utils) (Manifolding-OS build gnu-build-system))
       ;; The stdlib tests do not all pass, this is known and tracked upstream
       ;; on their buildbot instance, for example at:
       ;; <https://buildbot.pypy.org/summary?branch=py3.11>.  That's also true

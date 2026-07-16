@@ -20,10 +20,10 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu tests)
-  #:use-module (guix gexp)
-  #:use-module (guix diagnostics)
-  #:use-module (guix records)
-  #:use-module ((guix ui) #:select (warn-about-load-error))
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS diagnostics)
+  #:use-module (Manifolding-OS records)
+  #:use-module ((Manifolding-OS ui) #:select (warn-about-load-error))
   #:use-module (gnu bootloader)
   #:use-module (gnu bootloader grub)
   #:use-module (gnu system)
@@ -32,10 +32,10 @@
   #:use-module (gnu services)
   #:use-module (gnu services base)
   #:use-module (gnu services shepherd)
-  #:use-module (guix discovery)
-  #:use-module (guix monads)
-  #:use-module ((guix store) #:select (%store-monad store-parameterize))
-  #:use-module ((guix utils)
+  #:use-module (Manifolding-OS discovery)
+  #:use-module (Manifolding-OS monads)
+  #:use-module ((Manifolding-OS store) #:select (%store-monad store-parameterize))
+  #:use-module ((Manifolding-OS utils)
                 #:select (%current-system %current-target-system))
   #:use-module (srfi srfi-1)
   #:use-module (srfi srfi-9 gnu)
@@ -106,8 +106,8 @@
 IMPORTED-MODULES and EXTENSIONS are accessible from the REPL."
   (define code
     (with-imported-modules-and-extensions
-        `((guix build utils)
-          (guix build syscalls)
+        `((Manifolding-OS build utils)
+          (Manifolding-OS build syscalls)
           ,@imported-modules)
         extensions
       #~(begin
@@ -324,7 +324,7 @@ the system under test."
 
 (define (test-modules)
   "Return the list of modules that define system tests."
-  (scheme-modules (dirname (search-path %load-path "guix.scm"))
+  (scheme-modules (dirname (search-path %load-path "Manifolding-OS.scm"))
                   "gnu/tests"
                   #:warn warn-about-load-error))
 

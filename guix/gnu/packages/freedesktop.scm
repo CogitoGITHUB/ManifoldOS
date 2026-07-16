@@ -62,22 +62,22 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages freedesktop)
-  #:use-module (guix bzr-download)
-  #:use-module (guix download)
-  #:use-module (guix gexp)
-  #:use-module (guix git-download)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix packages)
-  #:use-module (guix utils)
-  #:use-module (guix build-system cargo)
-  #:use-module (guix build-system cmake)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system meson)
-  #:use-module (guix build-system perl)
-  #:use-module (guix build-system pyproject)
-  #:use-module (guix build-system glib-or-gtk)
-  #:use-module (guix build-system qt)
-  #:use-module (guix search-paths)
+  #:use-module (Manifolding-OS bzr-download)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS utils)
+  #:use-module (Manifolding-OS build-system cargo)
+  #:use-module (Manifolding-OS build-system cmake)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system meson)
+  #:use-module (Manifolding-OS build-system perl)
+  #:use-module (Manifolding-OS build-system pyproject)
+  #:use-module (Manifolding-OS build-system glib-or-gtk)
+  #:use-module (Manifolding-OS build-system qt)
+  #:use-module (Manifolding-OS search-paths)
   #:use-module (gnu packages)
   #:use-module (gnu packages acl)
   #:use-module (gnu packages admin)
@@ -452,11 +452,11 @@ inappropriate content.")
         #:tests? #f  ; no tests
         #:make-flags #~(list (string-append "DESTDIR=" #$output)
                              #$(string-append "CC=" (cc-for-target)))
-        #:imported-modules `((guix build copy-build-system)
+        #:imported-modules `((Manifolding-OS build copy-build-system)
                              ,@%default-gnu-imported-modules)
-        #:modules `((guix build gnu-build-system)
-                    ((guix build copy-build-system) #:prefix copy:)
-                    (guix build utils))
+        #:modules `((Manifolding-OS build gnu-build-system)
+                    ((Manifolding-OS build copy-build-system) #:prefix copy:)
+                    (Manifolding-OS build utils))
         #:phases
         #~(modify-phases %standard-phases
             ;; Package uses a hand-crafted Makefile.
@@ -718,7 +718,7 @@ other applications that need to directly deal with input devices.")
                 "04ll43616pyfm7c835azdggx9x3vfykpcg3pzmsfz4f2vl5whalm"))
               (snippet
                #~(begin
-                   (use-modules (guix build utils))
+                   (use-modules (Manifolding-OS build utils))
                    ;; Unbundle munit, we provide it as input.
                    (substitute* "test/meson.build"
                      (("subproject\\('munit'")
@@ -1023,7 +1023,7 @@ This library provides just sd-bus (and the busctl utility).")
                (base32
                 "06fackmig43p9xx1155vrr5bx8a6a1cfb958x5acxvvahi8lkg7a"))
               (file-name (git-file-name name version))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                '(begin
                   ;; Don't insist on having systemd as PID 1 (otherwise
@@ -1170,9 +1170,9 @@ with localed.  This package is extracted from the broader systemd package.")
     (list
      #:imported-modules `(,@%meson-build-system-modules
                           ,@%pyproject-build-system-modules)
-     #:modules '(((guix build pyproject-build-system) #:prefix pyproject:)
-                 (guix build meson-build-system)
-                 (guix build utils))
+     #:modules '(((Manifolding-OS build pyproject-build-system) #:prefix pyproject:)
+                 (Manifolding-OS build meson-build-system)
+                 (Manifolding-OS build utils))
      #:phases
      #~(modify-phases %standard-phases
          (add-after 'install 'remove-extra-files
@@ -1184,7 +1184,7 @@ with localed.  This package is extracted from the broader systemd package.")
          (add-after 'install 'wrap-search-paths
            (lambda _
              (wrap-program (string-append #$output "/libexec/gardenhostd")
-               `("GUIX_PYTHONPATH" prefix
+               `("MANIFOLDING_OS_PYTHONPATH" prefix
                  ,(map
                    (lambda (package)
                      (string-append
@@ -1218,7 +1218,7 @@ modify the system’s hostname, as well as set a pretty hostname for display.")
               (sha256
                (base32
                 "09md23m4fw87x264mls1f5isrswk6iw7y9g4hr1nib008wbbk370"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                '(begin
                   (substitute* "contrib/meson.build"
@@ -1287,7 +1287,7 @@ manager for the current system.")
                  (lambda _
                    (wrap-program
                        (string-append #$output "/bin/powerprofilesctl")
-                     `("GUIX_PYTHONPATH" prefix
+                     `("MANIFOLDING_OS_PYTHONPATH" prefix
                        (,(string-append
                           #$(this-package-input "python-pygobject")
                           "/lib/python" #$(version-major+minor
@@ -2229,7 +2229,7 @@ modems and setup connections with them.")
          (sha256
           (base32
            "00ss14hf1qwb42648cldghmfjfn1nkjvpy508b7vaz322fj37qa4"))
-         (modules '((guix build utils)))
+         (modules '((Manifolding-OS build utils)))
          (snippet
           ;; Add missing 'const' qualifier to '_error' function.  This fixes
           ;; an "incompatible pointer type" error with libxml2 2.14.
@@ -2437,7 +2437,7 @@ share connections to real-time communication services without conflicting.")
          (sha256
           (base32
            "195pz8dgwhyy1cygd0rlncyr3c4wzhnf99sfjj5qmc8j195j1k7a"))
-         (modules '((guix build utils)))
+         (modules '((Manifolding-OS build utils)))
          (snippet                                 ;for wocky
           (origin-snippet (package-source telepathy-gabble)))))
       (build-system gnu-build-system)
@@ -3160,7 +3160,7 @@ fallback to generic Systray support if none of those are available.")
               (sha256
                (base32
                 "14fkgxww4qbsxyqj9h3yqpdqsdz9r6015c9graas50r5b5ggd3bj"))
-              (modules '((guix build utils)))))
+              (modules '((Manifolding-OS build utils)))))
     (build-system gnu-build-system)
     (arguments
      (list #:tests? #f ;no tests
@@ -3589,7 +3589,7 @@ notifies the user using any notification daemon implementing
        (sha256
         (base32 "1vszh1mk71jvyicsnac944jdmldrsaym9n70zjzbvjbliz4pzdsd"))
        (snippet
-        #~(begin (use-modules (guix build utils))
+        #~(begin (use-modules (Manifolding-OS build utils))
                  ;; Fix the cargo flags:
                  (substitute* '("compile_wrapper.sh"
                                 "meson.build")
@@ -3621,9 +3621,9 @@ notifies the user using any notification daemon implementing
        (append %cargo-build-system-modules
                %meson-build-system-modules)
        #:modules
-       '(((guix build cargo-build-system) #:prefix cargo:)
-         (guix build meson-build-system)
-         (guix build utils))
+       '(((Manifolding-OS build cargo-build-system) #:prefix cargo:)
+         (Manifolding-OS build meson-build-system)
+         (Manifolding-OS build utils))
        #:phases
        #~(modify-phases %standard-phases
            (add-after 'unpack 'prepare-cargo-build-system

@@ -16,7 +16,7 @@
 ;;; You should have received a copy of the GNU General Public License
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
-(use-modules (guix tests)
+(use-modules (Manifolding-OS tests)
              (srfi srfi-26)
              (srfi srfi-64))
 

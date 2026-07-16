@@ -20,13 +20,13 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (test-import-utils)
-  #:use-module (guix tests)
-  #:use-module ((guix diagnostics) #:select (location))
-  #:use-module (guix import utils)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix packages)
-  #:use-module (guix build-system)
-  #:use-module (guix tests git)
+  #:use-module (Manifolding-OS tests)
+  #:use-module ((Manifolding-OS diagnostics) #:select (location))
+  #:use-module (Manifolding-OS import utils)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS build-system)
+  #:use-module (Manifolding-OS tests git)
   #:use-module (gnu packages)
   #:use-module (srfi srfi-64)
   #:use-module (srfi srfi-71)
@@ -36,12 +36,12 @@
 
 (test-equal "beautify-description: empty string"
   "This package lacks a description.  Run \
-\"info '(guix) Synopses and Descriptions'\" for more information."
+\"info '(Manifolding-OS) Synopses and Descriptions'\" for more information."
   (beautify-description ""))
 
 (test-equal "beautify-description: not a string"
   "This package lacks a description.  Run \
-\"info '(guix) Synopses and Descriptions'\" for more information."
+\"info '(Manifolding-OS) Synopses and Descriptions'\" for more information."
   (beautify-description '()))
 
 (test-equal "beautify-description: use double spacing"
@@ -152,7 +152,7 @@ Differences are hard to spot, e.g. in CLOS vs. GOOPS."))
                  ("source" .
                   ;; Use a 'file://' URI so that we don't cause a download.
                   ,(string-append "file://"
-                                  (search-path %load-path "guix.scm")))
+                                  (search-path %load-path "Manifolding-OS.scm")))
                  ("build-system" . "gnu")
                  ("home-page" . "https://gnu.org")
                  ("synopsis" . "Say hi")
@@ -263,7 +263,7 @@ Differences are hard to spot, e.g. in CLOS vs. GOOPS."))
                  ("source" .
                   ;; Use a 'file://' URI so that we don't cause a download.
                   ,(string-append "file://"
-                                  (search-path %load-path "guix.scm")))
+                                  (search-path %load-path "Manifolding-OS.scm")))
                  ("build-system" . "gnu")
                  ("properties" . (("hidden?" . #t)
                                   ("upstream-name" . "hello-upstream")))
@@ -317,7 +317,7 @@ error procedure has been called."
       `((add "README" "Initial commit")
         (commit "First commit")
         (tag ,git-version ,version))
-    (mock ((guix import utils) git-repository-url? (const #t))
+    (mock ((Manifolding-OS import utils) git-repository-url? (const #t))
           (let* ((error-called? #f)
                  (error-proc (lambda args
                                (set! error-called? #t)

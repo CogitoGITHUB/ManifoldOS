@@ -19,7 +19,7 @@
 (define-module (gnu installer newt substitutes)
   #:use-module (gnu installer substitutes)
   #:use-module (gnu installer utils)
-  #:use-module (guix i18n)
+  #:use-module (Manifolding-OS i18n)
   #:use-module (newt)
   #:use-module (ice-9 match)
   #:export (run-substitutes-page))

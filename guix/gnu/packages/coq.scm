@@ -43,15 +43,15 @@
   #:use-module (gnu packages python)
   #:use-module (gnu packages rsync)
   #:use-module (gnu packages texinfo)
-  #:use-module (guix build-system dune)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system trivial)
-  #:use-module (guix download)
-  #:use-module (guix gexp)
-  #:use-module (guix git-download)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix packages)
-  #:use-module (guix utils)
+  #:use-module (Manifolding-OS build-system dune)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system trivial)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS utils)
   #:use-module ((srfi srfi-1) #:hide (zip)))
 
 (define-public coq
@@ -270,11 +270,11 @@ inside Coq.")
       (source #f)
       (build-system trivial-build-system)
       (arguments
-       '(#:modules ((guix build union))
+       '(#:modules ((Manifolding-OS build union))
          #:builder
          (begin
            (use-modules (ice-9 match)
-                        (guix build union))
+                        (Manifolding-OS build union))
            (match %build-inputs
              (((names . directories) ...)
               (union-build (assoc-ref %outputs "out")
@@ -597,7 +597,7 @@ kernel.")
         (uri (git-reference
               (url "https://github.com/coq-community/semantics")
               (commit (string-append "v" version))))
-        (modules '((guix build utils)))
+        (modules '((Manifolding-OS build utils)))
         (snippet
          '(substitute* "Makefile.coq.local"
             ;; Num was part of OCaml and now external

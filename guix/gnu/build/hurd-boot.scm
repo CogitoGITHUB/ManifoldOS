@@ -23,8 +23,8 @@
   #:use-module (srfi srfi-1)
   #:use-module (srfi srfi-26)
   #:use-module (ice-9 match)
-  #:use-module (guix build utils)
-  #:use-module ((guix build syscalls)
+  #:use-module (Manifolding-OS build utils)
+  #:use-module ((Manifolding-OS build syscalls)
                 #:hide (file-system-type))
   #:export (make-hurd-device-nodes
             boot-hurd-system))

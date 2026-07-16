@@ -28,18 +28,18 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages syndication)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix download)
-  #:use-module (guix fossil-download)
-  #:use-module (guix git-download)
-  #:use-module (guix packages)
-  #:use-module (guix utils)
-  #:use-module (guix gexp)
-  #:use-module (guix build-system cargo)
-  #:use-module (guix build-system glib-or-gtk)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system meson)
-  #:use-module (guix build-system pyproject)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS fossil-download)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS utils)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS build-system cargo)
+  #:use-module (Manifolding-OS build-system glib-or-gtk)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system meson)
+  #:use-module (Manifolding-OS build-system pyproject)
   #:use-module (gnu packages)
   #:use-module (gnu packages autotools)
   #:use-module (gnu packages base)
@@ -139,7 +139,7 @@ by embedding the summary of their latest posts extracted from their web feed.")
                                           (package-version python))
                                         "/site-packages")))
                (wrap-program (string-append bin "giara")
-                 `("GUIX_PYTHONPATH" ":" prefix (,(getenv "GUIX_PYTHONPATH") ,lib))
+                 `("MANIFOLDING_OS_PYTHONPATH" ":" prefix (,(getenv "MANIFOLDING_OS_PYTHONPATH") ,lib))
                  `("GI_TYPELIB_PATH" ":" prefix (,(getenv "GI_TYPELIB_PATH"))))))))))
     (native-inputs
      (list gettext-minimal
@@ -200,9 +200,9 @@ by embedding the summary of their latest posts extracted from their web feed.")
             (cargo-inputs 'newsboat)))
     (arguments
      (list
-       #:modules '((guix build cargo-build-system)
-                   (guix build utils)
-                   ((guix build gnu-build-system) #:prefix gnu:))
+       #:modules '((Manifolding-OS build cargo-build-system)
+                   (Manifolding-OS build utils)
+                   ((Manifolding-OS build gnu-build-system) #:prefix gnu:))
        #:install-source? #f
        #:phases
        #~(modify-phases %standard-phases
@@ -342,10 +342,10 @@ Features:
            (lambda* (#:key inputs outputs #:allow-other-keys)
              (let ((out               (assoc-ref outputs "out"))
                    (gi-typelib-path   (getenv "GI_TYPELIB_PATH"))
-                   (python-path       (getenv "GUIX_PYTHONPATH")))
+                   (python-path       (getenv "MANIFOLDING_OS_PYTHONPATH")))
                (wrap-program (string-append out "/bin/liferea")
                  `("GI_TYPELIB_PATH" ":" prefix (,gi-typelib-path))
-                 `("GUIX_PYTHONPATH" ":" prefix (,python-path)))))))))
+                 `("MANIFOLDING_OS_PYTHONPATH" ":" prefix (,python-path)))))))))
     (native-inputs
      (list autoconf
            automake
@@ -551,7 +551,7 @@ parser.  It is \"not fit for use at this point\", but gfeeds uses it anyway.")
           (add-after 'install 'wrap-gfeeds
             (lambda* (#:key outputs #:allow-other-keys)
               (wrap-program (search-input-file outputs "/bin/gfeeds")
-                `("PYTHONPATH" ":" prefix (,(getenv "GUIX_PYTHONPATH")))
+                `("PYTHONPATH" ":" prefix (,(getenv "MANIFOLDING_OS_PYTHONPATH")))
                 `("GI_TYPELIB_PATH" ":" prefix (,(getenv "GI_TYPELIB_PATH")))
                 `("XDG_DATA_DIRS" ":" prefix (,(getenv "XDG_DATA_DIRS")))))))))
     (native-inputs

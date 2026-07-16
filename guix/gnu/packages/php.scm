@@ -55,12 +55,12 @@
   #:use-module (gnu packages web)
   #:use-module (gnu packages xml)
   #:use-module (gnu packages xorg)
-  #:use-module (guix packages)
-  #:use-module (guix download)
-  #:use-module (guix gexp)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix utils)
-  #:use-module ((guix licenses) #:prefix license:))
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS utils)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:))
 
 ;; current PHP version
 ;; actively supported until: 31 Dec 2027
@@ -79,7 +79,7 @@
        (patches
         (search-patches "php-01-fix-expired-certificate.patch"
                         "php-02-fix-sni-tests.patch"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         '(with-directory-excursion "ext"
            (for-each delete-file-recursively
@@ -408,7 +408,7 @@ systems, web content management systems and web frameworks.")
        (patches
         (search-patches "php-01-fix-expired-certificate.patch"
                         "php-02-fix-sni-tests.patch"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         '(with-directory-excursion "ext"
            (for-each delete-file-recursively

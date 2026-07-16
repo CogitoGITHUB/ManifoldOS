@@ -1,7 +1,7 @@
-#!/usr/bin/env -S guix repl --
+#!/usr/bin/env -S Manifolding-OS repl --
 !#   ;-*- mode: scheme; -*-
 ;;; GNU Guix --- Functional package management for GNU
-;;; Copyright © 2025 Maxim Cournoyer <maxim@guixotic.coop>
+;;; Copyright © 2025 Maxim Cournoyer <maxim@Manifolding-OSotic.coop>
 ;;;
 ;;; This file is part of GNU Guix.
 ;;;
@@ -20,7 +20,7 @@
 
 ;;; Commentary:
 ;;;
-;;; This is a wrapper of 'guix refresh' that refreshes all the GNOME core
+;;; This is a wrapper of 'Manifolding-OS refresh' that refreshes all the GNOME core
 ;;; packages listed in their release engineering (releng) list to their stable
 ;;; version.  Set the PARTIAL_VERSIONS environment variable to update to
 ;;; compatible versions instead of exact ones.  The GNOME_RELENG_VERSIONS_URI
@@ -34,10 +34,10 @@
 ;;; Code:
 
 (use-modules (gnu packages)
-             (guix diagnostics)
-             (guix http-client)
-             (guix scripts refresh)
-             (guix utils)
+             (Manifolding-OS diagnostics)
+             (Manifolding-OS http-client)
+             (Manifolding-OS scripts refresh)
+             (Manifolding-OS utils)
              (ice-9 format)
              (ice-9 exceptions)
              (ice-9 match)
@@ -89,7 +89,7 @@ a GNOME releng file."
   "Return #t if a package corresponding to NAME exists, else #f."
   (catch 'quit
     (lambda ()
-      (parameterize ((guix-warning-port (%make-void-port "w")))
+      (parameterize ((Manifolding-OS-warning-port (%make-void-port "w")))
         (specification->package name)
         #t))
     (lambda _
@@ -100,7 +100,7 @@ a GNOME releng file."
                                                 (getenv "PARTIAL_VERSIONS")))
   "Take TREE and return a list of package specifications.  If
 PARTIAL-VERSIONS? is true, the least significant digit in version is
-stripped and the version is prefixed with the '~' character, so that 'guix
+stripped and the version is prefixed with the '~' character, so that 'Manifolding-OS
 refresh' can automatically find the newest compatible version."
   (match tree
     (('releng ('entry ('suite "core") ('name name) ('version version) _) ...)
@@ -118,6 +118,6 @@ refresh' can automatically find the newest compatible version."
                               (format #f "~a=~a" name version)))))
                  name version))))
 
-(apply guix-refresh (append (cdr (command-line))
+(apply Manifolding-OS-refresh (append (cdr (command-line))
                             (releng-tree->update-specs
                              (parse-releng (fetch-releng-content)))))

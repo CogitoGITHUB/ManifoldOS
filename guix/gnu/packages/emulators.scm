@@ -48,14 +48,14 @@
 
 (define-module (gnu packages emulators)
   #:use-module (ice-9 match)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix gexp)
-  #:use-module (guix packages)
-  #:use-module (guix download)
-  #:use-module (guix git-download)
-  #:use-module (guix svn-download)
-  #:use-module (guix hg-download)
-  #:use-module (guix utils)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS gexp)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS svn-download)
+  #:use-module (Manifolding-OS hg-download)
+  #:use-module (Manifolding-OS utils)
   #:use-module (gnu packages)
   #:use-module (gnu packages admin)
   #:use-module (gnu packages algebra)
@@ -135,14 +135,14 @@
   #:use-module (gnu packages xiph)
   #:use-module (gnu packages xml)
   #:use-module (gnu packages xorg)
-  #:use-module (guix build-system cmake)
-  #:use-module (guix build-system copy)
-  #:use-module (guix build-system glib-or-gtk)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system meson)
-  #:use-module (guix build-system pyproject)
-  #:use-module (guix build-system qt)
-  #:use-module (guix build-system trivial))
+  #:use-module (Manifolding-OS build-system cmake)
+  #:use-module (Manifolding-OS build-system copy)
+  #:use-module (Manifolding-OS build-system glib-or-gtk)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system meson)
+  #:use-module (Manifolding-OS build-system pyproject)
+  #:use-module (Manifolding-OS build-system qt)
+  #:use-module (Manifolding-OS build-system trivial))
 
 (define-public ares
   (package
@@ -157,7 +157,7 @@
        (file-name (git-file-name name version))
        (sha256
         (base32 "1b4xixngp8md2ishf3cyfwpzjcsvjb5zp678can5dcmv9z1dlsis"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         ;; Delete non-free blobs: Supersoft Diagnostics II.
         #~(delete-file-recursively "tests/i8080/tests"))))
@@ -328,7 +328,7 @@ SuperCPU.")
               (sha256
                (base32
                 "08ycfisivh9rb9vmijlrpdryaw8spd81ck48960p15cnf8h2535q"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                '(begin
                   ;; TODO: Separately package and unbundle nuklear
@@ -344,13 +344,13 @@ SuperCPU.")
                                          %output "/share/blastem"))
        #:tests? #f ; No check target and custom tests don't seem to build
        #:imported-modules
-       ((guix build copy-build-system)
+       ((Manifolding-OS build copy-build-system)
         ,@%default-gnu-imported-modules)
        #:modules
-       (((guix build copy-build-system)
+       (((Manifolding-OS build copy-build-system)
          #:prefix copy:)
-        (guix build gnu-build-system)
-        (guix build utils))
+        (Manifolding-OS build gnu-build-system)
+        (Manifolding-OS build utils))
        #:phases
        (modify-phases %standard-phases
          (add-after 'unpack 'fix-source
@@ -497,7 +497,7 @@ It aims to support Nintendo DSi and 3DS as well.")
          (file-name (git-file-name name version))
          (sha256
           (base32 "095326n1dznaplll5crlfdg2d39qxxlhgch5fn7vz8majz0qb5pg"))
-         (modules '((guix build utils)
+         (modules '((Manifolding-OS build utils)
                     (ice-9 ftw)
                     (ice-9 regex)
                     (srfi srfi-26)))
@@ -548,9 +548,9 @@ It aims to support Nintendo DSi and 3DS as well.")
       (build-system cmake-build-system)
       (arguments
        (list
-        #:modules '((guix build cmake-build-system)
-                    ((guix build gnu-build-system) #:prefix gnu:)
-                    (guix build utils))
+        #:modules '((Manifolding-OS build cmake-build-system)
+                    ((Manifolding-OS build gnu-build-system) #:prefix gnu:)
+                    (Manifolding-OS build utils))
         #:phases
         #~(modify-phases %standard-phases
             (add-after 'unpack 'copy-implot-source
@@ -693,7 +693,7 @@ turbo speed, networked multiplayer, and graphical enhancements.")
          (sha256
           (base32
            "15vv3kz1vcsk53m4b19ckx9xx9cx8l0lgpzalpy625iv7qvdcj9m"))
-         (modules '((guix build utils)
+         (modules '((Manifolding-OS build utils)
                     (ice-9 ftw)
                     (ice-9 regex)
                     (srfi srfi-26)))
@@ -1134,7 +1134,7 @@ The following systems are supported:
          (sha256
           (base32
            "0dfsz4dsh49dc9xx9rjhfzfkg4h91i2ksgp2inlr9yhgldw9q8h3"))
-         (modules '((guix build utils)
+         (modules '((Manifolding-OS build utils)
                     (ice-9 ftw)
                     (srfi srfi-26)))
          (snippet
@@ -1277,7 +1277,7 @@ from an emulator---from save states to scaling filters.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "0kcbjlsi5wy0pia7apck7va86yx9y6iyy5245ylkn77khaf7wr13"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         '(begin
            ;; Delete machine-generated parser files
@@ -1835,7 +1835,7 @@ towards a working Mupen64Plus for casual users.")
          (sha256
           (base32
            "0kcx5m8fjgrdi2dby8qbmkl78picip3jx7hg0ah1cazk192v2x98"))
-         (modules '((guix build utils)))
+         (modules '((Manifolding-OS build utils)))
          (snippet '(begin
                      ;; Delete 20 MiB of Windows-related files.
                      (delete-file-recursively "projects/msvc")
@@ -2372,10 +2372,10 @@ physical device and the RetroPad virtual controller.")
                (url "https://github.com/libretro/slang-shaders/")
                (commit commit)))
          (file-name (git-file-name name version))
-         (modules '((guix build utils)))
+         (modules '((Manifolding-OS build utils)))
          (snippet
           '(begin
-             (use-modules (guix build utils)
+             (use-modules (Manifolding-OS build utils)
                           (ice-9 ftw)
                           (srfi srfi-1)
                           (srfi srfi-26))
@@ -3067,7 +3067,7 @@ GLSL (@file{.slang}) shaders for use with RetroArch.")
              (commit (string-append "v" version))))
        (snippet
         #~(begin
-            (use-modules (guix build utils)
+            (use-modules (Manifolding-OS build utils)
                          (ice-9 ftw)
                          (srfi srfi-26))
             ;; XXX: 'delete-all-but' is copied from the turbovnc package.
@@ -3525,7 +3525,7 @@ This is a part of the TiLP project.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "1p9v71gvaqiyj6sa1b0wkdksa9wnr6yr2a43ckycljjfas5s36kq"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         ;; Remove bundled libraries.
         '(begin
@@ -3917,7 +3917,7 @@ de-interlacing patches for use with PCSX2.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "0nr53cjifqwnz3icxsj01yd3aw1vfsfxga4zz5zi8aqr175mvq27"))
-       (modules '((guix build utils)
+       (modules '((Manifolding-OS build utils)
                   (ice-9 ftw)
                   (srfi srfi-26)))
        (snippet
@@ -4434,7 +4434,7 @@ Programming Interface} for emulators.")
                           ;; USE_EXTERNAL_MD5 Make flag to 1.
                           ;; (delete-file "deps/md5.h")
                           ;; (delete-file "deps/md5.c")
-                          (use-modules (guix build utils))
+                          (use-modules (Manifolding-OS build utils))
                           (delete-file-recursively "deps/miniz")))
               (sha256
                (base32
@@ -4501,7 +4501,7 @@ as a \"white-label\" frontend for statically linked standalone emulators.")
               ;; - libco (no build system)
               ;; - snes_spc (also modified by this project)
               (snippet '(begin
-                          (use-modules (guix build utils))
+                          (use-modules (Manifolding-OS build utils))
                           (delete-file-recursively "deps/libsamplerate")))
               (sha256
                (base32
@@ -4707,7 +4707,7 @@ overclocking feature."))))
               (uri (git-reference
                     (url "https://gitlab.com/jgemu/cega")
                     (commit version)))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet '(delete-file-recursively "deps/"))
               (file-name (git-file-name name version))
               (sha256
@@ -4786,7 +4786,7 @@ graphic filters.  Some of its features include:
        (uri (pypi-uri name version))
        (sha256
         (base32 "18sbrycr62wcs3a68a9q76ihpahfsd4bn3mryvyhimwwn1342kwh"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        ;; cmake files are not in the cmake dir in pypi
        (snippet #~(substitute* "src/CMakeLists.txt"
                     (("include\\(cmake/")
@@ -4856,7 +4856,7 @@ emulator framework based on QEMU.")
        (file-name (git-file-name name version))
        (patches
         (search-patches "ppsspp-disable-upgrade-and-gold.patch"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         `(begin
            ;; The following is quite a heavy-handed way of unbundling PPSSPP.
@@ -5124,7 +5124,7 @@ on a Commodore C64, C128 etc.")
          (file-name (git-file-name name version))
          (sha256
           (base32 "16vwhw33zhq2b8mpg863cn7sz4f04wxjz2650jgqjv7i5lkdd1g9"))
-         (modules '((guix build utils)))
+         (modules '((Manifolding-OS build utils)))
          (snippet #~(begin
                       ;; TODO: Uncomment after our vulkan-headers
                       ;; are update to 1.3.261.0 or newer.
@@ -5252,7 +5252,7 @@ status, consult
               (sha256
                (base32
                 "1zi39q8ajkzl8d47sacj0dk1a2n5jmfgr29x9iby59v792g7p8ac"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet #~(begin (delete-file-recursively "external/libelf")))))
     (build-system qt-build-system)
     (inputs (list libelf qtbase-5))
@@ -5491,7 +5491,7 @@ symbolic execution of p-code.")
                 (sha256
                  (base32
                   "1xxmkcwvd5fjnhwbricafg4xvxvr8dxhfanyfp4rbksw37dgk2fx"))
-                (modules '((guix build utils)))
+                (modules '((Manifolding-OS build utils)))
                 (snippet #~(begin
                              ;; Replace LDFLAGS -lcurses to -lncurses
                              (substitute* "Makefile"
@@ -5528,7 +5528,7 @@ symbolic execution of p-code.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "02s5qmxdxpsa71977z9bs5vfhnszn5nr5hk05wns8cm9nshbg7as"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet #~(map delete-file-recursively
                        (list "output/lua5.1.dll" "output/lua51.dll"
                              "src/drivers/win" "fceux-server" "vc")))))

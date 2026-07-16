@@ -72,20 +72,20 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages cpp)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (guix packages)
-  #:use-module (guix deprecation)
-  #:use-module (guix download)
-  #:use-module (guix utils)
-  #:use-module (guix git-download)
-  #:use-module (guix build-system cmake)
-  #:use-module (guix build-system copy)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system meson)
-  #:use-module (guix build-system pyproject)
-  #:use-module (guix build-system scons)
-  #:use-module (guix modules)
-  #:use-module (guix gexp)
+  #:use-module ((Manifolding-OS licenses) #:prefix license:)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS deprecation)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS utils)
+  #:use-module (Manifolding-OS git-download)
+  #:use-module (Manifolding-OS build-system cmake)
+  #:use-module (Manifolding-OS build-system copy)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system meson)
+  #:use-module (Manifolding-OS build-system pyproject)
+  #:use-module (Manifolding-OS build-system scons)
+  #:use-module (Manifolding-OS modules)
+  #:use-module (Manifolding-OS gexp)
   #:use-module (gnu packages)
   #:use-module (gnu packages algebra)
   #:use-module (gnu packages assembly)
@@ -263,7 +263,7 @@ development effort.")
               (sha256
                (base32
                 "0iswbh7y46kn412c52af0n8bc4fplm3y94yh10n2lchispzar72j"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                ;; Fix install location of cmake files.
                '(substitute* "CMakeLists.txt"
@@ -504,7 +504,7 @@ range-v3 ranges are an abstraction layer on top of iterators.")
               (uri (git-reference
                     (url "https://github.com/martinus/robin-hood-hashing")
                     (commit version)))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet #~(delete-file-recursively "src/test/thirdparty"))
               (file-name (git-file-name name version))
               (sha256
@@ -563,7 +563,7 @@ use by the C++ Core Guidelines maintained by the Standard C++ Foundation.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "03hw650wjrc4jb4ra8bwc4rnprr0fpnf3wlxzacfjysvl25jb0j6"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         '(substitute* "CMakeLists.txt"
            ;; Guix seems to be packaging LLVM libs separately thus -lLLVM
@@ -1135,7 +1135,7 @@ library for SIMD (Single Instruction, Multiple Data) with runtime dispatch.")
                     (url "https://github.com/hyprwm/hyprgraphics")
                     (commit (string-append "v" version))))
               (file-name (git-file-name name version))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet #~(substitute* "CMakeLists.txt" (("libjxl_cms") "")))
               (sha256
                (base32
@@ -1345,7 +1345,7 @@ successor of hyprland-qtutils.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "0i1c88rn1wwz8nf3dpapcdkk4w623m3nksfy5yjai10k9irkzy3c"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        ;; It's bundled catch2 fails to build.
        (snippet '(begin
                    (delete-file "unittests/catch.hpp")
@@ -1388,7 +1388,7 @@ functions, class methods, and stl containers.
               (patches (search-patches "fifo-map-remove-catch.hpp.patch"
                                        "fifo-map-fix-flags-for-gcc.patch"))
               (file-name (git-file-name name version))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet '(delete-file-recursively "./test/thirdparty"))))
     (inputs
      (list catch2-1))
@@ -1525,7 +1525,7 @@ data transfer object.")
        (sha256
         (base32 "09nqq56ighr3lghhn3fs399lkllghz717j0xyp87x0giw86ayh3h"))
        (file-name (git-file-name name version))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         #~(begin
             ;; Delete bundled software.  Preserve doctest_compatibility.h, which
@@ -1604,7 +1604,7 @@ intuitive syntax and trivial integration.")
        (sha256
         (base32 "09nqq56ighr3lghhn3fs399lkllghz717j0xyp87x0giw86ayh3h"))
        (file-name (git-file-name name version))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         #~(begin
             ;; Delete bundled software.  Preserve doctest_compatibility.h, which
@@ -1646,7 +1646,7 @@ intuitive syntax and trivial integration.")
          (snippet
           ;; NOTE: remove precompiled PDFs.
           #~(begin
-              (use-modules (guix build utils))
+              (use-modules (Manifolding-OS build utils))
               (for-each (lambda (file)
                           (delete-file file))
                         (find-files "." ".pdf"))
@@ -2317,7 +2317,7 @@ programs.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "0pfrxqjirm8qccb9k1krlw9fh0qlva62q6gyc6j7yz0zvdrdyi59"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet
         ;; Remove bundled googletest.
         #~(delete-file-recursively "tpls/gtest"))))
@@ -2687,7 +2687,7 @@ made up of a single source file and has no external dependencies.")
               (sha256
                (base32
                 "1cphk4gf202nzkxz6jdjzls4zy27055gwpm0r8cn99gr6c8548cy"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet '(begin (substitute* '("src/Makefile"
                                               "tools/delete-bytes-255/Makefile")
                                  (("-march=native") ""))))))
@@ -2974,9 +2974,9 @@ comma separated value (CSV) files.")
     (build-system cmake-build-system)
     (arguments
      (list
-      #:modules `((guix build cmake-build-system)
-                  ((guix build gnu-build-system) #:prefix gnu:)
-                  (guix build utils))
+      #:modules `((Manifolding-OS build cmake-build-system)
+                  ((Manifolding-OS build gnu-build-system) #:prefix gnu:)
+                  (Manifolding-OS build utils))
       #:phases
       #~(modify-phases %standard-phases
           (replace 'check (assoc-ref gnu:%standard-phases 'check)))))
@@ -3001,14 +3001,14 @@ written in C++.")
             (file-name (git-file-name name version))
             (sha256
              (base32 "1fy6wvvlp1253lzh66zcq5sp656jxvanxf7iq8pi37ymjq5fyynh"))
-            (modules '((guix build utils)))
+            (modules '((Manifolding-OS build utils)))
             (snippet #~(delete-file-recursively "tools"))))
    (build-system cmake-build-system)
    (arguments
     (list
-     #:modules `((guix build cmake-build-system)
-                 ((guix build gnu-build-system) #:prefix gnu:)
-                 (guix build utils))
+     #:modules `((Manifolding-OS build cmake-build-system)
+                 ((Manifolding-OS build gnu-build-system) #:prefix gnu:)
+                 (Manifolding-OS build utils))
      #:phases
      #~(modify-phases %standard-phases
          (replace 'check (assoc-ref gnu:%standard-phases 'check)))))
@@ -3033,9 +3033,9 @@ composable sequential transformations.")
              (base32 "123a75qklhiyic3yaj74h4p8jav2m92x9ssjnfsdiilhycp4p764"))))
    (build-system cmake-build-system)
    (arguments (list #:configure-flags #~(list "-Dlager_BUILD_EXAMPLES=no")
-                    #:modules `((guix build cmake-build-system)
-                                ((guix build gnu-build-system) #:prefix gnu:)
-                                (guix build utils))
+                    #:modules `((Manifolding-OS build cmake-build-system)
+                                ((Manifolding-OS build gnu-build-system) #:prefix gnu:)
+                                (Manifolding-OS build utils))
                     #:phases
                     #~(modify-phases %standard-phases
                         (add-after 'unpack 'delete-failing-tests
@@ -3239,7 +3239,7 @@ The library is based on Vatti's clipping algorithm.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "1w8cmx712k45cb8gh9dakmbmybiwdx8c0b45mwpcldywx2lwxi2j"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (snippet #~(for-each
                    delete-file-recursively
                    '("CSharp" "DLL" "Delphi")))))
@@ -3355,7 +3355,7 @@ from C++.")
               (sha256
                (base32
                 "070j2x02m4gm1fn7gnymrkbdxflgzxwl7m96aryv8wp3f3366l8j"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                '(begin
                   ;; Remove bundled sources.
@@ -3397,11 +3397,11 @@ pointers, containers, compiler building blocks, etc.")
     (build-system gnu-build-system)
     (arguments
      `(#:test-target "test"
-       #:imported-modules ((guix build copy-build-system)
+       #:imported-modules ((Manifolding-OS build copy-build-system)
                            ,@%default-gnu-imported-modules)
-       #:modules (((guix build copy-build-system) #:prefix copy:)
-                  (guix build gnu-build-system)
-                  (guix build utils))
+       #:modules (((Manifolding-OS build copy-build-system) #:prefix copy:)
+                  (Manifolding-OS build gnu-build-system)
+                  (Manifolding-OS build utils))
        #:make-flags (list (string-append "--include-dir="
                                          (assoc-ref %build-inputs "build")
                                          "/include/")
@@ -3547,7 +3547,7 @@ of reading and writing XML.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "1ddz14699v5lqx3dh0mb7hfffr6fk5zhmzn3z8yxkqqvriqnciim"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        (patches (search-patches "jsonnet-include-cstdint-for-gcc-13-builds.patch"))
        (snippet
         #~(begin
@@ -3649,7 +3649,7 @@ validation.")
               (sha256
                (base32
                 "17315r9j20pvv4ccnd59m85miq96hp07pysfr64glb7r4f4zjkfs"))
-              ;;(modules '((guix build utils)))
+              ;;(modules '((Manifolding-OS build utils)))
               (snippet
                `(begin
                   ;; FIXME: Delete bundled software. The third-party packages
@@ -3672,9 +3672,9 @@ validation.")
                                         "bslstl_stack.t"
                                         "bslstl_string_test.t")
                                   "|")
-      #:modules '((guix build cmake-build-system)
-                  ((guix build gnu-build-system) #:prefix gnu:)
-                  (guix build utils))
+      #:modules '((Manifolding-OS build cmake-build-system)
+                  ((Manifolding-OS build gnu-build-system) #:prefix gnu:)
+                  (Manifolding-OS build utils))
       #:phases
       #~(modify-phases %standard-phases
           ;; Explicitly build tests after the main build.
@@ -3755,7 +3755,7 @@ delivery, especially for games.")
               (sha256
                (base32
                 "0sn760zk79hfbf21v9qvf67mrrlnmw6a2rhrp5l440b6f4f3xbzr"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet
                ;; Unbundle googletest.
                '(begin
@@ -3977,7 +3977,7 @@ machine-internal binary data representation.")
                 (sha256
                  (base32
                   "0fjag27w7gvkc5pdhq3ad7yc09rabpzahndw1sgsg04ipznidmmq"))
-                (modules '((guix build utils)))
+                (modules '((Manifolding-OS build utils)))
                 (snippet '(delete-file-recursively "third-party"))))
       (build-system scons-build-system)
       (arguments
@@ -4170,7 +4170,7 @@ addition and subtraction for all combinations of signed and unsigned 32-bit and
              (file-name (git-file-name name version))
              (sha256
               (base32 "0bhjnbdcphv5kddddh8kpwjpjix23m12vmfsz0r6wjc5d27md33z"))
-             (modules '((guix build utils)))
+             (modules '((Manifolding-OS build utils)))
              (snippet #~(substitute* "CMakeLists.txt"
                           (("WideIntegerTargets") "wide-integer-targets")
                           (("WideIntegerConfig") "wide-integer-config")
@@ -4203,7 +4203,7 @@ way as basic integer types.")
          (sha256
           (base32
            "0nfnapl520k9ls16km3yh0jrh4jvxg1x06gm4rq8zgcm02pxbbrd"))
-         (modules '((guix build utils)))
+         (modules '((Manifolding-OS build utils)))
          (snippet
           '(with-directory-excursion "WDL"
              ;; Delete 3rd party libraries and sample projects.
@@ -4482,7 +4482,7 @@ Main features:
               (file-name (git-file-name name version))
               (sha256
                (base32 "03cmxm34ralh8y07bs80gz3v4pql51206dn5h7lcnm7vishkk241"))
-              (modules '((guix build utils)))
+              (modules '((Manifolding-OS build utils)))
               (snippet #~(begin
                            (delete-file "test/include/catch.hpp")
                            (substitute* (find-files "test" "\\.[ch]pp")
@@ -4816,7 +4816,7 @@ meta data function.")
          (file-name (git-file-name name version))
          (sha256
           (base32 "1v3x1mj4if8jrr7cmrcbhv8n8ygla0liqb0dic6g6ji7px2pr6jf"))
-         (modules '((guix build utils)))
+         (modules '((Manifolding-OS build utils)))
          ;; Unbundle catch.
          (snippet
           '(with-directory-excursion "test"
@@ -5043,7 +5043,7 @@ C++23.")
        (file-name (git-file-name name version))
        (sha256
         (base32 "0qb4g9x22m8w9d7n9793cbig5a06wlhzqwlr276yxvz5yyzsxjfg"))
-       (modules '((guix build utils)))
+       (modules '((Manifolding-OS build utils)))
        ;; Remove bundled debug_assert.
        ;; Keep external/external.cmake because it enables
        ;; TYPE_SAFE_HAS_IMPORTED_TARGETS, required for installing the CMake

@@ -24,7 +24,7 @@
   #:use-module (gnu system vm)
   #:use-module (gnu services)
   #:use-module (gnu services linux)
-  #:use-module (guix gexp)
+  #:use-module (Manifolding-OS gexp)
   #:export (%test-cachefilesd))
 
 (define %cachefilesd-os

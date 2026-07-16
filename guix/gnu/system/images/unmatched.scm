@@ -27,7 +27,7 @@
   #:use-module (gnu system)
   #:use-module (gnu system file-systems)
   #:use-module (gnu system image)
-  #:use-module (guix platforms riscv)
+  #:use-module (Manifolding-OS platforms riscv)
   #:use-module (srfi srfi-26)
   #:export (unmatched-barebones-os
             unmatched-image-type

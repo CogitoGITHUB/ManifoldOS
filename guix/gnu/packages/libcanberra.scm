@@ -20,13 +20,13 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages libcanberra)
-  #:use-module ((guix licenses)
+  #:use-module ((Manifolding-OS licenses)
                 #:select (lgpl2.1+ gpl2 gpl2+ cc-by-sa4.0 cc-by3.0))
   #:use-module (gnu packages)
-  #:use-module (guix packages)
-  #:use-module (guix download)
-  #:use-module (guix build-system gnu)
-  #:use-module (guix build-system pyproject)
+  #:use-module (Manifolding-OS packages)
+  #:use-module (Manifolding-OS download)
+  #:use-module (Manifolding-OS build-system gnu)
+  #:use-module (Manifolding-OS build-system pyproject)
   #:use-module (gnu packages autotools)
   #:use-module (gnu packages gstreamer)
   #:use-module (gnu packages gtk)
